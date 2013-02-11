@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Javascript", "Cayita.Javascript\Cayita.Javascript.csproj", "{B7E65947-7FBE-4432-B179-68B2325F8FEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Javascript.Demo", "Cayita.Javascript.Demo\Cayita.Javascript.Demo.csproj", "{E3E48E2A-144E-4732-B648-10BCE87A1672}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Javascript.Demo.Script", "Cayita.Javascript.Demo.Script\Cayita.Javascript.Demo.Script.csproj", "{D3CEA70D-306F-43B9-A6EB-DDEF42EF87C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test1", "Test1\Test1.csproj", "{0AC5FED0-CCD1-401C-8BD3-E1851958CCEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AC5FED0-CCD1-401C-8BD3-E1851958CCEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AC5FED0-CCD1-401C-8BD3-E1851958CCEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AC5FED0-CCD1-401C-8BD3-E1851958CCEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AC5FED0-CCD1-401C-8BD3-E1851958CCEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7E65947-7FBE-4432-B179-68B2325F8FEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7E65947-7FBE-4432-B179-68B2325F8FEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7E65947-7FBE-4432-B179-68B2325F8FEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7E65947-7FBE-4432-B179-68B2325F8FEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3CEA70D-306F-43B9-A6EB-DDEF42EF87C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3CEA70D-306F-43B9-A6EB-DDEF42EF87C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3CEA70D-306F-43B9-A6EB-DDEF42EF87C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3CEA70D-306F-43B9-A6EB-DDEF42EF87C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3E48E2A-144E-4732-B648-10BCE87A1672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3E48E2A-144E-4732-B648-10BCE87A1672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3E48E2A-144E-4732-B648-10BCE87A1672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3E48E2A-144E-4732-B648-10BCE87A1672}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Cayita.Javascript\Cayita.Javascript.csproj
+	EndGlobalSection
+EndGlobal

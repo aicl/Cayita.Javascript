@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<meta name="description" content="CayitaJavascript - Demo"/>
+	<meta name="keywords" content="Html, JavaScript,ServiceStack,ASP.NET MVC,ASP.NET MVC3,Json,C#,Ajax,Boostrap, Saltarelle" />
+    <meta name="author" content="angel ignacio colmenares laguado">
+    <title>Cayita.HtmlWidgets</title>
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+	  .nav-list button{
+		width:100%;
+		border-width:0px;
+	  }
+	  .form-horizontal input + .help-block, .form-horizontal select + .help-block, .form-horizontal textarea + .help-block, .form-horizontal .uneditable-input + .help-block, .form-horizontal .input-prepend + .help-block, .form-horizontal .input-append + .help-block {
+		margin-top: 0px;
+	  }
+	  .form-horizontal .control-group {
+		margin-bottom: 10px;
+	  }
+	  legend + .control-group {
+		margin-top: 10px;
+		-webkit-margin-top-collapse: separate;
+	  }
+	  .table thead tr {text-align: center;font-weight: bold; }
+	  input + .span1 { margin-left:30px}
+	  
+	  label.error {
+			font-weight: bold;
+			color: red;
+		}
+
+    </style>
+    
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
+    <!-- <link rel="shortcut icon" href="img/favicon.png"> -->
+	<!-- Le javascript   ================================================== -->
+	<script type ="text/javascript">	
+	//[InlineCode("new Date({@value}.slice(6,10), parseInt({@value}.slice(3,5)-1) , {@value}.slice(0,2))")]
+		var cayita={};
+		cayita.fn={};
+		cayita.fn.toDate= function(value){return new Date(value.slice(6,10), parseInt(value.slice(3,5)-1) , value.slice(0,2)) };
+		cayita.fn.isDateFormatted=function(value){ return /^[\d]{2}\.[\d]{2}\.[\d]{4}$/.test(value) || /^[\d]{2}\/[\d]{2}\/[\d]{4}$/.test(value) || /^[\d]{2}\-[\d]{2}\-[\d]{4}$/.test(value)};
+		cayita.fn.populateFrom=function(target,source){for( var p in source) target[p]= source[p]};
+	</script>
+	<script src="js/mscorlib.min.js"></script>
+	<script src="js/linq.min.js"></script>
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootbox.min.js"></script>
+    <script src="js/autonumeric-1.8.1.js"></script>
+    <script src="js/Cayita.Javascript.UI.js"></script>
+    <script src="js/Calamar.Modelos.js"></script>
+    <script src="js/Calamar.App.js"></script>
+    
+	<script type="text/javascript">
+		App.main();	
+	</script>
+  
+  </head>
+
+    
+  </body>
+</html>

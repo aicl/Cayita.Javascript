@@ -1,0 +1,44 @@
+/opt/mono/bin/dmcs  /noconfig  -nostdlib \
+"/out:bin/Debug/Cayita.Javascript.dll" \
+"/define:SALTARELLE" \
+"/debug" \
+"/r:../../lib/Script.Linq.dll" \
+"/r:../../lib/Script.jQuery.dll" \
+"/r:../../lib/Script.Web.dll" \
+"/r:../../lib/mscorlib.dll" \
+/t:library \
+"ModuleBase.cs" \
+"ResponseStatus.cs" \
+"Binding/Observable.cs" \
+"ValidatePlugin/ValidateOptions.cs" \
+"Console.cs" \
+"JQueryApiExtensions.cs" "SystemExtensions.cs" \
+"Extensions.cs" \
+"ElementExtensions.cs" \
+"UI/Core/ButtonElement.cs" \
+"UI/Core/Legend.cs" \
+"UI/Core/Anchor.cs" \
+"UI/Core/Icon.cs" \
+"UI/Core/IconButton.cs" \
+"UI/Core/ElementBase.cs" \
+"UI/Core/Div.cs" \
+"UI/Core/Label.cs" \
+"UI/Core/InputBase.cs" "UI/Core/Input.cs" \
+"UI/Core/InputText.cs" "UI/Core/InputPassword.cs" "UI/Core/InputCheckbox.cs" \
+"UI/Core/ButtonBase.cs" "UI/Core/Button.cs" "UI/Core/SubmitButton.cs" "UI/Core/ResetButton.cs" \
+"UI/Core/Form.cs" \
+"UI/Core/HtmlList.cs" \
+"UI/Core/ListItem.cs" \
+"UI/Core/HtmlOption.cs" \
+"UI/Core/HtmlSelect.cs" \
+"UI/Core/Span.cs" "UI/Core/Paragraph.cs" \
+"UI/Core/HtmlTable.cs" "UI/Core/TableRow.cs" "UI/Core/TableCell.cs" \
+"UI/Core/SelectedRow.cs" \
+"UI/Core/TableColumn.cs" \
+"UI/TextField.cs" "UI/CheckboxField.cs" "UI/TopNavBar.cs" \
+"UI/SelectField.cs"
+
+
+echo "ready Cayita.Javascript.dll"
+
+./j
