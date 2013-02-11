@@ -103,4 +103,7 @@
       <HintPath>..\..\lib\Script.Web.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="index.html.template" />
+  </ItemGroup>
 </Project>

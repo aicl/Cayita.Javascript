@@ -62,6 +62,7 @@
 		cayita.fn.toDate= function(value){return new Date(value.slice(6,10), parseInt(value.slice(3,5)-1) , value.slice(0,2)) };
 		cayita.fn.isDateFormatted=function(value){ return /^[\d]{2}\.[\d]{2}\.[\d]{4}$/.test(value) || /^[\d]{2}\/[\d]{2}\/[\d]{4}$/.test(value) || /^[\d]{2}\-[\d]{2}\-[\d]{4}$/.test(value)};
 		cayita.fn.populateFrom=function(target,source){for( var p in source) target[p]= source[p]};
+		cayita.fn.toServerDate= function(value){return value.slice(6,10)+'.'+ value.slice(3,5)+'.'+ value.slice(0,2) };
 	</script>
 	<script src="js/mscorlib.min.js"></script>
 	<script src="js/linq.min.js"></script>

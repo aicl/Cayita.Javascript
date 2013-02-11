@@ -56,6 +56,11 @@ namespace System
 		public static void PopulateFrom(this object target, object source)
 		{}
 
+		[InlineCode("cayita.fn.toServerDate({value})")]
+		public static string ToServerDate(this string value)
+		{
+			return null;
+		}
 	}
 }
 
