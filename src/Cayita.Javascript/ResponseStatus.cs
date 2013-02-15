@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 
-namespace Cayita.Javascript
+namespace Cayita.Javascript.Ajax
 {
 	[Serializable]	
 	[ScriptNamespace("Cayita.Ajax")]

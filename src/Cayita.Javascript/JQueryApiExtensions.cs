@@ -4,7 +4,7 @@ using System.Html;
 
 namespace jQueryApi
 {
-	[IgnoreNamespace, Imported (IsRealType = true), ScriptName ("$")]
+	[IgnoreNamespace, Imported (ObeysTypeSystem = true), ScriptName ("$")]
 	public static class JQueryApiExtensions
 	{
 		//[ScriptAlias ("$")]

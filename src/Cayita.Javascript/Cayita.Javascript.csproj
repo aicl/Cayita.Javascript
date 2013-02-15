@@ -77,6 +77,9 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="UI\Core\SelectedRow.cs" />
     <Compile Include="UI\Core\TableColumn.cs" />
+    <Compile Include="Data\Store.cs" />
+    <Compile Include="Data\StoreApi.cs" />
+    <Compile Include="Data\ReadOptions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -84,26 +87,27 @@
     <Folder Include="UI\" />
     <Folder Include="UI\Core\" />
     <Folder Include="ValidatePlugin\" />
+    <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="c" />
     <None Include="j" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="index.html.template" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="mscorlib">
       <HintPath>..\..\lib\mscorlib.dll</HintPath>
     </Reference>
-    <Reference Include="Script.jQuery">
-      <HintPath>..\..\lib\Script.jQuery.dll</HintPath>
+    <Reference Include="Saltarelle.jQuery">
+      <HintPath>..\..\lib\Saltarelle.jQuery.dll</HintPath>
     </Reference>
-    <Reference Include="Script.Linq">
-      <HintPath>..\..\lib\Script.Linq.dll</HintPath>
+    <Reference Include="Saltarelle.Linq">
+      <HintPath>..\..\lib\Saltarelle.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="Script.Web">
-      <HintPath>..\..\lib\Script.Web.dll</HintPath>
+    <Reference Include="Saltarelle.Web">
+      <HintPath>..\..\lib\Saltarelle.Web.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="index.html.template" />
   </ItemGroup>
 </Project>

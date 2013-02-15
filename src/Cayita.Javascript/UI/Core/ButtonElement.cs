@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace System.Html
 {
-	[IgnoreNamespace, Imported (IsRealType = true), ScriptName ("Element")]
+	[IgnoreNamespace, Imported (ObeysTypeSystem = true), ScriptName ("Element")]
 	public class ButtonElement:Element
 	{
 		ButtonElement ()

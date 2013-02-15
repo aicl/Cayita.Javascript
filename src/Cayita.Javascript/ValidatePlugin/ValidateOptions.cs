@@ -12,16 +12,16 @@ namespace Cayita.Javascript.Plugins
 		protected Action<FormElement> SubmitHandler {get;set;}
 		protected Action<InputElement> Highlight {get;set;}
 		protected Action<InputElement> Unhighlight {get;set;}
-		protected Action<jQueryObject> Succes {	get;set;}
+		protected Action<jQueryObject> Success {	get;set;}
 
 		public ValidateOptions ()
 		{
 			SetHighlightHandler( element=>{
-				element.JSelect().Closest(".control-group").AddClass("error");
+				element.JSelect().Closest(".control-group").RemoveClass("success").AddClass("error");
 
 			});
 			SetSuccessHandler( label=>{
-				label.Closest(".control-group").AddClass("success");
+				label.Closest(".control-group").RemoveClass("error").AddClass("success");
 			});
 			
 		}
@@ -84,7 +84,7 @@ namespace Cayita.Javascript.Plugins
 		/// </param>
 		public ValidateOptions SetSuccessHandler (Action<jQueryObject> handler)
 		{
-			Succes= handler;
+			Success= handler;
 			return this;
 		}
 

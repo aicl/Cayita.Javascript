@@ -2,9 +2,9 @@
 "/out:bin/Debug/Cayita.Javascript.dll" \
 "/define:SALTARELLE" \
 "/debug" \
-"/r:../../lib/Script.Linq.dll" \
-"/r:../../lib/Script.jQuery.dll" \
-"/r:../../lib/Script.Web.dll" \
+"/r:../../lib/Saltarelle.Linq.dll" \
+"/r:../../lib/Saltarelle.jQuery.dll" \
+"/r:../../lib/Saltarelle.Web.dll" \
 "/r:../../lib/mscorlib.dll" \
 /t:library \
 "ModuleBase.cs" \
@@ -15,6 +15,9 @@
 "JQueryApiExtensions.cs" "SystemExtensions.cs" \
 "Extensions.cs" \
 "ElementExtensions.cs" \
+"Data/Store.cs" \
+"Data/StoreApi.cs" \
+"Data/ReadOptions.cs" \
 "UI/Core/ButtonElement.cs" \
 "UI/Core/Legend.cs" \
 "UI/Core/Anchor.cs" \

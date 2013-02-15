@@ -5,7 +5,7 @@ using Cayita.Javascript.Plugins;
 
 namespace Cayita.Javascript
 {
-	[IgnoreNamespace, Imported (IsRealType = true)]
+	[IgnoreNamespace, Imported (ObeysTypeSystem = true)]
 	public static class ElementExtensions
 	{
 		[InlineCode("'#'+{element}.id")]
@@ -76,42 +76,42 @@ namespace Cayita.Javascript
 			return null;
 		}
 
-		[InlineCode("$({element}).autoNumeric('init')")]
+		[InlineCode("cayita.fn.autoNumericInit({element})")]
 		public static jQueryObject AutoNumericInit(this InputElement element)
 		{
 			return null;
 		}
 	
-		[InlineCode("$({element}).autoNumeric('init', {options})")]
+		[InlineCode("cayita.fn.autoNumericInit({element}, {options})")]
 		public static jQueryObject AutoNumericInit(this InputElement element, dynamic options)
 		{
 			return null;
 		}
 
-		[InlineCode("$({element}).autoNumeric('init')")]
+		[InlineCode("cayita.fn.autoNumericInit({element})")]
 		public static jQueryObject AutoNumericInit(this TableCellElement element)
 		{
 			return null;
 		}
 		
-		[InlineCode("$({element}).autoNumeric('init', {options})")]
+		[InlineCode("cayita.fn.autoNumericInit({element},{options})")]
 		public static jQueryObject AutoNumericInit(this TableCellElement element, dynamic options)
 		{
 			return null;
 		}
 
-		[InlineCode("$('#'+{element}.id + ' tr')")]
+
+		[InlineCode("$('tbody tr', {element})")]
 		public static jQueryObject JSelectRows(this TableElement element)
 		{
 			return null;
 		}
 
-		[InlineCode("$('#'+{element}.id + ' tr[index='+{indexValue}+']')")]
+		[InlineCode("$('tr[index='+{indexValue}+']', {element})")]
 		public static jQueryObject JSelectRow(this TableElement element, object indexValue)
 		{
 			return null;
 		}
-
 
 		[InlineCode("{element}.setAttribute('placeholder',{value})")]
 		public static void SetPlaceHolder(this TextElement element, string value)
@@ -131,8 +131,14 @@ namespace Cayita.Javascript
 			return null;
 		}
 
-		[InlineCode("{element}.value={value}")] 
-		public static string SetValue(this InputElement element, object value)
+		[InlineCode("cayita.fn.setValue({element}, {value})")] 
+		public static jQueryObject SetValue(this InputElement element, object value)
+		{
+			return null;
+		}
+
+		[InlineCode("cayita.fn.getValue({element})")] 
+		public static string GetValue(this InputElement element)
 		{
 			return null;
 		}
@@ -173,7 +179,6 @@ namespace Cayita.Javascript
 		{
 			return false;
 		}
-
 
 		#endregion jquery.validate jQuery Validation Plugin - v1.10.0 
 

@@ -28,7 +28,7 @@ namespace Cayita.Javascript
 			{
 				var ie = (InputElement)input;
 				try {
-					o[ie.Name]= ie.Value;
+					o[ie.Name]= ie.GetValue();
 				}
 				catch(Exception)
 				{}
@@ -43,7 +43,7 @@ namespace Cayita.Javascript
 			{
 				var ie = (InputElement)input;
 				try {
-					o[ie.Name]= ie.Value;
+					o[ie.Name]= ie.GetValue();
 				}
 				catch(Exception)
 				{}

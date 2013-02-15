@@ -71,12 +71,12 @@ namespace Cayita.Javascript.UI
 
 		public void Value(string value)
 		{
-			Element().Value=value;
+			Element().SetValue(value);
 		}
 
 		public string Value()
 		{
-			return Element().Value;
+			return Element().GetValue();
 		}
 
 

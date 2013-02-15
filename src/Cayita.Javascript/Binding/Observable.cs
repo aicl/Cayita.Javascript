@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Cayita.Javascript.Binding
 {
-	[IgnoreNamespace, Imported (IsRealType = true), ScriptName ("$")]
+	[IgnoreNamespace, Imported (ObeysTypeSystem = true), ScriptName ("$")]
 	public static class Observable
 	{
 		[ScriptAlias ("$.observable")]
@@ -113,7 +113,7 @@ namespace Cayita.Javascript.Binding
 		}
 	}
 	
-	[IgnoreNamespace, Imported (IsRealType = true)]
+	[IgnoreNamespace, Imported (ObeysTypeSystem = true)]
 	public class ArrayObservable<T>{
 		ArrayObservable(){}
 		
@@ -139,7 +139,7 @@ namespace Cayita.Javascript.Binding
 		
 	}
 	
-	[IgnoreNamespace, Imported (IsRealType = true)]
+	[IgnoreNamespace, Imported (ObeysTypeSystem = true)]
 	public class ObjectObservable<T>{
 		
 		public  T Data()
