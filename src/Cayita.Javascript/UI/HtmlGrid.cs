@@ -46,15 +46,27 @@ namespace Cayita.Javascript.UI
 
 			Render();
 
-
-
 			store.OnStoreChanged+=(st, dt)=>{
 				switch(dt.Action)
 				{
+				case StoreChangedAction.Created:
+					table.CreateRow(dt.NewData, columns, store.GetRecordIdProperty());
+					break;
 				case StoreChangedAction.Read:
 					Cayita.Javascript.Firebug.Console.Log("HtmlGrid: cargando filas en el grid 1 ", store, store.Count);
 					table.Load(store, columns, store.GetRecordIdProperty());
 					break;
+				case StoreChangedAction.Updated:
+					table.UpdateRow(dt.NewData, columns, store.GetRecordIdProperty());
+					break;
+				case StoreChangedAction.Destroyed:
+					var index = ((dynamic) dt.OldData)[store.GetRecordIdProperty()];
+					table.JSelectRow((object)index).Remove();
+					break;
+				case StoreChangedAction.Patched:
+					table.UpdateRow(dt.NewData, columns, store.GetRecordIdProperty());
+					break;
+
 				case StoreChangedAction.Added:
 					table.CreateRow(dt.NewData, columns, store.GetRecordIdProperty());
 					break;
@@ -65,8 +77,8 @@ namespace Cayita.Javascript.UI
 					table.CreateRow(dt.NewData, columns, store.GetRecordIdProperty());
 					break;
 				case StoreChangedAction.Removed:
-					var index = ((dynamic) dt.OldData)[store.GetRecordIdProperty()];
-					table.JSelectRow((object)index).Remove();
+					var id = ((dynamic) dt.OldData)[store.GetRecordIdProperty()];
+					table.JSelectRow((object)id).Remove();
 					break;
 				case StoreChangedAction.Cleared:
 					table.tBodies[0].JSelect().Empty();
