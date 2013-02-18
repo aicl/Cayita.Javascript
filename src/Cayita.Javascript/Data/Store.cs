@@ -12,12 +12,12 @@ namespace Cayita.Javascript.Data
 	public class Store<T> :IList<T> where T: new()
 	{
 		List<T> st= new List<T>();
-		// string = url, object = filter, callback, type:=json,  html text
-		Func<string, T,  AjaxRequestCallback<T>, string, jQueryDataHttpRequest<T>> createFunc;
-		Func<string, ReadOptions,  AjaxRequestCallback<T>, string, jQueryDataHttpRequest<T>> readFunc;
-		Func<string, T,  AjaxRequestCallback<T>, string, jQueryDataHttpRequest<T>> updateFunc;
-		Func<string, T,  AjaxRequestCallback<string>, string, jQueryDataHttpRequest<string>> destroyFunc;
-		Func<string, T,  AjaxRequestCallback<T>, string, jQueryDataHttpRequest<T>> patchFunc;
+		// string = url; T object (filter, record);  type:=json, html text
+		Func<string, T,  string, jQueryDataHttpRequest<T>> createFunc;
+		Func<string, ReadOptions,  string, jQueryDataHttpRequest<T>> readFunc;
+		Func<string, T,  string, jQueryDataHttpRequest<T>> updateFunc;
+		Func<string, T,  string, jQueryDataHttpRequest<string>> destroyFunc;
+		Func<string, T,  string, jQueryDataHttpRequest<T>> patchFunc;
 		
 		StoreApi<T> createApi;
 		StoreApi<T> readApi;
@@ -30,6 +30,7 @@ namespace Cayita.Javascript.Data
 		public Store()
 		{
 			OnStoreChanged=(store, data)=>{};
+			OnStoreError=(store, request)=>{};
 
 			createApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/create"};
 			readApi= new StoreApi<T>{Url= "api/" + typeof(T).Name+"/read"};
@@ -37,9 +38,9 @@ namespace Cayita.Javascript.Data
 			destroyApi = new StoreApi<string>{Url= "api/" + typeof(T).Name+"/destroy"};
 			patchApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/patch"};
 
-			createFunc= (url, record, cb, type)=>{	
-				return jQuery.PostRequest<T>(url, record, cb,type)
-					.Success(scb=>{
+			createFunc= (url, record,  type)=>{	
+				return jQuery.PostRequest<T>(url, record, cb=>{} ,type)
+					.Done(scb=>{
 						
 						var r = createApi.DataProperty;
 						dynamic data = (dynamic) scb;
@@ -60,9 +61,9 @@ namespace Cayita.Javascript.Data
 					});
 			};
 
-			readFunc= (url, readOptions, cb, type)=>{	
-				return jQuery.GetData<T>(url, RequestObject(readOptions), cb,type)
-					.Success(scb=>{
+			readFunc= (url, readOptions,  type)=>{	
+				return jQuery.GetData<T>(url, RequestObject(readOptions),cb=>{},type)
+					.Done(scb=>{
 						var r = readApi.DataProperty;
 						dynamic data = (dynamic) scb;
 
@@ -78,13 +79,22 @@ namespace Cayita.Javascript.Data
 							st.Add((T)data[r]);
 						}
 						OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
-					});
+					})
+						.Fail(f=>{
+							OnStoreError(this, new StoreError<T>{
+								Action=StoreErrorAction.Read, 
+								Request=  f as jQueryDataHttpRequest<T>
+							});
+						}).Always(f=>{
+
+						});
+
 			};
 
 
-			updateFunc= (url, record, cb, type)=>{	
-				return jQuery.PostRequest<T>(url, record, cb,type)
-					.Success(scb=>{
+			updateFunc= (url, record,  type)=>{	
+				return jQuery.PostRequest<T>(url, record, cb=>{},type)
+					.Done(scb=>{
 						
 						var r = updateApi.DataProperty;
 						dynamic data = (dynamic) scb;
@@ -113,11 +123,11 @@ namespace Cayita.Javascript.Data
 					});
 			};
 
-			destroyFunc= (url, record, cb, type)=>{	
+			destroyFunc= (url, record,  type)=>{	
 				var req = (dynamic) new {};
 				req[idProperty]=((dynamic)record)[idProperty];
-				return jQuery.PostRequest<string>(url, (object)req, cb,type)
-					.Success(scb=>{
+				return jQuery.PostRequest<string>(url, (object)req, cb=>{},type)
+					.Done(scb=>{
 						var dr =st.First( f=> ((dynamic)f)[idProperty]== ((dynamic)record)[idProperty]);
 						st.Remove(dr);
 						OnStoreChanged(this, new StoreChangedData<T>{ NewData= dr, OldData=dr, Action= StoreChangedAction.Destroyed});
@@ -125,10 +135,10 @@ namespace Cayita.Javascript.Data
 			};
 
 
-			patchFunc= (url, record, cb, type)=>{
+			patchFunc= (url, record,  type)=>{
 
-				return jQuery.PostRequest<T>(url, record, cb,type)
-					.Success(scb=>{
+				return jQuery.PostRequest<T>(url, record, cb=>{},type)
+					.Done(scb=>{
 						
 						var r = updateApi.DataProperty;
 						dynamic data = (dynamic) scb;
@@ -170,27 +180,27 @@ namespace Cayita.Javascript.Data
 			return idProperty;
 		}
 
-		public void SetCreateFunc(Func<string, T,  AjaxRequestCallback<T>, string , jQueryDataHttpRequest<T>> createFunc)
+		public void SetCreateFunc(Func<string, T,  string, jQueryDataHttpRequest<T>> createFunc)
 		{
-			this.createFunc=createFunc;
+			this.createFunc=createFunc; 
 		}
 
-		public void SetReadFunc(Func<string, ReadOptions,  AjaxRequestCallback<T>, string , jQueryDataHttpRequest<T>> readFunc)
+		public void SetReadFunc(Func<string, ReadOptions,  string , jQueryDataHttpRequest<T>> readFunc)
 		{
-			this.readFunc=readFunc;
+			this.readFunc=readFunc; 
 		}
 
-		public void SetUpdateFunc(Func<string, T,  AjaxRequestCallback<T>, string , jQueryDataHttpRequest<T>> updateFunc)
+		public void SetUpdateFunc(Func<string, T,   string , jQueryDataHttpRequest<T>> updateFunc)
 		{
 			this.updateFunc=updateFunc;
 		}
 
-		public void SetDestroyFunc(Func<string, T,  AjaxRequestCallback<string>, string , jQueryDataHttpRequest<string>> destroyFunc)
+		public void SetDestroyFunc(Func<string, T,  string , jQueryDataHttpRequest<string>> destroyFunc)
 		{
 			this.destroyFunc=destroyFunc;
 		}
 
-		public void SetPatchFunc(Func<string, T,  AjaxRequestCallback<T>, string , jQueryDataHttpRequest<T>> patchFunc)
+		public void SetPatchFunc(Func<string, T,   string , jQueryDataHttpRequest<T>> patchFunc)
 		{
 			this.patchFunc=patchFunc;
 		}
@@ -235,10 +245,7 @@ namespace Cayita.Javascript.Data
 		
 		public void Create(T record)
 		{
-			createFunc(createApi.Url, record, createApi.AjaxRequestCallback, createApi.DataType)
-				.Success(createApi.Success)
-					.Error(createApi.Error)
-					.Always(createApi.Always);
+			createFunc(createApi.Url, record, createApi.DataType);
 		}
 		
 		public void Create(FormElement form)
@@ -249,43 +256,28 @@ namespace Cayita.Javascript.Data
 		}
 
 
-		public jQueryDataHttpRequest<T> Read(Action<ReadOptions> options)
+		public jQueryDataHttpRequest<T> Read(Action<ReadOptions> options=null)
 		{
 			ReadOptions readOptions= new ReadOptions();
-			options(readOptions);
-
-			return readFunc(readApi.Url, readOptions, readApi.AjaxRequestCallback, readApi.DataType)
-				.Success(readApi.Success)
-					.Error(readApi.Error)
-					.Always(readApi.Always);
+			if(options!=null) options(readOptions);
+			return  readFunc(readApi.Url, readOptions,  readApi.DataType); 
 		}
 
 		public void Update(T record)
 		{
-			updateFunc(updateApi.Url, record, updateApi.AjaxRequestCallback, updateApi.DataType)
-				.Success(updateApi.Success)
-					.Error(updateApi.Error)
-					.Always(updateApi.Always);
+			updateFunc(updateApi.Url, record, updateApi.DataType);
 		}
 
 		public void Destroy(Action<T> config)
 		{
 			T record= new T();
 			config(record);
-
-			destroyFunc(destroyApi.Url, record, destroyApi.AjaxRequestCallback, destroyApi.DataType)
-				.Success(destroyApi.Success)
-					.Error(destroyApi.Error)
-					.Always(destroyApi.Always);
-		}
+			destroyFunc(destroyApi.Url, record, destroyApi.DataType);		}
 
 
 		public void Patch(T record)
 		{
-			patchFunc(patchApi.Url, record, patchApi.AjaxRequestCallback, patchApi.DataType)
-				.Success(patchApi.Success)
-					.Error(patchApi.Error)
-					.Always(patchApi.Always);
+			patchFunc(patchApi.Url, record,  patchApi.DataType);
 		}
 
 		public object RequestObject(ReadOptions readOptions){
@@ -383,6 +375,7 @@ namespace Cayita.Javascript.Data
 
 
 		public event Action<Store<T> , StoreChangedData<T> > OnStoreChanged;
+		public event Action<Store<T> , StoreError<T>> OnStoreError;
 
 
 
@@ -400,6 +393,30 @@ namespace Cayita.Javascript.Data
 	}
 
 	public enum StoreChangedAction{
+		Created,
+		Read,
+		Updated,
+		Destroyed,
+		Patched,
+		Added,
+		Inserted,
+		Replaced,
+		Removed,
+		Cleared
+	}
+
+	//
+	[ScriptNamespace("Cayita.Data")]
+	[Serializable]
+	public class StoreError<T>
+	{
+		protected internal StoreError(){}
+		public StoreErrorAction Action {get;set;}
+		public jQueryDataHttpRequest<T> Request{get;set;}
+
+	}
+	
+	public enum StoreErrorAction{
 		Created,
 		Read,
 		Updated,
