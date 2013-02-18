@@ -54,7 +54,7 @@ namespace Cayita.Javascript
 			return null;
 		}
 
-		[InlineCode("$({element}).fadeOut()")]
+		[InlineCode("$({element}).deOut()")]
 		public static jQueryObject FadeOut(this Element element){
 			return null;
 		}
@@ -107,8 +107,8 @@ namespace Cayita.Javascript
 			return null;
 		}
 
-		[InlineCode("$('tr[index='+{indexValue}+']', {element})")]
-		public static jQueryObject JSelectRow(this TableElement element, object indexValue)
+		[InlineCode("$('tr[record-id='+{recordId}+']', {element})")]
+		public static jQueryObject JSelectRow(this TableElement element, object recordId)
 		{
 			return null;
 		}
@@ -125,8 +125,8 @@ namespace Cayita.Javascript
 		public static void SetMaxLength(this TextElement element, int value)
 		{}
 
-		[InlineCode("{element}.getAttribute('index')")] 
-		public static string GetIndex(this TableRowElement element)
+		[InlineCode("{element}.getAttribute('record-id')")] 
+		public static string GetRecordId(this TableRowElement element)
 		{
 			return null;
 		}
@@ -182,6 +182,15 @@ namespace Cayita.Javascript
 
 		#endregion jquery.validate jQuery Validation Plugin - v1.10.0 
 
+		
+		[InlineCode("Array.isArray({o})")]
+		public static bool IsArray(this object o)
+		{
+			return false;
+		}
+		
+		
+		
 
 	}
 }

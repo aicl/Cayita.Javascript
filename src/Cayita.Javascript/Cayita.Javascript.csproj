@@ -80,6 +80,7 @@
     <Compile Include="Data\Store.cs" />
     <Compile Include="Data\StoreApi.cs" />
     <Compile Include="Data\ReadOptions.cs" />
+    <Compile Include="UI\HtmlGrid.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

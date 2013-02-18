@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using jQueryApi;
@@ -8,55 +9,64 @@ namespace Cayita.Javascript.Data
 {
 
 	[ScriptNamespace("Cayita.Data")]
-	[PreserveMemberCase]
 	public class Store<T> :IList<T> where T: new()
 	{
 		List<T> st= new List<T>();
 		// string = url, object = filter, callback, type:=json,  html text
-		Func<string, ReadOptions,  AjaxRequestCallback<T>, string, jQueryDataHttpRequest<T>> readFunc;
 		Func<string, T,  AjaxRequestCallback<T>, string, jQueryDataHttpRequest<T>> createFunc;
+		Func<string, ReadOptions,  AjaxRequestCallback<T>, string, jQueryDataHttpRequest<T>> readFunc;
+		Func<string, T,  AjaxRequestCallback<T>, string, jQueryDataHttpRequest<T>> updateFunc;
+		Func<string, T,  AjaxRequestCallback<string>, string, jQueryDataHttpRequest<string>> destroyFunc;
+		Func<string, T,  AjaxRequestCallback<T>, string, jQueryDataHttpRequest<T>> patchFunc;
 		
-		StoreApi<T> readApi;
 		StoreApi<T> createApi;
+		StoreApi<T> readApi;
+		StoreApi<T> updateApi;
+		StoreApi<string> destroyApi;
+		StoreApi<T> patchApi;
+
+		string idProperty="Id";
 		
 		public Store()
 		{
-			
-			readApi= new StoreApi<T>{Url= "api/" + typeof(T).Name+"/read"};
+			OnStoreChanged=(store, data)=>{};
 
 			createApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/create"};
+			readApi= new StoreApi<T>{Url= "api/" + typeof(T).Name+"/read"};
+			updateApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/update"};
+			destroyApi = new StoreApi<string>{Url= "api/" + typeof(T).Name+"/destroy"};
+			patchApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/patch"};
 
-			readFunc= (url, readOptions, cb, type)=>{
-				
-				return jQuery.GetData<T>(url, RequestObject(readOptions), cb,type)
-					.Success(scb=>{
-						
-						var r = readApi.DataProperty;
-						dynamic data = (dynamic) scb;
-						Cayita.Javascript.Firebug.Console.Log("dynamic ", data[r]);
-						if ( IsArray(data[r]))
-						{
-							foreach (var item in ((IList<T>) data[r]))
-							{
-								st.Add(item);
-							}
-						}
-						else
-						{
-							st.Add((T)data["r"]);
-						}
-					});
-			};
-
-			createFunc= (url, record, cb, type)=>{
-				
+			createFunc= (url, record, cb, type)=>{	
 				return jQuery.PostRequest<T>(url, record, cb,type)
 					.Success(scb=>{
 						
+						var r = createApi.DataProperty;
+						dynamic data = (dynamic) scb;
+						if (((object) data[r]).IsArray())
+						{
+							foreach (var item in ((IList<T>) data[r]))
+							{
+								st.Add(item);
+								OnStoreChanged(this, new StoreChangedData<T>{ NewData= item, OldData=item, Action= StoreChangedAction.Created});
+							}
+						}
+						else
+						{
+							st.Add((T)data[r]);
+							OnStoreChanged(this, new StoreChangedData<T>{ NewData= (T)data[r], OldData=(T)data[r], Action= StoreChangedAction.Created});
+						}
+
+					});
+			};
+
+			readFunc= (url, readOptions, cb, type)=>{	
+				return jQuery.GetData<T>(url, RequestObject(readOptions), cb,type)
+					.Success(scb=>{
 						var r = readApi.DataProperty;
 						dynamic data = (dynamic) scb;
-						Cayita.Javascript.Firebug.Console.Log("dynamic ", data[r]);
-						if ( IsArray(data[r]))
+
+						if (((object) data[r]).IsArray())
 						{
 							foreach (var item in ((IList<T>) data[r]))
 							{
@@ -65,21 +75,99 @@ namespace Cayita.Javascript.Data
 						}
 						else
 						{
-							st.Add((T)data["r"]);
+							st.Add((T)data[r]);
+						}
+						OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
+					});
+			};
+
+
+			updateFunc= (url, record, cb, type)=>{	
+				return jQuery.PostRequest<T>(url, record, cb,type)
+					.Success(scb=>{
+						
+						var r = updateApi.DataProperty;
+						dynamic data = (dynamic) scb;
+
+						if (((object) data[r]).IsArray())
+						{
+							foreach (var item in ((IList<T>) data[r]))
+							{
+								dynamic i = (dynamic)item;
+								var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
+								var old = new T();
+								old.PopulateFrom(ur);
+								ur.PopulateFrom(item);
+								OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Updated});
+							}
+						}
+						else
+						{
+							dynamic i = (dynamic)data[r];
+							var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
+							var old = new T();
+							old.PopulateFrom(ur);
+							ur.PopulateFrom((T)data[r]);
+							OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Updated});
+						}
+					});
+			};
+
+			destroyFunc= (url, record, cb, type)=>{	
+				var req = (dynamic) new {};
+				req[idProperty]=((dynamic)record)[idProperty];
+				return jQuery.PostRequest<string>(url, (object)req, cb,type)
+					.Success(scb=>{
+						var dr =st.First( f=> ((dynamic)f)[idProperty]== ((dynamic)record)[idProperty]);
+						st.Remove(dr);
+						OnStoreChanged(this, new StoreChangedData<T>{ NewData= dr, OldData=dr, Action= StoreChangedAction.Destroyed});
+					});
+			};
+
+
+			patchFunc= (url, record, cb, type)=>{
+
+				return jQuery.PostRequest<T>(url, record, cb,type)
+					.Success(scb=>{
+						
+						var r = updateApi.DataProperty;
+						dynamic data = (dynamic) scb;
+
+						if ( data[r].IsArray())
+						{
+							foreach (var item in ((IList<T>) data[r]))
+							{
+								dynamic i = (dynamic)item;
+								var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
+								var old = new T();
+								old.PopulateFrom(ur);
+								ur.PopulateFrom(item);
+								OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Patched});
+							}
+						}
+						else
+						{
+							dynamic i = (dynamic)data[r];
+							var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
+							var old = new T();
+							old.PopulateFrom(ur);
+							ur.PopulateFrom((T)data[r]);
+							OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Patched});
 						}
 					});
 			};
 
 		}
-		
-		[InlineCode("Array.isArray({o})")]
-		bool IsArray(object o){
-			return false;
-		}
-		
-		public void SetReadFunc(Func<string, ReadOptions,  AjaxRequestCallback<T>, string , jQueryDataHttpRequest<T>> readFunc)
+
+
+		public void SetIdProperty(string value )
 		{
-			this.readFunc=readFunc;
+			idProperty=value;
+		}
+
+		public string GetRecordIdProperty()
+		{
+			return idProperty;
 		}
 
 		public void SetCreateFunc(Func<string, T,  AjaxRequestCallback<T>, string , jQueryDataHttpRequest<T>> createFunc)
@@ -87,9 +175,24 @@ namespace Cayita.Javascript.Data
 			this.createFunc=createFunc;
 		}
 
-		public void SetReadApi( Action<StoreApi<T>> api)
+		public void SetReadFunc(Func<string, ReadOptions,  AjaxRequestCallback<T>, string , jQueryDataHttpRequest<T>> readFunc)
 		{
-			api(readApi);
+			this.readFunc=readFunc;
+		}
+
+		public void SetUpdateFunc(Func<string, T,  AjaxRequestCallback<T>, string , jQueryDataHttpRequest<T>> updateFunc)
+		{
+			this.updateFunc=updateFunc;
+		}
+
+		public void SetDestroyFunc(Func<string, T,  AjaxRequestCallback<string>, string , jQueryDataHttpRequest<string>> destroyFunc)
+		{
+			this.destroyFunc=destroyFunc;
+		}
+
+		public void SetPatchFunc(Func<string, T,  AjaxRequestCallback<T>, string , jQueryDataHttpRequest<T>> patchFunc)
+		{
+			this.patchFunc=patchFunc;
 		}
 
 		public void SetCreateApi( Action<StoreApi<T>> api)
@@ -97,23 +200,39 @@ namespace Cayita.Javascript.Data
 			api(createApi);
 		}
 
-		public void Read(Action<ReadOptions> options)
+		public void SetReadApi( Action<StoreApi<T>> api)
 		{
-			ReadOptions readOptions= new ReadOptions();
-			options(readOptions);
-
-			readFunc(readApi.Url, readOptions, readApi.AjaxRequestCallback, readApi.DataType)
-				.Success(readApi.Success)
-					.Error(readApi.Error)
-					.Always(readApi.Always);
+			api(readApi);
 		}
+
+		public StoreApi<T> GetReadApi( )
+		{
+			return readApi;
+		}
+
+		public void SetUpdateApi( Action<StoreApi<T>> api)
+		{
+			api(updateApi);
+		}
+
+		public void SetDestroyApi( Action<StoreApi<string>> api)
+		{
+			api(destroyApi);
+		}
+
+		public void SetPatchApi( Action<StoreApi<T>> api)
+		{
+			api(patchApi);
+		}
+
+
 
 		public void Create(Action<T> config){
 			var record = new T();
 			config(record);
 			Create(record);
 		}
-
+		
 		public void Create(T record)
 		{
 			createFunc(createApi.Url, record, createApi.AjaxRequestCallback, createApi.DataType)
@@ -121,7 +240,7 @@ namespace Cayita.Javascript.Data
 					.Error(createApi.Error)
 					.Always(createApi.Always);
 		}
-
+		
 		public void Create(FormElement form)
 		{
 			var record = new T();
@@ -129,6 +248,45 @@ namespace Cayita.Javascript.Data
 			Create(record);
 		}
 
+
+		public jQueryDataHttpRequest<T> Read(Action<ReadOptions> options)
+		{
+			ReadOptions readOptions= new ReadOptions();
+			options(readOptions);
+
+			return readFunc(readApi.Url, readOptions, readApi.AjaxRequestCallback, readApi.DataType)
+				.Success(readApi.Success)
+					.Error(readApi.Error)
+					.Always(readApi.Always);
+		}
+
+		public void Update(T record)
+		{
+			updateFunc(updateApi.Url, record, updateApi.AjaxRequestCallback, updateApi.DataType)
+				.Success(updateApi.Success)
+					.Error(updateApi.Error)
+					.Always(updateApi.Always);
+		}
+
+		public void Destroy(Action<T> config)
+		{
+			T record= new T();
+			config(record);
+
+			destroyFunc(destroyApi.Url, record, destroyApi.AjaxRequestCallback, destroyApi.DataType)
+				.Success(destroyApi.Success)
+					.Error(destroyApi.Error)
+					.Always(destroyApi.Always);
+		}
+
+
+		public void Patch(T record)
+		{
+			patchFunc(patchApi.Url, record, patchApi.AjaxRequestCallback, patchApi.DataType)
+				.Success(patchApi.Success)
+					.Error(patchApi.Error)
+					.Always(patchApi.Always);
+		}
 
 		public object RequestObject(ReadOptions readOptions){
 			dynamic ro = new {};
@@ -150,10 +308,13 @@ namespace Cayita.Javascript.Data
 		public void Insert (int index, T item)
 		{
 			st.Insert(index, item);
+			OnStoreChanged(this, new StoreChangedData<T>{ NewData= item, OldData=item, Action= StoreChangedAction.Inserted, Index= index});
 		}			
 		public void RemoveAt (int index)
 		{
+			var item = this[index];
 			st.RemoveAt(index);
+			OnStoreChanged(this, new StoreChangedData<T>{ NewData= item, OldData=item, Action= StoreChangedAction.Removed, Index= index});
 		}			
 		public T this [int index] {
 			get {
@@ -164,6 +325,18 @@ namespace Cayita.Javascript.Data
 			}
 		}			
 		#endregion			
+
+		public void Replace(object recordId, Action<T> record)
+		{
+			var source =st.First( f=> ((dynamic)f)[idProperty]== ((dynamic)record)[idProperty]);
+			var index = st.IndexOf(source);
+			var r = source.Clone();
+			var old = source.Clone();
+			record(r);
+			source.PopulateFrom(r);
+			OnStoreChanged(this, new StoreChangedData<T>{ NewData= source, OldData=old, Action= StoreChangedAction.Replaced, Index= index});
+		}
+
 		#region ICollection implementation			
 		
 		public int Count
@@ -174,10 +347,13 @@ namespace Cayita.Javascript.Data
 		public void Add (T item)
 		{
 			st.Add(item);
+			OnStoreChanged(this, new StoreChangedData<T>{ NewData= item, OldData=item, Action= StoreChangedAction.Added, Index=st.Count-1});
 		}
+
 		public void Clear ()
 		{
 			st.Clear();
+			OnStoreChanged(this, new StoreChangedData<T>{ Action=StoreChangedAction.Cleared });
 		}
 		public bool Contains (T item)
 		{
@@ -186,7 +362,10 @@ namespace Cayita.Javascript.Data
 		
 		public bool Remove (T item)
 		{
-			return st.Remove(item);
+			var index = st.IndexOf(item);
+			var r =  st.Remove(item);
+			if(r) OnStoreChanged(this, new StoreChangedData<T>{ OldData=item, NewData=item, Action=StoreChangedAction.Removed, Index=index });
+			return r;
 		}
 #endregion
 		#region IEnumerable implementation			
@@ -201,6 +380,36 @@ namespace Cayita.Javascript.Data
 			return st.GetEnumerator();
 		}
 #endregion
+
+
+		public event Action<Store<T> , StoreChangedData<T> > OnStoreChanged;
+
+
+
+	}
+
+	[ScriptNamespace("Cayita.Data")]
+	[Serializable]
+	public class StoreChangedData<T>
+	{
+		protected internal StoreChangedData(){}
+		public  T NewData {get; set;}
+		public  T OldData {get; set;}
+		public StoreChangedAction Action {get;set;}
+		public int Index {get;set;}
+	}
+
+	public enum StoreChangedAction{
+		Created,
+		Read,
+		Updated,
+		Destroyed,
+		Patched,
+		Added,
+		Inserted,
+		Replaced,
+		Removed,
+		Cleared
 	}
 
 }

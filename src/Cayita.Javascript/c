@@ -39,7 +39,8 @@
 "UI/Core/SelectedRow.cs" \
 "UI/Core/TableColumn.cs" \
 "UI/TextField.cs" "UI/CheckboxField.cs" "UI/TopNavBar.cs" \
-"UI/SelectField.cs"
+"UI/SelectField.cs" \
+"UI/HtmlGrid.cs" 
 
 
 echo "ready Cayita.Javascript.dll"

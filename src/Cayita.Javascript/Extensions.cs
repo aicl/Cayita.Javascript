@@ -61,26 +61,27 @@ namespace Cayita.Javascript
 			}
 		}
 
-		public static void CreateRow<T>(this TableElement table, T data, List<TableColumn<T>> columns, string indexName="Id" )
+		public static void CreateRow<T>(this TableElement table, T data, List<TableColumn<T>> columns, string recordIdProperty="Id" )
 		{
 
 			var r = new TableRow (default(Element), row =>  {
-				row.SetAttribute("index", ((dynamic)data)[indexName]);
+				row.SetAttribute("record-id", ((dynamic)data)[recordIdProperty]);
+				row.ClassName="rowlink";
 				foreach(var col in columns)
 				{
-					row.Append( col.Value(data)); 
+					row.Append(col.Value(data) );
 				}
 			});
 			table.Append(r.Element());
 		}
 
-		public static void UpdateRow<T>(this TableElement table, T data, List<TableColumn<T>> columns, string indexName="Id")
+		public static void UpdateRow<T>(this TableElement table, T data, List<TableColumn<T>> columns, string recordIdProperty="Id")
 		{
 			var d = (dynamic) data;
-			var row = table.JSelectRow((object) d[indexName]).Empty();
+			var row = table.JSelectRow((object) d[recordIdProperty]).Empty();
 			foreach (var col in columns)
 			{
-				row.Append( col.Value(data));
+				row.Append(col.Value(data));
 			}
 		}
 
@@ -109,7 +110,7 @@ namespace Cayita.Javascript
 		}
 
 
-		public static void Load<T>(this TableElement table, List<T> data,List<TableColumn<T>> columns, string indexName="Id" )
+		public static void Load<T>(this TableElement table, IList<T> data,List<TableColumn<T>> columns, string recordIdProperty="Id" )
 		{
 			Element body;
 			if( table.tBodies.Length==0)
@@ -122,12 +123,12 @@ namespace Cayita.Javascript
 			
 			foreach (var d in data) {
 				new TableRow (body, row =>  {
-					row.SetAttribute("index", ((dynamic)d)[indexName]);
+					row.SetAttribute("record-id", ((dynamic)d)[recordIdProperty]);
+					row.ClassName="rowlink";
 					foreach(var col in columns)
 					{
-						row.Append( col.Value(d));
+						row.Append(col.Value(d) );
 					}
-
 				});
 			}
 		}

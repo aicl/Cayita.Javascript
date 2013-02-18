@@ -6,7 +6,6 @@ namespace Cayita.Javascript.Data
 {
 	[Serializable]
 	[ScriptNamespace("Cayita.Data")]
-	[PreserveMemberCase]
 	public class ReadOptions 
 	{
 		public ReadOptions()

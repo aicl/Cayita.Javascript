@@ -61,6 +61,12 @@ namespace System
 		{
 			return null;
 		}
+
+		[InlineCode("cayita.fn.clone({source})")]
+		public static T Clone<T>(this T  source)
+		{
+			return default(T);
+		}
 	}
 }
 
