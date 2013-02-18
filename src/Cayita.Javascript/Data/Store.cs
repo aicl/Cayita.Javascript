@@ -31,6 +31,7 @@ namespace Cayita.Javascript.Data
 		{
 			OnStoreChanged=(store, data)=>{};
 			OnStoreError=(store, request)=>{};
+			OnStoreRequest=(store, state )=>{};
 
 			createApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/create"};
 			readApi= new StoreApi<T>{Url= "api/" + typeof(T).Name+"/read"};
@@ -62,6 +63,7 @@ namespace Cayita.Javascript.Data
 			};
 
 			readFunc= (url, readOptions,  type)=>{	
+				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Read, State=StoreRequestState.Started});
 				return jQuery.GetData<T>(url, RequestObject(readOptions),cb=>{},type)
 					.Done(scb=>{
 						var r = readApi.DataProperty;
@@ -86,7 +88,7 @@ namespace Cayita.Javascript.Data
 								Request=  f as jQueryDataHttpRequest<T>
 							});
 						}).Always(f=>{
-
+							OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Read, State=StoreRequestState.Finished});
 						});
 
 			};
@@ -376,8 +378,7 @@ namespace Cayita.Javascript.Data
 
 		public event Action<Store<T> , StoreChangedData<T> > OnStoreChanged;
 		public event Action<Store<T> , StoreError<T>> OnStoreError;
-
-
+		public event Action<Store<T> , StoreRequest> OnStoreRequest;
 
 	}
 
@@ -405,7 +406,6 @@ namespace Cayita.Javascript.Data
 		Cleared
 	}
 
-	//
 	[ScriptNamespace("Cayita.Data")]
 	[Serializable]
 	public class StoreError<T>
@@ -427,6 +427,29 @@ namespace Cayita.Javascript.Data
 		Replaced,
 		Removed,
 		Cleared
+	}
+
+	//
+	[ScriptNamespace("Cayita.Data")]
+	[Serializable]
+	public class StoreRequest
+	{
+		protected internal StoreRequest(){}
+		public StoreRequestAction Action {get;set;}
+		public StoreRequestState State {get;set;}
+	}
+	
+	public enum StoreRequestAction{
+		Created,
+		Read,
+		Updated,
+		Destroyed,
+		Patched
+	}
+
+	public enum StoreRequestState{
+		Started,
+		Finished
 	}
 
 }
