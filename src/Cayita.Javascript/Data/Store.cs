@@ -12,7 +12,7 @@ namespace Cayita.Javascript.Data
 	public class Store<T> :IList<T> where T: new()
 	{
 		List<T> st= new List<T>();
-		// string = url; T object (filter, record);  type:=json, html text
+		// 1. string = url; 2. T object (filter, record);  3. type:=json, html text
 		Func<string, T,  string, jQueryDataHttpRequest<T>> createFunc;
 		Func<string, ReadOptions,  string, jQueryDataHttpRequest<T>> readFunc;
 		Func<string, T,  string, jQueryDataHttpRequest<T>> updateFunc;
@@ -40,9 +40,9 @@ namespace Cayita.Javascript.Data
 			patchApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/patch"};
 
 			createFunc= (url, record,  type)=>{	
+				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Create, State=StoreRequestState.Started});
 				return jQuery.PostRequest<T>(url, record, cb=>{} ,type)
 					.Done(scb=>{
-						
 						var r = createApi.DataProperty;
 						dynamic data = (dynamic) scb;
 						if (((object) data[r]).IsArray())
@@ -59,7 +59,13 @@ namespace Cayita.Javascript.Data
 							OnStoreChanged(this, new StoreChangedData<T>{ NewData= (T)data[r], OldData=(T)data[r], Action= StoreChangedAction.Created});
 						}
 
-					});
+					})
+						.Fail(f=>{
+							OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Create, Request= f as jQueryDataHttpRequest<T>});
+						})
+						.Always(t=>{
+							OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Create, State=StoreRequestState.Finished});
+						});
 			};
 
 			readFunc= (url, readOptions,  type)=>{	
@@ -83,10 +89,7 @@ namespace Cayita.Javascript.Data
 						OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
 					})
 						.Fail(f=>{
-							OnStoreError(this, new StoreError<T>{
-								Action=StoreErrorAction.Read, 
-								Request=  f as jQueryDataHttpRequest<T>
-							});
+							OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Read, 		Request= f as jQueryDataHttpRequest<T>});
 						}).Always(f=>{
 							OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Read, State=StoreRequestState.Finished});
 						});
@@ -95,9 +98,9 @@ namespace Cayita.Javascript.Data
 
 
 			updateFunc= (url, record,  type)=>{	
+				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Update, State=StoreRequestState.Started});
 				return jQuery.PostRequest<T>(url, record, cb=>{},type)
 					.Done(scb=>{
-						
 						var r = updateApi.DataProperty;
 						dynamic data = (dynamic) scb;
 
@@ -122,10 +125,16 @@ namespace Cayita.Javascript.Data
 							ur.PopulateFrom((T)data[r]);
 							OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Updated});
 						}
-					});
+					})
+						.Fail(f=>{
+							OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Update, Request= f as jQueryDataHttpRequest<T>});
+						}).Always(f=>{
+							OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Update, State=StoreRequestState.Finished});
+						});
 			};
 
 			destroyFunc= (url, record,  type)=>{	
+				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Destroy, State=StoreRequestState.Started});
 				var req = (dynamic) new {};
 				req[idProperty]=((dynamic)record)[idProperty];
 				return jQuery.PostRequest<string>(url, (object)req, cb=>{},type)
@@ -133,6 +142,10 @@ namespace Cayita.Javascript.Data
 						var dr =st.First( f=> ((dynamic)f)[idProperty]== ((dynamic)record)[idProperty]);
 						st.Remove(dr);
 						OnStoreChanged(this, new StoreChangedData<T>{ NewData= dr, OldData=dr, Action= StoreChangedAction.Destroyed});
+					}).Fail(f=>{
+						OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Destroy, Request= f as jQueryDataHttpRequest<T>});
+					}).Always(f=>{
+						OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Destroy, State=StoreRequestState.Finished});
 					});
 			};
 
@@ -417,16 +430,16 @@ namespace Cayita.Javascript.Data
 	}
 	
 	public enum StoreErrorAction{
-		Created,
+		Create,
 		Read,
-		Updated,
-		Destroyed,
-		Patched,
-		Added,
-		Inserted,
-		Replaced,
-		Removed,
-		Cleared
+		Update,
+		Destroy,
+		Patch,
+		//Add,
+		//Insert,
+		//Replace,
+		//Remove,
+		//Clear
 	}
 
 	//
@@ -440,11 +453,11 @@ namespace Cayita.Javascript.Data
 	}
 	
 	public enum StoreRequestAction{
-		Created,
+		Create,
 		Read,
-		Updated,
-		Destroyed,
-		Patched
+		Update,
+		Destroy,
+		Patch
 	}
 
 	public enum StoreRequestState{
