@@ -54,7 +54,7 @@ namespace Cayita.Javascript
 			return null;
 		}
 
-		[InlineCode("$({element}).deOut()")]
+		[InlineCode("$({element}).fadeOut()")]
 		public static jQueryObject FadeOut(this Element element){
 			return null;
 		}
@@ -157,10 +157,17 @@ namespace Cayita.Javascript
 		/// Value.
 		/// </param>
 		[InlineCode("$('#'+{element}.id + ' option[value={value}]').attr('selected',true)")]
-		public static jQueryObject SelectItem( this SelectElement element, string value)
+		public static jQueryObject SelectOption( this SelectElement element, string value)
 		{
 			return null;
 		}
+
+		[InlineCode("$('option[record-id='+{value}+']', {element})")]
+		public static jQueryObject GetOption(this SelectElement element, string value)
+		{
+			return null;
+		}
+
 
 		#region jquery.validate jQuery Validation Plugin - v1.10.0 
 

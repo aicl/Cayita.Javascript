@@ -5,7 +5,6 @@ using System.Html;
 
 namespace Cayita.Javascript.UI
 {
-	[Serializable]	
 	[ScriptNamespace("Cayita.UI")]
 	public class IconAnchor:Anchor
 	{
@@ -30,7 +29,7 @@ namespace Cayita.Javascript.UI
 		
 	}
 
-	[Serializable]	
+
 	[ScriptNamespace("Cayita.UI")]
 	public class IconButton:Button
 	{

@@ -4,8 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Cayita.Javascript.UI
 {
-
-	[Serializable]	
+	
 	[ScriptNamespace("Cayita.UI")]
 	public abstract class InputBase:ElementBase
 	{

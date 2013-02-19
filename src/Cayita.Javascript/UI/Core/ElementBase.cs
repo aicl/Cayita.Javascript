@@ -20,8 +20,7 @@ namespace Cayita.Javascript.UI
 		public string Name {get;set;}
 	}
 
-
-	[Serializable]	
+	
 	[ScriptNamespace("Cayita.UI")]
 	public abstract class ElementBase
 	{

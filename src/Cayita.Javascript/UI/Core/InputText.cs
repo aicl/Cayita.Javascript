@@ -13,8 +13,7 @@ namespace Cayita.Javascript.UI
 		public int? MaxLength{get;set;}
 	}
 
-
-	[Serializable]	
+	
 	[ScriptNamespace("Cayita.UI")]
 	public class InputText:InputBase
 	{

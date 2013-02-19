@@ -15,7 +15,6 @@ namespace Cayita.Javascript.UI
 		public string AcceptCharset {get;set;}
 	}
 
-	[Serializable]	
 	[ScriptNamespace("Cayita.UI")]
 	public class Form:ElementBase
 	{

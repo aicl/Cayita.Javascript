@@ -9,7 +9,6 @@ namespace Cayita.Javascript.UI
 	public class SelectedRow
 	{
 		public SelectedRow (){}
-
 		public string RecordId {get;set;}
 		public TableRowElement Row {get;set;}
 	}

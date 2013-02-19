@@ -13,8 +13,7 @@ namespace Cayita.Javascript.UI
 
 		public string Item{get;set;}
 	}
-	
-	[Serializable]	
+
 	[ScriptNamespace("Cayita.UI")]
 	public class ListItem:ElementBase
 	{

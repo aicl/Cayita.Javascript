@@ -6,7 +6,7 @@ using jQueryApi;
 
 namespace Cayita.Javascript.UI
 {
-	[Serializable]	
+
 	[ScriptNamespace("Cayita.UI")]
 	public class HtmlSelect:ElementBase
 	{
@@ -33,7 +33,7 @@ namespace Cayita.Javascript.UI
 			return (SelectElement) base.Element();
 		}
 		
-		public void Load<T>(IList<T> data, Func<T, HtmlOption> func)
+		public void Load<T>(IList<T> data, Func<T, OptionElement> func)
 		{
 			Element().Load(data, func);
 		}
@@ -49,7 +49,7 @@ namespace Cayita.Javascript.UI
 		/// </param>
 		public jQueryObject SelectItem(string value)
 		{
-			return Element().SelectItem(value);
+			return Element().SelectOption(value);
 
 		}
 

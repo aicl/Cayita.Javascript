@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Cayita.Javascript.UI
 {
-	[Serializable]	
+
 	[ScriptNamespace("Cayita.UI")]
 	public class TableRow:ElementBase
 	{

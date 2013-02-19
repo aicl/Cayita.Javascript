@@ -4,8 +4,6 @@ using System.Runtime.CompilerServices;
 
 namespace Cayita.Javascript.UI
 {
-	
-	[Serializable]	
 	[ScriptNamespace("Cayita.UI")]
 	public class ResetButton:ButtonBase
 	{
@@ -15,13 +13,10 @@ namespace Cayita.Javascript.UI
 			element(Element());
 		}
 	
-
 		public ResetButton(Element parent)
 			:base(parent, new ButtonConfig(),"reset")
 		{}
 
-
-		
 	}
 }
 

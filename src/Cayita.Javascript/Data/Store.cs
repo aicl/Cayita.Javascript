@@ -12,7 +12,6 @@ namespace Cayita.Javascript.Data
 	public class Store<T> :IList<T> where T: new()
 	{
 		List<T> st= new List<T>();
-		// 1. string = url; 2. T object (filter, record);  3. type:=json, html text
 		Func<T, IDeferred<T>> createFunc;
 		Func<ReadOptions,  IDeferred<T>> readFunc;
 		Func<T, IDeferred<T>> updateFunc;
@@ -393,6 +392,12 @@ namespace Cayita.Javascript.Data
 		}
 #endregion
 
+		public void  Load(IList<T> data)
+		{
+			st.Clear();
+			st.AddRange(data);
+			OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Loaded});
+		}
 
 		public event Action<Store<T> , StoreChangedData<T> > OnStoreChanged;
 		public event Action<Store<T> , StoreError<T>> OnStoreError;
@@ -417,11 +422,13 @@ namespace Cayita.Javascript.Data
 		Updated,
 		Destroyed,
 		Patched,
+
 		Added,
 		Inserted,
 		Replaced,
 		Removed,
-		Cleared
+		Cleared,
+		Loaded
 	}
 
 	[ScriptNamespace("Cayita.Data")]

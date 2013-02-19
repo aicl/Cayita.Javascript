@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Cayita.Javascript.UI
 {
-	[Serializable]	
+		
 	[ScriptNamespace("Cayita.UI")]
 	public class HtmlTable:ElementBase
 	{
@@ -28,7 +28,6 @@ namespace Cayita.Javascript.UI
 
 	}
 
-	[Serializable]	
 	[ScriptNamespace("Cayita.UI")]
 	public class TableHeader:HtmlTable
 	{
@@ -49,8 +48,7 @@ namespace Cayita.Javascript.UI
 		}
 		
 	}
-
-	[Serializable]	
+	
 	[ScriptNamespace("Cayita.UI")]
 	public class TableFooter:HtmlTable
 	{
@@ -74,7 +72,6 @@ namespace Cayita.Javascript.UI
 
 
 
-	[Serializable]	
 	[ScriptNamespace("Cayita.UI")]
 	public class TableBody:ElementBase
 	{

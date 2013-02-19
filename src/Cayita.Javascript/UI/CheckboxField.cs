@@ -4,13 +4,12 @@ using System.Runtime.CompilerServices;
 
 namespace Cayita.Javascript.UI
 {
-	
-	[Serializable]	
+
 	[ScriptNamespace("Cayita.UI")]
 	public class CheckboxField :InputCheckbox
 	{
-		public Div ControlGroup {get;private set;}
-		public Div Controls {get;private set;}
+		Div controlGroup ;
+		Div controls ;
 		
 		public CheckboxField(ElementBase parent, Action<Element,CheckBoxElement> field)
 			:this(parent.Element(), field)
@@ -27,8 +26,8 @@ namespace Cayita.Javascript.UI
 		public CheckboxField(Element parent, Action<Element,CheckBoxElement> field)
 		{
 
-			ControlGroup =  Div.CreateControlGroup(parent,  cgDiv=>{
-				Controls= Div.CreateControls(cgDiv,  ctdiv=>{
+			controlGroup =  Div.CreateControlGroup(parent,  cgDiv=>{
+				controls= Div.CreateControls(cgDiv,  ctdiv=>{
 					var label = new Label(ctdiv, new LabelConfig{
 						CssClass="checkbox"
 					});
@@ -56,8 +55,8 @@ namespace Cayita.Javascript.UI
 		public CheckboxField(Element parent,string textLabel, Action<CheckBoxElement> field)
 		{
 			
-			ControlGroup = Div.CreateControlGroup(parent,cgDiv=>{
-				Controls=  Div.CreateControls(cgDiv, ctdiv=>{
+			controlGroup = Div.CreateControlGroup(parent,cgDiv=>{
+				controls=  Div.CreateControls(cgDiv, ctdiv=>{
 					
 					var label = new Label(ctdiv, new LabelConfig{
 						CssClass="checkbox",
@@ -72,8 +71,16 @@ namespace Cayita.Javascript.UI
 					label.Element().AppendChild(Element());
 				});
 			});
-			
-			
+		}
+
+		public Div GetControGroup()
+		{
+			return controlGroup;
+		}
+
+		public Div GetControls()
+		{
+			return controls;
 		}
 
 	}

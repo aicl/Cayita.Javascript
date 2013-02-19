@@ -15,8 +15,7 @@ namespace Cayita.Javascript.UI
 
 	}
 
-
-	[Serializable]	
+	
 	[ScriptNamespace("Cayita.UI")]
 	public class InputCheckbox:InputBase
 	{

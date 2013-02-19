@@ -13,7 +13,7 @@ namespace Cayita.Javascript.UI
 		public bool Ordered{get;set;}
 	}
 
-	[Serializable]	
+
 	[ScriptNamespace("Cayita.UI")]
 	public class HtmlList:ElementBase
 	{

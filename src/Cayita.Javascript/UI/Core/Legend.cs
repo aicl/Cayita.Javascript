@@ -13,7 +13,7 @@ namespace Cayita.Javascript.UI
 
 	}
 		
-	[Serializable]	
+
 	[ScriptNamespace("Cayita.UI")]
 	public class Legend:ElementBase
 	{

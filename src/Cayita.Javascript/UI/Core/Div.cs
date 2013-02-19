@@ -12,7 +12,7 @@ namespace Cayita.Javascript.UI
 		public DivConfig():base(){}				
 	}
 
-	[Serializable]	
+
 	[ScriptNamespace("Cayita.UI")]
 	public class Div:ElementBase
 	{

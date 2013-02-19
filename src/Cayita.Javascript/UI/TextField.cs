@@ -4,14 +4,14 @@ using System.Html;
 
 namespace Cayita.Javascript.UI
 {
-	[Serializable]	
+
 	[ScriptNamespace("Cayita.UI")]
 	public class TextField :InputText
 	{
 
-		public Div ControlGroup {get;private set;}
-		public Label Label {get; private set;}
-		public Div Controls {get;private set;}
+		Div controlGroup ;
+		Label label ;
+		Div controls ;
 
 		public TextField(ElementBase parent, Action<Element,TextElement> field)
 			:this(parent.Element(), field)
@@ -28,27 +28,41 @@ namespace Cayita.Javascript.UI
 		/// </param>
 		public TextField(Element parent, Action<Element,TextElement> field)
 		{
-			ControlGroup = Div.CreateControlGroup(parent, cge=>{
-				Label = Label.CreateControlLabel(cge,"");
-				Controls = Div.CreateControls(cge, cte=>{
+			controlGroup = Div.CreateControlGroup(parent, cge=>{
+				label = Label.CreateControlLabel(cge,"");
+				controls = Div.CreateControls(cge, cte=>{
 					CreateInput(cte, new TextConfig());
-					Label.ForField( Element().ID);
-					field(Label.Element(), Element());
+					label.ForField( Element().ID);
+					field(label.Element(), Element());
 				});
 			});
 		}
 
 		public TextField(Element parent, Action<TextElement> field)
 		{
-			ControlGroup = Div.CreateControlGroup(parent, cge=>{
-				Label = Label.CreateControlLabel(null,"");
-				Controls = new Div(cge, cte=>{
+			controlGroup = Div.CreateControlGroup(parent, cge=>{
+				label = Label.CreateControlLabel(null,"");
+				controls = new Div(cge, cte=>{
 					CreateInput(cte, new TextConfig());
-					Label.ForField( Element().ID);
+					label.ForField( Element().ID);
 					field(Element());
 				});
 			});
 		}
 
+		public Div GetControGroup()
+		{
+			return controlGroup;
+		}
+		
+		public Div GetControls()
+		{
+			return controls;
+		}
+		
+		public Label GetLabel()
+		{
+			return label;
+		}
 	}
 }

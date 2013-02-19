@@ -12,12 +12,30 @@ namespace Cayita.Javascript
 	[ScriptName("Ext")]
 	public static  class Extensions
 	{
-		public static void Load<T>(this SelectElement cb,  IList<T> data, Func<T, HtmlOption> func)
+		public static void Load<T>(this SelectElement cb,  IList<T> data, Func<T, OptionElement> func, bool append=false )
 		{
+			if(append)cb.Empty();
 			foreach( var d in data){
-				var opt = func(d);
-				opt.AppendTo(cb);
+				cb.Append(func(d));
 			}
+		}
+
+		public static void CreateOption<T>(this SelectElement cb, T data, Func<T, OptionElement> func)
+		{
+			cb.Append(func(data));
+		}
+
+		public static void UpdateOption<T>(this SelectElement cb, T data, Func<T, OptionElement> func, string recordIdProperty="Id" )
+		{
+			var d = (dynamic) data;
+			cb.GetOption((string) d[recordIdProperty]).Remove();
+			cb.Append(func(data));
+		}
+
+		public static void RemoveOption<T>(this SelectElement cb, T data,  string recordIdProperty="Id" )
+		{
+			var d = (dynamic) data;
+			cb.GetOption((string) d[recordIdProperty]).Remove();
 		}
 
 		public static T LoadTo<T>(this FormElement form) where T: new()
@@ -69,7 +87,9 @@ namespace Cayita.Javascript
 				row.ClassName="rowlink";
 				foreach(var col in columns)
 				{
-					row.Append(col.Value(data) );
+					var c = col.Value(data);
+					if (col.Hidden) c.Hide();
+					row.Append( c);
 				}
 			});
 			table.Append(r.Element());
@@ -81,8 +101,16 @@ namespace Cayita.Javascript
 			var row = table.JSelectRow((object) d[recordIdProperty]).Empty();
 			foreach (var col in columns)
 			{
-				row.Append(col.Value(data));
+				var c = col.Value(data);
+				if (col.Hidden) c.Hide();
+				row.Append( c);
 			}
+		}
+
+		public static void RemoveRow<T>(this TableElement table, T data,  string recordIdProperty="Id")
+		{
+			var d = (dynamic) data;
+			table.JSelectRow((object) d[recordIdProperty]).Remove();
 		}
 
 		public static void CreateHeader<T>(this TableElement table,  List<TableColumn<T>> columns)
@@ -91,7 +119,9 @@ namespace Cayita.Javascript
 				new TableRow (th, row =>  {
 					foreach(var col in columns)
 					{
-						row.Append( col.Header); 
+						var c = col.Header;
+						if (col.Hidden) c.Hide();
+						row.Append( c);
 					}
 				});
 			});
@@ -103,7 +133,9 @@ namespace Cayita.Javascript
 				new TableRow (tf, row =>  {
 					foreach(var col in columns)
 					{
-						row.Append( col.Footer); 
+						var c = col.Footer;
+						if (col.Hidden) c.Hide();
+						row.Append( c);
 					}
 				});
 			});
@@ -127,7 +159,9 @@ namespace Cayita.Javascript
 					row.ClassName="rowlink";
 					foreach(var col in columns)
 					{
-						row.Append(col.Value(d) );
+						var c = col.Value(d);
+						if (col.Hidden) c.Hide();
+						row.Append( c);
 					}
 				});
 			}

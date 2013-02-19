@@ -4,20 +4,47 @@ using System.Html;
 
 namespace Cayita.Javascript.UI
 {
-
-	[Serializable]	
 	[ScriptNamespace("Cayita.UI")]
-
 	public class TopNavBar:Div
 	{
-		public Div ContainerFluid{get;private set;}
-		public Div NavCollapse{get;private set;}
-		public AnchorElement Brand {get;private set;}
-		public Element PullRightParagraph {get;private set;}
-		public Anchor PullRightAnchor {get;private set;}
-		public Element NavList {get;private set;}
+		Div containerFluid;
+		Div navCollapse;
+		Anchor brand;
+		Element pullRightParagraph;
+		Anchor pullRightAnchor;
+		HtmlList navList;
 
-		public TopNavBar (Element parent, string brand, string rightText, string rightLinkText,
+		public Div GetContainerFluid()
+		{
+			return containerFluid;
+		}
+
+		public Div GetNavCollapse()
+		{
+			return navCollapse;
+		}
+
+		public Anchor GetBrand()
+		{
+			return brand;
+		}
+
+		public Element GetPullRightParagraph() 
+		{
+			return pullRightParagraph;
+		}
+
+		public Anchor GetPullRightAnchor()
+		{
+			return pullRightAnchor;
+		}
+
+		public HtmlList GetNavList()
+		{
+			return navList;
+		}
+
+		public TopNavBar (Element parent, string brandText, string rightText, string rightLinkText,
 		                  Action<Element> navlist)
 			:base(parent)
 		{
@@ -26,7 +53,7 @@ namespace Cayita.Javascript.UI
 
 			new Div(Element(),inner=>{
 				inner.ClassName="navbar-inner";
-				ContainerFluid = Div.CreateContainerFluid(inner,fluid=>{
+				containerFluid = Div.CreateContainerFluid(inner,fluid=>{
 					new Anchor(fluid, anchor=>{
 						anchor.ClassName="btn btn-navbar";
 						anchor.SetAttribute("data-toggle","collapse");
@@ -36,22 +63,22 @@ namespace Cayita.Javascript.UI
 						}
 
 					});
-					new Anchor(fluid, brnd=>{
+					brand= new Anchor(fluid, brnd=>{
 						brnd.Href="#";
-						brnd.InnerText=brand;
+						brnd.InnerText=brandText;
 						brnd.ClassName="brand";
 					});
-					NavCollapse = new Div(fluid, collapse=>{
+					navCollapse = new Div(fluid, collapse=>{
 						collapse.ClassName="nav-collapse collapse";
-						PullRightParagraph= new Paragraph(collapse, new ParagraphConfig{
+						pullRightParagraph= new Paragraph(collapse, new ParagraphConfig{
 							Text=rightText, CssClass="navbar-text pull-right"
 						},
 						paragraph=>{
-							PullRightAnchor= new Anchor(paragraph, a=>{
+							pullRightAnchor= new Anchor(paragraph, a=>{
 								a.Href="#";  a.ClassName="navbar-link" ; a.InnerText=rightLinkText;
 							});
 						}).Element();
-						HtmlList.CreatNavList(collapse, navlist);
+						navList= HtmlList.CreatNavList(collapse, navlist);
 					});
 				});
 			});

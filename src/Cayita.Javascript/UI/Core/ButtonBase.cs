@@ -17,7 +17,7 @@ namespace Cayita.Javascript.UI
 	}
 
 
-	[Serializable]	
+
 	[ScriptNamespace("Cayita.UI")]
 	public abstract class ButtonBase:ElementBase
 	{

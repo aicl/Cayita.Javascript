@@ -5,7 +5,6 @@ using System.Runtime.CompilerServices;
 namespace Cayita.Javascript.UI
 {
 
-	[Serializable]	
 	[ScriptNamespace("Cayita.UI")]
 	public class SubmitButton:ButtonBase
 	{
@@ -14,13 +13,11 @@ namespace Cayita.Javascript.UI
 		{
 			element(Element()); 
 		}
-		
 
 		public SubmitButton(Element parent)
 			:base(parent, new ButtonConfig(),"submit")
 		{}
 			
-
 	}
 }
 

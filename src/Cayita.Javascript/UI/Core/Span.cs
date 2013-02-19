@@ -12,12 +12,10 @@ namespace Cayita.Javascript.UI
 
 	}
 	
-	
-	[Serializable]	
+
 	[ScriptNamespace("Cayita.UI")]
 	public class Span:ElementBase
 	{
-
 		public Span(Element parent,  Action<Element> element)
 		{
 			CreateElement("span", parent, new SpanConfig());
@@ -28,9 +26,7 @@ namespace Cayita.Javascript.UI
 		{
 			CreateElement("span", parent, new SpanConfig());
 		}
-		
-
-				
+			
 	}
 	
 }

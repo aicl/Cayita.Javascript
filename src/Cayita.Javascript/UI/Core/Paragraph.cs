@@ -13,7 +13,6 @@ namespace Cayita.Javascript.UI
 	}
 	
 	
-	[Serializable]	
 	[ScriptNamespace("Cayita.UI")]
 	public class Paragraph:ElementBase
 	{

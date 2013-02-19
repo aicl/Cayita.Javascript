@@ -4,29 +4,34 @@ using System.Html;
 using System.Collections.Generic;
 using Cayita.Javascript.Data;
 using System.Runtime.CompilerServices;
-using jQueryApi;
 
 namespace Cayita.Javascript.UI
 {
 	[ScriptNamespace("Cayita.UI")]
 	[Serializable]
-	public class SelectedGridRow<T> : SelectedRow
+	public class SelectedRow<T> : SelectedRow where T:new()
 	{
+		public SelectedRow()
+		{
+			Record= new T();
+		}
 		public T  Record {get;set;}
-
 	}
 
+
 	[ScriptNamespace("Cayita.UI")]
-	[Serializable]
 	public class HtmlGrid<T>:HtmlTable where T: new()
 	{
+
 		List<TableColumn<T>> columns;
 		Store<T> store ;
 		TableElement table;
-		SelectedGridRow<T> selectedrow;
+		SelectedRow<T> selectedrow;
 
 		public HtmlGrid (Element parent,  Action<TableElement> element, Store<T> store, List<TableColumn<T>> columns)
 		{
+			OnRowSelected=(grid,row)=>{};
+
 			CreateElement("table", parent, new ElementConfig());
 			table =Element();
 			table.ClassName = "table table-striped table-hover table-condensed";
@@ -37,11 +42,7 @@ namespace Cayita.Javascript.UI
 
 			table.JSelect().On ("click","tbody tr", e =>  { 
 				var row = (TableRowElement)e.CurrentTarget;
-				table.JSelectRows().RemoveClass ("info");
-				row.JSelect ().AddClass ("info");
-				var record = this.store.First (f =>((object)((dynamic) f)[store.GetRecordIdProperty()]).ToString() == row.GetRecordId());
-				selectedrow= new SelectedGridRow<T>{ RecordId= row.GetRecordId(), Row= row, Record= record};
-				jQuery.FromElement(table).Trigger("rowselected", new object[]{selectedrow} );
+				SelectRowImp(row, true);
 			});
 
 			Render();
@@ -60,8 +61,8 @@ namespace Cayita.Javascript.UI
 					table.UpdateRow(dt.NewData, columns, store.GetRecordIdProperty());
 					break;
 				case StoreChangedAction.Destroyed:
-					var index = ((dynamic) dt.OldData)[store.GetRecordIdProperty()];
-					table.JSelectRow((object)index).Remove();
+					var recordId = ((dynamic) dt.OldData)[store.GetRecordIdProperty()];
+					table.JSelectRow((object)recordId).Remove();
 					break;
 				case StoreChangedAction.Patched:
 					table.UpdateRow(dt.NewData, columns, store.GetRecordIdProperty());
@@ -80,6 +81,9 @@ namespace Cayita.Javascript.UI
 					var id = ((dynamic) dt.OldData)[store.GetRecordIdProperty()];
 					table.JSelectRow((object)id).Remove();
 					break;
+				case StoreChangedAction.Loaded:
+					table.Load(store,columns, store.GetRecordIdProperty());
+					break;
 				case StoreChangedAction.Cleared:
 					table.tBodies[0].JSelect().Empty();
 					break;
@@ -89,8 +93,7 @@ namespace Cayita.Javascript.UI
 
 		}
 
-
-		public SelectedGridRow<T> GetSelectedRow()
+		public SelectedRow<T> GetSelectedRow()
 		{
 			return selectedrow;
 		}
@@ -101,6 +104,57 @@ namespace Cayita.Javascript.UI
 			table.Load<T>(store, columns, store.GetRecordIdProperty());
 		}
 
+
+		public void SelectRow(object recordId, bool trigger =true)
+		{
+			var row = (TableRowElement) table.JSelectRow(recordId).GetElement(0);
+			SelectRowImp(row, trigger);
+		}
+
+		public void SelectRow(bool trigger =true)
+		{
+			table.JSelectRows().RemoveClass ("info");
+			selectedrow=default(SelectedRow<T>);
+			if(trigger) OnRowSelected(this, selectedrow);
+
+		}
+
+
+		void SelectRowImp(TableRowElement row, bool trigger=true)
+		{
+			var self= this;
+			table.JSelectRows().RemoveClass ("info");
+			row.JSelect ().AddClass ("info");
+			var record = store.First (f =>((object)((dynamic) f)[self.store.GetRecordIdProperty()]).ToString() == row.GetRecordId());
+			selectedrow= new SelectedRow<T>{ RecordId= row.GetRecordId(), Row= row, Record= record};
+			if(trigger) OnRowSelected(this, selectedrow);
+		}
+
+		/// <summary>
+		/// Hides the column.
+		/// </summary>
+		/// <param name='columnIndex'>
+		/// Column index ( zero based)
+		/// </param>
+		public void HideColumn(int columnIndex)
+		{
+			columns[columnIndex++].Hidden=true;
+			table.JSelect().Find ("td:nth-child("+columnIndex+"),th:nth-child("+columnIndex+")").Hide();
+		}
+	
+		/// <summary>
+		/// Shows the column.
+		/// </summary>
+		/// <param name='columnIndex'>
+		/// Column index. (zero based)
+		/// </param>
+		public void ShowColumn(int columnIndex)
+		{
+			columns[columnIndex++].Hidden=false;
+			table.JSelect().Find ("td:nth-child("+columnIndex+"),th:nth-child("+columnIndex+")").Show();
+		}
+
+		public event Action<HtmlGrid<T> ,SelectedRow<T>> OnRowSelected;
 
 	}
 }

@@ -5,7 +5,7 @@ using System.Html;
 
 namespace Cayita.Javascript.UI
 {
-	[Serializable]	
+
 	[ScriptNamespace("Cayita.UI")]
 	public class Icon:ElementBase
 	{

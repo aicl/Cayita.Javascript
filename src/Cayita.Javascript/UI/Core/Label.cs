@@ -14,8 +14,7 @@ namespace Cayita.Javascript.UI
 		public string ForField {get;set;}
 	}
 
-
-	[Serializable]	
+	
 	[ScriptNamespace("Cayita.UI")]
 	public class Label:ElementBase
 	{
