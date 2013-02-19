@@ -6,22 +6,20 @@ using System.Linq;
 
 namespace Cayita.Javascript.UI
 {
-
 	[Serializable]	
 	[ScriptNamespace("Cayita.UI")]
 	public class SelectedOption<T> where T: new ()
 	{
-		public SelectedOption (){
+		public SelectedOption ()
+		{
 			Record=new T();
 		}
-
 		public OptionElement Option {get;set;}
 		public T Record {get;set;}
 	}
 
 
 	[ScriptNamespace("Cayita.UI")]
-
 	public class SelectField<T>:SelectField where T: new()
 	{
 		Func<T,OptionElement> optionFunc;
@@ -30,83 +28,99 @@ namespace Cayita.Javascript.UI
 		SelectedOption<T> selectedoption;
 		SelectedOption<T> defaultoption;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Cayita.Javascript.UI.SelectField"/> class.
-		/// </summary>
-		/// <param name='parent'>
-		/// Parent.
-		/// </param>
-		/// <param name='field'>
-		/// Field<LabelElement, SelectElement>.
-		/// </param>
-		public SelectField(Element parent, Action<Element,SelectElement> field,
+		public SelectField(Element parent, Action<SelectElement> element,
 		                   Store<T> store, Func<T,OptionElement> optionFunc, SelectedOption<T> defaultOption=null)
-			:base(parent, field)
 		{
 
-			OnOptionSelected=(sf, opt)=>{};
-			this.store=store;
-			se= Element();
-			this.optionFunc=optionFunc;
-			defaultoption= defaultOption?? new SelectedOption<T>() ;
+			ControlGroup = Div.CreateControlGroup(parent, cgDiv=>{
+				Label = Label.CreateControlLabel(default(Element), "");
+				Controls = new Div( cgDiv,  ctDiv=>{
+					Init(ctDiv);
+					Label.ForField( Element().ID);
+				});
+			});
 
-			se.JSelect().On("change", evt=>{
-				var option= (OptionElement) se.JSelect().Find("option:selected")[0];
-				SelectedOptionImp(option, true);
-			}); 
-						
+			element(Element());
+			Init (store, optionFunc, defaultOption);
+		}
+
+		public SelectField(Element parent, Action<Element,SelectElement> element,
+		                   Store<T> store, Func<T,OptionElement> optionFunc, SelectedOption<T> defaultOption=null)
+
+		{
+			ControlGroup = Div.CreateControlGroup(parent, cgDiv=>{
+				Label = Label.CreateControlLabel(cgDiv, "");
+				Controls = Div.CreateControls( cgDiv, ctDiv=>{
+					Init(ctDiv);
+					Label.ForField( Element().ID);
+
+				});
+			});
+
+			element(Label.Element(), Element());
+			Init (store, optionFunc, defaultOption);
+									
+		}
+
+		void Init (Store<T> store, Func<T, OptionElement> optionFunc, SelectedOption<T> defaultOption)
+		{
+			this.store = store;
+			this.optionFunc = optionFunc;
+			se = Element ();
+			OnOptionSelected = (sf, opt) =>  {
+			};
+			defaultoption = defaultOption ?? new SelectedOption<T> ();
+			se.JSelect ().On ("change", evt =>  {
+				var option = (OptionElement)se.JSelect ().Find ("option:selected") [0];
+				SelectedOptionImp (option, true);
+			});
 			Render();
-			
-			store.OnStoreChanged+=(st, dt)=>{
-				switch(dt.Action)
-				{
+			store.OnStoreChanged += (st, dt) =>  {
+				switch (dt.Action) {
 				case StoreChangedAction.Created:
-					se.CreateOption(dt.NewData, optionFunc);
+					se.CreateOption (dt.NewData, optionFunc);
 					break;
 				case StoreChangedAction.Read:
-					LoadImpl();
+					SelectOption();
+					Render ();
 					break;
 				case StoreChangedAction.Updated:
-					se.UpdateOption(dt.NewData, optionFunc, store.GetRecordIdProperty());
+					se.UpdateOption (dt.NewData, optionFunc, store.GetRecordIdProperty ());
 					break;
 				case StoreChangedAction.Destroyed:
-					se.RemoveOption(dt.OldData,  store.GetRecordIdProperty());
+					se.RemoveOption (dt.OldData, store.GetRecordIdProperty ());
+					SelectOption();
 					break;
 				case StoreChangedAction.Patched:
-					se.UpdateOption(dt.NewData, optionFunc,  store.GetRecordIdProperty() );
+					se.UpdateOption (dt.NewData, optionFunc, store.GetRecordIdProperty ());
 					break;
-					
 				case StoreChangedAction.Added:
-					se.CreateOption(dt.NewData, optionFunc);
+					se.CreateOption (dt.NewData, optionFunc);
 					break;
 				case StoreChangedAction.Replaced:
-					se.UpdateOption(dt.NewData, optionFunc, store.GetRecordIdProperty());
+					se.UpdateOption (dt.NewData, optionFunc, store.GetRecordIdProperty ());
 					break;
 				case StoreChangedAction.Inserted:
-					se.CreateOption(dt.NewData, optionFunc);
+					se.CreateOption (dt.NewData, optionFunc);
 					break;
 				case StoreChangedAction.Removed:
-					se.RemoveOption(dt.OldData, store.GetRecordIdProperty());
+					se.RemoveOption (dt.OldData, store.GetRecordIdProperty ());
+					SelectOption();
 					break;
 				case StoreChangedAction.Loaded:
-					LoadImpl();
+					SelectOption();
+					Render ();
 					break;
 				case StoreChangedAction.Cleared:
-					se.Empty();
+					se.Empty ();
+					SelectOption();
 					break;
 				}
-				
 			};
-
 		}
+
 
 		public void Render()
-		{
-			LoadImpl();
-		}
-
-
-		void LoadImpl()
 		{
 			bool append =false;
 			if (defaultoption.Option!=null && string.IsNullOrEmpty(defaultoption.Option.Value))
@@ -127,6 +141,19 @@ namespace Cayita.Javascript.UI
 		}
 
 		public event Action<SelectField<T> ,SelectedOption<T>> OnOptionSelected;
+
+		public void SelectOption ( object value, bool trigger = true)
+		{
+			var option =(OptionElement) se.SelectOption(value)[0];
+			SelectedOptionImp( option, true);
+		}
+
+		public void SelectOption ( )
+		{
+			se.UnSelectOption();
+			selectedoption = default(SelectedOption<T>);
+			OnOptionSelected(this, selectedoption);
+		}
 
 		void SelectedOptionImp (OptionElement option, bool trigger=true)
 		{
@@ -150,10 +177,11 @@ namespace Cayita.Javascript.UI
 	public class SelectField :HtmlSelect
 	{
 		
-		Div controlGroup ;
-		Label label ;
-		Div controls ;
+		protected  Div ControlGroup ;
+		protected Label Label ;
+		protected Div Controls ;
 
+		protected SelectField(){}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Cayita.Javascript.UI.SelectField"/> class.
@@ -166,12 +194,12 @@ namespace Cayita.Javascript.UI
 		/// </param>
 		public SelectField(Element parent, Action<Element,SelectElement> field)
 		{
-			controlGroup = Div.CreateControlGroup(parent, cgDiv=>{
-				label = Label.CreateControlLabel(cgDiv, "");
-				controls = Div.CreateControls( cgDiv, ctDiv=>{
+			ControlGroup = Div.CreateControlGroup(parent, cgDiv=>{
+				Label = Label.CreateControlLabel(cgDiv, "");
+				Controls = Div.CreateControls( cgDiv, ctDiv=>{
 					Init(ctDiv);
-					label.ForField( Element().ID);
-					field(label.Element(), Element());
+					Label.ForField( Element().ID);
+					field(Label.Element(), Element());
 				});
 			});  
 		}
@@ -186,11 +214,11 @@ namespace Cayita.Javascript.UI
 		/// </param>
 		public SelectField(Element parent, Action<SelectElement> field)
 		{
-			controlGroup = Div.CreateControlGroup(parent, cgDiv=>{
-				label = Label.CreateControlLabel(default(Element), "");
-				controls = new Div( cgDiv,  ctDiv=>{
+			ControlGroup = Div.CreateControlGroup(parent, cgDiv=>{
+				Label = Label.CreateControlLabel(default(Element), "");
+				Controls = new Div( cgDiv,  ctDiv=>{
 					Init(ctDiv);
-					label.ForField( Element().ID);
+					Label.ForField( Element().ID);
 					field(Element());
 				});
 			});  
@@ -198,17 +226,17 @@ namespace Cayita.Javascript.UI
 
 		public Div GetControGroup()
 		{
-			return controlGroup;
+			return ControlGroup;
 		}
 		
 		public Div GetControls()
 		{
-			return controls;
+			return Controls;
 		}
 
 		public Label GetLabel()
 		{
-			return label;
+			return Label;
 		}
 
 	}

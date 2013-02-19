@@ -56,6 +56,7 @@ namespace Cayita.Javascript.UI
 				case StoreChangedAction.Read:
 					Cayita.Javascript.Firebug.Console.Log("HtmlGrid: cargando filas en el grid 1 ", store, store.Count);
 					table.Load(store, columns, store.GetRecordIdProperty());
+					SelectRow(true);
 					break;
 				case StoreChangedAction.Updated:
 					table.UpdateRow(dt.NewData, columns, store.GetRecordIdProperty());
@@ -63,6 +64,7 @@ namespace Cayita.Javascript.UI
 				case StoreChangedAction.Destroyed:
 					var recordId = ((dynamic) dt.OldData)[store.GetRecordIdProperty()];
 					table.JSelectRow((object)recordId).Remove();
+					SelectRow(true);
 					break;
 				case StoreChangedAction.Patched:
 					table.UpdateRow(dt.NewData, columns, store.GetRecordIdProperty());
@@ -80,12 +82,15 @@ namespace Cayita.Javascript.UI
 				case StoreChangedAction.Removed:
 					var id = ((dynamic) dt.OldData)[store.GetRecordIdProperty()];
 					table.JSelectRow((object)id).Remove();
+					SelectRow(true);
 					break;
 				case StoreChangedAction.Loaded:
 					table.Load(store,columns, store.GetRecordIdProperty());
+					SelectRow(true);
 					break;
 				case StoreChangedAction.Cleared:
 					table.tBodies[0].JSelect().Empty();
+					SelectRow(true);
 					break;
 				}
 
@@ -116,9 +121,7 @@ namespace Cayita.Javascript.UI
 			table.JSelectRows().RemoveClass ("info");
 			selectedrow=default(SelectedRow<T>);
 			if(trigger) OnRowSelected(this, selectedrow);
-
 		}
-
 
 		void SelectRowImp(TableRowElement row, bool trigger=true)
 		{

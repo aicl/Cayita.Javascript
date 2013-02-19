@@ -23,6 +23,11 @@ namespace Cayita.Javascript.Data
 		StoreApi<T> updateApi;
 		StoreApi<string> destroyApi;
 		StoreApi<T> patchApi;
+		ReadOptions lastOption;
+
+		int defaultPageSize=10;
+
+		int totalCount=0;
 
 		string idProperty="Id";
 		
@@ -85,6 +90,12 @@ namespace Cayita.Javascript.Data
 						{
 							st.Add((T)data[r]);
 						}
+
+						int? tc = data[readApi.TotalCountProperty];
+						totalCount= tc.HasValue? tc.Value: st.Count;
+
+						Cayita.Javascript.Firebug.Console.Log("Store Done data, tc totalCount ", data, tc, totalCount );
+
 						OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
 					})
 						.Fail(f=>{
@@ -198,6 +209,11 @@ namespace Cayita.Javascript.Data
 			return idProperty;
 		}
 
+		public int GetTotalCount()
+		{
+			return totalCount;
+		}
+
 		public void SetCreateFunc(Func< T, IDeferred<T>> createFunc)
 		{
 			this.createFunc=createFunc; 
@@ -278,6 +294,11 @@ namespace Cayita.Javascript.Data
 		{
 			ReadOptions readOptions= new ReadOptions();
 			if(options!=null) options(readOptions);
+			if(readOptions.PageNumber.HasValue &&
+			   ( !readOptions.PageSize.HasValue || (readOptions.PageSize.HasValue &&readOptions.PageSize.Value==0) ) )
+				readOptions.PageSize= defaultPageSize;
+			lastOption= readOptions;
+
 			return  readFunc( readOptions); 
 		}
 
@@ -392,11 +413,56 @@ namespace Cayita.Javascript.Data
 		}
 #endregion
 
-		public void  Load(IList<T> data)
+		public void  Load(IList<T> data, bool append=false)
 		{
-			st.Clear();
+			if(!append )st.Clear();
 			st.AddRange(data);
 			OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Loaded});
+		}
+
+		public ReadOptions GetLastOption()
+		{
+			return lastOption;
+		}
+
+		public int GetDefaultPageSize()
+		{
+			return defaultPageSize;
+		}
+
+		public void SetDefaultPageSize(int value)
+		{
+			defaultPageSize=value;
+		}
+
+		public bool HasNextPage()
+		{
+			if (lastOption==null || st.Count== totalCount) return false;
+			return totalCount/lastOption.PageSize.Value< lastOption.PageNumber.Value;
+
+		}
+
+		public bool HasPreviousPage()
+		{
+			return !(lastOption==null || st.Count== totalCount || !lastOption.PageNumber.HasValue
+			        || ( lastOption.PageNumber.HasValue && lastOption.PageNumber.Value==0)) ;
+		}
+
+		public IDeferred<T> GetNextPage()
+		{
+			if(HasNextPage()) lastOption.PageNumber++;
+			return readFunc( lastOption);
+		}
+
+		public IDeferred<T> GetPreviousPage()
+		{
+			if(HasNextPage()) lastOption.PageNumber--;
+			return readFunc( lastOption);
+		}
+
+		public IDeferred<T> Refresh()
+		{
+			return readFunc( lastOption);
 		}
 
 		public event Action<Store<T> , StoreChangedData<T> > OnStoreChanged;

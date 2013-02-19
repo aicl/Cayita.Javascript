@@ -156,8 +156,14 @@ namespace Cayita.Javascript
 		/// <param name='value'>
 		/// Value.
 		/// </param>
-		[InlineCode("$('#'+{element}.id + ' option[value={value}]').attr('selected',true)")]
+		[InlineCode("$('option[value='+{value}+']',{element}).attr('selected',true)")]
 		public static jQueryObject SelectOption( this SelectElement element, object value)
+		{
+			return null;
+		}
+		//$("option:selected").prop("selected", false)
+		[InlineCode("$('option:selected',{element}).prop('selected',false)")]
+		public static jQueryObject UnSelectOption(this SelectElement element)
 		{
 			return null;
 		}
@@ -167,7 +173,6 @@ namespace Cayita.Javascript
 		{
 			return null;
 		}
-
 
 		#region jquery.validate jQuery Validation Plugin - v1.10.0 
 

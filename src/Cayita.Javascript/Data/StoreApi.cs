@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.CompilerServices;
-using jQueryApi;
 
 namespace Cayita.Javascript.Data
 {
