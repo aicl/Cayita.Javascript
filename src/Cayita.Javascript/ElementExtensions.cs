@@ -157,13 +157,13 @@ namespace Cayita.Javascript
 		/// Value.
 		/// </param>
 		[InlineCode("$('#'+{element}.id + ' option[value={value}]').attr('selected',true)")]
-		public static jQueryObject SelectOption( this SelectElement element, string value)
+		public static jQueryObject SelectOption( this SelectElement element, object value)
 		{
 			return null;
 		}
 
-		[InlineCode("$('option[record-id='+{value}+']', {element})")]
-		public static jQueryObject GetOption(this SelectElement element, string value)
+		[InlineCode("$('option[value='+{value}+']', {element})")]
+		public static jQueryObject GetOption(this SelectElement element, object value)
 		{
 			return null;
 		}

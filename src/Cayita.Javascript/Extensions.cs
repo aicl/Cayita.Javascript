@@ -14,7 +14,7 @@ namespace Cayita.Javascript
 	{
 		public static void Load<T>(this SelectElement cb,  IList<T> data, Func<T, OptionElement> func, bool append=false )
 		{
-			if(append)cb.Empty();
+			if(!append) cb.Empty();
 			foreach( var d in data){
 				cb.Append(func(d));
 			}
@@ -28,14 +28,14 @@ namespace Cayita.Javascript
 		public static void UpdateOption<T>(this SelectElement cb, T data, Func<T, OptionElement> func, string recordIdProperty="Id" )
 		{
 			var d = (dynamic) data;
-			cb.GetOption((string) d[recordIdProperty]).Remove();
-			cb.Append(func(data));
+			var old= cb.GetOption( (object) d[recordIdProperty]);
+			cb.ReplaceChild(func(data), old[0]);
 		}
 
 		public static void RemoveOption<T>(this SelectElement cb, T data,  string recordIdProperty="Id" )
 		{
 			var d = (dynamic) data;
-			cb.GetOption((string) d[recordIdProperty]).Remove();
+			cb.GetOption( (object) d[recordIdProperty]).Remove();
 		}
 
 		public static T LoadTo<T>(this FormElement form) where T: new()
@@ -142,7 +142,7 @@ namespace Cayita.Javascript
 		}
 
 
-		public static void Load<T>(this TableElement table, IList<T> data,List<TableColumn<T>> columns, string recordIdProperty="Id" )
+		public static void Load<T>(this TableElement table, IList<T> data,List<TableColumn<T>> columns, string recordIdProperty="Id", bool append=false )
 		{
 			Element body;
 			if( table.tBodies.Length==0)
@@ -150,7 +150,7 @@ namespace Cayita.Javascript
 			else
 			{
 				body=table.tBodies[0];
-				body.JSelect().Empty();
+				if(!append) body.JSelect().Empty();
 			}
 			
 			foreach (var d in data) {

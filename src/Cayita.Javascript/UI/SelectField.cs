@@ -48,7 +48,7 @@ namespace Cayita.Javascript.UI
 			this.store=store;
 			se= Element();
 			this.optionFunc=optionFunc;
-			defaultoption= defaultOption;
+			defaultoption= defaultOption?? new SelectedOption<T>() ;
 
 			se.JSelect().On("change", evt=>{
 				var option= (OptionElement) se.JSelect().Find("option:selected")[0];
@@ -64,7 +64,7 @@ namespace Cayita.Javascript.UI
 					se.CreateOption(dt.NewData, optionFunc);
 					break;
 				case StoreChangedAction.Read:
-					se.Load(store, optionFunc);
+					LoadImpl();
 					break;
 				case StoreChangedAction.Updated:
 					se.UpdateOption(dt.NewData, optionFunc, store.GetRecordIdProperty());
@@ -89,7 +89,7 @@ namespace Cayita.Javascript.UI
 					se.RemoveOption(dt.OldData, store.GetRecordIdProperty());
 					break;
 				case StoreChangedAction.Loaded:
-					se.Load(store, optionFunc);
+					LoadImpl();
 					break;
 				case StoreChangedAction.Cleared:
 					se.Empty();
@@ -102,13 +102,23 @@ namespace Cayita.Javascript.UI
 
 		public void Render()
 		{
-			se.Load<T>(store, optionFunc);
+			LoadImpl();
 		}
 
 
 		void LoadImpl()
 		{
-
+			bool append =false;
+			if (defaultoption.Option!=null && string.IsNullOrEmpty(defaultoption.Option.Value))
+			{
+				append=true;
+				se.CreateOption( defaultoption.Record, f=>{ 
+					return  defaultoption.Option;
+				});
+			}
+			se.Load(store, optionFunc, append);
+			if(!string.IsNullOrEmpty(defaultoption.Option.Value))
+				se.SelectOption(defaultoption.Option.Value);
 		}
 
 		public SelectedOption<T> GetSelectedOption()
