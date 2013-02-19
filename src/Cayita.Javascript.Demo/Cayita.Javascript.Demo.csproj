@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E3E48E2A-144E-4732-B648-10BCE87A1672}</ProjectGuid>
+    <ProjectTypeGuids>{349C5851-65DF-11DA-9384-00065B846F21};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Cayita.Javascript.Demo</RootNamespace>
+    <AssemblyName>Cayita.Javascript.Demo</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Web.Services" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="web.config" />
+    <Content Include="index.html" />
+    <Content Include="css\bootstrap-responsive.css" />
+    <Content Include="css\bootstrap-responsive.min.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\cus-icons.css" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\twiter-bootstrap-responsive.css" />
+    <Content Include="css\twiter-bootstrap.css" />
+    <Content Include="css\twiter-bootstrap.min.css" />
+    <Content Include="img\apple-touch-icon-114-precomposed.png" />
+    <Content Include="img\apple-touch-icon-144-precomposed.png" />
+    <Content Include="img\apple-touch-icon-57-precomposed.png" />
+    <Content Include="img\apple-touch-icon-72-precomposed.png" />
+    <Content Include="img\famfamfam-icons.png" />
+    <Content Include="img\favicon.png" />
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="js\bootbox.min.js" />
+    <Content Include="js\bootstrap.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\date.format.js" />
+    <Content Include="js\jquery-1.8.2.js" />
+    <Content Include="js\jquery-1.8.2.min.js" />
+    <Content Include="js\jquery.validate.js" />
+    <Content Include="js\linq.js" />
+    <Content Include="js\mscorlib.js" />
+    <Content Include="js\twiter-bootstrap.js" />
+    <Content Include="js\twiter-bootstrap.min.js" />
+    <Content Include="js\autonumeric-1.8.1.js" />
+    <Content Include="modules\Calamar.Conceptos.js" />
+    <Content Include="modules\Calamar.Fuentes.js" />
+    <Content Include="modules\Calamar.Gastos.js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties VerifyCodeBehindFields="True" VerifyCodeBehindEvents="True">
+        <XspParameters Port="8080" Address="127.0.0.1" SslMode="None" SslProtocol="Default" KeyType="None" CertFile="" KeyFile="" PasswordOptions="None" Password="" Verbose="True" />
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="css\" />
+    <Folder Include="font\" />
+    <Folder Include="img\" />
+    <Folder Include="js\" />
+    <Folder Include="json\" />
+    <Folder Include="modules\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="font\FontAwesome.otf" />
+    <None Include="font\fontawesome-webfont.eot" />
+    <None Include="font\fontawesome-webfont.ttf" />
+    <None Include="font\fontawesome-webfont.woff" />
+    <None Include="font\iconic_fill.eot" />
+    <None Include="font\iconic_fill.otf" />
+    <None Include="font\iconic_fill.svg" />
+    <None Include="font\iconic_fill.ttf" />
+    <None Include="font\iconic_fill.woff" />
+    <None Include="font\iconic_stroke.eot" />
+    <None Include="font\iconic_stroke.otf" />
+    <None Include="font\iconic_stroke.svg" />
+    <None Include="font\iconic_stroke.ttf" />
+    <None Include="font\iconic_stroke.woff" />
+    <None Include="json\loginResponse.json" />
+    <None Include="json\conceptoResponse.json" />
+    <None Include="json\fuenteResponse.json" />
+    <None Include="json\gastoResponse.json" />
+  </ItemGroup>
+</Project>

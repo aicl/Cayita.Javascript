@@ -1,0 +1,16 @@
+/opt/mono/bin/sc  \
+"/outscript:bin/Debug/Calamar.Gastos.js" \
+"/define:JS" \
+"/debug" \
+"/r:../../lib/Saltarelle.Linq.dll" \
+"/r:../../lib/Saltarelle.jQuery.dll" \
+"/r:../../lib/Saltarelle.Web.dll" \
+"/r:../../lib/mscorlib.dll" \
+"/r:../Cayita.Javascript/bin/Debug/Cayita.Javascript.dll" \
+"/r:../../lib/Aicl.Calamar.Scripts.Modelos.dll" \
+/t:library \
+"MainModule.cs" 
+
+cp bin/Debug/Calamar.Gastos.js ../Cayita.Javascript.Demo/modules/
+
+echo "ready Calamar.Gastos.js"
