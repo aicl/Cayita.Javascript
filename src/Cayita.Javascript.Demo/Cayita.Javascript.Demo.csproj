@@ -70,6 +70,9 @@
     <Content Include="modules\Calamar.Conceptos.js" />
     <Content Include="modules\Calamar.Fuentes.js" />
     <Content Include="modules\Calamar.Gastos.js" />
+    <Content Include="js\Calamar.App.js" />
+    <Content Include="js\Calamar.Modelos.js" />
+    <Content Include="js\Cayita.Javascript.UI.js" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

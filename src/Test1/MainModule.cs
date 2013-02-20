@@ -67,12 +67,12 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 		{
 
 			new Div(parent, div=>{
-				div.ClassName="span6 offset3 well";
+				div.ClassName="span6 offset2 well";
 				div.Hide();
 			}) ;
 			
 			SearchDiv= new Div(default(Element), searchdiv=>{
-				searchdiv.ClassName= "span6 offset3 nav";
+				searchdiv.ClassName= "span6 offset2 nav";
 
 				var inputFecha=new InputText(searchdiv, ip=>{
 					ip.ClassName="input-medium search-query";
@@ -124,7 +124,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 			SearchDiv.AppendTo(parent);
 						
 			FormDiv= new Div(default(Element), formdiv=>{
-				formdiv.ClassName="span6 offset3 well";
+				formdiv.ClassName="span6 offset2 well";
 				Form = new Form(formdiv, f=>{
 					f.ClassName="form-horizontal";
 
@@ -239,7 +239,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 			FormDiv.AppendTo(parent);
 						
 			GridDiv= new  Div(default(Element), gdiv=>{
-				gdiv.ClassName="span10 offset1";
+				gdiv.ClassName="span10";
 				GridGastos= new HtmlGrid<Gasto>(gdiv,tb=>{}, StoreGastos,Columns);
 				gdiv.Hide();
 			});

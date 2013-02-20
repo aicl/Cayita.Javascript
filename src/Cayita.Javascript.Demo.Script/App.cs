@@ -61,7 +61,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 									ListItem.CreateNavListItem(list,"#",role.Title, (li,anchor)=>{
 										anchor.JSelect().Click(e=>{
 											e.PreventDefault();
-											Work.JSelect().Empty();
+											Work.Empty();
 											jQuery.GetScript(role.Directory+".js", (o)=>{
 												ExecuteModule(Work.Element());
 											});											
@@ -95,7 +95,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 					});
 
 					Work= new Div(row,  work=>{
-						work.ClassName="span9";
+						work.ClassName="span10";
 						work.ID="work";
 						var m = Document.CreateElement("h3");
 						m.InnerText="Welcome";

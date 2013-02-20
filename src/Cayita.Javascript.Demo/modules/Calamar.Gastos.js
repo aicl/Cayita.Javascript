@@ -114,11 +114,11 @@
 		},
 		$paint: function(parent) {
 			new Cayita.UI.Div.$ctor1(parent, function(div) {
-				div.className = 'span6 offset3 well';
+				div.className = 'span6 offset2 well';
 				$(div).hide();
 			});
 			this.set_$searchDiv(new Cayita.UI.Div.$ctor1(null, ss.mkdel(this, function(searchdiv) {
-				searchdiv.className = 'span6 offset3 nav';
+				searchdiv.className = 'span6 offset2 nav';
 				var inputFecha = (new Cayita.UI.InputText.$ctor2(searchdiv, function(ip) {
 					ip.className = 'input-medium search-query';
 					ip.setAttribute('data-mask', '99.99.9999');
@@ -162,7 +162,7 @@
 			})));
 			this.get_$searchDiv().appendTo(parent);
 			this.set_$formDiv(new Cayita.UI.Div.$ctor1(null, ss.mkdel(this, function(formdiv) {
-				formdiv.className = 'span6 offset3 well';
+				formdiv.className = 'span6 offset2 well';
 				this.set_$form(new Cayita.UI.Form.$ctor1(formdiv, ss.mkdel(this, function(f) {
 					f.className = 'form-horizontal';
 					var inputId = new Cayita.UI.InputText.$ctor2(f, function(e) {
@@ -257,7 +257,7 @@
 			})));
 			this.get_$formDiv().appendTo(parent);
 			this.set_$gridDiv(new Cayita.UI.Div.$ctor1(null, ss.mkdel(this, function(gdiv) {
-				gdiv.className = 'span10 offset1';
+				gdiv.className = 'span10';
 				this.set_$gridGastos(new (ss.makeGenericType(Cayita.UI.HtmlGrid$1, [Calamar.Model.Gasto]))(gdiv, function(tb) {
 				}, this.get_$storeGastos(), this.get_$columns()));
 				$(gdiv).hide();

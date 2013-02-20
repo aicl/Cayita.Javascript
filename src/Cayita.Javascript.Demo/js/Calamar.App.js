@@ -45,7 +45,7 @@
 									Cayita.UI.ListItem.createNavListItem$1(list, '#', role.$.Title, ss.mkdel({ role: role, $this: this }, function(li, anchor) {
 										$(anchor).click(ss.mkdel({ role: this.role, $this: this.$this }, function(e) {
 											e.preventDefault();
-											this.$this.get_$work().jSelect().empty();
+											this.$this.get_$work().empty();
 											$.getScript(this.role.$.Directory + '.js', ss.mkdel(this.$this, function(o) {
 												MainModule.execute(this.get_$work().element$1());
 											}));
@@ -73,7 +73,7 @@
 						}));
 					}));
 					this.set_$work(new Cayita.UI.Div.$ctor1(row, function(work) {
-						work.className = 'span9';
+						work.className = 'span10';
 						work.id = 'work';
 						var m = document.createElement('h3');
 						m.innerText = 'Welcome';
