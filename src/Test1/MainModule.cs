@@ -208,7 +208,13 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 							if(string.IsNullOrEmpty(inputId.Value()) )
 								AppendRow(result);
 							else
-								UpdateRow(result);
+								try{
+
+									UpdateRow(result);
+							}
+							catch(Exception e){
+								Cayita.Javascript.Firebug.Console.Log("ex ",e);
+							}
 							
 							form.Reset();
 							bt.ResetLoadingText();
@@ -276,9 +282,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 
 		void UpdateRow (Gasto data)
 		{
-			StoreGastos.Replace(data.Id, r=>{
-				r.PopulateFrom(data);
-			}); 
+			StoreGastos.Replace(data);
 
 			BList.Element().Disabled=true;
 			FormDiv.Hide();
@@ -291,7 +295,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 				BDelete.Element ().Disabled = false;
 				BList.Element ().Disabled = false;
 				Form.Element ().Reset ();
-				Form.Element ().Load (sr.Record);
+				if(sr!=null) Form.Element ().Load (sr.Record);
 				GridDiv.Hide ();
 				FormDiv.Element ().FadeIn ();
 			};

@@ -38,28 +38,15 @@ namespace Cayita.Javascript
 			cb.GetOption( (object) d[recordIdProperty]).Remove();
 		}
 
-		public static T LoadTo<T>(this FormElement form) where T: new()
-		{
-			var data = new T();
-			var o = (dynamic)data;
-			foreach(var input in form.Elements)
-			{
-				var ie = (InputElement)input;
-				try {
-					o[ie.Name]= ie.GetValue();
-				}
-				catch(Exception)
-				{}
-			}
-			return  (T)o;
-		}
 
 		public static void LoadTo<T>(this FormElement form, T data) 
 		{
 			var o = (dynamic)data;
-			foreach(var input in form.Elements)
+			var inputs = jQuery.Select ("[name]", form).GetElements();
+			foreach(var input in inputs )
 			{
 				var ie = (InputElement)input;
+				if(string.IsNullOrEmpty(ie.Name)) continue;
 				try {
 					o[ie.Name]= ie.GetValue();
 				}
@@ -71,10 +58,11 @@ namespace Cayita.Javascript
 		public static void Load<T>(this FormElement form, T data)
 		{
 			var d = (dynamic) data;
-			foreach(var input in form.Elements)
+			var inputs = jQuery.Select ("[name]", form).GetElements();
+			foreach(var input in inputs)
 			{
 				var ie = (InputElement)input;
-				if( string.IsNullOrEmpty(ie.Name) ) continue;
+				if(string.IsNullOrEmpty(ie.Name)) continue;
 				ie.SetValue( (object) d[ie.Name] );
 			}
 		}

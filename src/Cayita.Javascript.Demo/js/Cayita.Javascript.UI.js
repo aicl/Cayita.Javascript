@@ -676,7 +676,7 @@
 			},
 			create$1: function(form) {
 				var record = ss.createInstance(T);
-				$Cayita_UI_Ext.loadTo$1(T).call(null, form, record);
+				$Cayita_UI_Ext.loadTo(T).call(null, form, record);
 				this.create$2(record);
 			},
 			read: function(options) {
@@ -748,15 +748,30 @@
 			set_item: function(index, value) {
 				this.$st[index] = value;
 			},
-			replace: function(recordId, record) {
+			replace$1: function(recordId, record) {
+				var self = this;
 				var source = Enumerable.from(this.$st).first(function(f) {
-					return ss.referenceEquals(f[this.$idProperty], record[this.$idProperty]);
+					return ss.referenceEquals(f[self.$idProperty].toString(), recordId.toString());
 				});
 				var index = ss.indexOf(this.$st, source);
-				var r = cayita.fn.clone(source);
 				var old = cayita.fn.clone(source);
-				record(r);
-				cayita.fn.populateFrom(source, r);
+				record(source);
+				var $t2 = this.$1$OnStoreChangedField;
+				var $t1 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+				$t1.newData = source;
+				$t1.oldData = old;
+				$t1.action = 7;
+				$t1.index = index;
+				$t2(this, $t1);
+			},
+			replace: function(record) {
+				var self = this;
+				var source = Enumerable.from(this.$st).first(function(f) {
+					return ss.referenceEquals(f[self.$idProperty].toString(), record[self.$idProperty].toString());
+				});
+				var index = ss.indexOf(this.$st, source);
+				var old = cayita.fn.clone(source);
+				cayita.fn.populateFrom(source, record);
 				var $t2 = this.$1$OnStoreChangedField;
 				var $t1 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
 				$t1.newData = source;
@@ -1410,27 +1425,15 @@
 		};
 	};
 	$Cayita_UI_Ext.loadTo = function(T) {
-		return function(form) {
-			var data = ss.createInstance(T);
-			var o = data;
-			for (var $t1 = 0; $t1 < form.elements.length; $t1++) {
-				var input = form.elements[$t1];
-				var ie = input;
-				try {
-					o[ie.name] = cayita.fn.getValue(ie);
-				}
-				catch ($t2) {
-				}
-			}
-			return ss.cast(o, T);
-		};
-	};
-	$Cayita_UI_Ext.loadTo$1 = function(T) {
 		return function(form, data) {
 			var o = data;
-			for (var $t1 = 0; $t1 < form.elements.length; $t1++) {
-				var input = form.elements[$t1];
+			var inputs = $('[name]', form).get();
+			for (var $t1 = 0; $t1 < inputs.length; $t1++) {
+				var input = inputs[$t1];
 				var ie = input;
+				if (ss.isNullOrEmptyString(ie.name)) {
+					continue;
+				}
 				try {
 					o[ie.name] = cayita.fn.getValue(ie);
 				}
@@ -1442,8 +1445,9 @@
 	$Cayita_UI_Ext.load = function(T) {
 		return function(form, data) {
 			var d = data;
-			for (var $t1 = 0; $t1 < form.elements.length; $t1++) {
-				var input = form.elements[$t1];
+			var inputs = $('[name]', form).get();
+			for (var $t1 = 0; $t1 < inputs.length; $t1++) {
+				var input = inputs[$t1];
 				var ie = input;
 				if (ss.isNullOrEmptyString(ie.name)) {
 					continue;

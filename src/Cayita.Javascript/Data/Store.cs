@@ -360,12 +360,21 @@ namespace Cayita.Javascript.Data
 
 		public void Replace(object recordId, Action<T> record)
 		{
-			var source =st.First( f=> ((dynamic)f)[idProperty]== ((dynamic)record)[idProperty]);
+			var self=this;
+			var source =st.First( f=>( (object)((dynamic)f)[self.idProperty]).ToString()== recordId.ToString());
 			var index = st.IndexOf(source);
-			var r = source.Clone();
 			var old = source.Clone();
-			record(r);
-			source.PopulateFrom(r);
+			record(source);
+			OnStoreChanged(this, new StoreChangedData<T>{ NewData= source, OldData=old, Action= StoreChangedAction.Replaced, Index= index});
+		}
+
+		public void Replace(T record)
+		{
+			var self=this;
+			var source =st.First( f=>( (object)((dynamic)f)[self.idProperty]).ToString()==((object)((dynamic)record)[self.idProperty]).ToString() );
+			var index = st.IndexOf(source);
+			var old = source.Clone();
+			source.PopulateFrom(record);
 			OnStoreChanged(this, new StoreChangedData<T>{ NewData= source, OldData=old, Action= StoreChangedAction.Replaced, Index= index});
 		}
 

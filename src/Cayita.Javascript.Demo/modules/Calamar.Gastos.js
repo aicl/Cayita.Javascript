@@ -229,13 +229,19 @@
 					var vo = ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.setSubmitHandler(ValidateOptions.$ctor(), ss.mkdel(this, function(form) {
 						bt.showLoadingText();
 						var result = Calamar.Model.Gasto.$ctor();
-						Cayita.UI.Ext.loadTo$1(Calamar.Model.Gasto).call(null, form, result);
+						Cayita.UI.Ext.loadTo(Calamar.Model.Gasto).call(null, form, result);
 						console.log('guardando', $(form).serialize(), result);
 						if (ss.isNullOrEmptyString(inputId.value())) {
 							this.$appendRow(result);
 						}
 						else {
-							this.$updateRow(result);
+							try {
+								this.$updateRow(result);
+							}
+							catch ($t11) {
+								var e3 = ss.Exception.wrap($t11);
+								console.log('ex ', e3);
+							}
 						}
 						form.reset();
 						bt.resetLoadingText();
@@ -284,9 +290,7 @@
 			this.get_$bList().element$1().disabled = false;
 		},
 		$updateRow: function(data) {
-			this.get_$storeGastos().replace(data.Id, function(r) {
-				cayita.fn.populateFrom(r, data);
-			});
+			this.get_$storeGastos().replace(data);
 			this.get_$bList().element$1().disabled = true;
 			this.get_$formDiv().hide();
 			this.get_$gridDiv().fadeIn();
@@ -296,7 +300,9 @@
 				this.get_$bDelete().element$1().disabled = false;
 				this.get_$bList().element$1().disabled = false;
 				this.get_$form().element$1().reset();
-				Cayita.UI.Ext.load(Calamar.Model.Gasto).call(null, this.get_$form().element$1(), sr.record);
+				if (ss.isValue(sr)) {
+					Cayita.UI.Ext.load(Calamar.Model.Gasto).call(null, this.get_$form().element$1(), sr.record);
+				}
 				this.get_$gridDiv().hide();
 				$(this.get_$formDiv().element$1()).fadeIn();
 			}));

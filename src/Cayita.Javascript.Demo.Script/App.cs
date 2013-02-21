@@ -165,7 +165,8 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 							var cg = Div.CreateControlGroup(fe);
 							
 							var user= new InputText(cg.Element(), pe=>{
-								pe.ClassName="span4";
+								//pe.SetAttribute("data-provide","typeahead");
+								pe.ClassName="typeahead span4";
 								pe.SetPlaceHolder("your user name (type anything)");
 								pe.Name="UserName";
 							});
@@ -234,3 +235,45 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 			
 }
 
+/*
+var updater = function(item, type){console.log(arguments); return type=="value"?1:item;};
+var data=[];
+var input= $("#cyt-input-1");
+var th = input.typeahead({source:function(query,callback){console.log(arguments); data.push(query); return data; }, updater: updater});
+
+var highlighter = function(item) {console.log("highlighter", item); return '<strong>' + 'item' + '</strong>'};
+var matcher= function(item){ console.log("matcher",item); return true;};
+var sorter= function(items){ console.log("sorter",items); return items};
+var updater = function(item, type){console.log("updater", arguments); return type=="value"?1:item;};
+var source = "json/conceptoResponse.json";
+var process= function(items){console.log("process", items); return ["angel", "angelica", "angela", "angie", "claudia", "clara"]}
+// process no hace nada !!!
+var input= $("#cyt-input-1");
+var th = input.typeahead({source:source, process:process, updater: updater, matcher:matcher, sorter:sorter, highlighter:highlighter });
+
+var highlighter = function(item) {console.log("highlighter", item); return '<strong>' + item + '</strong>'};
+var matcher= function(item){ console.log("matcher",item); return true;};
+var sorter= function(items){ console.log("sorter",items); return items};
+var updater = function(item, type){console.log("updater", arguments); return type=="value"?1:item;};
+var source = "json/conceptoResponse.json";
+//var process= function(items){console.log("process", items); return ["angel", "angelica", "angela", "angie", "claudia", "clara"]}
+var input= $("#cyt-input-1"); var data=[];
+var th = input.typeahead({source:function(query,process){ data.push(query); process(data); }, updater: updater, matcher:matcher, sorter:sorter  });
+
+var input= $("#cyt-input-1"); 
+var data = [{Id:1, Name:"angel"},{Id:2, Name:"angelica"}, {Id:3 , Name:"angela"}];
+var matcher= function(item){ console.log("matcher",item); return true;};
+var sorter= function(items){ console.log("sorter",items); return items};
+var updater = function(item, type){console.log("updater", arguments);  return type=="value"?1:item;};
+var highlighter = function(item) {console.log("highlighter", item); return '<strong>' + item.Name + '</strong>'};
+var th = input.typeahead({source:function(query,process){ process(data);}, updater: updater, matcher:matcher, sorter:sorter, highlighter:highlighter});
+
+var input= $("#cyt-input-1");  var id;
+var data = {"Result":[{"Id":1, "Nombre":"Arriendo" }, {"Id":2, "Nombre":"Celular"}]}
+var matcher= function(item){ console.log("matcher",item); return true ;};
+var sorter= function(items){ console.log("sorter",items); return items.Result};
+var updater = function(item, type){console.log("updater", arguments);  return type=="value"?id:item;};
+var highlighter = function(item) {console.log("highlighter", item, item.Id); id=item.Id; return '<strong>' + item.Nombre + '</strong>'};
+var th = input.typeahead({source:function(query,process){ process(data);}, updater: updater, matcher:matcher, sorter:sorter, highlighter:highlighter});
+
+*/

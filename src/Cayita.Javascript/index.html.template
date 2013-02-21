@@ -92,11 +92,11 @@
 	</script>
 	<script src="js/mscorlib.min.js"></script>
 	<script src="js/linq.min.js"></script>
-    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/jquery.validate.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootbox.min.js"></script>
-    <script src="js/autonumeric-1.8.1.js"></script>
+    <script src="js/autonumeric-1.8.5.js"></script>
     <script src="js/Cayita.Javascript.UI.js"></script>
     <script src="js/Calamar.Modelos.js"></script>
     <script src="js/Calamar.App.js"></script>

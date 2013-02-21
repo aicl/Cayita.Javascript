@@ -73,6 +73,9 @@
     <Content Include="js\Calamar.App.js" />
     <Content Include="js\Calamar.Modelos.js" />
     <Content Include="js\Cayita.Javascript.UI.js" />
+    <Content Include="js\autonumeric-1.8.5.js" />
+    <Content Include="js\jquery-1.9.1.js" />
+    <Content Include="js\jquery-1.9.1.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -110,5 +113,6 @@
     <None Include="json\conceptoResponse.json" />
     <None Include="json\fuenteResponse.json" />
     <None Include="json\gastoResponse.json" />
+    <None Include="json\typeahead.json" />
   </ItemGroup>
 </Project>

@@ -159,7 +159,8 @@
 							fe.method = this.get_config().method;
 							var cg = Cayita.UI.Div.createControlGroup(fe);
 							var user = new Cayita.UI.InputText.$ctor2(cg.element$1(), function(pe) {
-								pe.className = 'span4';
+								//pe.SetAttribute("data-provide","typeahead");
+								pe.className = 'typeahead span4';
 								pe.setAttribute('placeholder', 'your user name (type anything)');
 								pe.name = 'UserName';
 							});
