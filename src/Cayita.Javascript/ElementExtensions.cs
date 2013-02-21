@@ -23,6 +23,11 @@ namespace Cayita.Javascript
 			return null;
 		}
 
+		[InlineCode("$({parent}).append({text})")]
+		public static jQueryObject Append(this Element parent, string text){
+			return null;
+		}
+
 		[InlineCode("$({element}).empty()")]
 		public static jQueryObject Empty(this Element element){
 			return null;

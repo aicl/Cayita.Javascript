@@ -1599,10 +1599,11 @@
 			this.$store = null;
 			this.$table = null;
 			this.$selectedrow = null;
+			this.$readRequestStarted = null;
+			this.$readRequestFinished = null;
+			this.$readRequestMessage = null;
 			this.$3$OnRowSelectedField = null;
 			$Cayita_UI_HtmlTable.call(this);
-			this.$3$OnRowSelectedField = function(grid, row) {
-			};
 			this.createElement('table', parent, $Cayita_UI_ElementConfig.$ctor());
 			this.$table = this.element$1();
 			this.$table.className = 'table table-striped table-hover table-condensed';
@@ -1610,11 +1611,31 @@
 			element(this.$table);
 			this.$columns = columns;
 			this.$store = store;
+			this.$3$OnRowSelectedField = function(grid, row) {
+			};
 			$(this.$table).on('click', 'tbody tr', ss.mkdel(this, function(e) {
 				var row1 = e.currentTarget;
 				this.$selectRowImp(row1, true);
 			}));
 			this.render();
+			var $t1 = $Cayita_UI_RequestMessage.$ctor();
+			$t1.target = this.$table.tBodies[0];
+			$t1.message = 'Reading' + ss.getTypeName(T);
+			this.$readRequestMessage = $t1;
+			this.$readRequestStarted = ss.mkdel(this, function(grid1) {
+				var sp = new $Cayita_UI_SpinnerIcon(function(div, icon) {
+					div.style.position = 'fixed';
+					div.style.zIndex = 10000;
+					div.style.opacity = '0.7';
+					div.style.height = (grid1.$table.clientHeight + 30).toString() + 'px';
+					div.style.width = grid1.$table.clientWidth.toString() + 'px';
+				}, this.$readRequestMessage.message);
+				$(this.$readRequestMessage.target).insertBefore(sp.element$1());
+				return sp.element$1();
+			});
+			this.$readRequestFinished = function(grid2, el) {
+				$(el).remove();
+			};
 			store.add_onStoreChanged(ss.mkdel(this, function(st, dt) {
 				switch (dt.action) {
 					case 0: {
@@ -1671,8 +1692,37 @@
 					}
 				}
 			}));
+			store.add_onStoreRequest(ss.mkdel(this, function(st1, request) {
+				switch (request.action) {
+					case 0: {
+						break;
+					}
+					case 1: {
+						if (request.state === 0) {
+							this.$readRequestMessage.htmlElement = this.$readRequestStarted(this);
+						}
+						else {
+							this.$readRequestFinished(this, this.$readRequestMessage.htmlElement);
+						}
+						break;
+					}
+					case 2: {
+						break;
+					}
+					case 3: {
+						break;
+					}
+					case 4: {
+						break;
+					}
+				}
+			}));
 		};
 		$type.prototype = {
+			setReadRequestMessage: function(message) {
+				message(this.$readRequestMessage);
+				return this;
+			},
 			getSelectedRow: function() {
 				return this.$selectedrow;
 			},
@@ -2223,6 +2273,20 @@
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.RequestMessage
+	var $Cayita_UI_RequestMessage = function() {
+	};
+	$Cayita_UI_RequestMessage.createInstance = function() {
+		return $Cayita_UI_RequestMessage.$ctor();
+	};
+	$Cayita_UI_RequestMessage.$ctor = function() {
+		var $this = {};
+		$this.target = null;
+		$this.message = null;
+		$this.htmlElement = null;
+		return $this;
+	};
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.ResetButton
 	var $Cayita_UI_ResetButton = function(parent) {
 		$Cayita_UI_ButtonBase.$ctor1.call(this, parent, $Cayita_UI_ButtonConfig.$ctor(), 'reset');
@@ -2529,6 +2593,31 @@
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.SpinnerIcon
+	var $Cayita_UI_SpinnerIcon = function(config, message) {
+		$Cayita_UI_SpinnerIcon.$ctor1.call(this, null, config, message);
+	};
+	$Cayita_UI_SpinnerIcon.prototype = {
+		element$1: function() {
+			return this.element();
+		},
+		getIcon: function() {
+			return this.$icon;
+		}
+	};
+	$Cayita_UI_SpinnerIcon.$ctor1 = function(parent, config, message) {
+		this.$icon = null;
+		$Cayita_UI_ElementBase.call(this);
+		this.createElement('div', parent, $Cayita_UI_ElementConfig.$ctor());
+		this.element$1().className = 'well well-large lead';
+		this.$icon = (new $Cayita_UI_Icon.$ctor1(this.element$1(), function(i) {
+			i.className = 'icon-spinner icon-spin icon-2x pull-left';
+		})).element();
+		config(this.element$1(), this.$icon);
+		$(this.element$1()).append(message);
+	};
+	$Cayita_UI_SpinnerIcon.$ctor1.prototype = $Cayita_UI_SpinnerIcon.prototype;
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.SubmitButton
 	var $Cayita_UI_SubmitButton = function(parent) {
 		$Cayita_UI_ButtonBase.$ctor1.call(this, parent, $Cayita_UI_ButtonConfig.$ctor(), 'submit');
@@ -2834,11 +2923,13 @@
 	ss.registerClass(global, 'Cayita.UI.ListItemConfig', $Cayita_UI_ListItemConfig, $Cayita_UI_ElementConfig);
 	ss.registerClass(global, 'Cayita.UI.Paragraph', $Cayita_UI_Paragraph, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.ParagraphConfig', $Cayita_UI_ParagraphConfig, $Cayita_UI_ElementConfig);
+	ss.registerClass(global, 'Cayita.UI.RequestMessage', $Cayita_UI_RequestMessage);
 	ss.registerClass(global, 'Cayita.UI.ResetButton', $Cayita_UI_ResetButton, $Cayita_UI_ButtonBase);
 	ss.registerClass(global, 'Cayita.UI.SelectedRow', $Cayita_UI_SelectedRow);
 	ss.registerClass(global, 'Cayita.UI.SelectField', $Cayita_UI_SelectField, $Cayita_UI_HtmlSelect);
 	ss.registerClass(global, 'Cayita.UI.Span', $Cayita_UI_Span, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.SpanConfig', $Cayita_UI_SpanConfig, $Cayita_UI_ElementConfig);
+	ss.registerClass(global, 'Cayita.UI.SpinnerIcon', $Cayita_UI_SpinnerIcon, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.SubmitButton', $Cayita_UI_SubmitButton, $Cayita_UI_ButtonBase);
 	ss.registerClass(global, 'Cayita.UI.SystemExt', $Cayita_UI_SystemExt);
 	ss.registerClass(global, 'Cayita.UI.TableBody', $Cayita_UI_TableBody, $Cayita_UI_ElementBase);

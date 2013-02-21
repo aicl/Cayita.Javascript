@@ -81,6 +81,7 @@
     <Compile Include="Data\StoreApi.cs" />
     <Compile Include="Data\ReadOptions.cs" />
     <Compile Include="UI\HtmlGrid.cs" />
+    <Compile Include="UI\SpinnerIcon.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

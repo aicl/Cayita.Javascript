@@ -40,7 +40,8 @@
 "UI/Core/TableColumn.cs" \
 "UI/TextField.cs" "UI/CheckboxField.cs" "UI/TopNavBar.cs" \
 "UI/SelectField.cs" \
-"UI/HtmlGrid.cs" 
+"UI/HtmlGrid.cs" \
+"UI/SpinnerIcon.cs" 
 
 
 echo "ready Cayita.Javascript.dll"

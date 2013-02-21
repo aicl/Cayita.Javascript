@@ -23,6 +23,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 				var app = new App();
 				app.ShowTopNavBar();
 				app.ShowLoginForm();
+
 			});
 		}
 		
@@ -34,7 +35,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 			TopNavBar.GetPullRightParagraph().JSelect().Append(a);
 			lf.Close();
 			ShowUserMenu(loginResponse);
-			
+
 		}
 		
 		void ShowTopNavBar()
@@ -43,7 +44,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 				
 			});
 			Document.Body.AppendChild(TopNavBar.Element());
-			
+
 		}
 		
 		void ShowUserMenu(LoginResponse lr)

@@ -18,6 +18,15 @@ namespace Cayita.Javascript.UI
 		public T  Record {get;set;}
 	}
 
+	[ScriptNamespace("Cayita.UI")]
+	[Serializable]
+	public class RequestMessage
+	{
+		public  RequestMessage(){}
+		public Element Target{get;set;}
+		public string Message {get;set;}
+		protected internal Element HtmlElement {get;set;}
+	}
 
 	[ScriptNamespace("Cayita.UI")]
 	public class HtmlGrid<T>:HtmlTable where T: new()
@@ -27,18 +36,22 @@ namespace Cayita.Javascript.UI
 		Store<T> store ;
 		TableElement table;
 		SelectedRow<T> selectedrow;
+		Func<HtmlGrid<T>, Element> readRequestStarted;
+		Action<HtmlGrid<T>, Element> readRequestFinished;
+		RequestMessage readRequestMessage;
 
 		public HtmlGrid (Element parent,  Action<TableElement> element, Store<T> store, List<TableColumn<T>> columns)
 		{
-			OnRowSelected=(grid,row)=>{};
 
 			CreateElement("table", parent, new ElementConfig());
 			table =Element();
 			table.ClassName = "table table-striped table-hover table-condensed";
 			table.SetAttribute ("data-provides", "rowlink");
-			element(table); 
+			element.Invoke(table); 
 			this.columns= columns;
 			this.store= store;
+
+			OnRowSelected=(grid,row)=>{};
 
 			table.JSelect().On ("click","tbody tr", e =>  { 
 				var row = (TableRowElement)e.CurrentTarget;
@@ -46,6 +59,26 @@ namespace Cayita.Javascript.UI
 			});
 
 			Render();
+
+			readRequestMessage= new RequestMessage{Target=table.tBodies[0], Message="Reading" + typeof(T).Name };
+
+			readRequestStarted=(grid)=>{
+				var sp = new SpinnerIcon((div, icon)=>{
+					div.Style.Position="fixed";
+					div.Style.ZIndex=10000;
+					div.Style.Opacity="0.7";
+					div.Style.Height= (grid.table.ClientHeight+30).ToString()+ "px";
+					div.Style.Width= grid.table.ClientWidth.ToString()+ "px";
+				},readRequestMessage.Message);
+				
+				readRequestMessage.Target.JSelect().InsertBefore(sp.Element());
+				return sp.Element();
+			};
+			
+			readRequestFinished= (grid, el)=>{
+				el.Remove();
+			};
+
 
 			store.OnStoreChanged+=(st, dt)=>{
 				switch(dt.Action)
@@ -93,9 +126,40 @@ namespace Cayita.Javascript.UI
 					SelectRow(true);
 					break;
 				}
-
 			};
 
+			store.OnStoreRequest+=(st, request)=>{
+				switch (request.Action) {
+				case StoreRequestAction.Create:
+					break;
+				case StoreRequestAction.Read:
+					if(request.State== StoreRequestState.Started)
+					{
+						readRequestMessage.HtmlElement= readRequestStarted(this);
+					}
+					else
+					{
+						readRequestFinished(this, readRequestMessage.HtmlElement);
+					}
+					break;
+				case StoreRequestAction.Update:
+					break;
+				case StoreRequestAction.Destroy:
+					break;
+				case StoreRequestAction.Patch:
+
+					break;
+				}
+				
+			};
+
+		}
+
+
+		public HtmlGrid<T> SetReadRequestMessage(Action<RequestMessage> message)
+		{
+			message(readRequestMessage);
+			return this;
 		}
 
 		public SelectedRow<T> GetSelectedRow()

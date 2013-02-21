@@ -98,6 +98,14 @@
 			var app = new $App();
 			app.$showTopNavBar();
 			app.$showLoginForm();
+			var sp = new Cayita.UI.SpinnerIcon(function(div, icon) {
+				div.style.position = 'fixed';
+				div.style.zIndex = 1000;
+				div.style.opacity = '0.9';
+				//div.Style.Width;
+				//div.Style.Height;
+			}, 'Hola soy un spinner');
+			sp.appendTo(document.body);
 		});
 	};
 	////////////////////////////////////////////////////////////////////////////////
