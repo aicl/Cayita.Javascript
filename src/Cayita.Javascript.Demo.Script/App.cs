@@ -6,6 +6,8 @@ using System.Html;
 using Cayita.Javascript.Plugins;
 using System.Runtime.CompilerServices;
 using Aicl.Calamar.Scripts.Modelos;
+using Cayita.Javascript.Data;
+using System.Collections.Generic;
 
 namespace Aicl.Calamar.Scripts.ModuloAuth
 {
@@ -23,6 +25,32 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 				var app = new App();
 				app.ShowTopNavBar();
 				app.ShowLoginForm();
+				var storeConcepto = new Store<Concepto>().
+					SetReadApi(api=>{api.Url="json/conceptoResponse.json";});
+
+				var columns = new List<TableColumn<Concepto>>();
+				columns.Add(  new TableColumn<Concepto>{
+					Header=  new TableCell(cell=>{
+						new Anchor(cell, a=>{a.InnerText="Concepto";});
+					}).Element(),
+					Value = f=> {
+						return new TableCell( cell=>{
+							
+							new Anchor(cell, a=>{
+								a.InnerText=f.Nombre;
+							});
+						} ).Element(); }
+				});
+
+				var gc = new HtmlGrid<Concepto>(null, storeConcepto, columns);
+
+				gc.AppendTo(Document.Body);
+				gc.SetReadRequestMessage(m=>{
+					m.Message="Cargando conceptos";
+					m.Target= Document.Body;
+				});
+				storeConcepto.Read();
+
 
 			});
 		}

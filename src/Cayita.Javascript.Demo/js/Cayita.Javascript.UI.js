@@ -443,7 +443,6 @@
 					}
 					var tc = ss.cast(data2[this.$readApi.totalCountProperty], ss.Int32);
 					this.$totalCount = (ss.isValue(tc) ? ss.Nullable.unbox(tc) : this.$st.length);
-					console.log('Store Done data, tc totalCount ', data2, tc, this.$totalCount);
 					var $t21 = this.$1$OnStoreChangedField;
 					var $t20 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
 					$t20.action = 1;
@@ -626,6 +625,7 @@
 		$type.prototype = {
 			setIdProperty: function(value) {
 				this.$idProperty = value;
+				return this;
 			},
 			getRecordIdProperty: function() {
 				return this.$idProperty;
@@ -635,36 +635,43 @@
 			},
 			setCreateFunc: function(createFunc) {
 				this.$createFunc = createFunc;
+				return this;
 			},
 			setReadFunc: function(readFunc) {
 				this.$readFunc = readFunc;
+				return this;
 			},
 			setUpdateFunc: function(updateFunc) {
 				this.$updateFunc = updateFunc;
+				return this;
 			},
 			setDestroyFunc: function(destroyFunc) {
 				this.$destroyFunc = destroyFunc;
+				return this;
 			},
 			setPatchFunc: function(patchFunc) {
 				this.$patchFunc = patchFunc;
+				return this;
 			},
 			setCreateApi: function(api) {
 				api(this.$createApi);
+				return this;
 			},
 			setReadApi: function(api) {
 				api(this.$readApi);
-			},
-			getReadApi: function() {
-				return this.$readApi;
+				return this;
 			},
 			setUpdateApi: function(api) {
 				api(this.$updateApi);
+				return this;
 			},
 			setDestroyApi: function(api) {
 				api(this.$destroyApi);
+				return this;
 			},
 			setPatchApi: function(api) {
 				api(this.$patchApi);
+				return this;
 			},
 			create: function(config) {
 				var record = ss.createInstance(T);
@@ -1594,7 +1601,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.HtmlGrid
 	var $Cayita_UI_HtmlGrid$1 = function(T) {
-		var $type = function(parent, element, store, columns) {
+		var $type = function(parent, store, columns) {
 			this.$columns = null;
 			this.$store = null;
 			this.$table = null;
@@ -1608,7 +1615,6 @@
 			this.$table = this.element$1();
 			this.$table.className = 'table table-striped table-hover table-condensed';
 			this.$table.setAttribute('data-provides', 'rowlink');
-			element(this.$table);
 			this.$columns = columns;
 			this.$store = store;
 			this.$3$OnRowSelectedField = function(grid, row) {
@@ -1620,9 +1626,10 @@
 			this.render();
 			var $t1 = $Cayita_UI_RequestMessage.$ctor();
 			$t1.target = this.$table.tBodies[0];
-			$t1.message = 'Reading' + ss.getTypeName(T);
+			$t1.message = 'Reading ' + ss.getTypeName(T);
 			this.$readRequestMessage = $t1;
 			this.$readRequestStarted = ss.mkdel(this, function(grid1) {
+				console.log('htmlgrid readRequestStarted', this.$readRequestMessage.message);
 				var sp = new $Cayita_UI_SpinnerIcon(function(div, icon) {
 					div.style.position = 'fixed';
 					div.style.zIndex = 10000;
@@ -1630,7 +1637,7 @@
 					div.style.height = (grid1.$table.clientHeight + 30).toString() + 'px';
 					div.style.width = grid1.$table.clientWidth.toString() + 'px';
 				}, this.$readRequestMessage.message);
-				$(this.$readRequestMessage.target).insertBefore(sp.element$1());
+				$(this.$readRequestMessage.target).append(sp.element$1());
 				return sp.element$1();
 			});
 			this.$readRequestFinished = function(grid2, el) {
@@ -1643,7 +1650,6 @@
 						break;
 					}
 					case 1: {
-						console.log('HtmlGrid: cargando filas en el grid 1 ', store, store.get_count());
 						$Cayita_UI_Ext.load$2(T).call(null, this.$table, store, columns, store.getRecordIdProperty(), false);
 						this.selectRow(true);
 						break;

@@ -94,8 +94,6 @@ namespace Cayita.Javascript.Data
 						int? tc = data[readApi.TotalCountProperty];
 						totalCount= tc.HasValue? tc.Value: st.Count;
 
-						Cayita.Javascript.Firebug.Console.Log("Store Done data, tc totalCount ", data, tc, totalCount );
-
 						OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
 					})
 						.Fail(f=>{
@@ -199,9 +197,10 @@ namespace Cayita.Javascript.Data
 		}
 
 
-		public void SetIdProperty(string value )
+		public Store<T> SetIdProperty(string value )
 		{
 			idProperty=value;
+			return this;
 		}
 
 		public string GetRecordIdProperty()
@@ -214,59 +213,65 @@ namespace Cayita.Javascript.Data
 			return totalCount;
 		}
 
-		public void SetCreateFunc(Func< T, IDeferred<T>> createFunc)
+		public Store<T> SetCreateFunc(Func< T, IDeferred<T>> createFunc)
 		{
 			this.createFunc=createFunc; 
+			return this;
 		}
 
-		public void SetReadFunc(Func<ReadOptions, IDeferred<T>> readFunc)
+		public Store<T> SetReadFunc(Func<ReadOptions, IDeferred<T>> readFunc)
 		{
 			this.readFunc=readFunc; 
+			return this;
 		}
 
-		public void SetUpdateFunc(Func<T,IDeferred<T>> updateFunc)
+		public Store<T> SetUpdateFunc(Func<T,IDeferred<T>> updateFunc)
 		{
 			this.updateFunc=updateFunc;
+			return this;
 		}
 
-		public void SetDestroyFunc(Func<T, IDeferred<string>> destroyFunc)
+		public Store<T> SetDestroyFunc(Func<T, IDeferred<string>> destroyFunc)
 		{
 			this.destroyFunc=destroyFunc;
+			return this;
 		}
 
-		public void SetPatchFunc(Func<T,IDeferred<T>> patchFunc)
+		public Store<T> SetPatchFunc(Func<T,IDeferred<T>> patchFunc)
 		{
 			this.patchFunc=patchFunc;
+			return this;
 		}
 
-		public void SetCreateApi( Action<StoreApi<T>> api)
+		public Store<T> SetCreateApi( Action<StoreApi<T>> api)
 		{
 			api(createApi);
+			return this;
 		}
 
-		public void SetReadApi( Action<StoreApi<T>> api)
+		public Store<T> SetReadApi( Action<StoreApi<T>> api)
 		{
 			api(readApi);
+			return this;
 		}
 
-		public StoreApi<T> GetReadApi( )
-		{
-			return readApi;
-		}
 
-		public void SetUpdateApi( Action<StoreApi<T>> api)
+		public Store<T> SetUpdateApi( Action<StoreApi<T>> api)
 		{
 			api(updateApi);
+			return this;
 		}
 
-		public void SetDestroyApi( Action<StoreApi<string>> api)
+		public Store<T> SetDestroyApi( Action<StoreApi<string>> api)
 		{
 			api(destroyApi);
+			return this;
 		}
 
-		public void SetPatchApi( Action<StoreApi<T>> api)
+		public Store<T> SetPatchApi( Action<StoreApi<T>> api)
 		{
 			api(patchApi);
+			return this;
 		}
 
 
@@ -521,15 +526,9 @@ namespace Cayita.Javascript.Data
 		Read,
 		Update,
 		Destroy,
-		Patch,
-		//Add,
-		//Insert,
-		//Replace,
-		//Remove,
-		//Clear
+		Patch
 	}
-
-	//
+	
 	[ScriptNamespace("Cayita.Data")]
 	[Serializable]
 	public class StoreRequest

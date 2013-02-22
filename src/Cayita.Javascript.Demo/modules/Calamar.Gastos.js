@@ -264,8 +264,7 @@
 			this.get_$formDiv().appendTo(parent);
 			this.set_$gridDiv(new Cayita.UI.Div.$ctor1(null, ss.mkdel(this, function(gdiv) {
 				gdiv.className = 'span10';
-				this.set_$gridGastos(new (ss.makeGenericType(Cayita.UI.HtmlGrid$1, [Calamar.Model.Gasto]))(gdiv, function(tb) {
-				}, this.get_$storeGastos(), this.get_$columns()));
+				this.set_$gridGastos(new (ss.makeGenericType(Cayita.UI.HtmlGrid$1, [Calamar.Model.Gasto]))(gdiv, this.get_$storeGastos(), this.get_$columns()));
 				$(gdiv).hide();
 			})));
 			this.get_$gridDiv().appendTo(parent);

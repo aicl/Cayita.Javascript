@@ -40,14 +40,13 @@ namespace Cayita.Javascript.UI
 		Action<HtmlGrid<T>, Element> readRequestFinished;
 		RequestMessage readRequestMessage;
 
-		public HtmlGrid (Element parent,  Action<TableElement> element, Store<T> store, List<TableColumn<T>> columns)
+		public HtmlGrid (Element parent,  Store<T> store, List<TableColumn<T>> columns)
 		{
 
 			CreateElement("table", parent, new ElementConfig());
 			table =Element();
 			table.ClassName = "table table-striped table-hover table-condensed";
 			table.SetAttribute ("data-provides", "rowlink");
-			element.Invoke(table); 
 			this.columns= columns;
 			this.store= store;
 
@@ -60,9 +59,10 @@ namespace Cayita.Javascript.UI
 
 			Render();
 
-			readRequestMessage= new RequestMessage{Target=table.tBodies[0], Message="Reading" + typeof(T).Name };
+			readRequestMessage= new RequestMessage{Target=table.tBodies[0], Message="Reading " + typeof(T).Name };
 
 			readRequestStarted=(grid)=>{
+				Cayita.Javascript.Firebug.Console.Log("htmlgrid readRequestStarted", readRequestMessage.Message);
 				var sp = new SpinnerIcon((div, icon)=>{
 					div.Style.Position="fixed";
 					div.Style.ZIndex=10000;
@@ -70,8 +70,7 @@ namespace Cayita.Javascript.UI
 					div.Style.Height= (grid.table.ClientHeight+30).ToString()+ "px";
 					div.Style.Width= grid.table.ClientWidth.ToString()+ "px";
 				},readRequestMessage.Message);
-				
-				readRequestMessage.Target.JSelect().InsertBefore(sp.Element());
+				readRequestMessage.Target.JSelect().Append(sp.Element());
 				return sp.Element();
 			};
 			
@@ -87,7 +86,6 @@ namespace Cayita.Javascript.UI
 					table.CreateRow(dt.NewData, columns, store.GetRecordIdProperty());
 					break;
 				case StoreChangedAction.Read:
-					Cayita.Javascript.Firebug.Console.Log("HtmlGrid: cargando filas en el grid 1 ", store, store.Count);
 					table.Load(store, columns, store.GetRecordIdProperty());
 					SelectRow(true);
 					break;

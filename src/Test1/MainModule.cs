@@ -199,7 +199,6 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 					
 					var vo = new ValidateOptions()
 						.SetSubmitHandler( form=>{
-
 							bt.ShowLoadingText();
 							var result =new Gasto();
 							form.LoadTo(result);
@@ -246,7 +245,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 						
 			GridDiv= new  Div(default(Element), gdiv=>{
 				gdiv.ClassName="span10";
-				GridGastos= new HtmlGrid<Gasto>(gdiv,tb=>{}, StoreGastos,Columns);
+				GridGastos= new HtmlGrid<Gasto>(gdiv, StoreGastos,Columns);
 				gdiv.Hide();
 			});
 
@@ -311,7 +310,6 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 				}).Element(),
 				Value = f=> {
 					return new TableCell( cell=>{
-
 						new Anchor(cell, a=>{
 							a.InnerText=StoreConceptos.FirstOrDefault(q=>q.Id.ToString()== f.IdConcepto.ToString() ).Nombre;
 						});
