@@ -31,14 +31,12 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 				var columns = new List<TableColumn<Concepto>>();
 				columns.Add(  new TableColumn<Concepto>{
 					Header=  new TableCell(cell=>{
-						new Anchor(cell, a=>{a.InnerText="Concepto";});
+						cell.InnerText="Concepto";
 					}).Element(),
 					Value = f=> {
 						return new TableCell( cell=>{
-							
-							new Anchor(cell, a=>{
-								a.InnerText=f.Nombre;
-							});
+							cell.InnerText= f.Nombre;
+
 						} ).Element(); }
 				});
 

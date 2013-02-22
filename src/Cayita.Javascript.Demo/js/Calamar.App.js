@@ -100,15 +100,11 @@
 			var columns = [];
 			var $t1 = ss.makeGenericType(Cayita.UI.TableColumn$1, [Calamar.Model.Concepto]).$ctor();
 			$t1.header = (new Cayita.UI.TableCell.$ctor1(function(cell) {
-				new Cayita.UI.Anchor.$ctor1(cell, function(a) {
-					a.innerText = 'Concepto';
-				});
+				cell.innerText = 'Concepto';
 			})).element$1();
 			$t1.value = function(f) {
 				return (new Cayita.UI.TableCell.$ctor1(function(cell1) {
-					new Cayita.UI.Anchor.$ctor1(cell1, function(a1) {
-						a1.innerText = f.Nombre;
-					});
+					cell1.innerText = f.Nombre;
 				})).element$1();
 			};
 			ss.add(columns, $t1);
