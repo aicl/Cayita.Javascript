@@ -70,10 +70,10 @@ namespace Cayita.Javascript.UI
 					});
 					navCollapse = new Div(fluid, collapse=>{
 						collapse.ClassName="nav-collapse collapse";
-						pullRightParagraph= new Paragraph(collapse, new ParagraphConfig{
-							Text=rightText, CssClass="navbar-text pull-right"
-						},
+						pullRightParagraph= new Paragraph(collapse,
 						paragraph=>{
+							paragraph.ClassName="navbar-text pull-right";
+							paragraph.JSelect().Text(rightText);
 							pullRightAnchor= new Anchor(paragraph, a=>{
 								a.Href="#";  a.ClassName="navbar-link" ; a.InnerText=rightLinkText;
 							});

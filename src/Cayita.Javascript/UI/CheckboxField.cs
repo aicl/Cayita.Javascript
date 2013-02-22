@@ -28,13 +28,12 @@ namespace Cayita.Javascript.UI
 
 			controlGroup =  Div.CreateControlGroup(parent,  cgDiv=>{
 				controls= Div.CreateControls(cgDiv,  ctdiv=>{
-					var label = new Label(ctdiv, new LabelConfig{
-						CssClass="checkbox"
+					var label = new Label(ctdiv, lb=>{
+						lb.ClassName="checkbox";
 					});
-					Init( default(Element), new CheckboxConfig());
+					Init( default(Element) );
 					label.ForField(Element().ID);
 					field(label.Element(), Element());  
-
 					label.Element().AppendChild(Element());
 				});
 			});
@@ -58,12 +57,12 @@ namespace Cayita.Javascript.UI
 			controlGroup = Div.CreateControlGroup(parent,cgDiv=>{
 				controls=  Div.CreateControls(cgDiv, ctdiv=>{
 					
-					var label = new Label(ctdiv, new LabelConfig{
-						CssClass="checkbox",
-						TextLabel=textLabel
+					var label = new Label(ctdiv, lb=>{
+						lb.ClassName="checkbox";
+						lb.InnerText=textLabel;
 					});
 					
-					Init( default(Element), new CheckboxConfig());
+					Init( default(Element));
 					
 					label.ForField(Element().ID);
 					field( Element());  

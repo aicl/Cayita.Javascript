@@ -84,11 +84,7 @@
 			um.appendTo(document.body);
 		},
 		$showLoginForm: function() {
-			var $t2 = document.body;
-			var $t1 = Cayita.UI.FormConfig.$ctor();
-			$t1.action = 'json/loginResponse.json';
-			$t1.method = 'get';
-			var form = new $LoginForm($t2, $t1);
+			var form = new $LoginForm(document.body);
 			form.set_onLogin(ss.mkdel(this, this.$onLogin));
 			form.show();
 		}
@@ -127,14 +123,12 @@
 	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Aicl.Calamar.Scripts.ModuloAuth.LoginForm
-	var $LoginForm = function(parent, config) {
+	var $LoginForm = function(parent) {
 		this.$1$UserNameField = null;
 		this.$1$ParentField = null;
-		this.$1$ConfigField = null;
 		this.$1$OnLoginField = null;
 		this.$1$ContainerField = null;
 		this.set_parent(parent);
-		this.set_config(config);
 	};
 	$LoginForm.prototype = {
 		get_userName: function() {
@@ -148,12 +142,6 @@
 		},
 		set_parent: function(value) {
 			this.$1$ParentField = value;
-		},
-		get_config: function() {
-			return this.$1$ConfigField;
-		},
-		set_config: function(value) {
-			this.$1$ConfigField = value;
 		},
 		get_onLogin: function() {
 			return this.$1$OnLoginField;
@@ -176,12 +164,12 @@
 					//
 					new Cayita.UI.Div.$ctor1(row, ss.mkdel(this, function(element) {
 						element.className = 'span4 offset4 well';
-						var $t1 = Cayita.UI.LegendConfig.$ctor();
-						$t1.text = 'Login Form';
-						new Cayita.UI.Legend(element, $t1);
+						new Cayita.UI.Legend.$ctor1(element, function(l) {
+							l.innerText = 'Login Form';
+						});
 						new Cayita.UI.Form.$ctor1(element, ss.mkdel(this, function(fe) {
-							fe.action = this.get_config().action;
-							fe.method = this.get_config().method;
+							fe.action = 'json/loginResponse.json';
+							fe.method = 'get';
 							var cg = Cayita.UI.Div.createControlGroup(fe);
 							var user = new Cayita.UI.InputText.$ctor2(cg.element$1(), function(pe) {
 								//pe.SetAttribute("data-provide","typeahead");

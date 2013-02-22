@@ -31,7 +31,7 @@ namespace Cayita.Javascript.UI
 			controlGroup = Div.CreateControlGroup(parent, cge=>{
 				label = Label.CreateControlLabel(cge,"");
 				controls = Div.CreateControls(cge, cte=>{
-					CreateInput(cte, new TextConfig());
+					CreateInput(cte);
 					label.ForField( Element().ID);
 					field(label.Element(), Element());
 				});
@@ -43,7 +43,7 @@ namespace Cayita.Javascript.UI
 			controlGroup = Div.CreateControlGroup(parent, cge=>{
 				label = Label.CreateControlLabel(null,"");
 				controls = new Div(cge, cte=>{
-					CreateInput(cte, new TextConfig());
+					CreateInput(cte);
 					label.ForField( Element().ID);
 					field(Element());
 				});

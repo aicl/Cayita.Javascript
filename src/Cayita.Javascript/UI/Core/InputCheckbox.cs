@@ -4,18 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Cayita.Javascript.UI
 {
-	[Serializable]	
-	[ScriptNamespace("Cayita.UI")]
-	public class CheckboxConfig: InputConfig
-	{
-		public CheckboxConfig():base(){
-			Value="true";
-		}
-		public bool Checked {get;set;}
-
-	}
-
-	
+		
 	[ScriptNamespace("Cayita.UI")]
 	public class InputCheckbox:InputBase
 	{
@@ -24,27 +13,26 @@ namespace Cayita.Javascript.UI
 
 		public InputCheckbox(Element parent,  Action<CheckBoxElement> element)
 		{
-			Init(parent, new CheckboxConfig{Value="true"});
-			element(Element());
+			Init(parent);
+			element(Element()); Element();
 		}
 
 		
 		public InputCheckbox  (Element parent)
 		{
-			Init(parent, new CheckboxConfig{Value="true"});
+			Init(parent);
 		}
 		
-		protected void Init(Element parent, CheckboxConfig config)
+		protected void Init(Element parent)
 		{
-			CreateInput(parent, config, "checkbox");
-			Element().Checked=config.Checked;
+			CreateInput(parent, "checkbox");
+			Element().Value="true";
 		}
 
 		public new CheckBoxElement Element()
 		{
 			return (CheckBoxElement) base.Element();
 		}
-
 
 	}
 	

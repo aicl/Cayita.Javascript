@@ -5,41 +5,21 @@ using jQueryApi;
 
 namespace Cayita.Javascript.UI
 {
-	[Serializable]	
-	[ScriptNamespace("Cayita.UI")]
-	public class ButtonConfig:ElementConfig
-	{
-		public ButtonConfig():base(){
-			CssClass="btn";
-		}
-		public string Text {get;set;}
-		public string LoadingText {get;set;}
-	}
-
-
 
 	[ScriptNamespace("Cayita.UI")]
 	public abstract class ButtonBase:ElementBase
 	{
 		protected ButtonBase(){}
-		
-		public ButtonBase(Element parent, ButtonConfig config, string type)
+				
+		protected void CreateButton(Element parent,  string type)
 		{
-			CreateButton(parent, config, type);
-		}
-		
-		protected void CreateButton(Element parent, ButtonConfig config, string type)
-		{
-			CreateElement("button", parent, config);
-			if(!string.IsNullOrEmpty(type)) ((ButtonElement) Element()).Type=type;
-			if(!string.IsNullOrEmpty(config.Text)) Text(config.Text);
-			if(!string.IsNullOrEmpty(config.LoadingText)) LoadingText(config.LoadingText);
+			CreateElement("button", parent, new ElementConfig());
+			if(!string.IsNullOrEmpty(type))  Element().JSelect().Attribute("type",type);
 		}
 
 		public void Text(string value){
 			JSelect().Text(value);
 		}
-
 
 		public void LoadingText(string value)
 		{
@@ -51,18 +31,15 @@ namespace Cayita.Javascript.UI
 			return Element().ShowLoadingText();
 		}
 
-
 		public  jQueryObject ResetLoadingText()
 		{
 			return Element().ResetLoadingText();
 		}
 
-
 		public  jQueryObject Toggle()
 		{
 			return Element().Toggle(); 
 		}
-
 
 		public new ButtonElement Element()
 		{

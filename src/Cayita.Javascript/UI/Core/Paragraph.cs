@@ -4,48 +4,23 @@ using System.Runtime.CompilerServices;
 
 namespace Cayita.Javascript.UI
 {
-	[Serializable]	
-	[ScriptNamespace("Cayita.UI")]
-	public class ParagraphConfig:ElementConfig
-	{	
-		public ParagraphConfig():base(){}				
-		public string Text{get;set;}
-	}
-	
-	
+		
 	[ScriptNamespace("Cayita.UI")]
 	public class Paragraph:ElementBase
 	{
-		public Paragraph(Element parent, ParagraphConfig config, Action<Element> element)
+		public Paragraph(Element parent, Action<Element> element)
 		{
-			Init(parent, config);
-			element(Element());
+			CreateElement("p", parent, new ElementConfig());
+			element(Element()); 
 		}
 		
 
-		public Paragraph (Element parent, ParagraphConfig config)
+		public Paragraph (Element parent)
 		{
-			Init(parent, config);
+			CreateElement("p", parent, new ElementConfig());
 		}
 		
-		void Init(Element parent, ParagraphConfig config)
-		{
-			CreateElement("p", parent, config);
-			if(!string.IsNullOrEmpty(config.Text)) Text(config.Text);
-			
-		}
-		
-		public void Text(string text)
-		{
-			JSelect().Text(text);
-		}
-		
-		public string Text()
-		{
-			return JSelect().GetText();
-		}
-		
-		
+				
 	}
 	
 }

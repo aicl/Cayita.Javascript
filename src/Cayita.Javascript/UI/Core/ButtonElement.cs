@@ -25,9 +25,7 @@ namespace System.Html
 			{
 				return null;
 			}
-			set
-			{
-			}
+			set	{}
 		}
 
 	}

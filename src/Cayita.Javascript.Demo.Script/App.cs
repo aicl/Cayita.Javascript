@@ -139,15 +139,9 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 		
 		void ShowLoginForm()
 		{
-			var form = new LoginForm(Document.Body, 
-			                         new FormConfig{
-				Action="json/loginResponse.json",
-				Method="get"
-			});
-			
+			var form = new LoginForm(Document.Body);
 			form.OnLogin=OnLogin;
 			form.Show();
-			
 		}
 		
 		
@@ -156,18 +150,15 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 	[IgnoreNamespace]
 	public class LoginForm{
 		
-		public LoginForm(Element parent, FormConfig config )
+		public LoginForm(Element parent )
 		{
 			Parent= parent;
-			Config= config;
 		}
 		
 		public string UserName {get; private set;}
 		
 		public Element Parent {get;private set;}
-		
-		public FormConfig Config {get;private set;}
-		
+				
 		public Action<LoginResponse,LoginForm> OnLogin {get;set;}
 		
 		Div Container {get;set;}
@@ -185,11 +176,13 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 					new Div(row,element=>{
 						
 						element.ClassName="span4 offset4 well";
-						new Legend(element, new LegendConfig{Text="Login Form"});
+						new Legend(element,  l=>{
+							l.InnerText="Login Form";
+						});
 						
 						new Form(element, fe=>{
-							fe.Action= Config.Action;
-							fe.Method = Config.Method;
+							fe.Action= "json/loginResponse.json";
+							fe.Method = "get";
 							
 							var cg = Div.CreateControlGroup(fe);
 							

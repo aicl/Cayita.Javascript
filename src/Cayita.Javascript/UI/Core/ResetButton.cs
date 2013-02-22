@@ -8,14 +8,15 @@ namespace Cayita.Javascript.UI
 	public class ResetButton:ButtonBase
 	{
 		public ResetButton (Element parent, Action<ButtonElement> element)
-			:base(parent, new ButtonConfig(),"reset")
 		{
+			CreateButton(parent, "reset");
 			element(Element());
 		}
 	
 		public ResetButton(Element parent)
-			:base(parent, new ButtonConfig(),"reset")
-		{}
+		{
+			CreateButton(parent, "reset");
+		}
 
 	}
 }

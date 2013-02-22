@@ -4,38 +4,22 @@ using System.Runtime.CompilerServices;
 
 namespace Cayita.Javascript.UI
 {
-	[Serializable]	
-	[ScriptNamespace("Cayita.UI")]
-	public class LabelConfig:ElementConfig
-	{	
-		public LabelConfig():base(){}				
-
-		public string TextLabel{get;set;}
-		public string ForField {get;set;}
-	}
-
-	
+		
 	[ScriptNamespace("Cayita.UI")]
 	public class Label:ElementBase
 	{
 				
-		public Label(Element parent, LabelConfig config, Action<Element> element)
+		public Label(Element parent,  Action<Element> element)
 		{
-			Init(parent, config);
+			CreateElement("label", parent, new ElementConfig());
 			element(Element());
 		}
 								
-		public Label (Element parent, LabelConfig config)
+		public Label (Element parent)
 		{
-			Init(parent, config);
+			CreateElement("label", parent, new ElementConfig());
 		}
 				
-		void Init(Element parent, LabelConfig config)
-		{
-			CreateElement("label", parent, config);
-			if(!string.IsNullOrEmpty(config.TextLabel)) TextLabel(config.TextLabel);
-			if(!string.IsNullOrEmpty(config.ForField))	ForField(config.ForField);
-		}
 
 		public void TextLabel(string textLabel)
 		{
@@ -70,23 +54,15 @@ namespace Cayita.Javascript.UI
 		public static Label CreateControlLabel(Element parent, string textLabel,
 		                                       string forField=null,  bool visible=true)
 		{
-			return Label.Create(parent, textLabel, forField, "control-label", visible);
-		}
-
-
-		public static Label Create(Element parent,string textLabel,
-		                           string forField=null, string cssClass=null, bool visible=true)
-		{
-			var l = new Label(parent,
-			new LabelConfig{
-				Visible=visible,
-				TextLabel=textLabel,
-				ForField=forField,
-				CssClass=cssClass
+			return  new Label(parent, lb=>{
+				lb.InnerText=textLabel;
+				lb.ClassName= "control-label";
+				if (!string.IsNullOrEmpty(forField)) lb.SetAttribute("for", forField);
+				if(!visible) lb.Hide();
 			});
 
-			return l;
 		}
+
 
 	}
 	

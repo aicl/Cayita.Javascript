@@ -9,14 +9,16 @@ namespace Cayita.Javascript.UI
 	public class SubmitButton:ButtonBase
 	{
 		public SubmitButton (Element parent, Action<ButtonElement> element)
-			:base(parent, new ButtonConfig(),"submit")
+
 		{
+			CreateButton(parent, "submit");
 			element(Element()); 
 		}
 
 		public SubmitButton(Element parent)
-			:base(parent, new ButtonConfig(),"submit")
-		{}
+		{
+			CreateButton(parent, "submit");
+		}
 			
 	}
 }

@@ -5,26 +5,19 @@ using jQueryApi;
 
 namespace Cayita.Javascript.UI
 {
-	[Serializable]	
-	[ScriptNamespace("Cayita.UI")]
-	public class DivConfig:ElementConfig
-	{	
-		public DivConfig():base(){}				
-	}
-
-
+	
 	[ScriptNamespace("Cayita.UI")]
 	public class Div:ElementBase
 	{
 		public Div (Element parent,  Action<DivElement> element)
 		{
-			CreateElement("div", parent, new DivConfig());
+			CreateElement("div", parent, new ElementConfig());
 			element(Element()); 
 		}
 
 		public Div (Element parent)
 		{
-			CreateElement("div", parent, new DivConfig());
+			CreateElement("div", parent, new ElementConfig());
 
 		}
 

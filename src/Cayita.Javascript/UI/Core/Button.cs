@@ -9,14 +9,16 @@ namespace Cayita.Javascript.UI
 	public class Button:ButtonBase
 	{
 		public Button (Element parent, Action<ButtonElement> element)
-			:base(parent, new ButtonConfig(), "button")
 		{
+			CreateButton(parent, "button");
 			element(Element());
 		}
 
 		public Button(Element parent)
-			:base(parent, new ButtonConfig(), "button")
-		{}
+
+		{
+			CreateButton(parent, "button");
+		}
 		
 	}
 }

@@ -10,20 +10,16 @@ namespace Cayita.Javascript.UI
 	{
 		protected InputBase(){}
 
-		public InputBase(Element parent, InputConfig config, string type)
+		public InputBase(Element parent,  string type)
 		{
-			CreateInput(parent, config, type);
+			CreateInput(parent, type);
 		}
 
-		protected void CreateInput(Element parent, InputConfig config, string type="text")
+		protected void CreateInput(Element parent,  string type="text")
 		{
-			CreateElement("input", parent, config);
+			CreateElement("input", parent, new ElementConfig());
 			if(!string.IsNullOrEmpty(type)) ((InputElement) Element()).Type=type;
-			PlaceHolder(config.Placeholder);
-			Required(config.Required);
-			if (!string.IsNullOrEmpty(config.RelativeSize)) RelativeSize(config.RelativeSize);
-			if (!string.IsNullOrEmpty(config.GridSize)) GridSize(config.GridSize);
-			if(!string.IsNullOrEmpty(config.Value)) Value(config.Value);
+
 		}
 
 		public void PlaceHolder(string placeholder)

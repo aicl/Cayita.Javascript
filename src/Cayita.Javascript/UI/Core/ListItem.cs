@@ -5,46 +5,33 @@ using System.Runtime.CompilerServices;
 namespace Cayita.Javascript.UI
 {
 	
-	[Serializable]	
-	[ScriptNamespace("Cayita.UI")]
-	public class ListItemConfig:ElementConfig
-	{	
-		public ListItemConfig():base(){}				
-
-		public string Item{get;set;}
-	}
 
 	[ScriptNamespace("Cayita.UI")]
 	public class ListItem:ElementBase
 	{
 				
-		public ListItem(Element parent, ListItemConfig config, Action<Element> element)
+		public ListItem(Element parent,  Action<Element> element)
 		{
-			Init(parent, config);
+			Init(parent);
 			element(Element());
 		}
 
 		
-		public ListItem (Element parent, ListItemConfig config)
+		public ListItem (Element parent )
 		{
-			Init(parent, config);
-			if(!string.IsNullOrEmpty(config.Item)) JSelect().Text(config.Item);
+			Init(parent);
 		}
 		
-		void Init(Element parent, ListItemConfig config)
+		void Init(Element parent)
 		{
-			CreateElement( "li", parent, config);
+			CreateElement( "li", parent, new ElementConfig());
 
 		}
 
-		public void Item (string item)
-		{
-			JSelect().Text(item);
-		}
 
 		public static ListItem CreateNavListItem(Element parent, string href, string item)
 		{
-			var il = new ListItem(parent, new ListItemConfig());
+			var il = new ListItem(parent);
 			new Anchor(il.Element(),
 			           a=>{
 				a.Href= href;
@@ -75,7 +62,7 @@ namespace Cayita.Javascript.UI
 		public static ListItem CreateNavListItem(Element parent, string href, string item,
 		                                        Action<Element,AnchorElement> element)
 		{
-			var il = new ListItem(parent, new ListItemConfig());
+			var il = new ListItem(parent);
 			var anchor = new Anchor(il.Element(),
 			                        a=>{
 				a.Href= href;
@@ -87,7 +74,11 @@ namespace Cayita.Javascript.UI
 
 		public static ListItem CreateNavHeader(Element parent, string item)
 		{
-			return  new ListItem(parent, new ListItemConfig{CssClass="nav-header", Item=item});
+			return new ListItem(parent, l=>{
+				l.ClassName="nav-header";
+				l.InnerText= item;
+			});
+
 		}
 		
 	}

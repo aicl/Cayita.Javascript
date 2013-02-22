@@ -4,31 +4,21 @@ using System.Runtime.CompilerServices;
 
 namespace Cayita.Javascript.UI
 {
-
-	[Serializable]	
-	[ScriptNamespace("Cayita.UI")]
-	public class ListConfig:ElementConfig
-	{	
-		public ListConfig():base(){}				
-		public bool Ordered{get;set;}
-	}
-
-
+	
 	[ScriptNamespace("Cayita.UI")]
 	public class HtmlList:ElementBase
 	{
-
-		
+				
 		public HtmlList(Element parent, Action<Element> element, bool ordered=false)
 		{
-			CreateElement( ordered? "ol":"ul", parent, new ListConfig());
+			CreateElement( ordered? "ol":"ul", parent, new ElementConfig());
 			element(Element());
 		}
 		
 
 		public HtmlList (Element parent, bool ordered=false)
 		{
-			CreateElement( ordered? "ol":"ul", parent, new ListConfig());
+			CreateElement( ordered? "ol":"ul", parent, new ElementConfig());
 		}
 
 
