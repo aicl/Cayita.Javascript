@@ -11,13 +11,13 @@ namespace Cayita.Javascript.UI
 				
 		public Label(Element parent,  Action<Element> element)
 		{
-			CreateElement("label", parent, new ElementConfig());
+			CreateElement("label", parent);
 			element(Element());
 		}
 								
 		public Label (Element parent)
 		{
-			CreateElement("label", parent, new ElementConfig());
+			CreateElement("label", parent);
 		}
 				
 

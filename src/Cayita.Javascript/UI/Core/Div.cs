@@ -11,13 +11,13 @@ namespace Cayita.Javascript.UI
 	{
 		public Div (Element parent,  Action<DivElement> element)
 		{
-			CreateElement("div", parent, new ElementConfig());
+			CreateElement("div", parent);
 			element(Element()); 
 		}
 
 		public Div (Element parent)
 		{
-			CreateElement("div", parent, new ElementConfig());
+			CreateElement("div", parent);
 
 		}
 

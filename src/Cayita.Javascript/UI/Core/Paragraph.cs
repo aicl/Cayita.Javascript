@@ -10,14 +10,14 @@ namespace Cayita.Javascript.UI
 	{
 		public Paragraph(Element parent, Action<Element> element)
 		{
-			CreateElement("p", parent, new ElementConfig());
+			CreateElement("p", parent);
 			element(Element()); 
 		}
 		
 
 		public Paragraph (Element parent)
 		{
-			CreateElement("p", parent, new ElementConfig());
+			CreateElement("p", parent);
 		}
 		
 				

@@ -12,13 +12,13 @@ namespace Cayita.Javascript.UI
 
 		public HtmlTable (Element parent,  Action<TableElement> element)
 		{
-			CreateElement("table", parent, new ElementConfig());
+			CreateElement("table", parent);
 			element(Element()); 
 		}
 		
 		public HtmlTable (Element parent)
 		{
-			CreateElement("table", parent, new ElementConfig());
+			CreateElement("table", parent);
 		}
 		
 		public new TableElement Element()
@@ -33,13 +33,13 @@ namespace Cayita.Javascript.UI
 	{
 		public TableHeader (Element parent,  Action<TableElement> element)
 		{
-			CreateElement("thead", parent, new ElementConfig());
+			CreateElement("thead", parent);
 			element(Element()); 
 		}
 		
 		public TableHeader (Element parent)
 		{
-			CreateElement("thead", parent, new ElementConfig());
+			CreateElement("thead", parent);
 		}
 		
 		public new TableElement Element()
@@ -54,13 +54,13 @@ namespace Cayita.Javascript.UI
 	{
 		public TableFooter (Element parent,  Action<TableElement> element)
 		{
-			CreateElement("tfoot", parent, new ElementConfig());
+			CreateElement("tfoot", parent);
 			element(Element()); 
 		}
 		
 		public TableFooter (Element parent)
 		{
-			CreateElement("tfoot", parent, new ElementConfig());
+			CreateElement("tfoot", parent);
 		}
 		
 		public new TableElement Element()
@@ -78,7 +78,7 @@ namespace Cayita.Javascript.UI
 				 
 		public TableBody(TableElement parent)
 		{
-			CreateElement("tbody", parent, new ElementConfig());
+			CreateElement("tbody", parent);
 		}
 	}
 

@@ -4,27 +4,20 @@ using System.Runtime.CompilerServices;
 
 namespace Cayita.Javascript.UI
 {
-	[Serializable]	
-	[ScriptNamespace("Cayita.UI")]
-	public class SpanConfig:ElementConfig
-	{	
-		public SpanConfig():base(){}				
 
-	}
-	
 
 	[ScriptNamespace("Cayita.UI")]
 	public class Span:ElementBase
 	{
 		public Span(Element parent,  Action<Element> element)
 		{
-			CreateElement("span", parent, new SpanConfig());
+			CreateElement("span", parent);
 			element(Element());
 		}
 						
-		public Span (Element parent, SpanConfig config)
+		public Span (Element parent)
 		{
-			CreateElement("span", parent, new SpanConfig());
+			CreateElement("span", parent);
 		}
 			
 	}

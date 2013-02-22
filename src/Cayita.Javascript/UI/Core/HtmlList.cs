@@ -11,14 +11,14 @@ namespace Cayita.Javascript.UI
 				
 		public HtmlList(Element parent, Action<Element> element, bool ordered=false)
 		{
-			CreateElement( ordered? "ol":"ul", parent, new ElementConfig());
+			CreateElement( ordered? "ol":"ul", parent);
 			element(Element());
 		}
 		
 
 		public HtmlList (Element parent, bool ordered=false)
 		{
-			CreateElement( ordered? "ol":"ul", parent, new ElementConfig());
+			CreateElement( ordered? "ol":"ul", parent);
 		}
 
 

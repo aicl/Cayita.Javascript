@@ -22,7 +22,7 @@ namespace Cayita.Javascript.UI
 
 		void Init(Element parent)
 		{
-			CreateElement("option", parent, new ElementConfig());
+			CreateElement("option", parent);
 		}
 
 		public new OptionElement Element()

@@ -59,7 +59,7 @@ namespace Cayita.Javascript.UI
 						anchor.SetAttribute("data-toggle","collapse");
 						anchor.SetAttribute("data-target",".nav-collapse");
 						for(int i =0; i<3; i++){
-							new Span(anchor,new SpanConfig{CssClass="icon-bar"});
+							new Span(anchor, span=>{span.ClassName="icon-bar";});
 						}
 
 					});

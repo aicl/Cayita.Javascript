@@ -11,14 +11,14 @@ namespace Cayita.Javascript.UI
 
 		public Form(Element parent, Action<FormElement> element)
 		{
-			CreateElement("form", parent,new ElementConfig());
+			CreateElement("form", parent);
 			element(Element());
 		}
 
 
 		public Form (Element parent)
 		{
-			CreateElement("form", parent,new ElementConfig());
+			CreateElement("form", parent);
 		}
 
 

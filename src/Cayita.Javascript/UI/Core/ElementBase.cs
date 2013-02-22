@@ -1,4 +1,3 @@
-using System;
 using System.Html;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
@@ -6,38 +5,19 @@ using jQueryApi;
 
 namespace Cayita.Javascript.UI
 {
-	[Serializable]	
-	[ScriptNamespace("Cayita.UI")]
-	public class ElementConfig
-	{
-		public ElementConfig()
-		{
-			Visible=true;
-		}
-
-		public bool Visible  {get;set;}
-		public string CssClass {get;set;}
-		public string Name {get;set;}
-	}
-
-	
+		
 	[ScriptNamespace("Cayita.UI")]
 	public abstract class ElementBase
 	{
 		static Dictionary<string,int> tags = new Dictionary<string,int>();
 		Element element_;
 
-		protected void  CreateElement(string tagName, Element parent, ElementConfig config)
+		protected void  CreateElement(string tagName, Element parent)
 		{
-			if(config==null) config= new ElementConfig();
 
 			element_= Document.CreateElement(tagName);
 						
 			element_.ID= CreateId(tagName);
-
-			if(!config.Visible) element_.Style.Display="none"; 
-			if(! string.IsNullOrEmpty(config.Name))  element_.SetAttribute("name", config.Name);
-			ClassName(config.CssClass);
 
 			if(parent!=null) parent.Append(element_);
 		}

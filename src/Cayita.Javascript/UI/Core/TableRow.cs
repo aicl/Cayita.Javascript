@@ -10,13 +10,13 @@ namespace Cayita.Javascript.UI
 	{
 		public TableRow (Element parent,  Action<TableRowElement> element)
 		{
-			CreateElement("tr", parent, new ElementConfig());
+			CreateElement("tr", parent);
 			element(Element()); 
 		}
 		
 		public TableRow (Element parent)
 		{
-			CreateElement("tr", parent, new ElementConfig());
+			CreateElement("tr", parent);
 		}
 		
 		public new TableRowElement Element()

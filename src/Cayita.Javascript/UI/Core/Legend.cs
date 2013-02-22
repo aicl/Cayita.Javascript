@@ -11,13 +11,13 @@ namespace Cayita.Javascript.UI
 
 		public Legend(Element parent, Action<Element> element)
 		{
-			CreateElement("legend", parent, new ElementConfig());
+			CreateElement("legend", parent);
 			element(Element());
 		}
 
 		public Legend (Element parent)
 		{
-			CreateElement("legend", parent, new ElementConfig());
+			CreateElement("legend", parent);
 		}
 		
 				

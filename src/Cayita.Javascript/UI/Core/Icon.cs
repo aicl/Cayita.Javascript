@@ -12,13 +12,13 @@ namespace Cayita.Javascript.UI
 
 		public Icon(Element parent,  Action<Element> element)
 		{
-			CreateElement("i", parent, new ElementConfig());
+			CreateElement("i", parent);
 			element(Element());
 		}
 
 		public Icon( Element parent)
 		{
-			CreateElement("i", parent, new ElementConfig());
+			CreateElement("i", parent);
 		}
 
 

@@ -25,7 +25,7 @@ namespace Cayita.Javascript.UI
 		
 		protected void Init(Element parent)
 		{
-			CreateElement("select", parent, new ElementConfig());
+			CreateElement("select", parent);
 		}
 		
 		public new SelectElement Element()

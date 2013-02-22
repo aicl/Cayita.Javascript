@@ -24,7 +24,7 @@ namespace Cayita.Javascript.UI
 		
 		void Init(Element parent)
 		{
-			CreateElement( "li", parent, new ElementConfig());
+			CreateElement( "li", parent);
 
 		}
 

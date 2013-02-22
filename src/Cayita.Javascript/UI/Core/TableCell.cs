@@ -10,23 +10,23 @@ namespace Cayita.Javascript.UI
 	{
 		public TableCell (TableRowElement parent,  Action<TableCellElement> element)
 		{
-			CreateElement("td", parent, new ElementConfig());
+			CreateElement("td", parent);
 			element(Element()); 
 		}
 		
 		public TableCell (TableRowElement parent)
 		{
-			CreateElement("td", parent, new ElementConfig());
+			CreateElement("td", parent);
 		}
 
 		public TableCell ()
 		{
-			CreateElement("td", default(Element), new ElementConfig());
+			CreateElement("td", default(Element));
 		}
 
 		public TableCell (Action<TableCellElement> element)
 		{
-			CreateElement("td", default(Element), new ElementConfig());
+			CreateElement("td", default(Element));
 			element(Element()); 
 		}
 

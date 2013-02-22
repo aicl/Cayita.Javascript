@@ -17,7 +17,7 @@ namespace Cayita.Javascript.UI
 
 		protected void CreateInput(Element parent,  string type="text")
 		{
-			CreateElement("input", parent, new ElementConfig());
+			CreateElement("input", parent);
 			if(!string.IsNullOrEmpty(type)) ((InputElement) Element()).Type=type;
 
 		}

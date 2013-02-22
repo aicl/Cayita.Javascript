@@ -21,7 +21,7 @@ namespace Cayita.Javascript.UI
 		
 		void Init(Element parent)
 		{
-			CreateElement("a", parent, new ElementConfig());
+			CreateElement("a", parent);
 			Element().Href="#";
 		}
 		

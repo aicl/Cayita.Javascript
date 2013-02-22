@@ -14,7 +14,7 @@ namespace Cayita.Javascript.UI
 		public SpinnerIcon (Element parent, Action<DivElement,Element> config, string message  )
 		{
 
-			CreateElement("div", parent, new ElementConfig());
+			CreateElement("div", parent);
 			Element().ClassName="well well-large lead";
 
 			icon = new Icon(Element(), i=>{

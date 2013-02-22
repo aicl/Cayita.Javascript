@@ -43,7 +43,7 @@ namespace Cayita.Javascript.UI
 		public HtmlGrid (Element parent,  Store<T> store, List<TableColumn<T>> columns)
 		{
 
-			CreateElement("table", parent, new ElementConfig());
+			CreateElement("table", parent);
 			table =Element();
 			table.ClassName = "table table-striped table-hover table-condensed";
 			table.SetAttribute ("data-provides", "rowlink");
