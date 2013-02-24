@@ -1,6 +1,7 @@
 using System;
 using System.Html;
 using System.Runtime.CompilerServices;
+using jQueryApi;
 
 namespace Cayita.Javascript.UI
 {
@@ -26,6 +27,10 @@ namespace Cayita.Javascript.UI
 		{
 			var l = new HtmlList(parent, e=>{
 				e.ClassName="nav nav-list";
+			});
+			l.JSelect().On("click","li", e=>{
+				jQuery.Select("li", l.Element()).RemoveClass("active");
+				jQuery.FromElement( e.CurrentTarget).AddClass("active");
 			});
 			return l;
 		}

@@ -1716,6 +1716,10 @@
 		var l = new $Cayita_UI_HtmlList.$ctor1(parent, function(e) {
 			e.className = 'nav nav-list';
 		}, false);
+		l.jSelect().on('click', 'li', function(e1) {
+			$('li', l.element()).removeClass('active');
+			$(e1.currentTarget).addClass('active');
+		});
 		return l;
 	};
 	$Cayita_UI_HtmlList.creatNavList$1 = function(parent, element) {
