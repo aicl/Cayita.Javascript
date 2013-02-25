@@ -79,6 +79,7 @@ namespace Cayita.Javascript.UI
 							}).Element();
 						}).Element();
 						navList= HtmlList.CreateNavList(collapse, navlist);
+						navList.RemoveClass("nav-list");
 					});
 				});
 			});

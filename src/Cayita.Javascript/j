@@ -38,7 +38,7 @@
 "UI/Core/HtmlTable.cs" "UI/Core/TableRow.cs" "UI/Core/TableCell.cs" \
 "UI/Core/SelectedRow.cs" \
 "UI/Core/TableColumn.cs" \
-"UI/TextField.cs" "UI/CheckboxField.cs" "UI/TopNavBar.cs" \
+"UI/TextField.cs" "UI/CheckboxField.cs" "UI/TopNavBar.cs" "UI/SideNavBar.cs" \
 "UI/SelectField.cs" \
 "UI/HtmlGrid.cs" \
 "UI/SpinnerIcon.cs" 

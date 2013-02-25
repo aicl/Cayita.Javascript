@@ -1,0 +1,17 @@
+/opt/mono/bin/sc  \
+"/outscript:bin/Debug/Cayita.Demo.js" \
+"/define:JS" \
+"/debug" \
+"/r:../../lib/Saltarelle.Linq.dll" \
+"/r:../../lib/Saltarelle.jQuery.dll" \
+"/r:../../lib/Saltarelle.Web.dll" \
+"/r:../../lib/mscorlib.dll" \
+"/r:../Cayita.Javascript/bin/Debug/Cayita.Javascript.dll" \
+/t:library \
+"App.cs" 
+
+cp bin/Debug/Cayita.Demo.js ../Cayita.Javascript.Demo/js/
+
+echo "ready Cayita.Demo.js"
+
+

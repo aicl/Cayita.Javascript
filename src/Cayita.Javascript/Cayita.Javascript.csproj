@@ -82,6 +82,7 @@
     <Compile Include="Data\ReadOptions.cs" />
     <Compile Include="UI\HtmlGrid.cs" />
     <Compile Include="UI\SpinnerIcon.cs" />
+    <Compile Include="UI\SideNavBar.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

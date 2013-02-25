@@ -2360,6 +2360,19 @@
 	};
 	ss.registerGenericClass(global, 'Cayita.UI.SelectField$1', $Cayita_UI_SelectField$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.SideNavBar
+	var $Cayita_UI_SideNavBar = function(parent, navlist) {
+		this.$navList = null;
+		$Cayita_UI_Div.call(this, parent);
+		this.element$1().className = 'well sidebar-nav';
+		this.$navList = $Cayita_UI_HtmlList.createNavList$1(this.element$1(), navlist);
+	};
+	$Cayita_UI_SideNavBar.prototype = {
+		getNavList: function() {
+			return this.$navList;
+		}
+	};
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.Span
 	var $Cayita_UI_Span = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
@@ -2619,6 +2632,7 @@
 						})).element$1();
 					}))).element();
 					this.$navList = $Cayita_UI_HtmlList.createNavList$1(collapse, navlist);
+					this.$navList.removeClass$1('nav-list');
 				}));
 			}));
 		}));
@@ -2683,6 +2697,7 @@
 	ss.registerClass(global, 'Cayita.UI.ResetButton', $Cayita_UI_ResetButton, $Cayita_UI_ButtonBase);
 	ss.registerClass(global, 'Cayita.UI.SelectedRow', $Cayita_UI_SelectedRow);
 	ss.registerClass(global, 'Cayita.UI.SelectField', $Cayita_UI_SelectField, $Cayita_UI_HtmlSelect);
+	ss.registerClass(global, 'Cayita.UI.SideNavBar', $Cayita_UI_SideNavBar, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.Span', $Cayita_UI_Span, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.SpinnerIcon', $Cayita_UI_SpinnerIcon, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.SubmitButton', $Cayita_UI_SubmitButton, $Cayita_UI_ButtonBase);
