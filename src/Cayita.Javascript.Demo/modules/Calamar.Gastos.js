@@ -224,7 +224,7 @@
 					var bt = new Cayita.UI.SubmitButton.$ctor1(f, function(b) {
 						$(b).text('Guardar');
 						$(b).button.defaults.loadingText = ' Guardando ...';
-						b.className = 'btn btn-info btn-block';
+						$(b).addClass('btn-info btn-block');
 					});
 					var vo = ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.setSubmitHandler(ValidateOptions.$ctor(), ss.mkdel(this, function(form) {
 						bt.showLoadingText();

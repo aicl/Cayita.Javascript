@@ -6,8 +6,6 @@ using System.Html;
 using Cayita.Javascript.Plugins;
 using System.Runtime.CompilerServices;
 using Aicl.Calamar.Scripts.Modelos;
-using Cayita.Javascript.Data;
-using System.Collections.Generic;
 
 namespace Aicl.Calamar.Scripts.ModuloAuth
 {
@@ -176,7 +174,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 							
 							var bt = new SubmitButton(fe, b=>{
 								b.JQuery().Text("Login");
-								b.ClassName="btn btn-info btn-block";
+								b.AddClass("btn-info btn-block");
 								b.LoadingText("  authenticating ...");
 							});
 							

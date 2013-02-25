@@ -160,7 +160,7 @@
 							});
 							var bt = new Cayita.UI.SubmitButton.$ctor1(fe, function(b) {
 								$(b).text('Login');
-								b.className = 'btn btn-info btn-block';
+								$(b).addClass('btn-info btn-block');
 								$(b).button.defaults.loadingText = '  authenticating ...';
 							});
 							var vo = ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.setSubmitHandler(ValidateOptions.$ctor(), ss.mkdel(this, function(f) {

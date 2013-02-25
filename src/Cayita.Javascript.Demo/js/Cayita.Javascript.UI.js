@@ -1050,6 +1050,7 @@
 			if (!ss.isNullOrEmptyString(type)) {
 				$(this.element$1()).attr('type', type);
 			}
+			this.element$1().className = 'btn';
 		},
 		text: function(value) {
 			this.jQuery().text(value);

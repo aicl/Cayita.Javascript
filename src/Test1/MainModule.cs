@@ -194,7 +194,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 					var bt = new SubmitButton(f, b=>{
 						b.JQuery().Text("Guardar");
 						b.LoadingText(" Guardando ...");
-						b.ClassName="btn btn-info btn-block" ;
+						b.AddClass("btn-info btn-block") ;
 					});
 					
 					var vo = new ValidateOptions()
