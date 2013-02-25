@@ -70,8 +70,8 @@ namespace Cayita.Javascript.UI
 			OnOptionSelected = (sf, opt) =>  {
 			};
 			defaultoption = defaultOption ?? new SelectedOption<T> ();
-			se.JSelect ().On ("change", evt =>  {
-				var option = (OptionElement)se.JSelect ().Find ("option:selected") [0];
+			se.JQuery ().On ("change", evt =>  {
+				var option = (OptionElement)se.JQuery ().Find ("option:selected") [0];
 				SelectedOptionImp (option, true);
 			});
 			Render();

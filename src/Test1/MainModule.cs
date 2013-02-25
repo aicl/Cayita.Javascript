@@ -82,7 +82,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 				
 				new IconButton(searchdiv, (abn, ibn)=>{
 					ibn.ClassName="icon-search icon-large";
-					abn.JSelect().Click(evt=>{
+					abn.JQuery().Click(evt=>{
 						if( ! inputFecha.Value.IsDateFormatted()){
 							Div.CreateAlertErrorAfter(SearchDiv.Element(),"Digite una fecha valida");
 							return;
@@ -94,7 +94,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 
 				BNew= new IconButton(searchdiv, (abn, ibn)=>{
 					ibn.ClassName="icon-plus-sign icon-large";
-					abn.JSelect().Click(evt=>{
+					abn.JQuery().Click(evt=>{
 						FormDiv.FadeIn();
 						GridDiv.FadeOut();
 						Form.Element().Reset();
@@ -105,7 +105,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 				BDelete=new IconButton(searchdiv, (abn, ibn)=>{
 					ibn.ClassName="icon-remove-sign icon-large";
 					abn.Disabled=true;
-					abn.JSelect().Click(evt=>{
+					abn.JQuery().Click(evt=>{
 						RemoveRow();
 					});
 				});
@@ -113,7 +113,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 				BList= new IconButton(searchdiv, (abn, ibn)=>{
 					ibn.ClassName="icon-reorder icon-large";
 					abn.Disabled=true;
-					abn.JSelect().Click(evt=>{
+					abn.JQuery().Click(evt=>{
 						FormDiv.Hide ();
 						GridDiv.FadeIn();
 						abn.Disabled=true;
@@ -192,7 +192,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 					});
 										
 					var bt = new SubmitButton(f, b=>{
-						b.JSelect().Text("Guardar");
+						b.JQuery().Text("Guardar");
 						b.LoadingText(" Guardando ...");
 						b.ClassName="btn btn-info btn-block" ;
 					});

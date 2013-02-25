@@ -20,8 +20,8 @@
 		},
 		$onLogin: function(loginResponse, lf) {
 			console.log('App.OnLogin ', loginResponse);
-			var a = this.get_$topNavBar().getPullRightAnchor().jSelect().text(lf.get_userName());
-			$(this.get_$topNavBar().getPullRightParagraph()).text('');
+			var a = this.get_$topNavBar().getPullRightAnchor().innerText = lf.get_userName();
+			this.get_$topNavBar().getPullRightParagraph().innerText = '';
 			$(this.get_$topNavBar().getPullRightParagraph()).append(a);
 			lf.close();
 			this.$showUserMenu(loginResponse);
@@ -38,7 +38,7 @@
 						span.className = 'span2';
 						new Cayita.UI.Div.$ctor1(span, ss.mkdel(this, function(nav) {
 							nav.className = 'well sidebar-nav';
-							Cayita.UI.HtmlList.creatNavList$1(nav, ss.mkdel(this, function(list) {
+							Cayita.UI.HtmlList.createNavList$1(nav, ss.mkdel(this, function(list) {
 								Cayita.UI.ListItem.createNavHeader(list, 'Menu');
 								for (var $t1 = 0; $t1 < lr.Roles.length; $t1++) {
 									var role = { $: lr.Roles[$t1] };
@@ -94,27 +94,6 @@
 			var app = new $App();
 			app.$showTopNavBar();
 			app.$showLoginForm();
-			var storeConcepto = (new (ss.makeGenericType(Cayita.Data.Store$1, [Calamar.Model.Concepto]))()).setReadApi(function(api) {
-				api.url = 'json/conceptoResponse.json';
-			});
-			var columns = [];
-			var $t1 = ss.makeGenericType(Cayita.UI.TableColumn$1, [Calamar.Model.Concepto]).$ctor();
-			$t1.header = (new Cayita.UI.TableCell.$ctor1(function(cell) {
-				cell.innerText = 'Concepto';
-			})).element$1();
-			$t1.value = function(f) {
-				return (new Cayita.UI.TableCell.$ctor1(function(cell1) {
-					cell1.innerText = f.Nombre;
-				})).element$1();
-			};
-			ss.add(columns, $t1);
-			var gc = new (ss.makeGenericType(Cayita.UI.HtmlGrid$1, [Calamar.Model.Concepto]))(null, storeConcepto, columns);
-			gc.appendTo(document.body);
-			gc.setReadRequestMessage(function(m) {
-				m.message = 'Cargando conceptos';
-				m.target = document.body;
-			});
-			storeConcepto.read(null);
 		});
 	};
 	////////////////////////////////////////////////////////////////////////////////
@@ -152,7 +131,7 @@
 			this.$1$ContainerField = value;
 		},
 		close: function() {
-			this.get_$container().jSelect().remove();
+			this.get_$container().jQuery().remove();
 		},
 		show: function() {
 			this.set_$container(Cayita.UI.Div.createContainer$1(null, ss.mkdel(this, function(container) {

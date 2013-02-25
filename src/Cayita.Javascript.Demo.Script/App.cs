@@ -25,40 +25,16 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 				var app = new App();
 				app.ShowTopNavBar();
 				app.ShowLoginForm();
-				var storeConcepto = new Store<Concepto>().
-					SetReadApi(api=>{api.Url="json/conceptoResponse.json";});
-
-				var columns = new List<TableColumn<Concepto>>();
-				columns.Add(  new TableColumn<Concepto>{
-					Header=  new TableCell(cell=>{
-						cell.InnerText="Concepto";
-					}).Element(),
-					Value = f=> {
-						return new TableCell( cell=>{
-							cell.InnerText= f.Nombre;
-
-						} ).Element(); }
-				});
-
-				var gc = new HtmlGrid<Concepto>(null, storeConcepto, columns);
-
-				gc.AppendTo(Document.Body);
-				gc.SetReadRequestMessage(m=>{
-					m.Message="Cargando conceptos";
-					m.Target= Document.Body;
-				});
-				storeConcepto.Read();
-
 
 			});
 		}
-		
+
 		void OnLogin(LoginResponse loginResponse, LoginForm lf)
 		{
 			Cayita.Javascript.Firebug.Console.Log("App.OnLogin ", loginResponse);
-			var a = TopNavBar.GetPullRightAnchor().JSelect().Text(lf.UserName);
-			TopNavBar.GetPullRightParagraph().JSelect().Text("");
-			TopNavBar.GetPullRightParagraph().JSelect().Append(a);
+			var a = TopNavBar.GetPullRightAnchor().InnerText=lf.UserName;
+			TopNavBar.GetPullRightParagraph().InnerText="";
+			TopNavBar.GetPullRightParagraph().Append(a);
 			lf.Close();
 			ShowUserMenu(loginResponse);
 
@@ -82,11 +58,11 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 						span.ClassName="span2";
 						new Div(span, nav=>{
 							nav.ClassName="well sidebar-nav";
-							HtmlList.CreatNavList(nav, list=>{
+							HtmlList.CreateNavList(nav, list=>{
 								ListItem.CreateNavHeader(list, "Menu");
 								foreach(var role in lr.Roles){
 									ListItem.CreateNavListItem(list,"#",role.Title, (li,anchor)=>{
-										anchor.JSelect().Click(e=>{
+										anchor.JQuery().Click(e=>{
 											e.PreventDefault();
 											Work.Empty();
 											jQuery.GetScript(role.Directory+".js", (o)=>{
@@ -97,7 +73,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 								}
 								
 								ListItem.CreateNavListItem(list,"#", "Close Session", (li,anchor)=>{
-									anchor.JSelect().Click(e=>{
+									anchor.JQuery().Click(e=>{
 										e.PreventDefault();
 										Document.Body.Empty();
 										jQuery.Post("api/Logout", new {}, cb=>{
@@ -163,7 +139,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 		
 		public void Close()
 		{
-			Container.JSelect().Remove();
+			Container.JQuery().Remove();
 		}
 		
 		public void Show()
@@ -199,7 +175,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 							});
 							
 							var bt = new SubmitButton(fe, b=>{
-								b.JSelect().Text("Login");
+								b.JQuery().Text("Login");
 								b.ClassName="btn btn-info btn-block";
 								b.LoadingText("  authenticating ...");
 							});

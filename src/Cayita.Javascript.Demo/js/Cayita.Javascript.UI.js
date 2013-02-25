@@ -1052,7 +1052,7 @@
 			}
 		},
 		text: function(value) {
-			this.jSelect().text(value);
+			this.jQuery().text(value);
 		},
 		loadingText: function(value) {
 			$(this.element$1()).button.defaults.loadingText = value;
@@ -1295,8 +1295,11 @@
 		fadeToggle: function() {
 			return $(this.$element_).fadeToggle();
 		},
-		jSelect: function() {
+		jQuery: function() {
 			return $(this.$element_);
+		},
+		jQuery$1: function(selector) {
+			return $(selector, this.$element_);
 		},
 		remove: function() {
 			return $(this.$element_).remove();
@@ -1712,18 +1715,18 @@
 		element(this.element());
 	};
 	$Cayita_UI_HtmlList.$ctor1.prototype = $Cayita_UI_HtmlList.prototype;
-	$Cayita_UI_HtmlList.creatNavList = function(parent) {
+	$Cayita_UI_HtmlList.createNavList = function(parent) {
 		var l = new $Cayita_UI_HtmlList.$ctor1(parent, function(e) {
 			e.className = 'nav nav-list';
 		}, false);
-		l.jSelect().on('click', 'li', function(e1) {
-			$('li', l.element()).removeClass('active');
+		l.jQuery().on('click', 'li', function(e1) {
+			l.jQuery$1('li').removeClass('active');
 			$(e1.currentTarget).addClass('active');
 		});
 		return l;
 	};
-	$Cayita_UI_HtmlList.creatNavList$1 = function(parent, element) {
-		var nl = $Cayita_UI_HtmlList.creatNavList(parent);
+	$Cayita_UI_HtmlList.createNavList$1 = function(parent, element) {
+		var nl = $Cayita_UI_HtmlList.createNavList(parent);
 		element(nl.element());
 		return nl;
 	};
@@ -2598,23 +2601,23 @@
 						});
 					}
 				});
-				this.$brand = new $Cayita_UI_Anchor.$ctor1(fluid, function(brnd) {
+				this.$brand = (new $Cayita_UI_Anchor.$ctor1(fluid, function(brnd) {
 					brnd.href = '#';
 					brnd.innerText = brandText;
 					brnd.className = 'brand';
-				});
+				})).element$1();
 				this.$navCollapse = new $Cayita_UI_Div.$ctor1(fluid, ss.mkdel(this, function(collapse) {
 					collapse.className = 'nav-collapse collapse';
 					this.$pullRightParagraph = (new $Cayita_UI_Paragraph.$ctor1(collapse, ss.mkdel(this, function(paragraph) {
 						paragraph.className = 'navbar-text pull-right';
 						$(paragraph).text(rightText);
-						this.$pullRightAnchor = new $Cayita_UI_Anchor.$ctor1(paragraph, function(a) {
+						this.$pullRightAnchor = (new $Cayita_UI_Anchor.$ctor1(paragraph, function(a) {
 							a.href = '#';
 							a.className = 'navbar-link';
 							a.innerText = rightLinkText;
-						});
+						})).element$1();
 					}))).element();
-					this.$navList = $Cayita_UI_HtmlList.creatNavList$1(collapse, navlist);
+					this.$navList = $Cayita_UI_HtmlList.createNavList$1(collapse, navlist);
 				}));
 			}));
 		}));

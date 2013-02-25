@@ -23,21 +23,21 @@ namespace Cayita.Javascript.UI
 		}
 
 
-		public static HtmlList CreatNavList(Element parent)
+		public static HtmlList CreateNavList(Element parent)
 		{
 			var l = new HtmlList(parent, e=>{
 				e.ClassName="nav nav-list";
 			});
-			l.JSelect().On("click","li", e=>{
-				jQuery.Select("li", l.Element()).RemoveClass("active");
-				jQuery.FromElement( e.CurrentTarget).AddClass("active");
+			l.JQuery().On("click","li", e=>{
+				l.JQuery("li").RemoveClass("active");
+				e.CurrentTarget.AddClass("active");
 			});
 			return l;
 		}
 
-		public static HtmlList CreatNavList(Element parent, Action<Element> element)
+		public static HtmlList CreateNavList(Element parent, Action<Element> element)
 		{
-			var nl = HtmlList.CreatNavList(parent);
+			var nl = HtmlList.CreateNavList(parent);
 			element(nl.Element());
 			return nl;
 

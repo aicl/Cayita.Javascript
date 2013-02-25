@@ -138,7 +138,7 @@ namespace Cayita.Javascript
 			else
 			{
 				body=table.tBodies[0];
-				if(!append) body.JSelect().Empty();
+				if(!append) body.JQuery().Empty();
 			}
 			
 			foreach (var d in data) {

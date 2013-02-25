@@ -17,7 +17,7 @@ namespace Cayita.Javascript.Plugins
 		public ValidateOptions ()
 		{
 			SetHighlightHandler( element=>{
-				element.JSelect().Closest(".control-group").RemoveClass("success").AddClass("error");
+				element.JQuery().Closest(".control-group").RemoveClass("success").AddClass("error");
 
 			});
 			SetSuccessHandler( label=>{

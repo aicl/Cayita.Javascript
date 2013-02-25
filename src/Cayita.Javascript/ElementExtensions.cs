@@ -14,7 +14,22 @@ namespace Cayita.Javascript
 		}
 
 		[InlineCode("$({element})")]
-		public static jQueryObject JSelect(this Element element){
+		public static jQueryObject JQuery(this Element element){
+			return null;
+		}
+
+		[InlineCode("$({selector},{element})")]
+		public static jQueryObject JQuery(this Element element, string selector){
+			return null;
+		}
+
+		[InlineCode("$({element}).addClass({className})")]
+		public static jQueryObject AddClass(this Element element, string className){
+			return null;
+		}
+
+		[InlineCode("$({element}).removeClass({className})")]
+		public static jQueryObject RemoveClass(this Element element, string className){
 			return null;
 		}
 

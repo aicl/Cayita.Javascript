@@ -52,7 +52,7 @@ namespace Cayita.Javascript.UI
 
 			OnRowSelected=(grid,row)=>{};
 
-			table.JSelect().On ("click","tbody tr", e =>  { 
+			table.JQuery().On ("click","tbody tr", e =>  { 
 				var row = (TableRowElement)e.CurrentTarget;
 				SelectRowImp(row, true);
 			});
@@ -70,7 +70,7 @@ namespace Cayita.Javascript.UI
 					div.Style.Height= (grid.table.ClientHeight+30).ToString()+ "px";
 					div.Style.Width= grid.table.ClientWidth.ToString()+ "px";
 				},readRequestMessage.Message);
-				readRequestMessage.Target.JSelect().Append(sp.Element());
+				readRequestMessage.Target.JQuery().Append(sp.Element());
 				return sp.Element();
 			};
 			
@@ -120,7 +120,7 @@ namespace Cayita.Javascript.UI
 					SelectRow(true);
 					break;
 				case StoreChangedAction.Cleared:
-					table.tBodies[0].JSelect().Empty();
+					table.tBodies[0].JQuery().Empty();
 					SelectRow(true);
 					break;
 				}
@@ -189,7 +189,7 @@ namespace Cayita.Javascript.UI
 		{
 			var self= this;
 			table.JSelectRows().RemoveClass ("info");
-			row.JSelect ().AddClass ("info");
+			row.JQuery ().AddClass ("info");
 			var record = store.First (f =>((object)((dynamic) f)[self.store.GetRecordIdProperty()]).ToString() == row.GetRecordId());
 			selectedrow= new SelectedRow<T>{ RecordId= row.GetRecordId(), Row= row, Record= record};
 			if(trigger) OnRowSelected(this, selectedrow);
@@ -204,7 +204,7 @@ namespace Cayita.Javascript.UI
 		public void HideColumn(int columnIndex)
 		{
 			columns[columnIndex++].Hidden=true;
-			table.JSelect().Find ("td:nth-child("+columnIndex+"),th:nth-child("+columnIndex+")").Hide();
+			table.JQuery().Find ("td:nth-child("+columnIndex+"),th:nth-child("+columnIndex+")").Hide();
 		}
 	
 		/// <summary>
@@ -216,7 +216,7 @@ namespace Cayita.Javascript.UI
 		public void ShowColumn(int columnIndex)
 		{
 			columns[columnIndex++].Hidden=false;
-			table.JSelect().Find ("td:nth-child("+columnIndex+"),th:nth-child("+columnIndex+")").Show();
+			table.JQuery().Find ("td:nth-child("+columnIndex+"),th:nth-child("+columnIndex+")").Show();
 		}
 
 		public event Action<HtmlGrid<T> ,SelectedRow<T>> OnRowSelected;

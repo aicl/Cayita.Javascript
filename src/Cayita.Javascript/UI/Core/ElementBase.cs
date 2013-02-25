@@ -104,9 +104,14 @@ namespace Cayita.Javascript.UI
 		}
 
 
-		public jQueryObject JSelect()
+		public jQueryObject JQuery()
 		{
 			return jQuery.FromElement(element_);
+		}
+
+		public jQueryObject JQuery(string selector)
+		{
+			return jQuery.Select(selector, element_);
 		}
 
 		public jQueryObject Remove()

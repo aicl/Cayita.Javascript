@@ -9,9 +9,9 @@ namespace Cayita.Javascript.UI
 	{
 		Div containerFluid;
 		Div navCollapse;
-		Anchor brand;
+		AnchorElement brand;
 		Element pullRightParagraph;
-		Anchor pullRightAnchor;
+		AnchorElement pullRightAnchor;
 		HtmlList navList;
 
 		public Div GetContainerFluid()
@@ -24,7 +24,7 @@ namespace Cayita.Javascript.UI
 			return navCollapse;
 		}
 
-		public Anchor GetBrand()
+		public AnchorElement GetBrand()
 		{
 			return brand;
 		}
@@ -34,7 +34,7 @@ namespace Cayita.Javascript.UI
 			return pullRightParagraph;
 		}
 
-		public Anchor GetPullRightAnchor()
+		public AnchorElement GetPullRightAnchor()
 		{
 			return pullRightAnchor;
 		}
@@ -67,18 +67,18 @@ namespace Cayita.Javascript.UI
 						brnd.Href="#";
 						brnd.InnerText=brandText;
 						brnd.ClassName="brand";
-					});
+					}).Element();
 					navCollapse = new Div(fluid, collapse=>{
 						collapse.ClassName="nav-collapse collapse";
 						pullRightParagraph= new Paragraph(collapse,
 						paragraph=>{
 							paragraph.ClassName="navbar-text pull-right";
-							paragraph.JSelect().Text(rightText);
+							paragraph.JQuery().Text(rightText);
 							pullRightAnchor= new Anchor(paragraph, a=>{
 								a.Href="#";  a.ClassName="navbar-link" ; a.InnerText=rightLinkText;
-							});
+							}).Element();
 						}).Element();
-						navList= HtmlList.CreatNavList(collapse, navlist);
+						navList= HtmlList.CreateNavList(collapse, navlist);
 					});
 				});
 			});
