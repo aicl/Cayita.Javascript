@@ -7,8 +7,11 @@ using System.Collections.Generic;
 
 namespace Cayita.Javascritp.App
 {
+
 	[IgnoreNamespace]
-	public class MenuItem{
+	public class MenuItem
+	{
+		public string Class {get;set;}
 		public string Title {get;set;}
 		public string File {get;set;}
 	}
@@ -18,8 +21,9 @@ namespace Cayita.Javascritp.App
 	{
 		TopNavBar TopNavBar {get;set;}
 		Div Work {get;set;}
-
 		List<MenuItem> MenuItems {get;set;}
+
+		List<string>  modules = new List<string>();
 
 
 		public static void Main ()
@@ -37,8 +41,8 @@ namespace Cayita.Javascritp.App
 		void LoadMenuItems ()
 		{
 			MenuItems= new List<MenuItem>();
-			MenuItems.Add(new MenuItem{Title="Forms", File="Forms.js"});
-			MenuItems.Add(new MenuItem{Title="Tables", File="Tables.js"});
+			MenuItems.Add(new MenuItem{Title="Forms", File="modules/DemoForm.js", Class="DemoForm"});
+			MenuItems.Add(new MenuItem{Title="Tables", File="modules/DemoTables.js", Class="DemoTables"});
 		}
 		
 		void ShowTopNavBar()
@@ -68,15 +72,25 @@ namespace Cayita.Javascritp.App
 					new Div(row,  span=>{
 						span.ClassName="span2";
 						new SideNavBar(span, list=>{
+
 							ListItem.CreateNavHeader(list, "Main Menu");
 							foreach(var item in MenuItems){
 								ListItem.CreateNavListItem(list,"#",item.Title, (li,anchor)=>{
 									anchor.JQuery().Click(e=>{
 										e.PreventDefault();
 										Work.Empty();
-										jQuery.GetScript(item.File, (o)=>{
-											ExecuteModule(Work.Element());
-										});											
+										if(modules.Contains(item.Class))
+										{
+											ExecuteModule(Work.Element(), item.Class);
+										}
+										else
+										{
+											jQuery.GetScript(item.File, (o)=>{
+												modules.Add(item.Class);
+												ExecuteModule(Work.Element(), item.Class);
+
+											});											
+										}
 									});
 								});
 							}
@@ -96,8 +110,8 @@ namespace Cayita.Javascritp.App
 			um.AppendTo(Document.Body);
 		}
 
-		[InlineCode("MainModule.execute({parent})")]
-		void ExecuteModule(Element parent){}
+		[InlineCode("window[{className}]['execute']({parent})")]
+		void ExecuteModule(Element parent, string className){}
 			
 	
 	}

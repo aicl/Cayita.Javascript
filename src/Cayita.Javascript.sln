@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test1", "Test1\Test1.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Javascritp.App", "Cayita.Javascritp.App\Cayita.Javascritp.App.csproj", "{586483AE-FF06-44B9-8371-1E0249AE7C39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Javascript.DemoForm", "Cayita.Javascript.DemoForm\Cayita.Javascript.DemoForm.csproj", "{F8290CB8-3047-4EA2-BBC7-50156B200A6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{E3E48E2A-144E-4732-B648-10BCE87A1672}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3E48E2A-144E-4732-B648-10BCE87A1672}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3E48E2A-144E-4732-B648-10BCE87A1672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8290CB8-3047-4EA2-BBC7-50156B200A6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8290CB8-3047-4EA2-BBC7-50156B200A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8290CB8-3047-4EA2-BBC7-50156B200A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8290CB8-3047-4EA2-BBC7-50156B200A6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Cayita.Javascript\Cayita.Javascript.csproj

@@ -18,9 +18,24 @@ namespace Cayita.Javascript.UI
 		public Legend (Element parent)
 		{
 			CreateElement("legend", parent);
+		}			
+		
+	}
+
+	[ScriptNamespace("Cayita.UI")]
+	public class FieldSet:ElementBase
+	{
+		
+		public FieldSet(Element parent, Action<Element> element)
+		{
+			CreateElement("fieldset", parent);
+			element(Element());
 		}
 		
-				
+		public FieldSet (Element parent)
+		{
+			CreateElement("fieldset", parent);
+		}
 		
 	}
 	

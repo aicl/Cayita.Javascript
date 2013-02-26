@@ -9,78 +9,100 @@ namespace Cayita.Javascript
 	public static class ElementExtensions
 	{
 		[InlineCode("'#'+{element}.id")]
-		public static string SelectorById(this Element element){
+		public static string SelectorById(this Element element)
+		{
 			return "";
 		}
 
 		[InlineCode("$({element})")]
-		public static jQueryObject JQuery(this Element element){
+		public static jQueryObject JQuery(this Element element)
+		{
 			return null;
 		}
 
 		[InlineCode("$({selector},{element})")]
-		public static jQueryObject JQuery(this Element element, string selector){
+		public static jQueryObject JQuery(this Element element, string selector)
+		{
 			return null;
 		}
 
+		[InlineCode("$({element}).text({value})")]
+		public static jQueryObject Text(this Element element, string value)
+		{
+			return null;
+		}
+
+
 		[InlineCode("$({element}).addClass({className})")]
-		public static jQueryObject AddClass(this Element element, string className){
+		public static jQueryObject AddClass(this Element element, string className)
+		{
 			return null;
 		}
 
 		[InlineCode("$({element}).removeClass({className})")]
-		public static jQueryObject RemoveClass(this Element element, string className){
+		public static jQueryObject RemoveClass(this Element element, string className)
+		{
 			return null;
 		}
 
 		[InlineCode("$({parent}).append({child})")]
-		public static jQueryObject Append(this Element parent, Element child){
+		public static jQueryObject Append(this Element parent, Element child)
+		{
 			return null;
 		}
 
 		[InlineCode("$({parent}).append({text})")]
-		public static jQueryObject Append(this Element parent, string text){
+		public static jQueryObject Append(this Element parent, string text)
+		{
 			return null;
 		}
 
 		[InlineCode("$({element}).empty()")]
-		public static jQueryObject Empty(this Element element){
+		public static jQueryObject Empty(this Element element)
+		{
 			return null;
 		}
 
 		[InlineCode("$({element}).remove()")]
-		public static jQueryObject Remove(this Element element){
+		public static jQueryObject Remove(this Element element)
+		{
 			return null;
 		}
 
 		[InlineCode("$({element}).hide()")]
-		public static jQueryObject Hide(this Element element){
+		public static jQueryObject Hide(this Element element)
+		{
 			return null;
 		}
 
 		[InlineCode("$({element}).show()")]
-		public static jQueryObject Show(this Element element){
+		public static jQueryObject Show(this Element element)
+		{
 			return null;
 		}
 
 
 		[InlineCode("$({element}).slideToggle()")]
-		public static jQueryObject SlideToggle(this Element element){
+		public static jQueryObject SlideToggle(this Element element)
+		{
 			return null;
 		}
 
 		[InlineCode("$({element}).fadeIn()")]
-		public static jQueryObject FadeIn(this Element element){
+		public static jQueryObject FadeIn(this Element element)
+		{
 			return null;
 		}
 
 		[InlineCode("$({element}).fadeOut()")]
-		public static jQueryObject FadeOut(this Element element){
+		public static jQueryObject FadeOut(this Element element)
+		{
 			return null;
 		}
 
 		[InlineCode("$({element}).fadeToggle()")]
-		public static jQueryObject FadeToggle(this Element element){
+		public static jQueryObject FadeToggle(this Element element)
+		{
 			return null;
 		}
 
@@ -220,9 +242,6 @@ namespace Cayita.Javascript
 		{
 			return false;
 		}
-		
-		
-		
 
 	}
 }

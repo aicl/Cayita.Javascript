@@ -1500,6 +1500,18 @@
 		};
 	};
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.FieldSet
+	var $Cayita_UI_FieldSet = function(parent) {
+		$Cayita_UI_ElementBase.call(this);
+		this.createElement('fieldset', parent);
+	};
+	$Cayita_UI_FieldSet.$ctor1 = function(parent, element) {
+		$Cayita_UI_ElementBase.call(this);
+		this.createElement('fieldset', parent);
+		element(this.element());
+	};
+	$Cayita_UI_FieldSet.$ctor1.prototype = $Cayita_UI_FieldSet.prototype;
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.Form
 	var $Cayita_UI_Form = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
@@ -2678,6 +2690,7 @@
 	ss.registerClass(global, 'Cayita.UI.CheckboxField', $Cayita_UI_CheckboxField, $Cayita_UI_InputCheckbox);
 	ss.registerClass(global, 'Cayita.UI.Div', $Cayita_UI_Div, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Ext', $Cayita_UI_Ext);
+	ss.registerClass(global, 'Cayita.UI.FieldSet', $Cayita_UI_FieldSet, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Form', $Cayita_UI_Form, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.HtmlList', $Cayita_UI_HtmlList, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.HtmlOption', $Cayita_UI_HtmlOption, $Cayita_UI_ElementBase);
