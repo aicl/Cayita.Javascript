@@ -48,27 +48,37 @@ namespace Cayita.Javascript.DemoForm
   });
 });</textarea></div>");
 
-			})
-				.AppendTo(parent);
+			}).AppendTo(parent);
 
+			//------------------
 
+			Document.CreateElement("h2").Text("Optional Layouts").AppendTo(parent);
 
+			new Div(null, div=>{
+				div.ClassName="bs-docs-example";
+				new Form(div , f=>{
+					f.ClassName="form-search";
+					new InputText(f, input=>{
+						input.ClassName="input-medium search-query";
+					});
+					new SubmitButton(f, bt=>{
+						bt.Text("Search");
+						bt.JQuery().Click(ev=>{ev.PreventDefault();});
+					});
+				});
+				div.Append(@"<div class=""dp-highlighter""><div class=""bar""><div class=""tools""><a href=""#"" onclick=""dp.sh.Toolbar.Command('ViewSource',this);return false;"">view plain</a><a href=""#"" onclick=""dp.sh.Toolbar.Command('CopyToClipboard',this);return false;"">copy to clipboard</a><a href=""#"" onclick=""dp.sh.Toolbar.Command('PrintSource',this);return false;"">print</a><a href=""#"" onclick=""dp.sh.Toolbar.Command('About',this);return false;"">?</a></div></div><ol start=""1"" class=""dp-c""><li class=""alt""><span><span class=""keyword"">new</span><span>&nbsp;Form(div&nbsp;,&nbsp;f=&gt;{&nbsp;&nbsp;</span></span></li><li class=""""><span>&nbsp;&nbsp;&nbsp;&nbsp;f.ClassName=<span class=""string"">""form-search""</span><span>;&nbsp;&nbsp;</span></span></li><li class=""alt""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=""keyword"">new</span><span>&nbsp;InputText(f,&nbsp;input=&gt;{&nbsp;&nbsp;</span></span></li><li class=""""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input.ClassName=<span class=""string"">""input-medium&nbsp;search-query""</span><span>;&nbsp;&nbsp;</span></span></li><li class=""alt""><span>&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=""keyword"">new</span><span>&nbsp;SubmitButton(f,&nbsp;bt=&gt;{&nbsp;&nbsp;</span></span></li><li class=""alt""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt.Text(<span class=""string"">""Search""</span><span>);&nbsp;&nbsp;</span></span></li><li class=""""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt.JQuery().Click(ev=&gt;{ev.PreventDefault();});&nbsp;&nbsp;</span></li><li class=""alt""><span>&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""""><span>});&nbsp;&nbsp;</span></li></ol><textarea style=""display:none;"" class=""originalCode"">new Form(div , f=&gt;{
+	f.ClassName=""form-search"";
+	new InputText(f, input=&gt;{
+		input.ClassName=""input-medium search-query"";
+	});
+	new SubmitButton(f, bt=&gt;{
+		bt.Text(""Search"");
+		bt.JQuery().Click(ev=&gt;{ev.PreventDefault();});
+	});
+});</textarea></div>");
+			}).AppendTo(parent);;
 		}
 		
-		/*
-		<form>
-			<fieldset>
-				<legend>Legend</legend>
-				<label>Label name</label>
-				<input type="text" placeholder="Type something…">
-				<span class="help-block">Example block-level help text here.</span>
-				<label class="checkbox">
-				<input type="checkbox"> Check me out
-				</label>
-				<button type="submit" class="btn">Submit</button>
-				</fieldset>
-				</form>
-				]*/
 	}
 }
 
