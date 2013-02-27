@@ -26,6 +26,7 @@
 "UI/Core/ElementBase.cs" \
 "UI/Core/Div.cs" \
 "UI/Core/Label.cs" \
+"UI/Core/TextArea.cs" \
 "UI/Core/InputBase.cs" "UI/Core/Input.cs" \
 "UI/Core/InputText.cs" "UI/Core/InputPassword.cs" "UI/Core/InputCheckbox.cs" \
 "UI/Core/ButtonBase.cs" "UI/Core/Button.cs" "UI/Core/SubmitButton.cs" "UI/Core/ResetButton.cs" \

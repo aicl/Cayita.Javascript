@@ -320,7 +320,7 @@ namespace Cayita.Javascript.Plugins
 		/// </summary>
 		public Rule Email (Func<Element,bool> dependCallback = null)
 		{
-			if(dependCallback==null) rl.mail=true;
+			if(dependCallback==null) {rl.mail= true; rl.required=true;}
 			else rl.mail= new {depends=dependCallback };
 			return this;
 		}

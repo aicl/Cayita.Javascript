@@ -128,6 +128,7 @@
 	$Rule.email = function($this, dependCallback) {
 		if (ss.staticEquals(dependCallback, null)) {
 			$this.rl.mail = true;
+			$this.rl.required = true;
 		}
 		else {
 			$this.rl.mail = { depends: dependCallback };
@@ -1413,6 +1414,16 @@
 			}
 		};
 	};
+	$Cayita_UI_Ext.find = function(T) {
+		return function(form, selector) {
+			return ss.safeCast($(selector, form)[0], T);
+		};
+	};
+	$Cayita_UI_Ext.findByName = function(T) {
+		return function(form, name) {
+			return ss.safeCast($('[name=' + name + ']', form)[0], T);
+		};
+	};
 	$Cayita_UI_Ext.createRow = function(T) {
 		return function(table, data, columns, recordIdProperty) {
 			var r = new $Cayita_UI_TableRow.$ctor1(null, function(row) {
@@ -2577,6 +2588,23 @@
 	};
 	$Cayita_UI_TableRow.$ctor1.prototype = $Cayita_UI_TableRow.prototype;
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.TextArea
+	var $Cayita_UI_TextArea = function(parent) {
+		$Cayita_UI_ElementBase.call(this);
+		this.createElement('textarea', parent);
+	};
+	$Cayita_UI_TextArea.prototype = {
+		element$1: function() {
+			return this.element();
+		}
+	};
+	$Cayita_UI_TextArea.$ctor1 = function(parent, element) {
+		$Cayita_UI_ElementBase.call(this);
+		this.createElement('textarea', parent);
+		element(this.element$1());
+	};
+	$Cayita_UI_TextArea.$ctor1.prototype = $Cayita_UI_TextArea.prototype;
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.TextField
 	var $Cayita_UI_TextField = function(parent, field) {
 		$Cayita_UI_TextField.$ctor1.call(this, parent.element(), field);
@@ -2738,6 +2766,7 @@
 	ss.registerClass(global, 'Cayita.UI.TableFooter', $Cayita_UI_TableFooter, $Cayita_UI_HtmlTable);
 	ss.registerClass(global, 'Cayita.UI.TableHeader', $Cayita_UI_TableHeader, $Cayita_UI_HtmlTable);
 	ss.registerClass(global, 'Cayita.UI.TableRow', $Cayita_UI_TableRow, $Cayita_UI_ElementBase);
+	ss.registerClass(global, 'Cayita.UI.TextArea', $Cayita_UI_TextArea, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.TextField', $Cayita_UI_TextField, $Cayita_UI_InputText);
 	ss.registerClass(global, 'Cayita.UI.TopNavBar', $Cayita_UI_TopNavBar, $Cayita_UI_Div);
 	$Cayita_UI_ElementBase.$tags = new (ss.makeGenericType(ss.Dictionary$2, [String, ss.Int32]))();

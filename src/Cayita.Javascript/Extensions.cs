@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cayita.Javascript.UI;
 using System.Runtime.CompilerServices;
 using jQueryApi;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cayita.Javascript
 {
@@ -65,6 +66,17 @@ namespace Cayita.Javascript
 				if(string.IsNullOrEmpty(ie.Name)) continue;
 				ie.SetValue( (object) d[ie.Name] );
 			}
+		}
+
+
+		public static T Find<T>(this FormElement form, [SyntaxValidation ("cssSelector")] string selector ) where T:class
+		{
+			return (form.JQuery(selector)[0]) as T;
+		}
+
+		public static T FindByName<T>(this FormElement form, string name ) where T:class
+		{
+			return (form.JQuery("[name="+name+"]")[0]) as T;
 		}
 
 		public static void CreateRow<T>(this TableElement table, T data, List<TableColumn<T>> columns, string recordIdProperty="Id" )
@@ -154,6 +166,8 @@ namespace Cayita.Javascript
 				});
 			}
 		}
+
+
 
 	}
 }
