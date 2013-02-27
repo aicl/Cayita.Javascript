@@ -305,35 +305,48 @@ namespace Cayita.Javascript.DemoForm
 					new Form( container, f=>{
 						f.AddClass("well span8");
 						Div.CreateRowFluid(f, row=>{
-
 							new Div(row, sp=>{
 								sp.ClassName="span5";
 								new Label(sp, l=>l.Text("FirstName"));
-								new InputText(sp, i=>i.ClassName="span12");
+								new InputText(sp, i=>{i.ClassName="span12"; i.SetRequired();});
 								new Label(sp, l=>l.Text("LastName"));
 								new InputText(sp, i=>i.ClassName="span12");
 								new Label(sp, l=>l.Text("Email address"));
 								new InputText(sp, i=>i.ClassName="span12");
 								new Label(sp, l=>l.Text("Subject"));
-								new InputText(sp, i=>i.ClassName="span12");
-							});
 
+								new HtmlSelect(sp, sl=>{
+									sl.Name="Subject";sl.ClassName="span12";
+									new HtmlOption(sl, opt=>{opt.Value=""; opt.Text("Choose One:");});
+									new HtmlOption(sl, opt=>{opt.Value="1"; opt.Text("General Customer Service");});
+									new HtmlOption(sl, opt=>{opt.Value="2"; opt.Text("Suggestions");});
+									new HtmlOption(sl, opt=>{opt.Value="3"; opt.Text("Product Support");});
+									new HtmlOption(sl, opt=>{opt.Value="4"; opt.Text("Bug");});
+								});
+							});
 
 							new Div(row, sp=>{
 								sp.ClassName="span7";
 								new Label(sp, l=>l.Text("Message"));
 								var ta =(AreaElement) Document.CreateElement("textarea");
 								ta.ClassName="input-xlarge span12";
-								ta.SetAttribute("rows",10);
+								ta.SetAttribute("rows",11);
 								sp.Append(ta);
 								
 							});
 							new SubmitButton(row, bt=>{
 								bt.AddClass("btn-primary pull-right");
 								bt.Text("Send");
-								bt.JQuery().Click(e=>e.PreventDefault());
 							});
 
+							f.Validate(new ValidateOptions().SetSubmitHandler(vf=>{
+								Div.CreateAlertSuccessBefore(vf.FirstChild,"message sent");
+								vf.Reset();
+							}).AddRule((rf,ms)=>{
+								rf.Element= (SelectElement) f.JQuery("[name=Subject]")[0];
+								rf.Rule.Required();
+								ms.Required("choose an option");
+							}));
 						});
 					});
 				});
@@ -373,7 +386,17 @@ namespace Cayita.Javascript.DemoForm
 </form>
 			 */
 		}
-		
+		/*
+		List<SubjectOption>
+
+
+		class SubjectOption
+		{
+			public SubjectOption(){}
+			public int Id {get;set;}
+			public string Subject {get;set;}
+		}
+*/
 	}
 }
 
