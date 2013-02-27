@@ -122,7 +122,7 @@
 				var inputFecha = (new Cayita.UI.InputText.$ctor2(searchdiv, function(ip) {
 					ip.className = 'input-medium search-query';
 					ip.setAttribute('data-mask', '99.99.9999');
-					ip.setAttribute('placeholder', 'dd.mm.aaaa');
+					$(ip).attr('placeholder', 'dd.mm.aaaa');
 				})).element$2();
 				new Cayita.UI.IconButton(searchdiv, ss.mkdel(this, function(abn, ibn) {
 					ibn.className = 'icon-search icon-large';
@@ -208,18 +208,18 @@
 					var fieldValor = new Cayita.UI.TextField.$ctor2(f, function(field) {
 						field.className = 'span12';
 						field.name = 'Valor';
-						field.setAttribute('placeholder', '$$$$$$$$$$');
+						$(field).attr('placeholder', '$$$$$$$$$$');
 						cayita.fn.autoNumericInit(field);
 					});
 					new Cayita.UI.TextField.$ctor2(f, function(field1) {
 						field1.className = 'span12';
 						field1.name = 'Beneficiario';
-						field1.setAttribute('placeholder', 'Pagado a ....');
+						$(field1).attr('placeholder', 'Pagado a ....');
 					});
 					new Cayita.UI.TextField.$ctor2(f, function(field2) {
 						field2.className = 'span12';
 						field2.name = 'Descripcion';
-						field2.setAttribute('placeholder', 'Descripcion');
+						$(field2).attr('placeholder', 'Descripcion');
 					});
 					var bt = new Cayita.UI.SubmitButton.$ctor1(f, function(b) {
 						$(b).text('Guardar');

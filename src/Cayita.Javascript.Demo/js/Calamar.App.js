@@ -148,14 +148,14 @@
 							var cg = Cayita.UI.Div.createControlGroup(fe);
 							var user = new Cayita.UI.InputText.$ctor2(cg.element$1(), function(pe) {
 								//pe.SetAttribute("data-provide","typeahead");
-								pe.className = 'typeahead span4';
-								pe.setAttribute('placeholder', 'your user name (type anything)');
+								pe.className = 'span4';
+								$(pe).attr('placeholder', 'your username');
 								pe.name = 'UserName';
 							});
 							cg = Cayita.UI.Div.createControlGroup(fe);
 							var pass = new Cayita.UI.InputPassword.$ctor1(cg.element$1(), function(pe1) {
 								pe1.className = 'span4';
-								pe1.setAttribute('placeholder', 'your Password (type anything)');
+								$(pe1).attr('placeholder', 'your password');
 								pe1.name = 'Password';
 							});
 							var bt = new Cayita.UI.SubmitButton.$ctor1(fe, function(b) {
