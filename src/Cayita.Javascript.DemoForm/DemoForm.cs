@@ -310,7 +310,7 @@ namespace Cayita.Javascript.DemoForm
 								new Label(sp, l=>l.Text("LastName"));
 								new InputText(sp, i=>i.ClassName="span12");
 								new Label(sp, l=>l.Text("Email address"));
-								new InputText(sp, i=>{i.SetRequired(); i.ClassName="span12 email"; i.Name="Email"; });
+								new InputText(sp, i=>{ i.ClassName="span12"; i.Name="Email"; });
 								new Label(sp, l=>l.Text("Subject"));
 								new HtmlSelect(sp, sl=>{
 									sl.Name="Subject";sl.ClassName="span12";
@@ -343,6 +343,10 @@ namespace Cayita.Javascript.DemoForm
 								rf.Element= f.FindByName<SelectElement>("Subject");
 								rf.Rule.Required();
 								ms.Required("choose an option");
+							}).AddRule((rf,ms)=>{
+								rf.Element= f.FindByName<SelectElement>("Email");
+								rf.Rule.Email();
+								ms.Email("write a valid a mail ");
 							}));
 						});
 					});

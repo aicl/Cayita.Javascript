@@ -127,8 +127,7 @@
 	};
 	$Rule.email = function($this, dependCallback) {
 		if (ss.staticEquals(dependCallback, null)) {
-			$this.rl.mail = true;
-			$this.rl.required = true;
+			$this.rl = { email: true, required: true };
 		}
 		else {
 			$this.rl.mail = { depends: dependCallback };
