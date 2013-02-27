@@ -217,7 +217,7 @@ namespace Cayita.Javascript.DemoForm
 								});
 
 								new SubmitButton(fe, b=>{
-									b.JQuery().Text("Login");
+									b.Text("Login");
 									b.AddClass("btn-info btn-block");
 									b.LoadingText("  authenticating ...");
 								});
