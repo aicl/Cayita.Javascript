@@ -160,15 +160,15 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 							
 							var user= new InputText(cg.Element(), pe=>{
 								//pe.SetAttribute("data-provide","typeahead");
-								pe.ClassName="typeahead span4";
-								pe.SetPlaceHolder("your user name (type anything)");
+								pe.ClassName="span4";
+								pe.SetPlaceHolder("your username");
 								pe.Name="UserName";
 							});
 							
 							cg = Div.CreateControlGroup(fe);
 							var pass =new InputPassword(cg.Element(), pe=>{
 								pe.ClassName="span4";
-								pe.SetPlaceHolder("your Password (type anything)");
+								pe.SetPlaceHolder("your password");
 								pe.Name="Password";
 							});
 							

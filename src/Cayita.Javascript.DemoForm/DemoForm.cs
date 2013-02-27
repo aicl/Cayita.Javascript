@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 using Cayita.Javascript.UI;
 using System.Html;
 using jQueryApi;
+using Cayita.Javascript.Plugins;
 
 namespace Cayita.Javascript.DemoForm
 {
@@ -52,6 +53,7 @@ namespace Cayita.Javascript.DemoForm
 			//------------------
 
 			Document.CreateElement("h2").Text("Optional Layouts").AppendTo(parent);
+			Document.CreateElement("h3").Text("Search form").AppendTo(parent);
 
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
@@ -78,7 +80,7 @@ namespace Cayita.Javascript.DemoForm
 			}).AppendTo(parent);
 
 			//---------------------------------
-			Document.CreateElement("h2").Text("Inline Form").AppendTo(parent);
+			Document.CreateElement("h3").Text("Inline Form").AppendTo(parent);
 
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
@@ -126,7 +128,7 @@ namespace Cayita.Javascript.DemoForm
 
 			//--------------------------------
 
-			Document.CreateElement("h2").Text("Horizontal Form").AppendTo(parent);
+			Document.CreateElement("h3").Text("Horizontal Form").AppendTo(parent);
 			
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
@@ -171,8 +173,77 @@ namespace Cayita.Javascript.DemoForm
 });</textarea></div>");
 			}).AppendTo(parent);
 
+			//----------------------------------
 
-			//--------------------------------
+			Document.CreateElement("h2").Text("Samples").AppendTo(parent);
+			Document.CreateElement("h3").Text("Login Form").AppendTo(parent);
+
+			new Div(null, div=>{
+				div.ClassName="bs-docs-example";
+
+				Div.CreateContainer(div, container=>{
+					Div.CreateRow(container, row=>{
+
+						new Div(row,element=>{
+							element.ClassName="span4 offset3 well";
+							new Legend(element,  l=>{
+								l.InnerText="Login Form";
+							});
+							
+							new Form(element, fe=>{
+								Div.CreateControlGroup(fe,cg=>{
+									new InputText(cg, pe=>{
+										pe.SetPlaceHolder("your username");
+										pe.Name="UserName";
+										pe.ClassName="span12";
+										pe.SetRequired();
+										pe.SetMinLength(8);
+									});
+								});
+																
+								Div.CreateControlGroup(fe, cg=>{
+									new InputPassword(cg, pe=>{
+										pe.SetPlaceHolder("your password");
+										pe.Name="Password";
+										pe.ClassName="span12";
+										pe.SetRequired();
+										pe.SetMinLength(6);
+									});
+								});
+
+								new CheckboxField(fe, (lb, cb)=>{
+									lb.Text("Remember me");
+									cb.Name="Remember";
+								});
+
+								new SubmitButton(fe, b=>{
+									b.JQuery().Text("Login");
+									b.AddClass("btn-info btn-block");
+									b.LoadingText("  authenticating ...");
+								});
+
+								fe.Validate( new ValidateOptions()
+								            .SetSubmitHandler(f=>{
+									var bt =(ButtonElement)f.JQuery("button[type=submit]")[0];
+									bt.ShowLoadingText();
+									Window.SetTimeout(()=>{
+										bt.ResetLoadingText();
+										Div.CreateAlertSuccessAfter(f,"Welcome : "+ f.JQuery("input[name=UserName]").GetValue());
+										f.Reset();
+									}, 1000);
+								
+								}));
+							});
+						});
+					});
+				});	
+
+				//
+				div.Append(@"");
+			}).AppendTo(parent);
+
+
+			//-----------------------------------
 
 			/*
 */

@@ -155,17 +155,29 @@ namespace Cayita.Javascript
 			return null;
 		}
 
-		[InlineCode("{element}.setAttribute('placeholder',{value})")]
-		public static void SetPlaceHolder(this TextElement element, string value)
-		{}
+		[InlineCode("$({element}).attr('required',{value})")]
+		public static jQueryObject SetRequired(this InputElement element, bool value=true)
+		{
+			return null;
+		}
 
-		[InlineCode("{element}.setAttribute('minlength',{value})")]
-		public static void SetMinLength(this TextElement element, int value)
-		{}
+		[InlineCode("$({element}).attr('placeholder',{value})")]
+		public static jQueryObject SetPlaceHolder(this TextElement element, string value)
+		{
+			return null;
+		}
+
+		[InlineCode("$({element}).attr('minlength',{value})")]
+		public static jQueryObject SetMinLength(this TextElement element, int value)
+		{
+			return null;
+		}
 			
-		[InlineCode("{element}.setAttribute('maxlength',{value})")]
-		public static void SetMaxLength(this TextElement element, int value)
-		{}
+		[InlineCode("$({element}).attr('maxlength',{value})")]
+		public static jQueryObject SetMaxLength(this TextElement element, int value)
+		{
+			return null;
+		}
 
 		[InlineCode("{element}.getAttribute('record-id')")] 
 		public static string GetRecordId(this TableRowElement element)

@@ -119,10 +119,10 @@ namespace Cayita.Javascript.UI
 		}
 	
 
-		public static Div CreateAlertError(Element parent, string message)
+		public static Div CreateAlert(Element parent, string message, string type)
 		{
 			var div = new Div(parent, de=>{
-				de.ClassName= "alert alert-error";
+				de.ClassName= "alert alert-"+type;
 				new Anchor(de, element=>{
 					element.Href="#";
 					element.ClassName="close";
@@ -135,15 +135,16 @@ namespace Cayita.Javascript.UI
 			return div;  
 		}
 
-		public static jQueryObject CreateAlertErrorBefore(Element element, string message)
-		{
-			return jQuery.Select(string.Format(Div.AlertErrorTemplate(), message)).InsertBefore(element);
-		}
-
+		//-------------------------------------------------------------------------------------
 
 		public static string AlertErrorTemplate()
 		{
-			return "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a>{0}</div>";
+			return "<div class='alert alert-block alert-error'><a class='close' data-dismiss='alert' href='#'>×</a>{0}</div>";
+		}
+
+		public static jQueryObject CreateAlertErrorBefore(Element element, string message)
+		{
+			return jQuery.Select(string.Format(Div.AlertErrorTemplate(), message)).InsertBefore(element);
 		}
 
 		public static jQueryObject CreateAlertErrorAfter(Element element, string message)
@@ -151,12 +152,48 @@ namespace Cayita.Javascript.UI
 			return jQuery.Select(string.Format(Div.AlertErrorTemplate(), message)).InsertAfter(element);
 		}
 
+		//-------------------------------------------------------------------------------------
+
+		public static string AlertSuccessTemplate()
+		{
+			return "<div class='alert alert-block alert-success'><a class='close' data-dismiss='alert' href='#'>×</a>{0}</div>";
+		}
+		
+		public static jQueryObject CreateAlertSuccessBefore(Element element, string message)
+		{
+			return jQuery.Select(string.Format(Div.AlertSuccessTemplate(), message)).InsertBefore(element);
+		}
+		
+		public static jQueryObject CreateAlertSuccessAfter(Element element, string message)
+		{
+			return jQuery.Select(string.Format(Div.AlertSuccessTemplate(), message)).InsertAfter(element);
+		}
+
+		//-------------------------------------------------------------------------------------
+
+		public static string AlertInfoTemplate()
+		{
+			return "<div class='alert alert-block alert-info'><a class='close' data-dismiss='alert' href='#'>×</a>{0}</div>";
+		}
+		
+		public static jQueryObject CreateAlertInfoBefore(Element element, string message)
+		{
+			return jQuery.Select(string.Format(Div.AlertInfoTemplate(), message)).InsertBefore(element);
+		}
+		
+		public static jQueryObject CreateAlertInfoAfter(Element element, string message)
+		{
+			return jQuery.Select(string.Format(Div.AlertInfoTemplate(), message)).InsertAfter(element);
+		}
+		
+		//-------------------------------------------------------------------------------------
+
 
 		public static Div CreatePageAlertError(Element element, string message)
 		{
 			var div = new Div(element, de=>{
 				de.ClassName="page-alert";
-				Div.CreateAlertError(de, message);
+				Div.CreateAlert(de, message,"error");
 			});
 			return div;
 		}

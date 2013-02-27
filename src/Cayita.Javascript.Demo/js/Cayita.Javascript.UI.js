@@ -1207,9 +1207,9 @@
 		element(d.element$1());
 		return d;
 	};
-	$Cayita_UI_Div.createAlertError = function(parent, message) {
+	$Cayita_UI_Div.createAlert = function(parent, message, type) {
 		var div = new $Cayita_UI_Div.$ctor1(parent, function(de) {
-			de.className = 'alert alert-error';
+			de.className = 'alert alert-' + type;
 			new $Cayita_UI_Anchor.$ctor1(de, function(element) {
 				element.href = '#';
 				element.className = 'close';
@@ -1220,19 +1220,37 @@
 		});
 		return div;
 	};
+	$Cayita_UI_Div.alertErrorTemplate = function() {
+		return '<div class=\'alert alert-block alert-error\'><a class=\'close\' data-dismiss=\'alert\' href=\'#\'>×</a>{0}</div>';
+	};
 	$Cayita_UI_Div.createAlertErrorBefore = function(element, message) {
 		return $(ss.formatString($Cayita_UI_Div.alertErrorTemplate(), message)).insertBefore(element);
-	};
-	$Cayita_UI_Div.alertErrorTemplate = function() {
-		return '<div class=\'alert alert-error\'><a class=\'close\' data-dismiss=\'alert\' href=\'#\'>×</a>{0}</div>';
 	};
 	$Cayita_UI_Div.createAlertErrorAfter = function(element, message) {
 		return $(ss.formatString($Cayita_UI_Div.alertErrorTemplate(), message)).insertAfter(element);
 	};
+	$Cayita_UI_Div.alertSuccessTemplate = function() {
+		return '<div class=\'alert alert-block alert-success\'><a class=\'close\' data-dismiss=\'alert\' href=\'#\'>×</a>{0}</div>';
+	};
+	$Cayita_UI_Div.createAlertSuccessBefore = function(element, message) {
+		return $(ss.formatString($Cayita_UI_Div.alertSuccessTemplate(), message)).insertBefore(element);
+	};
+	$Cayita_UI_Div.createAlertSuccessAfter = function(element, message) {
+		return $(ss.formatString($Cayita_UI_Div.alertSuccessTemplate(), message)).insertAfter(element);
+	};
+	$Cayita_UI_Div.alertInfoTemplate = function() {
+		return '<div class=\'alert alert-block alert-info\'><a class=\'close\' data-dismiss=\'alert\' href=\'#\'>×</a>{0}</div>';
+	};
+	$Cayita_UI_Div.createAlertInfoBefore = function(element, message) {
+		return $(ss.formatString($Cayita_UI_Div.alertInfoTemplate(), message)).insertBefore(element);
+	};
+	$Cayita_UI_Div.createAlertInfoAfter = function(element, message) {
+		return $(ss.formatString($Cayita_UI_Div.alertInfoTemplate(), message)).insertAfter(element);
+	};
 	$Cayita_UI_Div.createPageAlertError = function(element, message) {
 		var div = new $Cayita_UI_Div.$ctor1(element, function(de) {
 			de.className = 'page-alert';
-			$Cayita_UI_Div.createAlertError(de, message);
+			$Cayita_UI_Div.createAlert(de, message, 'error');
 		});
 		return div;
 	};
