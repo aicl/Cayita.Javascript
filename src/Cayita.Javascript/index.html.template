@@ -89,6 +89,17 @@
 			return e;
 		};	
 		
+		cayita.fn.convertToDate= function (v){
+			if (!v) return null;
+			if (typeof v == 'string'){
+				var d = new Date(parseFloat(/Date\(([^)]+)\)/.exec(v)[1])) // thanks demis bellot!
+				return new Date( d.getUTCFullYear(),d.getUTCMonth(), d.getUTCDate(),
+				 				 d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds());
+			}
+			else
+				return v;   
+		};
+		
 	</script>
 	<script src="js/mscorlib.min.js"></script>
 	<script src="js/linq.min.js"></script>
