@@ -115,5 +115,6 @@
     <None Include="json\fuenteResponse.json" />
     <None Include="json\gastoResponse.json" />
     <None Include="json\typeahead.json" />
+    <None Include="json\userResponse.json" />
   </ItemGroup>
 </Project>

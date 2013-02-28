@@ -1559,7 +1559,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.HtmlGrid
 	var $Cayita_UI_HtmlGrid$1 = function(T) {
-		var $type = function(parent, store, columns) {
+		var $type = function(parent) {
 			this.$columns = null;
 			this.$store = null;
 			this.$table = null;
@@ -1569,120 +1569,126 @@
 			this.$readRequestMessage = null;
 			this.$3$OnRowSelectedField = null;
 			$Cayita_UI_HtmlTable.call(this);
-			this.createElement('table', parent);
-			this.$table = this.element$1();
-			this.$table.className = 'table table-striped table-hover table-condensed';
-			this.$table.setAttribute('data-provides', 'rowlink');
-			this.$columns = columns;
-			this.$store = store;
-			this.$3$OnRowSelectedField = function(grid, row) {
-			};
-			$(this.$table).on('click', 'tbody tr', ss.mkdel(this, function(e) {
-				var row1 = e.currentTarget;
-				this.$selectRowImp(row1, true);
-			}));
-			this.render();
-			var $t1 = $Cayita_UI_RequestMessage.$ctor();
-			$t1.target = this.$table.tBodies[0];
-			$t1.message = 'Reading ' + ss.getTypeName(T);
-			this.$readRequestMessage = $t1;
-			this.$readRequestStarted = ss.mkdel(this, function(grid1) {
-				console.log('htmlgrid readRequestStarted', this.$readRequestMessage.message);
-				var sp = new $Cayita_UI_SpinnerIcon(function(div, icon) {
-					div.style.position = 'fixed';
-					div.style.zIndex = 10000;
-					div.style.opacity = '0.7';
-					div.style.height = (grid1.$table.clientHeight + 30).toString() + 'px';
-					div.style.width = grid1.$table.clientWidth.toString() + 'px';
-				}, this.$readRequestMessage.message);
-				$(this.$readRequestMessage.target).append(sp.element$1());
-				return sp.element$1();
-			});
-			this.$readRequestFinished = function(grid2, el) {
-				$(el).remove();
-			};
-			store.add_onStoreChanged(ss.mkdel(this, function(st, dt) {
-				switch (dt.action) {
-					case 0: {
-						$Cayita_UI_Ext.createRow(T).call(null, this.$table, dt.newData, columns, store.getRecordIdProperty());
-						break;
-					}
-					case 1: {
-						$Cayita_UI_Ext.load$2(T).call(null, this.$table, store, columns, store.getRecordIdProperty(), false);
-						this.selectRow(true);
-						break;
-					}
-					case 2: {
-						$Cayita_UI_Ext.updateRow(T).call(null, this.$table, dt.newData, columns, store.getRecordIdProperty());
-						break;
-					}
-					case 3: {
-						var recordId = dt.oldData[store.getRecordIdProperty()];
-						$('tr[record-id=' + recordId + ']', this.$table).remove();
-						this.selectRow(true);
-						break;
-					}
-					case 4: {
-						$Cayita_UI_Ext.updateRow(T).call(null, this.$table, dt.newData, columns, store.getRecordIdProperty());
-						break;
-					}
-					case 5: {
-						$Cayita_UI_Ext.createRow(T).call(null, this.$table, dt.newData, columns, store.getRecordIdProperty());
-						break;
-					}
-					case 7: {
-						$Cayita_UI_Ext.updateRow(T).call(null, this.$table, dt.newData, columns, store.getRecordIdProperty());
-						break;
-					}
-					case 6: {
-						$Cayita_UI_Ext.createRow(T).call(null, this.$table, dt.newData, columns, store.getRecordIdProperty());
-						break;
-					}
-					case 8: {
-						var id = dt.oldData[store.getRecordIdProperty()];
-						$('tr[record-id=' + id + ']', this.$table).remove();
-						this.selectRow(true);
-						break;
-					}
-					case 10: {
-						$Cayita_UI_Ext.load$2(T).call(null, this.$table, store, columns, store.getRecordIdProperty(), false);
-						this.selectRow(true);
-						break;
-					}
-					case 9: {
-						$(this.$table.tBodies[0]).empty();
-						this.selectRow(true);
-						break;
-					}
-				}
-			}));
-			store.add_onStoreRequest(ss.mkdel(this, function(st1, request) {
-				switch (request.action) {
-					case 0: {
-						break;
-					}
-					case 1: {
-						if (request.state === 0) {
-							this.$readRequestMessage.htmlElement = this.$readRequestStarted(this);
-						}
-						else {
-							this.$readRequestFinished(this, this.$readRequestMessage.htmlElement);
-						}
-						break;
-					}
-					case 2: {
-						break;
-					}
-					case 3: {
-						break;
-					}
-					case 4: {
-						break;
-					}
-				}
-			}));
+			this.$init(parent, new (ss.makeGenericType($Cayita_Data_Store$1, [T]))(), []);
 		};
 		$type.prototype = {
+			$init: function(parent, datastore, tablecolumns) {
+				this.createElement('table', parent);
+				this.$table = this.element$1();
+				this.$table.className = 'table table-striped table-hover table-condensed';
+				this.$table.setAttribute('data-provides', 'rowlink');
+				this.$columns = tablecolumns;
+				this.$store = datastore;
+				this.$3$OnRowSelectedField = function(grid, row) {
+				};
+				$(this.$table).on('click', 'tbody tr', ss.mkdel(this, function(e) {
+					var row1 = e.currentTarget;
+					this.$selectRowImp(row1, true);
+				}));
+				this.render();
+				var $t1 = $Cayita_UI_RequestMessage.$ctor();
+				$t1.target = this.$table.tBodies[0];
+				$t1.message = 'Reading ' + ss.getTypeName(T);
+				this.$readRequestMessage = $t1;
+				this.$readRequestStarted = ss.mkdel(this, function(grid1) {
+					console.log('htmlgrid readRequestStarted', this.$readRequestMessage.message);
+					var sp = new $Cayita_UI_SpinnerIcon(function(div, icon) {
+						div.style.position = 'fixed';
+						div.style.zIndex = 10000;
+						div.style.opacity = '0.7';
+						div.style.height = (grid1.$table.clientHeight + 30).toString() + 'px';
+						div.style.width = grid1.$table.clientWidth.toString() + 'px';
+					}, this.$readRequestMessage.message);
+					$(this.$readRequestMessage.target).append(sp.element$1());
+					return sp.element$1();
+				});
+				this.$readRequestFinished = function(grid2, el) {
+					$(el).remove();
+				};
+				this.$store.add_onStoreChanged(ss.mkdel(this, function(st, dt) {
+					switch (dt.action) {
+						case 0: {
+							$Cayita_UI_Ext.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							break;
+						}
+						case 1: {
+							$Cayita_UI_Ext.load$2(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
+							this.selectRow(true);
+							break;
+						}
+						case 2: {
+							$Cayita_UI_Ext.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							break;
+						}
+						case 3: {
+							var recordId = dt.oldData[this.$store.getRecordIdProperty()];
+							$('tr[record-id=' + recordId + ']', this.$table).remove();
+							this.selectRow(true);
+							break;
+						}
+						case 4: {
+							$Cayita_UI_Ext.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							break;
+						}
+						case 5: {
+							$Cayita_UI_Ext.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							break;
+						}
+						case 7: {
+							$Cayita_UI_Ext.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							break;
+						}
+						case 6: {
+							$Cayita_UI_Ext.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							break;
+						}
+						case 8: {
+							var id = dt.oldData[this.$store.getRecordIdProperty()];
+							$('tr[record-id=' + id + ']', this.$table).remove();
+							this.selectRow(true);
+							break;
+						}
+						case 10: {
+							$Cayita_UI_Ext.load$2(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
+							this.selectRow(true);
+							break;
+						}
+						case 9: {
+							$(this.$table.tBodies[0]).empty();
+							this.selectRow(true);
+							break;
+						}
+					}
+				}));
+				this.$store.add_onStoreRequest(ss.mkdel(this, function(st1, request) {
+					switch (request.action) {
+						case 0: {
+							break;
+						}
+						case 1: {
+							if (request.state === 0) {
+								this.$readRequestMessage.htmlElement = this.$readRequestStarted(this);
+							}
+							else {
+								this.$readRequestFinished(this, this.$readRequestMessage.htmlElement);
+							}
+							break;
+						}
+						case 2: {
+							break;
+						}
+						case 3: {
+							break;
+						}
+						case 4: {
+							break;
+						}
+					}
+				}));
+			},
+			getStore: function() {
+				return this.$store;
+			},
 			setReadRequestMessage: function(message) {
 				message(this.$readRequestMessage);
 				return this;
@@ -1736,6 +1742,19 @@
 				this.$3$OnRowSelectedField = ss.delegateRemove(this.$3$OnRowSelectedField, value);
 			}
 		};
+		$type.$ctor1 = function(parent, store, columns) {
+			this.$columns = null;
+			this.$store = null;
+			this.$table = null;
+			this.$selectedrow = null;
+			this.$readRequestStarted = null;
+			this.$readRequestFinished = null;
+			this.$readRequestMessage = null;
+			this.$3$OnRowSelectedField = null;
+			$Cayita_UI_HtmlTable.call(this);
+			this.$init(parent, store, columns);
+		};
+		$type.$ctor1.prototype = $type.prototype;
 		ss.registerGenericClassInstance($type, $Cayita_UI_HtmlGrid$1, [T], function() {
 			return $Cayita_UI_HtmlTable;
 		}, function() {

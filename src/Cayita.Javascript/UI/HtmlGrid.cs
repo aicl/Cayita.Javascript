@@ -40,27 +40,38 @@ namespace Cayita.Javascript.UI
 		Action<HtmlGrid<T>, Element> readRequestFinished;
 		RequestMessage readRequestMessage;
 
+		protected HtmlGrid (Element parent)
+		{
+			Init (parent, new Store<T>(), new List<TableColumn<T>>() );
+		}
+
 		public HtmlGrid (Element parent,  Store<T> store, List<TableColumn<T>> columns)
 		{
 
+			Init(parent, store, columns);
+
+		}
+
+		private void Init(Element parent,  Store<T> datastore, List<TableColumn<T>> tablecolumns )
+		{
 			CreateElement("table", parent);
 			table =Element();
 			table.ClassName = "table table-striped table-hover table-condensed";
 			table.SetAttribute ("data-provides", "rowlink");
-			this.columns= columns;
-			this.store= store;
-
+			columns= tablecolumns;
+			store= datastore;
+			
 			OnRowSelected=(grid,row)=>{};
-
+			
 			table.JQuery().On ("click","tbody tr", e =>  { 
 				var row = (TableRowElement)e.CurrentTarget;
 				SelectRowImp(row, true);
 			});
-
+			
 			Render();
-
+			
 			readRequestMessage= new RequestMessage{Target=table.tBodies[0], Message="Reading " + typeof(T).Name };
-
+			
 			readRequestStarted=(grid)=>{
 				Cayita.Javascript.Firebug.Console.Log("htmlgrid readRequestStarted", readRequestMessage.Message);
 				var sp = new SpinnerIcon((div, icon)=>{
@@ -77,8 +88,8 @@ namespace Cayita.Javascript.UI
 			readRequestFinished= (grid, el)=>{
 				el.Remove();
 			};
-
-
+			
+			
 			store.OnStoreChanged+=(st, dt)=>{
 				switch(dt.Action)
 				{
@@ -100,7 +111,7 @@ namespace Cayita.Javascript.UI
 				case StoreChangedAction.Patched:
 					table.UpdateRow(dt.NewData, columns, store.GetRecordIdProperty());
 					break;
-
+					
 				case StoreChangedAction.Added:
 					table.CreateRow(dt.NewData, columns, store.GetRecordIdProperty());
 					break;
@@ -125,7 +136,7 @@ namespace Cayita.Javascript.UI
 					break;
 				}
 			};
-
+			
 			store.OnStoreRequest+=(st, request)=>{
 				switch (request.Action) {
 				case StoreRequestAction.Create:
@@ -145,12 +156,16 @@ namespace Cayita.Javascript.UI
 				case StoreRequestAction.Destroy:
 					break;
 				case StoreRequestAction.Patch:
-
+					
 					break;
 				}
 				
 			};
+		}
 
+		public Store<T> GetStore()
+		{
+			return store;
 		}
 
 
