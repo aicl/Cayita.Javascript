@@ -17,6 +17,8 @@ namespace Cayita.Javascript.UI
 		public TableCellElement Footer {get;set;}
 
 		public bool Hidden {get;set;}
+
+		public Action<T,TableRowElement> AfterCellCreate {get;set;}
 	}
 }
 

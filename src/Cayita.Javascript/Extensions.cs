@@ -90,6 +90,7 @@ namespace Cayita.Javascript
 					var c = col.Value(data);
 					if (col.Hidden) c.Hide();
 					row.Append( c);
+					if(col.AfterCellCreate!=null) col.AfterCellCreate(data, row);
 				}
 			});
 			table.Append(r.Element());
@@ -119,6 +120,7 @@ namespace Cayita.Javascript
 				new TableRow (th, row =>  {
 					foreach(var col in columns)
 					{
+						if(col.Header==null) continue;
 						var c = col.Header;
 						if (col.Hidden) c.Hide();
 						row.Append( c);
@@ -133,6 +135,7 @@ namespace Cayita.Javascript
 				new TableRow (tf, row =>  {
 					foreach(var col in columns)
 					{
+						if(col.Footer==null) continue;
 						var c = col.Footer;
 						if (col.Hidden) c.Hide();
 						row.Append( c);
@@ -162,6 +165,7 @@ namespace Cayita.Javascript
 						var c = col.Value(d);
 						if (col.Hidden) c.Hide();
 						row.Append( c);
+						if(col.AfterCellCreate!=null) col.AfterCellCreate(d, row);
 					}
 				});
 			}

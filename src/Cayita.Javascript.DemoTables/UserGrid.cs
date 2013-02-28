@@ -42,11 +42,71 @@ namespace Cayita.Javascript.DemoTables
 			});
 
 			columns.Add(new TableColumn<User>(){
+				Header= new TableCell(c=> c.Text("Address")).Element(),
+				Value= (f)=>{
+					return new TableCell( c=>{
+						c.Text(f.Address);
+					}).Element();
+				}
+			});
+
+			columns.Add(new TableColumn<User>(){
 				Header= new TableCell(c=> c.Text("Birthday")).Element(),
 				Value= (f)=>{
 					return new TableCell( c=>{
 						c.Text(f.DoB.ToString("dd.MM.yyyy"));
 					}).Element();
+				}
+			});
+
+			columns.Add(new TableColumn<User>(){
+				Header= new TableCell(c=> c.Text("Email")).Element(),
+				Value= (f)=>{
+					return new TableCell( c=>{
+						c.Text(f.Email);
+					}).Element();
+				}
+			});
+
+			columns.Add(new TableColumn<User>(){
+				Header= new TableCell(c=> c.Text("Rating")).Element(),
+				Value= (f)=>{
+					return new TableCell( c=>{
+						c.Text(f.Rating.ToString());
+						c.AutoNumericInit(new {mDec=0});
+						c.Style.TextAlign="center";
+					}).Element();
+				},
+
+				AfterCellCreate= (f,row)=>{
+					row.AddClass(f.Rating==10? "success": f.Rating<=5?"warning":"");
+				}
+			});
+
+			columns.Add(new TableColumn<User>(){
+				Header= new TableCell(c=> c.Text("Level")).Element(),
+				Value= (f)=>{
+					return new TableCell( c=>{
+						c.Text(f.Level);
+						c.Style.Color= f.Level=="A"?"green": f.Level=="B"?"orange": "red";
+						c.Style.TextAlign="center";
+					}).Element();
+				}
+			});
+
+			columns.Add(new TableColumn<User>(){
+				Header= new TableCell(c=> c.Text("Active ?")).Element(),
+				Value= (f)=>{
+					return new TableCell( c=>{
+						c.Style.TextAlign="center";
+						c.Append( new Icon(c, i=>{
+							i.ClassName= f.IsActive? "icon-ok-circle": "icon-ban-circle";
+						}).Element());
+
+					}).Element();
+				},
+				AfterCellCreate= (f,row)=>{
+					row.Style.Color= f.IsActive?"black":"grey";
 				}
 			});
 

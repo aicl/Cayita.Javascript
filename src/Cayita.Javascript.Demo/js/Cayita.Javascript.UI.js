@@ -1447,6 +1447,9 @@
 						$(c).hide();
 					}
 					$(row).append(c);
+					if (!ss.staticEquals(col.afterCellCreate, null)) {
+						col.afterCellCreate(data, row);
+					}
 				}
 			});
 			$(table).append(r.element$1());
@@ -1478,6 +1481,9 @@
 				new $Cayita_UI_TableRow.$ctor1(th, function(row) {
 					for (var $t1 = 0; $t1 < columns.length; $t1++) {
 						var col = columns[$t1];
+						if (ss.isNullOrUndefined(col.header)) {
+							continue;
+						}
 						var c = col.header;
 						if (col.hidden) {
 							$(c).hide();
@@ -1494,6 +1500,9 @@
 				new $Cayita_UI_TableRow.$ctor1(tf, function(row) {
 					for (var $t1 = 0; $t1 < columns.length; $t1++) {
 						var col = columns[$t1];
+						if (ss.isNullOrUndefined(col.footer)) {
+							continue;
+						}
 						var c = col.footer;
 						if (col.hidden) {
 							$(c).hide();
@@ -1530,6 +1539,9 @@
 								$(c).hide();
 							}
 							$(row).append(c);
+							if (!ss.staticEquals(col.afterCellCreate, null)) {
+								col.afterCellCreate(this.d.$, row);
+							}
 						}
 					}));
 				}
@@ -2556,6 +2568,7 @@
 			$this.value = null;
 			$this.footer = null;
 			$this.hidden = false;
+			$this.afterCellCreate = null;
 			return $this;
 		};
 		ss.registerGenericClassInstance($type, $Cayita_UI_TableColumn$1, [T], function() {

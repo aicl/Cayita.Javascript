@@ -16,11 +16,6 @@ namespace Cayita.Javascript.DemoTables
 			var ug= UserGrid.Create(null, new UserStore());
 			ug.AppendTo(parent);
 			ug.GetStore().Read();
-
-			var u = new User();
-			ug.GetStore().Create(u);
-
-			Cayita.Javascript.Firebug.Console.Log("user", new User());
 		}
 	}
 }
