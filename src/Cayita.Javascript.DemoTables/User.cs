@@ -10,10 +10,7 @@ namespace Cayita.Javascript.DemoTables
 	[PreserveMemberCase]
 	public  class User
 	{
-
-		public User()
-		{
-		}
+		public User(){}
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public string Address { get; set; }
@@ -25,7 +22,6 @@ namespace Cayita.Javascript.DemoTables
 		public string UserName { get; set; }
 		public string Password { get; set; }
 		public int Rating { get; set; }
-
 	}
 
 	[IgnoreNamespace]
@@ -39,7 +35,6 @@ namespace Cayita.Javascript.DemoTables
 					return u.DoB.ConvertToDate();
 				};
 			});
-
 		}
 	}
 }
