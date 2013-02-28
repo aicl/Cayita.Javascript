@@ -431,6 +431,16 @@
 						try {
 							while ($t19.moveNext()) {
 								var item1 = $t19.current();
+								var $t20 = new ss.ObjectEnumerator(this.$readApi.converters);
+								try {
+									while ($t20.moveNext()) {
+										var kv = $t20.current();
+										item1[kv.key] = kv.value(item1);
+									}
+								}
+								finally {
+									$t20.dispose();
+								}
 								ss.add(this.$st, item1);
 							}
 						}
@@ -443,39 +453,39 @@
 					}
 					var tc = ss.cast(data2[this.$readApi.totalCountProperty], ss.Int32);
 					this.$totalCount = (ss.isValue(tc) ? ss.Nullable.unbox(tc) : this.$st.length);
-					var $t21 = this.$1$OnStoreChangedField;
-					var $t20 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
-					$t20.action = 1;
-					$t21(this, $t20);
+					var $t22 = this.$1$OnStoreChangedField;
+					var $t21 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+					$t21.action = 1;
+					$t22(this, $t21);
 				})).fail(ss.mkdel(this, function(f1) {
-					var $t23 = this.$1$OnStoreErrorField;
-					var $t22 = ss.makeGenericType($Cayita_Data_StoreError$1, [T]).$ctor();
-					$t22.action = 1;
-					$t22.request = f1;
-					$t23(this, $t22);
+					var $t24 = this.$1$OnStoreErrorField;
+					var $t23 = ss.makeGenericType($Cayita_Data_StoreError$1, [T]).$ctor();
+					$t23.action = 1;
+					$t23.request = f1;
+					$t24(this, $t23);
 				})).always(ss.mkdel(this, function(f2) {
-					var $t25 = this.$1$OnStoreRequestField;
-					var $t24 = $Cayita_Data_StoreRequest.$ctor();
-					$t24.action = 1;
-					$t24.state = 1;
-					$t25(this, $t24);
+					var $t26 = this.$1$OnStoreRequestField;
+					var $t25 = $Cayita_Data_StoreRequest.$ctor();
+					$t25.action = 1;
+					$t25.state = 1;
+					$t26(this, $t25);
 				}));
 			});
 			this.$updateFunc = ss.mkdel(this, function(record1) {
-				var $t27 = this.$1$OnStoreRequestField;
-				var $t26 = $Cayita_Data_StoreRequest.$ctor();
-				$t26.action = 2;
-				$t26.state = 0;
-				$t27(this, $t26);
+				var $t28 = this.$1$OnStoreRequestField;
+				var $t27 = $Cayita_Data_StoreRequest.$ctor();
+				$t27.action = 2;
+				$t27.state = 0;
+				$t28(this, $t27);
 				return $.post(this.$updateApi.url, record1, function(cb2) {
 				}, this.$updateApi.dataType).done(ss.mkdel(this, function(scb2) {
 					var r2 = this.$updateApi.dataProperty;
 					var data3 = scb2;
 					if (Array.isArray(data3[r2])) {
-						var $t28 = ss.getEnumerator(ss.cast(data3[r2], ss.IList));
+						var $t29 = ss.getEnumerator(ss.cast(data3[r2], ss.IList));
 						try {
-							while ($t28.moveNext()) {
-								var item2 = $t28.current();
+							while ($t29.moveNext()) {
+								var item2 = $t29.current();
 								var i = { $: item2 };
 								var ur = Enumerable.from(this.$st).first(function(f3) {
 									return ss.referenceEquals(f3[this.$idProperty], i.$[this.$idProperty]);
@@ -483,16 +493,16 @@
 								var old = ss.createInstance(T);
 								cayita.fn.populateFrom(old, ur);
 								cayita.fn.populateFrom(ur, item2);
-								var $t30 = this.$1$OnStoreChangedField;
-								var $t29 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
-								$t29.newData = ur;
-								$t29.oldData = old;
-								$t29.action = 2;
-								$t30(this, $t29);
+								var $t31 = this.$1$OnStoreChangedField;
+								var $t30 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+								$t30.newData = ur;
+								$t30.oldData = old;
+								$t30.action = 2;
+								$t31(this, $t30);
 							}
 						}
 						finally {
-							$t28.dispose();
+							$t29.dispose();
 						}
 					}
 					else {
@@ -503,33 +513,33 @@
 						var old1 = ss.createInstance(T);
 						cayita.fn.populateFrom(old1, ur1);
 						cayita.fn.populateFrom(ur1, ss.cast(data3[r2], T));
-						var $t32 = this.$1$OnStoreChangedField;
-						var $t31 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
-						$t31.newData = ur1;
-						$t31.oldData = old1;
-						$t31.action = 2;
-						$t32(this, $t31);
+						var $t33 = this.$1$OnStoreChangedField;
+						var $t32 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+						$t32.newData = ur1;
+						$t32.oldData = old1;
+						$t32.action = 2;
+						$t33(this, $t32);
 					}
 				})).fail(ss.mkdel(this, function(f5) {
-					var $t34 = this.$1$OnStoreErrorField;
-					var $t33 = ss.makeGenericType($Cayita_Data_StoreError$1, [T]).$ctor();
-					$t33.action = 2;
-					$t33.request = f5;
-					$t34(this, $t33);
+					var $t35 = this.$1$OnStoreErrorField;
+					var $t34 = ss.makeGenericType($Cayita_Data_StoreError$1, [T]).$ctor();
+					$t34.action = 2;
+					$t34.request = f5;
+					$t35(this, $t34);
 				})).always(ss.mkdel(this, function(f6) {
-					var $t36 = this.$1$OnStoreRequestField;
-					var $t35 = $Cayita_Data_StoreRequest.$ctor();
-					$t35.action = 2;
-					$t35.state = 1;
-					$t36(this, $t35);
+					var $t37 = this.$1$OnStoreRequestField;
+					var $t36 = $Cayita_Data_StoreRequest.$ctor();
+					$t36.action = 2;
+					$t36.state = 1;
+					$t37(this, $t36);
 				}));
 			});
 			this.$destroyFunc = ss.mkdel(this, function(record2) {
-				var $t38 = this.$1$OnStoreRequestField;
-				var $t37 = $Cayita_Data_StoreRequest.$ctor();
-				$t37.action = 3;
-				$t37.state = 0;
-				$t38(this, $t37);
+				var $t39 = this.$1$OnStoreRequestField;
+				var $t38 = $Cayita_Data_StoreRequest.$ctor();
+				$t38.action = 3;
+				$t38.state = 0;
+				$t39(this, $t38);
 				var req = {};
 				req[this.$idProperty] = record2[this.$idProperty];
 				return $.post(this.$destroyApi.url, req, function(cb3) {
@@ -538,41 +548,41 @@
 						return ss.referenceEquals(f7[this.$idProperty], record2[this.$idProperty]);
 					});
 					ss.remove(this.$st, dr);
-					var $t40 = this.$1$OnStoreChangedField;
-					var $t39 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
-					$t39.newData = dr;
-					$t39.oldData = dr;
-					$t39.action = 3;
-					$t40(this, $t39);
+					var $t41 = this.$1$OnStoreChangedField;
+					var $t40 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+					$t40.newData = dr;
+					$t40.oldData = dr;
+					$t40.action = 3;
+					$t41(this, $t40);
 				})).fail(ss.mkdel(this, function(f8) {
-					var $t42 = this.$1$OnStoreErrorField;
-					var $t41 = ss.makeGenericType($Cayita_Data_StoreError$1, [T]).$ctor();
-					$t41.action = 3;
-					$t41.request = f8;
-					$t42(this, $t41);
+					var $t43 = this.$1$OnStoreErrorField;
+					var $t42 = ss.makeGenericType($Cayita_Data_StoreError$1, [T]).$ctor();
+					$t42.action = 3;
+					$t42.request = f8;
+					$t43(this, $t42);
 				})).always(ss.mkdel(this, function(f9) {
-					var $t44 = this.$1$OnStoreRequestField;
-					var $t43 = $Cayita_Data_StoreRequest.$ctor();
-					$t43.action = 3;
-					$t43.state = 1;
-					$t44(this, $t43);
+					var $t45 = this.$1$OnStoreRequestField;
+					var $t44 = $Cayita_Data_StoreRequest.$ctor();
+					$t44.action = 3;
+					$t44.state = 1;
+					$t45(this, $t44);
 				}));
 			});
 			this.$patchFunc = ss.mkdel(this, function(record3) {
-				var $t46 = this.$1$OnStoreRequestField;
-				var $t45 = $Cayita_Data_StoreRequest.$ctor();
-				$t45.action = 4;
-				$t45.state = 0;
-				$t46(this, $t45);
+				var $t47 = this.$1$OnStoreRequestField;
+				var $t46 = $Cayita_Data_StoreRequest.$ctor();
+				$t46.action = 4;
+				$t46.state = 0;
+				$t47(this, $t46);
 				return $.post(this.$patchApi.url, record3, function(cb4) {
 				}, this.$patchApi.dataType).done(ss.mkdel(this, function(scb4) {
 					var r3 = this.$updateApi.dataProperty;
 					var data4 = scb4;
 					if (!!data4[r3].IsArray()) {
-						var $t47 = ss.getEnumerator(ss.cast(data4[r3], ss.IList));
+						var $t48 = ss.getEnumerator(ss.cast(data4[r3], ss.IList));
 						try {
-							while ($t47.moveNext()) {
-								var item3 = $t47.current();
+							while ($t48.moveNext()) {
+								var item3 = $t48.current();
 								var i2 = { $: item3 };
 								var ur2 = Enumerable.from(this.$st).first(function(f10) {
 									return ss.referenceEquals(f10[this.$idProperty], i2.$[this.$idProperty]);
@@ -580,16 +590,16 @@
 								var old2 = ss.createInstance(T);
 								cayita.fn.populateFrom(old2, ur2);
 								cayita.fn.populateFrom(ur2, item3);
-								var $t49 = this.$1$OnStoreChangedField;
-								var $t48 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
-								$t48.newData = ur2;
-								$t48.oldData = old2;
-								$t48.action = 4;
-								$t49(this, $t48);
+								var $t50 = this.$1$OnStoreChangedField;
+								var $t49 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+								$t49.newData = ur2;
+								$t49.oldData = old2;
+								$t49.action = 4;
+								$t50(this, $t49);
 							}
 						}
 						finally {
-							$t47.dispose();
+							$t48.dispose();
 						}
 					}
 					else {
@@ -600,25 +610,25 @@
 						var old3 = ss.createInstance(T);
 						cayita.fn.populateFrom(old3, ur3);
 						cayita.fn.populateFrom(ur3, ss.cast(data4[r3], T));
-						var $t51 = this.$1$OnStoreChangedField;
-						var $t50 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
-						$t50.newData = ur3;
-						$t50.oldData = old3;
-						$t50.action = 4;
-						$t51(this, $t50);
+						var $t52 = this.$1$OnStoreChangedField;
+						var $t51 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+						$t51.newData = ur3;
+						$t51.oldData = old3;
+						$t51.action = 4;
+						$t52(this, $t51);
 					}
 				})).fail(ss.mkdel(this, function(f12) {
-					var $t53 = this.$1$OnStoreErrorField;
-					var $t52 = ss.makeGenericType($Cayita_Data_StoreError$1, [T]).$ctor();
-					$t52.action = 4;
-					$t52.request = f12;
-					$t53(this, $t52);
+					var $t54 = this.$1$OnStoreErrorField;
+					var $t53 = ss.makeGenericType($Cayita_Data_StoreError$1, [T]).$ctor();
+					$t53.action = 4;
+					$t53.request = f12;
+					$t54(this, $t53);
 				})).always(ss.mkdel(this, function(f13) {
-					var $t55 = this.$1$OnStoreRequestField;
-					var $t54 = $Cayita_Data_StoreRequest.$ctor();
-					$t54.action = 4;
-					$t54.state = 1;
-					$t55(this, $t54);
+					var $t56 = this.$1$OnStoreRequestField;
+					var $t55 = $Cayita_Data_StoreRequest.$ctor();
+					$t55.action = 4;
+					$t55.state = 1;
+					$t56(this, $t55);
 				}));
 			});
 		};
@@ -912,11 +922,13 @@
 			$this.dataProperty = null;
 			$this.totalCountProperty = null;
 			$this.htmlProperty = null;
+			$this.converters = null;
 			$this.url = 'api/' + ss.getTypeName(T);
 			$this.dataType = 'json';
 			$this.dataProperty = 'Result';
 			$this.totalCountProperty = 'TotalCount';
 			$this.htmlProperty = 'Html';
+			$this.converters = {};
 			return $this;
 		};
 		ss.registerGenericClassInstance($type, $Cayita_Data_StoreApi$1, [T], function() {

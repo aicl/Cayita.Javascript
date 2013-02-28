@@ -34,6 +34,8 @@ namespace Cayita.Javascript.Data
 		}
 		
 		public dynamic Request {get; private set;}
+				
+
 	}
 	
 	//FormData

@@ -15,7 +15,12 @@ namespace System
 			return new JsDate( d.GetUtcFullYear(),d.GetUtcMonth(), d.GetUtcDate(),
 			                  d.GetUtcHours(), d.GetUtcMinutes(), d.GetUtcSeconds());
 		}
-		
+
+		[InlineCode("cayita.fn.convertToDate({value})")]
+		public static DateTime ConvertToDate(this DateTime value){
+			return default(DateTime);
+		}
+
 		public static string Format(this JsDate date, string format){
 			if(date==null) return string.Empty;
 			return date.Format(format);

@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using Cayita.Javascript.Data;
+using System.Collections.Generic;
 
 namespace Cayita.Javascript.DemoTables
 {
@@ -9,7 +10,10 @@ namespace Cayita.Javascript.DemoTables
 	[PreserveMemberCase]
 	public  class User
 	{
-		public User(){}
+
+		public User()
+		{
+		}
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public string Address { get; set; }
@@ -21,6 +25,7 @@ namespace Cayita.Javascript.DemoTables
 		public string UserName { get; set; }
 		public string Password { get; set; }
 		public int Rating { get; set; }
+
 	}
 
 	[IgnoreNamespace]
@@ -28,7 +33,13 @@ namespace Cayita.Javascript.DemoTables
 	{
 		public UserStore():base()
 		{
-			SetReadApi(api=>api.Url="json/userResponse.json");
+			SetReadApi(api=>{
+				api.Url="json/userResponse.json";
+				api.Converters["DoB"]= (u)=>{
+					return u.DoB.ConvertToDate();
+				};
+			});
+
 		}
 	}
 }

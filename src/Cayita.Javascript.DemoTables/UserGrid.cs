@@ -45,7 +45,7 @@ namespace Cayita.Javascript.DemoTables
 				Header= new TableCell(c=> c.Text("Birthday")).Element(),
 				Value= (f)=>{
 					return new TableCell( c=>{
-						c.Text(f.DoB.ToString());
+						c.Text(f.DoB.ToString("dd.MM.yyyy"));
 					}).Element();
 				}
 			});

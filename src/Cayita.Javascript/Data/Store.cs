@@ -83,6 +83,10 @@ namespace Cayita.Javascript.Data
 						{
 							foreach (var item in ((IList<T>) data[r]))
 							{
+								foreach(var kv in readApi.Converters)
+								{
+									((dynamic)item)[kv.Key]= kv.Value(item);
+								}
 								st.Add(item);
 							}
 						}

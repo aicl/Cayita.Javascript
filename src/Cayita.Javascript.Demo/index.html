@@ -93,6 +93,17 @@
 			e.attr("autonumeric")? e.autoNumeric("set",value): e.val(value);
 			return e;
 		};
+		
+		cayita.fn.convertToDate= function (v){
+			if (!v) return null;
+			if (typeof v == 'string'){
+				var d = new Date(parseFloat(/Date\(([^)]+)\)/.exec(v)[1])) // thanks demis bellot!
+				return new Date( d.getUTCFullYear(),d.getUTCMonth(), d.getUTCDate(),
+				 				 d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds());
+			}
+			else
+				return v;   
+		};
   </script>
     <script src="js/sh.js"></script>
 	<script src="js/mscorlib.js"></script>

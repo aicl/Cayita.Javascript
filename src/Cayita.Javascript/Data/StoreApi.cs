@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 
 namespace Cayita.Javascript.Data
 {
@@ -14,7 +15,7 @@ namespace Cayita.Javascript.Data
 			DataProperty="Result";
 			TotalCountProperty="TotalCount";
 			HtmlProperty = "Html";
-			
+			Converters= new JsDictionary<string, Func<T, object>>();
 		}
 		
 		public string Url {get;set;}
@@ -22,6 +23,7 @@ namespace Cayita.Javascript.Data
 		public string DataProperty {get;set;}
 		public string TotalCountProperty {get;set;}
 		public string HtmlProperty {get;set;}
+		public  JsDictionary<string, Func<T,object>> Converters {get;set;}
 	}
 }
 
