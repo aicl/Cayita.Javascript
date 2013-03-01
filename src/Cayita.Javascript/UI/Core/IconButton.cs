@@ -19,7 +19,7 @@ namespace Cayita.Javascript.UI
 		/// <param name='element'>
 		/// Element. Action<AnchorElement,IconElement>
 		/// </param>
-		public IconAnchor(Element parent,  Action<Element,Element> element)
+		public IconAnchor(Element parent,  Action<AnchorElement,Element> element)
 			:base(parent)
 		{
 			Element().ClassName="btn";
@@ -44,7 +44,7 @@ namespace Cayita.Javascript.UI
 		/// <param name='element'>
 		/// Element. Action<ButtonElement,IconElement>
 		/// </param>
-		public IconButton(Element parent,  Action<Element,Element> element)
+		public IconButton(Element parent,  Action<ButtonElement,Element> element)
 			:base(parent)
 		{
 			Element().ClassName="btn";

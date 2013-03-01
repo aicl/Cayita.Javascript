@@ -11,6 +11,7 @@
 /t:library \
 "User.cs" \
 "UserGrid.cs" \
+"UserForm.cs" \
 "DemoTables.cs" 
 
 cp bin/Debug/DemoTables.js ../Cayita.Javascript.Demo/modules/

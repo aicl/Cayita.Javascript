@@ -14,7 +14,7 @@ namespace Cayita.Javascript.UI
 		protected void CreateButton(Element parent,  string type)
 		{
 			CreateElement("button", parent);
-			if(!string.IsNullOrEmpty(type))  Element().JQuery().Attribute("type",type);
+			if(!string.IsNullOrEmpty(type))  Element().Type(type);
 			Element().ClassName="btn";
 		}
 

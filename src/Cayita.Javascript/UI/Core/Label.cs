@@ -23,7 +23,7 @@ namespace Cayita.Javascript.UI
 
 		public void TextLabel(string textLabel)
 		{
-			Element().InnerText=textLabel;
+			Element().Text(textLabel);
 		}
 
 		public string TextLabel()
@@ -55,7 +55,7 @@ namespace Cayita.Javascript.UI
 		                                       string forField=null,  bool visible=true)
 		{
 			return  new Label(parent, lb=>{
-				lb.InnerText=textLabel;
+				lb.Text(textLabel);
 				lb.ClassName= "control-label";
 				if (!string.IsNullOrEmpty(forField)) lb.SetAttribute("for", forField);
 				if(!visible) lb.Hide();

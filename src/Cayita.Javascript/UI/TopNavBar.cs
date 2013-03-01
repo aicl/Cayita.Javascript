@@ -65,7 +65,7 @@ namespace Cayita.Javascript.UI
 					});
 					brand= new Anchor(fluid, brnd=>{
 						brnd.Href="#";
-						brnd.InnerText=brandText;
+						brnd.Text(brandText);
 						brnd.ClassName="brand";
 					}).Element();
 					navCollapse = new Div(fluid, collapse=>{
@@ -75,7 +75,7 @@ namespace Cayita.Javascript.UI
 							paragraph.ClassName="navbar-text pull-right";
 							paragraph.JQuery().Text(rightText);
 							pullRightAnchor= new Anchor(paragraph, a=>{
-								a.Href="#";  a.ClassName="navbar-link" ; a.InnerText=rightLinkText;
+								a.Href="#";  a.ClassName="navbar-link" ; a.Text(rightLinkText);
 							}).Element();
 						}).Element();
 						navList= HtmlList.CreateNavList(collapse, navlist);

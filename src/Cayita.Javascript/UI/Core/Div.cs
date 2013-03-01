@@ -127,7 +127,7 @@ namespace Cayita.Javascript.UI
 					element.Href="#";
 					element.ClassName="close";
 					element.SetAttribute("data-dismiss","alert");
-					element.InnerText="×";
+					element.Text("×");
 					
 				});
 				de.JQuery().Append(message);

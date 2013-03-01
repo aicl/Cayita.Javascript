@@ -38,6 +38,7 @@
     <Compile Include="DemoTables.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserGrid.cs" />
+    <Compile Include="UserForm.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

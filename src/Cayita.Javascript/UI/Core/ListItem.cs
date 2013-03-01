@@ -35,7 +35,7 @@ namespace Cayita.Javascript.UI
 			new Anchor(il.Element(),
 			           a=>{
 				a.Href= href;
-				a.InnerText= item;
+				a.Text( item );
 			});
 			return il;
 		}
@@ -66,7 +66,7 @@ namespace Cayita.Javascript.UI
 			var anchor = new Anchor(il.Element(),
 			                        a=>{
 				a.Href= href;
-				a.InnerText= item;
+				a.Text(item);
 			});
 			element(il.Element(), anchor.Element()); 
 			return il;
@@ -76,7 +76,7 @@ namespace Cayita.Javascript.UI
 		{
 			return new ListItem(parent, l=>{
 				l.ClassName="nav-header";
-				l.InnerText= item;
+				l.Text(item);
 			});
 
 		}

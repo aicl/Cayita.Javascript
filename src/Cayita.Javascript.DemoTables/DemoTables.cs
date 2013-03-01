@@ -13,9 +13,16 @@ namespace Cayita.Javascript.DemoTables
 
 		public static void Execute(Element parent)
 		{
-			var ug= UserGrid.Create(null, new UserStore());
-			ug.AppendTo(parent);
+			var ug= UserGrid.Create(parent, new UserStore());
+			var uf = new UserForm(parent).Element();
+
+			ug.OnRowSelected+=( (g, sr)=>{
+				uf.Load<User>( sr!=null? sr.Record: new User());
+			});
+
 			ug.GetStore().Read();
+
+
 		}
 	}
 }

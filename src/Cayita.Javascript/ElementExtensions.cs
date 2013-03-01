@@ -32,7 +32,6 @@ namespace Cayita.Javascript
 			return null;
 		}
 
-
 		[InlineCode("$({element}).addClass({className})")]
 		public static jQueryObject AddClass(this Element element, string className)
 		{
@@ -247,12 +246,17 @@ namespace Cayita.Javascript
 		}
 
 		#endregion jquery.validate jQuery Validation Plugin - v1.10.0 
-
-		
+			
 		[InlineCode("Array.isArray({o})")]
 		public static bool IsArray(this object o)
 		{
 			return false;
+		}
+
+		[InlineCode("$({button}).attr('type',{value})")]
+		public static jQueryObject Type(this ButtonElement button, string value)
+		{
+			return null;
 		}
 
 	}

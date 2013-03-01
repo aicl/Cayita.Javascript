@@ -187,7 +187,7 @@ namespace Cayita.Javascript.DemoForm
 						new Div(row,element=>{
 							element.ClassName="span4 offset3 well";
 							new Legend(element,  l=>{
-								l.InnerText="Login Form";
+								l.Text("Login Form");
 							});
 							
 							new Form(element, fe=>{

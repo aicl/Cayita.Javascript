@@ -59,7 +59,7 @@ namespace Cayita.Javascript.UI
 					
 					var label = new Label(ctdiv, lb=>{
 						lb.ClassName="checkbox";
-						lb.InnerText=textLabel;
+						lb.Text(textLabel);
 					});
 					
 					Init( default(Element));

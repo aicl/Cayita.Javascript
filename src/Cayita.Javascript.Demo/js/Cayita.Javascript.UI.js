@@ -1120,7 +1120,7 @@
 			this.$controls = $Cayita_UI_Div.createControls$1(cgDiv, ss.mkdel(this, function(ctdiv) {
 				var label = new $Cayita_UI_Label.$ctor1(ctdiv, function(lb) {
 					lb.className = 'checkbox';
-					lb.innerText = textLabel;
+					$(lb).text(textLabel);
 				});
 				this.init(null);
 				label.forField$1(this.element$2().id);
@@ -1226,7 +1226,7 @@
 				element.href = '#';
 				element.className = 'close';
 				element.setAttribute('data-dismiss', 'alert');
-				element.innerText = '×';
+				$(element).text('×');
 			});
 			$(de).append(message);
 		});
@@ -2043,7 +2043,7 @@
 	};
 	$Cayita_UI_Label.prototype = {
 		textLabel$1: function(textLabel) {
-			this.element().innerText = textLabel;
+			$(this.element()).text(textLabel);
 		},
 		textLabel: function() {
 			return this.element().innerText;
@@ -2069,7 +2069,7 @@
 	$Cayita_UI_Label.$ctor1.prototype = $Cayita_UI_Label.prototype;
 	$Cayita_UI_Label.createControlLabel = function(parent, textLabel, forField, visible) {
 		return new $Cayita_UI_Label.$ctor1(parent, function(lb) {
-			lb.innerText = textLabel;
+			$(lb).text(textLabel);
 			lb.className = 'control-label';
 			if (!ss.isNullOrEmptyString(forField)) {
 				lb.setAttribute('for', forField);
@@ -2112,7 +2112,7 @@
 		var il = new $Cayita_UI_ListItem(parent);
 		new $Cayita_UI_Anchor.$ctor1(il.element(), function(a) {
 			a.href = href;
-			a.innerText = item;
+			$(a).text(item);
 		});
 		return il;
 	};
@@ -2120,7 +2120,7 @@
 		var il = new $Cayita_UI_ListItem(parent);
 		var anchor = new $Cayita_UI_Anchor.$ctor1(il.element(), function(a) {
 			a.href = href;
-			a.innerText = item;
+			$(a).text(item);
 		});
 		element(il.element(), anchor.element$1());
 		return il;
@@ -2128,7 +2128,7 @@
 	$Cayita_UI_ListItem.createNavHeader = function(parent, item) {
 		return new $Cayita_UI_ListItem.$ctor1(parent, function(l) {
 			l.className = 'nav-header';
-			l.innerText = item;
+			$(l).text(item);
 		});
 	};
 	////////////////////////////////////////////////////////////////////////////////
@@ -2718,7 +2718,7 @@
 				});
 				this.$brand = (new $Cayita_UI_Anchor.$ctor1(fluid, function(brnd) {
 					brnd.href = '#';
-					brnd.innerText = brandText;
+					$(brnd).text(brandText);
 					brnd.className = 'brand';
 				})).element$1();
 				this.$navCollapse = new $Cayita_UI_Div.$ctor1(fluid, ss.mkdel(this, function(collapse) {
@@ -2729,7 +2729,7 @@
 						this.$pullRightAnchor = (new $Cayita_UI_Anchor.$ctor1(paragraph, function(a) {
 							a.href = '#';
 							a.className = 'navbar-link';
-							a.innerText = rightLinkText;
+							$(a).text(rightLinkText);
 						})).element$1();
 					}))).element();
 					this.$navList = $Cayita_UI_HtmlList.createNavList$1(collapse, navlist);

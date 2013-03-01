@@ -1,7 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
 using Cayita.Javascript.Data;
-using System.Collections.Generic;
 
 namespace Cayita.Javascript.DemoTables
 {
@@ -32,7 +31,7 @@ namespace Cayita.Javascript.DemoTables
 			SetReadApi(api=>{
 				api.Url="json/userResponse.json";
 				api.Converters["DoB"]= (u)=>{
-					return u.DoB.ConvertToDate();
+					return u.DoB.ConvertToDate(); // convert from  "DoB":"\/Date(13651200000+0000)\/" into date 
 				};
 			});
 		}
