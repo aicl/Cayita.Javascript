@@ -68,6 +68,7 @@ namespace Cayita.Javascript.DemoTables
 			new TextField(f,(l, e)=>{
 				l.Text("Rating");
 				e.Name="Rating";
+				e.AutoNumericInit(new {mDec=0});
 			}); 
 
 		

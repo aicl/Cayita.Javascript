@@ -190,10 +190,23 @@ namespace Cayita.Javascript
 			return null;
 		}
 
-		[InlineCode("cayita.fn.getValue({element})")] 
-		public static string GetValue(this InputElement element)
+		[InlineCode("$({element}).text({value})")]
+		public static jQueryObject SetValue(this TableCellElement element, object value)
 		{
 			return null;
+		}
+
+
+		[InlineCode("cayita.fn.getValue({element})")] 
+		public static object GetValue(this InputElement element)
+		{
+			return null;
+		}
+
+		[InlineCode("cayita.fn.getValue({element})")] 
+		public static T GetValue<T>(this InputElement element)
+		{
+			return default(T);
 		}
 
 		//$( "#s" + " option[value="+2+"]").attr("selected",true);

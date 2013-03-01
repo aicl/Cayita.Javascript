@@ -71,7 +71,7 @@ namespace Cayita.Javascript.UI
 
 		public string Value()
 		{
-			return Element().GetValue();
+			return Element().GetValue<string>();
 		}
 
 

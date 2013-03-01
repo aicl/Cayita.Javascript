@@ -28,7 +28,7 @@ namespace Cayita.Javascript.DemoTables
 				Header= new TableCell(c=> c.Text("Name")).Element(),
 				Value= (f)=>{
 					return new TableCell( c=>{
-						c.Text(f.Name);
+						c.SetValue(f.Name);
 					}).Element();
 				}
 			});
@@ -37,7 +37,7 @@ namespace Cayita.Javascript.DemoTables
 				Header= new TableCell(c=> c.Text("City")).Element(),
 				Value= (f)=>{
 					return new TableCell( c=>{
-						c.Text(f.City);
+						c.SetValue(f.City);
 					}).Element();
 				}
 			});
@@ -46,7 +46,7 @@ namespace Cayita.Javascript.DemoTables
 				Header= new TableCell(c=> c.Text("Address")).Element(),
 				Value= (f)=>{
 					return new TableCell( c=>{
-						c.Text(f.Address);
+						c.SetValue(f.Address);
 					}).Element();
 				}
 			});
@@ -55,7 +55,7 @@ namespace Cayita.Javascript.DemoTables
 				Header= new TableCell(c=> c.Text("Birthday")).Element(),
 				Value= (f)=>{
 					return new TableCell( c=>{
-						c.Text(f.DoB.ToString("dd.MM.yyyy"));
+						c.SetValue(f.DoB.ToString("dd.MM.yyyy"));
 					}).Element();
 				}
 			});
@@ -64,7 +64,7 @@ namespace Cayita.Javascript.DemoTables
 				Header= new TableCell(c=> c.Text("Email")).Element(),
 				Value= (f)=>{
 					return new TableCell( c=>{
-						c.Text(f.Email);
+						c.SetValue(f.Email);
 					}).Element();
 				}
 			});
@@ -73,7 +73,7 @@ namespace Cayita.Javascript.DemoTables
 				Header= new TableCell(c=> c.Text("Rating")).Element(),
 				Value= (f)=>{
 					return new TableCell( c=>{
-						c.Text(f.Rating.ToString());
+						c.SetValue(f.Rating.ToString());
 						c.AutoNumericInit(new {mDec=0});
 						c.Style.TextAlign="center";
 					}).Element();
@@ -88,7 +88,7 @@ namespace Cayita.Javascript.DemoTables
 				Header= new TableCell(c=> c.Text("Level")).Element(),
 				Value= (f)=>{
 					return new TableCell( c=>{
-						c.Text(f.Level);
+						c.SetValue(f.Level);
 						c.Style.Color= f.Level=="A"?"green": f.Level=="B"?"orange": "red";
 						c.Style.TextAlign="center";
 					}).Element();
