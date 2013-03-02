@@ -22,7 +22,7 @@ namespace Cayita.Javascript.UI
 
 		Div controls ;
 
-		public RadioField (Element parent, string label, string fieldName, IList<RadioItem> items)
+		public RadioField (Element parent, string label, string fieldName, IList<RadioItem> items, bool inline=true)
 			:base(parent)
 		{
 			element= Element();
@@ -33,8 +33,10 @@ namespace Cayita.Javascript.UI
 				{
 					new InputRadio(ct, (lb,rd)=>{
 						lb.Text(item.Text);
+						if(!inline) lb.RemoveClass("inline");
 						rd.Name=fieldName;
 						rd.SetValue(item.Value);
+
 					});
 				}
 			});

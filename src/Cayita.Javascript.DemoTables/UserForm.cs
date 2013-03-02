@@ -9,7 +9,7 @@ namespace Cayita.Javascript.DemoTables
 	[IgnoreNamespace]
 	public class UserForm:Form
 	{
-		public UserForm (Element parent):base(null)
+		public UserForm (Element parent, List<RadioItem> levelOptions):base(null)
 		{
 			var f = Element();
 
@@ -72,19 +72,14 @@ namespace Cayita.Javascript.DemoTables
 				e.AutoNumericInit(new {mDec=0});
 			}); 
 
-			new RadioField(f, "Level", "Level", new List<RadioItem>(
-				new RadioItem[]{
-				new RadioItem{Text="A", Value="A"},
-				new RadioItem{Text="B", Value="B"},
-				new RadioItem{Text="C", Value="C"}
-			}));
+			new RadioField(f, "Level", "Level", levelOptions);
 
 			new CheckboxField(f,(l, e)=>{
 				l.Text("Is Active?");
-				e.Name="Active";
+				e.Name="IsActive";
 			}); 
 
-			f.JQuery("label").CSS("width", "80px");
+			f.JQuery("label[class='control-label']").CSS("width", "80px");
 			AppendTo(parent);
 		}
 	}

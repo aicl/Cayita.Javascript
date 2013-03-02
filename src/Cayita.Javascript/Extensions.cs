@@ -56,16 +56,9 @@ namespace Cayita.Javascript
 			}
 		}
 
+		[InlineCode("cayita.fn.loadForm({form},{data})")]
 		public static void Load<T>(this FormElement form, T data)
 		{
-			var d = (dynamic) data;
-			var inputs = jQuery.Select ("[name]", form).GetElements();
-			foreach(var input in inputs)
-			{
-				var ie = (InputElement)input;
-				if(string.IsNullOrEmpty(ie.Name)) continue;
-				ie.SetValue( (object) d[ie.Name] );
-			}
 		}
 
 

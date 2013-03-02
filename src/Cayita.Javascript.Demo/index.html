@@ -119,6 +119,38 @@
 			else
 				return v;   
 		};
+		
+		cayita.fn.loadForm=function(form, data){
+			form.reset();
+			var $form= $(form);
+			for(var d in data){
+				
+				var field = $form.find("input[name='"+d+"']");
+				var type = field.attr("type");
+				if(field) {
+					if(type=="radio"){
+					    for (var i=0; i<field.length;i++){
+  							var fr =$(field[i]);
+							if(fr.attr("type") =="radio"){
+								fr.attr("checked", (fr.attr("value")==data[d])? "checked":null) ;
+							}
+						}
+					}
+					else if (type=="checkbox"){
+						for (var i=0; i<field.length;i++){
+  							var fr =$(field[i]);
+							if(fr.attr("type") =="checkbox"){
+								fr.attr("checked", data[d]? "checked":null) ;
+							}
+						}
+					}
+					else
+						this.setValue(field, data[d] );
+				}
+			}
+			
+		};
+		
   </script>
     <script src="js/sh.js"></script>
 	<script src="js/mscorlib.js"></script>

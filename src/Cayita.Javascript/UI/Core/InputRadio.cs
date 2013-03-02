@@ -10,7 +10,7 @@ namespace Cayita.Javascript.UI
 		public InputRadio (Element parent,  Action<Element,CheckBoxElement> field)
 		{
 			new Label(parent, lb=>{
-				lb.ClassName="radio";
+				lb.ClassName="radio inline";
 				CreateInput(null, "radio");
 				lb.SetAttribute("for", Element().ID);
 				field(lb, Element());  

@@ -1358,7 +1358,7 @@
 	// Cayita.Javascript.Extensions
 	var $Cayita_UI_Ext = function() {
 	};
-	$Cayita_UI_Ext.load$1 = function(T) {
+	$Cayita_UI_Ext.load = function(T) {
 		return function(cb, data, func, append) {
 			if (!append) {
 				$(cb).empty();
@@ -1408,20 +1408,6 @@
 				}
 				catch ($t2) {
 				}
-			}
-		};
-	};
-	$Cayita_UI_Ext.load = function(T) {
-		return function(form, data) {
-			var d = data;
-			var inputs = $('[name]', form).get();
-			for (var $t1 = 0; $t1 < inputs.length; $t1++) {
-				var input = inputs[$t1];
-				var ie = input;
-				if (ss.isNullOrEmptyString(ie.name)) {
-					continue;
-				}
-				cayita.fn.setValue(ie, d[ie.name]);
 			}
 		};
 	};
@@ -1513,7 +1499,7 @@
 			});
 		};
 	};
-	$Cayita_UI_Ext.load$2 = function(T) {
+	$Cayita_UI_Ext.load$1 = function(T) {
 		return function(table, data, columns, recordIdProperty, append) {
 			var body;
 			if (table.tBodies.length === 0) {
@@ -1636,7 +1622,7 @@
 							break;
 						}
 						case 1: {
-							$Cayita_UI_Ext.load$2(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
+							$Cayita_UI_Ext.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
 							this.selectRow(true);
 							break;
 						}
@@ -1673,7 +1659,7 @@
 							break;
 						}
 						case 10: {
-							$Cayita_UI_Ext.load$2(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
+							$Cayita_UI_Ext.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
 							this.selectRow(true);
 							break;
 						}
@@ -1722,7 +1708,7 @@
 			},
 			render: function() {
 				$Cayita_UI_Ext.createHeader(T).call(null, this.$table, this.$columns);
-				$Cayita_UI_Ext.load$2(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
+				$Cayita_UI_Ext.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
 			},
 			selectRow$1: function(recordId, trigger) {
 				var row = $('tr[record-id=' + recordId + ']', this.$table).get(0);
@@ -1849,7 +1835,7 @@
 		},
 		load: function(T) {
 			return function(data, func) {
-				$Cayita_UI_Ext.load$1(T).call(null, this.element$1(), data, func, false);
+				$Cayita_UI_Ext.load(T).call(null, this.element$1(), data, func, false);
 			};
 		},
 		selectItem: function(value) {
@@ -2022,7 +2008,7 @@
 	var $Cayita_UI_InputRadio = function(parent, field) {
 		$Cayita_UI_InputBase.call(this);
 		new $Cayita_UI_Label.$ctor1(parent, ss.mkdel(this, function(lb) {
-			lb.className = 'radio';
+			lb.className = 'radio inline';
 			this.createInput(null, 'radio');
 			lb.setAttribute('for', this.element$2().id);
 			field(lb, this.element$2());
@@ -2162,7 +2148,7 @@
 	$Cayita_UI_Paragraph.$ctor1.prototype = $Cayita_UI_Paragraph.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.RadioField
-	var $Cayita_UI_RadioField = function(parent, label, fieldName, items) {
+	var $Cayita_UI_RadioField = function(parent, label, fieldName, items, inline) {
 		this.$element = null;
 		this.$controls = null;
 		$Cayita_UI_Div.call(this, parent);
@@ -2176,6 +2162,9 @@
 					var item = { $: $t1.current() };
 					new $Cayita_UI_InputRadio(ct, ss.mkdel({ item: item }, function(lb, rd) {
 						$(lb).text(this.item.$.text);
+						if (!inline) {
+							$(lb).removeClass('inline');
+						}
 						rd.name = fieldName;
 						cayita.fn.setValue(rd, this.item.$.value);
 					}));
@@ -2432,7 +2421,7 @@
 						return this.$defaultoption.option;
 					}));
 				}
-				$Cayita_UI_Ext.load$1(T).call(null, this.$se, this.$store, this.$optionFunc, append);
+				$Cayita_UI_Ext.load(T).call(null, this.$se, this.$store, this.$optionFunc, append);
 				if (!ss.isNullOrEmptyString(this.$defaultoption.option.value)) {
 					var $t1 = this.$se;
 					$('option[value=' + this.$defaultoption.option.value + ']', $t1).attr('selected', true);
