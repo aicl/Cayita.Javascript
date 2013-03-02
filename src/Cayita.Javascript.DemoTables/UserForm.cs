@@ -58,6 +58,7 @@ namespace Cayita.Javascript.DemoTables
 			new TextField(f,(l, e)=>{
 				l.Text("Birthday");
 				e.Name="DoB";
+				e.DatepickerInit(new { closeText= "Close", dateFormat= "dd.mm.yy" });
 			}); 
 
 			new TextField(f,(l, e)=>{

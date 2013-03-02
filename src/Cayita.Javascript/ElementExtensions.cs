@@ -141,6 +141,12 @@ namespace Cayita.Javascript
 			return null;
 		}
 
+		[InlineCode("cayita.fn.datepickerInit({element}, {options})")]
+		public static jQueryObject DatepickerInit(this InputElement element, dynamic options=null)
+		{
+			return null;
+		}
+
 
 		[InlineCode("$('tbody tr', {element})")]
 		public static jQueryObject JSelectRows(this TableElement element)

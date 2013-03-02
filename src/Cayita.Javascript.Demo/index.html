@@ -8,9 +8,11 @@
     <meta name="author" content="angel ignacio colmenares laguado">
     <title>Cayita.HtmlWidgets</title>
     <!-- Le styles -->
+  
     <link href="css/docs.css" rel="stylesheet">
     <link href="css/sh.css" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/flick/jquery-ui-1.10.1.custom.min.css" rel="stylesheet">
     <style type="text/css">
       
       body {
@@ -81,16 +83,29 @@
 			return e;
 		};
 		
+		cayita.fn.datepickerInit=function(element,options){
+			var e = $(element); 
+			e.datepicker(options); 
+			e.attr("datepicker",true); 
+			return e;
+		};
+		
 		cayita.fn.clone=function(source){var target={};for(var p in source){target[p]= source[p];}return target};
 		
 		cayita.fn.getValue=function(element){
 			var e = $(element); 
-			return e.attr("autonumeric")? e.autoNumeric("get"): e.val();
+			if( e.attr("autonumeric") ) return e.autoNumeric("get");
+			if( e.attr("datepicker") ){
+			 	return e.datepicker("getDate")
+			 }
+			return e.val();
 		};
 		
 		cayita.fn.setValue=function(element,value){
 			var e = $(element); 
-			e.attr("autonumeric")? e.autoNumeric("set",value): e.val(value);
+			if( e.attr("autonumeric") ) { e.autoNumeric("set",value) }
+			else if ( e.attr("datepicker") ) { e.datepicker("setDate", value) }
+			else { e.val(value) }
 			return e;
 		};
 		
@@ -113,6 +128,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootbox.min.js"></script>
     <script src="js/autonumeric-1.8.5.js"></script>
+    <script src="js/jquery-ui-1.10.1.custom.min.js"></script>
     <script src="js/Cayita.Javascript.UI.js"></script>
     <script src="js/Calamar.Modelos.js"></script>
     <script src="js/Cayita.Demo.js"></script>
