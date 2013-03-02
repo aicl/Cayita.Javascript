@@ -2,6 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using Cayita.Javascript.UI;
 using System.Html;
+using System.Collections.Generic;
 
 namespace Cayita.Javascript.DemoTables
 {
@@ -14,7 +15,6 @@ namespace Cayita.Javascript.DemoTables
 
 			f.ClassName="form-horizontal";
 			f.Append("<style>.form-horizontal .controls { margin-left: 100px; } @media (max-width: 480px) { .form-horizontal .controls { margin-left: 0px; } }  </style>");
-
 
 			new Div(f, tb=>{
 				tb.ClassName= "nav";
@@ -72,7 +72,13 @@ namespace Cayita.Javascript.DemoTables
 				e.AutoNumericInit(new {mDec=0});
 			}); 
 
-		
+			new RadioField(f, "Level", "Level", new List<RadioItem>(
+				new RadioItem[]{
+				new RadioItem{Text="A", Value="A"},
+				new RadioItem{Text="B", Value="B"},
+				new RadioItem{Text="C", Value="C"}
+			}));
+
 			new CheckboxField(f,(l, e)=>{
 				l.Text("Is Active?");
 				e.Name="Active";

@@ -1089,7 +1089,7 @@
 		$Cayita_UI_CheckboxField.$ctor1.call(this, parent.element(), field);
 	};
 	$Cayita_UI_CheckboxField.prototype = {
-		getControGroup: function() {
+		getControlGroup: function() {
 			return this.$controlGroup;
 		},
 		getControls: function() {
@@ -2018,6 +2018,23 @@
 	};
 	$Cayita_UI_InputPassword.$ctor1.prototype = $Cayita_UI_InputPassword.prototype;
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.InputRadio
+	var $Cayita_UI_InputRadio = function(parent, field) {
+		$Cayita_UI_InputBase.call(this);
+		new $Cayita_UI_Label.$ctor1(parent, ss.mkdel(this, function(lb) {
+			lb.className = 'radio';
+			this.createInput(null, 'radio');
+			lb.setAttribute('for', this.element$2().id);
+			field(lb, this.element$2());
+			$(lb).append(this.element$2());
+		}));
+	};
+	$Cayita_UI_InputRadio.prototype = {
+		element$2: function() {
+			return this.element$1();
+		}
+	};
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.InputText
 	var $Cayita_UI_InputText = function() {
 		$Cayita_UI_InputBase.call(this);
@@ -2048,9 +2065,9 @@
 		textLabel: function() {
 			return this.element().innerText;
 		},
-		forField$1: function(fieldName) {
-			if (!ss.isNullOrEmptyString(fieldName)) {
-				this.element().setAttribute('for', fieldName);
+		forField$1: function(fieldId) {
+			if (!ss.isNullOrEmptyString(fieldId)) {
+				this.element().setAttribute('for', fieldId);
 			}
 			else {
 				this.element().removeAttribute('for');
@@ -2143,6 +2160,50 @@
 		element(this.element());
 	};
 	$Cayita_UI_Paragraph.$ctor1.prototype = $Cayita_UI_Paragraph.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.RadioField
+	var $Cayita_UI_RadioField = function(parent, label, fieldName, items) {
+		this.$element = null;
+		this.$controls = null;
+		$Cayita_UI_Div.call(this, parent);
+		this.$element = this.element$1();
+		this.$element.className = 'control-group';
+		$Cayita_UI_Label.createControlLabel(this.$element, label, null, true);
+		this.$controls = $Cayita_UI_Div.createControls$1(this.$element, function(ct) {
+			var $t1 = ss.getEnumerator(items);
+			try {
+				while ($t1.moveNext()) {
+					var item = { $: $t1.current() };
+					new $Cayita_UI_InputRadio(ct, ss.mkdel({ item: item }, function(lb, rd) {
+						$(lb).text(this.item.$.text);
+						rd.name = fieldName;
+						cayita.fn.setValue(rd, this.item.$.value);
+					}));
+				}
+			}
+			finally {
+				$t1.dispose();
+			}
+		});
+	};
+	$Cayita_UI_RadioField.prototype = {
+		getControls: function() {
+			return this.$controls;
+		}
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.RadioItem
+	var $Cayita_UI_RadioItem = function() {
+	};
+	$Cayita_UI_RadioItem.createInstance = function() {
+		return $Cayita_UI_RadioItem.$ctor();
+	};
+	$Cayita_UI_RadioItem.$ctor = function() {
+		var $this = {};
+		$this.text = null;
+		$this.value = null;
+		return $this;
+	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.RequestMessage
 	var $Cayita_UI_RequestMessage = function() {
@@ -2791,10 +2852,13 @@
 	ss.registerClass(global, 'Cayita.UI.Input', $Cayita_UI_Input, $Cayita_UI_InputBase);
 	ss.registerClass(global, 'Cayita.UI.InputText', $Cayita_UI_InputText, $Cayita_UI_InputBase);
 	ss.registerClass(global, 'Cayita.UI.InputPassword', $Cayita_UI_InputPassword, $Cayita_UI_InputText);
+	ss.registerClass(global, 'Cayita.UI.InputRadio', $Cayita_UI_InputRadio, $Cayita_UI_InputBase);
 	ss.registerClass(global, 'Cayita.UI.Label', $Cayita_UI_Label, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Legend', $Cayita_UI_Legend, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.ListItem', $Cayita_UI_ListItem, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Paragraph', $Cayita_UI_Paragraph, $Cayita_UI_ElementBase);
+	ss.registerClass(global, 'Cayita.UI.RadioField', $Cayita_UI_RadioField, $Cayita_UI_Div);
+	ss.registerClass(global, 'Cayita.UI.RadioItem', $Cayita_UI_RadioItem);
 	ss.registerClass(global, 'Cayita.UI.RequestMessage', $Cayita_UI_RequestMessage);
 	ss.registerClass(global, 'Cayita.UI.ResetButton', $Cayita_UI_ResetButton, $Cayita_UI_ButtonBase);
 	ss.registerClass(global, 'Cayita.UI.SelectedRow', $Cayita_UI_SelectedRow);

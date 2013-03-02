@@ -72,7 +72,7 @@ namespace Cayita.Javascript.UI
 			});
 		}
 
-		public Div GetControGroup()
+		public Div GetControlGroup()
 		{
 			return controlGroup;
 		}

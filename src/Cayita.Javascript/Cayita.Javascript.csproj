@@ -84,6 +84,8 @@
     <Compile Include="UI\SpinnerIcon.cs" />
     <Compile Include="UI\SideNavBar.cs" />
     <Compile Include="UI\Core\TextArea.cs" />
+    <Compile Include="UI\Core\InputRadio.cs" />
+    <Compile Include="UI\RadioField.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

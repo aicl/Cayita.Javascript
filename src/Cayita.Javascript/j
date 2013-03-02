@@ -28,7 +28,7 @@
 "UI/Core/Label.cs" \
 "UI/Core/TextArea.cs" \
 "UI/Core/InputBase.cs" "UI/Core/Input.cs" \
-"UI/Core/InputText.cs"  "UI/Core/InputPassword.cs" "UI/Core/InputCheckbox.cs" \
+"UI/Core/InputText.cs"  "UI/Core/InputPassword.cs" "UI/Core/InputCheckbox.cs" "UI/Core/InputRadio.cs" \
 "UI/Core/ButtonBase.cs" "UI/Core/Button.cs" "UI/Core/SubmitButton.cs" "UI/Core/ResetButton.cs" \
 "UI/Core/Form.cs" \
 "UI/Core/HtmlList.cs" \
@@ -39,7 +39,8 @@
 "UI/Core/HtmlTable.cs" "UI/Core/TableRow.cs" "UI/Core/TableCell.cs" \
 "UI/Core/SelectedRow.cs" \
 "UI/Core/TableColumn.cs" \
-"UI/TextField.cs" "UI/CheckboxField.cs" "UI/TopNavBar.cs" "UI/SideNavBar.cs" \
+"UI/TextField.cs" "UI/CheckboxField.cs" "UI/RadioField.cs" \
+"UI/TopNavBar.cs" "UI/SideNavBar.cs" \
 "UI/SelectField.cs" \
 "UI/HtmlGrid.cs" \
 "UI/SpinnerIcon.cs" 

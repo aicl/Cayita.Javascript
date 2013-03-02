@@ -31,11 +31,11 @@ namespace Cayita.Javascript.UI
 			return Element().InnerText;
 		}
 
-		public void ForField(string fieldName)
+		public void ForField(string fieldId)
 		{
-			if(!string.IsNullOrEmpty(fieldName))
+			if(!string.IsNullOrEmpty(fieldId))
 			{
-				Element().SetAttribute("for", fieldName);
+				Element().SetAttribute("for", fieldId);
 			}
 			else
 			{
