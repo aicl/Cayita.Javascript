@@ -9,9 +9,26 @@ namespace Cayita.Javascript.DemoTables
 	[IgnoreNamespace]
 	public class UserForm:Form
 	{
+		FormElement f;
+
+		public ButtonElement GetSaveButton()
+		{
+			return f.FindById<ButtonElement>("btn-save");
+		}
+
+		public ButtonElement GetDestroyButton()
+		{
+			return f.FindById<ButtonElement>("btn-destroy");
+		}
+
+		public ButtonElement GetCreateButton()
+		{
+			return f.FindById<ButtonElement>("btn-create");
+		}
+
 		public UserForm (Element parent, List<RadioItem> levelOptions):base(null)
 		{
-			var f = Element();
+			f = Element();
 
 			f.ClassName="form-horizontal";
 			f.Append("<style>.form-horizontal .controls { margin-left: 100px; } @media (max-width: 480px) { .form-horizontal .controls { margin-left: 0px; } }  </style>");
@@ -21,23 +38,27 @@ namespace Cayita.Javascript.DemoTables
 				new IconButton(tb, (bt, ibn)=>{
 					ibn.ClassName="icon-file icon-large";
 					bt.ID="btn-create";
+					bt.Disabled=true;
 				});
 
 				new IconButton(tb, (bt, ibn)=>{
 					ibn.ClassName="icon-save icon-large";
 					bt.ID="btn-save";
 					bt.Type("submit");
+					bt.Disabled=true;
 				});
 
 				new IconButton(tb, (bt, ibn)=>{
 					ibn.ClassName="icon-remove icon-large";
 					bt.ID="btn-destroy";
+					bt.Disabled=true;
 				});
 			});
 
 			new InputText(f, e=>{
 				e.Name="Id";
 				e.Hide();
+				e.IsNumeric();
 			}); 
 
 			new TextField(f,(l, e)=>{

@@ -73,7 +73,7 @@ namespace Cayita.Javascript.UI
 						pullRightParagraph= new Paragraph(collapse,
 						paragraph=>{
 							paragraph.ClassName="navbar-text pull-right";
-							paragraph.JQuery().Text(rightText);
+							paragraph.Text(rightText);
 							pullRightAnchor= new Anchor(paragraph, a=>{
 								a.Href="#";  a.ClassName="navbar-link" ; a.Text(rightLinkText);
 							}).Element();

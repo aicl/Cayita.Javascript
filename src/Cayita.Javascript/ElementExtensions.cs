@@ -166,6 +166,12 @@ namespace Cayita.Javascript
 			return null;
 		}
 
+		[InlineCode("$({element}).attr('data-type','numeric')")]
+		public static jQueryObject IsNumeric(this InputElement element)
+		{
+			return null;
+		}
+
 		[InlineCode("$({element}).attr('placeholder',{value})")]
 		public static jQueryObject SetPlaceHolder(this TextElement element, string value)
 		{
@@ -277,6 +283,46 @@ namespace Cayita.Javascript
 		{
 			return null;
 		}
+
+		//
+
+		[InlineCode("$({element}).on({eventName},{selector}, {eventHandler})")]
+		public static jQueryObject On(this Element element, string eventName, string selector, jQueryEventHandler eventHandler)
+		{
+			return null;
+		}
+
+		[InlineCode("$({element}).on({eventName},{eventHandler})")]
+		public static jQueryObject On(this Element element, string eventName,  jQueryEventHandler eventHandler)
+		{
+			return null;
+		}
+
+		[InlineCode("$({element}).on('click', {selector}, {eventHandler})")]
+		public static jQueryObject OnClick(this Element element, string selector, jQueryEventHandler eventHandler)
+		{
+			return null;
+		}
+
+		[InlineCode("$({element}).on('click',{eventHandler})")]
+		public static jQueryObject OnClick(this Element element,  jQueryEventHandler eventHandler)
+		{
+			return null;
+		}
+
+
+		[InlineCode("$({form}).on('change', {selector}, {eventHandler})")]
+		public static jQueryObject OnChange(this FormElement form, string selector, jQueryEventHandler eventHandler)
+		{
+			return null;
+		}
+		
+		[InlineCode("$({form}).on('change','input', {eventHandler})")]
+		public static jQueryObject OnChange(this FormElement form,  jQueryEventHandler eventHandler)
+		{
+			return null;
+		}
+
 
 	}
 }

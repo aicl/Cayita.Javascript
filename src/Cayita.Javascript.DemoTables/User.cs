@@ -26,6 +26,8 @@ namespace Cayita.Javascript.DemoTables
 	[IgnoreNamespace]
 	public class UserStore:Store<User>
 	{
+		static int id=0;
+
 		public UserStore():base()
 		{
 			SetReadApi(api=>{
@@ -35,6 +37,20 @@ namespace Cayita.Javascript.DemoTables
 				};
 			});
 		}
+
+		public void Save(User record)
+		{
+			if( record.Id==0)
+			{
+				record.Id=--id;
+				Add(record);
+			}
+			else
+			{
+				Replace(record);
+			}
+		}
+
 	}
 }
 

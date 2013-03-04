@@ -98,11 +98,11 @@
 		
 		cayita.fn.getValue=function(element){
 			var e = $(element); 
-			if( e.attr("autonumeric") ) return e.autoNumeric("get");
+			if( e.attr("autonumeric") ) return parseFloat(e.autoNumeric("get"));
 			if( e.attr("datepicker") ){
 			 	return e.datepicker("getDate")
 			 }
-			return e.val();
+			return e.attr("data-type")!="numeric"? e.val(): parseFloat(e.val());
 		};
 		
 		cayita.fn.setValue=function(element,value){
@@ -153,6 +153,31 @@
 				}
 			}
 			
+		};
+		
+		
+		cayita.fn.loadTo=function(form, data){
+			
+			var $form= $(form);
+			for(var d in data){
+	
+				var field = $form.find("input[name='"+d+"']");
+				if(field) {
+					var type = field.attr("type");
+					if(type=="radio"){
+						var v = $("input:checked", field.parent()).val();
+						if(v) data[d]=v;
+					}
+					else if (type=="checkbox"){
+						var v = $("input:checked", field.parent()).val();
+						if(v) data[d]=v;
+					}
+					else
+						data[d]= this.getValue(field.get(0));
+				}
+			}
+			console.log("loadTo data", data);
+			return data;
 		};
 		
   </script>

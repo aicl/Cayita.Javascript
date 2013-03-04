@@ -39,21 +39,17 @@ namespace Cayita.Javascript
 			cb.GetOption( (object) d[recordIdProperty]).Remove();
 		}
 
-
+		[InlineCode("cayita.fn.loadTo({form},{data})")]
 		public static void LoadTo<T>(this FormElement form, T data) 
 		{
-			var o = (dynamic)data;
-			var inputs = jQuery.Select ("[name]", form).GetElements();
-			foreach(var input in inputs )
-			{
-				var ie = (InputElement)input;
-				if(string.IsNullOrEmpty(ie.Name)) continue;
-				try {
-					o[ie.Name]= ie.GetValue();
-				}
-				catch(Exception)
-				{}
-			}
+		}
+
+
+		public static T LoadTo<T>(this FormElement form)  where T:new()
+		{
+			T data = new T();
+			LoadTo(form, data);
+			return data;
 		}
 
 		[InlineCode("cayita.fn.loadForm({form},{data})")]
@@ -62,14 +58,19 @@ namespace Cayita.Javascript
 		}
 
 
-		public static T Find<T>(this FormElement form, [SyntaxValidation ("cssSelector")] string selector ) where T:class
+		public static T Find<T>(this FormElement form, [SyntaxValidation ("cssSelector")] string selector ) where T:Element
 		{
-			return (form.JQuery(selector)[0]) as T;
+			return (form.JQuery(selector)[0]).As<T>() ;
 		}
 
-		public static T FindByName<T>(this FormElement form, string name ) where T:class
+		public static T FindByName<T>(this FormElement form, string name ) where T:Element
 		{
-			return (form.JQuery("[name="+name+"]")[0]) as T;
+			return (form.JQuery("[name="+name+"]")[0]).As<T>();
+		}
+
+		public static T FindById<T>(this FormElement form, string id ) where T:Element
+		{
+			return (form.JQuery("[id="+id+"]")[0]).As<T>();
 		}
 
 		public static void CreateRow<T>(this TableElement table, T data, List<TableColumn<T>> columns, string recordIdProperty="Id" )
@@ -98,6 +99,7 @@ namespace Cayita.Javascript
 				var c = col.Value(data);
 				if (col.Hidden) c.Hide();
 				row.Append( c);
+				if(col.AfterCellCreate!=null) col.AfterCellCreate(data, row.GetElement(0).As<TableRowElement>());
 			}
 		}
 
@@ -146,7 +148,7 @@ namespace Cayita.Javascript
 			else
 			{
 				body=table.tBodies[0];
-				if(!append) body.JQuery().Empty();
+				if(!append) body.Empty();
 			}
 			
 			foreach (var d in data) {

@@ -10,10 +10,17 @@ namespace Cayita.Javascript.DemoTables
 	[IgnoreNamespace]
 	public class UserGrid:HtmlGrid<User>
 	{
+		UserStore us;
+
 		public UserGrid (Element parent, UserStore store, List<TableColumn<User>> columns)
 			:base(null, store, columns)
 		{
 			AppendTo(parent);
+			us=store;
+		}
+
+		public new  UserStore GetStore(){
+			return us;
 		}
 
 		public static UserGrid Create(Element parent, UserStore store)

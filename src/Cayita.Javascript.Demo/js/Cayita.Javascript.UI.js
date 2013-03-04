@@ -693,7 +693,7 @@
 			},
 			create$1: function(form) {
 				var record = ss.createInstance(T);
-				$Cayita_UI_Ext.loadTo(T).call(null, form, record);
+				cayita.fn.loadTo(form, record);
 				this.create$2(record);
 			},
 			read: function(options) {
@@ -1065,7 +1065,7 @@
 			this.element$1().className = 'btn';
 		},
 		text: function(value) {
-			this.jQuery().text(value);
+			$(this.element$1()).text(value);
 		},
 		loadingText: function(value) {
 			$(this.element$1()).button.defaults.loadingText = value;
@@ -1394,31 +1394,25 @@
 		};
 	};
 	$Cayita_UI_Ext.loadTo = function(T) {
-		return function(form, data) {
-			var o = data;
-			var inputs = $('[name]', form).get();
-			for (var $t1 = 0; $t1 < inputs.length; $t1++) {
-				var input = inputs[$t1];
-				var ie = input;
-				if (ss.isNullOrEmptyString(ie.name)) {
-					continue;
-				}
-				try {
-					o[ie.name] = cayita.fn.getValue(ie);
-				}
-				catch ($t2) {
-				}
-			}
+		return function(form) {
+			var data = ss.createInstance(T);
+			cayita.fn.loadTo(form, data);
+			return data;
 		};
 	};
 	$Cayita_UI_Ext.find = function(T) {
 		return function(form, selector) {
-			return ss.safeCast($(selector, form)[0], T);
+			return $(selector, form)[0];
 		};
 	};
 	$Cayita_UI_Ext.findByName = function(T) {
 		return function(form, name) {
-			return ss.safeCast($('[name=' + name + ']', form)[0], T);
+			return $('[name=' + name + ']', form)[0];
+		};
+	};
+	$Cayita_UI_Ext.findById = function(T) {
+		return function(form, id) {
+			return $('[id=' + id + ']', form)[0];
 		};
 	};
 	$Cayita_UI_Ext.createRow = function(T) {
@@ -1452,6 +1446,9 @@
 					$(c).hide();
 				}
 				row.append(c);
+				if (!ss.staticEquals(col.afterCellCreate, null)) {
+					col.afterCellCreate(data, row.get(0));
+				}
 			}
 		};
 	};
@@ -1601,7 +1598,6 @@
 				$t1.message = 'Reading ' + ss.getTypeName(T);
 				this.$readRequestMessage = $t1;
 				this.$readRequestStarted = ss.mkdel(this, function(grid1) {
-					console.log('htmlgrid readRequestStarted', this.$readRequestMessage.message);
 					var sp = new $Cayita_UI_SpinnerIcon(function(div, icon) {
 						div.style.position = 'fixed';
 						div.style.zIndex = 10000;
@@ -1788,11 +1784,11 @@
 	$Cayita_UI_HtmlList.createNavList = function(parent) {
 		var l = new $Cayita_UI_HtmlList.$ctor1(parent, function(e) {
 			e.className = 'nav nav-list';
+			$(e).on('click', 'li', function(ev) {
+				$('li', e).removeClass('active');
+				$(ev.currentTarget).addClass('active');
+			});
 		}, false);
-		l.jQuery().on('click', 'li', function(e1) {
-			l.jQuery$1('li').removeClass('active');
-			$(e1.currentTarget).addClass('active');
-		});
 		return l;
 	};
 	$Cayita_UI_HtmlList.createNavList$1 = function(parent, element) {

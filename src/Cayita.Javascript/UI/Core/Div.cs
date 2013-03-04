@@ -130,7 +130,7 @@ namespace Cayita.Javascript.UI
 					element.Text("×");
 					
 				});
-				de.JQuery().Append(message);
+				de.Append(message);
 			});
 			return div;  
 		}

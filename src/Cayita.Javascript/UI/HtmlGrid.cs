@@ -62,18 +62,16 @@ namespace Cayita.Javascript.UI
 			store= datastore;
 			
 			OnRowSelected=(grid,row)=>{};
-			
-			table.JQuery().On ("click","tbody tr", e =>  { 
+			table.OnClick("tbody tr", e =>  { 
 				var row = (TableRowElement)e.CurrentTarget;
 				SelectRowImp(row, true);
-			});
+			}); 
 			
 			Render();
 			
 			readRequestMessage= new RequestMessage{Target=table.tBodies[0], Message="Reading " + typeof(T).Name };
 			
 			readRequestStarted=(grid)=>{
-				Cayita.Javascript.Firebug.Console.Log("htmlgrid readRequestStarted", readRequestMessage.Message);
 				var sp = new SpinnerIcon((div, icon)=>{
 					div.Style.Position="fixed";
 					div.Style.ZIndex=10000;
@@ -81,7 +79,7 @@ namespace Cayita.Javascript.UI
 					div.Style.Height= (grid.table.ClientHeight+30).ToString()+ "px";
 					div.Style.Width= grid.table.ClientWidth.ToString()+ "px";
 				},readRequestMessage.Message);
-				readRequestMessage.Target.JQuery().Append(sp.Element());
+				readRequestMessage.Target.Append(sp.Element());
 				return sp.Element();
 			};
 			
@@ -131,7 +129,7 @@ namespace Cayita.Javascript.UI
 					SelectRow(true);
 					break;
 				case StoreChangedAction.Cleared:
-					table.tBodies[0].JQuery().Empty();
+					table.tBodies[0].Empty();
 					SelectRow(true);
 					break;
 				}

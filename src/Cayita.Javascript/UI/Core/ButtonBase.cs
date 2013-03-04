@@ -19,7 +19,7 @@ namespace Cayita.Javascript.UI
 		}
 
 		public void Text(string value){
-			JQuery().Text(value);
+			Element().Text(value);
 		}
 
 		public void LoadingText(string value)

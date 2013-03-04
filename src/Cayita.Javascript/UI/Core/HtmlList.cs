@@ -27,11 +27,13 @@ namespace Cayita.Javascript.UI
 		{
 			var l = new HtmlList(parent, e=>{
 				e.ClassName="nav nav-list";
+				e.OnClick("li", ev=>{
+					e.JQuery("li").RemoveClass("active");
+					ev.CurrentTarget.AddClass("active");
+				});
+
 			});
-			l.JQuery().On("click","li", e=>{
-				l.JQuery("li").RemoveClass("active");
-				e.CurrentTarget.AddClass("active");
-			});
+
 			return l;
 		}
 

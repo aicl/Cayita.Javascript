@@ -76,7 +76,7 @@ namespace Cayita.Javascritp.App
 							ListItem.CreateNavHeader(list, "Main Menu");
 							foreach(var item in MenuItems){
 								ListItem.CreateNavListItem(list,"#",item.Title, (li,anchor)=>{
-									anchor.JQuery().Click(e=>{
+									anchor.OnClick(e=>{
 										e.PreventDefault();
 										Work.Empty();
 										if(modules.Contains(item.Class))

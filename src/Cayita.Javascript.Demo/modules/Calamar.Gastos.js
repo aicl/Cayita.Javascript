@@ -300,7 +300,7 @@
 				this.get_$bList().element$1().disabled = false;
 				this.get_$form().element$1().reset();
 				if (ss.isValue(sr)) {
-					Cayita.UI.Ext.load(Calamar.Model.Gasto).call(null, this.get_$form().element$1(), sr.record);
+					cayita.fn.loadForm(this.get_$form().element$1(), sr.record);
 				}
 				this.get_$gridDiv().hide();
 				$(this.get_$formDiv().element$1()).fadeIn();
