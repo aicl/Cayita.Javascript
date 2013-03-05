@@ -45,7 +45,7 @@ namespace Cayita.Javascript.UI
 		}
 
 		public TopNavBar (Element parent, string brandText, string rightText, string rightLinkText,
-		                  Action<Element> navlist)
+		                  Action<ListElement> navlist)
 			:base(parent)
 		{
 

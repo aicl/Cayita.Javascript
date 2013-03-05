@@ -10,26 +10,26 @@ namespace Cayita.Javascript.UI
 	public class ListItem:ElementBase
 	{
 				
-		public ListItem(Element parent,  Action<Element> element)
+		public ListItem(ListElement parent,  Action<Element> element)
 		{
 			Init(parent);
 			element(Element());
 		}
 
 		
-		public ListItem (Element parent )
+		public ListItem (ListElement parent )
 		{
 			Init(parent);
 		}
 		
-		void Init(Element parent)
+		void Init(ListElement parent)
 		{
 			CreateElement( "li", parent);
 
 		}
 
 
-		public static ListItem CreateNavListItem(Element parent, string href, string item)
+		public static ListItem CreateNavListItem(ListElement parent, string href, string item)
 		{
 			var il = new ListItem(parent);
 			new Anchor(il.Element(),
@@ -40,6 +40,7 @@ namespace Cayita.Javascript.UI
 			return il;
 		}
 			
+		/*
 		/// <summary>
 		/// Creats the nav list item.
 		/// </summary>
@@ -59,7 +60,7 @@ namespace Cayita.Javascript.UI
 		/// Action<ListItemElement,AnchorElement>
 		/// </param>
 
-		public static ListItem CreateNavListItem(Element parent, string href, string item,
+		public static ListItem CreateNavListItem(ListElement parent, string href, string item,
 		                                        Action<Element,AnchorElement> element)
 		{
 			var il = new ListItem(parent);
@@ -72,7 +73,7 @@ namespace Cayita.Javascript.UI
 			return il;
 		}
 
-		public static ListItem CreateNavHeader(Element parent, string item)
+		public static ListItem CreateNavHeader(ListElement parent, string item)
 		{
 			return new ListItem(parent, l=>{
 				l.ClassName="nav-header";
@@ -80,7 +81,16 @@ namespace Cayita.Javascript.UI
 			});
 
 		}
-		
+
+		public static ListItem CreateHDivider(ListElement parent)
+		{
+			return new ListItem(parent, l=>{
+				l.ClassName="divider";
+			});
+			
+		}
+		*/
+
 	}
 }
 

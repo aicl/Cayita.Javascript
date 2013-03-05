@@ -47,16 +47,16 @@ namespace Cayita.Javascritp.App
 		{
 			TopNavBar= new TopNavBar(Document.Body,"Cayita.Javascript - demo","","",nav=>{
 
-				ListItem.CreateNavListItem(nav,"#","Home", (li,anchor)=>{
+				nav.AddItem("#","Home", (li,anchor)=>{
 
 				});
-				ListItem.CreateNavListItem(nav,"#","License", (li,anchor)=>{
+				nav.AddItem("#","License", (li,anchor)=>{
 					
 				});
-				ListItem.CreateNavListItem(nav,"#","Contact", (li,anchor)=>{
+				nav.AddItem("#","Contact", (li,anchor)=>{
 					
 				});
-				ListItem.CreateNavListItem(nav,"#","About", (li,anchor)=>{
+				nav.AddItem("#","About", (li,anchor)=>{
 					
 				});
 			});
@@ -72,9 +72,10 @@ namespace Cayita.Javascritp.App
 						span.ClassName="span2";
 						new SideNavBar(span, list=>{
 
-							ListItem.CreateNavHeader(list, "Main Menu");
+							list.AddHeader( "Main Menu");
+							list.AddHDivider();
 							foreach(var item in MenuItems){
-								ListItem.CreateNavListItem(list,"#",item.Title, (li,anchor)=>{
+								list.AddItem("#",item.Title, (li,anchor)=>{
 									anchor.OnClick(e=>{
 										e.PreventDefault();
 										Work.Empty();

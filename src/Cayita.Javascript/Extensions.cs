@@ -166,7 +166,69 @@ namespace Cayita.Javascript
 			}
 		}
 
+		//
 
+		public static void AddItem(this ListElement parent, string href, string item)
+		{
+			var il = new ListItem(parent);
+			new Anchor(il.Element(),
+			           a=>{
+				a.Href= href;
+				a.Text( item );
+			});
+
+		}
+		
+		/// <summary>
+		/// Creats a nav list item.
+		/// </summary>
+		/// <returns>
+		/// The nav list item.
+		/// </returns>
+		/// <param name='parent'>
+		/// Parent.
+		/// </param>
+		/// <param name='href'>
+		/// Href.
+		/// </param>
+		/// <param name='item'>
+		/// Item.
+		/// </param>
+		/// <param name='element'>
+		/// Action<ListItemElement,AnchorElement>
+		/// </param>
+		
+		public static void AddItem(this ListElement parent, string href, string item,
+		                                         Action<Element,AnchorElement> element)
+		{
+			var il = new ListItem(parent);
+			var anchor = new Anchor(il.Element(),
+			                        a=>{
+				a.Href= href;
+				a.Text(item);
+			});
+			element(il.Element(), anchor.Element()); 
+		}
+		
+		public static void AddHeader(this ListElement parent, string item)
+		{
+			new ListItem(parent, l=>{
+				l.ClassName="nav-header";
+				l.Text(item);
+			});
+			
+		}
+		
+		public static void  AddHDivider(this ListElement parent)
+		{
+			new ListItem(parent, l=>{
+				l.ClassName="divider";
+			});
+			
+		}
+
+
+		//
 
 	}
 }

@@ -16,7 +16,7 @@ namespace Cayita.Javascript.UI
 			return navList;
 		}
 		
-		public SideNavBar (Element parent,  Action<Element> navlist)
+		public SideNavBar (Element parent,  Action<ListElement> navlist)
 			:base(parent)
 		{
 			

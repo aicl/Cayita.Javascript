@@ -1547,6 +1547,32 @@
 			}
 		};
 	};
+	$Cayita_UI_Ext.addItem = function(parent, href, item) {
+		var il = new $Cayita_UI_ListItem(parent);
+		new $Cayita_UI_Anchor.$ctor1(il.element(), function(a) {
+			a.href = href;
+			$(a).text(item);
+		});
+	};
+	$Cayita_UI_Ext.addItem$1 = function(parent, href, item, element) {
+		var il = new $Cayita_UI_ListItem(parent);
+		var anchor = new $Cayita_UI_Anchor.$ctor1(il.element(), function(a) {
+			a.href = href;
+			$(a).text(item);
+		});
+		element(il.element(), anchor.element$1());
+	};
+	$Cayita_UI_Ext.addHeader = function(parent, item) {
+		new $Cayita_UI_ListItem.$ctor1(parent, function(l) {
+			l.className = 'nav-header';
+			$(l).text(item);
+		});
+	};
+	$Cayita_UI_Ext.addHDivider = function(parent) {
+		new $Cayita_UI_ListItem.$ctor1(parent, function(l) {
+			l.className = 'divider';
+		});
+	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.FieldSet
 	var $Cayita_UI_FieldSet = function(parent) {
@@ -1788,10 +1814,15 @@
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement((ordered ? 'ol' : 'ul'), parent);
 	};
+	$Cayita_UI_HtmlList.prototype = {
+		element$1: function() {
+			return this.element();
+		}
+	};
 	$Cayita_UI_HtmlList.$ctor1 = function(parent, element, ordered) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement((ordered ? 'ol' : 'ul'), parent);
-		element(this.element());
+		element(this.element$1());
 	};
 	$Cayita_UI_HtmlList.$ctor1.prototype = $Cayita_UI_HtmlList.prototype;
 	$Cayita_UI_HtmlList.createNavList = function(parent) {
@@ -1806,7 +1837,7 @@
 	};
 	$Cayita_UI_HtmlList.createNavList$1 = function(parent, element) {
 		var nl = $Cayita_UI_HtmlList.createNavList(parent);
-		element(nl.element());
+		element(nl.element$1());
 		return nl;
 	};
 	////////////////////////////////////////////////////////////////////////////////
@@ -2127,21 +2158,6 @@
 			$(a).text(item);
 		});
 		return il;
-	};
-	$Cayita_UI_ListItem.createNavListItem$1 = function(parent, href, item, element) {
-		var il = new $Cayita_UI_ListItem(parent);
-		var anchor = new $Cayita_UI_Anchor.$ctor1(il.element(), function(a) {
-			a.href = href;
-			$(a).text(item);
-		});
-		element(il.element(), anchor.element$1());
-		return il;
-	};
-	$Cayita_UI_ListItem.createNavHeader = function(parent, item) {
-		return new $Cayita_UI_ListItem.$ctor1(parent, function(l) {
-			l.className = 'nav-header';
-			$(l).text(item);
-		});
 	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.Paragraph
