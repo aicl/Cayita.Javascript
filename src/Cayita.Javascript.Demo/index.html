@@ -153,6 +153,8 @@
 				}
 			}
 			
+			$form.data("_source", this.serialize(form));
+			
 		};
 		
 		
@@ -176,8 +178,16 @@
 						data[d]= this.getValue(field.get(0));
 				}
 			}
-			console.log("loadTo data", data);
 			return data;
+		};
+		
+		cayita.fn.serialize=function(form){
+			var a= $("[autonumeric=true]", form);
+			return (a && a.length)? $(form).autoNumeric('getString'): $(form).serialize();
+		};
+		
+		cayita.fn.dataChanged=function(form){
+			return this.serialize(form)!=$(form).data("_source");		
 		};
 		
   </script>

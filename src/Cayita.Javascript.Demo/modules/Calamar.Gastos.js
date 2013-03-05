@@ -229,8 +229,8 @@
 					var vo = ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.setSubmitHandler(ValidateOptions.$ctor(), ss.mkdel(this, function(form) {
 						bt.showLoadingText();
 						var result = Calamar.Model.Gasto.$ctor();
-						Cayita.UI.Ext.loadTo(Calamar.Model.Gasto).call(null, form, result);
-						console.log('guardando', $(form).serialize(), result);
+						cayita.fn.loadTo(form, result);
+						console.log('guardando', cayita.fn.serialize(form), result);
 						if (ss.isNullOrEmptyString(inputId.value())) {
 							this.$appendRow(result);
 						}

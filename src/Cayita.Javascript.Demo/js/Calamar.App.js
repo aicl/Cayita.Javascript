@@ -165,7 +165,7 @@
 							});
 							var vo = ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.setSubmitHandler(ValidateOptions.$ctor(), ss.mkdel(this, function(f) {
 								bt.showLoadingText();
-								$.get(f.action, $(f).serialize(), function(cb) {
+								$.get(f.action, cayita.fn.serialize(f), function(cb) {
 									console.log('callback', cb);
 								}, 'json').success(ss.mkdel(this, function(d) {
 									this.set_userName(user.element$2().value);

@@ -86,9 +86,6 @@ namespace Cayita.Javascript.DemoTables
 					}).Element();
 				},
 
-				AfterCellCreate= (f,row)=>{
-					row.AddClass(f.Rating==10? "success": f.Rating<=5?"warning":"");
-				}
 			});
 
 			columns.Add(new TableColumn<User>(){
@@ -115,6 +112,7 @@ namespace Cayita.Javascript.DemoTables
 				},
 				AfterCellCreate= (f,row)=>{
 					row.Style.Color= f.IsActive?"black":"grey";
+					row.AddClass(f.Rating>=10000? "success": f.Rating<=5000?"warning":"");
 				}
 			});
 

@@ -28,9 +28,13 @@ namespace Cayita.Javascript.DemoTables
 				ug.SelectRow();
 			});
 
+			uf.GetDestroyButton().OnClick(evt=>{
+				ug.GetStore().Remove( ug.GetSelectedRow().Record);
+			});
+
 
 			uf.Element().OnChange(e=>{
-				uf.GetSaveButton().Disabled=false;
+				uf.GetSaveButton().Disabled=!uf.Element().DataChanged();
 			});
 
 

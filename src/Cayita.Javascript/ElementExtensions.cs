@@ -105,17 +105,18 @@ namespace Cayita.Javascript
 			return null;
 		}
 
-		[InlineCode("$({element}).serialize()")]
-		public static object Serialize(this FormElement element)
+		[InlineCode("cayita.fn.serialize({form})")]
+		public static string Serialize(this FormElement form)
 		{
 			return null;
 		}
 
-		[InlineCode("$({element}).autoNumeric('getString')")]
-		public static object AutoNumericGetString(this FormElement element)
+		[InlineCode("cayita.fn.dataChanged({form})")]
+		public static bool DataChanged(this FormElement form)
 		{
-			return null;
+			return false;
 		}
+
 
 		[InlineCode("cayita.fn.autoNumericInit({element})")]
 		public static jQueryObject AutoNumericInit(this InputElement element)
