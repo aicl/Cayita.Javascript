@@ -1,7 +1,5 @@
-using System;
 using Cayita.Javascript.UI;
 using System.Html;
-using Cayita.Javascript.Data;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
@@ -12,6 +10,11 @@ namespace Cayita.Javascript.DemoTables
 	{
 		UserStore us;
 
+		public UserGrid (Element parent, UserStore store)
+			:this(parent, store, DefineColumns())
+		{
+		}
+
 		public UserGrid (Element parent, UserStore store, List<TableColumn<User>> columns)
 			:base(null, store, columns)
 		{
@@ -21,11 +24,6 @@ namespace Cayita.Javascript.DemoTables
 
 		public new  UserStore GetStore(){
 			return us;
-		}
-
-		public static UserGrid Create(Element parent, UserStore store)
-		{
-			return new UserGrid(parent, store, DefineColumns());
 		}
 
 		public static List<TableColumn<User>> DefineColumns()
@@ -121,4 +119,3 @@ namespace Cayita.Javascript.DemoTables
 
 	}
 }
-

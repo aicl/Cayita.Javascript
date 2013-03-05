@@ -1,4 +1,3 @@
-using System;
 using System.Runtime.CompilerServices;
 using Cayita.Javascript.UI;
 using System.Html;
@@ -105,4 +104,3 @@ namespace Cayita.Javascript.DemoTables
 		}
 	}
 }
-

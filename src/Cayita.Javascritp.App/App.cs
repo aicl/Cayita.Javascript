@@ -25,20 +25,17 @@ namespace Cayita.Javascritp.App
 
 		List<string>  modules = new List<string>();
 
-
 		public static void Main ()
 		{
 			jQuery.OnDocumentReady( ()=>{
-				
 				var app = new App();
-				app.LoadMenuItems();
+				app.GetMenuItems();
 				app.ShowTopNavBar();
 				app.ShowMenu();
-				
 			});
 		}
 
-		void LoadMenuItems ()
+		void GetMenuItems ()
 		{
 			MenuItems= new List<MenuItem>();
 			MenuItems.Add(new MenuItem{Title="Forms", File="modules/DemoForm.js", Class="DemoForm"});
@@ -65,9 +62,8 @@ namespace Cayita.Javascritp.App
 		}
 		
 		void ShowMenu()
-		{
-			
-			var um= Div.CreateContainerFluid(default(Element), fluid=>{
+		{	
+			Div.CreateContainerFluid(default(Element), fluid=>{
 				Div.CreateRowFluid(fluid,  row=>{
 					new Div(row,  span=>{
 						span.ClassName="span2";
@@ -88,14 +84,12 @@ namespace Cayita.Javascritp.App
 											jQuery.GetScript(item.File, (o)=>{
 												modules.Add(item.Class);
 												ExecuteModule(Work.Element(), item.Class);
-
 											});											
 										}
 									});
 								});
 							}
 						});
-
 					});
 					
 					Work= new Div(row,  work=>{
@@ -106,13 +100,12 @@ namespace Cayita.Javascritp.App
 						work.AppendChild(m);
 					});
 				});
-			});
-			um.AppendTo(Document.Body);
+			}).AppendTo(Document.Body);
+
 		}
 
 		[InlineCode("window[{className}]['execute']({parent})")]
 		void ExecuteModule(Element parent, string className){}
-			
-	
+				
 	}
 }

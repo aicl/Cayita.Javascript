@@ -53,4 +53,3 @@ namespace Cayita.Javascript.DemoTables
 
 	}
 }
-
