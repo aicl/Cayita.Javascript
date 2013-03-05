@@ -93,7 +93,16 @@ namespace Cayita.Javascript.Plugins
 			var rulefor= new RuleFor();
 			var msg = new Message();
 			rule(rulefor, msg);
-			Rules[rulefor.Element.Name] = rulefor.Rule.rl;
+			if( ! rulefor.Element.HasAttribute("autonumeric"))
+				Rules[rulefor.Element.Name] = rulefor.Rule.rl;
+			else
+			{
+				if(rulefor.Rule.rl.max!=null) rulefor.Element.AutoNumeric(new {vMax= rulefor.Rule.rl.max});
+				if(rulefor.Rule.rl.min!=null) rulefor.Element.AutoNumeric(new {vMin= rulefor.Rule.rl.min});
+
+				if(rulefor.Rule.rl.range!=null) rulefor.Element.AutoNumeric(
+					new {vMin= rulefor.Rule.rl.range.Bottom, vMax= rulefor.Rule.rl.range.Top });
+			}
 			Messages[rulefor.Element.Name] = msg.msg;
 
 			return this;

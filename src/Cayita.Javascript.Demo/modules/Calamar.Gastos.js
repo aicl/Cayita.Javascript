@@ -209,7 +209,7 @@
 						field.className = 'span12';
 						field.name = 'Valor';
 						$(field).attr('placeholder', '$$$$$$$$$$');
-						cayita.fn.autoNumericInit(field);
+						cayita.fn.autoNumeric(field, null);
 					});
 					new Cayita.UI.TextField.$ctor2(f, function(field1) {
 						field1.className = 'span12';
@@ -347,7 +347,7 @@
 			$t5.value = function(f2) {
 				return (new Cayita.UI.TableCell.$ctor1(function(cell5) {
 					cell5.innerText = f2.Valor.toString();
-					cayita.fn.autoNumericInit(cell5);
+					cayita.fn.autoNumeric(cell5, null);
 				})).element$1();
 			};
 			ss.add($t6, $t5);

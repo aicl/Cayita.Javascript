@@ -237,7 +237,20 @@
 		var rulefor = $RuleFor.$ctor();
 		var msg = $Message.$ctor();
 		rule(rulefor, msg);
-		$this.rules[rulefor.element.name] = rulefor.rule.rl;
+		if (!rulefor.element.hasAttribute('autonumeric')) {
+			$this.rules[rulefor.element.name] = rulefor.rule.rl;
+		}
+		else {
+			if (!!ss.isValue(rulefor.rule.rl.max)) {
+				cayita.fn.autoNumeric(rulefor.element, { vMax: rulefor.rule.rl.max });
+			}
+			if (!!ss.isValue(rulefor.rule.rl.min)) {
+				cayita.fn.autoNumeric(rulefor.element, { vMin: rulefor.rule.rl.min });
+			}
+			if (!!ss.isValue(rulefor.rule.rl.range)) {
+				cayita.fn.autoNumeric(rulefor.element, { vMin: rulefor.rule.rl.range.Bottom, vMax: rulefor.rule.rl.range.Top });
+			}
+		}
 		$this.messages[rulefor.element.name] = msg.msg;
 		return $this;
 	};

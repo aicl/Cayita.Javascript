@@ -116,34 +116,21 @@ namespace Cayita.Javascript
 		{
 			return false;
 		}
-
-
-		[InlineCode("cayita.fn.autoNumericInit({element})")]
-		public static jQueryObject AutoNumericInit(this InputElement element)
+					
+		[InlineCode("cayita.fn.autoNumeric({element}, {options})")]
+		public static jQueryObject AutoNumeric(this InputElement element, dynamic options= null)
 		{
 			return null;
 		}
-	
-		[InlineCode("cayita.fn.autoNumericInit({element}, {options})")]
-		public static jQueryObject AutoNumericInit(this InputElement element, dynamic options)
-		{
-			return null;
-		}
-
-		[InlineCode("cayita.fn.autoNumericInit({element})")]
-		public static jQueryObject AutoNumericInit(this TableCellElement element)
-		{
-			return null;
-		}
-		
-		[InlineCode("cayita.fn.autoNumericInit({element},{options})")]
-		public static jQueryObject AutoNumericInit(this TableCellElement element, dynamic options)
+				
+		[InlineCode("cayita.fn.autoNumeric({element},{options})")]
+		public static jQueryObject AutoNumeric(this TableCellElement element, dynamic options=null)
 		{
 			return null;
 		}
 
-		[InlineCode("cayita.fn.datepickerInit({element}, {options})")]
-		public static jQueryObject DatepickerInit(this InputElement element, dynamic options=null)
+		[InlineCode("cayita.fn.datepicker({element}, {options})")]
+		public static jQueryObject Datepicker(this InputElement element, dynamic options=null)
 		{
 			return null;
 		}

@@ -79,15 +79,22 @@
 		cayita.fn.isDateFormatted=function(value){ return /^[\d]{2}\.[\d]{2}\.[\d]{4}$/.test(value) || /^[\d]{2}\/[\d]{2}\/[\d]{4}$/.test(value) || /^[\d]{2}\-[\d]{2}\-[\d]{4}$/.test(value)};
 		cayita.fn.populateFrom=function(target,source){for( var p in source) target[p]= source[p]};
 		cayita.fn.toServerDate= function(value){return value.slice(6,10)+'.'+ value.slice(3,5)+'.'+ value.slice(0,2) };
-		cayita.fn.autoNumericInit=function(element,options){
+		cayita.fn.autoNumeric=function(element,options){
 			var e = $(element); 
-			e.autoNumeric( !e.attr("autonumeric")? 'init':'update', options); 
-			e.attr("autonumeric",true); 
-			e.css({"text-align":"right"});
+			if(!e.attr("autonumeric"))
+			{
+				e.autoNumeric( 'init', options); 
+				e.attr("autonumeric",true); 
+				e.attr("data-type","numeric");
+				e.css({"text-align":"right"});
+			}
+			else
+				e.autoNumeric( 'update', options); 
+			
 			return e;
 		};
 		
-		cayita.fn.datepickerInit=function(element,options){
+		cayita.fn.datepicker=function(element,options){
 			var e = $(element); 
 			e.datepicker(options); 
 			e.attr("datepicker",true); 
@@ -198,7 +205,7 @@
     <script src="js/jquery.validate.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootbox.min.js"></script>
-    <script src="js/autonumeric-1.8.5.js"></script>
+    <script src="js/autonumeric-1.8.6.js"></script>
     <script src="js/jquery-ui-1.10.1.custom.min.js"></script>
     <script src="js/Cayita.Javascript.UI.js"></script>
     <script src="js/Calamar.Modelos.js"></script>

@@ -79,7 +79,7 @@ namespace Cayita.Javascript.DemoTables
 			new TextField(f,(l, e)=>{
 				l.Text("Birthday");
 				e.Name="DoB";
-				e.DatepickerInit(new { closeText= "Close", dateFormat= "dd.mm.yy" });
+				e.Datepicker(new {  dateFormat= "dd.mm.yy" });
 			}); 
 
 			new TextField(f,(l, e)=>{
@@ -90,7 +90,7 @@ namespace Cayita.Javascript.DemoTables
 			new TextField(f,(l, e)=>{
 				l.Text("Rating");
 				e.Name="Rating";
-				e.AutoNumericInit(new {mDec=0});
+				e.AutoNumeric();
 			}); 
 
 			new RadioField(f, "Level", "Level", levelOptions);

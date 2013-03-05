@@ -81,7 +81,7 @@ namespace Cayita.Javascript.DemoTables
 				Value= (f)=>{
 					return new TableCell( c=>{
 						c.SetValue(f.Rating.ToString());
-						c.AutoNumericInit(new {mDec=0});
+						c.AutoNumeric(new {mDec=0});
 						c.Style.TextAlign="center";
 					}).Element();
 				},

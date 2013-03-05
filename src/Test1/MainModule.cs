@@ -175,7 +175,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 						field.ClassName="span12";
 						field.Name="Valor";
 						field.SetPlaceHolder("$$$$$$$$$$");
-						field.AutoNumericInit();
+						field.AutoNumeric();
 
 					});
 					
@@ -323,7 +323,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 			
 			Columns.Add( new TableColumn<Gasto>{
 				Header=  new TableCell(cell=>{ cell.InnerText="Valor"; cell.Style.TextAlign= "right"; }).Element(),
-				Value = f=> { return new TableCell( cell=>{cell.InnerText=f.Valor.ToString();  cell.AutoNumericInit(); } ).Element(); }
+				Value = f=> { return new TableCell( cell=>{cell.InnerText=f.Valor.ToString();  cell.AutoNumeric(); } ).Element(); }
 			});
 			
 			Columns.Add( new TableColumn<Gasto>{

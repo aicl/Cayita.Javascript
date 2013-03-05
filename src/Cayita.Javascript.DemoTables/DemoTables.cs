@@ -59,7 +59,23 @@ namespace Cayita.Javascript.DemoTables
 					var user = form.LoadTo<User>();
 					ug.GetStore().Save(user);
 					ug.SelectRow( user.Id);
+				}).AddRule((r,m)=>{
+					r.Element= uf.Element().FindByName<InputElement>("Name");
+					r.Rule.Required();
+					r.Rule.Minlength(6);
+					m.Required("write username");
+					m.Minlength("min 6 chars");
+				}).AddRule((r,m)=>{
+					r.Element= uf.Element().FindByName<InputElement>("Email");
+					r.Rule.Email();
+					m.Email("write a valid email address");
+				}).AddRule((r,m)=>{
+					r.Element= uf.Element().FindByName<InputElement>("Rating");
+					r.Element.AutoNumeric(new {mDec=0,  wEmpty= "empty"});
+					r.Rule.Max(10000);
+					r.Rule.Min(0);
 				});
+
 
 			uf.Element().Validate(vo);
 
