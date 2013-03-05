@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Javascript.DemoForm"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Javascript.DemoTables", "Cayita.Javascript.DemoTables\Cayita.Javascript.DemoTables.csproj", "{F8EDFB67-19C2-464D-B240-DE5D22815590}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navbar", "Navbar\Navbar.csproj", "{B5BF4C4C-15DA-4961-AABD-5BD635EE7118}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{586483AE-FF06-44B9-8371-1E0249AE7C39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{586483AE-FF06-44B9-8371-1E0249AE7C39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{586483AE-FF06-44B9-8371-1E0249AE7C39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5BF4C4C-15DA-4961-AABD-5BD635EE7118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5BF4C4C-15DA-4961-AABD-5BD635EE7118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5BF4C4C-15DA-4961-AABD-5BD635EE7118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5BF4C4C-15DA-4961-AABD-5BD635EE7118}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B7E65947-7FBE-4432-B179-68B2325F8FEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B7E65947-7FBE-4432-B179-68B2325F8FEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7E65947-7FBE-4432-B179-68B2325F8FEF}.Release|Any CPU.ActiveCfg = Release|Any CPU

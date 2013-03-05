@@ -2761,7 +2761,7 @@
 		this.$pullRightAnchor = null;
 		this.$navList = null;
 		$Cayita_UI_Div.call(this, parent);
-		this.element$1().className = 'navbar navbar-inverse navbar-fixed-top';
+		this.element$1().className = 'navbar';
 		new $Cayita_UI_Div.$ctor1(this.element$1(), ss.mkdel(this, function(inner) {
 			inner.className = 'navbar-inner';
 			this.$containerFluid = $Cayita_UI_Div.createContainerFluid$1(inner, ss.mkdel(this, function(fluid) {

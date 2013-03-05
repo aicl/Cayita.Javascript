@@ -49,7 +49,7 @@ namespace Cayita.Javascript.UI
 			:base(parent)
 		{
 
-			Element().ClassName="navbar navbar-inverse navbar-fixed-top";
+			Element().ClassName="navbar";
 
 			new Div(Element(),inner=>{
 				inner.ClassName="navbar-inner";

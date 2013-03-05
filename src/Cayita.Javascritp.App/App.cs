@@ -40,11 +40,13 @@ namespace Cayita.Javascritp.App
 			MenuItems= new List<MenuItem>();
 			MenuItems.Add(new MenuItem{Title="Forms", File="modules/DemoForm.js", Class="DemoForm"});
 			MenuItems.Add(new MenuItem{Title="Tables", File="modules/DemoTables.js", Class="DemoTables"});
+			MenuItems.Add(new MenuItem{Title="Navbar", File="modules/DemoNavbar.js", Class="DemoNavbar"});
 		}
 		
 		void ShowTopNavBar()
 		{
 			TopNavBar= new TopNavBar(Document.Body,"Cayita.Javascript - demo","","",nav=>{
+
 				ListItem.CreateNavListItem(nav,"#","Home", (li,anchor)=>{
 
 				});
@@ -58,7 +60,8 @@ namespace Cayita.Javascritp.App
 					
 				});
 			});
-			
+
+			TopNavBar.AddClass("navbar-inverse navbar-fixed-top");
 		}
 		
 		void ShowMenu()
