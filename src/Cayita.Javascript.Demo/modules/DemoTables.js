@@ -46,7 +46,7 @@
 			Message.email(m1, 'write a valid email address');
 		}), function(r2, m2) {
 			r2.element = Cayita.UI.Ext.findByName(Element).call(null, $DemoTables.$uForm.element$1(), 'Rating');
-			cayita.fn.autoNumeric(r2.element, { wEmpty: 'empty' });
+			cayita.fn.autoNumeric(r2.element, { mDec: 0, wEmpty: 'zero' });
 			Rule.max(r2.rule, 10000);
 			Rule.min(r2.rule, 0);
 		});
