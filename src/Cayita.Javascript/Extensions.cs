@@ -57,6 +57,10 @@ namespace Cayita.Javascript
 		{
 		}
 
+		[InlineCode("cayita.fn.clearForm({form})")]
+		public static void Clear(this FormElement form)
+		{
+		}
 
 		public static T Find<T>(this FormElement form, [SyntaxValidation ("cssSelector")] string selector ) where T:Element
 		{
