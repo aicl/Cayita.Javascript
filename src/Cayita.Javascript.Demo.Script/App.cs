@@ -57,9 +57,9 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 						new Div(span, nav=>{
 							nav.ClassName="well sidebar-nav";
 							HtmlList.CreateNavList(nav, list=>{
-								ListItem.CreateNavHeader(list, "Menu");
+								list.AddHeader("Menu");
 								foreach(var role in lr.Roles){
-									ListItem.CreateNavListItem(list,"#",role.Title, (li,anchor)=>{
+									 list.AddItem("#",role.Title, (li,anchor)=>{
 										anchor.JQuery().Click(e=>{
 											e.PreventDefault();
 											Work.Empty();
@@ -70,7 +70,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 									});
 								}
 								
-								ListItem.CreateNavListItem(list,"#", "Close Session", (li,anchor)=>{
+								list.AddItem("#", "Close Session", (li,anchor)=>{
 									anchor.JQuery().Click(e=>{
 										e.PreventDefault();
 										Document.Body.Empty();
