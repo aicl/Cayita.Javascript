@@ -100,7 +100,7 @@
 						work.className = 'span10';
 						work.id = 'work';
 						var m = document.createElement('h3');
-						m.innerText = 'Welcome';
+						$(m).text('Welcome');
 						work.appendChild(m);
 					}));
 				}));

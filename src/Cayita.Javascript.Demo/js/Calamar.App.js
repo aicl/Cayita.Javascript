@@ -20,8 +20,9 @@
 		},
 		$onLogin: function(loginResponse, lf) {
 			console.log('App.OnLogin ', loginResponse);
-			var a = this.get_$topNavBar().getPullRightAnchor().innerText = lf.get_userName();
-			this.get_$topNavBar().getPullRightParagraph().innerText = '';
+			var a = this.get_$topNavBar().getPullRightAnchor();
+			$(a).text(lf.get_userName());
+			$(this.get_$topNavBar().getPullRightParagraph()).text('');
 			$(this.get_$topNavBar().getPullRightParagraph()).append(a);
 			lf.close();
 			this.$showUserMenu(loginResponse);
@@ -78,7 +79,7 @@
 						work.className = 'span10';
 						work.id = 'work';
 						var m = document.createElement('h3');
-						m.innerText = 'Welcome';
+						$(m).text('Welcome');
 						work.appendChild(m);
 					}));
 				}));
@@ -142,7 +143,7 @@
 					new Cayita.UI.Div.$ctor1(row, ss.mkdel(this, function(element) {
 						element.className = 'span4 offset4 well';
 						new Cayita.UI.Legend.$ctor1(element, function(l) {
-							l.innerText = 'Login Form';
+							$(l).text('Login Form');
 						});
 						new Cayita.UI.Form.$ctor1(element, ss.mkdel(this, function(fe) {
 							fe.action = 'json/loginResponse.json';

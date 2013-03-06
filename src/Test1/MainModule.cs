@@ -306,35 +306,35 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 			
 			Columns.Add( new TableColumn<Gasto>{
 				Header=  new TableCell(cell=>{
-					new Anchor(cell, a=>{a.InnerText="Concepto";});
+					new Anchor(cell, a=>{a.Text("Concepto");});
 				}).Element(),
 				Value = f=> {
 					return new TableCell( cell=>{
 						new Anchor(cell, a=>{
-							a.InnerText=StoreConceptos.FirstOrDefault(q=>q.Id.ToString()== f.IdConcepto.ToString() ).Nombre;
+							a.Text(StoreConceptos.FirstOrDefault(q=>q.Id.ToString()== f.IdConcepto.ToString() ).Nombre);
 						});
 					} ).Element(); }
 			});
 			
 			Columns.Add( new TableColumn<Gasto>{
-				Header=  new TableCell(cell=>{ cell.InnerText="Fuente"; }).Element(),
-				Value = f=> { return new TableCell( cell=>{cell.InnerText=StoreFuentes.FirstOrDefault(q=>q.Id.ToString()==f.IdFuente.ToString()).Nombre; } ).Element(); }
+				Header=  new TableCell(cell=>{ cell.Text("Fuente"); }).Element(),
+				Value = f=> { return new TableCell( cell=>{cell.SetValue(StoreFuentes.FirstOrDefault(q=>q.Id.ToString()==f.IdFuente.ToString()).Nombre); } ).Element(); }
 			});
 			
 			Columns.Add( new TableColumn<Gasto>{
-				Header=  new TableCell(cell=>{ cell.InnerText="Valor"; cell.Style.TextAlign= "right"; }).Element(),
-				Value = f=> { return new TableCell( cell=>{cell.InnerText=f.Valor.ToString();  cell.AutoNumeric(); } ).Element(); }
+				Header=  new TableCell(cell=>{ cell.Text("Valor"); cell.Style.TextAlign= "right"; }).Element(),
+				Value = f=> { return new TableCell( cell=>{cell.SetValue(f.Valor.ToString());  cell.AutoNumeric(); }) .Element(); }
 			});
 			
 			Columns.Add( new TableColumn<Gasto>{
-				Header=  new TableCell(cell=>{cell.InnerText="Pagado a";}).Element(),
-				Value = f=> { return new TableCell( cell=>{	cell.InnerText=f.Beneficiario;} ).Element();					
+				Header=  new TableCell(cell=>{cell.Text("Pagado a");}).Element(),
+				Value = f=> { return new TableCell( cell=>{	cell.SetValue(f.Beneficiario);} ).Element();					
 				}
 			});
 			
 			Columns.Add( new TableColumn<Gasto>{
-				Header=  new TableCell(cell=>{cell.InnerText="Detalle";}).Element(),
-				Value = f=> { return new TableCell( cell=>{	cell.InnerText=f.Descripcion;} ).Element();					
+				Header=  new TableCell(cell=>{cell.Text("Detalle");}).Element(),
+				Value = f=> { return new TableCell( cell=>{	cell.SetValue(f.Descripcion);} ).Element();					
 				}
 			});			
 		}

@@ -6,7 +6,7 @@
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D3CEA70D-306F-43B9-A6EB-DDEF42EF87C6}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>Cayita.Javascript.Demo.Script</RootNamespace>
     <AssemblyName>Cayita.Javascript.Demo.Script</AssemblyName>
   </PropertyGroup>

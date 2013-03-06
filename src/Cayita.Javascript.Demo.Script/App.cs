@@ -27,8 +27,9 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 		void OnLogin(LoginResponse loginResponse, LoginForm lf)
 		{
 			Cayita.Javascript.Firebug.Console.Log("App.OnLogin ", loginResponse);
-			var a = TopNavBar.GetPullRightAnchor().InnerText=lf.UserName;
-			TopNavBar.GetPullRightParagraph().InnerText="";
+			var a = TopNavBar.GetPullRightAnchor();
+			a.Text(lf.UserName);
+			TopNavBar.GetPullRightParagraph().Text("");
 			TopNavBar.GetPullRightParagraph().Append(a);
 			lf.Close();
 			ShowUserMenu(loginResponse);
@@ -95,7 +96,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 						work.ClassName="span10";
 						work.ID="work";
 						var m = Document.CreateElement("h3");
-						m.InnerText="Welcome";
+						m.Text("Welcome");
 						work.AppendChild(m);
 					});
 				});
@@ -143,7 +144,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 						
 						element.ClassName="span4 offset4 well";
 						new Legend(element,  l=>{
-							l.InnerText="Login Form";
+							l.Text("Login Form");
 						});
 						
 						new Form(element, fe=>{

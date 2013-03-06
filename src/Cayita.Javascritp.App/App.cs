@@ -95,7 +95,7 @@ namespace Cayita.Javascritp.App
 						work.ClassName="span10";
 						work.ID="work";
 						var m = Document.CreateElement("h3");
-						m.InnerText="Welcome";
+						m.Text("Welcome");
 						work.AppendChild(m);
 					});
 				});

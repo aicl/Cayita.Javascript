@@ -312,15 +312,15 @@
 			var $t1 = ss.makeGenericType(Cayita.UI.TableColumn$1, [Calamar.Model.Gasto]).$ctor();
 			$t1.header = (new Cayita.UI.TableCell.$ctor1(function(cell) {
 				new Cayita.UI.Anchor.$ctor1(cell, function(a) {
-					a.innerText = 'Concepto';
+					$(a).text('Concepto');
 				});
 			})).element$1();
 			$t1.value = ss.mkdel(this, function(f) {
 				return (new Cayita.UI.TableCell.$ctor1(ss.mkdel(this, function(cell1) {
 					new Cayita.UI.Anchor.$ctor1(cell1, ss.mkdel(this, function(a1) {
-						a1.innerText = Enumerable.from(this.get_$storeConceptos()).firstOrDefault(function(q) {
+						$(a1).text(Enumerable.from(this.get_$storeConceptos()).firstOrDefault(function(q) {
 							return ss.referenceEquals(q.Id.toString(), f.IdConcepto.toString());
-						}, ss.getDefaultValue(Calamar.Model.Concepto)).Nombre;
+						}, ss.getDefaultValue(Calamar.Model.Concepto)).Nombre);
 					}));
 				}))).element$1();
 			});
@@ -328,25 +328,25 @@
 			var $t4 = this.get_$columns();
 			var $t3 = ss.makeGenericType(Cayita.UI.TableColumn$1, [Calamar.Model.Gasto]).$ctor();
 			$t3.header = (new Cayita.UI.TableCell.$ctor1(function(cell2) {
-				cell2.innerText = 'Fuente';
+				$(cell2).text('Fuente');
 			})).element$1();
 			$t3.value = ss.mkdel(this, function(f1) {
 				return (new Cayita.UI.TableCell.$ctor1(ss.mkdel(this, function(cell3) {
-					cell3.innerText = Enumerable.from(this.get_$storeFuentes()).firstOrDefault(function(q1) {
+					$(cell3).text(Enumerable.from(this.get_$storeFuentes()).firstOrDefault(function(q1) {
 						return ss.referenceEquals(q1.Id.toString(), f1.IdFuente.toString());
-					}, ss.getDefaultValue(Calamar.Model.Fuente)).Nombre;
+					}, ss.getDefaultValue(Calamar.Model.Fuente)).Nombre);
 				}))).element$1();
 			});
 			ss.add($t4, $t3);
 			var $t6 = this.get_$columns();
 			var $t5 = ss.makeGenericType(Cayita.UI.TableColumn$1, [Calamar.Model.Gasto]).$ctor();
 			$t5.header = (new Cayita.UI.TableCell.$ctor1(function(cell4) {
-				cell4.innerText = 'Valor';
+				$(cell4).text('Valor');
 				cell4.style.textAlign = 'right';
 			})).element$1();
 			$t5.value = function(f2) {
 				return (new Cayita.UI.TableCell.$ctor1(function(cell5) {
-					cell5.innerText = f2.Valor.toString();
+					$(cell5).text(f2.Valor.toString());
 					cayita.fn.autoNumeric(cell5, null);
 				})).element$1();
 			};
@@ -354,22 +354,22 @@
 			var $t8 = this.get_$columns();
 			var $t7 = ss.makeGenericType(Cayita.UI.TableColumn$1, [Calamar.Model.Gasto]).$ctor();
 			$t7.header = (new Cayita.UI.TableCell.$ctor1(function(cell6) {
-				cell6.innerText = 'Pagado a';
+				$(cell6).text('Pagado a');
 			})).element$1();
 			$t7.value = function(f3) {
 				return (new Cayita.UI.TableCell.$ctor1(function(cell7) {
-					cell7.innerText = f3.Beneficiario;
+					$(cell7).text(f3.Beneficiario);
 				})).element$1();
 			};
 			ss.add($t8, $t7);
 			var $t10 = this.get_$columns();
 			var $t9 = ss.makeGenericType(Cayita.UI.TableColumn$1, [Calamar.Model.Gasto]).$ctor();
 			$t9.header = (new Cayita.UI.TableCell.$ctor1(function(cell8) {
-				cell8.innerText = 'Detalle';
+				$(cell8).text('Detalle');
 			})).element$1();
 			$t9.value = function(f4) {
 				return (new Cayita.UI.TableCell.$ctor1(function(cell9) {
-					cell9.innerText = f4.Descripcion;
+					$(cell9).text(f4.Descripcion);
 				})).element$1();
 			};
 			ss.add($t10, $t9);

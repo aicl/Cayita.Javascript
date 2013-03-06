@@ -32,6 +32,12 @@ namespace Cayita.Javascript
 			return null;
 		}
 
+		[InlineCode("$({element}).text()")]
+		public static string Text(this Element element)
+		{
+			return null;
+		}
+
 		[InlineCode("$({element}).addClass({className})")]
 		public static jQueryObject AddClass(this Element element, string className)
 		{

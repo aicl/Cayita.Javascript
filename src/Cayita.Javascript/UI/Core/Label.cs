@@ -28,7 +28,7 @@ namespace Cayita.Javascript.UI
 
 		public string TextLabel()
 		{
-			return Element().InnerText;
+			return Element().Text();
 		}
 
 		public void ForField(string fieldId)

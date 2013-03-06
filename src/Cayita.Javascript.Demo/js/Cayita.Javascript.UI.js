@@ -2095,7 +2095,7 @@
 			$(this.element()).text(textLabel);
 		},
 		textLabel: function() {
-			return this.element().innerText;
+			return $(this.element()).text();
 		},
 		forField$1: function(fieldId) {
 			if (!ss.isNullOrEmptyString(fieldId)) {
