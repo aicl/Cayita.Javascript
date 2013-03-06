@@ -67,7 +67,7 @@ namespace Cayita.Javascript.DemoTables
 					m.Email("write a valid email address");
 				}).AddRule((r,m)=>{
 					r.Element= uForm.Element().FindByName<InputElement>("Rating");
-					r.Element.AutoNumeric(new {mDec=0,  wEmpty= "zero"});
+					r.Element.AutoNumeric(new {  wEmpty= "empty"});
 					r.Rule.Max(10000);
 					r.Rule.Min(0);
 				});
