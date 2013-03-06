@@ -61,18 +61,32 @@
     <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
     <!-- <link rel="shortcut icon" href="img/favicon.png"> -->
 	<!-- Le javascript   ================================================== -->
-	<script type ="text/javascript">	
-		var cayita={};
+    <script type="text/javascript">
+  		var cayita={};
 		cayita.fn={};
 		cayita.fn.toDate= function(value){return new Date(value.slice(6,10), parseInt(value.slice(3,5)-1) , value.slice(0,2)) };
 		cayita.fn.isDateFormatted=function(value){ return /^[\d]{2}\.[\d]{2}\.[\d]{4}$/.test(value) || /^[\d]{2}\/[\d]{2}\/[\d]{4}$/.test(value) || /^[\d]{2}\-[\d]{2}\-[\d]{4}$/.test(value)};
 		cayita.fn.populateFrom=function(target,source){for( var p in source) target[p]= source[p]};
 		cayita.fn.toServerDate= function(value){return value.slice(6,10)+'.'+ value.slice(3,5)+'.'+ value.slice(0,2) };
-		cayita.fn.autoNumericInit=function(element,options){
+		cayita.fn.autoNumeric=function(element,options){
 			var e = $(element); 
-			e.autoNumeric( !e.attr("autonumeric")? 'init':'update', options); 
-			e.attr("autonumeric",true); 
-			e.css({"text-align":"right"});
+			if(!e.attr("autonumeric"))
+			{
+				e.autoNumeric( 'init', options); 
+				e.attr("autonumeric",true); 
+				e.attr("data-type","numeric");
+				e.css({"text-align":"right"});
+			}
+			else
+				e.autoNumeric( 'update', options); 
+			
+			return e;
+		};
+		
+		cayita.fn.datepicker=function(element,options){
+			var e = $(element); 
+			e.datepicker(options); 
+			e.attr("datepicker",true); 
 			return e;
 		};
 		
@@ -80,14 +94,20 @@
 		
 		cayita.fn.getValue=function(element){
 			var e = $(element); 
-			return e.attr("autonumeric")? e.autoNumeric("get"): e.val();
+			if( e.attr("autonumeric") ) return parseFloat(e.autoNumeric("get"));
+			if( e.attr("datepicker") ){
+			 	return e.datepicker("getDate")
+			 }
+			return e.attr("data-type")!="numeric"? e.val(): parseFloat(e.val());
 		};
 		
 		cayita.fn.setValue=function(element,value){
 			var e = $(element); 
-			e.attr("autonumeric")? e.autoNumeric("set",value): e.val(value);
+			if( e.attr("autonumeric") ) { e.autoNumeric("set",value) }
+			else if ( e.attr("datepicker") ) { e.datepicker("setDate", value) }
+			else { e.val(value) }
 			return e;
-		};	
+		};
 		
 		cayita.fn.convertToDate= function (v){
 			if (!v) return null;
@@ -100,8 +120,74 @@
 				return v;   
 		};
 		
-	</script>
-	<script src="js/mscorlib.min.js"></script>
+		cayita.fn.loadForm=function(form, data){
+			form.reset();
+			var $form= $(form);
+			for(var d in data){
+				
+				var field = $form.find("input[name='"+d+"']");
+				var type = field.attr("type");
+				if(field) {
+					if(type=="radio"){
+					    for (var i=0; i<field.length;i++){
+  							var fr =$(field[i]);
+							if(fr.attr("type") =="radio"){
+								fr.attr("checked", (fr.attr("value")==data[d])? "checked":null) ;
+							}
+						}
+					}
+					else if (type=="checkbox"){
+						for (var i=0; i<field.length;i++){
+  							var fr =$(field[i]);
+							if(fr.attr("type") =="checkbox"){
+								fr.attr("checked", data[d]? "checked":null) ;
+							}
+						}
+					}
+					else
+						this.setValue(field, data[d] );
+				}
+			}
+			
+			$form.data("_source", this.serialize(form));
+			
+		};
+		
+		
+		cayita.fn.loadTo=function(form, data){
+			
+			var $form= $(form);
+			for(var d in data){
+	
+				var field = $form.find("input[name='"+d+"']");
+				if(field) {
+					var type = field.attr("type");
+					if(type=="radio"){
+						var v = $("input:checked", field.parent()).val();
+						if(v) data[d]=v;
+					}
+					else if (type=="checkbox"){
+						var v = $("input:checked", field.parent()).val();
+						if(v) data[d]=v;
+					}
+					else
+						data[d]= this.getValue(field.get(0));
+				}
+			}
+			return data;
+		};
+		
+		cayita.fn.serialize=function(form){
+			var a= $("[autonumeric=true]", form);
+			return (a && a.length)? $(form).autoNumeric('getString'): $(form).serialize();
+		};
+		
+		cayita.fn.dataChanged=function(form){
+			return this.serialize(form)!=$(form).data("_source");		
+		};
+		
+    </script>
+  	<script src="js/mscorlib.min.js"></script>
 	<script src="js/linq.min.js"></script>
     <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/jquery.validate.min.js"></script>
