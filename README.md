@@ -1,1 +1,2 @@
-Cayita.Javascritp: gui library written in CSharp and compiled with saltarelle
+Cayita is a library for building javascript apps using csharp  as base language and the saltarelle compiler.
+
