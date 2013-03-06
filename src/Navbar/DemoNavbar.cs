@@ -18,11 +18,11 @@ namespace Navbar
 		{
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
-				new TopNavBar(div,"App Title","","",nav=>{
-					nav.AddItem("#","Home", (li,anchor)=>{});
-					nav.AddItem("#","License", (li,anchor)=>{});
-					nav.AddItem("#","Contact", (li,anchor)=>{});
-					nav.AddItem("#","About", (li,anchor)=>{});
+				new TopNavBar(div,"App Title",nav=>{
+					nav.AddItem("Home");
+					nav.AddItem("License");
+					nav.AddItem("Contact");
+					nav.AddItem("About");
 
 					nav.OnClick("a", ev=>{
 						ev.PreventDefault();

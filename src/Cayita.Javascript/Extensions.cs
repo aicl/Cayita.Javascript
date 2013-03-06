@@ -180,36 +180,35 @@ namespace Cayita.Javascript
 		}
 		
 		/// <summary>
-		/// Creats a nav list item.
+		/// Adds a item.
 		/// </summary>
-		/// <returns>
-		/// The nav list item.
-		/// </returns>
-		/// <param name='parent'>
-		/// Parent.
-		/// </param>
-		/// <param name='href'>
-		/// Href.
-		/// </param>
-		/// <param name='item'>
-		/// Item.
-		/// </param>
-		/// <param name='element'>
-		/// Action<ListItemElement,AnchorElement>
-		/// </param>
-		
-		public static void AddItem(this ListElement parent, string href, string item,
-		                                         Action<Element,AnchorElement> element)
+		/// <param name="parent">Parent.</param>
+		/// <param name="item">Item.</param>
+		public static void AddItem(this ListElement parent, string item )
 		{
 			var il = new ListItem(parent);
-			var anchor = new Anchor(il.Element(),
-			                        a=>{
-				a.Href= href;
+			new Anchor(il.Element(), a=>{
+				a.Href= "#";
 				a.Text(item);
+			});
+		}
+
+		/// <summary>
+		/// Adds a item.
+		/// </summary>
+		/// <param name="parent">Parent.</param>
+		/// <param name="element">Action<Element,AnchorElement></param>
+		public static void AddItem(this ListElement parent,
+		                           Action<Element,AnchorElement> element)
+		{
+			var il = new ListItem(parent);
+			var anchor = new Anchor(il.Element(), a=>{
+				a.Href= "#";
 			});
 			element(il.Element(), anchor.Element()); 
 		}
-		
+
+
 		public static void AddHeader(this ListElement parent, string item)
 		{
 			new ListItem(parent, l=>{

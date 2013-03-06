@@ -15,15 +15,12 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 		TopNavBar TopNavBar {get;set;}
 		Div Work {get;set;}
 
-
 		public static void Main ()
 		{
 			jQuery.OnDocumentReady( ()=>{
-				
 				var app = new App();
 				app.ShowTopNavBar();
 				app.ShowLoginForm();
-
 			});
 		}
 
@@ -35,7 +32,6 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 			TopNavBar.GetPullRightParagraph().Append(a);
 			lf.Close();
 			ShowUserMenu(loginResponse);
-
 		}
 		
 		void ShowTopNavBar()
@@ -44,12 +40,10 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 				
 			});
 			Document.Body.AppendChild(TopNavBar.Element());
-
 		}
 		
 		void ShowUserMenu(LoginResponse lr)
 		{
-			
 			var um= Div.CreateContainerFluid(default(Element), fluid=>{
 				Div.CreateRowFluid(fluid,  row=>{
 					new Div(row,  span=>{
@@ -59,7 +53,8 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 							HtmlList.CreateNavList(nav, list=>{
 								list.AddHeader("Menu");
 								foreach(var role in lr.Roles){
-									 list.AddItem("#",role.Title, (li,anchor)=>{
+									 list.AddItem( (li,anchor)=>{
+										anchor.Text(role.Title);
 										anchor.JQuery().Click(e=>{
 											e.PreventDefault();
 											Work.Empty();
@@ -70,7 +65,8 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 									});
 								}
 								
-								list.AddItem("#", "Close Session", (li,anchor)=>{
+								list.AddItem( (li,anchor)=>{
+									anchor.Text("Close Session");
 									anchor.JQuery().Click(e=>{
 										e.PreventDefault();
 										Document.Body.Empty();
@@ -115,8 +111,6 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 			form.OnLogin=OnLogin;
 			form.Show();
 		}
-		
-		
 	}
 	
 	[IgnoreNamespace]

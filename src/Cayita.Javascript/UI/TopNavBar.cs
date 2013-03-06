@@ -44,11 +44,14 @@ namespace Cayita.Javascript.UI
 			return navList;
 		}
 
+		public TopNavBar (Element parent, string brandText,  Action<ListElement> navlist)
+			:this(parent, brandText,"","", navlist)
+		{}
+
 		public TopNavBar (Element parent, string brandText, string rightText, string rightLinkText,
 		                  Action<ListElement> navlist)
 			:base(parent)
 		{
-
 			Element().ClassName="navbar";
 
 			new Div(Element(),inner=>{
@@ -83,7 +86,6 @@ namespace Cayita.Javascript.UI
 					});
 				});
 			});
-
 		}
 	}
 }

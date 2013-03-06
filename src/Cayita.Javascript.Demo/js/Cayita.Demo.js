@@ -54,15 +54,11 @@
 			ss.add($t8, $t7);
 		},
 		$showTopNavBar: function() {
-			this.set_$topNavBar(new Cayita.UI.TopNavBar(document.body, 'Cayita.Javascript - demo', '', '', function(nav) {
-				Cayita.UI.Ext.addItem$1(nav, '#', 'Home', function(li, anchor) {
-				});
-				Cayita.UI.Ext.addItem$1(nav, '#', 'License', function(li1, anchor1) {
-				});
-				Cayita.UI.Ext.addItem$1(nav, '#', 'Contact', function(li2, anchor2) {
-				});
-				Cayita.UI.Ext.addItem$1(nav, '#', 'About', function(li3, anchor3) {
-				});
+			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(document.body, 'Cayita.Javascript - demo', '', '', function(nav) {
+				Cayita.UI.Ext.addItem$1(nav, 'Home');
+				Cayita.UI.Ext.addItem$1(nav, 'License');
+				Cayita.UI.Ext.addItem$1(nav, 'Contact');
+				Cayita.UI.Ext.addItem$1(nav, 'About');
 			}));
 			this.get_$topNavBar().addClass('navbar-inverse navbar-fixed-top');
 		},
@@ -77,7 +73,8 @@
 							var $t1 = this.get_$menuItems();
 							for (var $t2 = 0; $t2 < $t1.length; $t2++) {
 								var item = { $: $t1[$t2] };
-								Cayita.UI.Ext.addItem$1(list, '#', item.$.get_title(), ss.mkdel({ item: item, $this: this }, function(li, anchor) {
+								Cayita.UI.Ext.addItem(list, ss.mkdel({ item: item, $this: this }, function(li, anchor) {
+									$(anchor).text(this.item.$.get_title());
 									$(anchor).on('click', ss.mkdel({ item: this.item, $this: this.$this }, function(e) {
 										e.preventDefault();
 										this.$this.get_$work().empty();

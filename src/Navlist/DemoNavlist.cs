@@ -20,12 +20,12 @@ namespace Navbar
 
 				var sb =new SideNavBar(div, nav=>{
 					nav.AddHeader("Menu");
-					nav.AddItem("#","Tables", (li,anchor)=>{});
-					nav.AddItem("#","Form", (li,anchor)=>{});
-					nav.AddItem("#","Navbar", (li,anchor)=>{});
-					nav.AddItem("#","Navlist", (li,anchor)=>{});
+					nav.AddItem("Tables");
+					nav.AddItem("Form");
+					nav.AddItem("Navbar");
+					nav.AddItem("Navlist");
 					nav.AddHDivider();
-					nav.AddItem("#","Exit", (li,anchor)=>{});
+					nav.AddItem("Exit");
 
 					nav.OnClick("a", ev=>{
 						ev.PreventDefault();

@@ -6,15 +6,11 @@
 	$DemoNavbar.execute = function(parent) {
 		(new Cayita.UI.Div.$ctor1(null, function(div) {
 			div.className = 'bs-docs-example';
-			new Cayita.UI.TopNavBar(div, 'App Title', '', '', function(nav) {
-				Cayita.UI.Ext.addItem$1(nav, '#', 'Home', function(li, anchor) {
-				});
-				Cayita.UI.Ext.addItem$1(nav, '#', 'License', function(li1, anchor1) {
-				});
-				Cayita.UI.Ext.addItem$1(nav, '#', 'Contact', function(li2, anchor2) {
-				});
-				Cayita.UI.Ext.addItem$1(nav, '#', 'About', function(li3, anchor3) {
-				});
+			new Cayita.UI.TopNavBar(div, 'App Title', function(nav) {
+				Cayita.UI.Ext.addItem$1(nav, 'Home');
+				Cayita.UI.Ext.addItem$1(nav, 'License');
+				Cayita.UI.Ext.addItem$1(nav, 'Contact');
+				Cayita.UI.Ext.addItem$1(nav, 'About');
 				$(nav).on('click', 'a', function(ev) {
 					ev.preventDefault();
 					$('#div-log').empty();

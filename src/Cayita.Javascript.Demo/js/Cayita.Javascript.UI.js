@@ -1547,18 +1547,24 @@
 			}
 		};
 	};
-	$Cayita_UI_Ext.addItem = function(parent, href, item) {
+	$Cayita_UI_Ext.addItem$2 = function(parent, href, item) {
 		var il = new $Cayita_UI_ListItem(parent);
 		new $Cayita_UI_Anchor.$ctor1(il.element(), function(a) {
 			a.href = href;
 			$(a).text(item);
 		});
 	};
-	$Cayita_UI_Ext.addItem$1 = function(parent, href, item, element) {
+	$Cayita_UI_Ext.addItem$1 = function(parent, item) {
+		var il = new $Cayita_UI_ListItem(parent);
+		new $Cayita_UI_Anchor.$ctor1(il.element(), function(a) {
+			a.href = '#';
+			$(a).text(item);
+		});
+	};
+	$Cayita_UI_Ext.addItem = function(parent, element) {
 		var il = new $Cayita_UI_ListItem(parent);
 		var anchor = new $Cayita_UI_Anchor.$ctor1(il.element(), function(a) {
-			a.href = href;
-			$(a).text(item);
+			a.href = '#';
 		});
 		element(il.element(), anchor.element$1());
 	};
@@ -2769,7 +2775,30 @@
 	$Cayita_UI_TextField.$ctor1.prototype = $Cayita_UI_TextField.$ctor2.prototype = $Cayita_UI_TextField.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.TopNavBar
-	var $Cayita_UI_TopNavBar = function(parent, brandText, rightText, rightLinkText, navlist) {
+	var $Cayita_UI_TopNavBar = function(parent, brandText, navlist) {
+		$Cayita_UI_TopNavBar.$ctor1.call(this, parent, brandText, '', '', navlist);
+	};
+	$Cayita_UI_TopNavBar.prototype = {
+		getContainerFluid: function() {
+			return this.$containerFluid;
+		},
+		getNavCollapse: function() {
+			return this.$navCollapse;
+		},
+		getBrand: function() {
+			return this.$brand;
+		},
+		getPullRightParagraph: function() {
+			return this.$pullRightParagraph;
+		},
+		getPullRightAnchor: function() {
+			return this.$pullRightAnchor;
+		},
+		getNavList: function() {
+			return this.$navList;
+		}
+	};
+	$Cayita_UI_TopNavBar.$ctor1 = function(parent, brandText, rightText, rightLinkText, navlist) {
 		this.$containerFluid = null;
 		this.$navCollapse = null;
 		this.$brand = null;
@@ -2813,26 +2842,7 @@
 			}));
 		}));
 	};
-	$Cayita_UI_TopNavBar.prototype = {
-		getContainerFluid: function() {
-			return this.$containerFluid;
-		},
-		getNavCollapse: function() {
-			return this.$navCollapse;
-		},
-		getBrand: function() {
-			return this.$brand;
-		},
-		getPullRightParagraph: function() {
-			return this.$pullRightParagraph;
-		},
-		getPullRightAnchor: function() {
-			return this.$pullRightAnchor;
-		},
-		getNavList: function() {
-			return this.$navList;
-		}
-	};
+	$Cayita_UI_TopNavBar.$ctor1.prototype = $Cayita_UI_TopNavBar.prototype;
 	ss.registerClass(global, 'Message', $Message);
 	ss.registerClass(global, 'MessageFor', $MessageFor);
 	ss.registerClass(global, 'Range', $Range);

@@ -49,18 +49,10 @@ namespace Cayita.Javascritp.App
 		{
 			TopNavBar= new TopNavBar(Document.Body,"Cayita.Javascript - demo","","",nav=>{
 
-				nav.AddItem("#","Home", (li,anchor)=>{
-
-				});
-				nav.AddItem("#","License", (li,anchor)=>{
-					
-				});
-				nav.AddItem("#","Contact", (li,anchor)=>{
-					
-				});
-				nav.AddItem("#","About", (li,anchor)=>{
-					
-				});
+				nav.AddItem("Home");
+				nav.AddItem("License");
+				nav.AddItem("Contact");
+				nav.AddItem("About");
 			});
 
 			TopNavBar.AddClass("navbar-inverse navbar-fixed-top");
@@ -77,7 +69,8 @@ namespace Cayita.Javascritp.App
 							list.AddHeader( "Main Menu");
 							list.AddHDivider();
 							foreach(var item in MenuItems){
-								list.AddItem("#",item.Title, (li,anchor)=>{
+								list.AddItem( (li,anchor)=>{
+									anchor.Text(item.Title);
 									anchor.OnClick(e=>{
 										e.PreventDefault();
 										Work.Empty();

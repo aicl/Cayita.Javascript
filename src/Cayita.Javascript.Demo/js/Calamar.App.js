@@ -27,7 +27,7 @@
 			this.$showUserMenu(loginResponse);
 		},
 		$showTopNavBar: function() {
-			this.set_$topNavBar(new Cayita.UI.TopNavBar(null, 'Cayita.Javascript - demo', 'No logged', '', function(navlist) {
+			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(null, 'Cayita.Javascript - demo', 'No logged', '', function(navlist) {
 			}));
 			document.body.appendChild(this.get_$topNavBar().element$1());
 		},
@@ -42,7 +42,8 @@
 								Cayita.UI.Ext.addHeader(list, 'Menu');
 								for (var $t1 = 0; $t1 < lr.Roles.length; $t1++) {
 									var role = { $: lr.Roles[$t1] };
-									Cayita.UI.Ext.addItem$1(list, '#', role.$.Title, ss.mkdel({ role: role, $this: this }, function(li, anchor) {
+									Cayita.UI.Ext.addItem(list, ss.mkdel({ role: role, $this: this }, function(li, anchor) {
+										$(anchor).text(this.role.$.Title);
 										$(anchor).click(ss.mkdel({ role: this.role, $this: this.$this }, function(e) {
 											e.preventDefault();
 											this.$this.get_$work().empty();
@@ -52,7 +53,8 @@
 										}));
 									}));
 								}
-								Cayita.UI.Ext.addItem$1(list, '#', 'Close Session', ss.mkdel(this, function(li1, anchor1) {
+								Cayita.UI.Ext.addItem(list, ss.mkdel(this, function(li1, anchor1) {
+									$(anchor1).text('Close Session');
 									$(anchor1).click(ss.mkdel(this, function(e1) {
 										e1.preventDefault();
 										$(document.body).empty();
