@@ -12,22 +12,44 @@ namespace Cayita.Javascript.Plugins
 		protected Action<FormElement> SubmitHandler {get;set;}
 		protected Action<InputElement> Highlight {get;set;}
 		protected Action<InputElement> Unhighlight {get;set;}
-		protected Action<jQueryObject> Success {	get;set;}
+		protected Action<jQueryObject> Success {get;set;}
+		protected string ValidClass {get;set;}
+		protected string ErrorClass {get;set;}
+
 
 		public ValidateOptions ()
 		{
+			ErrorClass= "error";
+			ValidClass="success";
+
 			SetHighlightHandler( element=>{
-				element.JQuery().Closest(".control-group").RemoveClass("success").AddClass("error");
+				element.JQuery().Closest(".control-group").RemoveClass(ValidClass).AddClass(ErrorClass);
 
 			});
 			SetSuccessHandler( label=>{
-				label.Closest(".control-group").RemoveClass("error").AddClass("success");
+				label.Closest(".control-group").RemoveClass(ErrorClass).AddClass(ValidClass);
 			});
-			
+
+			SetUnhighlightHandler( element=>{
+				element.JQuery().Closest(".control-group").RemoveClass(ErrorClass);
+				
+			});
 		}
 		
 		protected dynamic Messages = new {};
 		protected dynamic Rules = new {};
+
+		public ValidateOptions SetErrorClass(string className)
+		{
+			ErrorClass= className;
+			return this;
+		}
+
+		public ValidateOptions SetValidClass(string className)
+		{
+			ValidClass= className;
+			return this;
+		}
 
 		/// <summary>
 		/// Callback for handling the actual submit when the form is valid.

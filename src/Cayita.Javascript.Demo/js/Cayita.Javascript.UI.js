@@ -217,6 +217,14 @@
 	$ValidateOptions.createInstance = function() {
 		return $ValidateOptions.$ctor();
 	};
+	$ValidateOptions.setErrorClass = function($this, className) {
+		$this.errorClass = className;
+		return $this;
+	};
+	$ValidateOptions.setValidClass = function($this, className) {
+		$this.validClass = className;
+		return $this;
+	};
 	$ValidateOptions.setSubmitHandler = function($this, handler) {
 		$this.submitHandler = handler;
 		return $this;
@@ -260,13 +268,20 @@
 		$this.highlight = null;
 		$this.unhighlight = null;
 		$this.success = null;
+		$this.validClass = null;
+		$this.errorClass = null;
 		$this.messages = {};
 		$this.rules = {};
+		$this.errorClass = 'error';
+		$this.validClass = 'success';
 		$ValidateOptions.setHighlightHandler($this, function(element) {
-			$(element).closest('.control-group').removeClass('success').addClass('error');
+			$(element).closest('.control-group').removeClass($this.validClass).addClass($this.errorClass);
 		});
 		$ValidateOptions.setSuccessHandler($this, function(label) {
-			label.closest('.control-group').removeClass('error').addClass('success');
+			label.closest('.control-group').removeClass($this.errorClass).addClass($this.validClass);
+		});
+		$ValidateOptions.setUnhighlightHandler($this, function(element1) {
+			$(element1).closest('.control-group').removeClass($this.errorClass);
 		});
 		return $this;
 	};
