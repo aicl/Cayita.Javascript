@@ -133,28 +133,28 @@
 			$(e).hide();
 			$(e).attr('data-type', 'numeric');
 		});
-		new Cayita.UI.TextField.$ctor1(this.$f, function(l, e1) {
+		new Cayita.UI.TextField(this.$f, function(l, e1) {
 			$(l).text('Name');
 			e1.name = 'Name';
 		});
-		new Cayita.UI.TextField.$ctor1(this.$f, function(l1, e2) {
+		new Cayita.UI.TextField(this.$f, function(l1, e2) {
 			$(l1).text('City');
 			e2.name = 'City';
 		});
-		new Cayita.UI.TextField.$ctor1(this.$f, function(l2, e3) {
+		new Cayita.UI.TextField(this.$f, function(l2, e3) {
 			$(l2).text('Address');
 			e3.name = 'Address';
 		});
-		new Cayita.UI.TextField.$ctor1(this.$f, function(l3, e4) {
+		new Cayita.UI.TextField(this.$f, function(l3, e4) {
 			$(l3).text('Birthday');
 			e4.name = 'DoB';
 			cayita.fn.datepicker(e4, { dateFormat: 'dd.mm.yy' });
 		});
-		new Cayita.UI.TextField.$ctor1(this.$f, function(l4, e5) {
+		new Cayita.UI.TextField(this.$f, function(l4, e5) {
 			$(l4).text('Email');
 			e5.name = 'Email';
 		});
-		new Cayita.UI.TextField.$ctor1(this.$f, function(l5, e6) {
+		new Cayita.UI.TextField(this.$f, function(l5, e6) {
 			$(l5).text('Rating');
 			e6.name = 'Rating';
 			cayita.fn.autoNumeric(e6, null);

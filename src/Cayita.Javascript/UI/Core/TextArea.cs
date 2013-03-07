@@ -7,6 +7,7 @@ namespace Cayita.Javascript.UI
 	[ScriptNamespace("Cayita.UI")]
 	public class TextArea:ElementBase
 	{
+		protected TextArea(){}
 
 		public TextArea(Element parent,  Action<TextAreaElement> element)
 

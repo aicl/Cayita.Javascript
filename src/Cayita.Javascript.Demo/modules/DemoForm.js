@@ -89,11 +89,11 @@
 			div3.className = 'bs-docs-example';
 			new Cayita.UI.Form.$ctor1(div3, function(f3) {
 				f3.className = 'form-horizontal';
-				new Cayita.UI.TextField.$ctor1(f3, function(label, input4) {
+				new Cayita.UI.TextField(f3, function(label, input4) {
 					$(label).text('Email');
 					$(input4).attr('placeholder', 'Email');
 				});
-				new Cayita.UI.TextField.$ctor1(f3, function(label1, input5) {
+				new Cayita.UI.TextField(f3, function(label1, input5) {
 					$(label1).text('Password');
 					input5.type = 'password';
 					$(input5).attr('placeholder', 'Password');
@@ -176,49 +176,42 @@
 					Cayita.UI.Div.createRowFluid$1(f5, function(row1) {
 						new Cayita.UI.Div.$ctor1(row1, function(sp1) {
 							sp1.className = 'span5';
-							new Cayita.UI.Label.$ctor1(sp1, function(l1) {
+							new Cayita.UI.TextField(sp1, function(l1, i) {
 								$(l1).text('FirstName');
-							});
-							new Cayita.UI.InputText.$ctor2(sp1, function(i) {
+								i.name = 'FirstName';
 								i.className = 'span12';
-								$(i).attr('required', true);
 							});
-							new Cayita.UI.Label.$ctor1(sp1, function(l2) {
+							new Cayita.UI.TextField(sp1, function(l2, i1) {
 								$(l2).text('LastName');
-							});
-							new Cayita.UI.InputText.$ctor2(sp1, function(i1) {
+								i1.name = 'LastName';
 								i1.className = 'span12';
 							});
-							new Cayita.UI.Label.$ctor1(sp1, function(l3) {
+							new Cayita.UI.TextField(sp1, function(l3, i2) {
 								$(l3).text('Email address');
-							});
-							new Cayita.UI.InputText.$ctor2(sp1, function(i2) {
-								i2.className = 'span12';
 								i2.name = 'Email';
+								i2.className = 'span12';
 							});
-							new Cayita.UI.Label.$ctor1(sp1, function(l4) {
+							new Cayita.UI.SelectField.$ctor1(sp1, function(l4, i3) {
 								$(l4).text('Subject');
-							});
-							new Cayita.UI.HtmlSelect.$ctor2(sp1, function(sl) {
-								sl.name = 'Subject';
-								sl.className = 'span12';
-								new Cayita.UI.HtmlOption.$ctor1(sl, function(opt) {
+								i3.name = 'Subject';
+								i3.className = 'span12';
+								new Cayita.UI.HtmlOption.$ctor1(i3, function(opt) {
 									opt.value = '';
 									$(opt).text('Choose One:');
 								});
-								new Cayita.UI.HtmlOption.$ctor1(sl, function(opt1) {
+								new Cayita.UI.HtmlOption.$ctor1(i3, function(opt1) {
 									opt1.value = '1';
 									$(opt1).text('General Customer Service');
 								});
-								new Cayita.UI.HtmlOption.$ctor1(sl, function(opt2) {
+								new Cayita.UI.HtmlOption.$ctor1(i3, function(opt2) {
 									opt2.value = '2';
 									$(opt2).text('Suggestions');
 								});
-								new Cayita.UI.HtmlOption.$ctor1(sl, function(opt3) {
+								new Cayita.UI.HtmlOption.$ctor1(i3, function(opt3) {
 									opt3.value = '3';
 									$(opt3).text('Product Support');
 								});
-								new Cayita.UI.HtmlOption.$ctor1(sl, function(opt4) {
+								new Cayita.UI.HtmlOption.$ctor1(i3, function(opt4) {
 									opt4.value = '4';
 									$(opt4).text('Bug');
 								});
@@ -226,21 +219,20 @@
 						});
 						new Cayita.UI.Div.$ctor1(row1, function(sp2) {
 							sp2.className = 'span7';
-							new Cayita.UI.Label.$ctor1(sp2, function(l5) {
+							new Cayita.UI.TextAreaField(sp2, function(l5, i4) {
 								$(l5).text('Message');
-							});
-							new Cayita.UI.TextArea.$ctor1(sp2, function(ta) {
-								ta.className = 'input-xlarge span12';
-								ta.rows = 11;
+								i4.className = 'input-xlarge span12';
+								i4.rows = 11;
+								i4.name = 'Message';
 							});
 						});
 						new Cayita.UI.SubmitButton.$ctor1(row1, function(bt5) {
 							$(bt5).addClass('btn-primary pull-right');
 							$(bt5).text('Send');
 						});
-						$(f5).validate(ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.setSubmitHandler(ValidateOptions.$ctor(), function(vf) {
+						$(f5).validate(ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.setSubmitHandler(ValidateOptions.$ctor(), function(vf) {
 							Cayita.UI.Div.createAlertSuccessBefore(vf.firstChild, 'message sent');
-							vf.reset();
+							cayita.fn.clearForm(vf);
 						}), function(rf, ms) {
 							rf.element = Cayita.UI.Ext.findByName(Element).call(null, f5, 'Subject');
 							Rule.required(rf.rule);
@@ -249,6 +241,12 @@
 							rf1.element = Cayita.UI.Ext.findByName(Element).call(null, f5, 'Email');
 							Rule.email(rf1.rule, null);
 							Message.email(ms1, 'write a valid email ');
+						}), function(rf2, ms2) {
+							rf2.element = Cayita.UI.Ext.findByName(Element).call(null, f5, 'FirstName');
+							Rule.required(rf2.rule);
+							Message.required(ms2, 'write your name');
+							Rule.minlength(rf2.rule, 4);
+							Message.minlength(ms2, 'min 4 chars');
 						}));
 					});
 				});

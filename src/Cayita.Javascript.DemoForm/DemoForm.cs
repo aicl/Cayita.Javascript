@@ -292,7 +292,6 @@ namespace Cayita.Javascript.DemoForm
 });	</textarea></div>");
 			}).AppendTo(parent);
 
-
 			//-----------------------------------
 
 			Document.CreateElement("h3").Text("Contact Form").AppendTo(parent);
@@ -305,29 +304,32 @@ namespace Cayita.Javascript.DemoForm
 						Div.CreateRowFluid(f, row=>{
 							new Div(row, sp=>{
 								sp.ClassName="span5";
-								new Label(sp, l=>l.Text("FirstName"));
-								new InputText(sp, i=>{i.ClassName="span12"; i.SetRequired();});
-								new Label(sp, l=>l.Text("LastName"));
-								new InputText(sp, i=>i.ClassName="span12");
-								new Label(sp, l=>l.Text("Email address"));
-								new InputText(sp, i=>{ i.ClassName="span12"; i.Name="Email"; });
-								new Label(sp, l=>l.Text("Subject"));
-								new HtmlSelect(sp, sl=>{
-									sl.Name="Subject";sl.ClassName="span12";
-									new HtmlOption(sl, opt=>{opt.Value=""; opt.Text("Choose One:");});
-									new HtmlOption(sl, opt=>{opt.Value="1"; opt.Text("General Customer Service");});
-									new HtmlOption(sl, opt=>{opt.Value="2"; opt.Text("Suggestions");});
-									new HtmlOption(sl, opt=>{opt.Value="3"; opt.Text("Product Support");});
-									new HtmlOption(sl, opt=>{opt.Value="4"; opt.Text("Bug");});
+								new TextField(sp, (l,i)=>{
+									l.Text("FirstName"); i.Name="FirstName"; i.ClassName="span12"; 
+								});
+								new TextField(sp, (l,i)=>{
+									l.Text("LastName"); i.Name="LastName"; i.ClassName="span12"; 
+								});
+
+								new TextField(sp, (l,i)=>{
+									l.Text("Email address"); i.Name="Email"; i.ClassName="span12"; 
+								});
+
+								new SelectField(sp, (l, i)=>{
+									l.Text("Subject"); i.Name="Subject";i.ClassName="span12";
+									new HtmlOption(i, opt=>{opt.Value=""; opt.Text("Choose One:");});
+									new HtmlOption(i, opt=>{opt.Value="1"; opt.Text("General Customer Service");});
+									new HtmlOption(i, opt=>{opt.Value="2"; opt.Text("Suggestions");});
+									new HtmlOption(i, opt=>{opt.Value="3"; opt.Text("Product Support");});
+									new HtmlOption(i, opt=>{opt.Value="4"; opt.Text("Bug");});
 								});
 							});
 
 							new Div(row, sp=>{
 								sp.ClassName="span7";
-								new Label(sp, l=>l.Text("Message"));
-								new TextArea(sp, ta=>{
-									ta.ClassName="input-xlarge span12";
-									ta.Rows=11;
+								new TextAreaField(sp, (l, i)=>{
+									l.Text("Message"); 
+									i.ClassName="input-xlarge span12"; i.Rows=11; i.Name="Message";
 								});
 								
 							});
@@ -338,15 +340,21 @@ namespace Cayita.Javascript.DemoForm
 
 							f.Validate(new ValidateOptions().SetSubmitHandler(vf=>{
 								Div.CreateAlertSuccessBefore(vf.FirstChild,"message sent");
-								vf.Reset();
+								vf.Clear();
 							}).AddRule((rf,ms)=>{
 								rf.Element= f.FindByName<SelectElement>("Subject");
 								rf.Rule.Required();
 								ms.Required("choose an option");
 							}).AddRule((rf,ms)=>{
-								rf.Element= f.FindByName<SelectElement>("Email");
+								rf.Element= f.FindByName<TextElement>("Email");
 								rf.Rule.Email();
 								ms.Email("write a valid email ");
+							}).AddRule((rf,ms)=>{
+								rf.Element= f.FindByName<TextElement>("FirstName");
+								rf.Rule.Required();
+								ms.Required("write your name");
+								rf.Rule.Minlength(4);
+								ms.Minlength("min 4 chars");
 							}));
 						});
 					});

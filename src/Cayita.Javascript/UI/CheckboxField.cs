@@ -21,7 +21,7 @@ namespace Cayita.Javascript.UI
 		/// Parent.
 		/// </param>
 		/// <param name='field'>
-		/// Field<LabelElemente,ChecBoxElement>
+		/// Field<LabelElement,ChecBoxElement>
 		/// </param>
 		public CheckboxField(Element parent, Action<Element,CheckBoxElement> field)
 		{
@@ -32,8 +32,8 @@ namespace Cayita.Javascript.UI
 						lb.ClassName="checkbox";
 					});
 					Init( default(Element) );
-					label.ForField(Element().ID);
 					field(label.Element(), Element());  
+					label.ForField(Element().ID);
 					label.Element().AppendChild(Element());
 				});
 			});
@@ -53,7 +53,6 @@ namespace Cayita.Javascript.UI
 		/// </param>
 		public CheckboxField(Element parent,string textLabel, Action<CheckBoxElement> field)
 		{
-			
 			controlGroup = Div.CreateControlGroup(parent,cgDiv=>{
 				controls=  Div.CreateControls(cgDiv, ctdiv=>{
 					
@@ -63,10 +62,8 @@ namespace Cayita.Javascript.UI
 					});
 					
 					Init( default(Element));
-					
-					label.ForField(Element().ID);
 					field( Element());  
-					
+					label.ForField(Element().ID);
 					label.Element().AppendChild(Element());
 				});
 			});
@@ -84,14 +81,3 @@ namespace Cayita.Javascript.UI
 
 	}
 }
-
-/*
-<div class="control-group">
-    <div class="controls">
-      <label class="checkbox">
-        <input type="checkbox"> Remember me
-      </label>
-      <button type="submit" class="btn">Sign in</button>
-    </div>
-</div>
-*/

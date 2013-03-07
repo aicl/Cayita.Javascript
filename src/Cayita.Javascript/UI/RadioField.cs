@@ -36,7 +36,6 @@ namespace Cayita.Javascript.UI
 						if(!inline) lb.RemoveClass("inline");
 						rd.Name=fieldName;
 						rd.SetValue(item.Value);
-
 					});
 				}
 			});
@@ -48,4 +47,3 @@ namespace Cayita.Javascript.UI
 		}
 	}
 }
-

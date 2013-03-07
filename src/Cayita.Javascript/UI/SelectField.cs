@@ -33,15 +33,15 @@ namespace Cayita.Javascript.UI
 		{
 
 			ControlGroup = Div.CreateControlGroup(parent, cgDiv=>{
-				Label = Label.CreateControlLabel(default(Element), "");
+				Label = Label.CreateControlLabel(cgDiv, "");
+				Label.Hide();
 				Controls = new Div( cgDiv,  ctDiv=>{
 					Init(ctDiv);
+					element(Element());
 					Label.ForField( Element().ID);
+					Init (store, optionFunc, defaultOption);
 				});
 			});
-
-			element(Element());
-			Init (store, optionFunc, defaultOption);
 		}
 
 		public SelectField(Element parent, Action<Element,SelectElement> element,
@@ -52,14 +52,12 @@ namespace Cayita.Javascript.UI
 				Label = Label.CreateControlLabel(cgDiv, "");
 				Controls = Div.CreateControls( cgDiv, ctDiv=>{
 					Init(ctDiv);
+					element(Label.Element(), Element());
 					Label.ForField( Element().ID);
-
+					Init (store, optionFunc, defaultOption);
 				});
-			});
-
-			element(Label.Element(), Element());
-			Init (store, optionFunc, defaultOption);
-									
+				if( string.IsNullOrEmpty( Label.TextLabel()) ) Label.Hide();
+			});									
 		}
 
 		void Init (Store<T> store, Func<T, OptionElement> optionFunc, SelectedOption<T> defaultOption)
@@ -198,9 +196,10 @@ namespace Cayita.Javascript.UI
 				Label = Label.CreateControlLabel(cgDiv, "");
 				Controls = Div.CreateControls( cgDiv, ctDiv=>{
 					Init(ctDiv);
-					Label.ForField( Element().ID);
 					field(Label.Element(), Element());
+					Label.ForField( Element().ID);
 				});
+				if( string.IsNullOrEmpty( Label.TextLabel()) ) Label.Hide();
 			});  
 		}
 		/// <summary>
@@ -215,16 +214,17 @@ namespace Cayita.Javascript.UI
 		public SelectField(Element parent, Action<SelectElement> field)
 		{
 			ControlGroup = Div.CreateControlGroup(parent, cgDiv=>{
-				Label = Label.CreateControlLabel(default(Element), "");
+				Label = Label.CreateControlLabel(cgDiv, "");
+				Label.Hide();
 				Controls = new Div( cgDiv,  ctDiv=>{
 					Init(ctDiv);
-					Label.ForField( Element().ID);
 					field(Element());
+					Label.ForField( Element().ID);
 				});
 			});  
 		}
 
-		public Div GetControGroup()
+		public Div GetControlGroup()
 		{
 			return ControlGroup;
 		}

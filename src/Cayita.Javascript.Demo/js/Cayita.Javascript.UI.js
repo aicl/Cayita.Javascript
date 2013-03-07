@@ -1134,8 +1134,8 @@
 					lb.className = 'checkbox';
 				});
 				this.init(null);
-				label.forField$1(this.element$2().id);
 				field(label.element(), this.element$2());
+				label.forField$1(this.element$2().id);
 				label.element().appendChild(this.element$2());
 			}));
 		}));
@@ -1151,8 +1151,8 @@
 					$(lb).text(textLabel);
 				});
 				this.init(null);
-				label.forField$1(this.element$2().id);
 				field(this.element$2());
+				label.forField$1(this.element$2().id);
 				label.element().appendChild(this.element$2());
 			}));
 		}));
@@ -2332,7 +2332,7 @@
 		$Cayita_UI_HtmlSelect.call(this);
 	};
 	$Cayita_UI_SelectField.prototype = {
-		getControGroup: function() {
+		getControlGroup: function() {
 			return this.controlGroup;
 		},
 		getControls: function() {
@@ -2351,9 +2351,12 @@
 			this.label = $Cayita_UI_Label.createControlLabel(cgDiv, '', null, true);
 			this.controls = $Cayita_UI_Div.createControls$1(cgDiv, ss.mkdel(this, function(ctDiv) {
 				this.init(ctDiv);
-				this.label.forField$1(this.element$1().id);
 				field(this.label.element(), this.element$1());
+				this.label.forField$1(this.element$1().id);
 			}));
+			if (ss.isNullOrEmptyString(this.label.textLabel())) {
+				this.label.hide();
+			}
 		}));
 	};
 	$Cayita_UI_SelectField.$ctor2 = function(parent, field) {
@@ -2362,11 +2365,12 @@
 		this.controls = null;
 		$Cayita_UI_HtmlSelect.call(this);
 		this.controlGroup = $Cayita_UI_Div.createControlGroup$1(parent, ss.mkdel(this, function(cgDiv) {
-			this.label = $Cayita_UI_Label.createControlLabel(null, '', null, true);
+			this.label = $Cayita_UI_Label.createControlLabel(cgDiv, '', null, true);
+			this.label.hide();
 			this.controls = new $Cayita_UI_Div.$ctor1(cgDiv, ss.mkdel(this, function(ctDiv) {
 				this.init(ctDiv);
-				this.label.forField$1(this.element$1().id);
 				field(this.element$1());
+				this.label.forField$1(this.element$1().id);
 			}));
 		}));
 	};
@@ -2383,14 +2387,15 @@
 			this.$4$OnOptionSelectedField = null;
 			$Cayita_UI_SelectField.call(this);
 			this.controlGroup = $Cayita_UI_Div.createControlGroup$1(parent, ss.mkdel(this, function(cgDiv) {
-				this.label = $Cayita_UI_Label.createControlLabel(null, '', null, true);
+				this.label = $Cayita_UI_Label.createControlLabel(cgDiv, '', null, true);
+				this.label.hide();
 				this.controls = new $Cayita_UI_Div.$ctor1(cgDiv, ss.mkdel(this, function(ctDiv) {
 					this.init(ctDiv);
+					element(this.element$1());
 					this.label.forField$1(this.element$1().id);
+					this.$init(store, optionFunc, defaultOption);
 				}));
 			}));
-			element(this.element$1());
-			this.$init(store, optionFunc, defaultOption);
 		};
 		$type.prototype = {
 			$init: function(store, optionFunc, defaultOption) {
@@ -2523,11 +2528,14 @@
 				this.label = $Cayita_UI_Label.createControlLabel(cgDiv, '', null, true);
 				this.controls = $Cayita_UI_Div.createControls$1(cgDiv, ss.mkdel(this, function(ctDiv) {
 					this.init(ctDiv);
+					element(this.label.element(), this.element$1());
 					this.label.forField$1(this.element$1().id);
+					this.$init(store, optionFunc, defaultOption);
 				}));
+				if (ss.isNullOrEmptyString(this.label.textLabel())) {
+					this.label.hide();
+				}
 			}));
-			element(this.label.element(), this.element$1());
-			this.$init(store, optionFunc, defaultOption);
 		};
 		$type.$ctor1.prototype = $type.prototype;
 		ss.registerGenericClassInstance($type, $Cayita_UI_SelectField$1, [T], function() {
@@ -2728,28 +2736,97 @@
 	$Cayita_UI_TableRow.$ctor1.prototype = $Cayita_UI_TableRow.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.TextArea
-	var $Cayita_UI_TextArea = function(parent) {
+	var $Cayita_UI_TextArea = function() {
 		$Cayita_UI_ElementBase.call(this);
-		this.createElement('textarea', parent);
 	};
 	$Cayita_UI_TextArea.prototype = {
 		element$1: function() {
 			return this.element();
 		}
 	};
-	$Cayita_UI_TextArea.$ctor1 = function(parent, element) {
+	$Cayita_UI_TextArea.$ctor2 = function(parent, element) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('textarea', parent);
 		element(this.element$1());
 	};
-	$Cayita_UI_TextArea.$ctor1.prototype = $Cayita_UI_TextArea.prototype;
+	$Cayita_UI_TextArea.$ctor1 = function(parent) {
+		$Cayita_UI_ElementBase.call(this);
+		this.createElement('textarea', parent);
+	};
+	$Cayita_UI_TextArea.$ctor2.prototype = $Cayita_UI_TextArea.$ctor1.prototype = $Cayita_UI_TextArea.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.TextAreaField
+	var $Cayita_UI_TextAreaField = function(parent, field) {
+		this.$controlGroup = null;
+		this.$label = null;
+		this.$controls = null;
+		$Cayita_UI_TextArea.call(this);
+		this.$controlGroup = $Cayita_UI_Div.createControlGroup$1(parent, ss.mkdel(this, function(cge) {
+			this.$label = $Cayita_UI_Label.createControlLabel(cge, '', null, true);
+			this.$controls = $Cayita_UI_Div.createControls$1(cge, ss.mkdel(this, function(cte) {
+				this.createElement('textarea', cte);
+				field(this.$label.element(), this.element$1());
+				this.$label.forField$1(this.element$1().id);
+			}));
+			if (ss.isNullOrEmptyString(this.$label.textLabel())) {
+				this.$label.hide();
+			}
+		}));
+	};
+	$Cayita_UI_TextAreaField.prototype = {
+		getControlGroup: function() {
+			return this.$controlGroup;
+		},
+		getControls: function() {
+			return this.$controls;
+		},
+		getLabel: function() {
+			return this.$label;
+		}
+	};
+	$Cayita_UI_TextAreaField.$ctor1 = function(parent, field) {
+		this.$controlGroup = null;
+		this.$label = null;
+		this.$controls = null;
+		$Cayita_UI_TextArea.call(this);
+		this.$controlGroup = $Cayita_UI_Div.createControlGroup$1(parent, ss.mkdel(this, function(cge) {
+			this.$label = $Cayita_UI_Label.createControlLabel(cge, '', null, true);
+			this.$label.hide();
+			this.$controls = new $Cayita_UI_Div.$ctor1(cge, ss.mkdel(this, function(cte) {
+				this.createElement('textarea', cte);
+				field(this.element$1());
+				this.$label.forField$1(this.element$1().id);
+			}));
+		}));
+	};
+	$Cayita_UI_TextAreaField.$ctor2 = function(parent, label, fieldname) {
+		$Cayita_UI_TextAreaField.call(this, parent, function(l, f) {
+			$(l).text(label);
+			f.name = fieldname;
+		});
+	};
+	$Cayita_UI_TextAreaField.$ctor1.prototype = $Cayita_UI_TextAreaField.$ctor2.prototype = $Cayita_UI_TextAreaField.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.TextField
 	var $Cayita_UI_TextField = function(parent, field) {
-		$Cayita_UI_TextField.$ctor1.call(this, parent.element(), field);
+		this.$controlGroup = null;
+		this.$label = null;
+		this.$controls = null;
+		$Cayita_UI_InputText.call(this);
+		this.$controlGroup = $Cayita_UI_Div.createControlGroup$1(parent, ss.mkdel(this, function(cge) {
+			this.$label = $Cayita_UI_Label.createControlLabel(cge, '', null, true);
+			this.$controls = $Cayita_UI_Div.createControls$1(cge, ss.mkdel(this, function(cte) {
+				this.createInput(cte, 'text');
+				field(this.$label.element(), this.element$2());
+				this.$label.forField$1(this.element$2().id);
+			}));
+			if (ss.isNullOrEmptyString(this.$label.textLabel())) {
+				this.$label.hide();
+			}
+		}));
 	};
 	$Cayita_UI_TextField.prototype = {
-		getControGroup: function() {
+		getControlGroup: function() {
 			return this.$controlGroup;
 		},
 		getControls: function() {
@@ -2766,26 +2843,19 @@
 		$Cayita_UI_InputText.call(this);
 		this.$controlGroup = $Cayita_UI_Div.createControlGroup$1(parent, ss.mkdel(this, function(cge) {
 			this.$label = $Cayita_UI_Label.createControlLabel(cge, '', null, true);
-			this.$controls = $Cayita_UI_Div.createControls$1(cge, ss.mkdel(this, function(cte) {
+			this.$label.hide();
+			this.$controls = new $Cayita_UI_Div.$ctor1(cge, ss.mkdel(this, function(cte) {
 				this.createInput(cte, 'text');
+				field(this.element$2());
 				this.$label.forField$1(this.element$2().id);
-				field(this.$label.element(), this.element$2());
 			}));
 		}));
 	};
-	$Cayita_UI_TextField.$ctor2 = function(parent, field) {
-		this.$controlGroup = null;
-		this.$label = null;
-		this.$controls = null;
-		$Cayita_UI_InputText.call(this);
-		this.$controlGroup = $Cayita_UI_Div.createControlGroup$1(parent, ss.mkdel(this, function(cge) {
-			this.$label = $Cayita_UI_Label.createControlLabel(null, '', null, true);
-			this.$controls = new $Cayita_UI_Div.$ctor1(cge, ss.mkdel(this, function(cte) {
-				this.createInput(cte, 'text');
-				this.$label.forField$1(this.element$2().id);
-				field(this.element$2());
-			}));
-		}));
+	$Cayita_UI_TextField.$ctor2 = function(parent, label, fieldname) {
+		$Cayita_UI_TextField.call(this, parent, function(l, f) {
+			$(l).text(label);
+			f.name = fieldname;
+		});
 	};
 	$Cayita_UI_TextField.$ctor1.prototype = $Cayita_UI_TextField.$ctor2.prototype = $Cayita_UI_TextField.prototype;
 	////////////////////////////////////////////////////////////////////////////////
@@ -2913,6 +2983,7 @@
 	ss.registerClass(global, 'Cayita.UI.TableHeader', $Cayita_UI_TableHeader, $Cayita_UI_HtmlTable);
 	ss.registerClass(global, 'Cayita.UI.TableRow', $Cayita_UI_TableRow, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.TextArea', $Cayita_UI_TextArea, $Cayita_UI_ElementBase);
+	ss.registerClass(global, 'Cayita.UI.TextAreaField', $Cayita_UI_TextAreaField, $Cayita_UI_TextArea);
 	ss.registerClass(global, 'Cayita.UI.TextField', $Cayita_UI_TextField, $Cayita_UI_InputText);
 	ss.registerClass(global, 'Cayita.UI.TopNavBar', $Cayita_UI_TopNavBar, $Cayita_UI_Div);
 	$Cayita_UI_ElementBase.$tags = new (ss.makeGenericType(ss.Dictionary$2, [String, ss.Int32]))();

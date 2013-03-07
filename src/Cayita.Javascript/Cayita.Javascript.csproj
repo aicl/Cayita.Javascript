@@ -87,6 +87,7 @@
     <Compile Include="UI\Core\InputRadio.cs" />
     <Compile Include="UI\RadioField.cs" />
     <Compile Include="UI\Core\ListElement.cs" />
+    <Compile Include="UI\TextAreaField.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -9,7 +9,7 @@ namespace Cayita.Javascript.UI
 	public class InputText:InputBase
 	{
 
-		protected internal InputText(){}
+		protected InputText(){}
 
 		public InputText(Element parent,  Action<TextElement> element)
 			:base(parent,"text" )

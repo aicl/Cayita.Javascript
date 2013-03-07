@@ -205,18 +205,18 @@
 						o1.text = 'Select Fuente ...';
 					})).element$1();
 					this.$cbFuente = new $t7(f, $t8, $t9, $t10, $t6);
-					var fieldValor = new Cayita.UI.TextField.$ctor2(f, function(field) {
+					var fieldValor = new Cayita.UI.TextField.$ctor1(f, function(field) {
 						field.className = 'span12';
 						field.name = 'Valor';
 						$(field).attr('placeholder', '$$$$$$$$$$');
 						cayita.fn.autoNumeric(field, null);
 					});
-					new Cayita.UI.TextField.$ctor2(f, function(field1) {
+					new Cayita.UI.TextField.$ctor1(f, function(field1) {
 						field1.className = 'span12';
 						field1.name = 'Beneficiario';
 						$(field1).attr('placeholder', 'Pagado a ....');
 					});
-					new Cayita.UI.TextField.$ctor2(f, function(field2) {
+					new Cayita.UI.TextField.$ctor1(f, function(field2) {
 						field2.className = 'span12';
 						field2.name = 'Descripcion';
 						$(field2).attr('placeholder', 'Descripcion');
