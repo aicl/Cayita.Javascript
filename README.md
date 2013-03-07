@@ -70,7 +70,8 @@ new Form( container, f=>{
     });  
 });  
 ```
-imagen = (https://docs.google.com/file/d/0B5PxAJVNHVdKNFk3Y2tpTDlTRmM/edit?usp=sharing)
+imagen = (https://docs.google.com/file/d/0B5PxAJVNHVdKVFUwcEI5S2syU00/edit?usp=sharing)
+
 
 ##Requirements:
 * **Development**
