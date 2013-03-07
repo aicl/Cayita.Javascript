@@ -123,23 +123,20 @@
 							$(l).text('Login Form');
 						});
 						new Cayita.UI.Form.$ctor1(element, function(fe) {
-							Cayita.UI.Div.createControlGroup$1(fe, function(cg) {
-								new Cayita.UI.InputText.$ctor2(cg, function(pe) {
-									$(pe).attr('placeholder', 'your username');
-									pe.name = 'UserName';
-									pe.className = 'span12';
-									$(pe).attr('required', true);
-									$(pe).attr('minlength', 8);
-								});
+							new Cayita.UI.TextField.$ctor1(fe, function(i) {
+								$(i).attr('placeholder', 'your username');
+								i.name = 'UserName';
+								i.className = 'span12';
+								$(i).attr('required', true);
+								$(i).attr('minlength', 8);
 							});
-							Cayita.UI.Div.createControlGroup$1(fe, function(cg1) {
-								new Cayita.UI.InputPassword.$ctor1(cg1, function(pe1) {
-									$(pe1).attr('placeholder', 'your password');
-									pe1.name = 'Password';
-									pe1.className = 'span12';
-									$(pe1).attr('required', true);
-									$(pe1).attr('minlength', 6);
-								});
+							new Cayita.UI.TextField.$ctor1(fe, function(i1) {
+								$(i1).attr('placeholder', 'your password');
+								i1.name = 'Password';
+								i1.className = 'span12';
+								$(i1).attr('required', true);
+								$(i1).attr('minlength', 6);
+								i1.type = 'password';
 							});
 							new Cayita.UI.CheckboxField.$ctor1(fe, function(lb4, cb3) {
 								$(lb4).text('Remember me');
@@ -163,8 +160,7 @@
 					});
 				});
 			});
-			//
-			$(div4).append('<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="#" onclick="dp.sh.Toolbar.Command(\'ViewSource\',this);return false;">view plain</a><a href="#" onclick="dp.sh.Toolbar.Command(\'CopyToClipboard\',this);return false;">copy to clipboard</a><a href="#" onclick="dp.sh.Toolbar.Command(\'PrintSource\',this);return false;">print</a><a href="#" onclick="dp.sh.Toolbar.Command(\'About\',this);return false;">?</a></div></div><ol start="1" class="dp-c"><li class="alt"><span><span>Div.CreateContainer(div,&nbsp;container=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;Div.CreateRow(container,&nbsp;row=&gt;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;Div(row,element=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;element.ClassName=<span class="string">"span4&nbsp;offset3&nbsp;well"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;Legend(element,&nbsp;&nbsp;l=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l.Text(<span class="string">"Login&nbsp;Form"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;Form(element,&nbsp;fe=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Div.CreateControlGroup(fe,cg=&gt;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;InputText(cg,&nbsp;pe=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pe.SetPlaceHolder(<span class="string">"your&nbsp;username"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pe.Name=<span class="string">"UserName"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pe.ClassName=<span class="string">"span12"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pe.SetRequired();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pe.SetMinLength(8);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Div.CreateControlGroup(fe,&nbsp;cg=&gt;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;InputPassword(cg,&nbsp;pe=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pe.SetPlaceHolder(<span class="string">"your&nbsp;password"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pe.Name=<span class="string">"Password"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pe.ClassName=<span class="string">"span12"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pe.SetRequired();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pe.SetMinLength(6);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;CheckboxField(fe,&nbsp;(lb,&nbsp;cb)=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lb.Text(<span class="string">"Remember&nbsp;me"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cb.Name=<span class="string">"Remember"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;SubmitButton(fe,&nbsp;b=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.Text(<span class="string">"Login"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.AddClass(<span class="string">"btn-info&nbsp;btn-block"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.LoadingText(<span class="string">"&nbsp;&nbsp;authenticating&nbsp;..."</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fe.Validate(&nbsp;<span class="keyword">new</span><span>&nbsp;ValidateOptions().SetSubmitHandler(f=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;bt&nbsp;=f.Find&lt;ButtonElement&gt;(<span class="string">"[type=submit]"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt.ShowLoadingText();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Window.SetTimeout(()=&gt;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt.ResetLoadingText();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Div.CreateAlertSuccessAfter(f,<span class="string">"Welcome&nbsp;:&nbsp;"</span><span>+&nbsp;f.FindByName&lt;InputElement&gt;(</span><span class="string">"UserName"</span><span>).GetValue());&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.Clear();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},&nbsp;1000);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}));&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>});&nbsp;&nbsp;&nbsp;</span></li></ol><textarea style="display:none;" class="originalCode">Div.CreateContainer(div, container=&gt;{\n\tDiv.CreateRow(container, row=&gt;{\n\t\tnew Div(row,element=&gt;{\n\t\t\telement.ClassName="span4 offset3 well";\n\t\t\tnew Legend(element,  l=&gt;{\n\t\t\t\tl.Text("Login Form");\n\t\t\t});\n\t\t\t\n\t\t\tnew Form(element, fe=&gt;{\n\t\t\t\tDiv.CreateControlGroup(fe,cg=&gt;{\n\t\t\t\t\tnew InputText(cg, pe=&gt;{\n\t\t\t\t\t\tpe.SetPlaceHolder("your username");\n\t\t\t\t\t\tpe.Name="UserName";\n\t\t\t\t\t\tpe.ClassName="span12";\n\t\t\t\t\t\tpe.SetRequired();\n\t\t\t\t\t\tpe.SetMinLength(8);\n\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t\t\n\t\t\t\tDiv.CreateControlGroup(fe, cg=&gt;{\n\t\t\t\t\tnew InputPassword(cg, pe=&gt;{\n\t\t\t\t\t\tpe.SetPlaceHolder("your password");\n\t\t\t\t\t\tpe.Name="Password";\n\t\t\t\t\t\tpe.ClassName="span12";\n\t\t\t\t\t\tpe.SetRequired();\n\t\t\t\t\t\tpe.SetMinLength(6);\n\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t\t\n\t\t\t\tnew CheckboxField(fe, (lb, cb)=&gt;{\n\t\t\t\t\tlb.Text("Remember me");\n\t\t\t\t\tcb.Name="Remember";\n\t\t\t\t});\n\t\t\t\t\n\t\t\t\tnew SubmitButton(fe, b=&gt;{\n\t\t\t\t\tb.Text("Login");\n\t\t\t\t\tb.AddClass("btn-info btn-block");\n\t\t\t\t\tb.LoadingText("  authenticating ...");\n\t\t\t\t});\n\t\t\t\t\n\t\t\t\tfe.Validate( new ValidateOptions().SetSubmitHandler(f=&gt;{\n\t\t\t\t\tvar bt =f.Find&lt;ButtonElement&gt;("[type=submit]");\n\t\t\t\t\tbt.ShowLoadingText();\n\t\t\t\t\tWindow.SetTimeout(()=&gt;{\n\t\t\t\t\t\tbt.ResetLoadingText();\n\t\t\t\t\t\tDiv.CreateAlertSuccessAfter(f,"Welcome : "+ f.FindByName&lt;InputElement&gt;("UserName").GetValue());\n\t\t\t\t\t\tf.Clear();\n\t\t\t\t\t}, 1000);\n\t\t\t\t}));\n\t\t\t});\n\t\t});\n\t});\n});\t</textarea></div>');
+			$(div4).append('<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="#" onclick="dp.sh.Toolbar.Command(\'ViewSource\',this);return false;">view plain</a><a href="#" onclick="dp.sh.Toolbar.Command(\'CopyToClipboard\',this);return false;">copy to clipboard</a><a href="#" onclick="dp.sh.Toolbar.Command(\'PrintSource\',this);return false;">print</a><a href="#" onclick="dp.sh.Toolbar.Command(\'About\',this);return false;">?</a></div></div><ol start="1" class="dp-c"><li class="alt"><span><span class="keyword">new</span><span>&nbsp;Form(element,&nbsp;fe=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;TextField(fe,&nbsp;i=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.SetPlaceHolder(<span class="string">"your&nbsp;username"</span><span>);&nbsp;&nbsp;i.Name=</span><span class="string">"UserName"</span><span>;&nbsp;&nbsp;i.ClassName=</span><span class="string">"span12"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.SetRequired();i.SetMinLength(8);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;TextField(fe,&nbsp;i=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.SetPlaceHolder(<span class="string">"your&nbsp;password"</span><span>);&nbsp;&nbsp;i.Name=</span><span class="string">"Password"</span><span>;&nbsp;i.ClassName=</span><span class="string">"span12"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.SetRequired();&nbsp;i.SetMinLength(6);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Type=<span class="string">"password"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;CheckboxField(fe,&nbsp;(lb,&nbsp;cb)=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lb.Text(<span class="string">"Remember&nbsp;me"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cb.Name=<span class="string">"Remember"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;SubmitButton(fe,&nbsp;b=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.Text(<span class="string">"Login"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.AddClass(<span class="string">"btn-info&nbsp;btn-block"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.LoadingText(<span class="string">"&nbsp;&nbsp;authenticating&nbsp;..."</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;fe.Validate(&nbsp;<span class="keyword">new</span><span>&nbsp;ValidateOptions().SetSubmitHandler(f=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;bt&nbsp;=f.Find&lt;ButtonElement&gt;(<span class="string">"[type=submit]"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt.ShowLoadingText();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Window.SetTimeout(()=&gt;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt.ResetLoadingText();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Div.CreateAlertSuccessAfter(f,<span class="string">"Welcome&nbsp;:&nbsp;"</span><span>+&nbsp;f.FindByName&lt;InputElement&gt;(</span><span class="string">"UserName"</span><span>).GetValue());&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.Clear();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},&nbsp;1000);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}));&nbsp;&nbsp;</span></li><li class="alt"><span>});&nbsp;&nbsp;</span></li></ol><textarea style="display:none;" class="originalCode">new Form(element, fe=&gt;{\n\tnew TextField(fe, i=&gt;{\n\t\ti.SetPlaceHolder("your username");\ti.Name="UserName";\ti.ClassName="span12";\n\t\ti.SetRequired();i.SetMinLength(8);\n\t});\n\t\n\tnew TextField(fe, i=&gt;{\n\t\ti.SetPlaceHolder("your password");\ti.Name="Password"; i.ClassName="span12";\n\t\ti.SetRequired(); i.SetMinLength(6);\n\t\ti.Type="password";\n\t});\n\t\n\tnew CheckboxField(fe, (lb, cb)=&gt;{\n\t\tlb.Text("Remember me");\n\t\tcb.Name="Remember";\n\t});\n\t\n\tnew SubmitButton(fe, b=&gt;{\n\t\tb.Text("Login");\n\t\tb.AddClass("btn-info btn-block");\n\t\tb.LoadingText("  authenticating ...");\n\t});\n\t\n\tfe.Validate( new ValidateOptions().SetSubmitHandler(f=&gt;{\n\t\tvar bt =f.Find&lt;ButtonElement&gt;("[type=submit]");\n\t\tbt.ShowLoadingText();\n\t\tWindow.SetTimeout(()=&gt;{\n\t\t\tbt.ResetLoadingText();\n\t\t\tDiv.CreateAlertSuccessAfter(f,"Welcome : "+ f.FindByName&lt;InputElement&gt;("UserName").GetValue());\n\t\t\tf.Clear();\n\t\t}, 1000);\n\t}));\n});</textarea></div>');
 		})).appendTo(parent);
 		//-----------------------------------
 		$(document.createElement('h3')).text('Contact Form').appendTo(parent);
@@ -176,42 +172,42 @@
 					Cayita.UI.Div.createRowFluid$1(f5, function(row1) {
 						new Cayita.UI.Div.$ctor1(row1, function(sp1) {
 							sp1.className = 'span5';
-							new Cayita.UI.TextField(sp1, function(l1, i) {
+							new Cayita.UI.TextField(sp1, function(l1, i2) {
 								$(l1).text('FirstName');
-								i.name = 'FirstName';
-								i.className = 'span12';
-							});
-							new Cayita.UI.TextField(sp1, function(l2, i1) {
-								$(l2).text('LastName');
-								i1.name = 'LastName';
-								i1.className = 'span12';
-							});
-							new Cayita.UI.TextField(sp1, function(l3, i2) {
-								$(l3).text('Email address');
-								i2.name = 'Email';
+								i2.name = 'FirstName';
 								i2.className = 'span12';
 							});
-							new Cayita.UI.SelectField.$ctor1(sp1, function(l4, i3) {
-								$(l4).text('Subject');
-								i3.name = 'Subject';
+							new Cayita.UI.TextField(sp1, function(l2, i3) {
+								$(l2).text('LastName');
+								i3.name = 'LastName';
 								i3.className = 'span12';
-								new Cayita.UI.HtmlOption.$ctor1(i3, function(opt) {
+							});
+							new Cayita.UI.TextField(sp1, function(l3, i4) {
+								$(l3).text('Email address');
+								i4.name = 'Email';
+								i4.className = 'span12';
+							});
+							new Cayita.UI.SelectField.$ctor1(sp1, function(l4, i5) {
+								$(l4).text('Subject');
+								i5.name = 'Subject';
+								i5.className = 'span12';
+								new Cayita.UI.HtmlOption.$ctor1(i5, function(opt) {
 									opt.value = '';
 									$(opt).text('Choose One:');
 								});
-								new Cayita.UI.HtmlOption.$ctor1(i3, function(opt1) {
+								new Cayita.UI.HtmlOption.$ctor1(i5, function(opt1) {
 									opt1.value = '1';
 									$(opt1).text('General Customer Service');
 								});
-								new Cayita.UI.HtmlOption.$ctor1(i3, function(opt2) {
+								new Cayita.UI.HtmlOption.$ctor1(i5, function(opt2) {
 									opt2.value = '2';
 									$(opt2).text('Suggestions');
 								});
-								new Cayita.UI.HtmlOption.$ctor1(i3, function(opt3) {
+								new Cayita.UI.HtmlOption.$ctor1(i5, function(opt3) {
 									opt3.value = '3';
 									$(opt3).text('Product Support');
 								});
-								new Cayita.UI.HtmlOption.$ctor1(i3, function(opt4) {
+								new Cayita.UI.HtmlOption.$ctor1(i5, function(opt4) {
 									opt4.value = '4';
 									$(opt4).text('Bug');
 								});
@@ -219,11 +215,11 @@
 						});
 						new Cayita.UI.Div.$ctor1(row1, function(sp2) {
 							sp2.className = 'span7';
-							new Cayita.UI.TextAreaField(sp2, function(l5, i4) {
+							new Cayita.UI.TextAreaField(sp2, function(l5, i6) {
 								$(l5).text('Message');
-								i4.className = 'input-xlarge span12';
-								i4.rows = 11;
-								i4.name = 'Message';
+								i6.className = 'input-xlarge span12';
+								i6.rows = 11;
+								i6.name = 'Message';
 							});
 						});
 						new Cayita.UI.SubmitButton.$ctor1(row1, function(bt5) {
