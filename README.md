@@ -62,10 +62,10 @@ new Form( container, f=>{
     });  
 });  
 ```
-imagen = (https://docs.google.com/file/d/0B5PxAJVNHVdKRnpQS2dxVXg1eTA/edit?usp=sharing&pli=1)
+imagen = (https://docs.google.com/file/d/0B5PxAJVNHVdKNFk3Y2tpTDlTRmM/edit?usp=sharing)
 
 ##Requirements:
-* **Development
+* **Development**
 * Saltarelle compiler.
 * Saltarelle.jQuery.dll 
 * Saltarelle.Web.dll
@@ -73,7 +73,7 @@ imagen = (https://docs.google.com/file/d/0B5PxAJVNHVdKRnpQS2dxVXg1eTA/edit?usp=s
 * Cayita.Javascript.dll
 * mscorlib.dll
 
-* **Production
+* **Production**
 * Cayita.Javascript.UI.js
 * mscorlib.js ( from saltarelle)
 * linq.js ( from saltarelle)
@@ -85,5 +85,6 @@ imagen = (https://docs.google.com/file/d/0B5PxAJVNHVdKRnpQS2dxVXg1eTA/edit?usp=s
 * Font Awesome (http://fortawesome.github.com/Font-Awesome/)
 
 
+##Demo
 Demo at (https://googledrive.com/host/0B5PxAJVNHVdKaGFMczUxX2RRSkk/index.html)
 
