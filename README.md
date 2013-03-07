@@ -65,24 +65,24 @@ new Form( container, f=>{
 imagen = (https://docs.google.com/file/d/0B5PxAJVNHVdKRnpQS2dxVXg1eTA/edit?usp=sharing&pli=1)
 
 Requirements:
-Development
-Saltarelle compiler.
-Saltarelle.jQuery.dll 
-Saltarelle.Web.dll
-Saltarelle.Linq.dll
-Cayita.Javascript.dll
-mscorlib.dll
+* **Development
+*Saltarelle compiler.
+*Saltarelle.jQuery.dll 
+*Saltarelle.Web.dll
+*Saltarelle.Linq.dll
+*Cayita.Javascript.dll
+*mscorlib.dll
 
-Production
-Cayita.Javascript.UI.js
-mscorlib.js ( from saltarelle)
-linq.js ( from saltarelle)
-jquery-1.9.1.js
-autonumeric-1.8.7.js (http://www.decorplanit.com/plugin/)
-jQuery Validation Plugin - v1.11.0 - 2/4/2013  (https://github.com/jzaefferer/jquery-validation)
-Calendar plugin from jQuery UI 1.10.1
-Jasny version of Twitter Boostrap (http://jasny.github.com/bootstrap/)
-Font Awesome (http://fortawesome.github.com/Font-Awesome/)
+* **Production
+*Cayita.Javascript.UI.js
+*mscorlib.js ( from saltarelle)
+*linq.js ( from saltarelle)
+*jquery-1.9.1.js
+*autonumeric-1.8.7.js (http://www.decorplanit.com/plugin/)
+*jQuery Validation Plugin - v1.11.0 - 2/4/2013  (https://github.com/jzaefferer/jquery-validation)
+*Calendar plugin from jQuery UI 1.10.1
+*Jasny version of Twitter Boostrap (http://jasny.github.com/bootstrap/)
+*Font Awesome (http://fortawesome.github.com/Font-Awesome/)
 
 
 Demo at (https://googledrive.com/host/0B5PxAJVNHVdKaGFMczUxX2RRSkk/index.html)
