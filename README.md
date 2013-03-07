@@ -65,7 +65,7 @@ new Form( container, f=>{
 imagen = (https://docs.google.com/file/d/0B5PxAJVNHVdKRnpQS2dxVXg1eTA/edit?usp=sharing&pli=1)
 
 ##Requirements:
-* ** Development
+* **Development
 * Saltarelle compiler.
 * Saltarelle.jQuery.dll 
 * Saltarelle.Web.dll
@@ -73,7 +73,7 @@ imagen = (https://docs.google.com/file/d/0B5PxAJVNHVdKRnpQS2dxVXg1eTA/edit?usp=s
 * Cayita.Javascript.dll
 * mscorlib.dll
 
-* ** Production
+* **Production
 * Cayita.Javascript.UI.js
 * mscorlib.js ( from saltarelle)
 * linq.js ( from saltarelle)
