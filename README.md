@@ -62,7 +62,7 @@ new Form( container, f=>{
     });  
 });  
 ```
-![imagen](https://docs.google.com/file/d/0B5PxAJVNHVdKRnpQS2dxVXg1eTA/edit?usp=sharing&pli=1)
+imagen = (https://docs.google.com/file/d/0B5PxAJVNHVdKRnpQS2dxVXg1eTA/edit?usp=sharing&pli=1)
 
 Requirements:
 Development
