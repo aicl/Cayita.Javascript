@@ -1,4 +1,4 @@
-Cayita is a library for building javascript apps using C#  as base language and the [Saltarelle] compiler ( http://www.saltarelle-compiler.com)
+Cayita is a library for building javascript apps using C#  as base language and the Saltarelle compiler ( http://www.saltarelle-compiler.com)
 
 Saltarelle compiler allows you to write apps  that run in any modern web browser, using your favourite programming tools:  C# and Visual Studio or Monodevelop.
 
@@ -72,7 +72,6 @@ new Form( container, f=>{
 ```
 imagen = (https://docs.google.com/file/d/0B5PxAJVNHVdKVFUwcEI5S2syU00/edit?usp=sharing)
 
-
 ##Requirements:
 * **Development**
 * Saltarelle compiler.
@@ -81,7 +80,6 @@ imagen = (https://docs.google.com/file/d/0B5PxAJVNHVdKVFUwcEI5S2syU00/edit?usp=s
 * Saltarelle.Linq.dll
 * Cayita.Javascript.dll
 * mscorlib.dll
-
 * **Production**
 * Cayita.Javascript.UI.js
 * mscorlib.js ( from saltarelle)
@@ -97,3 +95,7 @@ imagen = (https://docs.google.com/file/d/0B5PxAJVNHVdKVFUwcEI5S2syU00/edit?usp=s
 ##Demo
 Demo at (https://googledrive.com/host/0B5PxAJVNHVdKaGFMczUxX2RRSkk/index.html)
 
+##Instructions
+* Install saltarelle compiler (http://www.saltarelle-compiler.com/getting-started)
+* Add a reference to Cayita.Javascript.dll
+* enjoy !
