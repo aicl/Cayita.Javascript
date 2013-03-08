@@ -11,9 +11,7 @@ namespace Cayita.Javascript.UI
 		Div controlGroup ;
 		Div controls ;
 		
-		public CheckboxField(ElementBase parent, Action<Element,CheckBoxElement> field)
-			:this(parent.Element(), field)
-		{}
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Cayita.Javascript.UI.CheckboxField"/> class.
 		/// </summary>
@@ -23,7 +21,7 @@ namespace Cayita.Javascript.UI
 		/// <param name='field'>
 		/// Field<LabelElement,ChecBoxElement>
 		/// </param>
-		public CheckboxField(Element parent, Action<Element,CheckBoxElement> field)
+		public CheckboxField(Element parent, Action<LabelElement,CheckBoxElement> field)
 		{
 
 			controlGroup =  Div.CreateControlGroup(parent,  cgDiv=>{

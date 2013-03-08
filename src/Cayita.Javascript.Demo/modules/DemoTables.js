@@ -160,7 +160,7 @@
 			cayita.fn.autoNumeric(e6, null);
 		});
 		new Cayita.UI.RadioField(this.$f, 'Level', 'Level', levelOptions, true);
-		new Cayita.UI.CheckboxField.$ctor1(this.$f, function(l6, e7) {
+		new Cayita.UI.CheckboxField(this.$f, function(l6, e7) {
 			$(l6).text('Is Active?');
 			e7.name = 'IsActive';
 		});

@@ -22,7 +22,7 @@ namespace Cayita.Javascript.UI
 		/// <param name='field'>
 		/// Field<LabelElement, TextElement>
 		/// </param>
-		public TextField(Element parent, Action<Element,TextElement> field)
+		public TextField(Element parent, Action<LabelElement,TextElement> field)
 		{
 			controlGroup = Div.CreateControlGroup(parent, cge=>{
 				label = Label.CreateControlLabel(cge,"");

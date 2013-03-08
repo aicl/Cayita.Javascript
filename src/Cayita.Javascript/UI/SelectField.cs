@@ -44,7 +44,7 @@ namespace Cayita.Javascript.UI
 			});
 		}
 
-		public SelectField(Element parent, Action<Element,SelectElement> element,
+		public SelectField(Element parent, Action<LabelElement,SelectElement> element,
 		                   Store<T> store, Func<T,OptionElement> optionFunc, SelectedOption<T> defaultOption=null)
 
 		{
@@ -190,7 +190,7 @@ namespace Cayita.Javascript.UI
 		/// <param name='field'>
 		/// Field<LabelElement, SelectElement>.
 		/// </param>
-		public SelectField(Element parent, Action<Element,SelectElement> field)
+		public SelectField(Element parent, Action<LabelElement,SelectElement> field)
 		{
 			ControlGroup = Div.CreateControlGroup(parent, cgDiv=>{
 				Label = Label.CreateControlLabel(cgDiv, "");

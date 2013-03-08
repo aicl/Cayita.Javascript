@@ -18,14 +18,15 @@ namespace System.Html
 			}
 		}
 
-		[IntrinsicProperty]
-		public string Type
+		[InlineCode("$({this}).attr('type', {type})")]
+		public void Type(string type)
 		{
-			get
-			{
-				return null;
-			}
-			set	{}
+			
+		}
+		[InlineCode("$({this}).attr('type')")]
+		public string Type()
+		{
+			return null;
 		}
 
 	}

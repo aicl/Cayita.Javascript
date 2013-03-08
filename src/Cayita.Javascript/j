@@ -20,6 +20,7 @@
 "Data/ReadOptions.cs" \
 "UI/Core/ButtonElement.cs" \
 "UI/Core/ListElement.cs" \
+"UI/Core/LabelElement.cs" \
 "UI/Core/ElementBase.cs" \
 "UI/Core/Legend.cs" \
 "UI/Core/Anchor.cs" \

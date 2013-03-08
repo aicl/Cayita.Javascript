@@ -11,7 +11,7 @@ namespace Cayita.Javascript.UI
 		Label label ;
 		Div controls ;
 
-		public TextAreaField(Element parent, Action<Element,TextAreaElement> field)
+		public TextAreaField(Element parent, Action<LabelElement,TextAreaElement> field)
 		{
 			controlGroup = Div.CreateControlGroup(parent, cge=>{
 				label = Label.CreateControlLabel(cge,"");

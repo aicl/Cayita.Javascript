@@ -22,7 +22,7 @@
 						sp.className = 'help-block';
 						$(sp).text('Example block-level help text here');
 					});
-					new Cayita.UI.CheckboxField.$ctor1(fs, function(lb1, cb) {
+					new Cayita.UI.CheckboxField(fs, function(lb1, cb) {
 						$(lb1).text('check me out');
 					});
 					new Cayita.UI.SubmitButton.$ctor1(fs, function(bt) {
@@ -98,7 +98,7 @@
 					input5.type = 'password';
 					$(input5).attr('placeholder', 'Password');
 				});
-				new Cayita.UI.CheckboxField.$ctor1(f3, function(lb3, cb2) {
+				new Cayita.UI.CheckboxField(f3, function(lb3, cb2) {
 					$(lb3).text('Remember me');
 					new Cayita.UI.SubmitButton.$ctor1(lb3.parentNode, function(bt3) {
 						$(bt3).text('Sign in');
@@ -138,7 +138,7 @@
 								$(i1).attr('minlength', 6);
 								i1.type = 'password';
 							});
-							new Cayita.UI.CheckboxField.$ctor1(fe, function(lb4, cb3) {
+							new Cayita.UI.CheckboxField(fe, function(lb4, cb3) {
 								$(lb4).text('Remember me');
 								cb3.name = 'Remember';
 							});

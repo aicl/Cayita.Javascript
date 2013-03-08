@@ -27,7 +27,7 @@ namespace Cayita.Javascript.UI
 
 		}
 
-		public SpinnerIcon ( Action<Element,Element> config, string message  )
+		public SpinnerIcon ( Action<DivElement,Element> config, string message  )
 			:this(default(Element), config, message)
 		{}
 

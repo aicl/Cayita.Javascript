@@ -9,7 +9,7 @@ namespace Cayita.Javascript.UI
 	public class Label:ElementBase
 	{
 				
-		public Label(Element parent,  Action<Element> element)
+		public Label(Element parent,  Action<LabelElement> element)
 		{
 			CreateElement("label", parent);
 			element(Element());
@@ -63,6 +63,10 @@ namespace Cayita.Javascript.UI
 
 		}
 
+		public new LabelElement Element()
+		{
+			return base.Element().As<LabelElement>();
+		}
 
 	}
 	

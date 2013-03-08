@@ -1114,17 +1114,6 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.CheckboxField
 	var $Cayita_UI_CheckboxField = function(parent, field) {
-		$Cayita_UI_CheckboxField.$ctor1.call(this, parent.element(), field);
-	};
-	$Cayita_UI_CheckboxField.prototype = {
-		getControlGroup: function() {
-			return this.$controlGroup;
-		},
-		getControls: function() {
-			return this.$controls;
-		}
-	};
-	$Cayita_UI_CheckboxField.$ctor1 = function(parent, field) {
 		this.$controlGroup = null;
 		this.$controls = null;
 		$Cayita_UI_InputCheckbox.call(this);
@@ -1134,13 +1123,21 @@
 					lb.className = 'checkbox';
 				});
 				this.init(null);
-				field(label.element(), this.element$2());
+				field(label.element$1(), this.element$2());
 				label.forField$1(this.element$2().id);
-				label.element().appendChild(this.element$2());
+				label.element$1().appendChild(this.element$2());
 			}));
 		}));
 	};
-	$Cayita_UI_CheckboxField.$ctor2 = function(parent, textLabel, field) {
+	$Cayita_UI_CheckboxField.prototype = {
+		getControlGroup: function() {
+			return this.$controlGroup;
+		},
+		getControls: function() {
+			return this.$controls;
+		}
+	};
+	$Cayita_UI_CheckboxField.$ctor1 = function(parent, textLabel, field) {
 		this.$controlGroup = null;
 		this.$controls = null;
 		$Cayita_UI_InputCheckbox.call(this);
@@ -1153,11 +1150,11 @@
 				this.init(null);
 				field(this.element$2());
 				label.forField$1(this.element$2().id);
-				label.element().appendChild(this.element$2());
+				label.element$1().appendChild(this.element$2());
 			}));
 		}));
 	};
-	$Cayita_UI_CheckboxField.$ctor1.prototype = $Cayita_UI_CheckboxField.$ctor2.prototype = $Cayita_UI_CheckboxField.prototype;
+	$Cayita_UI_CheckboxField.$ctor1.prototype = $Cayita_UI_CheckboxField.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.Div
 	var $Cayita_UI_Div = function(parent) {
@@ -2107,28 +2104,31 @@
 	};
 	$Cayita_UI_Label.prototype = {
 		textLabel$1: function(textLabel) {
-			$(this.element()).text(textLabel);
+			$(this.element$1()).text(textLabel);
 		},
 		textLabel: function() {
-			return $(this.element()).text();
+			return $(this.element$1()).text();
 		},
 		forField$1: function(fieldId) {
 			if (!ss.isNullOrEmptyString(fieldId)) {
-				this.element().setAttribute('for', fieldId);
+				this.element$1().setAttribute('for', fieldId);
 			}
 			else {
-				this.element().removeAttribute('for');
+				this.element$1().removeAttribute('for');
 			}
 		},
 		forField: function() {
-			var forF = this.element().getAttribute('for');
+			var forF = this.element$1().getAttribute('for');
 			return (ss.isNullOrUndefined(forF) ? '' : forF.toString());
+		},
+		element$1: function() {
+			return this.element();
 		}
 	};
 	$Cayita_UI_Label.$ctor1 = function(parent, element) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('label', parent);
-		element(this.element());
+		element(this.element$1());
 	};
 	$Cayita_UI_Label.$ctor1.prototype = $Cayita_UI_Label.prototype;
 	$Cayita_UI_Label.createControlLabel = function(parent, textLabel, forField, visible) {
@@ -2351,7 +2351,7 @@
 			this.label = $Cayita_UI_Label.createControlLabel(cgDiv, '', null, true);
 			this.controls = $Cayita_UI_Div.createControls$1(cgDiv, ss.mkdel(this, function(ctDiv) {
 				this.init(ctDiv);
-				field(this.label.element(), this.element$1());
+				field(this.label.element$1(), this.element$1());
 				this.label.forField$1(this.element$1().id);
 			}));
 			if (ss.isNullOrEmptyString(this.label.textLabel())) {
@@ -2528,7 +2528,7 @@
 				this.label = $Cayita_UI_Label.createControlLabel(cgDiv, '', null, true);
 				this.controls = $Cayita_UI_Div.createControls$1(cgDiv, ss.mkdel(this, function(ctDiv) {
 					this.init(ctDiv);
-					element(this.label.element(), this.element$1());
+					element(this.label.element$1(), this.element$1());
 					this.label.forField$1(this.element$1().id);
 					this.$init(store, optionFunc, defaultOption);
 				}));
@@ -2765,7 +2765,7 @@
 			this.$label = $Cayita_UI_Label.createControlLabel(cge, '', null, true);
 			this.$controls = $Cayita_UI_Div.createControls$1(cge, ss.mkdel(this, function(cte) {
 				this.createElement('textarea', cte);
-				field(this.$label.element(), this.element$1());
+				field(this.$label.element$1(), this.element$1());
 				this.$label.forField$1(this.element$1().id);
 			}));
 			if (ss.isNullOrEmptyString(this.$label.textLabel())) {
@@ -2817,7 +2817,7 @@
 			this.$label = $Cayita_UI_Label.createControlLabel(cge, '', null, true);
 			this.$controls = $Cayita_UI_Div.createControls$1(cge, ss.mkdel(this, function(cte) {
 				this.createInput(cte, 'text');
-				field(this.$label.element(), this.element$2());
+				field(this.$label.element$1(), this.element$2());
 				this.$label.forField$1(this.element$2().id);
 			}));
 			if (ss.isNullOrEmptyString(this.$label.textLabel())) {
