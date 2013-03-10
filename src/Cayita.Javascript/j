@@ -16,6 +16,7 @@
 "Extensions.cs" \
 "ElementExtensions.cs" \
 "Data/Store.cs" \
+"Data/StorePaging.cs" \
 "Data/StoreApi.cs" \
 "Data/ReadOptions.cs" \
 "UI/Core/ButtonElement.cs" \

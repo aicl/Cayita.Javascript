@@ -7,7 +7,7 @@ using Cayita.Javascript.Data;
 namespace Cayita.Javascript
 {
 	[ScriptNamespace("Cayita.UI")]
-	public class StorePaging<T>:Div
+	public class StorePaging<T>:Div where T: new ()
 	{
 		Div divnav;
 		string pText ="page";
@@ -16,19 +16,31 @@ namespace Cayita.Javascript
 
 		Store<T> store_ ;
 
-		Func<string>  pTextFunc = ()=>{return pText;};
-		Func<string>  ofTextFunc = ()=>{return ofText;};
-
-		Func<string>  infoTextFunc = ()=>{
-			var lo = store_.GetLastOption();
-			string fv = ( (lo.PageNumber.HasValue? lo.PageNumber.Value:0)+1)*
-			lo.PageSize.HasValue?
-			return string.Format(infoTmpl ) ;
-		};
+		Func<string>  pTextFunc;
+		Func<string>  ofTextFunc;
+		Func<string>  infoTextFunc;
 
 		DivElement element;
-		public StorePaging (Element parent):base(parent)
+		public StorePaging (Element parent, Store<T> store):base(parent)
 		{
+			store_ = store;
+			pTextFunc = ()=>{return pText;};
+			ofTextFunc = ()=>{return ofText;};
+
+			infoTextFunc = ()=>{
+				var lo = store_.GetLastOption();
+				var from_ = ((lo.PageNumber.HasValue? lo.PageNumber.Value:0)*
+				             (lo.PageSize.HasValue?lo.PageSize.Value:0)) +1;
+				
+				var to_ =((lo.PageNumber.HasValue? lo.PageNumber.Value:0)*
+				          (lo.PageSize.HasValue?lo.PageSize.Value:0))
+				+ (lo.PageSize.HasValue?lo.PageSize.Value:store_.Count);
+				
+				if (to_> store_.Count) to_=store_.Count;
+				
+				return string.Format(infoTmpl, from_, to_, store_.Count ) ;
+			};
+
 			element = Element ();
 
 			divnav = new Div (element, d => {
@@ -70,7 +82,7 @@ namespace Cayita.Javascript
 				new Label(d, l => {
 					l.ClassName="checkbox";
 					l.Style.PaddingLeft="2px";
-					l.Text(ofText + " {0}");
+					l.Text(ofTextFunc() + " {0}");
 				});
 			});
 
@@ -79,7 +91,7 @@ namespace Cayita.Javascript
 				new Label(d, l => {
 					l.ClassName="checkbox";
 					l.Style.PaddingRight="2px";
-					l.Text(infoTmpl);
+					l.Text(infoTextFunc());
 				});
 
 			});

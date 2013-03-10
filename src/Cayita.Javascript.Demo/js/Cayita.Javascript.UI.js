@@ -2597,6 +2597,123 @@
 	};
 	$Cayita_UI_SpinnerIcon.$ctor1.prototype = $Cayita_UI_SpinnerIcon.prototype;
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.StorePaging
+	var $Cayita_UI_StorePaging$1 = function(T) {
+		var $type = function(parent, store) {
+			this.$divnav = null;
+			this.$pText = 'page';
+			this.$ofText = 'of';
+			this.$infoTmpl = 'Items from {0} to {1} of {2}';
+			this.$store_ = null;
+			this.$pTextFunc = null;
+			this.$ofTextFunc = null;
+			this.$infoTextFunc = null;
+			this.$element = null;
+			$Cayita_UI_Div.call(this, parent);
+			this.$store_ = store;
+			this.$pTextFunc = ss.mkdel(this, function() {
+				return this.$pText;
+			});
+			this.$ofTextFunc = ss.mkdel(this, function() {
+				return this.$ofText;
+			});
+			this.$infoTextFunc = ss.mkdel(this, function() {
+				var lo = this.$store_.getLastOption();
+				var from_ = (ss.isValue(lo.pageNumber) ? ss.Nullable.unbox(lo.pageNumber) : 0) * (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0) + 1;
+				var to_ = (ss.isValue(lo.pageNumber) ? ss.Nullable.unbox(lo.pageNumber) : 0) * (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0) + (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : this.$store_.get_count());
+				if (to_ > this.$store_.get_count()) {
+					to_ = this.$store_.get_count();
+				}
+				return ss.formatString(this.$infoTmpl, from_, to_, this.$store_.get_count());
+			});
+			this.$element = this.element$1();
+			this.$divnav = new $Cayita_UI_Div.$ctor1(this.$element, function(d) {
+				d.className = 'btn-group';
+				new $Cayita_UI_Button.$ctor1(d, function(b) {
+					$(b).addClass('btn-small');
+				});
+				new $Cayita_UI_Icon.$ctor1(d, function(i) {
+					i.className = 'icon-double-angle-left';
+				});
+			});
+			new $Cayita_UI_Div.$ctor1(this.$element, function(d1) {
+				new $Cayita_UI_Button.$ctor1(d1, function(b1) {
+					$(b1).addClass('btn-small');
+				});
+				new $Cayita_UI_Icon.$ctor1(d1, function(i1) {
+					i1.className = 'icon-angle-left';
+				});
+			});
+			new $Cayita_UI_Div.$ctor1(this.$element, function(d2) {
+				new $Cayita_UI_Button.$ctor1(d2, function(b2) {
+					$(b2).addClass('btn-small');
+				});
+				new $Cayita_UI_Icon.$ctor1(d2, function(i2) {
+					i2.className = 'icon-angle-right';
+				});
+			});
+			new $Cayita_UI_Div.$ctor1(this.$element, function(d3) {
+				new $Cayita_UI_Button.$ctor1(d3, function(b3) {
+					$(b3).addClass('btn-small');
+				});
+				new $Cayita_UI_Icon.$ctor1(d3, function(i3) {
+					i3.className = 'icon-double-angle-right';
+				});
+			});
+			new $Cayita_UI_Div.$ctor1(this.$element, ss.mkdel(this, function(d4) {
+				d4.className = 'btn-group form-inline';
+				new $Cayita_UI_Label.$ctor1(d4, ss.mkdel(this, function(l) {
+					l.className = 'checkbox';
+					l.style.paddingRight = '2px';
+					$(l).text(this.$pTextFunc());
+				}));
+				new $Cayita_UI_Input.$ctor1(d4, function(i4) {
+					i4.className = 'input-mini';
+					i4.style.padding = '0px';
+					i4.style.textAlign = 'center';
+					cayita.fn.autoNumeric(i4, { mDec: 0, wEmpty: 'empty' });
+				});
+				new $Cayita_UI_Label.$ctor1(d4, ss.mkdel(this, function(l1) {
+					l1.className = 'checkbox';
+					l1.style.paddingLeft = '2px';
+					$(l1).text(this.$ofTextFunc() + ' {0}');
+				}));
+			}));
+			new $Cayita_UI_Div.$ctor1(this.$element, ss.mkdel(this, function(d5) {
+				d5.className = 'btn-group form-inline';
+				new $Cayita_UI_Label.$ctor1(d5, ss.mkdel(this, function(l2) {
+					l2.className = 'checkbox';
+					l2.style.paddingRight = '2px';
+					$(l2).text(this.$infoTextFunc());
+				}));
+			}));
+		};
+		$type.prototype = {
+			navigator: function() {
+				return this.$divnav;
+			},
+			pageText: function(text) {
+				this.$pText = text;
+				return this;
+			},
+			ofTotalText: function(text) {
+				this.$ofText = text;
+				return this;
+			},
+			infoTemplate: function(text) {
+				this.$infoTmpl = text;
+				return this;
+			}
+		};
+		ss.registerGenericClassInstance($type, $Cayita_UI_StorePaging$1, [T], function() {
+			return $Cayita_UI_Div;
+		}, function() {
+			return [];
+		});
+		return $type;
+	};
+	ss.registerGenericClass(global, 'Cayita.UI.StorePaging$1', $Cayita_UI_StorePaging$1, 1);
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.SubmitButton
 	var $Cayita_UI_SubmitButton = function(parent) {
 		$Cayita_UI_ButtonBase.call(this);
