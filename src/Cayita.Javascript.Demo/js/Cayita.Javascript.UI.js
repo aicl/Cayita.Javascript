@@ -341,6 +341,7 @@
 		$this.orderType = null;
 		$this.pageSizeParam = null;
 		$this.pageNumberParam = null;
+		$this.localPaging = false;
 		$this.orderByParam = null;
 		$this.orderTypeParam = null;
 		$this.request = null;
@@ -826,7 +827,7 @@
 				$t2(this, $t1);
 			},
 			get_count: function() {
-				return this.$st.length;
+				return ((ss.isValue(this.$lastOption) && this.$lastOption.localPaging && ss.isValue(this.$lastOption.pageSize)) ? ss.Nullable.unbox(this.$lastOption.pageSize) : this.$st.length);
 			},
 			add: function(item) {
 				ss.add(this.$st, item);
@@ -885,25 +886,42 @@
 				this.$defaultPageSize = value;
 			},
 			hasNextPage: function() {
-				if (ss.isNullOrUndefined(this.$lastOption) || this.$st.length === this.$totalCount) {
+				if (ss.isNullOrUndefined(this.$lastOption) || this.get_count() === this.$totalCount) {
 					return false;
 				}
-				return ss.Int32.div(this.$totalCount, ss.Nullable.unbox(this.$lastOption.pageSize)) < ss.Nullable.unbox(this.$lastOption.pageNumber);
+				console.log(ss.Int32.div(this.$totalCount, ss.Nullable.unbox(this.$lastOption.pageSize)) < ss.Nullable.unbox(this.$lastOption.pageNumber));
+				console.log(this.$totalCount, ss.Nullable.unbox(this.$lastOption.pageSize), ss.Nullable.unbox(this.$lastOption.pageNumber));
+				return ss.Int32.div(this.$totalCount, ss.Nullable.unbox(this.$lastOption.pageSize)) > ss.Nullable.unbox(this.$lastOption.pageNumber);
 			},
 			hasPreviousPage: function() {
-				return !(ss.isNullOrUndefined(this.$lastOption) || this.$st.length === this.$totalCount || !ss.isValue(this.$lastOption.pageNumber) || ss.isValue(this.$lastOption.pageNumber) && ss.Nullable.unbox(this.$lastOption.pageNumber) === 0);
+				return !(ss.isNullOrUndefined(this.$lastOption) || this.get_count() === this.$totalCount || !ss.isValue(this.$lastOption.pageNumber) || ss.isValue(this.$lastOption.pageNumber) && ss.Nullable.unbox(this.$lastOption.pageNumber) === 0);
 			},
 			getNextPage: function() {
 				if (this.hasNextPage()) {
 					this.$lastOption.pageNumber = ss.Nullable.add(this.$lastOption.pageNumber, 1);
 				}
-				return this.$readFunc(this.$lastOption);
+				console.log('GetNextPage', this.hasNextPage(), this.$lastOption);
+				if (!this.$lastOption.localPaging) {
+					return this.$readFunc(this.$lastOption);
+				}
+				var $t2 = this.$1$OnStoreChangedField;
+				var $t1 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+				$t1.action = 1;
+				$t2(this, $t1);
+				return null;
 			},
 			getPreviousPage: function() {
-				if (this.hasNextPage()) {
+				if (this.hasPreviousPage()) {
 					this.$lastOption.pageNumber = ss.Nullable.sub(this.$lastOption.pageNumber, 1);
 				}
-				return this.$readFunc(this.$lastOption);
+				if (!this.$lastOption.localPaging) {
+					return this.$readFunc(this.$lastOption);
+				}
+				var $t2 = this.$1$OnStoreChangedField;
+				var $t1 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+				$t1.action = 1;
+				$t2(this, $t1);
+				return null;
 			},
 			refresh: function() {
 				return this.$readFunc(this.$lastOption);
@@ -1675,7 +1693,14 @@
 							break;
 						}
 						case 1: {
-							$Cayita_UI_Ext.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
+							var lo = this.$store.getLastOption();
+							console.log('StoreChangedAction.Read', lo);
+							if (lo.localPaging && ss.isValue(lo.pageNumber) && ss.isValue(lo.pageSize)) {
+								$Cayita_UI_Ext.load$1(T).call(null, this.$table, Enumerable.from(this.$store).skip(ss.Nullable.unbox(lo.pageNumber) * ss.Nullable.unbox(lo.pageSize)).take(ss.Nullable.unbox(lo.pageSize)).toArray(), this.$columns, this.$store.getRecordIdProperty(), false);
+							}
+							else {
+								$Cayita_UI_Ext.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
+							}
 							this.selectRow(true);
 							break;
 						}
@@ -1761,7 +1786,7 @@
 			},
 			render: function() {
 				$Cayita_UI_Ext.createHeader(T).call(null, this.$table, this.$columns);
-				$Cayita_UI_Ext.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
+				//table.Load<T>(store, columns, store.GetRecordIdProperty());
 			},
 			selectRow$1: function(recordId, trigger) {
 				var row = $('tr[record-id=' + recordId + ']', this.$table).get(0);
@@ -2597,7 +2622,7 @@
 	};
 	$Cayita_UI_SpinnerIcon.$ctor1.prototype = $Cayita_UI_SpinnerIcon.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.StorePaging
+	// Cayita.Javascript.UI.StorePaging
 	var $Cayita_UI_StorePaging$1 = function(T) {
 		var $type = function(parent, store) {
 			this.$divnav = null;
@@ -2618,6 +2643,7 @@
 				return this.$ofText;
 			});
 			this.$infoTextFunc = ss.mkdel(this, function() {
+				return 'info text';
 				var lo = this.$store_.getLastOption();
 				var from_ = (ss.isValue(lo.pageNumber) ? ss.Nullable.unbox(lo.pageNumber) : 0) * (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0) + 1;
 				var to_ = (ss.isValue(lo.pageNumber) ? ss.Nullable.unbox(lo.pageNumber) : 0) * (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0) + (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : this.$store_.get_count());
@@ -2629,34 +2655,26 @@
 			this.$element = this.element$1();
 			this.$divnav = new $Cayita_UI_Div.$ctor1(this.$element, function(d) {
 				d.className = 'btn-group';
-				new $Cayita_UI_Button.$ctor1(d, function(b) {
+				new $Cayita_UI_IconButton(d, function(b, i) {
 					$(b).addClass('btn-small');
-				});
-				new $Cayita_UI_Icon.$ctor1(d, function(i) {
 					i.className = 'icon-double-angle-left';
 				});
 			});
 			new $Cayita_UI_Div.$ctor1(this.$element, function(d1) {
-				new $Cayita_UI_Button.$ctor1(d1, function(b1) {
+				new $Cayita_UI_IconButton(d1, function(b1, i1) {
 					$(b1).addClass('btn-small');
-				});
-				new $Cayita_UI_Icon.$ctor1(d1, function(i1) {
 					i1.className = 'icon-angle-left';
 				});
 			});
 			new $Cayita_UI_Div.$ctor1(this.$element, function(d2) {
-				new $Cayita_UI_Button.$ctor1(d2, function(b2) {
+				new $Cayita_UI_IconButton(d2, function(b2, i2) {
 					$(b2).addClass('btn-small');
-				});
-				new $Cayita_UI_Icon.$ctor1(d2, function(i2) {
 					i2.className = 'icon-angle-right';
 				});
 			});
 			new $Cayita_UI_Div.$ctor1(this.$element, function(d3) {
-				new $Cayita_UI_Button.$ctor1(d3, function(b3) {
+				new $Cayita_UI_IconButton(d3, function(b3, i3) {
 					$(b3).addClass('btn-small');
-				});
-				new $Cayita_UI_Icon.$ctor1(d3, function(i3) {
 					i3.className = 'icon-double-angle-right';
 				});
 			});

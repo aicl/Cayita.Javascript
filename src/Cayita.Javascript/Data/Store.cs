@@ -391,7 +391,7 @@ namespace Cayita.Javascript.Data
 		
 		public int Count
 		{
-			get {return st.Count;}
+			get {return ( lastOption!=null && lastOption.LocalPaging && lastOption.PageSize.HasValue)? lastOption.PageSize.Value: st.Count;}
 		}
 		
 		public void Add (T item)
@@ -455,27 +455,38 @@ namespace Cayita.Javascript.Data
 
 		public bool HasNextPage()
 		{
-			if (lastOption==null || st.Count== totalCount) return false;
-			return totalCount/lastOption.PageSize.Value< lastOption.PageNumber.Value;
+			if (lastOption==null || Count== totalCount) return false;
+			Cayita.Javascript.Firebug.Console.Log(totalCount/lastOption.PageSize.Value< lastOption.PageNumber.Value);
+			Cayita.Javascript.Firebug.Console.Log(totalCount,lastOption.PageSize.Value,lastOption.PageNumber.Value);
+			return totalCount/lastOption.PageSize.Value> lastOption.PageNumber.Value;
 
 		}
 
 		public bool HasPreviousPage()
 		{
-			return !(lastOption==null || st.Count== totalCount || !lastOption.PageNumber.HasValue
+			return !(lastOption==null || Count== totalCount || !lastOption.PageNumber.HasValue
 			        || ( lastOption.PageNumber.HasValue && lastOption.PageNumber.Value==0)) ;
 		}
 
 		public IDeferred<T> GetNextPage()
 		{
-			if(HasNextPage()) lastOption.PageNumber++;
-			return readFunc( lastOption);
+			if(HasNextPage())
+				lastOption.PageNumber++;
+			Cayita.Javascript.Firebug.Console.Log ("GetNextPage", HasNextPage (), lastOption);
+			if (!lastOption.LocalPaging)
+				return readFunc (lastOption);
+
+			OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
+			return null;
+
 		}
 
 		public IDeferred<T> GetPreviousPage()
 		{
-			if(HasNextPage()) lastOption.PageNumber--;
-			return readFunc( lastOption);
+			if(HasPreviousPage()) lastOption.PageNumber--;
+			if (!lastOption.LocalPaging) return readFunc( lastOption);
+			OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
+			return null;
 		}
 
 		public IDeferred<T> Refresh()

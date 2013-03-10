@@ -10,7 +10,9 @@
 "/r:../../lib/Aicl.Calamar.Scripts.Modelos.dll" \
 /t:library \
 "User.cs" \
+"Customer.cs" \
 "UserGrid.cs" \
+"CustomerGrid.cs" \
 "UserForm.cs" \
 "DemoTables.cs" 
 

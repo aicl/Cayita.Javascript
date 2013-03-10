@@ -144,5 +144,6 @@
     <None Include="json\typeahead.json" />
     <None Include="json\userResponse.json" />
     <None Include="js\autonumeric-1.8.7.js" />
+    <None Include="json\customersResponse.json" />
   </ItemGroup>
 </Project>

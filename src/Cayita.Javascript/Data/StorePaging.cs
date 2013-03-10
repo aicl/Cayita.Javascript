@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Html;
 using Cayita.Javascript.Data;
 
-namespace Cayita.Javascript
+namespace Cayita.Javascript.UI
 {
 	[ScriptNamespace("Cayita.UI")]
 	public class StorePaging<T>:Div where T: new ()
@@ -28,6 +28,7 @@ namespace Cayita.Javascript
 			ofTextFunc = ()=>{return ofText;};
 
 			infoTextFunc = ()=>{
+				return "info text";
 				var lo = store_.GetLastOption();
 				var from_ = ((lo.PageNumber.HasValue? lo.PageNumber.Value:0)*
 				             (lo.PageSize.HasValue?lo.PageSize.Value:0)) +1;
@@ -45,23 +46,19 @@ namespace Cayita.Javascript
 
 			divnav = new Div (element, d => {
 				d.ClassName="btn-group";
-				new Button(d, b=>{	b.AddClass("btn-small");});
-				new Icon(d, i=>{i.ClassName="icon-double-angle-left";});
+				new IconButton(d, (b,i)=>{	b.AddClass("btn-small"); i.ClassName="icon-double-angle-left";});
 			});
 
 			new Div (element, d => {
-				new Button(d, b=>{	b.AddClass("btn-small");});
-				new Icon(d, i=>{i.ClassName="icon-angle-left";});
+				new IconButton(d, (b,i)=>{	b.AddClass("btn-small");i.ClassName="icon-angle-left";});
 			});
 
 			new Div (element, d => {
-				new Button(d, b=>{	b.AddClass("btn-small");});
-				new Icon(d, i=>{i.ClassName="icon-angle-right";});
+				new IconButton(d, (b,i)=>{	b.AddClass("btn-small"); i.ClassName="icon-angle-right"; });
 			});
 
 			new Div (element, d => {
-				new Button(d, b=>{	b.AddClass("btn-small");});
-				new Icon(d, i=>{i.ClassName="icon-double-angle-right";});
+				new IconButton(d, (b,i)=>{	b.AddClass("btn-small");i.ClassName="icon-double-angle-right"; });
 			});
 
 

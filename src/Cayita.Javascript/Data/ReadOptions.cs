@@ -22,7 +22,8 @@ namespace Cayita.Javascript.Data
 		public string OrderType {get;set;}
 		public string PageSizeParam {get;set;}
 		public string PageNumberParam {get;set;}
-		
+		public bool LocalPaging { get; set; }
+
 		public object OrderByParam {
 			get;
 			set;

@@ -95,7 +95,20 @@ namespace Cayita.Javascript.UI
 					table.CreateRow(dt.NewData, columns, store.GetRecordIdProperty());
 					break;
 				case StoreChangedAction.Read:
-					table.Load(store, columns, store.GetRecordIdProperty());
+					var lo = store.GetLastOption();
+					Cayita.Javascript.Firebug.Console.Log("StoreChangedAction.Read", lo);
+					if(lo.LocalPaging && lo.PageNumber.HasValue && lo.PageSize.HasValue)
+					{
+						table.Load(store.Skip(lo.PageNumber.Value*lo.PageSize.Value).
+						           Take(lo.PageSize.Value)
+						           .ToList(),
+						           columns, store.GetRecordIdProperty());
+					}
+					else
+					{
+						table.Load(store, columns, store.GetRecordIdProperty());
+					}
+
 					SelectRow(true);
 					break;
 				case StoreChangedAction.Updated:
@@ -181,7 +194,7 @@ namespace Cayita.Javascript.UI
 		public void Render()
 		{
 			table.CreateHeader(columns);
-			table.Load<T>(store, columns, store.GetRecordIdProperty());
+			//table.Load<T>(store, columns, store.GetRecordIdProperty());
 		}
 
 

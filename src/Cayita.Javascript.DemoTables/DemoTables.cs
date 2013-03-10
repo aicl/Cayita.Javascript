@@ -12,6 +12,7 @@ namespace Cayita.Javascript.DemoTables
 		public DemoTables (){}
 
 		static UserGrid uGrid;
+		public static CustomerGrid cGrid;
 		static UserForm uForm;
 
 		public static void Execute(Element parent)
@@ -77,6 +78,16 @@ namespace Cayita.Javascript.DemoTables
 			uGrid.GetStore().Read();
 
 			ShowCode (parent);
+
+			new Div(null, div=>{
+				div.ClassName="bs-docs-example";
+				cGrid= new CustomerGrid(div, new CustomerStore());
+
+				new StorePaging<Customer>(div, cGrid.GetStore());
+
+			}).AppendTo(parent);
+
+			cGrid.GetStore ().Read ();
 
 		}
 

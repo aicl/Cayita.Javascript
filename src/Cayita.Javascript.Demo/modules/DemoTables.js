@@ -1,5 +1,78 @@
 ﻿(function() {
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.DemoTables.Customer
+	var $Customer = function() {
+	};
+	$Customer.createInstance = function() {
+		return $Customer.$ctor();
+	};
+	$Customer.$ctor = function() {
+		var $this = {};
+		$this.Id = null;
+		$this.CompanyName = null;
+		$this.ContactName = null;
+		return $this;
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.DemoTables.CustomerGrid
+	var $CustomerGrid = function(parent, store) {
+		$CustomerGrid.$ctor1.call(this, parent, store, $CustomerGrid.defineColumns());
+	};
+	$CustomerGrid.prototype = {
+		getStore$1: function() {
+			return this.$us;
+		}
+	};
+	$CustomerGrid.$ctor1 = function(parent, store, columns) {
+		this.$us = null;
+		ss.makeGenericType(Cayita.UI.HtmlGrid$1, [$Customer]).$ctor1.call(this, null, store, columns);
+		this.appendTo(parent);
+		this.$us = store;
+	};
+	$CustomerGrid.$ctor1.prototype = $CustomerGrid.prototype;
+	$CustomerGrid.defineColumns = function() {
+		var columns = [];
+		var $t1 = ss.makeGenericType(Cayita.UI.TableColumn$1, [$Customer]).$ctor();
+		$t1.header = (new Cayita.UI.TableCell.$ctor1(function(c) {
+			$(c).text('Company');
+		})).element$1();
+		$t1.value = function(f) {
+			return (new Cayita.UI.TableCell.$ctor1(function(c1) {
+				$(c1).text(f.CompanyName);
+			})).element$1();
+		};
+		ss.add(columns, $t1);
+		var $t2 = ss.makeGenericType(Cayita.UI.TableColumn$1, [$Customer]).$ctor();
+		$t2.header = (new Cayita.UI.TableCell.$ctor1(function(c2) {
+			$(c2).text('Contact');
+		})).element$1();
+		$t2.value = function(f1) {
+			return (new Cayita.UI.TableCell.$ctor1(function(c3) {
+				$(c3).text(f1.ContactName);
+			})).element$1();
+		};
+		ss.add(columns, $t2);
+		return columns;
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.DemoTables.CustomerStore
+	var $CustomerStore = function() {
+		ss.makeGenericType(Cayita.Data.Store$1, [$Customer]).call(this);
+		this.setReadApi(function(api) {
+			api.url = 'json/customersResponse.json';
+			api.dataProperty = 'Customers';
+		});
+	};
+	$CustomerStore.prototype = {
+		read$1: function() {
+			return this.read(function(ro) {
+				ro.localPaging = true;
+				ro.pageNumber = 0;
+				ro.pageSize = 10;
+			});
+		}
+	};
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.DemoTables.DemoTables
 	var $DemoTables = function() {
 	};
@@ -53,6 +126,12 @@
 		$($DemoTables.$uForm.element$1()).validate(vo);
 		$DemoTables.$uGrid.getStore$1().read(null);
 		$DemoTables.$showCode(parent);
+		(new Cayita.UI.Div.$ctor1(null, function(div1) {
+			div1.className = 'bs-docs-example';
+			$DemoTables.cGrid = new $CustomerGrid(div1, new $CustomerStore());
+			new (ss.makeGenericType(Cayita.UI.StorePaging$1, [$Customer]))(div1, $DemoTables.cGrid.getStore$1());
+		})).appendTo(parent);
+		$DemoTables.cGrid.getStore$1().read$1();
 	};
 	$DemoTables.$getLevelOptions = function() {
 		var $t1 = Cayita.UI.RadioItem.$ctor();
@@ -313,6 +392,9 @@
 			}
 		}
 	};
+	ss.registerClass(global, 'Customer', $Customer);
+	ss.registerClass(global, 'CustomerGrid', $CustomerGrid, ss.makeGenericType(Cayita.UI.HtmlGrid$1, [$Customer]));
+	ss.registerClass(global, 'CustomerStore', $CustomerStore, ss.makeGenericType(Cayita.Data.Store$1, [$Customer]), ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList);
 	ss.registerClass(global, 'DemoTables', $DemoTables);
 	ss.registerClass(global, 'User', $User);
 	ss.registerClass(global, 'UserForm', $UserForm, Cayita.UI.Form);
@@ -320,5 +402,6 @@
 	ss.registerClass(global, 'UserStore', $UserStore, ss.makeGenericType(Cayita.Data.Store$1, [$User]), ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList);
 	$UserStore.$id = 0;
 	$DemoTables.$uGrid = null;
+	$DemoTables.cGrid = null;
 	$DemoTables.$uForm = null;
 })();

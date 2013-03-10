@@ -39,6 +39,8 @@
     <Compile Include="User.cs" />
     <Compile Include="UserGrid.cs" />
     <Compile Include="UserForm.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="CustomerGrid.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
