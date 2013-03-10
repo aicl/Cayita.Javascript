@@ -47,17 +47,8 @@ namespace Cayita.Javascript.UI
 			divnav = new Div (element, d => {
 				d.ClassName="btn-group";
 				new IconButton(d, (b,i)=>{	b.AddClass("btn-small"); i.ClassName="icon-double-angle-left";});
-			});
-
-			new Div (element, d => {
 				new IconButton(d, (b,i)=>{	b.AddClass("btn-small");i.ClassName="icon-angle-left";});
-			});
-
-			new Div (element, d => {
 				new IconButton(d, (b,i)=>{	b.AddClass("btn-small"); i.ClassName="icon-angle-right"; });
-			});
-
-			new Div (element, d => {
 				new IconButton(d, (b,i)=>{	b.AddClass("btn-small");i.ClassName="icon-double-angle-right"; });
 			});
 
@@ -72,8 +63,8 @@ namespace Cayita.Javascript.UI
 				new Input(d,i => {
 					i.ClassName="input-mini";
 					i.Style.Padding="0px";
-					i.Style.TextAlign="center";
 					i.AutoNumeric(new {mDec=0, wEmpty= "empty"});
+					i.Style.TextAlign="center";
 				});
 
 				new Label(d, l => {

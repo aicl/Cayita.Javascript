@@ -2659,47 +2659,41 @@
 					$(b).addClass('btn-small');
 					i.className = 'icon-double-angle-left';
 				});
-			});
-			new $Cayita_UI_Div.$ctor1(this.$element, function(d1) {
-				new $Cayita_UI_IconButton(d1, function(b1, i1) {
+				new $Cayita_UI_IconButton(d, function(b1, i1) {
 					$(b1).addClass('btn-small');
 					i1.className = 'icon-angle-left';
 				});
-			});
-			new $Cayita_UI_Div.$ctor1(this.$element, function(d2) {
-				new $Cayita_UI_IconButton(d2, function(b2, i2) {
+				new $Cayita_UI_IconButton(d, function(b2, i2) {
 					$(b2).addClass('btn-small');
 					i2.className = 'icon-angle-right';
 				});
-			});
-			new $Cayita_UI_Div.$ctor1(this.$element, function(d3) {
-				new $Cayita_UI_IconButton(d3, function(b3, i3) {
+				new $Cayita_UI_IconButton(d, function(b3, i3) {
 					$(b3).addClass('btn-small');
 					i3.className = 'icon-double-angle-right';
 				});
 			});
-			new $Cayita_UI_Div.$ctor1(this.$element, ss.mkdel(this, function(d4) {
-				d4.className = 'btn-group form-inline';
-				new $Cayita_UI_Label.$ctor1(d4, ss.mkdel(this, function(l) {
+			new $Cayita_UI_Div.$ctor1(this.$element, ss.mkdel(this, function(d1) {
+				d1.className = 'btn-group form-inline';
+				new $Cayita_UI_Label.$ctor1(d1, ss.mkdel(this, function(l) {
 					l.className = 'checkbox';
 					l.style.paddingRight = '2px';
 					$(l).text(this.$pTextFunc());
 				}));
-				new $Cayita_UI_Input.$ctor1(d4, function(i4) {
+				new $Cayita_UI_Input.$ctor1(d1, function(i4) {
 					i4.className = 'input-mini';
 					i4.style.padding = '0px';
-					i4.style.textAlign = 'center';
 					cayita.fn.autoNumeric(i4, { mDec: 0, wEmpty: 'empty' });
+					i4.style.textAlign = 'center';
 				});
-				new $Cayita_UI_Label.$ctor1(d4, ss.mkdel(this, function(l1) {
+				new $Cayita_UI_Label.$ctor1(d1, ss.mkdel(this, function(l1) {
 					l1.className = 'checkbox';
 					l1.style.paddingLeft = '2px';
 					$(l1).text(this.$ofTextFunc() + ' {0}');
 				}));
 			}));
-			new $Cayita_UI_Div.$ctor1(this.$element, ss.mkdel(this, function(d5) {
-				d5.className = 'btn-group form-inline';
-				new $Cayita_UI_Label.$ctor1(d5, ss.mkdel(this, function(l2) {
+			new $Cayita_UI_Div.$ctor1(this.$element, ss.mkdel(this, function(d2) {
+				d2.className = 'btn-group form-inline';
+				new $Cayita_UI_Label.$ctor1(d2, ss.mkdel(this, function(l2) {
 					l2.className = 'checkbox';
 					l2.style.paddingRight = '2px';
 					$(l2).text(this.$infoTextFunc());
