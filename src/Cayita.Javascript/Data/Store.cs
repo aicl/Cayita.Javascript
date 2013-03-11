@@ -302,7 +302,6 @@ namespace Cayita.Javascript.Data
 
 		public IDeferred<T> Read(Action<ReadOptions> options=null)
 		{
-
 			if(options!=null) options(lastOption);
 			if(lastOption.PageNumber.HasValue &&
 			   ( !lastOption.PageSize.HasValue || (lastOption.PageSize.HasValue &&lastOption.PageSize.Value==0) ) )
@@ -427,22 +426,41 @@ namespace Cayita.Javascript.Data
 			if(r) OnStoreChanged(this, new StoreChangedData<T>{ OldData=item, NewData=item, Action=StoreChangedAction.Removed, Index=index });
 			return r;
 		}
-#endregion
+		#endregion
 		#region IEnumerable implementation			
 		public IEnumerator<T> GetEnumerator ()
 		{
+			var lo = lastOption;
+			if(lo.LocalPaging && lo.PageNumber.HasValue && lo.PageSize.HasValue)
+			{
+				return st.Skip(lo.PageNumber.Value*lo.PageSize.Value).
+					Take(lo.PageSize.Value).GetEnumerator();
+			}
+
 			return st.GetEnumerator();
 		}
 		#endregion			
 		#region IEnumerable implementation			
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator ()
 		{
+			var lo = lastOption;
+			if(lo.LocalPaging && lo.PageNumber.HasValue && lo.PageSize.HasValue)
+			{
+				return st.Skip(lo.PageNumber.Value*lo.PageSize.Value).
+					Take(lo.PageSize.Value).GetEnumerator();
+			}
 			return st.GetEnumerator();
 		}
 #endregion
 
-		public void  Load(IList<T> data, bool append=false)
+		public void  Load(IList<T> data, Action<ReadOptions> options=null, bool append=false)
 		{
+
+			if(options!=null) options(lastOption);
+			if(lastOption.PageNumber.HasValue &&
+			   ( !lastOption.PageSize.HasValue || (lastOption.PageSize.HasValue &&lastOption.PageSize.Value==0) ) )
+				lastOption.PageSize= defaultPageSize;
+
 			if(!append )st.Clear();
 			st.AddRange(data);
 			OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Loaded});

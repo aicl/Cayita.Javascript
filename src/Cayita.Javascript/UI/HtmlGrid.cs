@@ -96,19 +96,7 @@ namespace Cayita.Javascript.UI
 					break;
 				case StoreChangedAction.Loaded:
 				case StoreChangedAction.Read:
-					var lo = store.GetLastOption();
-					if(lo.LocalPaging && lo.PageNumber.HasValue && lo.PageSize.HasValue)
-					{
-						table.Load(store.Skip(lo.PageNumber.Value*lo.PageSize.Value).
-						           Take(lo.PageSize.Value)
-						           .ToList(),
-						           columns, store.GetRecordIdProperty());
-					}
-					else
-					{
-						table.Load(store, columns, store.GetRecordIdProperty());
-					}
-
+					table.Load(store, columns, store.GetRecordIdProperty());
 					SelectRow(true);
 					break;
 				case StoreChangedAction.Updated:

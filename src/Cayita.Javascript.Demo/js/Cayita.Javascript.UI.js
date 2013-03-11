@@ -865,9 +865,19 @@
 				return r;
 			},
 			getEnumerator: function() {
+				var lo = this.$lastOption;
+				if (lo.localPaging && ss.isValue(lo.pageNumber) && ss.isValue(lo.pageSize)) {
+					return Enumerable.from(this.$st).skip(ss.Nullable.unbox(lo.pageNumber) * ss.Nullable.unbox(lo.pageSize)).take(ss.Nullable.unbox(lo.pageSize)).getEnumerator();
+				}
 				return ss.getEnumerator(this.$st);
 			},
-			load: function(data, append) {
+			load: function(data, options, append) {
+				if (!ss.staticEquals(options, null)) {
+					options(this.$lastOption);
+				}
+				if (ss.isValue(this.$lastOption.pageNumber) && (!ss.isValue(this.$lastOption.pageSize) || ss.isValue(this.$lastOption.pageSize) && ss.Nullable.unbox(this.$lastOption.pageSize) === 0)) {
+					this.$lastOption.pageSize = this.$defaultPageSize;
+				}
 				if (!append) {
 					ss.clear(this.$st);
 				}
@@ -1736,13 +1746,7 @@
 						}
 						case 10:
 						case 1: {
-							var lo = this.$store.getLastOption();
-							if (lo.localPaging && ss.isValue(lo.pageNumber) && ss.isValue(lo.pageSize)) {
-								$Cayita_UI_Ext.load$1(T).call(null, this.$table, Enumerable.from(this.$store).skip(ss.Nullable.unbox(lo.pageNumber) * ss.Nullable.unbox(lo.pageSize)).take(ss.Nullable.unbox(lo.pageSize)).toArray(), this.$columns, this.$store.getRecordIdProperty(), false);
-							}
-							else {
-								$Cayita_UI_Ext.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
-							}
+							$Cayita_UI_Ext.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
 							this.selectRow(true);
 							break;
 						}
