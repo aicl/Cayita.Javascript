@@ -754,11 +754,13 @@
 				if (!ss.isNullOrEmptyString(readOptions.orderType)) {
 					ro[readOptions.orderTypeParam] = readOptions.orderType;
 				}
-				if (ss.isValue(readOptions.pageSize)) {
-					ro[readOptions.pageSizeParam] = readOptions.pageSize;
-				}
-				if (ss.isValue(readOptions.pageNumber)) {
-					ro[readOptions.pageNumberParam] = readOptions.pageNumber;
+				if (!readOptions.localPaging) {
+					if (ss.isValue(readOptions.pageNumber)) {
+						ro[readOptions.pageNumberParam] = readOptions.pageNumber;
+					}
+					if (ss.isValue(readOptions.pageSize)) {
+						ro[readOptions.pageSizeParam] = readOptions.pageSize;
+					}
 				}
 				cayita.fn.populateFrom(ro, readOptions.request);
 				return ro;
