@@ -394,6 +394,7 @@
 			var $t5 = ss.makeGenericType($Cayita_Data_StoreApi$1, [T]).$ctor();
 			$t5.url = 'api/' + ss.getTypeName(T) + '/patch';
 			this.$patchApi = $t5;
+			this.$lastOption = $Cayita_Data_ReadOptions.$ctor();
 			this.$createFunc = ss.mkdel(this, function(record) {
 				var $t7 = this.$1$OnStoreRequestField;
 				var $t6 = $Cayita_Data_StoreRequest.$ctor();
@@ -726,15 +727,13 @@
 				this.create$2(record);
 			},
 			read: function(options) {
-				var readOptions = $Cayita_Data_ReadOptions.$ctor();
 				if (!ss.staticEquals(options, null)) {
-					options(readOptions);
+					options(this.$lastOption);
 				}
-				if (ss.isValue(readOptions.pageNumber) && (!ss.isValue(readOptions.pageSize) || ss.isValue(readOptions.pageSize) && ss.Nullable.unbox(readOptions.pageSize) === 0)) {
-					readOptions.pageSize = this.$defaultPageSize;
+				if (ss.isValue(this.$lastOption.pageNumber) && (!ss.isValue(this.$lastOption.pageSize) || ss.isValue(this.$lastOption.pageSize) && ss.Nullable.unbox(this.$lastOption.pageSize) === 0)) {
+					this.$lastOption.pageSize = this.$defaultPageSize;
 				}
-				this.$lastOption = readOptions;
-				return this.$readFunc(readOptions);
+				return this.$readFunc(this.$lastOption);
 			},
 			update: function(record) {
 				return this.$updateFunc(record);
@@ -827,7 +826,7 @@
 				$t2(this, $t1);
 			},
 			get_count: function() {
-				return ((ss.isValue(this.$lastOption) && this.$lastOption.localPaging && ss.isValue(this.$lastOption.pageSize)) ? ss.Nullable.unbox(this.$lastOption.pageSize) : this.$st.length);
+				return ((ss.isValue(this.$lastOption) && this.$lastOption.localPaging && ss.isValue(this.$lastOption.pageSize) && ss.Nullable.unbox(this.$lastOption.pageSize) < this.$st.length) ? ss.Nullable.unbox(this.$lastOption.pageSize) : this.$st.length);
 			},
 			add: function(item) {
 				ss.add(this.$st, item);
@@ -886,42 +885,83 @@
 				this.$defaultPageSize = value;
 			},
 			hasNextPage: function() {
-				if (ss.isNullOrUndefined(this.$lastOption) || this.get_count() === this.$totalCount) {
+				if (this.get_count() === this.$totalCount || !ss.isValue(this.$lastOption.pageNumber)) {
 					return false;
 				}
-				console.log(ss.Int32.div(this.$totalCount, ss.Nullable.unbox(this.$lastOption.pageSize)) < ss.Nullable.unbox(this.$lastOption.pageNumber));
-				console.log(this.$totalCount, ss.Nullable.unbox(this.$lastOption.pageSize), ss.Nullable.unbox(this.$lastOption.pageNumber));
 				return ss.Int32.div(this.$totalCount, ss.Nullable.unbox(this.$lastOption.pageSize)) > ss.Nullable.unbox(this.$lastOption.pageNumber);
 			},
 			hasPreviousPage: function() {
-				return !(ss.isNullOrUndefined(this.$lastOption) || this.get_count() === this.$totalCount || !ss.isValue(this.$lastOption.pageNumber) || ss.isValue(this.$lastOption.pageNumber) && ss.Nullable.unbox(this.$lastOption.pageNumber) === 0);
+				return !(this.get_count() === this.$totalCount || !ss.isValue(this.$lastOption.pageNumber) || ss.isValue(this.$lastOption.pageNumber) && ss.Nullable.unbox(this.$lastOption.pageNumber) === 0);
+			},
+			getFirstPage: function() {
+				if (ss.isValue(this.$lastOption.pageNumber)) {
+					this.$lastOption.pageNumber = 0;
+				}
+				if (!this.$lastOption.localPaging) {
+					this.$readFunc(this.$lastOption);
+				}
+				else {
+					var $t2 = this.$1$OnStoreChangedField;
+					var $t1 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+					$t1.action = 1;
+					$t2(this, $t1);
+				}
 			},
 			getNextPage: function() {
 				if (this.hasNextPage()) {
 					this.$lastOption.pageNumber = ss.Nullable.add(this.$lastOption.pageNumber, 1);
 				}
-				console.log('GetNextPage', this.hasNextPage(), this.$lastOption);
 				if (!this.$lastOption.localPaging) {
-					return this.$readFunc(this.$lastOption);
+					this.$readFunc(this.$lastOption);
 				}
-				var $t2 = this.$1$OnStoreChangedField;
-				var $t1 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
-				$t1.action = 1;
-				$t2(this, $t1);
-				return null;
+				else {
+					var $t2 = this.$1$OnStoreChangedField;
+					var $t1 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+					$t1.action = 1;
+					$t2(this, $t1);
+				}
 			},
 			getPreviousPage: function() {
 				if (this.hasPreviousPage()) {
 					this.$lastOption.pageNumber = ss.Nullable.sub(this.$lastOption.pageNumber, 1);
 				}
 				if (!this.$lastOption.localPaging) {
-					return this.$readFunc(this.$lastOption);
+					this.$readFunc(this.$lastOption);
 				}
-				var $t2 = this.$1$OnStoreChangedField;
-				var $t1 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
-				$t1.action = 1;
-				$t2(this, $t1);
-				return null;
+				else {
+					var $t2 = this.$1$OnStoreChangedField;
+					var $t1 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+					$t1.action = 1;
+					$t2(this, $t1);
+				}
+			},
+			getLastPage: function() {
+				if (ss.isValue(this.$lastOption.pageNumber)) {
+					this.$lastOption.pageNumber = ss.Int32.div(this.$totalCount, ss.Nullable.unbox(this.$lastOption.pageSize));
+				}
+				if (!this.$lastOption.localPaging) {
+					this.$readFunc(this.$lastOption);
+				}
+				else {
+					var $t2 = this.$1$OnStoreChangedField;
+					var $t1 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+					$t1.action = 1;
+					$t2(this, $t1);
+				}
+			},
+			getPage: function(page) {
+				if (ss.isValue(this.$lastOption.pageNumber)) {
+					this.$lastOption.pageNumber = ((page < 0) ? 0 : ((page > ss.Int32.div(this.$totalCount, ss.Nullable.unbox(this.$lastOption.pageSize))) ? ss.Int32.div(this.$totalCount, ss.Nullable.unbox(this.$lastOption.pageSize)) : page));
+				}
+				if (!this.$lastOption.localPaging) {
+					this.$readFunc(this.$lastOption);
+				}
+				else {
+					var $t2 = this.$1$OnStoreChangedField;
+					var $t1 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+					$t1.action = 1;
+					$t2(this, $t1);
+				}
 			},
 			refresh: function() {
 				return this.$readFunc(this.$lastOption);
@@ -1692,9 +1732,9 @@
 							$Cayita_UI_Ext.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
 							break;
 						}
+						case 10:
 						case 1: {
 							var lo = this.$store.getLastOption();
-							console.log('StoreChangedAction.Read', lo);
 							if (lo.localPaging && ss.isValue(lo.pageNumber) && ss.isValue(lo.pageSize)) {
 								$Cayita_UI_Ext.load$1(T).call(null, this.$table, Enumerable.from(this.$store).skip(ss.Nullable.unbox(lo.pageNumber) * ss.Nullable.unbox(lo.pageSize)).take(ss.Nullable.unbox(lo.pageSize)).toArray(), this.$columns, this.$store.getRecordIdProperty(), false);
 							}
@@ -1733,11 +1773,6 @@
 						case 8: {
 							var id = dt.oldData[this.$store.getRecordIdProperty()];
 							$('tr[record-id=' + id + ']', this.$table).remove();
-							this.selectRow(true);
-							break;
-						}
-						case 10: {
-							$Cayita_UI_Ext.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
 							this.selectRow(true);
 							break;
 						}
@@ -2628,76 +2663,89 @@
 			this.$divnav = null;
 			this.$pText = 'page';
 			this.$ofText = 'of';
-			this.$infoTmpl = 'Items from {0} to {1} of {2}';
+			this.$infoTmpl = 'from {0} to {1} of {2}';
 			this.$store_ = null;
-			this.$pTextFunc = null;
-			this.$ofTextFunc = null;
-			this.$infoTextFunc = null;
 			this.$element = null;
+			this.$first = null;
+			this.$prev = null;
+			this.$next = null;
+			this.$last = null;
+			this.$page = null;
+			this.$totalPages = null;
+			this.$info = null;
+			this.$currentPage = null;
 			$Cayita_UI_Div.call(this, parent);
 			this.$store_ = store;
-			this.$pTextFunc = ss.mkdel(this, function() {
-				return this.$pText;
-			});
-			this.$ofTextFunc = ss.mkdel(this, function() {
-				return this.$ofText;
-			});
-			this.$infoTextFunc = ss.mkdel(this, function() {
-				return 'info text';
-				var lo = this.$store_.getLastOption();
-				var from_ = (ss.isValue(lo.pageNumber) ? ss.Nullable.unbox(lo.pageNumber) : 0) * (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0) + 1;
-				var to_ = (ss.isValue(lo.pageNumber) ? ss.Nullable.unbox(lo.pageNumber) : 0) * (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0) + (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : this.$store_.get_count());
-				if (to_ > this.$store_.get_count()) {
-					to_ = this.$store_.get_count();
-				}
-				return ss.formatString(this.$infoTmpl, from_, to_, this.$store_.get_count());
-			});
 			this.$element = this.element$1();
-			this.$divnav = new $Cayita_UI_Div.$ctor1(this.$element, function(d) {
+			this.$divnav = new $Cayita_UI_Div.$ctor1(this.$element, ss.mkdel(this, function(d) {
 				d.className = 'btn-group';
-				new $Cayita_UI_IconButton(d, function(b, i) {
+				this.$first = (new $Cayita_UI_IconButton(d, ss.mkdel(this, function(b, i) {
+					b.disabled = true;
+					$(b).on('click', ss.mkdel(this, function(evt) {
+						this.$store_.getFirstPage();
+					}));
 					$(b).addClass('btn-small');
 					i.className = 'icon-double-angle-left';
-				});
-				new $Cayita_UI_IconButton(d, function(b1, i1) {
+				}))).element$1();
+				this.$prev = (new $Cayita_UI_IconButton(d, ss.mkdel(this, function(b1, i1) {
+					b1.disabled = true;
+					$(b1).on('click', ss.mkdel(this, function(evt1) {
+						this.$store_.getPreviousPage();
+					}));
 					$(b1).addClass('btn-small');
 					i1.className = 'icon-angle-left';
-				});
-				new $Cayita_UI_IconButton(d, function(b2, i2) {
+				}))).element$1();
+				this.$next = (new $Cayita_UI_IconButton(d, ss.mkdel(this, function(b2, i2) {
+					b2.disabled = true;
+					$(b2).on('click', ss.mkdel(this, function(evt2) {
+						this.$store_.getNextPage();
+					}));
 					$(b2).addClass('btn-small');
 					i2.className = 'icon-angle-right';
-				});
-				new $Cayita_UI_IconButton(d, function(b3, i3) {
+				}))).element$1();
+				this.$last = (new $Cayita_UI_IconButton(d, ss.mkdel(this, function(b3, i3) {
+					b3.disabled = true;
+					$(b3).on('click', ss.mkdel(this, function(evt3) {
+						this.$store_.getLastPage();
+					}));
 					$(b3).addClass('btn-small');
 					i3.className = 'icon-double-angle-right';
-				});
-			});
+				}))).element$1();
+			}));
 			new $Cayita_UI_Div.$ctor1(this.$element, ss.mkdel(this, function(d1) {
-				d1.className = 'btn-group form-inline';
-				new $Cayita_UI_Label.$ctor1(d1, ss.mkdel(this, function(l) {
+				d1.className = 'btn-group form-inline label';
+				this.$page = (new $Cayita_UI_Label.$ctor1(d1, ss.mkdel(this, function(l) {
 					l.className = 'checkbox';
 					l.style.paddingRight = '2px';
-					$(l).text(this.$pTextFunc());
-				}));
-				new $Cayita_UI_Input.$ctor1(d1, function(i4) {
+					$(l).text(this.$pText);
+					l.style.fontSize = '98%';
+				}))).element$1();
+				this.$currentPage = (new $Cayita_UI_Input.$ctor1(d1, function(i4) {
 					i4.className = 'input-mini';
 					i4.style.padding = '0px';
+					i4.style.height = '18px';
 					cayita.fn.autoNumeric(i4, { mDec: 0, wEmpty: 'empty' });
 					i4.style.textAlign = 'center';
-				});
-				new $Cayita_UI_Label.$ctor1(d1, ss.mkdel(this, function(l1) {
+					i4.style.fontSize = '98%';
+				})).element$1();
+				this.$totalPages = (new $Cayita_UI_Label.$ctor1(d1, ss.mkdel(this, function(l1) {
 					l1.className = 'checkbox';
 					l1.style.paddingLeft = '2px';
-					$(l1).text(this.$ofTextFunc() + ' {0}');
-				}));
+					$(l1).text(this.$ofText + ' {0}');
+					l1.style.fontSize = '98%';
+				}))).element$1();
 			}));
 			new $Cayita_UI_Div.$ctor1(this.$element, ss.mkdel(this, function(d2) {
-				d2.className = 'btn-group form-inline';
-				new $Cayita_UI_Label.$ctor1(d2, ss.mkdel(this, function(l2) {
+				d2.className = 'btn-group form-inline label';
+				this.$info = (new $Cayita_UI_Label.$ctor1(d2, ss.mkdel(this, function(l2) {
 					l2.className = 'checkbox';
 					l2.style.paddingRight = '2px';
-					$(l2).text(this.$infoTextFunc());
-				}));
+					$(l2).text(this.$infoTmpl);
+					l2.style.fontSize = '98%';
+				}))).element$1();
+			}));
+			store.add_onStoreChanged(ss.mkdel(this, function(st, dt) {
+				this.update();
 			}));
 		};
 		$type.prototype = {
@@ -2715,6 +2763,24 @@
 			infoTemplate: function(text) {
 				this.$infoTmpl = text;
 				return this;
+			},
+			update: function() {
+				var lo = this.$store_.getLastOption();
+				var pageNumber = (ss.isValue(lo.pageNumber) ? ss.Nullable.unbox(lo.pageNumber) : 0);
+				var pageSize = (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0);
+				var from_ = pageNumber * pageSize + 1;
+				var to_ = pageNumber * pageSize + (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0);
+				if (to_ > this.$store_.getTotalCount()) {
+					to_ = this.$store_.getTotalCount();
+				}
+				this.$first.disabled = from_ === 1;
+				this.$prev.disabled = !this.$store_.hasPreviousPage();
+				this.$next.disabled = !this.$store_.hasNextPage();
+				this.$last.disabled = !this.$store_.hasNextPage();
+				$(this.$page).text(this.$pText);
+				cayita.fn.setValue(this.$currentPage, pageNumber + 1);
+				$(this.$totalPages).text(this.$ofText + ' ' + Math.ceil(ss.Int32.div(this.$store_.getTotalCount(), ((pageSize === 0) ? this.$store_.get_count() : pageSize)) + 1).toString());
+				$(this.$info).text(ss.formatString(this.$infoTmpl, from_, to_, this.$store_.getTotalCount()));
 			}
 		};
 		ss.registerGenericClassInstance($type, $Cayita_UI_StorePaging$1, [T], function() {

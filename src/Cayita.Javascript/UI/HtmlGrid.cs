@@ -94,9 +94,9 @@ namespace Cayita.Javascript.UI
 				case StoreChangedAction.Created:
 					table.CreateRow(dt.NewData, columns, store.GetRecordIdProperty());
 					break;
+				case StoreChangedAction.Loaded:
 				case StoreChangedAction.Read:
 					var lo = store.GetLastOption();
-					Cayita.Javascript.Firebug.Console.Log("StoreChangedAction.Read", lo);
 					if(lo.LocalPaging && lo.PageNumber.HasValue && lo.PageSize.HasValue)
 					{
 						table.Load(store.Skip(lo.PageNumber.Value*lo.PageSize.Value).
@@ -135,10 +135,6 @@ namespace Cayita.Javascript.UI
 				case StoreChangedAction.Removed:
 					var id = ((dynamic) dt.OldData)[store.GetRecordIdProperty()];
 					table.JSelectRow((object)id).Remove();
-					SelectRow(true);
-					break;
-				case StoreChangedAction.Loaded:
-					table.Load(store,columns, store.GetRecordIdProperty());
 					SelectRow(true);
 					break;
 				case StoreChangedAction.Cleared:

@@ -12,77 +12,76 @@ namespace Cayita.Javascript.UI
 		Div divnav;
 		string pText ="page";
 		string ofText = "of";
-		string infoTmpl= "Items from {0} to {1} of {2}";
+		string infoTmpl= "from {0} to {1} of {2}";
 
 		Store<T> store_ ;
 
-		Func<string>  pTextFunc;
-		Func<string>  ofTextFunc;
-		Func<string>  infoTextFunc;
-
 		DivElement element;
+
+		ButtonElement first;
+		ButtonElement prev;
+		ButtonElement next;
+		ButtonElement last;
+
+		LabelElement page;
+		LabelElement totalPages;
+		LabelElement info;
+		InputElement currentPage;
+
 		public StorePaging (Element parent, Store<T> store):base(parent)
 		{
 			store_ = store;
-			pTextFunc = ()=>{return pText;};
-			ofTextFunc = ()=>{return ofText;};
-
-			infoTextFunc = ()=>{
-				return "info text";
-				var lo = store_.GetLastOption();
-				var from_ = ((lo.PageNumber.HasValue? lo.PageNumber.Value:0)*
-				             (lo.PageSize.HasValue?lo.PageSize.Value:0)) +1;
-				
-				var to_ =((lo.PageNumber.HasValue? lo.PageNumber.Value:0)*
-				          (lo.PageSize.HasValue?lo.PageSize.Value:0))
-				+ (lo.PageSize.HasValue?lo.PageSize.Value:store_.Count);
-				
-				if (to_> store_.Count) to_=store_.Count;
-				
-				return string.Format(infoTmpl, from_, to_, store_.Count ) ;
-			};
 
 			element = Element ();
 
 			divnav = new Div (element, d => {
 				d.ClassName="btn-group";
-				new IconButton(d, (b,i)=>{	b.AddClass("btn-small"); i.ClassName="icon-double-angle-left";});
-				new IconButton(d, (b,i)=>{	b.AddClass("btn-small");i.ClassName="icon-angle-left";});
-				new IconButton(d, (b,i)=>{	b.AddClass("btn-small"); i.ClassName="icon-angle-right"; });
-				new IconButton(d, (b,i)=>{	b.AddClass("btn-small");i.ClassName="icon-double-angle-right"; });
+				first = new IconButton(d, (b,i)=>{ b.Disabled=true; b.OnClick(evt=> store_.GetFirstPage());	b.AddClass("btn-small"); i.ClassName="icon-double-angle-left";}).Element();
+				prev = new IconButton(d, (b,i)=>{ b.Disabled=true;	b.OnClick(evt=>store_.GetPreviousPage()); b.AddClass("btn-small");i.ClassName="icon-angle-left";}).Element();
+				next = new IconButton(d, (b,i)=>{ b.Disabled=true;	b.OnClick(evt=>store_.GetNextPage()); b.AddClass("btn-small"); i.ClassName="icon-angle-right"; }).Element();
+				last = new IconButton(d, (b,i)=>{ b.Disabled=true;	b.OnClick(evt=>store_.GetLastPage());b.AddClass("btn-small");i.ClassName="icon-double-angle-right"; }).Element();
 			});
 
-
 			new Div (element, d => {
-				d.ClassName="btn-group form-inline";
-				new Label(d, l => {
+				d.ClassName="btn-group form-inline label";
+				page=new Label(d, l => {
 					l.ClassName="checkbox";
 					l.Style.PaddingRight="2px";
-					l.Text(pTextFunc());
-				});
-				new Input(d,i => {
+					l.Text(pText);
+					l.Style.FontSize="98%";
+				}).Element();
+
+				currentPage=new Input(d,i => {
 					i.ClassName="input-mini";
 					i.Style.Padding="0px";
+					i.Style.Height="18px";
 					i.AutoNumeric(new {mDec=0, wEmpty= "empty"});
 					i.Style.TextAlign="center";
-				});
+					i.Style.FontSize="98%";
+				}).Element();
 
-				new Label(d, l => {
+				totalPages = new Label(d, l => {
 					l.ClassName="checkbox";
 					l.Style.PaddingLeft="2px";
-					l.Text(ofTextFunc() + " {0}");
-				});
+					l.Text(ofText + " {0}");
+					l.Style.FontSize="98%";
+				}).Element();
 			});
 
 			new Div (element, d => {
-				d.ClassName="btn-group form-inline";
-				new Label(d, l => {
+				d.ClassName="btn-group form-inline label";
+				info =new Label(d, l => {
 					l.ClassName="checkbox";
 					l.Style.PaddingRight="2px";
-					l.Text(infoTextFunc());
-				});
+					l.Text(infoTmpl);
+					l.Style.FontSize="98%";
+				}).Element();
 
 			});
+
+			store.OnStoreChanged += (st, dt) => {
+				Update();
+			};
 
 		}
 
@@ -107,6 +106,33 @@ namespace Cayita.Javascript.UI
 		{
 			infoTmpl = text;
 			return this;
+		}
+
+		public void Update()
+		{
+			var lo = store_.GetLastOption();
+			var pageNumber = lo.PageNumber.HasValue ? lo.PageNumber.Value : 0;
+			var pageSize = lo.PageSize.HasValue ? lo.PageSize.Value : 0;
+
+			var from_ = (pageNumber*pageSize) +1;
+			
+			var to_ = (pageNumber * pageSize) +(lo.PageSize.HasValue? lo.PageSize.Value:0);
+
+			if (to_ > store_.GetTotalCount ())
+				to_ = store_.GetTotalCount ();
+
+			first.Disabled = from_ == 1;
+			prev.Disabled = !store_.HasPreviousPage ();
+			next.Disabled = !store_.HasNextPage ();
+			last.Disabled = !store_.HasNextPage ();
+
+			page.Text(pText);
+			currentPage.SetValue (pageNumber + 1);
+			totalPages.Text ( ofText + " "+ Math.Ceiling(store_.GetTotalCount()/(pageSize==0?store_.Count:pageSize)+1).ToString() );
+
+			info.Text(	string.Format(infoTmpl, from_, to_, store_.GetTotalCount( )) );
+	
+
 		}
 
 	}

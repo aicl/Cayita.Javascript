@@ -42,6 +42,7 @@ namespace Cayita.Javascript.Data
 			updateApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/update"};
 			destroyApi = new StoreApi<string>{Url= "api/" + typeof(T).Name+"/destroy"};
 			patchApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/patch"};
+			lastOption= new ReadOptions();
 
 			createFunc= (record)=>{	
 				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Create, State=StoreRequestState.Started});
@@ -301,14 +302,13 @@ namespace Cayita.Javascript.Data
 
 		public IDeferred<T> Read(Action<ReadOptions> options=null)
 		{
-			ReadOptions readOptions= new ReadOptions();
-			if(options!=null) options(readOptions);
-			if(readOptions.PageNumber.HasValue &&
-			   ( !readOptions.PageSize.HasValue || (readOptions.PageSize.HasValue &&readOptions.PageSize.Value==0) ) )
-				readOptions.PageSize= defaultPageSize;
-			lastOption= readOptions;
 
-			return  readFunc( readOptions); 
+			if(options!=null) options(lastOption);
+			if(lastOption.PageNumber.HasValue &&
+			   ( !lastOption.PageSize.HasValue || (lastOption.PageSize.HasValue &&lastOption.PageSize.Value==0) ) )
+				lastOption.PageSize= defaultPageSize;
+
+			return  readFunc( lastOption); 
 		}
 
 		public IDeferred<T> Update(T record)
@@ -391,7 +391,14 @@ namespace Cayita.Javascript.Data
 		
 		public int Count
 		{
-			get {return ( lastOption!=null && lastOption.LocalPaging && lastOption.PageSize.HasValue)? lastOption.PageSize.Value: st.Count;}
+			get 
+			{
+				return 
+				(lastOption!=null && lastOption.LocalPaging && lastOption.PageSize.HasValue
+					 && lastOption.PageSize.Value<st.Count)?
+					lastOption.PageSize.Value:
+					st.Count;
+			}
 		}
 		
 		public void Add (T item)
@@ -455,38 +462,75 @@ namespace Cayita.Javascript.Data
 
 		public bool HasNextPage()
 		{
-			if (lastOption==null || Count== totalCount) return false;
-			Cayita.Javascript.Firebug.Console.Log(totalCount/lastOption.PageSize.Value< lastOption.PageNumber.Value);
-			Cayita.Javascript.Firebug.Console.Log(totalCount,lastOption.PageSize.Value,lastOption.PageNumber.Value);
+			if (Count== totalCount || !lastOption.PageNumber.HasValue) return false;
 			return totalCount/lastOption.PageSize.Value> lastOption.PageNumber.Value;
 
 		}
 
 		public bool HasPreviousPage()
 		{
-			return !(lastOption==null || Count== totalCount || !lastOption.PageNumber.HasValue
+			return !( Count== totalCount || !lastOption.PageNumber.HasValue
 			        || ( lastOption.PageNumber.HasValue && lastOption.PageNumber.Value==0)) ;
 		}
 
-		public IDeferred<T> GetNextPage()
-		{
-			if(HasNextPage())
-				lastOption.PageNumber++;
-			Cayita.Javascript.Firebug.Console.Log ("GetNextPage", HasNextPage (), lastOption);
-			if (!lastOption.LocalPaging)
-				return readFunc (lastOption);
 
-			OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
-			return null;
+		public void GetFirstPage ()
+		{
+			if (lastOption.PageNumber.HasValue)
+				lastOption.PageNumber = 0;
+
+			if (!lastOption.LocalPaging)
+				readFunc (lastOption);
+			else
+				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
 
 		}
 
-		public IDeferred<T> GetPreviousPage()
+		public void GetNextPage()
+		{
+			if(HasNextPage())
+				lastOption.PageNumber++;
+			if (!lastOption.LocalPaging)
+				readFunc (lastOption);
+			else
+				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
+		}
+
+		public void GetPreviousPage()
 		{
 			if(HasPreviousPage()) lastOption.PageNumber--;
-			if (!lastOption.LocalPaging) return readFunc( lastOption);
-			OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
-			return null;
+
+			if (!lastOption.LocalPaging)  
+				readFunc( lastOption);
+			else 
+				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
+		}
+
+		public void GetLastPage ()
+		{
+			if (lastOption.PageNumber.HasValue)
+				lastOption.PageNumber = totalCount/lastOption.PageSize.Value;
+			
+			if (!lastOption.LocalPaging)
+				readFunc (lastOption);
+			else
+				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
+		}
+
+		public void GetPage(int page)
+		{
+			if (lastOption.PageNumber.HasValue)
+				lastOption.PageNumber = page< 0?
+					0:
+					page>totalCount/lastOption.PageSize.Value?
+					totalCount/lastOption.PageSize.Value:
+					page;
+
+			if (!lastOption.LocalPaging)
+				readFunc (lastOption);
+			else
+				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
+
 		}
 
 		public IDeferred<T> Refresh()
