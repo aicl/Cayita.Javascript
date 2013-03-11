@@ -55,9 +55,16 @@ namespace Cayita.Javascript.UI
 					i.ClassName="input-mini";
 					i.Style.Padding="0px";
 					i.Style.Height="18px";
-					i.AutoNumeric(new {mDec=0, wEmpty= "empty"});
+					i.AutoNumeric(new {mDec=0, wEmpty= "empty", vMin=0});
 					i.Style.TextAlign="center";
-					i.Style.FontSize="98%";
+					i.Style.FontSize="97%";
+					i.Style.Width="45px";
+					i.JQuery().Keypress(evt=>{
+						if(evt.Which==13)
+						{
+							store_.GetPage( i.GetValue<int>()-1);
+						}
+					});
 				}).Element();
 
 				totalPages = new Label(d, l => {
@@ -118,6 +125,8 @@ namespace Cayita.Javascript.UI
 			
 			var to_ = (pageNumber * pageSize) +(lo.PageSize.HasValue? lo.PageSize.Value:0);
 
+			var pagesCount = Math.Ceiling (store_.GetTotalCount () / (pageSize == 0 ? store_.Count : pageSize) + 1);
+
 			if (to_ > store_.GetTotalCount ())
 				to_ = store_.GetTotalCount ();
 
@@ -127,8 +136,11 @@ namespace Cayita.Javascript.UI
 			last.Disabled = !store_.HasNextPage ();
 
 			page.Text(pText);
+
 			currentPage.SetValue (pageNumber + 1);
-			totalPages.Text ( ofText + " "+ Math.Ceiling(store_.GetTotalCount()/(pageSize==0?store_.Count:pageSize)+1).ToString() );
+			currentPage.AutoNumeric(new {vMax=pagesCount});
+
+			totalPages.Text ( ofText + " "+ pagesCount.ToString() );
 
 			info.Text(	string.Format(infoTmpl, from_, to_, store_.GetTotalCount( )) );
 	

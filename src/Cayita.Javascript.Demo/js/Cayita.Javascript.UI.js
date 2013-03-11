@@ -2720,14 +2720,20 @@
 					$(l).text(this.$pText);
 					l.style.fontSize = '98%';
 				}))).element$1();
-				this.$currentPage = (new $Cayita_UI_Input.$ctor1(d1, function(i4) {
+				this.$currentPage = (new $Cayita_UI_Input.$ctor1(d1, ss.mkdel(this, function(i4) {
 					i4.className = 'input-mini';
 					i4.style.padding = '0px';
 					i4.style.height = '18px';
-					cayita.fn.autoNumeric(i4, { mDec: 0, wEmpty: 'empty' });
+					cayita.fn.autoNumeric(i4, { mDec: 0, wEmpty: 'empty', vMin: 0 });
 					i4.style.textAlign = 'center';
-					i4.style.fontSize = '98%';
-				})).element$1();
+					i4.style.fontSize = '97%';
+					i4.style.width = '45px';
+					$(i4).keypress(ss.mkdel(this, function(evt4) {
+						if (evt4.which === 13) {
+							this.$store_.getPage(cayita.fn.getValue(i4) - 1);
+						}
+					}));
+				}))).element$1();
 				this.$totalPages = (new $Cayita_UI_Label.$ctor1(d1, ss.mkdel(this, function(l1) {
 					l1.className = 'checkbox';
 					l1.style.paddingLeft = '2px';
@@ -2770,6 +2776,7 @@
 				var pageSize = (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0);
 				var from_ = pageNumber * pageSize + 1;
 				var to_ = pageNumber * pageSize + (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0);
+				var pagesCount = Math.ceil(ss.Int32.div(this.$store_.getTotalCount(), ((pageSize === 0) ? this.$store_.get_count() : pageSize)) + 1);
 				if (to_ > this.$store_.getTotalCount()) {
 					to_ = this.$store_.getTotalCount();
 				}
@@ -2779,7 +2786,8 @@
 				this.$last.disabled = !this.$store_.hasNextPage();
 				$(this.$page).text(this.$pText);
 				cayita.fn.setValue(this.$currentPage, pageNumber + 1);
-				$(this.$totalPages).text(this.$ofText + ' ' + Math.ceil(ss.Int32.div(this.$store_.getTotalCount(), ((pageSize === 0) ? this.$store_.get_count() : pageSize)) + 1).toString());
+				cayita.fn.autoNumeric(this.$currentPage, { vMax: pagesCount });
+				$(this.$totalPages).text(this.$ofText + ' ' + pagesCount.toString());
 				$(this.$info).text(ss.formatString(this.$infoTmpl, from_, to_, this.$store_.getTotalCount()));
 			}
 		};
