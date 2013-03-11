@@ -17,7 +17,9 @@ namespace Cayita.Javascript.Data
 		Func<T, IDeferred<T>> updateFunc;
 		Func<T, IDeferred<string>> destroyFunc;
 		Func<T, IDeferred<T>> patchFunc;
-		
+
+		Func<T, bool> filterFunc;
+
 		StoreApi<T> createApi;
 		StoreApi<T> readApi;
 		StoreApi<T> updateApi;
@@ -36,6 +38,8 @@ namespace Cayita.Javascript.Data
 			OnStoreChanged=(store, data)=>{};
 			OnStoreError=(store, request)=>{};
 			OnStoreRequest=(store, state )=>{};
+
+			filterFunc= d=> true; 
 
 			createApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/create"};
 			readApi= new StoreApi<T>{Url= "api/" + typeof(T).Name+"/read"};
@@ -97,7 +101,7 @@ namespace Cayita.Javascript.Data
 						}
 
 						int? tc = data[readApi.TotalCountProperty];
-						totalCount= tc.HasValue? tc.Value: st.Count;
+						totalCount= tc.HasValue? tc.Value: st.Count(filterFunc);
 
 						OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
 					})
@@ -397,16 +401,16 @@ namespace Cayita.Javascript.Data
 			{
 				return 
 				(lastOption!=null && lastOption.LocalPaging && lastOption.PageSize.HasValue
-					 && lastOption.PageSize.Value<st.Count)?
+					 && lastOption.PageSize.Value<st.Count(filterFunc))?
 					lastOption.PageSize.Value:
-					st.Count;
+					st.Count(filterFunc);
 			}
 		}
 		
 		public void Add (T item)
 		{
 			st.Add(item);
-			OnStoreChanged(this, new StoreChangedData<T>{ NewData= item, OldData=item, Action= StoreChangedAction.Added, Index=st.Count-1});
+			OnStoreChanged(this, new StoreChangedData<T>{ NewData= item, OldData=item, Action= StoreChangedAction.Added, Index=GetTotalCount()-1});
 		}
 
 		public void Clear ()
@@ -434,10 +438,10 @@ namespace Cayita.Javascript.Data
 			if(lo.LocalPaging && lo.PageNumber.HasValue && lo.PageSize.HasValue)
 			{
 				return st.Skip(lo.PageNumber.Value*lo.PageSize.Value).
-					Take(lo.PageSize.Value).GetEnumerator();
+					Take(lo.PageSize.Value).Where(filterFunc).GetEnumerator();
 			}
 
-			return st.GetEnumerator();
+			return st.Where(filterFunc).GetEnumerator();
 		}
 		#endregion			
 		#region IEnumerable implementation			
@@ -447,9 +451,9 @@ namespace Cayita.Javascript.Data
 			if(lo.LocalPaging && lo.PageNumber.HasValue && lo.PageSize.HasValue)
 			{
 				return st.Skip(lo.PageNumber.Value*lo.PageSize.Value).
-					Take(lo.PageSize.Value).GetEnumerator();
+					Take(lo.PageSize.Value).Where(filterFunc).GetEnumerator();
 			}
-			return st.GetEnumerator();
+			return st.Where(filterFunc).GetEnumerator();
 		}
 #endregion
 
@@ -559,6 +563,13 @@ namespace Cayita.Javascript.Data
 			return readFunc( lastOption);
 		}
 
+		public void Filter(Func<T, bool> filter)
+		{
+			filterFunc = filter;
+			totalCount = st.Count (filterFunc);
+			OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Filtered});
+		}
+
 		public event Action<Store<T> , StoreChangedData<T> > OnStoreChanged;
 		public event Action<Store<T> , StoreError<T>> OnStoreError;
 		public event Action<Store<T> , StoreRequest> OnStoreRequest;
@@ -588,7 +599,8 @@ namespace Cayita.Javascript.Data
 		Replaced,
 		Removed,
 		Cleared,
-		Loaded
+		Loaded,
+		Filtered
 	}
 
 	[ScriptNamespace("Cayita.Data")]

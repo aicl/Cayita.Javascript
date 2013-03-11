@@ -361,6 +361,7 @@
 			this.$updateFunc = null;
 			this.$destroyFunc = null;
 			this.$patchFunc = null;
+			this.$filterFunc = null;
 			this.$createApi = null;
 			this.$readApi = null;
 			this.$updateApi = null;
@@ -378,6 +379,9 @@
 			this.$1$OnStoreErrorField = function(store1, request) {
 			};
 			this.$1$OnStoreRequestField = function(store2, state) {
+			};
+			this.$filterFunc = function(d) {
+				return true;
 			};
 			var $t1 = ss.makeGenericType($Cayita_Data_StoreApi$1, [T]).$ctor();
 			$t1.url = 'api/' + ss.getTypeName(T) + '/create';
@@ -482,7 +486,7 @@
 						ss.add(this.$st, ss.cast(data2[r1], T));
 					}
 					var tc = ss.cast(data2[this.$readApi.totalCountProperty], ss.Int32);
-					this.$totalCount = (ss.isValue(tc) ? ss.Nullable.unbox(tc) : this.$st.length);
+					this.$totalCount = (ss.isValue(tc) ? ss.Nullable.unbox(tc) : Enumerable.from(this.$st).count(this.$filterFunc));
 					var $t22 = this.$1$OnStoreChangedField;
 					var $t21 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
 					$t21.action = 1;
@@ -828,7 +832,7 @@
 				$t2(this, $t1);
 			},
 			get_count: function() {
-				return ((ss.isValue(this.$lastOption) && this.$lastOption.localPaging && ss.isValue(this.$lastOption.pageSize) && ss.Nullable.unbox(this.$lastOption.pageSize) < this.$st.length) ? ss.Nullable.unbox(this.$lastOption.pageSize) : this.$st.length);
+				return ((ss.isValue(this.$lastOption) && this.$lastOption.localPaging && ss.isValue(this.$lastOption.pageSize) && ss.Nullable.unbox(this.$lastOption.pageSize) < Enumerable.from(this.$st).count(this.$filterFunc)) ? ss.Nullable.unbox(this.$lastOption.pageSize) : Enumerable.from(this.$st).count(this.$filterFunc));
 			},
 			add: function(item) {
 				ss.add(this.$st, item);
@@ -837,7 +841,7 @@
 				$t1.newData = item;
 				$t1.oldData = item;
 				$t1.action = 5;
-				$t1.index = this.$st.length - 1;
+				$t1.index = this.getTotalCount() - 1;
 				$t2(this, $t1);
 			},
 			clear: function() {
@@ -867,9 +871,9 @@
 			getEnumerator: function() {
 				var lo = this.$lastOption;
 				if (lo.localPaging && ss.isValue(lo.pageNumber) && ss.isValue(lo.pageSize)) {
-					return Enumerable.from(this.$st).skip(ss.Nullable.unbox(lo.pageNumber) * ss.Nullable.unbox(lo.pageSize)).take(ss.Nullable.unbox(lo.pageSize)).getEnumerator();
+					return Enumerable.from(this.$st).skip(ss.Nullable.unbox(lo.pageNumber) * ss.Nullable.unbox(lo.pageSize)).take(ss.Nullable.unbox(lo.pageSize)).where(this.$filterFunc).getEnumerator();
 				}
-				return ss.getEnumerator(this.$st);
+				return Enumerable.from(this.$st).where(this.$filterFunc).getEnumerator();
 			},
 			load: function(data, options, append) {
 				if (!ss.staticEquals(options, null)) {
@@ -977,6 +981,14 @@
 			},
 			refresh: function() {
 				return this.$readFunc(this.$lastOption);
+			},
+			filter: function(filter) {
+				this.$filterFunc = filter;
+				this.$totalCount = Enumerable.from(this.$st).count(this.$filterFunc);
+				var $t2 = this.$1$OnStoreChangedField;
+				var $t1 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
+				$t1.action = 11;
+				$t2(this, $t1);
 			},
 			add_onStoreChanged: function(value) {
 				this.$1$OnStoreChangedField = ss.delegateCombine(this.$1$OnStoreChangedField, value);
@@ -1096,7 +1108,7 @@
 	// Cayita.Javascript.Data.StoreChangedAction
 	var $Cayita_Javascript_Data_StoreChangedAction = function() {
 	};
-	$Cayita_Javascript_Data_StoreChangedAction.prototype = { created: 0, read: 1, updated: 2, destroyed: 3, patched: 4, added: 5, inserted: 6, replaced: 7, removed: 8, cleared: 9, loaded: 10 };
+	$Cayita_Javascript_Data_StoreChangedAction.prototype = { created: 0, read: 1, updated: 2, destroyed: 3, patched: 4, added: 5, inserted: 6, replaced: 7, removed: 8, cleared: 9, loaded: 10, filtered: 11 };
 	ss.registerEnum(global, 'Cayita.Javascript.Data.StoreChangedAction', $Cayita_Javascript_Data_StoreChangedAction, false);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.Data.StoreErrorAction
@@ -1744,6 +1756,7 @@
 							$Cayita_UI_Ext.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
 							break;
 						}
+						case 11:
 						case 10:
 						case 1: {
 							$Cayita_UI_Ext.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);

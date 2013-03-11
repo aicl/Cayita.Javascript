@@ -94,6 +94,7 @@ namespace Cayita.Javascript.UI
 				case StoreChangedAction.Created:
 					table.CreateRow(dt.NewData, columns, store.GetRecordIdProperty());
 					break;
+				case StoreChangedAction.Filtered:
 				case StoreChangedAction.Loaded:
 				case StoreChangedAction.Read:
 					table.Load(store, columns, store.GetRecordIdProperty());
