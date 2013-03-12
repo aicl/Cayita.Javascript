@@ -117,6 +117,8 @@ namespace Cayita.Javascript.UI
 
 		public void Update()
 		{
+			//currentPage.SetValue (1);
+
 			var lo = store_.GetLastOption();
 			var pageNumber = lo.PageNumber.HasValue ? lo.PageNumber.Value : 0;
 			var pageSize = lo.PageSize.HasValue ? lo.PageSize.Value : 0;
@@ -129,6 +131,8 @@ namespace Cayita.Javascript.UI
 
 			if (to_ > store_.GetTotalCount ())
 				to_ = store_.GetTotalCount ();
+			if (to_ == 0)
+				from_ = 0;
 
 			first.Disabled = from_ == 1;
 			prev.Disabled = !store_.HasPreviousPage ();
@@ -138,7 +142,7 @@ namespace Cayita.Javascript.UI
 			page.Text(pText);
 
 			currentPage.SetValue (pageNumber + 1);
-			currentPage.AutoNumeric(new {vMax=pagesCount});
+			//currentPage.AutoNumeric(new {vMax=pagesCount});
 
 			totalPages.Text ( ofText + " "+ pagesCount.ToString() );
 

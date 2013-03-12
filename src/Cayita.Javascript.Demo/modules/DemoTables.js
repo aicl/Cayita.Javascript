@@ -156,9 +156,9 @@
 			div2.className = 'bs-docs-example';
 			new Cayita.UI.InputText.$ctor2(div2, function(e1) {
 				$(e1).attr('placeholder', 'Country');
-				$(e1).on('change', function(evt2) {
+				$(e1).on('keyup', function(evt2) {
 					gc.getStore$1().filter(function(f) {
-						return ss.startsWithString(f.Country, e1.value);
+						return ss.startsWithString(f.Country.toUpperCase(), e1.value.toUpperCase());
 					});
 				});
 			});

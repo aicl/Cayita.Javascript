@@ -985,6 +985,9 @@
 			filter: function(filter) {
 				this.$filterFunc = filter;
 				this.$totalCount = Enumerable.from(this.$st).count(this.$filterFunc);
+				if (ss.isValue(this.$lastOption.pageNumber)) {
+					this.$lastOption.pageNumber = 0;
+				}
 				var $t2 = this.$1$OnStoreChangedField;
 				var $t1 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
 				$t1.action = 11;
@@ -2790,6 +2793,7 @@
 				return this;
 			},
 			update: function() {
+				//currentPage.SetValue (1);
 				var lo = this.$store_.getLastOption();
 				var pageNumber = (ss.isValue(lo.pageNumber) ? ss.Nullable.unbox(lo.pageNumber) : 0);
 				var pageSize = (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0);
@@ -2799,13 +2803,16 @@
 				if (to_ > this.$store_.getTotalCount()) {
 					to_ = this.$store_.getTotalCount();
 				}
+				if (to_ === 0) {
+					from_ = 0;
+				}
 				this.$first.disabled = from_ === 1;
 				this.$prev.disabled = !this.$store_.hasPreviousPage();
 				this.$next.disabled = !this.$store_.hasNextPage();
 				this.$last.disabled = !this.$store_.hasNextPage();
 				$(this.$page).text(this.$pText);
 				cayita.fn.setValue(this.$currentPage, pageNumber + 1);
-				cayita.fn.autoNumeric(this.$currentPage, { vMax: pagesCount });
+				//currentPage.AutoNumeric(new {vMax=pagesCount});
 				$(this.$totalPages).text(this.$ofText + ' ' + pagesCount.toString());
 				$(this.$info).text(ss.formatString(this.$infoTmpl, from_, to_, this.$store_.getTotalCount()));
 			}

@@ -567,6 +567,8 @@ namespace Cayita.Javascript.Data
 		{
 			filterFunc = filter;
 			totalCount = st.Count (filterFunc);
+			if (lastOption.PageNumber.HasValue)
+				lastOption.PageNumber = 0;
 			OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Filtered});
 		}
 
