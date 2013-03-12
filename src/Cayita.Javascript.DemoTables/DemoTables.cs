@@ -12,11 +12,13 @@ namespace Cayita.Javascript.DemoTables
 		public DemoTables (){}
 
 		static UserGrid uGrid;
-		public static CustomerGrid cGrid;
+		static CustomerGrid cGrid;
 		static UserForm uForm;
 
 		public static void Execute(Element parent)
 		{
+			Document.CreateElement("h3").Text("CRUD").AppendTo(parent);
+
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
 				uGrid= new UserGrid(div, new UserStore());
@@ -77,17 +79,48 @@ namespace Cayita.Javascript.DemoTables
 
 			uGrid.GetStore().Read();
 
-			ShowCode (parent);
+			ShowCodeCrud (parent);
+
+
+			Document.CreateElement("h3").Text("Paged Tables").AppendTo(parent);
 
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
-				cGrid= new CustomerGrid(div, new CustomerStore());
+				new Div(div, ct=>{
+					ct.Style.MinHeight="300px";
+					cGrid= new CustomerGrid(ct, new CustomerStore());
+				});
 
 				new StorePaging<Customer>(div, cGrid.GetStore());
 
 			}).AppendTo(parent);
 
 			cGrid.GetStore ().Read ();
+
+
+			Document.CreateElement("h3").Text("Filters").AppendTo(parent);
+
+			CustomerGrid gc= null;
+
+			new Div(null, div=>{
+				div.ClassName="bs-docs-example";
+				new InputText(div, e=>{
+					e.SetPlaceHolder("Country");
+					e.On("change", evt=>{
+						gc.GetStore().Filter( f=>f.Country.StartsWith(e.Value));
+					});
+				});
+
+				new Div(div, ct=>{
+					ct.Style.MinHeight="300px";
+					gc = new CustomerGrid(ct, new CustomerStore());
+					new StorePaging<Customer>(div, gc.GetStore());
+					gc.GetStore ().Read ();
+				});
+				
+			}).AppendTo(parent);
+			
+
 
 		}
 
@@ -102,7 +135,7 @@ namespace Cayita.Javascript.DemoTables
 				});
 		}
 
-		static void ShowCode (Element parent)
+		static void ShowCodeCrud (Element parent)
 		{
 			new Div (null, div =>  {
 				div.ClassName = "bs-docs-code";

@@ -437,8 +437,8 @@ namespace Cayita.Javascript.Data
 			var lo = lastOption;
 			if(lo.LocalPaging && lo.PageNumber.HasValue && lo.PageSize.HasValue)
 			{
-				return st.Skip(lo.PageNumber.Value*lo.PageSize.Value).
-					Take(lo.PageSize.Value).Where(filterFunc).GetEnumerator();
+				return st.Where(filterFunc).Skip(lo.PageNumber.Value*lo.PageSize.Value).
+					Take(lo.PageSize.Value).GetEnumerator();
 			}
 
 			return st.Where(filterFunc).GetEnumerator();
@@ -450,8 +450,8 @@ namespace Cayita.Javascript.Data
 			var lo = lastOption;
 			if(lo.LocalPaging && lo.PageNumber.HasValue && lo.PageSize.HasValue)
 			{
-				return st.Skip(lo.PageNumber.Value*lo.PageSize.Value).
-					Take(lo.PageSize.Value).Where(filterFunc).GetEnumerator();
+				return st.Where(filterFunc).Skip(lo.PageNumber.Value*lo.PageSize.Value).
+					Take(lo.PageSize.Value).GetEnumerator();
 			}
 			return st.Where(filterFunc).GetEnumerator();
 		}

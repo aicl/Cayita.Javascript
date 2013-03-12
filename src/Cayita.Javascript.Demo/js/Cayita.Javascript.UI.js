@@ -871,7 +871,7 @@
 			getEnumerator: function() {
 				var lo = this.$lastOption;
 				if (lo.localPaging && ss.isValue(lo.pageNumber) && ss.isValue(lo.pageSize)) {
-					return Enumerable.from(this.$st).skip(ss.Nullable.unbox(lo.pageNumber) * ss.Nullable.unbox(lo.pageSize)).take(ss.Nullable.unbox(lo.pageSize)).where(this.$filterFunc).getEnumerator();
+					return Enumerable.from(this.$st).where(this.$filterFunc).skip(ss.Nullable.unbox(lo.pageNumber) * ss.Nullable.unbox(lo.pageSize)).take(ss.Nullable.unbox(lo.pageSize)).getEnumerator();
 				}
 				return Enumerable.from(this.$st).where(this.$filterFunc).getEnumerator();
 			},

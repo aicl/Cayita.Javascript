@@ -33,7 +33,7 @@ namespace Cayita.Javascript.DemoTables
 				Header= new TableCell(c=> c.Text("Company")).Element(),
 				Value= (f)=>{
 					return new TableCell( c=>{
-						c.SetValue(f.CompanyName);
+						c.SetValue(f.CompanyName); c.Style.Width="40%";
 					}).Element();
 				}
 			});
@@ -42,7 +42,16 @@ namespace Cayita.Javascript.DemoTables
 				Header= new TableCell(c=> c.Text("Contact")).Element(),
 				Value= (f)=>{
 					return new TableCell( c=>{
-						c.SetValue(f.ContactName);
+						c.SetValue(f.ContactName); c.Style.Width="40%";
+					}).Element();
+				}
+			});
+
+			columns.Add(new TableColumn<Customer>(){
+				Header= new TableCell(c=> c.Text("Country")).Element(),
+				Value= (f)=>{
+					return new TableCell( c=>{
+						c.SetValue(f.Country);
 					}).Element();
 				}
 			});
