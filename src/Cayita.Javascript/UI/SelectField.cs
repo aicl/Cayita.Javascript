@@ -18,7 +18,6 @@ namespace Cayita.Javascript.UI
 		public T Record {get;set;}
 	}
 
-
 	[ScriptNamespace("Cayita.UI")]
 	public class SelectField<T>:SelectField where T: new()
 	{
@@ -78,6 +77,8 @@ namespace Cayita.Javascript.UI
 				case StoreChangedAction.Created:
 					se.CreateOption (dt.NewData, optionFunc);
 					break;
+				case StoreChangedAction.Filtered:
+				case StoreChangedAction.Loaded:
 				case StoreChangedAction.Read:
 					SelectOption();
 					Render ();
@@ -104,10 +105,6 @@ namespace Cayita.Javascript.UI
 				case StoreChangedAction.Removed:
 					se.RemoveOption (dt.OldData, store.GetRecordIdProperty ());
 					SelectOption();
-					break;
-				case StoreChangedAction.Loaded:
-					SelectOption();
-					Render ();
 					break;
 				case StoreChangedAction.Cleared:
 					se.Empty ();

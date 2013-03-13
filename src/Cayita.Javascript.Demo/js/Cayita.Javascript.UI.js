@@ -2498,6 +2498,8 @@
 							$Cayita_UI_Ext.createOption(T).call(null, this.$se, dt.newData, optionFunc);
 							break;
 						}
+						case 11:
+						case 10:
 						case 1: {
 							this.selectOption();
 							this.render();
@@ -2531,11 +2533,6 @@
 						case 8: {
 							$Cayita_UI_Ext.removeOption(T).call(null, this.$se, dt.oldData, store.getRecordIdProperty());
 							this.selectOption();
-							break;
-						}
-						case 10: {
-							this.selectOption();
-							this.render();
 							break;
 						}
 						case 9: {
