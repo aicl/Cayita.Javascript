@@ -2822,7 +2822,7 @@
 				if (to_ === 0) {
 					from_ = 0;
 				}
-				this.$first.disabled = from_ === 1;
+				this.$first.disabled = !this.$store_.hasPreviousPage();
 				this.$prev.disabled = !this.$store_.hasPreviousPage();
 				this.$next.disabled = !this.$store_.hasNextPage();
 				this.$last.disabled = !this.$store_.hasNextPage();

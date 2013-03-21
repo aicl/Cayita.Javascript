@@ -134,7 +134,7 @@ namespace Cayita.Javascript.UI
 			if (to_ == 0)
 				from_ = 0;
 
-			first.Disabled = from_ == 1;
+			first.Disabled = !store_.HasPreviousPage ();
 			prev.Disabled = !store_.HasPreviousPage ();
 			next.Disabled = !store_.HasNextPage ();
 			last.Disabled = !store_.HasNextPage ();
