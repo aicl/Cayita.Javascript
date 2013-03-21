@@ -36,10 +36,10 @@ namespace Cayita.Javascript.UI
 
 			divnav = new Div (element, d => {
 				d.ClassName="btn-group";
-				first = new IconButton(d, (b,i)=>{ b.Disabled=true; b.OnClick(evt=> store_.GetFirstPage());	b.AddClass("btn-small"); i.ClassName="icon-double-angle-left";}).Element();
-				prev = new IconButton(d, (b,i)=>{ b.Disabled=true;	b.OnClick(evt=>store_.GetPreviousPage()); b.AddClass("btn-small");i.ClassName="icon-angle-left";}).Element();
-				next = new IconButton(d, (b,i)=>{ b.Disabled=true;	b.OnClick(evt=>store_.GetNextPage()); b.AddClass("btn-small"); i.ClassName="icon-angle-right"; }).Element();
-				last = new IconButton(d, (b,i)=>{ b.Disabled=true;	b.OnClick(evt=>store_.GetLastPage());b.AddClass("btn-small");i.ClassName="icon-double-angle-right"; }).Element();
+				first = new IconButton(d, (b,i)=>{ b.Disabled=true; b.OnClick(evt=> store_.ReadFirstPage());	b.AddClass("btn-small"); i.ClassName="icon-double-angle-left";}).Element();
+				prev = new IconButton(d, (b,i)=>{ b.Disabled=true;	b.OnClick(evt=>store_.ReadPreviousPage()); b.AddClass("btn-small");i.ClassName="icon-angle-left";}).Element();
+				next = new IconButton(d, (b,i)=>{ b.Disabled=true;	b.OnClick(evt=>store_.ReadNextPage()); b.AddClass("btn-small"); i.ClassName="icon-angle-right"; }).Element();
+				last = new IconButton(d, (b,i)=>{ b.Disabled=true;	b.OnClick(evt=>store_.ReadLastPage());b.AddClass("btn-small");i.ClassName="icon-double-angle-right"; }).Element();
 			});
 
 			new Div (element, d => {
@@ -62,7 +62,7 @@ namespace Cayita.Javascript.UI
 					i.JQuery().Keypress(evt=>{
 						if(evt.Which==13)
 						{
-							store_.GetPage( i.GetValue<int>()-1);
+							store_.ReadPage( i.GetValue<int>()-1);
 						}
 					});
 				}).Element();
@@ -127,7 +127,7 @@ namespace Cayita.Javascript.UI
 			
 			var to_ = (pageNumber * pageSize) +(lo.PageSize.HasValue? lo.PageSize.Value:0);
 
-			var pagesCount = Math.Ceiling((decimal)(store_.GetTotalCount () / (pageSize == 0 ? store_.Count : pageSize) + 1));
+			var pagesCount = store_.GetPagesCount ();
 
 			if (to_ > store_.GetTotalCount ())
 				to_ = store_.GetTotalCount ();

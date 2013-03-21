@@ -924,12 +924,12 @@
 				if (this.get_count() === this.$totalCount || !ss.isValue(this.$lastOption.pageNumber)) {
 					return false;
 				}
-				return ss.Int32.div(this.$totalCount, ss.Nullable.unbox(this.$lastOption.pageSize)) > ss.Nullable.unbox(this.$lastOption.pageNumber);
+				return ss.Nullable.unbox(this.$lastOption.pageNumber) + 1 < this.getPagesCount();
 			},
 			hasPreviousPage: function() {
 				return !(this.get_count() === this.$totalCount || !ss.isValue(this.$lastOption.pageNumber) || ss.isValue(this.$lastOption.pageNumber) && ss.Nullable.unbox(this.$lastOption.pageNumber) === 0);
 			},
-			getFirstPage: function() {
+			readFirstPage: function() {
 				if (ss.isValue(this.$lastOption.pageNumber)) {
 					this.$lastOption.pageNumber = 0;
 				}
@@ -943,7 +943,7 @@
 					$t2(this, $t1);
 				}
 			},
-			getNextPage: function() {
+			readNextPage: function() {
 				if (this.hasNextPage()) {
 					this.$lastOption.pageNumber = ss.Nullable.add(this.$lastOption.pageNumber, 1);
 				}
@@ -957,7 +957,7 @@
 					$t2(this, $t1);
 				}
 			},
-			getPreviousPage: function() {
+			readPreviousPage: function() {
 				if (this.hasPreviousPage()) {
 					this.$lastOption.pageNumber = ss.Nullable.sub(this.$lastOption.pageNumber, 1);
 				}
@@ -971,9 +971,9 @@
 					$t2(this, $t1);
 				}
 			},
-			getLastPage: function() {
+			readLastPage: function() {
 				if (ss.isValue(this.$lastOption.pageNumber)) {
-					this.$lastOption.pageNumber = ss.Int32.div(this.$totalCount, ss.Nullable.unbox(this.$lastOption.pageSize));
+					this.$lastOption.pageNumber = this.getPagesCount() - 1;
 				}
 				if (!this.$lastOption.localPaging) {
 					this.$readFunc(this.$lastOption);
@@ -985,9 +985,9 @@
 					$t2(this, $t1);
 				}
 			},
-			getPage: function(page) {
+			readPage: function(page) {
 				if (ss.isValue(this.$lastOption.pageNumber)) {
-					this.$lastOption.pageNumber = ((page < 0) ? 0 : ((page > ss.Int32.div(this.$totalCount, ss.Nullable.unbox(this.$lastOption.pageSize))) ? ss.Int32.div(this.$totalCount, ss.Nullable.unbox(this.$lastOption.pageSize)) : page));
+					this.$lastOption.pageNumber = ((page < 0) ? 0 : ((page >= this.getPagesCount()) ? (this.getPagesCount() - 1) : page));
 				}
 				if (!this.$lastOption.localPaging) {
 					this.$readFunc(this.$lastOption);
@@ -998,6 +998,9 @@
 					$t1.action = 1;
 					$t2(this, $t1);
 				}
+			},
+			getPagesCount: function() {
+				return ss.Int32.trunc(Math.ceil(this.$totalCount / (ss.isValue(this.$lastOption.pageSize) ? ss.Nullable.unbox(this.$lastOption.pageSize) : this.$st.length)));
 			},
 			refresh: function() {
 				return this.$readFunc(this.$lastOption);
@@ -2717,7 +2720,7 @@
 				this.$first = (new $Cayita_UI_IconButton(d, ss.mkdel(this, function(b, i) {
 					b.disabled = true;
 					$(b).on('click', ss.mkdel(this, function(evt) {
-						this.$store_.getFirstPage();
+						this.$store_.readFirstPage();
 					}));
 					$(b).addClass('btn-small');
 					i.className = 'icon-double-angle-left';
@@ -2725,7 +2728,7 @@
 				this.$prev = (new $Cayita_UI_IconButton(d, ss.mkdel(this, function(b1, i1) {
 					b1.disabled = true;
 					$(b1).on('click', ss.mkdel(this, function(evt1) {
-						this.$store_.getPreviousPage();
+						this.$store_.readPreviousPage();
 					}));
 					$(b1).addClass('btn-small');
 					i1.className = 'icon-angle-left';
@@ -2733,7 +2736,7 @@
 				this.$next = (new $Cayita_UI_IconButton(d, ss.mkdel(this, function(b2, i2) {
 					b2.disabled = true;
 					$(b2).on('click', ss.mkdel(this, function(evt2) {
-						this.$store_.getNextPage();
+						this.$store_.readNextPage();
 					}));
 					$(b2).addClass('btn-small');
 					i2.className = 'icon-angle-right';
@@ -2741,7 +2744,7 @@
 				this.$last = (new $Cayita_UI_IconButton(d, ss.mkdel(this, function(b3, i3) {
 					b3.disabled = true;
 					$(b3).on('click', ss.mkdel(this, function(evt3) {
-						this.$store_.getLastPage();
+						this.$store_.readLastPage();
 					}));
 					$(b3).addClass('btn-small');
 					i3.className = 'icon-double-angle-right';
@@ -2765,7 +2768,7 @@
 					i4.style.width = '45px';
 					$(i4).keypress(ss.mkdel(this, function(evt4) {
 						if (evt4.which === 13) {
-							this.$store_.getPage(cayita.fn.getValue(i4) - 1);
+							this.$store_.readPage(cayita.fn.getValue(i4) - 1);
 						}
 					}));
 				}))).element$1();
@@ -2812,7 +2815,7 @@
 				var pageSize = (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0);
 				var from_ = pageNumber * pageSize + 1;
 				var to_ = pageNumber * pageSize + (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0);
-				var pagesCount = Math.ceil(ss.Int32.div(this.$store_.getTotalCount(), ((pageSize === 0) ? this.$store_.get_count() : pageSize)) + 1);
+				var pagesCount = this.$store_.getPagesCount();
 				if (to_ > this.$store_.getTotalCount()) {
 					to_ = this.$store_.getTotalCount();
 				}

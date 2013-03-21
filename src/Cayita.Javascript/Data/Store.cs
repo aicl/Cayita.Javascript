@@ -501,8 +501,7 @@ namespace Cayita.Javascript.Data
 		public bool HasNextPage()
 		{
 			if (Count== totalCount || !lastOption.PageNumber.HasValue) return false;
-			return totalCount/lastOption.PageSize.Value> lastOption.PageNumber.Value;
-
+			return  lastOption.PageNumber.Value + 1 < GetPagesCount ();
 		}
 
 		public bool HasPreviousPage()
@@ -512,7 +511,7 @@ namespace Cayita.Javascript.Data
 		}
 
 
-		public void GetFirstPage ()
+		public void ReadFirstPage ()
 		{
 			if (lastOption.PageNumber.HasValue)
 				lastOption.PageNumber = 0;
@@ -524,7 +523,7 @@ namespace Cayita.Javascript.Data
 
 		}
 
-		public void GetNextPage()
+		public void ReadNextPage()
 		{
 			if(HasNextPage())
 				lastOption.PageNumber++;
@@ -534,7 +533,7 @@ namespace Cayita.Javascript.Data
 				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
 		}
 
-		public void GetPreviousPage()
+		public void ReadPreviousPage()
 		{
 			if(HasPreviousPage()) lastOption.PageNumber--;
 
@@ -544,10 +543,10 @@ namespace Cayita.Javascript.Data
 				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
 		}
 
-		public void GetLastPage ()
+		public void ReadLastPage ()
 		{
 			if (lastOption.PageNumber.HasValue)
-				lastOption.PageNumber = totalCount/lastOption.PageSize.Value;
+				lastOption.PageNumber = GetPagesCount () - 1;
 			
 			if (!lastOption.LocalPaging)
 				readFunc (lastOption);
@@ -555,13 +554,13 @@ namespace Cayita.Javascript.Data
 				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
 		}
 
-		public void GetPage(int page)
+		public void ReadPage(int page)
 		{
 			if (lastOption.PageNumber.HasValue)
 				lastOption.PageNumber = page< 0?
 					0:
-					page>totalCount/lastOption.PageSize.Value?
-					totalCount/lastOption.PageSize.Value:
+					page>= GetPagesCount()?
+					GetPagesCount()-1:
 					page;
 
 			if (!lastOption.LocalPaging)
@@ -570,6 +569,13 @@ namespace Cayita.Javascript.Data
 				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
 
 		}
+
+		public int GetPagesCount()
+		{
+			return (int) Math.Ceiling( (decimal) totalCount  /
+			                    ((decimal)( lastOption.PageSize.HasValue ? lastOption.PageSize.Value: st.Count ) ));
+		}
+
 
 		public IDeferred<T> Refresh()
 		{
