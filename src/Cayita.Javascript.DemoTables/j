@@ -7,7 +7,6 @@
 "/r:../../lib/Saltarelle.Web.dll" \
 "/r:../../lib/mscorlib.dll" \
 "/r:../Cayita.Javascript/bin/Debug/Cayita.Javascript.dll" \
-"/r:../../lib/Aicl.Calamar.Scripts.Modelos.dll" \
 /t:library \
 "User.cs" \
 "Customer.cs" \

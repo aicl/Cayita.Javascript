@@ -431,12 +431,12 @@
 	};
 	ss.registerClass(global, 'Customer', $Customer);
 	ss.registerClass(global, 'CustomerGrid', $CustomerGrid, ss.makeGenericType(Cayita.UI.HtmlGrid$1, [$Customer]));
-	ss.registerClass(global, 'CustomerStore', $CustomerStore, ss.makeGenericType(Cayita.Data.Store$1, [$Customer]), ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList);
+	ss.registerClass(global, 'CustomerStore', $CustomerStore, ss.makeGenericType(Cayita.Data.Store$1, [$Customer]), [ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList]);
 	ss.registerClass(global, 'DemoTables', $DemoTables);
 	ss.registerClass(global, 'User', $User);
 	ss.registerClass(global, 'UserForm', $UserForm, Cayita.UI.Form);
 	ss.registerClass(global, 'UserGrid', $UserGrid, ss.makeGenericType(Cayita.UI.HtmlGrid$1, [$User]));
-	ss.registerClass(global, 'UserStore', $UserStore, ss.makeGenericType(Cayita.Data.Store$1, [$User]), ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList);
+	ss.registerClass(global, 'UserStore', $UserStore, ss.makeGenericType(Cayita.Data.Store$1, [$User]), [ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList]);
 	$UserStore.$id = 0;
 	$DemoTables.$uGrid = null;
 	$DemoTables.$cGrid = null;

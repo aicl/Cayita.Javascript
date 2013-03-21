@@ -50,157 +50,170 @@ namespace Cayita.Javascript.Data
 
 			createFunc= (record)=>{	
 				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Create, State=StoreRequestState.Started});
-				return jQuery.PostRequest<T>(createApi.Url, record, cb=>{} ,createApi.DataType)
-					.Done(scb=>{
-						var r = createApi.DataProperty;
-						dynamic data = (dynamic) scb;
-						if (((object) data[r]).IsArray())
+				var req= jQuery.PostRequest<T>(createApi.Url, record, cb=>{} ,createApi.DataType);
+				req.Done(scb=>{
+					var r = createApi.DataProperty;
+					dynamic data = (dynamic) scb;
+					if (((object) data[r]).IsArray())
+					{
+						foreach (var item in ((IList<T>) data[r]))
 						{
-							foreach (var item in ((IList<T>) data[r]))
-							{
-								st.Add(item);
-								OnStoreChanged(this, new StoreChangedData<T>{ NewData= item, OldData=item, Action= StoreChangedAction.Created});
-							}
+							st.Add(item);
+							OnStoreChanged(this, new StoreChangedData<T>{ NewData= item, OldData=item, Action= StoreChangedAction.Created});
 						}
-						else
-						{
-							st.Add((T)data[r]);
-							OnStoreChanged(this, new StoreChangedData<T>{ NewData= (T)data[r], OldData=(T)data[r], Action= StoreChangedAction.Created});
-						}
+					}
+					else
+					{
+						st.Add((T)data[r]);
+						OnStoreChanged(this, new StoreChangedData<T>{ NewData= (T)data[r], OldData=(T)data[r], Action= StoreChangedAction.Created});
+					}
 
-					})
-						.Fail(f=>{
-							OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Create, Request= f as jQueryDataHttpRequest<T>});
-						})
-						.Always(t=>{
-							OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Create, State=StoreRequestState.Finished});
-						});
+				});
+				req.Fail(f=>{
+					OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Create, Request=req});
+				});
+
+				req.Always(t=>{
+					Cayita.Javascript.Firebug.Console.Log("create always");
+					OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Create, State=StoreRequestState.Finished});
+				});
+
+				return req;
 			};
 
 			readFunc= ( readOptions)=>{	
 				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Read, State=StoreRequestState.Started});
-				return jQuery.GetData<T>(readApi.Url, RequestObject(readOptions),cb=>{},readApi.DataType)
-					.Done(scb=>{
-						var r = readApi.DataProperty;
-						dynamic data = (dynamic) scb;
+				var req = jQuery.GetData<T>(readApi.Url, RequestObject(readOptions),cb=>{},readApi.DataType);
+				req.Done(scb=>{
+					var r = readApi.DataProperty;
+					dynamic data = (dynamic) scb;
 
-						if (((object) data[r]).IsArray())
+					if (((object) data[r]).IsArray())
+					{
+						foreach (var item in ((IList<T>) data[r]))
 						{
-							foreach (var item in ((IList<T>) data[r]))
+							foreach(var kv in readApi.Converters)
 							{
-								foreach(var kv in readApi.Converters)
-								{
-									((dynamic)item)[kv.Key]= kv.Value(item);
-								}
-								st.Add(item);
+								((dynamic)item)[kv.Key]= kv.Value(item);
 							}
+							st.Add(item);
 						}
-						else
-						{
-							st.Add((T)data[r]);
-						}
+					}
+					else
+					{
+						st.Add((T)data[r]);
+					}
 
-						int? tc = data[readApi.TotalCountProperty];
-						totalCount= tc.HasValue? tc.Value: st.Count(filterFunc);
+					int? tc = data[readApi.TotalCountProperty];
+					totalCount= tc.HasValue? tc.Value: st.Count(filterFunc);
 
-						OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
-					})
-						.Fail(f=>{
-							OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Read,	Request= f as jQueryDataHttpRequest<T>});
-						}).Always(f=>{
-							OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Read, State=StoreRequestState.Finished});
-						});
-
+					OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
+				});
+				req.Fail(f=>{
+					OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Read, Request=req});
+				});
+				req.Always(f=>{
+					OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Read, State=StoreRequestState.Finished});
+				});
+				return req;
 			};
 
 
 			updateFunc= (record)=>{	
 				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Update, State=StoreRequestState.Started});
-				return jQuery.PostRequest<T>(updateApi.Url, record, cb=>{},updateApi.DataType)
-					.Done(scb=>{
-						var r = updateApi.DataProperty;
-						dynamic data = (dynamic) scb;
+				var req= jQuery.PostRequest<T>(updateApi.Url, record, cb=>{},updateApi.DataType);
+				req.Done(scb=>{
+					var r = updateApi.DataProperty;
+					dynamic data = (dynamic) scb;
 
-						if (((object) data[r]).IsArray())
+					if (((object) data[r]).IsArray())
+					{
+						foreach (var item in ((IList<T>) data[r]))
 						{
-							foreach (var item in ((IList<T>) data[r]))
-							{
-								dynamic i = (dynamic)item;
-								var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
-								var old = new T();
-								old.PopulateFrom(ur);
-								ur.PopulateFrom(item);
-								OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Updated});
-							}
-						}
-						else
-						{
-							dynamic i = (dynamic)data[r];
+							dynamic i = (dynamic)item;
 							var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
 							var old = new T();
 							old.PopulateFrom(ur);
-							ur.PopulateFrom((T)data[r]);
+							ur.PopulateFrom(item);
 							OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Updated});
 						}
-					})
-						.Fail(f=>{
-							OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Update, Request= f as jQueryDataHttpRequest<T>});
-						}).Always(f=>{
-							OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Update, State=StoreRequestState.Finished});
-						});
+					}
+					else
+					{
+						dynamic i = (dynamic)data[r];
+						var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
+						var old = new T();
+						old.PopulateFrom(ur);
+						ur.PopulateFrom((T)data[r]);
+						OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Updated});
+					}
+				});
+				req.Fail(f=>{
+					OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Update, Request=req});
+				});
+				req.Always(f=>{
+					OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Update, State=StoreRequestState.Finished});
+				});
+				return req;
 			};
 
 			destroyFunc= (record)=>{	
 				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Destroy, State=StoreRequestState.Started});
-				var req = (dynamic) new {};
-				req[idProperty]=((dynamic)record)[idProperty];
-				return jQuery.PostRequest<string>(destroyApi.Url, (object)req, cb=>{},destroyApi.DataType)
-					.Done(scb=>{
-						var dr =st.First( f=> ((dynamic)f)[idProperty]== ((dynamic)record)[idProperty]);
-						st.Remove(dr);
-						OnStoreChanged(this, new StoreChangedData<T>{ NewData= dr, OldData=dr, Action= StoreChangedAction.Destroyed});
-					}).Fail(f=>{
-						OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Destroy, Request= f as jQueryDataHttpRequest<T>});
-					}).Always(f=>{
-						OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Destroy, State=StoreRequestState.Finished});
-					});
+				var data = (dynamic) new {};
+				data[idProperty]=((dynamic)record)[idProperty];
+				var req= jQuery.PostRequest<string>(destroyApi.Url, (object)data, cb=>{},destroyApi.DataType);
+				req.Done(scb=>{
+					var dr =st.First( f=> ((dynamic)f)[idProperty]== ((dynamic)record)[idProperty]);
+					st.Remove(dr);
+					OnStoreChanged(this, new StoreChangedData<T>{ NewData= dr, OldData=dr, Action= StoreChangedAction.Destroyed});
+				});
+				req.Fail(f=>{
+					OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Destroy});
+				});
+				req.Always(f=>{
+					OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Destroy, State=StoreRequestState.Finished});
+				});
+				return req;
 			};
 
 
 			patchFunc= (record)=>{
 
 				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Patch, State=StoreRequestState.Started});
-				return jQuery.PostRequest<T>(patchApi.Url, record, cb=>{},patchApi.DataType)
-					.Done(scb=>{	
-						var r = updateApi.DataProperty;
-						dynamic data = (dynamic) scb;
+				var req= jQuery.PostRequest<T>(patchApi.Url, record, cb=>{},patchApi.DataType);
+				req.Done(scb=>{	
+					var r = updateApi.DataProperty;
+					dynamic data = (dynamic) scb;
 
-						if ( data[r].IsArray())
+					if ( data[r].IsArray())
+					{
+						foreach (var item in ((IList<T>) data[r]))
 						{
-							foreach (var item in ((IList<T>) data[r]))
-							{
-								dynamic i = (dynamic)item;
-								var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
-								var old = new T();
-								old.PopulateFrom(ur);
-								ur.PopulateFrom(item);
-								OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Patched});
-							}
-						}
-						else
-						{
-							dynamic i = (dynamic)data[r];
+							dynamic i = (dynamic)item;
 							var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
 							var old = new T();
 							old.PopulateFrom(ur);
-							ur.PopulateFrom((T)data[r]);
+							ur.PopulateFrom(item);
 							OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Patched});
 						}
-					}).Fail(f=>{
-						OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Patch, Request= f as jQueryDataHttpRequest<T>});
-					}).Always(f=>{
-						OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Patch, State=StoreRequestState.Finished});
-					});
+					}
+					else
+					{
+						dynamic i = (dynamic)data[r];
+						var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
+						var old = new T();
+						old.PopulateFrom(ur);
+						ur.PopulateFrom((T)data[r]);
+						OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Patched});
+					}
+				});
+				req.Fail(f=>{
+					OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Patch, Request=req});
+				});
+				req.Always(f=>{
+					OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Patch, State=StoreRequestState.Finished});
+				});
+				return req;
 			};
 
 		}

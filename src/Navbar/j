@@ -14,5 +14,3 @@
 cp bin/Debug/DemoNavbar.js ../Cayita.Javascript.Demo/modules/
 
 echo "ready DemoNavbar.js"
-
-

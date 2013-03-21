@@ -127,7 +127,7 @@ namespace Cayita.Javascript.UI
 			
 			var to_ = (pageNumber * pageSize) +(lo.PageSize.HasValue? lo.PageSize.Value:0);
 
-			var pagesCount = Math.Ceiling (store_.GetTotalCount () / (pageSize == 0 ? store_.Count : pageSize) + 1);
+			var pagesCount = Math.Ceiling((decimal)(store_.GetTotalCount () / (pageSize == 0 ? store_.Count : pageSize) + 1));
 
 			if (to_ > store_.GetTotalCount ())
 				to_ = store_.GetTotalCount ();

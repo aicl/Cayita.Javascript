@@ -42,20 +42,20 @@
     <Reference Include="Aicl.Calamar.Scripts.Modelos">
       <HintPath>..\..\lib\Aicl.Calamar.Scripts.Modelos.dll</HintPath>
     </Reference>
+    <Reference Include="Cayita.Javascript">
+      <HintPath>..\Cayita.Javascript\bin\Debug\Cayita.Javascript.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib">
       <HintPath>..\..\lib\mscorlib.dll</HintPath>
-    </Reference>
-    <Reference Include="Saltarelle.Linq">
-      <HintPath>..\..\lib\Saltarelle.Linq.dll</HintPath>
     </Reference>
     <Reference Include="Saltarelle.jQuery">
       <HintPath>..\..\lib\Saltarelle.jQuery.dll</HintPath>
     </Reference>
+    <Reference Include="Saltarelle.Linq">
+      <HintPath>..\..\lib\Saltarelle.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="Saltarelle.Web">
       <HintPath>..\..\lib\Saltarelle.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Cayita.Javascript">
-      <HintPath>..\Cayita.Javascript\bin\Debug\Cayita.Javascript.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
