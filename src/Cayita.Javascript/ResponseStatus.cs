@@ -68,4 +68,20 @@ buildErrorMessage=function(jqXHR){
 	}
 	return msg;
 }
+
+{
+    "ResponseStatus": {
+        "ErrorCode": "IscException",
+        "Message": "Unable to complete network request to host \"localhost\".",
+        "Errors": []
+    }
+}
+
+{
+    "ResponseStatus": {
+        "ErrorCode": "IscException",
+        "Message": "EXCEPCION\nID=-58 La adminstradora seleccionada no es de Riesgos Profesionales\nAt trigger 'EMPRESAS_BIU0'",
+        "Errors": []
+    }
+}
 */

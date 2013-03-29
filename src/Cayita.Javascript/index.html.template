@@ -8,7 +8,8 @@
     <meta name="author" content="angel ignacio colmenares laguado">
     <title>Cayita.HtmlWidgets</title>
     <!-- Le styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+     <link href="css/flick/jquery-ui-1.10.1.custom.min.css" rel="stylesheet">
     <style type="text/css">  
       body {
         padding-top: 60px;
@@ -155,8 +156,8 @@
 		
 		
 		cayita.fn.loadTo=function(form, data){
-			
 			var $form= $(form);
+			
 			for(var d in data){
 				var field = $form.find("input[name='"+d+"']");
 				if(field) {
@@ -203,6 +204,7 @@
   	<script src="js/mscorlib.min.js"></script>
 	<script src="js/linq.min.js"></script>
     <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/jquery-ui-1.10.1.custom.min.js"></script>
     <script src="js/jquery.validate.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootbox.min.js"></script>
