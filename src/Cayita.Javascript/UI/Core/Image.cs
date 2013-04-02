@@ -9,7 +9,7 @@ namespace Cayita.Javascript.UI
 	{
 		public Image (Element parent, Action<ImageElement> image)
 		{
-			CreateElement("div", parent);
+			CreateElement("img", parent);
 			image(Element()); 
 		}
 

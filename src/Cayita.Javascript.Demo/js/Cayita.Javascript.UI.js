@@ -2063,7 +2063,7 @@
 	// Cayita.Javascript.UI.Image
 	var $Cayita_UI_Image = function(parent, image) {
 		$Cayita_UI_ElementBase.call(this);
-		this.createElement('div', parent);
+		this.createElement('img', parent);
 		image(this.element$1());
 	};
 	$Cayita_UI_Image.prototype = {
