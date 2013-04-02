@@ -2060,6 +2060,18 @@
 		element(this.element$1(), i.element());
 	};
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.Image
+	var $Cayita_UI_Image = function(parent, image) {
+		$Cayita_UI_ElementBase.call(this);
+		this.createElement('div', parent);
+		image(this.element$1());
+	};
+	$Cayita_UI_Image.prototype = {
+		element$1: function() {
+			return this.element();
+		}
+	};
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.Input
 	var $Cayita_UI_Input = function(parent) {
 		$Cayita_UI_InputBase.$ctor1.call(this, parent, 'text');
@@ -3207,6 +3219,7 @@
 	ss.registerClass(global, 'Cayita.UI.Icon', $Cayita_UI_Icon, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.IconAnchor', $Cayita_UI_IconAnchor, $Cayita_UI_Anchor);
 	ss.registerClass(global, 'Cayita.UI.IconButton', $Cayita_UI_IconButton, $Cayita_UI_Button);
+	ss.registerClass(global, 'Cayita.UI.Image', $Cayita_UI_Image, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Input', $Cayita_UI_Input, $Cayita_UI_InputBase);
 	ss.registerClass(global, 'Cayita.UI.InputText', $Cayita_UI_InputText, $Cayita_UI_InputBase);
 	ss.registerClass(global, 'Cayita.UI.InputPassword', $Cayita_UI_InputPassword, $Cayita_UI_InputText);

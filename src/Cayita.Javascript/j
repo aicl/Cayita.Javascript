@@ -25,6 +25,7 @@
 "UI/Core/ElementBase.cs" \
 "UI/Core/Legend.cs" \
 "UI/Core/Anchor.cs" \
+"UI/Core/Image.cs" \
 "UI/Core/Icon.cs" \
 "UI/Core/IconButton.cs" \
 "UI/Core/Div.cs" \

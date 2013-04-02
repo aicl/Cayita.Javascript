@@ -23,6 +23,7 @@
 "UI/Core/ListElement.cs" \
 "UI/Core/LabelElement.cs" \
 "UI/Core/Legend.cs" \
+"UI/Core/Image.cs" \
 "UI/Core/Anchor.cs" \
 "UI/Core/Icon.cs" \
 "UI/Core/IconButton.cs" \
