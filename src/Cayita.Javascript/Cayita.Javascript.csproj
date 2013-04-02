@@ -90,6 +90,7 @@
     <Compile Include="UI\TextAreaField.cs" />
     <Compile Include="UI\Core\LabelElement.cs" />
     <Compile Include="Data\StorePaging.cs" />
+    <Compile Include="UI\Core\Image.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
