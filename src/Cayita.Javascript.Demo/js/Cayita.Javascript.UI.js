@@ -1479,8 +1479,11 @@
 			var name = this.$element_.getAttribute('name');
 			return (ss.isNullOrUndefined(name) ? '' : name.toString());
 		},
-		appendTo: function(parent) {
+		appendTo$1: function(parent) {
 			$(parent).append(this.$element_);
+		},
+		appendTo: function(parent) {
+			parent.appendChild(this.$element_);
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////

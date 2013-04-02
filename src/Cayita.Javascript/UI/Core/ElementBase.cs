@@ -143,6 +143,10 @@ namespace Cayita.Javascript.UI
 			parent.Append(element_);
 		}
 
+		public void AppendTo(DocumentFragment parent){
+			parent.AppendChild(element_);
+		}
+
 	}
 	
 }
