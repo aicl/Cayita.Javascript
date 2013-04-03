@@ -1151,6 +1151,70 @@
 	};
 	$Cayita_Javascript_Data_StoreRequestState.prototype = { started: 0, finished: 1 };
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.Bootbox
+	var $Cayita_Javascript_UI_Bootbox = function() {
+	};
+	$Cayita_Javascript_UI_Bootbox.dialog$2 = function(message, options, buttons) {
+		bootbox.dialog(message, buttons || [], options);
+	};
+	$Cayita_Javascript_UI_Bootbox.dialog$3 = function(message, options, buttons) {
+		var opt = $Cayita_Javascript_UI_DialogOptions.$ctor();
+		if (!ss.staticEquals(options, null)) {
+			options(opt);
+		}
+		var bt = [];
+		if (!ss.staticEquals(buttons, null)) {
+			buttons(bt);
+		}
+		bootbox.dialog(message, bt, opt);
+	};
+	$Cayita_Javascript_UI_Bootbox.dialog$1 = function(body, options, buttons) {
+		$Cayita_Javascript_UI_Bootbox.dialog$3(body.innerHTML, options, buttons);
+	};
+	$Cayita_Javascript_UI_Bootbox.dialog = function(message) {
+		bootbox.dialog(message, [], $Cayita_Javascript_UI_DialogOptions.$ctor());
+	};
+	$Cayita_Javascript_UI_Bootbox.error = function(message, caption) {
+		var $t1 = $Cayita_Javascript_UI_DialogOptions.$ctor();
+		$t1.header = ss.formatString('<p style="color:red;"><i class="icon-minus-sign" style="margin-top:8px;margin-right:8px;"></i>{0}</p>', caption);
+		bootbox.dialog(message, [], $t1);
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.DialogButton
+	var $Cayita_Javascript_UI_DialogButton = function() {
+	};
+	$Cayita_Javascript_UI_DialogButton.createInstance = function() {
+		return $Cayita_Javascript_UI_DialogButton.$ctor();
+	};
+	$Cayita_Javascript_UI_DialogButton.$ctor = function() {
+		var $this = {};
+		$this.label = null;
+		$this.class = null;
+		$this.callback = null;
+		$this.callback = function() {
+		};
+		return $this;
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.DialogOptions
+	var $Cayita_Javascript_UI_DialogOptions = function() {
+	};
+	$Cayita_Javascript_UI_DialogOptions.createInstance = function() {
+		return $Cayita_Javascript_UI_DialogOptions.$ctor();
+	};
+	$Cayita_Javascript_UI_DialogOptions.$ctor = function() {
+		var $this = {};
+		$this.header = null;
+		$this.animate = null;
+		$this.classes = null;
+		$this.onEscape = null;
+		$this.header = null;
+		$this.classes = null;
+		$this.onEscape = function() {
+		};
+		return $this;
+	};
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.Anchor
 	var $Cayita_UI_Anchor = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
@@ -3204,6 +3268,9 @@
 	ss.registerEnum(global, 'Cayita.Javascript.Data.StoreErrorAction', $Cayita_Javascript_Data_StoreErrorAction);
 	ss.registerEnum(global, 'Cayita.Javascript.Data.StoreRequestAction', $Cayita_Javascript_Data_StoreRequestAction);
 	ss.registerEnum(global, 'Cayita.Javascript.Data.StoreRequestState', $Cayita_Javascript_Data_StoreRequestState);
+	ss.registerClass(global, 'Cayita.Javascript.UI.Bootbox', $Cayita_Javascript_UI_Bootbox);
+	ss.registerClass(global, 'Cayita.Javascript.UI.DialogButton', $Cayita_Javascript_UI_DialogButton);
+	ss.registerClass(global, 'Cayita.Javascript.UI.DialogOptions', $Cayita_Javascript_UI_DialogOptions);
 	ss.registerClass(global, 'Cayita.UI.ElementBase', $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Anchor', $Cayita_UI_Anchor, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.ButtonBase', $Cayita_UI_ButtonBase, $Cayita_UI_ElementBase);

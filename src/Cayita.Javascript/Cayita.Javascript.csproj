@@ -91,6 +91,7 @@
     <Compile Include="UI\Core\LabelElement.cs" />
     <Compile Include="Data\StorePaging.cs" />
     <Compile Include="UI\Core\Image.cs" />
+    <Compile Include="Bootbox\Alert.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -99,6 +100,7 @@
     <Folder Include="UI\Core\" />
     <Folder Include="ValidatePlugin\" />
     <Folder Include="Data\" />
+    <Folder Include="Bootbox\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="c" />

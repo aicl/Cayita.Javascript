@@ -32,6 +32,28 @@ namespace Cayita.Javascritp.App
 				app.GetMenuItems();
 				app.ShowTopNavBar();
 				app.ShowMenu();
+				/*
+				Bootbox.Dialog("Este es un simple menaje");
+
+				Bootbox.Error("ha ocurrido un grave error");
+*/
+				Bootbox.Dialog("Uno con Header", new DialogOptions{Header="Este es el header"});
+
+				var d = new Div(null, div=>{
+					new Span(div, sp=>sp.Text("Esto es un span dentro del div"));
+				});
+
+				Bootbox.Dialog(d.Element(), opt=>{opt.Header="veamos";});
+				//Bootbox.Dialog(d.Element());
+
+				Bootbox.Dialog(d.Element(), opt=>{
+					opt.Header="Otro con botones";},
+				bt=>bt.Add(new DialogButton() ));
+
+				Bootbox.Dialog(d.Element(), opt=>{
+					opt.Header="Otro con botones y handles";},
+				bt=>bt.Add(new DialogButton{Label="Mi super Botton", Callback=()=> Bootbox.Prompt("simple prompt")} ));
+
 			});
 		}
 

@@ -47,7 +47,8 @@
 "UI/TopNavBar.cs" "UI/SideNavBar.cs" \
 "UI/SelectField.cs" \
 "UI/HtmlGrid.cs" \
-"UI/SpinnerIcon.cs" 
+"UI/SpinnerIcon.cs" \
+"Bootbox/Alert.cs" 
 
 
 echo "ready Cayita.Javascript.dll"

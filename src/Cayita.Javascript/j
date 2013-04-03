@@ -47,8 +47,8 @@
 "UI/TopNavBar.cs" "UI/SideNavBar.cs" \
 "UI/SelectField.cs" \
 "UI/HtmlGrid.cs" \
-"UI/SpinnerIcon.cs" 
-
+"UI/SpinnerIcon.cs" \
+"Bootbox/Alert.cs"
 
 cp bin/Debug/Cayita.Javascript.UI.js ../Cayita.Javascript.Demo/js/
 

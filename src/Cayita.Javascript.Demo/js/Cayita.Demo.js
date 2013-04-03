@@ -104,7 +104,7 @@
 						work.appendChild(m);
 					}));
 				}));
-			})).appendTo(document.body);
+			})).appendTo$1(document.body);
 		}
 	};
 	$App.main = function() {
@@ -113,6 +113,39 @@
 			app.$getMenuItems();
 			app.$showTopNavBar();
 			app.$showMenu();
+			//
+			//				Bootbox.Dialog("Este es un simple menaje");
+			//
+			//				
+			//
+			//				Bootbox.Error("ha ocurrido un grave error");
+			var $t1 = Cayita.Javascript.UI.DialogOptions.$ctor();
+			$t1.header = 'Este es el header';
+			Cayita.Javascript.UI.Bootbox.dialog$2('Uno con Header', $t1, null);
+			var d = new Cayita.UI.Div.$ctor1(null, function(div) {
+				new Cayita.UI.Span.$ctor1(div, function(sp) {
+					$(sp).text('Esto es un span dentro del div');
+				});
+			});
+			Cayita.Javascript.UI.Bootbox.dialog$1(d.element$1(), function(opt) {
+				opt.header = 'veamos';
+			}, null);
+			//Bootbox.Dialog(d.Element());
+			Cayita.Javascript.UI.Bootbox.dialog$1(d.element$1(), function(opt1) {
+				opt1.header = 'Otro con botones';
+			}, function(bt) {
+				ss.add(bt, Cayita.Javascript.UI.DialogButton.$ctor());
+			});
+			Cayita.Javascript.UI.Bootbox.dialog$1(d.element$1(), function(opt2) {
+				opt2.header = 'Otro con botones y handles';
+			}, function(bt1) {
+				var $t2 = Cayita.Javascript.UI.DialogButton.$ctor();
+				$t2.label = 'Mi super Botton';
+				$t2.callback = function() {
+					bootbox.prompt('simple prompt', 'Cancel', 'OK', null, '');
+				};
+				ss.add(bt1, $t2);
+			});
 		});
 	};
 	////////////////////////////////////////////////////////////////////////////////
