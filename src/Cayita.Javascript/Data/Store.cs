@@ -54,9 +54,10 @@ namespace Cayita.Javascript.Data
 				req.Done(scb=>{
 					var r = createApi.DataProperty;
 					dynamic data = (dynamic) scb;
-					if (((object) data[r]).IsArray())
+					var res = data[r]?? data;
+					if (((object) res).IsArray())
 					{
-						foreach (var item in ((IList<T>) data[r]))
+						foreach (var item in ((IList<T>) res))
 						{
 							st.Add(item);
 							OnStoreChanged(this, new StoreChangedData<T>{ NewData= item, OldData=item, Action= StoreChangedAction.Created});
@@ -64,8 +65,8 @@ namespace Cayita.Javascript.Data
 					}
 					else
 					{
-						st.Add((T)data[r]);
-						OnStoreChanged(this, new StoreChangedData<T>{ NewData= (T)data[r], OldData=(T)data[r], Action= StoreChangedAction.Created});
+						st.Add((T)res);
+						OnStoreChanged(this, new StoreChangedData<T>{ NewData= (T)res, OldData=(T)res, Action= StoreChangedAction.Created});
 					}
 
 				});
@@ -87,10 +88,10 @@ namespace Cayita.Javascript.Data
 				req.Done(scb=>{
 					var r = readApi.DataProperty;
 					dynamic data = (dynamic) scb;
-
-					if (((object) data[r]).IsArray())
+					var res = data[r]?? data;
+					if (((object) res).IsArray())
 					{
-						foreach (var item in ((IList<T>) data[r]))
+						foreach (var item in ((IList<T>) res))
 						{
 							foreach(var kv in readApi.Converters)
 							{
@@ -101,7 +102,7 @@ namespace Cayita.Javascript.Data
 					}
 					else
 					{
-						st.Add((T)data[r]);
+						st.Add((T)res);
 					}
 
 					int? tc = data[readApi.TotalCountProperty];
@@ -125,10 +126,10 @@ namespace Cayita.Javascript.Data
 				req.Done(scb=>{
 					var r = updateApi.DataProperty;
 					dynamic data = (dynamic) scb;
-
-					if (((object) data[r]).IsArray())
+					var res = data[r]?? data;
+					if (((object) res).IsArray())
 					{
-						foreach (var item in ((IList<T>) data[r]))
+						foreach (var item in ((IList<T>) res))
 						{
 							dynamic i = (dynamic)item;
 							var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
@@ -140,11 +141,11 @@ namespace Cayita.Javascript.Data
 					}
 					else
 					{
-						dynamic i = (dynamic)data[r];
+						dynamic i = (dynamic)res;
 						var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
 						var old = new T();
 						old.PopulateFrom(ur);
-						ur.PopulateFrom((T)data[r]);
+						ur.PopulateFrom((T)res);
 						OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Updated});
 					}
 				});
@@ -184,10 +185,10 @@ namespace Cayita.Javascript.Data
 				req.Done(scb=>{	
 					var r = updateApi.DataProperty;
 					dynamic data = (dynamic) scb;
-
-					if ( data[r].IsArray())
+					var res = data[r]?? data;
+					if ( res.IsArray())
 					{
-						foreach (var item in ((IList<T>) data[r]))
+						foreach (var item in ((IList<T>) res))
 						{
 							dynamic i = (dynamic)item;
 							var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
@@ -199,11 +200,11 @@ namespace Cayita.Javascript.Data
 					}
 					else
 					{
-						dynamic i = (dynamic)data[r];
+						dynamic i = (dynamic)res;
 						var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
 						var old = new T();
 						old.PopulateFrom(ur);
-						ur.PopulateFrom((T)data[r]);
+						ur.PopulateFrom((T)res);
 						OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Patched});
 					}
 				});

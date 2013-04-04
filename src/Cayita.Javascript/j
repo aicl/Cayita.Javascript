@@ -19,6 +19,7 @@
 "Data/StorePaging.cs" \
 "Data/StoreApi.cs" \
 "Data/ReadOptions.cs" \
+"Data/ReqExtensions.cs" \
 "UI/Core/ButtonElement.cs" \
 "UI/Core/ListElement.cs" \
 "UI/Core/LabelElement.cs" \

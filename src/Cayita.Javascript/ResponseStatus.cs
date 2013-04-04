@@ -2,16 +2,19 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 
-namespace Cayita.Javascript.Ajax
+namespace Cayita.Javascript.Data
 {
 	[Serializable]	
 	[ScriptNamespace("Cayita.Ajax")]
 	[PreserveMemberCase]
 
-	public class ResponseError
+	public class AjaxResponse
 	{
-		public ResponseError(){}
+		public AjaxResponse(){}
 		public ResponseStatus ResponseStatus{get;set;}
+		public int Status  { get; set; }
+		public int StatusText  { get; set; }
+
 	}
 
 	[Serializable]	

@@ -286,7 +286,21 @@
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Ajax.AppError
+	// Cayita.Javascript.Data.AjaxResponse
+	var $Cayita_Ajax_AjaxResponse = function() {
+	};
+	$Cayita_Ajax_AjaxResponse.createInstance = function() {
+		return $Cayita_Ajax_AjaxResponse.$ctor();
+	};
+	$Cayita_Ajax_AjaxResponse.$ctor = function() {
+		var $this = {};
+		$this.ResponseStatus = null;
+		$this.Status = 0;
+		$this.StatusText = 0;
+		return $this;
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.Data.AppError
 	var $Cayita_Ajax_AppError = function() {
 	};
 	$Cayita_Ajax_AppError.createInstance = function() {
@@ -300,19 +314,7 @@
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Ajax.ResponseError
-	var $Cayita_Ajax_ResponseError = function() {
-	};
-	$Cayita_Ajax_ResponseError.createInstance = function() {
-		return $Cayita_Ajax_ResponseError.$ctor();
-	};
-	$Cayita_Ajax_ResponseError.$ctor = function() {
-		var $this = {};
-		$this.ResponseStatus = null;
-		return $this;
-	};
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Ajax.ResponseStatus
+	// Cayita.Javascript.Data.ResponseStatus
 	var $Cayita_Ajax_ResponseStatus = function() {
 	};
 	$Cayita_Ajax_ResponseStatus.createInstance = function() {
@@ -410,8 +412,9 @@
 				req.done(ss.mkdel(this, function(scb) {
 					var r = this.$createApi.dataProperty;
 					var data1 = scb;
-					if (Array.isArray(data1[r])) {
-						var $t8 = ss.getEnumerator(ss.cast(data1[r], ss.IList));
+					var res = ss.coalesce(data1[r], data1);
+					if (Array.isArray(res)) {
+						var $t8 = ss.getEnumerator(ss.cast(res, ss.IList));
 						try {
 							while ($t8.moveNext()) {
 								var item = $t8.current();
@@ -429,11 +432,11 @@
 						}
 					}
 					else {
-						ss.add(this.$st, ss.cast(data1[r], T));
+						ss.add(this.$st, ss.cast(res, T));
 						var $t12 = this.$1$OnStoreChangedField;
 						var $t11 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
-						$t11.newData = ss.cast(data1[r], T);
-						$t11.oldData = ss.cast(data1[r], T);
+						$t11.newData = ss.cast(res, T);
+						$t11.oldData = ss.cast(res, T);
 						$t11.action = 0;
 						$t12(this, $t11);
 					}
@@ -466,8 +469,9 @@
 				req1.done(ss.mkdel(this, function(scb1) {
 					var r1 = this.$readApi.dataProperty;
 					var data2 = scb1;
-					if (Array.isArray(data2[r1])) {
-						var $t19 = ss.getEnumerator(ss.cast(data2[r1], ss.IList));
+					var res1 = ss.coalesce(data2[r1], data2);
+					if (Array.isArray(res1)) {
+						var $t19 = ss.getEnumerator(ss.cast(res1, ss.IList));
 						try {
 							while ($t19.moveNext()) {
 								var item1 = $t19.current();
@@ -489,7 +493,7 @@
 						}
 					}
 					else {
-						ss.add(this.$st, ss.cast(data2[r1], T));
+						ss.add(this.$st, ss.cast(res1, T));
 					}
 					var tc = ss.cast(data2[this.$readApi.totalCountProperty], ss.Int32);
 					this.$totalCount = (ss.isValue(tc) ? ss.Nullable.unbox(tc) : Enumerable.from(this.$st).count(this.$filterFunc));
@@ -525,8 +529,9 @@
 				req2.done(ss.mkdel(this, function(scb2) {
 					var r2 = this.$updateApi.dataProperty;
 					var data3 = scb2;
-					if (Array.isArray(data3[r2])) {
-						var $t29 = ss.getEnumerator(ss.cast(data3[r2], ss.IList));
+					var res2 = ss.coalesce(data3[r2], data3);
+					if (Array.isArray(res2)) {
+						var $t29 = ss.getEnumerator(ss.cast(res2, ss.IList));
 						try {
 							while ($t29.moveNext()) {
 								var item2 = $t29.current();
@@ -550,13 +555,13 @@
 						}
 					}
 					else {
-						var i1 = data3[r2];
+						var i1 = res2;
 						var ur1 = Enumerable.from(this.$st).first(function(f4) {
 							return !!ss.referenceEquals(f4[this.$idProperty], i1[this.$idProperty]);
 						});
 						var old1 = ss.createInstance(T);
 						cayita.fn.populateFrom(old1, ur1);
-						cayita.fn.populateFrom(ur1, ss.cast(data3[r2], T));
+						cayita.fn.populateFrom(ur1, ss.cast(res2, T));
 						var $t33 = this.$1$OnStoreChangedField;
 						var $t32 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
 						$t32.newData = ur1;
@@ -629,8 +634,9 @@
 				req4.done(ss.mkdel(this, function(scb4) {
 					var r3 = this.$updateApi.dataProperty;
 					var data5 = scb4;
-					if (!!data5[r3].IsArray()) {
-						var $t48 = ss.getEnumerator(ss.cast(data5[r3], ss.IList));
+					var res3 = ss.coalesce(data5[r3], data5);
+					if (!!res3.IsArray()) {
+						var $t48 = ss.getEnumerator(ss.cast(res3, ss.IList));
 						try {
 							while ($t48.moveNext()) {
 								var item3 = $t48.current();
@@ -654,13 +660,13 @@
 						}
 					}
 					else {
-						var i3 = data5[r3];
+						var i3 = res3;
 						var ur3 = Enumerable.from(this.$st).first(function(f11) {
 							return !!ss.referenceEquals(f11[this.$idProperty], i3[this.$idProperty]);
 						});
 						var old3 = ss.createInstance(T);
 						cayita.fn.populateFrom(old3, ur3);
-						cayita.fn.populateFrom(ur3, ss.cast(data5[r3], T));
+						cayita.fn.populateFrom(ur3, ss.cast(res3, T));
 						var $t52 = this.$1$OnStoreChangedField;
 						var $t51 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
 						$t51.newData = ur3;
@@ -3252,14 +3258,18 @@
 		}));
 	};
 	$Cayita_UI_TopNavBar.$ctor1.prototype = $Cayita_UI_TopNavBar.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// jQueryApi.ReqExtensions
+	var $jQueryApi_ReqExtensions = function() {
+	};
 	ss.registerClass(global, 'Message', $Message);
 	ss.registerClass(global, 'MessageFor', $MessageFor);
 	ss.registerClass(global, 'Range', $Range);
 	ss.registerClass(global, 'Rule', $Rule);
 	ss.registerClass(global, 'RuleFor', $RuleFor);
 	ss.registerClass(global, 'ValidateOptions', $ValidateOptions);
+	ss.registerClass(global, 'Cayita.Ajax.AjaxResponse', $Cayita_Ajax_AjaxResponse);
 	ss.registerClass(global, 'Cayita.Ajax.AppError', $Cayita_Ajax_AppError);
-	ss.registerClass(global, 'Cayita.Ajax.ResponseError', $Cayita_Ajax_ResponseError);
 	ss.registerClass(global, 'Cayita.Ajax.ResponseStatus', $Cayita_Ajax_ResponseStatus);
 	ss.registerClass(global, 'Cayita.Data.ReadOptions', $Cayita_Data_ReadOptions);
 	ss.registerClass(global, 'Cayita.Data.StoreRequest', $Cayita_Data_StoreRequest);
@@ -3318,5 +3328,6 @@
 	ss.registerClass(global, 'Cayita.UI.TextAreaField', $Cayita_UI_TextAreaField, $Cayita_UI_TextArea);
 	ss.registerClass(global, 'Cayita.UI.TextField', $Cayita_UI_TextField, $Cayita_UI_InputText);
 	ss.registerClass(global, 'Cayita.UI.TopNavBar', $Cayita_UI_TopNavBar, $Cayita_UI_Div);
+	ss.registerClass(global, 'jQueryApi.ReqExtensions', $jQueryApi_ReqExtensions);
 	$Cayita_UI_ElementBase.$tags = new (ss.makeGenericType(ss.Dictionary$2, [String, ss.Int32]))();
 })();
