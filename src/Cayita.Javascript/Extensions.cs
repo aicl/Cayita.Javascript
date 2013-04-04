@@ -154,9 +154,10 @@ namespace Cayita.Javascript
 				body=table.tBodies[0];
 				if(!append) body.Empty();
 			}
-			
+			var fbody = Document.CreateDocumentFragment();
+
 			foreach (var d in data) {
-				new TableRow (body, row =>  {
+				new TableRow (null, row =>  {
 					row.SetAttribute("record-id", ((dynamic)d)[recordIdProperty]);
 					row.ClassName="rowlink";
 					foreach(var col in columns)
@@ -166,8 +167,9 @@ namespace Cayita.Javascript
 						row.Append( c);
 						if(col.AfterCellCreate!=null) col.AfterCellCreate(d, row);
 					}
-				});
+				}).AppendTo(fbody);
 			}
+			body.AppendChild (fbody);
 		}
 
 		//

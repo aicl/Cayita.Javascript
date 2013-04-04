@@ -1710,11 +1710,12 @@
 					$(body).empty();
 				}
 			}
+			var fbody = document.createDocumentFragment();
 			var $t1 = ss.getEnumerator(data);
 			try {
 				while ($t1.moveNext()) {
 					var d = { $: $t1.current() };
-					new $Cayita_UI_TableRow.$ctor1(body, ss.mkdel({ d: d }, function(row) {
+					(new $Cayita_UI_TableRow.$ctor1(null, ss.mkdel({ d: d }, function(row) {
 						row.setAttribute('record-id', this.d.$[recordIdProperty]);
 						row.className = 'rowlink';
 						for (var $t2 = 0; $t2 < columns.length; $t2++) {
@@ -1728,12 +1729,13 @@
 								col.afterCellCreate(this.d.$, row);
 							}
 						}
-					}));
+					}))).appendTo(fbody);
 				}
 			}
 			finally {
 				$t1.dispose();
 			}
+			body.appendChild(fbody);
 		};
 	};
 	$Cayita_UI_Ext.addItem$2 = function(parent, href, item) {
