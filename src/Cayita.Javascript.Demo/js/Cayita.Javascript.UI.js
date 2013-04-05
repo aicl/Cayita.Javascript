@@ -334,11 +334,47 @@
 	$Cayita_Data_ReadOptions.createInstance = function() {
 		return $Cayita_Data_ReadOptions.$ctor();
 	};
+	$Cayita_Data_ReadOptions.getRequestObject = function($this) {
+		var ro = {};
+		if (!ss.isNullOrEmptyString($this.orderBy)) {
+			ro[$this.orderByParam] = $this.orderBy;
+		}
+		if (!ss.isNullOrEmptyString($this.orderType)) {
+			ro[$this.orderTypeParam] = $this.orderType;
+		}
+		if (!$this.localPaging) {
+			if (ss.isValue($this.pageNumber)) {
+				ro[$this.pageNumberParam] = $this.pageNumber;
+			}
+			if (ss.isValue($this.pageSize)) {
+				ro[$this.pageSizeParam] = $this.pageSize;
+			}
+		}
+		var $t1 = new ss.ObjectEnumerator($this.queryParams);
+		try {
+			while ($t1.moveNext()) {
+				var kv = $t1.current();
+				ro[kv.key] = kv.value;
+			}
+		}
+		finally {
+			$t1.dispose();
+		}
+		cayita.fn.populateFrom(ro, $this.dynamicQueryParams);
+		cayita.fn.populateFrom(ro, $this.query_);
+		return ro;
+	};
+	$Cayita_Data_ReadOptions.query = function(T) {
+		return function($this, query) {
+			cayita.fn.populateFrom($this.query_, query);
+		};
+	};
 	$Cayita_Data_ReadOptions.$ctor = function() {
 		var $this = {};
+		$this.query_ = {};
 		$this.pageNumber = null;
 		$this.pageSize = null;
-		$this.queryString = null;
+		$this.queryParams = null;
 		$this.orderBy = null;
 		$this.orderType = null;
 		$this.pageSizeParam = null;
@@ -346,11 +382,11 @@
 		$this.localPaging = false;
 		$this.orderByParam = null;
 		$this.orderTypeParam = null;
-		$this.request = null;
-		$this.queryString = {};
+		$this.dynamicQueryParams = null;
+		$this.queryParams = {};
 		$this.pageSizeParam = 'limit';
 		$this.pageNumberParam = 'page';
-		$this.request = {};
+		$this.dynamicQueryParams = {};
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
@@ -464,7 +500,7 @@
 				$t17.action = 1;
 				$t17.state = 0;
 				$t18(this, $t17);
-				var req1 = $.get(this.$readApi.url, this.requestObject(readOptions), function(cb1) {
+				var req1 = $.get(this.$readApi.url, $Cayita_Data_ReadOptions.getRequestObject(readOptions), function(cb1) {
 				}, this.$readApi.dataType);
 				req1.done(ss.mkdel(this, function(scb1) {
 					var r1 = this.$readApi.dataProperty;
@@ -778,25 +814,6 @@
 			},
 			patch: function(record) {
 				return this.$patchFunc(record);
-			},
-			requestObject: function(readOptions) {
-				var ro = {};
-				if (!ss.isNullOrEmptyString(readOptions.orderBy)) {
-					ro[readOptions.orderByParam] = readOptions.orderBy;
-				}
-				if (!ss.isNullOrEmptyString(readOptions.orderType)) {
-					ro[readOptions.orderTypeParam] = readOptions.orderType;
-				}
-				if (!readOptions.localPaging) {
-					if (ss.isValue(readOptions.pageNumber)) {
-						ro[readOptions.pageNumberParam] = readOptions.pageNumber;
-					}
-					if (ss.isValue(readOptions.pageSize)) {
-						ro[readOptions.pageSizeParam] = readOptions.pageSize;
-					}
-				}
-				cayita.fn.populateFrom(ro, readOptions.request);
-				return ro;
 			},
 			indexOf: function(item) {
 				return ss.indexOf(this.$st, item);

@@ -8,16 +8,19 @@ namespace Cayita.Javascript.Data
 	[ScriptNamespace("Cayita.Data")]
 	public class ReadOptions 
 	{
+		dynamic query_= new {};
+
 		public ReadOptions()
 		{
-			QueryString = new JsDictionary<string,object>();
+			QueryParams = new JsDictionary<string,object>();
 			PageSizeParam= "limit";
 			PageNumberParam ="page";
-			Request = new {};
+			DynamicQueryParams = new {};
 		}
+
 		public  int? PageNumber {get; set;}
 		public  int? PageSize {get;  set;}
-		public JsDictionary<string,object> QueryString {get; private set;}
+		public JsDictionary<string,object> QueryParams {get; private set;}
 		public string OrderBy {get;set;}
 		public string OrderType {get;set;}
 		public string PageSizeParam {get;set;}
@@ -34,8 +37,39 @@ namespace Cayita.Javascript.Data
 			set;
 		}
 		
-		public dynamic Request {get; private set;}
-				
+		public dynamic DynamicQueryParams {get; private set;}
+
+		public dynamic GetRequestObject(){
+
+			dynamic ro = new {};
+			if (!string.IsNullOrEmpty (OrderBy))
+				ro [OrderByParam] = OrderBy;
+			if (!string.IsNullOrEmpty (OrderType))
+				ro [OrderTypeParam] = OrderType;
+			if (! LocalPaging) {
+				if (PageNumber.HasValue)
+					ro[PageNumberParam] = PageNumber;
+				if (PageSize.HasValue)
+					ro [PageSizeParam] = PageSize;
+			}
+		
+			foreach(var kv in QueryParams)
+			{
+
+				ro[kv.Key]= kv.Value;
+			}
+
+			((object)ro).PopulateFrom((object)DynamicQueryParams);
+			((object)ro).PopulateFrom((object)query_);
+
+			return ro;
+
+		}
+
+		public void  Query<T>(T query) 
+		{
+			((object)query_).PopulateFrom (query);
+		}
 
 	}
 	

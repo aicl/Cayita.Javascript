@@ -84,7 +84,7 @@ namespace Cayita.Javascript.Data
 
 			readFunc= ( readOptions)=>{	
 				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Read, State=StoreRequestState.Started});
-				var req = jQuery.GetData<T>(readApi.Url, RequestObject(readOptions),cb=>{},readApi.DataType);
+				var req = jQuery.GetData<T>(readApi.Url, (object)readOptions.GetRequestObject() ,cb=>{},readApi.DataType);
 				req.Done(scb=>{
 					var r = readApi.DataProperty;
 					dynamic data = (dynamic) scb;
@@ -348,19 +348,6 @@ namespace Cayita.Javascript.Data
 			return patchFunc(record);
 		}
 
-		public object RequestObject(ReadOptions readOptions){
-			dynamic ro = new {};
-			if(!string.IsNullOrEmpty(readOptions.OrderBy)) ro[readOptions.OrderByParam]= readOptions.OrderBy;
-			if(!string.IsNullOrEmpty(readOptions.OrderType)) ro[readOptions.OrderTypeParam]= readOptions.OrderType;
-			if (! readOptions.LocalPaging) {
-				if(readOptions.PageNumber.HasValue) ro[readOptions.PageNumberParam]= readOptions.PageNumber;
-				if(readOptions.PageSize.HasValue) ro[readOptions.PageSizeParam]= readOptions.PageSize;
-			}
-
-			((object)(ro)).PopulateFrom((object)readOptions.Request);
-			
-			return ro;
-		}
 		
 		#region IList implementation
 		public int IndexOf (T item)
