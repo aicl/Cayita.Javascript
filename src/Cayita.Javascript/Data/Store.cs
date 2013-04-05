@@ -318,8 +318,10 @@ namespace Cayita.Javascript.Data
 		}
 
 
-		public IDeferred<T> Read(Action<ReadOptions> options=null)
+		public IDeferred<T> Read(Action<ReadOptions> options=null, bool clear=true)
 		{
+			if(clear) st.Clear();
+
 			if(options!=null) options(lastOption);
 			if(lastOption.PageNumber.HasValue &&
 			   ( !lastOption.PageSize.HasValue || (lastOption.PageSize.HasValue &&lastOption.PageSize.Value==0) ) )

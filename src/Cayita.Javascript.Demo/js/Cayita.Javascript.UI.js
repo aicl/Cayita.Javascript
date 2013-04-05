@@ -756,7 +756,10 @@
 				cayita.fn.loadTo(form, record);
 				this.create$2(record);
 			},
-			read: function(options) {
+			read: function(options, clear) {
+				if (clear) {
+					ss.clear(this.$st);
+				}
 				if (!ss.staticEquals(options, null)) {
 					options(this.$lastOption);
 				}
@@ -1828,18 +1831,18 @@
 					var row1 = e.currentTarget;
 					this.$selectRowImp(row1, true);
 				}));
-				this.render();
+				$Cayita_UI_Ext.createHeader(T).call(null, this.$table, this.$columns);
 				var $t1 = $Cayita_UI_RequestMessage.$ctor();
-				$t1.target = this.$table.tBodies[0];
+				$t1.target = this.$table;
 				$t1.message = 'Reading ' + ss.getTypeName(T);
 				this.$readRequestMessage = $t1;
 				this.$readRequestStarted = ss.mkdel(this, function(grid1) {
 					var sp = new $Cayita_UI_SpinnerIcon(function(div, icon) {
 						div.style.position = 'fixed';
 						div.style.zIndex = 10000;
-						div.style.opacity = '0.7';
-						div.style.height = (grid1.$table.clientHeight + 30).toString() + 'px';
-						div.style.width = grid1.$table.clientWidth.toString() + 'px';
+						div.style.opacity = '0.6';
+						div.style.height = '90%';
+						div.style.width = '77%';
 					}, this.$readRequestMessage.message);
 					$(this.$readRequestMessage.target).append(sp.element$1());
 					return sp.element$1();
@@ -1936,8 +1939,8 @@
 				return this.$selectedrow;
 			},
 			render: function() {
-				$Cayita_UI_Ext.createHeader(T).call(null, this.$table, this.$columns);
-				//table.Load<T>(store, columns, store.GetRecordIdProperty());
+				$Cayita_UI_Ext.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
+				this.selectRow(true);
 			},
 			selectRow$1: function(recordId, trigger) {
 				var row = $('tr[record-id=' + recordId + ']', this.$table).get(0);

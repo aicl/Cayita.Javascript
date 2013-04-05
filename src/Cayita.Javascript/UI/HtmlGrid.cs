@@ -67,17 +67,17 @@ namespace Cayita.Javascript.UI
 				SelectRowImp(row, true);
 			}); 
 			
-			Render();
+			table.CreateHeader(columns);
 			
-			readRequestMessage= new RequestMessage{Target=table.tBodies[0], Message="Reading " + typeof(T).Name };
+			readRequestMessage= new RequestMessage{Target=table, Message="Reading " + typeof(T).Name };
 			
 			readRequestStarted=(grid)=>{
 				var sp = new SpinnerIcon((div, icon)=>{
 					div.Style.Position="fixed";
 					div.Style.ZIndex=10000;
-					div.Style.Opacity="0.7";
-					div.Style.Height= (grid.table.ClientHeight+30).ToString()+ "px";
-					div.Style.Width= grid.table.ClientWidth.ToString()+ "px";
+					div.Style.Opacity="0.6";
+					div.Style.Height= "90%";
+					div.Style.Width= "77%";
 				},readRequestMessage.Message);
 				readRequestMessage.Target.Append(sp.Element());
 				return sp.Element();
@@ -176,12 +176,12 @@ namespace Cayita.Javascript.UI
 			return selectedrow;
 		}
 
+
 		public void Render()
 		{
-			table.CreateHeader(columns);
-			//table.Load<T>(store, columns, store.GetRecordIdProperty());
+			table.Load<T>(store, columns, store.GetRecordIdProperty());
+			SelectRow(true);
 		}
-
 
 		public void SelectRow(object recordId, bool trigger =true)
 		{
