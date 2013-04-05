@@ -40,18 +40,22 @@ namespace Cayita.Javascritp.App
 				Bootbox.Dialog("Uno con Header", new DialogOptions{Header="Este es el header"});
 
 				var d = new Div(null, div=>{
+					div.ClassName="span3";
 					new Span(div, sp=>sp.Text("Esto es un span dentro del div"));
+					new Button(div, bt=>{
+						bt.OnClick(evt=>Bootbox.Alert("BUTTON CLICK"));
+						bt.Text("Info Button");
+					
+					});
 				});
 
-				Bootbox.Dialog(d.Element(), opt=>{opt.Header="veamos";});
-				//Bootbox.Dialog(d.Element());
 
-				Bootbox.Dialog(d.Element(), opt=>{
+				Bootbox.Dialog(d, opt=>{
 					opt.Header="Otro con botones";},
 				bt=>bt.Add(new DialogButton() ));
 
 				Bootbox.Dialog(d.Element(), opt=>{
-					opt.Header="Otro con botones y handles";},
+					opt.Header="Otro con botones y handlers";},
 				bt=>bt.Add(new DialogButton{Label="Mi super Botton", Callback=()=> Bootbox.Prompt("simple prompt")} ));
 
 			});

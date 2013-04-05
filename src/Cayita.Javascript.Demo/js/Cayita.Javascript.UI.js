@@ -1180,10 +1180,10 @@
 	// Cayita.Javascript.UI.Bootbox
 	var $Cayita_Javascript_UI_Bootbox = function() {
 	};
-	$Cayita_Javascript_UI_Bootbox.dialog$2 = function(message, options, buttons) {
+	$Cayita_Javascript_UI_Bootbox.dialog$3 = function(message, options, buttons) {
 		bootbox.dialog(message, buttons || [], options);
 	};
-	$Cayita_Javascript_UI_Bootbox.dialog$3 = function(message, options, buttons) {
+	$Cayita_Javascript_UI_Bootbox.dialog$4 = function(message, options, buttons) {
 		var opt = $Cayita_Javascript_UI_DialogOptions.$ctor();
 		if (!ss.staticEquals(options, null)) {
 			options(opt);
@@ -1194,7 +1194,13 @@
 		}
 		bootbox.dialog(message, bt, opt);
 	};
+	$Cayita_Javascript_UI_Bootbox.dialog$2 = function(body, options, buttons) {
+		$Cayita_Javascript_UI_Bootbox.dialog$5($(body), options, buttons);
+	};
 	$Cayita_Javascript_UI_Bootbox.dialog$1 = function(body, options, buttons) {
+		$Cayita_Javascript_UI_Bootbox.dialog$5(body.jQuery(), options, buttons);
+	};
+	$Cayita_Javascript_UI_Bootbox.dialog$5 = function(body, options, buttons) {
 		var opt = $Cayita_Javascript_UI_DialogOptions.$ctor();
 		if (!ss.staticEquals(options, null)) {
 			options(opt);
@@ -1203,7 +1209,7 @@
 		if (!ss.staticEquals(buttons, null)) {
 			buttons(bt);
 		}
-		bootbox.dialog($(body), bt, opt);
+		bootbox.dialog(body, bt, opt);
 	};
 	$Cayita_Javascript_UI_Bootbox.dialog = function(message) {
 		bootbox.dialog(message, [], $Cayita_Javascript_UI_DialogOptions.$ctor());

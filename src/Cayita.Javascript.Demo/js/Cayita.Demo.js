@@ -121,30 +121,33 @@
 			//				Bootbox.Error("ha ocurrido un grave error");
 			var $t1 = Cayita.Javascript.UI.DialogOptions.$ctor();
 			$t1.header = 'Este es el header';
-			Cayita.Javascript.UI.Bootbox.dialog$2('Uno con Header', $t1, null);
+			Cayita.Javascript.UI.Bootbox.dialog$3('Uno con Header', $t1, null);
 			var d = new Cayita.UI.Div.$ctor1(null, function(div) {
+				div.className = 'span3';
 				new Cayita.UI.Span.$ctor1(div, function(sp) {
 					$(sp).text('Esto es un span dentro del div');
 				});
+				new Cayita.UI.Button.$ctor1(div, function(bt) {
+					$(bt).on('click', function(evt) {
+						bootbox.alert('BUTTON CLICK', 'OK', null);
+					});
+					$(bt).text('Info Button');
+				});
 			});
-			Cayita.Javascript.UI.Bootbox.dialog$1(d.element$1(), function(opt) {
-				opt.header = 'veamos';
-			}, null);
-			//Bootbox.Dialog(d.Element());
-			Cayita.Javascript.UI.Bootbox.dialog$1(d.element$1(), function(opt1) {
-				opt1.header = 'Otro con botones';
-			}, function(bt) {
-				ss.add(bt, Cayita.Javascript.UI.DialogButton.$ctor());
-			});
-			Cayita.Javascript.UI.Bootbox.dialog$1(d.element$1(), function(opt2) {
-				opt2.header = 'Otro con botones y handles';
+			Cayita.Javascript.UI.Bootbox.dialog$1(d, function(opt) {
+				opt.header = 'Otro con botones';
 			}, function(bt1) {
+				ss.add(bt1, Cayita.Javascript.UI.DialogButton.$ctor());
+			});
+			Cayita.Javascript.UI.Bootbox.dialog$2(d.element$1(), function(opt1) {
+				opt1.header = 'Otro con botones y handlers';
+			}, function(bt2) {
 				var $t2 = Cayita.Javascript.UI.DialogButton.$ctor();
 				$t2.label = 'Mi super Botton';
 				$t2.callback = function() {
 					bootbox.prompt('simple prompt', 'Cancel', 'OK', null, '');
 				};
-				ss.add(bt1, $t2);
+				ss.add(bt2, $t2);
 			});
 		});
 	};

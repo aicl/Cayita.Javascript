@@ -81,16 +81,25 @@ namespace Cayita.Javascript.UI
 
 		public static void Dialog (Element body, Action<DialogOptions> options=null, Action<List<DialogButton>> buttons=null)
 		{
+			Dialog (body.JQuery(), options, buttons);
+		}
+
+		public static void Dialog (ElementBase body, Action<DialogOptions> options=null, Action<List<DialogButton>> buttons=null)
+		{
+			Dialog (body.JQuery(), options, buttons);
+		}
+
+		public static void Dialog (jQueryObject body, Action<DialogOptions> options=null, Action<List<DialogButton>> buttons=null)
+		{
 			var opt = new DialogOptions ();
-			if( options!=null)  options (opt);
+			if (options != null)
+				options (opt);
 			
 			var bt = new List<DialogButton>();
-			
-			if (buttons != null) {
-				
-				buttons(bt);
-			}
-			DialogImpl (body.JQuery(), opt, bt);
+			if (buttons != null)				
+				buttons (bt);
+
+			DialogImpl (body, opt, bt);
 		}
 
 		public static void Dialog(string message )
