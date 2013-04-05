@@ -103,6 +103,7 @@
     <Content Include="modules\DemoForm.js" />
     <Content Include="modules\DemoTables.js" />
     <Content Include="modules\DemoNavbar.js" />
+    <Content Include="css\Cayita.Javascript.UI.css" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

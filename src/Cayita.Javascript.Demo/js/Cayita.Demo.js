@@ -120,34 +120,47 @@
 			//
 			//				Bootbox.Error("ha ocurrido un grave error");
 			var $t1 = Cayita.Javascript.UI.DialogOptions.$ctor();
-			$t1.header = 'Este es el header';
-			Cayita.Javascript.UI.Bootbox.dialog$3('Uno con Header', $t1, null);
+			$t1.header = 'Header Text';
+			Cayita.Javascript.UI.Bootbox.dialog$3('Message Text', $t1, null);
+			Cayita.Javascript.UI.Bootbox.dialog$4('Message from App', function(opt) {
+				opt.header = 'Your Header Text';
+			}, function(bt) {
+				var $t2 = Cayita.Javascript.UI.DialogButton.$ctor();
+				$t2.label = 'Button Text';
+				$t2.class = 'btn btn-success';
+				ss.add(bt, $t2);
+			});
 			var d = new Cayita.UI.Div.$ctor1(null, function(div) {
 				div.className = 'span3';
 				new Cayita.UI.Span.$ctor1(div, function(sp) {
-					$(sp).text('Esto es un span dentro del div');
+					$(sp).text('!!! span !!!');
 				});
-				new Cayita.UI.Button.$ctor1(div, function(bt) {
-					$(bt).on('click', function(evt) {
+				new Cayita.UI.TextField.$ctor1(div, function(field) {
+					$(field).attr('placeholder', 'just a field');
+				});
+				new Cayita.UI.CheckboxField.$ctor1(div, 'Check..', function(cb) {
+					cb.checked = true;
+				});
+				new Cayita.UI.TextArea.$ctor2(div, function(area) {
+					area.value = 'cayita is amazing,  some text ...';
+				});
+				new Cayita.UI.Button.$ctor1(div, function(bt1) {
+					$(bt1).on('click', function(evt) {
 						bootbox.alert('BUTTON CLICK', 'OK', null);
 					});
-					$(bt).text('Info Button');
+					$(bt1).text('Info Button');
 				});
 			});
-			Cayita.Javascript.UI.Bootbox.dialog$1(d, function(opt) {
-				opt.header = 'Otro con botones';
-			}, function(bt1) {
-				ss.add(bt1, Cayita.Javascript.UI.DialogButton.$ctor());
-			});
-			Cayita.Javascript.UI.Bootbox.dialog$2(d.element$1(), function(opt1) {
-				opt1.header = 'Otro con botones y handlers';
+			Cayita.Javascript.UI.Bootbox.dialog$1(d, function(opt1) {
+				opt1.header = 'large-modal';
+				opt1.classes = 'modal-large';
 			}, function(bt2) {
-				var $t2 = Cayita.Javascript.UI.DialogButton.$ctor();
-				$t2.label = 'Mi super Botton';
-				$t2.callback = function() {
+				var $t3 = Cayita.Javascript.UI.DialogButton.$ctor();
+				$t3.label = 'My super Button';
+				$t3.callback = function() {
 					bootbox.prompt('simple prompt', 'Cancel', 'OK', null, '');
 				};
-				ss.add(bt2, $t2);
+				ss.add(bt2, $t3);
 			});
 		});
 	};

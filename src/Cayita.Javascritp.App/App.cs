@@ -37,11 +37,25 @@ namespace Cayita.Javascritp.App
 
 				Bootbox.Error("ha ocurrido un grave error");
 */
-				Bootbox.Dialog("Uno con Header", new DialogOptions{Header="Este es el header"});
+				Bootbox.Dialog("Message Text", new DialogOptions{Header="Header Text"});
+
+				Bootbox.Dialog("Message from App", opt=>{
+					opt.Header="Your Header Text";},
+				bt=>bt.Add(new DialogButton(){Label="Button Text", Class="btn btn-success"} ));
 
 				var d = new Div(null, div=>{
 					div.ClassName="span3";
-					new Span(div, sp=>sp.Text("Esto es un span dentro del div"));
+					new Span(div, sp=>sp.Text("!!! span !!!"));
+					new TextField(div, field=>{
+						field.SetPlaceHolder("just a field");
+
+					});
+					new CheckboxField(div,"Check..", cb=>{
+						cb.Checked=true;
+					});
+					new TextArea(div, area=>{
+						area.Value="cayita is amazing,  some text ...";
+					});
 					new Button(div, bt=>{
 						bt.OnClick(evt=>Bootbox.Alert("BUTTON CLICK"));
 						bt.Text("Info Button");
@@ -51,12 +65,10 @@ namespace Cayita.Javascritp.App
 
 
 				Bootbox.Dialog(d, opt=>{
-					opt.Header="Otro con botones";},
-				bt=>bt.Add(new DialogButton() ));
-
-				Bootbox.Dialog(d.Element(), opt=>{
-					opt.Header="Otro con botones y handlers";},
-				bt=>bt.Add(new DialogButton{Label="Mi super Botton", Callback=()=> Bootbox.Prompt("simple prompt")} ));
+					opt.Header="large-modal";
+					opt.Classes="modal-large";
+				},
+				bt=>bt.Add(new DialogButton{Label="My super Button", Callback=()=> Bootbox.Prompt("simple prompt")} ));
 
 			});
 		}
