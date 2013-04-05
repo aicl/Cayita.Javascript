@@ -1195,7 +1195,15 @@
 		bootbox.dialog(message, bt, opt);
 	};
 	$Cayita_Javascript_UI_Bootbox.dialog$1 = function(body, options, buttons) {
-		$Cayita_Javascript_UI_Bootbox.dialog$3(body.innerHTML, options, buttons);
+		var opt = $Cayita_Javascript_UI_DialogOptions.$ctor();
+		if (!ss.staticEquals(options, null)) {
+			options(opt);
+		}
+		var bt = [];
+		if (!ss.staticEquals(buttons, null)) {
+			buttons(bt);
+		}
+		bootbox.dialog($(body), bt, opt);
 	};
 	$Cayita_Javascript_UI_Bootbox.dialog = function(message) {
 		bootbox.dialog(message, [], $Cayita_Javascript_UI_DialogOptions.$ctor());

@@ -2,6 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Html;
+using jQueryApi;
 
 namespace Cayita.Javascript.UI
 {
@@ -47,6 +48,11 @@ namespace Cayita.Javascript.UI
 		{
 		}
 
+		[InlineCode("bootbox.dialog({body}, {buttons}, {options})")]
+		static void DialogImpl (jQueryObject body, DialogOptions options, IList<DialogButton> buttons )
+		{
+		}
+
 		/// <summary>
 		/// Dialogbox
 		/// </summary>
@@ -75,7 +81,16 @@ namespace Cayita.Javascript.UI
 
 		public static void Dialog (Element body, Action<DialogOptions> options=null, Action<List<DialogButton>> buttons=null)
 		{
-			Dialog (body.InnerHTML, options, buttons);
+			var opt = new DialogOptions ();
+			if( options!=null)  options (opt);
+			
+			var bt = new List<DialogButton>();
+			
+			if (buttons != null) {
+				
+				buttons(bt);
+			}
+			DialogImpl (body.JQuery(), opt, bt);
 		}
 
 		public static void Dialog(string message )
