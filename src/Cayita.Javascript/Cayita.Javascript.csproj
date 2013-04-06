@@ -93,6 +93,7 @@
     <Compile Include="UI\Core\Image.cs" />
     <Compile Include="Bootbox\Alert.cs" />
     <Compile Include="Data\ReqExtensions.cs" />
+    <Compile Include="UI\Panel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

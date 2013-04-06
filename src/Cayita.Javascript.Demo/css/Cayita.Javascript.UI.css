@@ -1,3 +1,17 @@
+.modal-header .close {
+  margin-top: 0px;
+  float: left;
+  padding-right: 10px;
+  padding-top: 2px;
+}
+
+@media (max-width: 480px){
+  .modal-header .close {
+    padding-left: 0px;
+	padding-right: 13px;
+  }
+}
+
 .modal-large {
   left: 35%;
   width: 75%;
@@ -7,6 +21,25 @@
   left: 22%;
   width: 99%;
 }
+
+
+@media (max-width: 480px){
+.modal-large {
+top: 10px;
+right: 10px;
+left: 10px;
+width:auto;
+}
+
+.modal-xlarge {
+top: 10px;
+right: 10px;
+left: 10px;
+width:auto;
+}
+
+}
+
 
 /*-----------------------------------------------------------------*/
 .c-panel {

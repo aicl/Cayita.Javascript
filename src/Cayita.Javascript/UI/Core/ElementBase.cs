@@ -12,6 +12,11 @@ namespace Cayita.Javascript.UI
 		static Dictionary<string,int> tags = new Dictionary<string,int>();
 		Element element_;
 
+		protected void SetElement(Element element)
+		{
+			element_ = element;
+		}
+
 		protected void  CreateElement(string tagName, Element parent)
 		{
 

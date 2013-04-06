@@ -1505,6 +1505,9 @@
 		this.$element_ = null;
 	};
 	$Cayita_UI_ElementBase.prototype = {
+		setElement: function(element) {
+			this.$element_ = element;
+		},
 		createElement: function(tagName, parent) {
 			this.$element_ = document.createElement(tagName);
 			this.$element_.id = this.createId(tagName);
@@ -2401,6 +2404,119 @@
 			$(a).text(item);
 		});
 		return il;
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.Panel
+	var $Cayita_UI_Panel = function() {
+		this.$pc = null;
+		this.$captionElement = null;
+		this.$2$OnCloseField = null;
+		$Cayita_UI_ElementBase.call(this);
+		var p = $Cayita_UI_PanelConfig.$ctor();
+		this.$init(p);
+	};
+	$Cayita_UI_Panel.prototype = {
+		$init: function(config) {
+			var self = this;
+			this.$pc = config;
+			this.setElement(this.$pc.container.element$1());
+			if (this.$pc.overlay) {
+				this.$pc.container.addClass('overlay');
+			}
+			if (ss.staticEquals(this.$pc.onCloseHandler, null)) {
+				this.$pc.onCloseHandler = function(p) {
+					p.close();
+				};
+			}
+			new $Cayita_UI_Icon.$ctor1(this.$pc.header.element$1(), ss.mkdel(this, function(icon) {
+				icon.className = this.$pc.closeIconClass;
+				$(icon).on('click', ss.mkdel(this, function(evt) {
+					evt.preventDefault();
+					this.$pc.onCloseHandler(self);
+				}));
+				if (!this.$pc.closable) {
+					$(icon).hide();
+				}
+			}));
+			this.$captionElement = document.createElement('h3');
+			$(this.$captionElement).text(this.$pc.caption);
+			this.$pc.header.jQuery().append(this.$captionElement);
+		},
+		caption: function(text) {
+			$(this.$captionElement).text(text);
+		},
+		render: function(parent) {
+			this.appendTo$1(parent || document.body);
+		},
+		close: function() {
+			if (!ss.staticEquals(this.$2$OnCloseField, null)) {
+				this.$2$OnCloseField(this);
+			}
+			this.$pc.container.remove();
+		},
+		collapse: function() {
+		},
+		element$1: function() {
+			return this.$pc.container.element$1();
+		},
+		add_onClose: function(value) {
+			this.$2$OnCloseField = ss.delegateCombine(this.$2$OnCloseField, value);
+		},
+		remove_onClose: function(value) {
+			this.$2$OnCloseField = ss.delegateRemove(this.$2$OnCloseField, value);
+		}
+	};
+	$Cayita_UI_Panel.$ctor2 = function(config) {
+		this.$pc = null;
+		this.$captionElement = null;
+		this.$2$OnCloseField = null;
+		$Cayita_UI_ElementBase.call(this);
+		var p = $Cayita_UI_PanelConfig.$ctor();
+		config(p);
+		this.$init(p);
+	};
+	$Cayita_UI_Panel.$ctor1 = function(config) {
+		this.$pc = null;
+		this.$captionElement = null;
+		this.$2$OnCloseField = null;
+		$Cayita_UI_ElementBase.call(this);
+		this.$init(config);
+	};
+	$Cayita_UI_Panel.$ctor2.prototype = $Cayita_UI_Panel.$ctor1.prototype = $Cayita_UI_Panel.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.PanelConfig
+	var $Cayita_UI_PanelConfig = function() {
+	};
+	$Cayita_UI_PanelConfig.createInstance = function() {
+		return $Cayita_UI_PanelConfig.$ctor();
+	};
+	$Cayita_UI_PanelConfig.$ctor = function() {
+		var $this = {};
+		$this.overlay = false;
+		$this.resizable = false;
+		$this.movable = false;
+		$this.closable = false;
+		$this.collapsible = false;
+		$this.left = null;
+		$this.top = null;
+		$this.container = null;
+		$this.header = null;
+		$this.caption = null;
+		$this.closeIconClass = null;
+		$this.body = null;
+		$this.onCloseHandler = null;
+		$this.onCollapseHandler = null;
+		$this.closeIconClass = 'icon-remove-circle';
+		$this.container = new $Cayita_UI_Div.$ctor1(null, function(ct) {
+			ct.className = 'c-panel';
+			$this.header = new $Cayita_UI_Div.$ctor1(ct, function(hd) {
+				hd.className = 'c-panel-header';
+			});
+			$this.body = new $Cayita_UI_Div.$ctor1(ct, function(bd) {
+				bd.className = 'c-panel-content';
+			});
+		});
+		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.Paragraph
@@ -3343,6 +3459,8 @@
 	ss.registerClass(global, 'Cayita.UI.Label', $Cayita_UI_Label, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Legend', $Cayita_UI_Legend, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.ListItem', $Cayita_UI_ListItem, $Cayita_UI_ElementBase);
+	ss.registerClass(global, 'Cayita.UI.Panel', $Cayita_UI_Panel, $Cayita_UI_ElementBase);
+	ss.registerClass(global, 'Cayita.UI.PanelConfig', $Cayita_UI_PanelConfig);
 	ss.registerClass(global, 'Cayita.UI.Paragraph', $Cayita_UI_Paragraph, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.RadioField', $Cayita_UI_RadioField, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.RadioItem', $Cayita_UI_RadioItem);

@@ -49,6 +49,7 @@
 "UI/SelectField.cs" \
 "UI/HtmlGrid.cs" \
 "UI/SpinnerIcon.cs" \
+"UI/Panel.cs" \
 "Bootbox/Alert.cs" 
 
 
