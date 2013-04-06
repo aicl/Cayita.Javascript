@@ -32,12 +32,12 @@ namespace Cayita.Javascritp.App
 				app.GetMenuItems();
 				app.ShowTopNavBar();
 				app.ShowMenu();
-				/*
+/*
 				Bootbox.Dialog("Este es un simple menaje");
 
 				Bootbox.Error("ha ocurrido un grave error");
 */
-				Bootbox.Dialog("Message Text", new DialogOptions{Header="Header Text"});
+/*				Bootbox.Dialog("Message Text", new DialogOptions{Header="Header Text"});
 
 				Bootbox.Dialog("Message from App", opt=>{
 					opt.Header="Your Header Text";},
@@ -69,8 +69,38 @@ namespace Cayita.Javascritp.App
 					opt.Classes="modal-large";
 				},
 				bt=>bt.Add(new DialogButton{Label="My super Button", Callback=()=> Bootbox.Prompt("simple prompt")} ));
+*/
+				new Panel().Render().OnCollapseHandler( (p,cl)=>{Bootbox.Alert("previous panel state:"+(cl?"collapsed":"expanded") );});
+				new Panel().Caption("Panel Caption I").Render();
+				new Panel().Caption("Panel Caption II").Closable(true).Render();
+				new Panel().Caption("Panel Caption III").Closable(true).Render();
+
+				new Panel()
+					.Caption("Panel Caption IV")
+						.Closable(true)
+						.OnCloseHandler(p=>{Bootbox.Alert("Panel closed "); })
+						.Render();
+
+
+				new Panel()
+					.Caption("Panel Caption V")
+						.CloseIconClass("icon-th-large")
+						.Closable(true)
+						.CloseIconHandler(p=>{ 
+							p.Caption("** Panel Caption V **" );
+							p.CloseIconClass("icon-remove-circle");
+							p.CloseIconHandler(pn=>pn.Close());
+							p.Top("272px");
+							p.Left("10%");
+							p.Width("50%");
+							p.Overylay(true);
+						})
+						.OnCloseHandler(p=>{Bootbox.Alert("panel closed "); })
+						.Render();
 
 			});
+
+
 		}
 
 		void GetMenuItems ()

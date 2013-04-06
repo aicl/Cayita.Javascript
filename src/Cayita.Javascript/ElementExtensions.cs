@@ -317,6 +317,17 @@ namespace Cayita.Javascript
 			return null;
 		}
 
+		[InlineCode("$(element).is(':visible')")]
+		public static bool IsVisible(this Element element)
+		{
+			return false;
+		}
+
+		[InlineCode("element.is(':visible')")]
+		public static bool IsVisible(this jQueryObject element)
+		{
+			return false;
+		}
 
 	}
 }

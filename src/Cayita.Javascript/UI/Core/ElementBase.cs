@@ -144,12 +144,17 @@ namespace Cayita.Javascript.UI
 			return name==null? string.Empty:name.ToString();
 		}
 
-		public void AppendTo(Element parent){
-			parent.Append(element_);
+		public void AppendTo(Element parent=null){
+			(parent??Document.Body).Append(element_);
 		}
 
 		public void AppendTo(DocumentFragment parent){
 			parent.AppendChild(element_);
+		}
+
+		public bool IsVisible()
+		{
+			return jQuery.FromElement(element_).Is(":visible");
 		}
 
 	}
