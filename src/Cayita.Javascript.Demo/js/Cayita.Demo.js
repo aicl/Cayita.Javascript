@@ -168,11 +168,11 @@
 				p2.height('400px');
 				p2.left('10px');
 				p2.top('100px');
-				p2.overylay(true);
+				p2.overlay(true);
 			}).onCloseHandler(function(p3) {
 				bootbox.alert('panel closed ', 'OK', null);
 			}).render(null);
-			(new Cayita.UI.Panel()).caption('Overlay').left('40%').top('10%').width('500px').height('400px').overylay(true).render(null);
+			(new Cayita.UI.Panel()).caption('Overlay').left('40%').top('10%').width('500px').height('400px').overlay(true).render(null);
 		});
 	};
 	////////////////////////////////////////////////////////////////////////////////

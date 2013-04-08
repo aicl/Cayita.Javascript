@@ -111,6 +111,7 @@ namespace Cayita.Javascript.UI
 
 		public Panel Caption(string text)
 		{
+			pc.Caption = text;
 			captionElement.Text (text);
 			return this;
 		}
@@ -121,8 +122,9 @@ namespace Cayita.Javascript.UI
 			return this;
 		}
 
-		public Panel Overylay(bool value)
+		public Panel Overlay(bool value)
 		{
+			pc.Overlay = value;
 			if (value)
 				pc.Container.JQuery ().CSS ("position", "fixed");
 			else
@@ -133,6 +135,7 @@ namespace Cayita.Javascript.UI
 
 		public Panel Closable(bool value)
 		{
+			pc.Closable = value;
 			if (value)
 				closeIcon.JQuery ().Show ();
 			else
@@ -140,13 +143,21 @@ namespace Cayita.Javascript.UI
 			return this;
 		}
 
-
+		/// <summary>
+		/// Raises the close handler event.
+		/// Called whent Close method is invoked
+		/// </summary>
+		/// <param name="value">Value.</param>
 		public Panel OnCloseHandler(Action<Panel> value)
 		{
 			OnClose += value;
 			return this;
 		}
-
+		/// <summary>
+		/// Raises the collapse handler event.
+		/// Called when Collapse method is invoked
+		/// </summary>
+		/// <param name="value">Value (Panel,bool) </param>
 		public Panel OnCollapseHandler(Action<Panel,bool> value)
 		{
 			OnCollapse += value;
@@ -189,24 +200,28 @@ namespace Cayita.Javascript.UI
 
 		public Panel Left(string value)
 		{
+			pc.Top = value;
 			pc.Container.JQuery ().CSS ("left", value);
 			return this;
 		}
 
 		public Panel Top(string value)
 		{
+			pc.Top = value;
 			pc.Container.JQuery ().CSS ("top", value);
 			return this;
 		}
 
 		public Panel Width(string value)
 		{
+			pc.Width = value;
 			pc.Container.JQuery ().CSS ("width", value);
 			return this;
 		}
 
 		public Panel Height(string value)
 		{
+			pc.Height = value;
 			pc.Container.JQuery ().CSS ("height", value);
 			return this;
 		}
@@ -220,11 +235,25 @@ namespace Cayita.Javascript.UI
 				OnCollapse (this, collapsed );
 
 			pc.Body.JQuery ().Toggle ();
+
+			if (pc.Overlay) {
+				if (collapsed) {  // expanding
+					pc.Container.JQuery().CSS("height",pc.Height);
+				} else { // collapsing
+					pc.Container.JQuery().CSS("height","auto");
+				}
+			}
+
+
 			collapseIcon.ClassName (!collapsed ? pc.CollapseIconClass : pc.ExpandIconClass);
 			return this;
 		}
 
 
+
+		/// <summary>
+		/// Toggle panel (show/hide)
+		/// </summary>
 		public Panel Toggle()
 		{
 			var visible = pc.Container.IsVisible ();
@@ -252,18 +281,18 @@ namespace Cayita.Javascript.UI
 		}
 
 		/// <summary>
-		/// Occurs when on close  panel.
+		/// Occurs when Close method is invoked
 		/// </summary>
 		public event Action<Panel> OnClose;
 
 
 		/// <summary>
-		/// Occurs when on collapse=> (Panel, Collpased).
+		/// Occurs when Collapse method is invoked (Panel, Collapsed).
 		/// </summary>
 		public event Action<Panel,bool> OnCollapse;
 
 		/// <summary>
-		/// Occurs when on toggle => (Panel, Visible)
+		/// Occurs when Toggle method is invoked => (Panel, Visible)
 		/// </summary>
 		public event Action<Panel,bool> OnToggle;
 		

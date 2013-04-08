@@ -2488,6 +2488,7 @@
 			}
 		},
 		caption: function(text) {
+			this.$pc.caption = text;
 			$(this.$captionElement).text(text);
 			return this;
 		},
@@ -2495,7 +2496,8 @@
 			this.appendTo$1(parent);
 			return this;
 		},
-		overylay: function(value) {
+		overlay: function(value) {
+			this.$pc.overlay = value;
 			if (value) {
 				this.$pc.container.jQuery().css('position', 'fixed');
 			}
@@ -2505,6 +2507,7 @@
 			return this;
 		},
 		closable: function(value) {
+			this.$pc.closable = value;
 			if (value) {
 				this.$closeIcon.jQuery().show();
 			}
@@ -2549,18 +2552,22 @@
 			return this;
 		},
 		left: function(value) {
+			this.$pc.top = value;
 			this.$pc.container.jQuery().css('left', value);
 			return this;
 		},
 		top: function(value) {
+			this.$pc.top = value;
 			this.$pc.container.jQuery().css('top', value);
 			return this;
 		},
 		width: function(value) {
+			this.$pc.width = value;
 			this.$pc.container.jQuery().css('width', value);
 			return this;
 		},
 		height: function(value) {
+			this.$pc.height = value;
 			this.$pc.container.jQuery().css('height', value);
 			return this;
 		},
@@ -2570,6 +2577,16 @@
 				this.$2$OnCollapseField(this, collapsed);
 			}
 			this.$pc.body.jQuery().toggle();
+			if (this.$pc.overlay) {
+				if (collapsed) {
+					// expanding
+					this.$pc.container.jQuery().css('height', this.$pc.height);
+				}
+				else {
+					// collapsing
+					this.$pc.container.jQuery().css('height', 'auto');
+				}
+			}
 			this.$collapseIcon.className$1((!collapsed ? this.$pc.collapseIconClass : this.$pc.expandIconClass));
 			return this;
 		},

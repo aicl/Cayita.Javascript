@@ -94,7 +94,7 @@ namespace Cayita.Javascritp.App
 							p.Height("400px");
 							p.Left("10px");
 							p.Top("100px");
-							p.Overylay(true);
+							p.Overlay(true);
 						})
 						.OnCloseHandler(p=>{Bootbox.Alert("panel closed "); })
 						.Render();
@@ -105,7 +105,7 @@ namespace Cayita.Javascritp.App
 						.Top("10%")
 						.Width("500px")
 						.Height("400px")
-						.Overylay(true)
+						.Overlay(true)
 						.Render();
 			});
 
