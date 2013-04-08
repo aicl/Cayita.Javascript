@@ -5,6 +5,7 @@ using Cayita.Javascript.Data;
 
 namespace jQueryApi
 {
+	[IgnoreNamespace, Imported (ObeysTypeSystem = true)]
 	public static class ReqExtensions
 	{
 		[InlineCode("cayita.fn.getAjaxResponse({req})")]

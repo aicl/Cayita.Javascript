@@ -162,9 +162,7 @@ namespace Cayita.Javascritp.App
 					Work= new Div(row,  work=>{
 						work.ClassName="span10";
 						work.ID="work";
-						var m = Document.CreateElement("h3");
-						m.Text("Welcome");
-						work.AppendChild(m);
+						work.AppendChild("Welcome".Header(3));
 					});
 				});
 			}).AppendTo(Document.Body);
@@ -176,3 +174,12 @@ namespace Cayita.Javascritp.App
 				
 	}
 }
+
+
+/*
+Cayita.UI
+Cayita.Data
+Cayita.Plugins
+Cayita.Ajax
+Cayita.Extensions
+*/

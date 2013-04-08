@@ -4,6 +4,7 @@
 "/debug" \
 "/r:../../lib/Saltarelle.Linq.dll" \
 "/r:../../lib/Saltarelle.jQuery.dll" \
+"/r:../../lib/Saltarelle.jQuery.UI.dll" \
 "/r:../../lib/Saltarelle.Web.dll" \
 "/r:../../lib/mscorlib.dll" \
 /t:library \
@@ -12,7 +13,9 @@
 "Binding/Observable.cs" \
 "ValidatePlugin/ValidateOptions.cs" \
 "Console.cs" \
-"JQueryApiExtensions.cs" "SystemExtensions.cs" \
+"JQueryApiExtensions.cs" \
+"SystemExtensions.cs" \
+"StringExtensions.cs" \
 "Extensions.cs" \
 "ElementExtensions.cs" \
 "Data/Store.cs" \

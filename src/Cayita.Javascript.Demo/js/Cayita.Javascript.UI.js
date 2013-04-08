@@ -2419,8 +2419,7 @@
 		this.$2$OnCollapseField = null;
 		this.$2$OnToggleField = null;
 		$Cayita_UI_ElementBase.call(this);
-		var p = $Cayita_UI_PanelConfig.$ctor();
-		this.$init(p);
+		this.$init($Cayita_UI_PanelConfig.$ctor());
 	};
 	$Cayita_UI_Panel.prototype = {
 		$init: function(config) {
@@ -3224,6 +3223,44 @@
 	};
 	ss.registerGenericClass(global, 'Cayita.UI.StorePaging$1', $Cayita_UI_StorePaging$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Javascript.UI.StringExtensions
+	var $Cayita_UI_StringExt = function() {
+	};
+	$Cayita_UI_StringExt.header$1 = function(text, size, parent) {
+		var h = document.createElement('h' + size.toString());
+		h.innerHTML = text;
+		parent.appendChild(h);
+		return h;
+	};
+	$Cayita_UI_StringExt.header$2 = function(text, size, parent) {
+		var h = document.createElement('h' + size.toString());
+		h.innerHTML = text;
+		parent.append(h);
+		return h;
+	};
+	$Cayita_UI_StringExt.header = function(text, size) {
+		var h = document.createElement('h' + size.toString());
+		h.innerHTML = text;
+		return h;
+	};
+	$Cayita_UI_StringExt.paragraph$1 = function(text, parent) {
+		var h = document.createElement('p');
+		h.innerHTML = text;
+		parent.appendChild(h);
+		return h;
+	};
+	$Cayita_UI_StringExt.paragraph$2 = function(text, parent) {
+		var h = document.createElement('p');
+		h.innerHTML = text;
+		parent.append(h);
+		return h;
+	};
+	$Cayita_UI_StringExt.paragraph = function(text) {
+		var h = document.createElement('p');
+		h.innerHTML = text;
+		return h;
+	};
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.UI.SubmitButton
 	var $Cayita_UI_SubmitButton = function(parent) {
 		$Cayita_UI_ButtonBase.call(this);
@@ -3555,10 +3592,6 @@
 		}));
 	};
 	$Cayita_UI_TopNavBar.$ctor1.prototype = $Cayita_UI_TopNavBar.prototype;
-	////////////////////////////////////////////////////////////////////////////////
-	// jQueryApi.ReqExtensions
-	var $jQueryApi_ReqExtensions = function() {
-	};
 	ss.registerClass(global, 'Message', $Message);
 	ss.registerClass(global, 'MessageFor', $MessageFor);
 	ss.registerClass(global, 'Range', $Range);
@@ -3616,6 +3649,7 @@
 	ss.registerClass(global, 'Cayita.UI.SideNavBar', $Cayita_UI_SideNavBar, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.Span', $Cayita_UI_Span, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.SpinnerIcon', $Cayita_UI_SpinnerIcon, $Cayita_UI_ElementBase);
+	ss.registerClass(global, 'Cayita.UI.StringExt', $Cayita_UI_StringExt);
 	ss.registerClass(global, 'Cayita.UI.SubmitButton', $Cayita_UI_SubmitButton, $Cayita_UI_ButtonBase);
 	ss.registerClass(global, 'Cayita.UI.SystemExt', $Cayita_UI_SystemExt);
 	ss.registerClass(global, 'Cayita.UI.TableBody', $Cayita_UI_TableBody, $Cayita_UI_ElementBase);
@@ -3627,6 +3661,5 @@
 	ss.registerClass(global, 'Cayita.UI.TextAreaField', $Cayita_UI_TextAreaField, $Cayita_UI_TextArea);
 	ss.registerClass(global, 'Cayita.UI.TextField', $Cayita_UI_TextField, $Cayita_UI_InputText);
 	ss.registerClass(global, 'Cayita.UI.TopNavBar', $Cayita_UI_TopNavBar, $Cayita_UI_Div);
-	ss.registerClass(global, 'jQueryApi.ReqExtensions', $jQueryApi_ReqExtensions);
 	$Cayita_UI_ElementBase.$tags = new (ss.makeGenericType(ss.Dictionary$2, [String, ss.Int32]))();
 })();

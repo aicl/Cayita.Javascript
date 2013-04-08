@@ -99,9 +99,7 @@
 					this.set_$work(new Cayita.UI.Div.$ctor1(row, function(work) {
 						work.className = 'span10';
 						work.id = 'work';
-						var m = document.createElement('h3');
-						$(m).text('Welcome');
-						work.appendChild(m);
+						work.appendChild(Cayita.UI.StringExt.header('Welcome', 3));
 					}));
 				}));
 			})).appendTo$1(document.body);

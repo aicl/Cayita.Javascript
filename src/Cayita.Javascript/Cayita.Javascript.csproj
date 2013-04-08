@@ -94,6 +94,7 @@
     <Compile Include="Bootbox\Alert.cs" />
     <Compile Include="Data\ReqExtensions.cs" />
     <Compile Include="UI\Panel.cs" />
+    <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -1,6 +1,7 @@
 using System;
 using System.Html;
 using System.Runtime.CompilerServices;
+using jQueryApi.UI.Interactions;
 
 namespace Cayita.Javascript.UI
 {
@@ -15,8 +16,7 @@ namespace Cayita.Javascript.UI
 
 		public Panel()
 		{
-			var p = new PanelConfig ();
-			Init (p);
+			Init (new PanelConfig ());
 		}
 
 		public Panel ( Action<PanelConfig> config )
