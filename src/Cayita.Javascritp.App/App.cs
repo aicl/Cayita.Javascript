@@ -87,14 +87,26 @@ namespace Cayita.Javascritp.App
 						.CloseIconClass("icon-th-large")
 						.Closable(true)
 						.CloseIconHandler(p=>{ 
-							p.Caption("** Panel Caption V **" );
+							p.Caption("** Panel Caption V ** now Overlay !" );
 							p.CloseIconClass("icon-remove-circle");
 							p.CloseIconHandler(pn=>pn.Close());
 							p.Width("50%");
+							p.Height("400px");
+							p.Left("10px");
+							p.Top("100px");
+							p.Overylay(true);
 						})
 						.OnCloseHandler(p=>{Bootbox.Alert("panel closed "); })
 						.Render();
 
+				new Panel()
+					.Caption("Overlay")
+						.Left("40%")
+						.Top("10%")
+						.Width("500px")
+						.Height("400px")
+						.Overylay(true)
+						.Render();
 			});
 
 

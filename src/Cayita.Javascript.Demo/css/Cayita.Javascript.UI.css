@@ -83,15 +83,12 @@ width:auto;
   border-top-right-radius: 4px;
   -webkit-background-clip: padding-box;
 }
-.c-panel .c-panel-header h3 {
+.c-panel .c-panel-header h6 {
   top: 2px;
   position: relative;
   left: 10px;
   display: inline-block;
   margin-right: 3em;
-  font-size: 14px;
-  font-weight: 600;
-  color: #555;
   line-height: 18px;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
 }
@@ -126,6 +123,7 @@ width:auto;
 }
 .c-panel .c-panel-content {
   *zoom: 1;
+  height: 100%;
 }
 .c-panel .c-panel-content:before,
 .c-panel .c-panel-content:after {

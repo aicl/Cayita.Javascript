@@ -2430,9 +2430,6 @@
 			var self = this;
 			this.$pc = config;
 			this.setElement(this.$pc.container.element$1());
-			if (this.$pc.overlay) {
-				this.$pc.container.addClass('c-overlay');
-			}
 			if (ss.staticEquals(this.$pc.onClickCloseIconHandler, null)) {
 				this.$pc.onClickCloseIconHandler = function(p) {
 					p.close();
@@ -2463,10 +2460,10 @@
 					$(icon1).hide();
 				}
 			}));
-			this.$captionElement = document.createElement('h3');
-			$(this.$captionElement).text(this.$pc.caption);
+			this.$captionElement = $Cayita_UI_StringExt.header(this.$pc.caption, 6);
 			this.$pc.header.jQuery().append(this.$captionElement);
 			this.$pc.container.jQuery().css('left', this.$pc.left).css('top', this.$pc.top).css('width', this.$pc.width).css('height', this.$pc.height);
+			this.$pc.container.jQuery().css('z-index', '0');
 			this.$dobject = this.$pc.container.draggable();
 			this.$dobject.draggable('option', 'stack', '.c-panel');
 			if (!this.$pc.draggable) {
@@ -2474,7 +2471,6 @@
 			}
 			this.$pc.container.jQuery().click(ss.mkdel(this, function(evt2) {
 				var zI = this.$pc.container.jQuery().css('z-index');
-				//pc.Container.JQuery().CSS("z-index", zI);
 				var hZ = parseInt(zI);
 				var hE = this.$pc.container.element$1();
 				$('.c-panel').each(function(index, element) {
@@ -2485,8 +2481,11 @@
 					}
 				});
 				$(hE).css('z-index', zI);
-				this.$pc.container.jQuery().css('z-index', hZ.toString());
+				this.$pc.container.jQuery().css('z-index', ((hZ > 0) ? hZ.toString() : '1'));
 			}));
+			if (this.$pc.overlay) {
+				this.$pc.container.jQuery().css('position', 'fixed');
+			}
 		},
 		caption: function(text) {
 			$(this.$captionElement).text(text);
@@ -2498,10 +2497,10 @@
 		},
 		overylay: function(value) {
 			if (value) {
-				this.addClass('c-overlay');
+				this.$pc.container.jQuery().css('position', 'fixed');
 			}
 			else {
-				this.removeClass$1('c-overlay');
+				this.$pc.container.jQuery().css('position', 'relative');
 			}
 			return this;
 		},

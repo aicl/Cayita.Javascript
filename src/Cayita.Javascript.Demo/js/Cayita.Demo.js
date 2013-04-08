@@ -159,15 +159,20 @@
 				bootbox.alert('Panel closed ', 'OK', null);
 			}).render(null);
 			(new Cayita.UI.Panel()).caption('Panel Caption V').closeIconClass('icon-th-large').closable(true).closeIconHandler(function(p2) {
-				p2.caption('** Panel Caption V **');
+				p2.caption('** Panel Caption V ** now Overlay !');
 				p2.closeIconClass('icon-remove-circle');
 				p2.closeIconHandler(function(pn) {
 					pn.close();
 				});
 				p2.width('50%');
+				p2.height('400px');
+				p2.left('10px');
+				p2.top('100px');
+				p2.overylay(true);
 			}).onCloseHandler(function(p3) {
 				bootbox.alert('panel closed ', 'OK', null);
 			}).render(null);
+			(new Cayita.UI.Panel()).caption('Overlay').left('40%').top('10%').width('500px').height('400px').overylay(true).render(null);
 		});
 	};
 	////////////////////////////////////////////////////////////////////////////////

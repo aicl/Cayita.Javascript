@@ -40,10 +40,7 @@ namespace Cayita.Javascript.UI
 			pc = config;
 
 			SetElement (pc.Container.Element ());
-			
-			if (pc.Overlay)
-				pc.Container.AddClass ("c-overlay");
-			
+
 			
 			if (pc.OnClickCloseIconHandler == null)
 				pc.OnClickCloseIconHandler = p => p.Close ();
@@ -75,14 +72,16 @@ namespace Cayita.Javascript.UI
 
 			});
 
-			captionElement = Document.CreateElement("h3");
-			captionElement.Text(pc.Caption);
-			pc.Header.JQuery().Append(captionElement);
+			captionElement = pc.Caption.Header (6);
+			
+			pc.Header.JQuery ().Append (captionElement);
 
 			pc.Container.JQuery ().CSS ("left", pc.Left)
 				.CSS ("top", pc.Top)
 					.CSS ("width", pc.Width)
 					.CSS ("height", pc.Height);
+
+			pc.Container.JQuery().CSS("z-index", "0");
 
 			dobject = pc.Container.Draggable ();
 			dobject.Stack = ".c-panel";
@@ -92,8 +91,7 @@ namespace Cayita.Javascript.UI
 
 			pc.Container.JQuery ().Click (evt => {
 				var zI= pc.Container.JQuery().GetCSS("z-index");
-				//pc.Container.JQuery().CSS("z-index", zI);
-				var hZ= int.Parse(zI);
+				var hZ =int.Parse(zI);
 				Element hE= pc.Container.Element();
 				jQuery.Select(".c-panel").Each( (index, element)=>{
 					var cZ= int.Parse( jQuery.FromElement(element).GetCSS("z-index") );
@@ -103,9 +101,11 @@ namespace Cayita.Javascript.UI
 					}
 				});
 				jQuery.FromElement(hE).CSS("z-index", zI);
-				pc.Container.JQuery().CSS("z-index", hZ.ToString());
-
+				pc.Container.JQuery().CSS("z-index", hZ>0 ? hZ.ToString():"1");
 			});
+
+			if (pc.Overlay)
+				pc.Container.JQuery ().CSS ("position", "fixed");
 
 		}
 
@@ -124,9 +124,9 @@ namespace Cayita.Javascript.UI
 		public Panel Overylay(bool value)
 		{
 			if (value)
-				AddClass ("c-overlay");
+				pc.Container.JQuery ().CSS ("position", "fixed");
 			else
-				RemoveClass ("c-overlay");
+				pc.Container.JQuery ().CSS ("position", "relative");
 			return this;
 
 		}
