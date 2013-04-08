@@ -163,6 +163,21 @@ namespace Cayita.Javascript.UI
 			return jQuery.FromElement (element_).Draggable ();
 		}
 
+
+		public ElementBase Append(string content) 
+		{
+			jQuery.FromElement (element_).Append (content);
+			return this;
+		}
+
+
+		public  ElementBase Append(Element content)
+		{
+			jQuery.FromElement (element_).Append (content);
+			return this ;
+		}
+
+
 	}
 	
 }

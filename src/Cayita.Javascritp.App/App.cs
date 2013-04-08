@@ -87,10 +87,10 @@ namespace Cayita.Javascritp.App
 						.CloseIconClass("icon-th-large")
 						.Closable(true)
 						.CloseIconHandler(p=>{ 
-							p.Caption("** Panel Caption V ** now Overlay !" );
+							p.Caption("* V now Overlay !" );
 							p.CloseIconClass("icon-remove-circle");
 							p.CloseIconHandler(pn=>pn.Close());
-							p.Width("50%");
+							p.Width("auto");
 							p.Height("400px");
 							p.Left("10px");
 							p.Top("100px");
@@ -103,10 +103,21 @@ namespace Cayita.Javascritp.App
 					.Caption("Overlay")
 						.Left("40%")
 						.Top("10%")
-						.Width("500px")
+						.Width("auto")
 						.Height("400px")
 						.Overlay(true)
-						.Render();
+						.Render()
+						.Append("Hello World!")
+						.Append("Hello World!".Header(3))
+						.Append( new Panel())
+						.Append( new Panel().Append( new Button(null, bt=>{
+							bt.Text("Click me");
+							bt.Style.Width="100%"; bt.Style.Height="100%";
+							bt.OnClick(evt=>{Bootbox.Alert("button clicked!!!");
+							});
+						})));
+
+
 			});
 
 

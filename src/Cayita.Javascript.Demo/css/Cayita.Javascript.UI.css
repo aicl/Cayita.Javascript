@@ -46,7 +46,7 @@ width:auto;
   position: relative;
   clear: both;
   width: auto;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 .c-panel .c-panel-header {
@@ -102,7 +102,7 @@ width:auto;
   vertical-align: middle;
 }
 .c-panel .c-panel-content {
-  padding: 20px 15px 15px;
+  padding: 10px 8px 8px;
   background: #FFF;
   border: 1px solid #D5D5D5;
   -moz-border-radius: 5px;
@@ -159,6 +159,18 @@ width:auto;
   background: #FFF;
 }
 
+@media (max-width: 480px){
+  .c-panel {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    width:auto;
+  }
+
+}
+
+
+
 /*----------------------------------------------------------------*/
 .c-icons {
   text-align: center;
@@ -213,6 +225,4 @@ width:auto;
 /*---------------------------------------------------------------- */
 .c-overlay {
  position: fixed;
- height: 100%;
- //z-index: 1040;
 }

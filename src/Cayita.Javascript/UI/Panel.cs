@@ -24,7 +24,7 @@ namespace Cayita.Javascript.UI
 		public Panel ( Action<PanelConfig> config )
 		{
 			var p = new PanelConfig ();
-			config.Invoke (p);
+			config.Invoke (p); 
 			Init (p);
 		}
 
@@ -47,7 +47,8 @@ namespace Cayita.Javascript.UI
 
 			if(pc.OnClickCollapseIconHandler==null)
 				pc.OnClickCollapseIconHandler= (p,collapsed)=> p.Collapse();
-			
+
+
 			closeIcon =new Icon (pc.Header.Element(), icon => {
 
 				icon.ClassName=pc.CloseIconClass;
@@ -132,6 +133,7 @@ namespace Cayita.Javascript.UI
 			return this;
 
 		}
+
 
 		public Panel Closable(bool value)
 		{
@@ -274,6 +276,24 @@ namespace Cayita.Javascript.UI
 			pc.Container.Remove ();
 		}
 
+		public new Panel Append (string content)
+		{
+			pc.Body.Append (content);
+			return this;
+		}
+
+		public new Panel Append (Element content)
+		{
+			pc.Body.Append (content);
+			return this;
+		}
+
+		public Panel Append (ElementBase content)
+		{
+			pc.Body.Append (content.Element());
+			return this;
+		}
+
 
 		public new DivElement Element()
 		{
@@ -307,13 +327,14 @@ namespace Cayita.Javascript.UI
 			CloseIconClass = "icon-remove-circle";
 			CollapseIconClass = "icon-circle-arrow-up";
 			ExpandIconClass = "icon-circle-arrow-down";
-
 			Caption = "";
+
 			Overlay = false;
 			Resizable = true;
 			Draggable = true;
 			Closable = true;
 			Collapsible = true;
+
 			Left = "";
 			Top = "";
 			Width = "";
@@ -330,6 +351,7 @@ namespace Cayita.Javascript.UI
 
 			});
 		}
+
 
 		public bool Overlay { get; set; }
 
@@ -349,10 +371,6 @@ namespace Cayita.Javascript.UI
 
 		public string Height{ get; set; }
 
-		public Div Container { get; set; }
-
-		public Div Header { get; set; }
-
 		public string Caption { get; set; }
 
 		public string CloseIconClass { get; set; }
@@ -361,7 +379,12 @@ namespace Cayita.Javascript.UI
 
 		public string ExpandIconClass { get; set; }
 
-		public Div Body { get; set; }
+		protected internal Div Container { get; set; }
+		
+		protected internal Div Header { get; set; }
+
+		protected internal Div Body { get; set; }
+
 		/// <summary>
 		/// Gets or sets the on close handler = > click on close Icon
 		/// </summary>

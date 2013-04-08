@@ -159,12 +159,12 @@
 				bootbox.alert('Panel closed ', 'OK', null);
 			}).render(null);
 			(new Cayita.UI.Panel()).caption('Panel Caption V').closeIconClass('icon-th-large').closable(true).closeIconHandler(function(p2) {
-				p2.caption('** Panel Caption V ** now Overlay !');
+				p2.caption('* V now Overlay !');
 				p2.closeIconClass('icon-remove-circle');
 				p2.closeIconHandler(function(pn) {
 					pn.close();
 				});
-				p2.width('50%');
+				p2.width('auto');
 				p2.height('400px');
 				p2.left('10px');
 				p2.top('100px');
@@ -172,7 +172,14 @@
 			}).onCloseHandler(function(p3) {
 				bootbox.alert('panel closed ', 'OK', null);
 			}).render(null);
-			(new Cayita.UI.Panel()).caption('Overlay').left('40%').top('10%').width('500px').height('400px').overlay(true).render(null);
+			(new Cayita.UI.Panel()).caption('Overlay').left('40%').top('10%').width('auto').height('400px').overlay(true).render(null).append$4('Hello World!').append$3(Cayita.UI.StringExt.header('Hello World!', 3)).append$2(new Cayita.UI.Panel()).append$2((new Cayita.UI.Panel()).append$2(new Cayita.UI.Button.$ctor1(null, function(bt) {
+				$(bt).text('Click me');
+				bt.style.width = '100%';
+				bt.style.height = '100%';
+				$(bt).on('click', function(evt) {
+					bootbox.alert('button clicked!!!', 'OK', null);
+				});
+			})));
 		});
 	};
 	////////////////////////////////////////////////////////////////////////////////

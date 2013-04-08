@@ -1597,6 +1597,14 @@
 		},
 		draggable: function() {
 			return $(this.$element_).draggable();
+		},
+		append$1: function(content) {
+			$(this.$element_).append(content);
+			return this;
+		},
+		append: function(content) {
+			$(this.$element_).append(content);
+			return this;
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
@@ -2604,6 +2612,18 @@
 			}
 			this.$pc.container.remove();
 		},
+		append$4: function(content) {
+			this.$pc.body.append$1(content);
+			return this;
+		},
+		append$3: function(content) {
+			this.$pc.body.append(content);
+			return this;
+		},
+		append$2: function(content) {
+			this.$pc.body.append(content.element());
+			return this;
+		},
 		element$1: function() {
 			return this.$pc.container.element$1();
 		},
@@ -2671,12 +2691,12 @@
 		$this.top = null;
 		$this.width = null;
 		$this.height = null;
-		$this.container = null;
-		$this.header = null;
 		$this.caption = null;
 		$this.closeIconClass = null;
 		$this.collapseIconClass = null;
 		$this.expandIconClass = null;
+		$this.container = null;
+		$this.header = null;
 		$this.body = null;
 		$this.onClickCloseIconHandler = null;
 		$this.onClickCollapseIconHandler = null;
