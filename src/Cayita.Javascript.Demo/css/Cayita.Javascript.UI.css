@@ -46,6 +46,7 @@ width:auto;
   position: relative;
   clear: both;
   width: auto;
+  height: auto;
   margin-bottom: 1em;
 }
 
@@ -225,4 +226,8 @@ width:auto;
 /*---------------------------------------------------------------- */
 .c-overlay {
  position: fixed;
+}
+
+.ui-icon, .ui-widget-content .ui-icon {
+background-image: url("");
 }

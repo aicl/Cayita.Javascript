@@ -1598,6 +1598,9 @@
 		draggable: function() {
 			return $(this.$element_).draggable();
 		},
+		resizable: function() {
+			return $(this.$element_).resizable();
+		},
 		append$1: function(content) {
 			$(this.$element_).append(content);
 			return this;
@@ -2427,6 +2430,7 @@
 		this.$closeIcon = null;
 		this.$collapseIcon = null;
 		this.$dobject = null;
+		this.$robject = null;
 		this.$2$OnCloseField = null;
 		this.$2$OnCollapseField = null;
 		this.$2$OnToggleField = null;
@@ -2470,13 +2474,16 @@
 			}));
 			this.$captionElement = $Cayita_UI_StringExt.header(this.$pc.caption, 6);
 			this.$pc.header.jQuery().append(this.$captionElement);
-			this.$pc.container.jQuery().css('left', this.$pc.left).css('top', this.$pc.top).css('width', this.$pc.width).css('height', this.$pc.height);
+			this.$pc.container.jQuery().css('left', this.$pc.left).css('top', this.$pc.top);
+			this.$pc.body.jQuery().css('width', this.$pc.width).css('height', this.$pc.height);
 			this.$pc.container.jQuery().css('z-index', '0');
 			this.$dobject = this.$pc.container.draggable();
 			this.$dobject.draggable('option', 'stack', '.c-panel');
 			if (!this.$pc.draggable) {
 				this.$dobject.draggable('disable');
 			}
+			this.$robject = this.$pc.body.resizable();
+			this.$robject.resizable('option', 'alsoResize', this.$pc.container.jQuery());
 			this.$pc.container.jQuery().click(ss.mkdel(this, function(evt2) {
 				var zI = this.$pc.container.jQuery().css('z-index');
 				var hZ = parseInt(zI);
@@ -2571,12 +2578,12 @@
 		},
 		width: function(value) {
 			this.$pc.width = value;
-			this.$pc.container.jQuery().css('width', value);
+			this.$pc.body.jQuery().css('width', value);
 			return this;
 		},
 		height: function(value) {
 			this.$pc.height = value;
-			this.$pc.container.jQuery().css('height', value);
+			this.$pc.body.jQuery().css('height', value);
 			return this;
 		},
 		collapse: function() {
@@ -2588,11 +2595,11 @@
 			if (this.$pc.overlay) {
 				if (collapsed) {
 					// expanding
-					this.$pc.container.jQuery().css('height', this.$pc.height);
+					this.$pc.body.jQuery().css('height', this.$pc.height);
 				}
 				else {
 					// collapsing
-					this.$pc.container.jQuery().css('height', 'auto');
+					this.$pc.body.jQuery().css('height', '100%');
 				}
 			}
 			this.$collapseIcon.className$1((!collapsed ? this.$pc.collapseIconClass : this.$pc.expandIconClass));
@@ -2652,6 +2659,7 @@
 		this.$closeIcon = null;
 		this.$collapseIcon = null;
 		this.$dobject = null;
+		this.$robject = null;
 		this.$2$OnCloseField = null;
 		this.$2$OnCollapseField = null;
 		this.$2$OnToggleField = null;
@@ -2666,6 +2674,7 @@
 		this.$closeIcon = null;
 		this.$collapseIcon = null;
 		this.$dobject = null;
+		this.$robject = null;
 		this.$2$OnCloseField = null;
 		this.$2$OnCollapseField = null;
 		this.$2$OnToggleField = null;

@@ -163,6 +163,11 @@ namespace Cayita.Javascript.UI
 			return jQuery.FromElement (element_).Draggable ();
 		}
 
+		public ResizableObject Resizable()
+		{
+			return jQuery.FromElement (element_).Resizable ();
+		}
+
 
 		public ElementBase Append(string content) 
 		{

@@ -15,6 +15,7 @@ namespace Cayita.Javascript.UI
 		Icon closeIcon;
 		Icon collapseIcon;
 		DraggableObject  dobject;
+		ResizableObject robject;
 
 		public Panel()
 		{
@@ -78,8 +79,8 @@ namespace Cayita.Javascript.UI
 			pc.Header.JQuery ().Append (captionElement);
 
 			pc.Container.JQuery ().CSS ("left", pc.Left)
-				.CSS ("top", pc.Top)
-					.CSS ("width", pc.Width)
+				.CSS ("top", pc.Top);
+			pc.Body.JQuery().CSS ("width", pc.Width)
 					.CSS ("height", pc.Height);
 
 			pc.Container.JQuery().CSS("z-index", "0");
@@ -89,6 +90,9 @@ namespace Cayita.Javascript.UI
 
 			if (!pc.Draggable)
 				dobject.Disable ();
+
+			robject = pc.Body.Resizable ();
+			robject.AlsoResize = pc.Container.JQuery ();
 
 			pc.Container.JQuery ().Click (evt => {
 				var zI= pc.Container.JQuery().GetCSS("z-index");
@@ -217,14 +221,14 @@ namespace Cayita.Javascript.UI
 		public Panel Width(string value)
 		{
 			pc.Width = value;
-			pc.Container.JQuery ().CSS ("width", value);
+			pc.Body.JQuery ().CSS ("width", value);
 			return this;
 		}
 
 		public Panel Height(string value)
 		{
 			pc.Height = value;
-			pc.Container.JQuery ().CSS ("height", value);
+			pc.Body.JQuery ().CSS ("height", value);
 			return this;
 		}
 
@@ -240,9 +244,9 @@ namespace Cayita.Javascript.UI
 
 			if (pc.Overlay) {
 				if (collapsed) {  // expanding
-					pc.Container.JQuery().CSS("height",pc.Height);
+					pc.Body.JQuery().CSS("height",pc.Height);
 				} else { // collapsing
-					pc.Container.JQuery().CSS("height","auto");
+					pc.Body.JQuery().CSS("height","100%");
 				}
 			}
 
