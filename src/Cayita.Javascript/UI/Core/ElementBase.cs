@@ -2,6 +2,7 @@ using System.Html;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using jQueryApi;
+using jQueryApi.UI.Interactions;
 
 namespace Cayita.Javascript.UI
 {
@@ -155,6 +156,11 @@ namespace Cayita.Javascript.UI
 		public bool IsVisible()
 		{
 			return jQuery.FromElement(element_).Is(":visible");
+		}
+
+		public DraggableObject Draggable()
+		{
+			return jQuery.FromElement (element_).Draggable ();
 		}
 
 	}

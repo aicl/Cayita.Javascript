@@ -2,6 +2,7 @@ using System;
 using System.Html;
 using System.Runtime.CompilerServices;
 using jQueryApi.UI.Interactions;
+using jQueryApi;
 
 namespace Cayita.Javascript.UI
 {
@@ -13,6 +14,7 @@ namespace Cayita.Javascript.UI
 		Element captionElement;
 		Icon closeIcon;
 		Icon collapseIcon;
+		DraggableObject  dobject;
 
 		public Panel()
 		{
@@ -81,6 +83,29 @@ namespace Cayita.Javascript.UI
 				.CSS ("top", pc.Top)
 					.CSS ("width", pc.Width)
 					.CSS ("height", pc.Height);
+
+			dobject = pc.Container.Draggable ();
+			dobject.Stack = ".c-panel";
+
+			if (!pc.Draggable)
+				dobject.Disable ();
+
+			pc.Container.JQuery ().Click (evt => {
+				var zI= pc.Container.JQuery().GetCSS("z-index");
+				//pc.Container.JQuery().CSS("z-index", zI);
+				var hZ= int.Parse(zI);
+				Element hE= pc.Container.Element();
+				jQuery.Select(".c-panel").Each( (index, element)=>{
+					var cZ= int.Parse( jQuery.FromElement(element).GetCSS("z-index") );
+					if(cZ>hZ){
+						hE= element;
+						hZ=cZ;
+					}
+				});
+				jQuery.FromElement(hE).CSS("z-index", zI);
+				pc.Container.JQuery().CSS("z-index", hZ.ToString());
+
+			});
 
 		}
 
@@ -257,7 +282,7 @@ namespace Cayita.Javascript.UI
 			Caption = "";
 			Overlay = false;
 			Resizable = true;
-			Movable = true;
+			Draggable = true;
 			Closable = true;
 			Collapsible = true;
 			Left = "";
@@ -281,7 +306,7 @@ namespace Cayita.Javascript.UI
 
 		public bool Resizable{ get; set; }
 
-		public bool Movable{ get; set; }
+		public bool Draggable{ get; set; }
 
 		public bool Closable{ get; set; }
 
@@ -324,7 +349,7 @@ namespace Cayita.Javascript.UI
 	}
 
 }
-// Container -- Resizable Movable Closable  Collapsible,   OnClose, OnCollapse
+// Container -- Resizable Draggable Closable  Collapsible,   OnClose, OnCollapse
 // Header -- Close, Collapse, Caption, CloseIconClass , CollapseIconClass, ExpandIconClass
 // Body
 

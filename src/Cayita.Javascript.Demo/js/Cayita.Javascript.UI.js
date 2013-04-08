@@ -1594,6 +1594,9 @@
 		},
 		isVisible: function() {
 			return $(this.$element_).is(':visible');
+		},
+		draggable: function() {
+			return $(this.$element_).draggable();
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
@@ -2415,6 +2418,7 @@
 		this.$captionElement = null;
 		this.$closeIcon = null;
 		this.$collapseIcon = null;
+		this.$dobject = null;
 		this.$2$OnCloseField = null;
 		this.$2$OnCollapseField = null;
 		this.$2$OnToggleField = null;
@@ -2463,6 +2467,26 @@
 			$(this.$captionElement).text(this.$pc.caption);
 			this.$pc.header.jQuery().append(this.$captionElement);
 			this.$pc.container.jQuery().css('left', this.$pc.left).css('top', this.$pc.top).css('width', this.$pc.width).css('height', this.$pc.height);
+			this.$dobject = this.$pc.container.draggable();
+			this.$dobject.draggable('option', 'stack', '.c-panel');
+			if (!this.$pc.draggable) {
+				this.$dobject.draggable('disable');
+			}
+			this.$pc.container.jQuery().click(ss.mkdel(this, function(evt2) {
+				var zI = this.$pc.container.jQuery().css('z-index');
+				//pc.Container.JQuery().CSS("z-index", zI);
+				var hZ = parseInt(zI);
+				var hE = this.$pc.container.element$1();
+				$('.c-panel').each(function(index, element) {
+					var cZ = parseInt($(element).css('z-index'));
+					if (cZ > hZ) {
+						hE = element;
+						hZ = cZ;
+					}
+				});
+				$(hE).css('z-index', zI);
+				this.$pc.container.jQuery().css('z-index', hZ.toString());
+			}));
 		},
 		caption: function(text) {
 			$(this.$captionElement).text(text);
@@ -2591,6 +2615,7 @@
 		this.$captionElement = null;
 		this.$closeIcon = null;
 		this.$collapseIcon = null;
+		this.$dobject = null;
 		this.$2$OnCloseField = null;
 		this.$2$OnCollapseField = null;
 		this.$2$OnToggleField = null;
@@ -2604,6 +2629,7 @@
 		this.$captionElement = null;
 		this.$closeIcon = null;
 		this.$collapseIcon = null;
+		this.$dobject = null;
 		this.$2$OnCloseField = null;
 		this.$2$OnCollapseField = null;
 		this.$2$OnToggleField = null;
@@ -2622,7 +2648,7 @@
 		var $this = {};
 		$this.overlay = false;
 		$this.resizable = false;
-		$this.movable = false;
+		$this.draggable = false;
 		$this.closable = false;
 		$this.collapsible = false;
 		$this.left = null;
@@ -2644,7 +2670,7 @@
 		$this.caption = '';
 		$this.overlay = false;
 		$this.resizable = true;
-		$this.movable = true;
+		$this.draggable = true;
 		$this.closable = true;
 		$this.collapsible = true;
 		$this.left = '';

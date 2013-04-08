@@ -90,10 +90,7 @@ namespace Cayita.Javascritp.App
 							p.Caption("** Panel Caption V **" );
 							p.CloseIconClass("icon-remove-circle");
 							p.CloseIconHandler(pn=>pn.Close());
-							p.Top("272px");
-							p.Left("10%");
 							p.Width("50%");
-							p.Overylay(true);
 						})
 						.OnCloseHandler(p=>{Bootbox.Alert("panel closed "); })
 						.Render();
@@ -115,7 +112,7 @@ namespace Cayita.Javascritp.App
 		
 		void ShowTopNavBar()
 		{
-			TopNavBar= new TopNavBar(Document.Body,"Cayita.Javascript - demo","","",nav=>{
+			TopNavBar= new TopNavBar(null,"Cayita.Javascript - demo","","",nav=>{
 
 				nav.AddItem("Home");
 				nav.AddItem("License");
@@ -123,7 +120,7 @@ namespace Cayita.Javascritp.App
 				nav.AddItem("About");
 			});
 
-			TopNavBar.AddClass("navbar-inverse navbar-fixed-top");
+			TopNavBar.AddClass("navbar-inverse navbar-fixed-top").AppendTo (Document.Body);
 		}
 		
 		void ShowMenu()

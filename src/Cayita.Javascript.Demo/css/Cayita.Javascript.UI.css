@@ -216,5 +216,5 @@ width:auto;
 .c-overlay {
  position: fixed;
  height: 100%;
- z-index: 1040;
+ //z-index: 1040;
 }

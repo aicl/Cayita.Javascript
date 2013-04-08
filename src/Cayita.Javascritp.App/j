@@ -4,6 +4,7 @@
 "/debug" \
 "/r:../../lib/Saltarelle.Linq.dll" \
 "/r:../../lib/Saltarelle.jQuery.dll" \
+"/r:../../lib/Saltarelle.jQuery.UI.dll" \
 "/r:../../lib/Saltarelle.Web.dll" \
 "/r:../../lib/mscorlib.dll" \
 "/r:../Cayita.Javascript/bin/Debug/Cayita.Javascript.dll" \

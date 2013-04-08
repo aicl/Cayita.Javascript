@@ -54,13 +54,13 @@
 			ss.add($t8, $t7);
 		},
 		$showTopNavBar: function() {
-			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(document.body, 'Cayita.Javascript - demo', '', '', function(nav) {
+			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(null, 'Cayita.Javascript - demo', '', '', function(nav) {
 				Cayita.UI.Ext.addItem$1(nav, 'Home');
 				Cayita.UI.Ext.addItem$1(nav, 'License');
 				Cayita.UI.Ext.addItem$1(nav, 'Contact');
 				Cayita.UI.Ext.addItem$1(nav, 'About');
 			}));
-			this.get_$topNavBar().addClass('navbar-inverse navbar-fixed-top');
+			this.get_$topNavBar().addClass('navbar-inverse navbar-fixed-top').appendTo(document.body);
 		},
 		$showMenu: function() {
 			Cayita.UI.Div.createContainerFluid$1(null, ss.mkdel(this, function(fluid) {
@@ -164,10 +164,7 @@
 				p2.closeIconHandler(function(pn) {
 					pn.close();
 				});
-				p2.top('272px');
-				p2.left('10%');
 				p2.width('50%');
-				p2.overylay(true);
 			}).onCloseHandler(function(p3) {
 				bootbox.alert('panel closed ', 'OK', null);
 			}).render(null);
