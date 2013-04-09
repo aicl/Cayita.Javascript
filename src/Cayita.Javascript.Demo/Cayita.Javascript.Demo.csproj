@@ -104,6 +104,8 @@
     <Content Include="css\flick\jquery-ui-1.10.2.custom.min.css" />
     <Content Include="js\Cayita.js" />
     <Content Include="css\Cayita.css" />
+    <Content Include="css\alertify.css" />
+    <Content Include="js\alertify.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

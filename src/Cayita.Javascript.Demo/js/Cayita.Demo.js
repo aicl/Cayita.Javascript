@@ -150,13 +150,13 @@
 			//				},
 			//				bt=>bt.Add(new DialogButton{Label="My super Button", Callback=()=> Bootbox.Prompt("simple prompt")} ));
 			(new Cayita.UI.Panel()).render(null).onCollapseHandler(function(p, cl) {
-				bootbox.alert('previous panel state:' + (cl ? 'collapsed' : 'expanded'), 'OK', null);
+				Cayita.UI.StringExtensions.info('previous panel state:' + (cl ? 'collapsed' : 'expanded'), 5000);
 			});
 			(new Cayita.UI.Panel()).caption('Panel Caption I').render(null);
 			(new Cayita.UI.Panel()).caption('Panel Caption II').closable(true).render(null);
 			(new Cayita.UI.Panel()).caption('Panel Caption III').closable(true).render(null);
 			(new Cayita.UI.Panel()).caption('Panel Caption IV').closable(true).onCloseHandler(function(p1) {
-				bootbox.alert('Panel closed ', 'OK', null);
+				Cayita.UI.StringExtensions.info('Panel closed ', 5000);
 			}).render(null);
 			(new Cayita.UI.Panel()).caption('Panel Caption V').closeIconClass('icon-th-large').closable(true).closeIconHandler(function(p2) {
 				p2.caption('* V now Overlay !');
@@ -170,14 +170,14 @@
 				p2.top('100px');
 				p2.overlay(true);
 			}).onCloseHandler(function(p3) {
-				bootbox.alert('panel closed ', 'OK', null);
+				Cayita.UI.StringExtensions.info('panel closed ', 5000);
 			}).render(null);
 			(new Cayita.UI.Panel()).caption('Overlay').left('40%').top('10%').width('auto').height('400px').overlay(true).render(null).append$4('Hello World!').append$3(Cayita.UI.StringExtensions.header('Hello World!', 3)).append$2(new Cayita.UI.Panel()).append$2((new Cayita.UI.Panel()).append$2(new Cayita.UI.Button.$ctor1(null, function(bt) {
 				$(bt).text('Click me');
 				bt.style.width = '100%';
 				bt.style.height = '100%';
 				$(bt).on('click', function(evt) {
-					bootbox.alert('button clicked!!!', 'OK', null);
+					Cayita.UI.StringExtensions.info('button clicked!!!', 5000);
 				});
 			})));
 		});

@@ -53,7 +53,8 @@
 "UI/HtmlGrid.cs" \
 "UI/SpinnerIcon.cs" \
 "UI/Panel.cs" \
-"Bootbox/Alert.cs" 
+"Bootbox/Alert.cs" \
+"Alertify.cs"
 
 cp bin/Debug/Cayita.js ../Cayita.Javascript.Demo/js/
 

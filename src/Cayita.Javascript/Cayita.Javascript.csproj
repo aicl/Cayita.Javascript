@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{B7E65947-7FBE-4432-B179-68B2325F8FEF}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Cayita.Javascript</RootNamespace>
+    <RootNamespace>Cayita</RootNamespace>
     <AssemblyName>Cayita.Javascript</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -95,6 +95,7 @@
     <Compile Include="Data\ReqExtensions.cs" />
     <Compile Include="UI\Panel.cs" />
     <Compile Include="StringExtensions.cs" />
+    <Compile Include="Alertify.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

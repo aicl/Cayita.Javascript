@@ -54,5 +54,19 @@ namespace Cayita.UI
 			return h;
 		}
 
+		public static void Info (this string message, int delay=5000)
+		{
+			Alertify.LogInfo(message,delay);
+		}
+
+		public static void Success (this string message, int delay=5000)
+		{
+			Alertify.LogSuccess(message,delay);
+		}
+		public static void Error (this string message, int delay=5000)
+		{
+			Alertify.LogError(message,delay);
+		}
+
 	}
 }
