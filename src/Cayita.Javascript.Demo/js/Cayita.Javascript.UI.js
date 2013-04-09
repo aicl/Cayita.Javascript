@@ -2479,6 +2479,10 @@
 			this.$pc.container.jQuery().css('z-index', '0');
 			this.$dobject = this.$pc.container.draggable();
 			this.$dobject.draggable('option', 'stack', '.c-panel');
+			this.$dobject.draggable('option', 'addClasses', false);
+			this.$dobject.draggable('option', 'containment', 'parent');
+			this.$dobject.draggable('option', 'distance', 10);
+			this.$dobject.draggable('option', 'handle', this.$pc.header.element$1());
 			if (!this.$pc.draggable) {
 				this.$dobject.draggable('disable');
 			}
@@ -2592,16 +2596,6 @@
 				this.$2$OnCollapseField(this, collapsed);
 			}
 			this.$pc.body.jQuery().toggle();
-			if (this.$pc.overlay) {
-				if (collapsed) {
-					// expanding
-					this.$pc.body.jQuery().css('height', this.$pc.height);
-				}
-				else {
-					// collapsing
-					this.$pc.body.jQuery().css('height', '100%');
-				}
-			}
 			this.$collapseIcon.className$1((!collapsed ? this.$pc.collapseIconClass : this.$pc.expandIconClass));
 			return this;
 		},

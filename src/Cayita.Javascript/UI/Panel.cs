@@ -87,6 +87,11 @@ namespace Cayita.Javascript.UI
 
 			dobject = pc.Container.Draggable ();
 			dobject.Stack = ".c-panel";
+			dobject.AddClasses = false;
+			dobject.Containment = "parent";
+			dobject.Distance = 10;
+			dobject.Handle = pc.Header.Element ();
+
 
 			if (!pc.Draggable)
 				dobject.Disable ();
@@ -242,13 +247,6 @@ namespace Cayita.Javascript.UI
 
 			pc.Body.JQuery ().Toggle ();
 
-			if (pc.Overlay) {
-				if (collapsed) {  // expanding
-					pc.Body.JQuery().CSS("height",pc.Height);
-				} else { // collapsing
-					pc.Body.JQuery().CSS("height","100%");
-				}
-			}
 
 
 			collapseIcon.ClassName (!collapsed ? pc.CollapseIconClass : pc.ExpandIconClass);
