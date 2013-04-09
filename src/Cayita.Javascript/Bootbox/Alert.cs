@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Html;
 using jQueryApi;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
 	public static class Bootbox
 	{

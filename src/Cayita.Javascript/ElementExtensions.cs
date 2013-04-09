@@ -1,9 +1,9 @@
 using System.Html;
 using jQueryApi;
 using System.Runtime.CompilerServices;
-using Cayita.Javascript.Plugins;
+using Cayita.Plugins;
 
-namespace Cayita.Javascript
+namespace Cayita.UI
 {
 	[IgnoreNamespace, Imported (ObeysTypeSystem = true)]
 	public static class ElementExtensions

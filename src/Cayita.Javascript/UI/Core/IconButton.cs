@@ -1,17 +1,13 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Html;
 
-
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
-	[ScriptNamespace("Cayita.UI")]
+
 	public class IconAnchor:Anchor
 	{
-
-
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Cayita.Javascript.UI.IconAnchor"/> class.
+		/// Initializes a new instance of the <see cref="Cayita.UI.IconAnchor"/> class.
 		/// </summary>
 		/// <param name='parent'>
 		/// Parent.
@@ -26,17 +22,14 @@ namespace Cayita.Javascript.UI
 			var i = new Icon( Element() );
 			element(Element(), i.Element());
 		}
-		
 	}
 
 
-	[ScriptNamespace("Cayita.UI")]
 	public class IconButton:Button
 	{
 
-		
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Cayita.Javascript.UI.IconButton"/> class.
+		/// Initializes a new instance of the <see cref="Cayita.UI.IconButton"/> class.
 		/// </summary>
 		/// <param name='parent'>
 		/// Parent.
@@ -55,4 +48,3 @@ namespace Cayita.Javascript.UI
 	}
 
 }
-

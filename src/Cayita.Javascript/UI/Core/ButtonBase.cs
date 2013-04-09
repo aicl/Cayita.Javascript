@@ -1,12 +1,10 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Html;
 using jQueryApi;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
 
-	[ScriptNamespace("Cayita.UI")]
 	public abstract class ButtonBase:ElementBase
 	{
 		protected ButtonBase(){}

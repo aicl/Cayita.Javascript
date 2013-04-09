@@ -1,10 +1,9 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Html;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
-	[ScriptNamespace("Cayita.UI")]
+
 	public class Anchor:ElementBase
 	{
 	

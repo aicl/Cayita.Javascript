@@ -1,16 +1,13 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Html;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
-	[ScriptNamespace("Cayita.UI")]
 	public class SideNavBar:Div
 	{
 
 		HtmlList navList;
 
-		
 		public HtmlList GetNavList()
 		{
 			return navList;
@@ -21,10 +18,7 @@ namespace Cayita.Javascript.UI
 		{
 			
 			Element().ClassName="well sidebar-nav";
-
-			navList= HtmlList.CreateNavList(Element(), navlist);
-					
-			
+			navList= HtmlList.CreateNavList(Element(), navlist);					
 		}
 	}
 }

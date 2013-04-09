@@ -1,11 +1,10 @@
 using System;
 using System.Html;
-using System.Runtime.CompilerServices;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
-		
-	[ScriptNamespace("Cayita.UI")]
+
+
 	public class Paragraph:ElementBase
 	{
 		public Paragraph(Element parent, Action<Element> element)
@@ -19,7 +18,6 @@ namespace Cayita.Javascript.UI
 		{
 			CreateElement("p", parent);
 		}
-		
 				
 	}
 	

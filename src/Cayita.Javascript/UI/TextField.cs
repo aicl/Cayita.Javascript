@@ -1,11 +1,9 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Html;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
 
-	[ScriptNamespace("Cayita.UI")]
 	public class TextField :InputText
 	{
 
@@ -14,7 +12,7 @@ namespace Cayita.Javascript.UI
 		Div controls ;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Cayita.Javascript.UI.TextField"/> class.
+		/// Initializes a new instance of the <see cref="Cayita.UI.TextField"/> class.
 		/// </summary>
 		/// <param name='parent'>
 		/// Parent.

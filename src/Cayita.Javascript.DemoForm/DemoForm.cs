@@ -1,8 +1,8 @@
 using System.Runtime.CompilerServices;
-using Cayita.Javascript.UI;
 using System.Html;
 using jQueryApi;
-using Cayita.Javascript.Plugins;
+using Cayita.Plugins;
+using Cayita.UI;
 
 namespace Cayita.Javascript.DemoForm
 {

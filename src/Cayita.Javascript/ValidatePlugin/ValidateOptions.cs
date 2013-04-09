@@ -1,20 +1,19 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Html;
 using jQueryApi;
+using Cayita.UI;
 
-namespace Cayita.Javascript.Plugins
+namespace Cayita.Plugins
 {
 	[Serializable]
-	[IgnoreNamespace]
 	public class ValidateOptions
 	{
-		protected Action<FormElement> SubmitHandler {get;set;}
-		protected Action<InputElement> Highlight {get;set;}
-		protected Action<InputElement> Unhighlight {get;set;}
-		protected Action<jQueryObject> Success {get;set;}
-		protected string ValidClass {get;set;}
-		protected string ErrorClass {get;set;}
+		protected Action<FormElement> SubmitHandler { get; set; }
+		protected Action<InputElement> Highlight { get; set; }
+		protected Action<InputElement> Unhighlight { get; set; }
+		protected Action<jQueryObject> Success { get; set; }
+		protected string ValidClass { get; set; }
+		protected string ErrorClass { get; set; }
 
 
 		public ValidateOptions ()
@@ -133,7 +132,6 @@ namespace Cayita.Javascript.Plugins
 	}
 	
 	[Serializable]
-	[IgnoreNamespace]
 	public class MessageFor
 	{
 		public MessageFor()
@@ -141,26 +139,24 @@ namespace Cayita.Javascript.Plugins
 			Message= new Message();
 		}
 		
-		public InputElement  Element  {get;set;}
+		public InputElement  Element  { get; set; }
 		public Message Message { get;set;}
 	}
 
 
 	[Serializable]
-	[IgnoreNamespace]
 	public class RuleFor
 	{
 		public RuleFor(){
 			Rule= new Rule();
 		}
 		
-		public InputElement  Element  {get;set;}
+		public InputElement  Element  { get; set; }
 		public Rule Rule { get;set;}
 	}
 	
 	
 	[Serializable]
-	[IgnoreNamespace]
 	public class Message
 	{
 		protected internal dynamic msg =(dynamic) (new {});
@@ -284,7 +280,6 @@ namespace Cayita.Javascript.Plugins
 		
 	
 	[Serializable]
-	[IgnoreNamespace]
 	public class Rule
 	{
 		protected internal dynamic rl =(dynamic) (new {});
@@ -537,18 +532,16 @@ namespace Cayita.Javascript.Plugins
 			return this;
 		}
 		
-		
 	}
 	
 	
 	[Serializable]
-	[IgnoreNamespace]
 	public class Range
 	{
 		public Range(){}
 		
-		public int Top {get;set;}
-		public int Bottom {get;set;}
+		public int Top { get; set; }
+		public int Bottom { get; set; }
 	}
 	
 	

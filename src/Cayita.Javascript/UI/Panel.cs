@@ -4,9 +4,8 @@ using System.Runtime.CompilerServices;
 using jQueryApi.UI.Interactions;
 using jQueryApi;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
-	[ScriptNamespace("Cayita.UI")]
 	public class Panel:ElementBase
 	{
 		PanelConfig pc;

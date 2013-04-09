@@ -40,10 +40,10 @@
 						new Cayita.UI.Div.$ctor1(span, ss.mkdel(this, function(nav) {
 							nav.className = 'well sidebar-nav';
 							Cayita.UI.HtmlList.createNavList$1(nav, ss.mkdel(this, function(list) {
-								Cayita.UI.Ext.addHeader(list, 'Menu');
+								Cayita.UI.Extensions.addHeader(list, 'Menu');
 								for (var $t1 = 0; $t1 < lr.Roles.length; $t1++) {
 									var role = { $: lr.Roles[$t1] };
-									Cayita.UI.Ext.addItem(list, ss.mkdel({ role: role, $this: this }, function(li, anchor) {
+									Cayita.UI.Extensions.addItem(list, ss.mkdel({ role: role, $this: this }, function(li, anchor) {
 										$(anchor).text(this.role.$.Title);
 										$(anchor).click(ss.mkdel({ role: this.role, $this: this.$this }, function(e) {
 											e.preventDefault();
@@ -54,7 +54,7 @@
 										}));
 									}));
 								}
-								Cayita.UI.Ext.addItem(list, ss.mkdel(this, function(li1, anchor1) {
+								Cayita.UI.Extensions.addItem(list, ss.mkdel(this, function(li1, anchor1) {
 									$(anchor1).text('Close Session');
 									$(anchor1).click(ss.mkdel(this, function(e1) {
 										e1.preventDefault();
@@ -166,7 +166,7 @@
 								$(b).addClass('btn-info btn-block');
 								$(b).button.defaults.loadingText = '  authenticating ...';
 							});
-							var vo = ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.setSubmitHandler(ValidateOptions.$ctor(), ss.mkdel(this, function(f) {
+							var vo = Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.setSubmitHandler(Cayita.Plugins.ValidateOptions.$ctor(), ss.mkdel(this, function(f) {
 								bt.showLoadingText();
 								$.get(f.action, cayita.fn.serialize(f), function(cb) {
 									console.log('callback', cb);
@@ -182,12 +182,12 @@
 								});
 							})), function(rule, msg) {
 								rule.element = pass.element$2();
-								Rule.required(Rule.minlength(rule.rule, 2));
-								Message.required(Message.minlength(msg, 'mini 2 chars'), 'your password !');
+								Cayita.Plugins.Rule.required(Cayita.Plugins.Rule.minlength(rule.rule, 2));
+								Cayita.Plugins.Message.required(Cayita.Plugins.Message.minlength(msg, 'mini 2 chars'), 'your password !');
 							}), function(rule1, msg1) {
 								rule1.element = user.element$2();
-								Rule.minlength(Rule.required(rule1.rule), 2);
-								Message.minlength(msg1, 'min 2 chars');
+								Cayita.Plugins.Rule.minlength(Cayita.Plugins.Rule.required(rule1.rule), 2);
+								Cayita.Plugins.Message.minlength(msg1, 'min 2 chars');
 							});
 							$(fe).validate(vo);
 						}));

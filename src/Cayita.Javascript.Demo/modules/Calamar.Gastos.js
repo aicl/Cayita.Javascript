@@ -226,7 +226,7 @@
 						$(b).button.defaults.loadingText = ' Guardando ...';
 						$(b).addClass('btn-info btn-block');
 					});
-					var vo = ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.setSubmitHandler(ValidateOptions.$ctor(), ss.mkdel(this, function(form) {
+					var vo = Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.setSubmitHandler(Cayita.Plugins.ValidateOptions.$ctor(), ss.mkdel(this, function(form) {
 						bt.showLoadingText();
 						var result = Calamar.Model.Gasto.$ctor();
 						cayita.fn.loadTo(form, result);
@@ -247,16 +247,16 @@
 						bt.resetLoadingText();
 					})), function(rule, msg) {
 						rule.element = fieldValor.element$2();
-						Rule.required(rule.rule);
-						Message.required(msg, 'Digite el valor del gasto');
+						Cayita.Plugins.Rule.required(rule.rule);
+						Cayita.Plugins.Message.required(msg, 'Digite el valor del gasto');
 					}), ss.mkdel(this, function(rule1, msg1) {
 						rule1.element = this.$cbConcepto.element$1();
-						Rule.required(rule1.rule);
-						Message.required(msg1, 'Seleccione el concepto');
+						Cayita.Plugins.Rule.required(rule1.rule);
+						Cayita.Plugins.Message.required(msg1, 'Seleccione el concepto');
 					})), ss.mkdel(this, function(rule2, msg2) {
 						rule2.element = this.$cbFuente.element$1();
-						Rule.required(rule2.rule);
-						Message.required(msg2, 'Seleccione al fuente del pago');
+						Cayita.Plugins.Rule.required(rule2.rule);
+						Cayita.Plugins.Message.required(msg2, 'Seleccione al fuente del pago');
 					}));
 					$(f).validate(vo);
 				})));
@@ -380,8 +380,8 @@
 		m.$defineStores();
 		m.$defineTableColumns();
 		m.$paint(parent);
-		m.get_$storeConceptos().read(null);
-		m.get_$storeFuentes().read(null);
+		m.get_$storeConceptos().read(null, true);
+		m.get_$storeFuentes().read(null, true);
 		m.$gridEvents();
 	};
 	ss.registerClass(global, 'MainModule', $MainModule);

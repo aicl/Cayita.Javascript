@@ -1,24 +1,22 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Html;
-using Cayita.Javascript.Data;
+using Cayita.Data;
 using System.Linq;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
 	[Serializable]	
-	[ScriptNamespace("Cayita.UI")]
 	public class SelectedOption<T> where T: new ()
 	{
 		public SelectedOption ()
 		{
 			Record=new T();
 		}
-		public OptionElement Option {get;set;}
-		public T Record {get;set;}
+		public OptionElement Option { get; set; }
+		public T Record { get; set; }
 	}
 
-	[ScriptNamespace("Cayita.UI")]
 	public class SelectField<T>:SelectField where T: new()
 	{
 		Func<T,OptionElement> optionFunc;
@@ -179,7 +177,7 @@ namespace Cayita.Javascript.UI
 		protected SelectField(){}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Cayita.Javascript.UI.SelectField"/> class.
+		/// Initializes a new instance of the <see cref="Cayita.UI.SelectField"/> class.
 		/// </summary>
 		/// <param name='parent'>
 		/// Parent.
@@ -200,7 +198,7 @@ namespace Cayita.Javascript.UI
 			});  
 		}
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Cayita.Javascript.UI.SelectField"/> class.
+		/// Initializes a new instance of the <see cref="Cayita.UI.SelectField"/> class.
 		/// </summary>
 		/// <param name='parent'>
 		/// Parent.

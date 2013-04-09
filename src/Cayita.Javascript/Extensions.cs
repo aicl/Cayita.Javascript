@@ -1,16 +1,14 @@
 using System;
 using System.Html;
 using System.Collections.Generic;
-using Cayita.Javascript.UI;
+using Cayita.UI;
 using System.Runtime.CompilerServices;
 using jQueryApi;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Cayita.Javascript
+namespace Cayita.UI
 {
 	[Serializable]	
-	[ScriptNamespace("Cayita.UI")]
-	[ScriptName("Ext")]
 	public static  class Extensions
 	{
 		public static void Load<T>(this SelectElement cb,  IList<T> data, Func<T, OptionElement> func, bool append=false )

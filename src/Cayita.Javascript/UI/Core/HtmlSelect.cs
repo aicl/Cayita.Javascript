@@ -1,13 +1,11 @@
 using System;
 using System.Html;
-using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using jQueryApi;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
-
-	[ScriptNamespace("Cayita.UI")]
+	
 	public class HtmlSelect:ElementBase
 	{
 		protected HtmlSelect (){}

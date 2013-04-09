@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
-using Cayita.Javascript.Data;
 using jQueryApi;
+using Cayita.Data;
 
 namespace Cayita.Javascript.DemoTables
 {

@@ -1,12 +1,9 @@
 using System;
 using System.Html;
-using System.Runtime.CompilerServices;
-using jQueryApi;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
-	
-	[ScriptNamespace("Cayita.UI")]
+
 	public class HtmlList:ElementBase
 	{
 				
@@ -50,4 +47,3 @@ namespace Cayita.Javascript.UI
 
 	}
 }
-

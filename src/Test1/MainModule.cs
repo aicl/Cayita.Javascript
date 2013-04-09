@@ -1,14 +1,13 @@
 using System.Html;
 using System.Runtime.CompilerServices;
-using Cayita.Javascript.UI;
-using Cayita.Javascript;
+using Cayita.UI;
 using jQueryApi;
-using Cayita.Javascript.Plugins;
+using Cayita.Plugins;
 using Aicl.Calamar.Scripts.Modelos;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using Cayita.Javascript.Data;
+using Cayita.Data;
 
 namespace Aicl.Calamar.Scripts.ModuloGastos
 {
@@ -203,7 +202,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 							var result =new Gasto();
 							form.LoadTo(result);
 
-							Cayita.Javascript.Firebug.Console.Log("guardando", form.Serialize(), result);
+							Firebug.Console.Log("guardando", form.Serialize(), result);
 							if(string.IsNullOrEmpty(inputId.Value()) )
 								AppendRow(result);
 							else
@@ -212,7 +211,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 									UpdateRow(result);
 							}
 							catch(Exception e){
-								Cayita.Javascript.Firebug.Console.Log("ex ",e);
+								Firebug.Console.Log("ex ",e);
 							}
 							
 							form.Reset();

@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using jQueryApi;
 using System.Html;
-
-namespace Cayita.Javascript.Data
+using Cayita.UI;
+namespace Cayita.Data
 {
 
-	[ScriptNamespace("Cayita.Data")]
 	public class Store<T> :IList<T> where T: new()
 	{
 		List<T> st= new List<T>();
@@ -75,7 +74,7 @@ namespace Cayita.Javascript.Data
 				});
 
 				req.Always(t=>{
-					Cayita.Javascript.Firebug.Console.Log("create always");
+					Firebug.Console.Log("create always");
 					OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Create, State=StoreRequestState.Finished});
 				});
 
@@ -594,8 +593,8 @@ namespace Cayita.Javascript.Data
 		protected internal StoreChangedData(){}
 		public  T NewData {get; set;}
 		public  T OldData {get; set;}
-		public StoreChangedAction Action {get;set;}
-		public int Index {get;set;}
+		public StoreChangedAction Action { get; set; }
+		public int Index { get; set; }
 	}
 
 	public enum StoreChangedAction{
@@ -619,8 +618,8 @@ namespace Cayita.Javascript.Data
 	public class StoreError<T>
 	{
 		protected internal StoreError(){}
-		public StoreErrorAction Action {get;set;}
-		public jQueryDataHttpRequest<T> Request{get;set;}
+		public StoreErrorAction Action { get; set; }
+		public jQueryDataHttpRequest<T> Request{ get; set; }
 
 	}
 	
@@ -637,8 +636,8 @@ namespace Cayita.Javascript.Data
 	public class StoreRequest
 	{
 		protected internal StoreRequest(){}
-		public StoreRequestAction Action {get;set;}
-		public StoreRequestState State {get;set;}
+		public StoreRequestAction Action { get; set; }
+		public StoreRequestState State { get; set; }
 	}
 	
 	public enum StoreRequestAction{

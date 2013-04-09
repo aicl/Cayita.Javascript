@@ -1,10 +1,8 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Html;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
-	[ScriptNamespace("Cayita.UI")]
 	public class Image:ElementBase
 	{
 		public Image (Element parent, Action<ImageElement> image)

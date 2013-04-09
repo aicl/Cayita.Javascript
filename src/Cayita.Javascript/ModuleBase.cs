@@ -1,3 +1,4 @@
+/*
 using System.Html;
 
 namespace Cayita.Javascript
@@ -10,4 +11,4 @@ namespace Cayita.Javascript
 		public abstract  void Execute(Element parent);
 	}
 }
-
+*/

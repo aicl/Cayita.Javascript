@@ -55,10 +55,10 @@
 		},
 		$showTopNavBar: function() {
 			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(null, 'Cayita.Javascript - demo', '', '', function(nav) {
-				Cayita.UI.Ext.addItem$1(nav, 'Home');
-				Cayita.UI.Ext.addItem$1(nav, 'License');
-				Cayita.UI.Ext.addItem$1(nav, 'Contact');
-				Cayita.UI.Ext.addItem$1(nav, 'About');
+				Cayita.UI.Extensions.addItem$1(nav, 'Home');
+				Cayita.UI.Extensions.addItem$1(nav, 'License');
+				Cayita.UI.Extensions.addItem$1(nav, 'Contact');
+				Cayita.UI.Extensions.addItem$1(nav, 'About');
 			}));
 			this.get_$topNavBar().addClass('navbar-inverse navbar-fixed-top').appendTo(document.body);
 		},
@@ -68,12 +68,12 @@
 					new Cayita.UI.Div.$ctor1(row, ss.mkdel(this, function(span) {
 						span.className = 'span2';
 						new Cayita.UI.SideNavBar(span, ss.mkdel(this, function(list) {
-							Cayita.UI.Ext.addHeader(list, 'Main Menu');
-							Cayita.UI.Ext.addHDivider(list);
+							Cayita.UI.Extensions.addHeader(list, 'Main Menu');
+							Cayita.UI.Extensions.addHDivider(list);
 							var $t1 = this.get_$menuItems();
 							for (var $t2 = 0; $t2 < $t1.length; $t2++) {
 								var item = { $: $t1[$t2] };
-								Cayita.UI.Ext.addItem(list, ss.mkdel({ item: item, $this: this }, function(li, anchor) {
+								Cayita.UI.Extensions.addItem(list, ss.mkdel({ item: item, $this: this }, function(li, anchor) {
 									$(anchor).text(this.item.$.get_title());
 									$(anchor).on('click', ss.mkdel({ item: this.item, $this: this.$this }, function(e) {
 										e.preventDefault();
@@ -99,7 +99,7 @@
 					this.set_$work(new Cayita.UI.Div.$ctor1(row, function(work) {
 						work.className = 'span10';
 						work.id = 'work';
-						work.appendChild(Cayita.UI.StringExt.header('Welcome', 3));
+						work.appendChild(Cayita.UI.StringExtensions.header('Welcome', 3));
 					}));
 				}));
 			})).appendTo$1(document.body);
@@ -172,7 +172,7 @@
 			}).onCloseHandler(function(p3) {
 				bootbox.alert('panel closed ', 'OK', null);
 			}).render(null);
-			(new Cayita.UI.Panel()).caption('Overlay').left('40%').top('10%').width('auto').height('400px').overlay(true).render(null).append$4('Hello World!').append$3(Cayita.UI.StringExt.header('Hello World!', 3)).append$2(new Cayita.UI.Panel()).append$2((new Cayita.UI.Panel()).append$2(new Cayita.UI.Button.$ctor1(null, function(bt) {
+			(new Cayita.UI.Panel()).caption('Overlay').left('40%').top('10%').width('auto').height('400px').overlay(true).render(null).append$4('Hello World!').append$3(Cayita.UI.StringExtensions.header('Hello World!', 3)).append$2(new Cayita.UI.Panel()).append$2((new Cayita.UI.Panel()).append$2(new Cayita.UI.Button.$ctor1(null, function(bt) {
 				$(bt).text('Click me');
 				bt.style.width = '100%';
 				bt.style.height = '100%';

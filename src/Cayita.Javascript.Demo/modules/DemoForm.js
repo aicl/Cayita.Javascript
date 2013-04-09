@@ -147,12 +147,12 @@
 								$(b).addClass('btn-info btn-block');
 								$(b).button.defaults.loadingText = '  authenticating ...';
 							});
-							$(fe).validate(ValidateOptions.setSubmitHandler(ValidateOptions.$ctor(), function(f4) {
-								var bt4 = Cayita.UI.Ext.find(Element).call(null, f4, '[type=submit]');
+							$(fe).validate(Cayita.Plugins.ValidateOptions.setSubmitHandler(Cayita.Plugins.ValidateOptions.$ctor(), function(f4) {
+								var bt4 = Cayita.UI.Extensions.find(Element).call(null, f4, '[type=submit]');
 								$(bt4).button('loading');
 								window.setTimeout(function() {
 									$(bt4).button('reset');
-									Cayita.UI.Div.createAlertSuccessAfter(f4, 'Welcome : ' + cayita.fn.getValue(Cayita.UI.Ext.findByName(Element).call(null, f4, 'UserName')));
+									Cayita.UI.Div.createAlertSuccessAfter(f4, 'Welcome : ' + cayita.fn.getValue(Cayita.UI.Extensions.findByName(Element).call(null, f4, 'UserName')));
 									cayita.fn.clearForm(f4);
 								}, 1000);
 							}));
@@ -226,23 +226,23 @@
 							$(bt5).addClass('btn-primary pull-right');
 							$(bt5).text('Send');
 						});
-						$(f5).validate(ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.addRule(ValidateOptions.setSubmitHandler(ValidateOptions.$ctor(), function(vf) {
+						$(f5).validate(Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.setSubmitHandler(Cayita.Plugins.ValidateOptions.$ctor(), function(vf) {
 							Cayita.UI.Div.createAlertSuccessBefore(vf.firstChild, 'message sent');
 							cayita.fn.clearForm(vf);
 						}), function(rf, ms) {
-							rf.element = Cayita.UI.Ext.findByName(Element).call(null, f5, 'Subject');
-							Rule.required(rf.rule);
-							Message.required(ms, 'choose an option');
+							rf.element = Cayita.UI.Extensions.findByName(Element).call(null, f5, 'Subject');
+							Cayita.Plugins.Rule.required(rf.rule);
+							Cayita.Plugins.Message.required(ms, 'choose an option');
 						}), function(rf1, ms1) {
-							rf1.element = Cayita.UI.Ext.findByName(Element).call(null, f5, 'Email');
-							Rule.email(rf1.rule, null);
-							Message.email(ms1, 'write a valid email ');
+							rf1.element = Cayita.UI.Extensions.findByName(Element).call(null, f5, 'Email');
+							Cayita.Plugins.Rule.email(rf1.rule, null);
+							Cayita.Plugins.Message.email(ms1, 'write a valid email ');
 						}), function(rf2, ms2) {
-							rf2.element = Cayita.UI.Ext.findByName(Element).call(null, f5, 'FirstName');
-							Rule.required(rf2.rule);
-							Message.required(ms2, 'write your name');
-							Rule.minlength(rf2.rule, 4);
-							Message.minlength(ms2, 'min 4 chars');
+							rf2.element = Cayita.UI.Extensions.findByName(Element).call(null, f5, 'FirstName');
+							Cayita.Plugins.Rule.required(rf2.rule);
+							Cayita.Plugins.Message.required(ms2, 'write your name');
+							Cayita.Plugins.Rule.minlength(rf2.rule, 4);
+							Cayita.Plugins.Message.minlength(ms2, 'min 4 chars');
 						}));
 					});
 				});

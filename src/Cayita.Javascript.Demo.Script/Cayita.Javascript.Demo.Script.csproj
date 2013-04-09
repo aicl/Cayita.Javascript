@@ -57,6 +57,9 @@
     <Reference Include="Saltarelle.Web">
       <HintPath>..\..\lib\Saltarelle.Web.dll</HintPath>
     </Reference>
+    <Reference Include="Saltarelle.jQuery.UI">
+      <HintPath>..\..\lib\Saltarelle.jQuery.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="j" />

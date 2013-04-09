@@ -1,8 +1,8 @@
 using System.Runtime.CompilerServices;
-using Cayita.Javascript.UI;
+using Cayita.UI;
 using System.Html;
 using System.Collections.Generic;
-using Cayita.Javascript.Plugins;
+using Cayita.Plugins;
 
 namespace Cayita.Javascript.DemoTables
 {

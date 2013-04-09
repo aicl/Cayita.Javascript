@@ -1,11 +1,9 @@
 using System;
 using System.Html;
-using System.Runtime.CompilerServices;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
 
-	[ScriptNamespace("Cayita.UI")]
 	public class CheckboxField :InputCheckbox
 	{
 		Div controlGroup ;
@@ -13,7 +11,7 @@ namespace Cayita.Javascript.UI
 		
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Cayita.Javascript.UI.CheckboxField"/> class.
+		/// Initializes a new instance of the <see cref="Cayita.UI.CheckboxField"/> class.
 		/// </summary>
 		/// <param name='parent'>
 		/// Parent.
@@ -38,7 +36,7 @@ namespace Cayita.Javascript.UI
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Cayita.Javascript.UI.CheckboxField"/> class.
+		/// Initializes a new instance of the <see cref="Cayita.UI.CheckboxField"/> class.
 		/// </summary>
 		/// <param name='parent'>
 		/// Parent.

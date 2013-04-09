@@ -1,7 +1,6 @@
 using System.Runtime.CompilerServices;
 using System.Html;
-using Cayita.Javascript.UI;
-using Cayita.Javascript;
+using Cayita.UI;
 using jQueryApi;
 
 namespace Navbar

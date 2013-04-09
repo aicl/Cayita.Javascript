@@ -1,5 +1,5 @@
 /opt/mono/bin/sc  \
-"/outscript:bin/Debug/Cayita.Javascript.UI.js" \
+"/outscript:bin/Debug/Cayita.js" \
 "/define:JS" \
 "/debug" \
 "/r:../../lib/Saltarelle.Linq.dll" \
@@ -55,6 +55,6 @@
 "UI/Panel.cs" \
 "Bootbox/Alert.cs" 
 
-cp bin/Debug/Cayita.Javascript.UI.js ../Cayita.Javascript.Demo/js/
+cp bin/Debug/Cayita.js ../Cayita.Javascript.Demo/js/
 
-echo "ready Cayita.Javascript.UI.js"
+echo "ready Cayita.js"

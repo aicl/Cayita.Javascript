@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using jQueryApi;
 using jQueryApi.UI.Interactions;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
 		
-	[ScriptNamespace("Cayita.UI")]
 	public abstract class ElementBase
 	{
 		static Dictionary<string,int> tags = new Dictionary<string,int>();

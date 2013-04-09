@@ -72,7 +72,6 @@
     <Content Include="modules\Calamar.Gastos.js" />
     <Content Include="js\Calamar.App.js" />
     <Content Include="js\Calamar.Modelos.js" />
-    <Content Include="js\Cayita.Javascript.UI.js" />
     <Content Include="js\autonumeric-1.8.5.js" />
     <Content Include="js\jquery-1.9.1.js" />
     <Content Include="js\jquery-1.9.1.min.js" />
@@ -99,11 +98,12 @@
     <Content Include="modules\DemoForm.js" />
     <Content Include="modules\DemoTables.js" />
     <Content Include="modules\DemoNavbar.js" />
-    <Content Include="css\Cayita.Javascript.UI.css" />
     <Content Include="js\jquery-ui-1.10.2.custom.js" />
     <Content Include="js\jquery-ui-1.10.2.custom.min.js" />
     <Content Include="css\flick\jquery-ui-1.10.2.custom.css" />
     <Content Include="css\flick\jquery-ui-1.10.2.custom.min.css" />
+    <Content Include="js\Cayita.js" />
+    <Content Include="css\Cayita.css" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

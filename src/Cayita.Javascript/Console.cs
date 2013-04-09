@@ -5,7 +5,7 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Cayita.Javascript.Firebug
+namespace Firebug
 {
 	[Imported]
 	[ModuleName(null)]

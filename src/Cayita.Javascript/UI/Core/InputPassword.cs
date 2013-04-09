@@ -1,14 +1,11 @@
 using System;
 using System.Html;
-using System.Runtime.CompilerServices;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
 
-	[ScriptNamespace("Cayita.UI")]
 	public class InputPassword:InputText
 	{
-
 
 		public InputPassword(Element parent,  Action<TextElement> element)
 			:this(parent)
@@ -22,7 +19,6 @@ namespace Cayita.Javascript.UI
 		{
 			Element().Type="password";
 		}
-
 
 	}
 	

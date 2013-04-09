@@ -5,7 +5,7 @@ using jQueryApi;
 using System.Html;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Cayita.Javascript.Binding
+namespace Cayita.Binding
 {
 	[IgnoreNamespace, Imported (ObeysTypeSystem = true), ScriptName ("$")]
 	public static class Observable
@@ -216,7 +216,7 @@ namespace Cayita.Javascript.Binding
 	[Serializable]
 	[IgnoreNamespace]
 	public class LinkOptions{
-		public string Target {get;set;}
+		public string Target { get; set; }
 	}
 	
 	

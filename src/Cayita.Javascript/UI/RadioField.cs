@@ -3,19 +3,18 @@ using System.Runtime.CompilerServices;
 using System.Html;
 using System.Collections.Generic;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
-	[ScriptNamespace("Cayita.UI")]
+
 	[Serializable]
 	public class RadioItem
 	{
 		public RadioItem(){}
-		public string Text {get;set;}
-		public string Value {get;set;}
+		public string Text { get; set;}
+		public string Value { get; set;}
 	}
 
 
-	[ScriptNamespace("Cayita.UI")]
 	public class RadioField:Div
 	{
 		DivElement element;

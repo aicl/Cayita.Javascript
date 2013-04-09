@@ -2,10 +2,9 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 
-namespace Cayita.Javascript.Data
+namespace Cayita.Data
 {
 	[Serializable]	
-	[ScriptNamespace("Cayita.Data")]
 	public class StoreApi<T>
 	{
 		public StoreApi()
@@ -18,12 +17,12 @@ namespace Cayita.Javascript.Data
 			Converters= new JsDictionary<string, Func<T, object>>();
 		}
 		
-		public string Url {get;set;}
-		public string DataType {get;set;}
-		public string DataProperty {get;set;}
-		public string TotalCountProperty {get;set;}
-		public string HtmlProperty {get;set;}
-		public  JsDictionary<string, Func<T,object>> Converters {get;set;}
+		public string Url { get; set; }
+		public string DataType { get; set; }
+		public string DataProperty { get; set; }
+		public string TotalCountProperty { get; set; }
+		public string HtmlProperty { get; set; }
+		public  JsDictionary<string, Func<T,object>> Converters { get; set; }
 	}
 }
 

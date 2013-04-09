@@ -1,11 +1,10 @@
 using System;
 using jQueryApi;
-using Cayita.Javascript;
-using Cayita.Javascript.UI;
+using Cayita.UI;
 using System.Html;
-using Cayita.Javascript.Plugins;
 using System.Runtime.CompilerServices;
 using Aicl.Calamar.Scripts.Modelos;
+using Cayita.Plugins;
 
 namespace Aicl.Calamar.Scripts.ModuloAuth
 {
@@ -26,7 +25,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 
 		void OnLogin(LoginResponse loginResponse, LoginForm lf)
 		{
-			Cayita.Javascript.Firebug.Console.Log("App.OnLogin ", loginResponse);
+			Firebug.Console.Log("App.OnLogin ", loginResponse);
 			var a = TopNavBar.GetPullRightAnchor();
 			a.Text(lf.UserName);
 			TopNavBar.GetPullRightParagraph().Text("");
@@ -72,13 +71,13 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 										e.PreventDefault();
 										Document.Body.Empty();
 										jQuery.Post("api/Logout", new {}, cb=>{
-											Cayita.Javascript.Firebug.Console.Log("callback", cb);
+											Firebug.Console.Log("callback", cb);
 										},"json")
 											.Success(d=>{
 												
 											})
 												.Error((request,  textStatus,  error)=>{
-													Cayita.Javascript.Firebug.Console.Log("request", request );
+													Firebug.Console.Log("request", request );
 													//Div.CreateAlertErrorBefore(Document.Body,
 													//                           textStatus+": "+ request.StatusText);
 												})
@@ -179,7 +178,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 									bt.ShowLoadingText();
 									
 									jQuery.GetData<LoginResponse>(f.Action, f.Serialize(), cb=>{
-										Cayita.Javascript.Firebug.Console.Log("callback", cb);
+										Firebug.Console.Log("callback", cb);
 									},"json")
 										.Success(d=>{
 											UserName= user.Element().Value;

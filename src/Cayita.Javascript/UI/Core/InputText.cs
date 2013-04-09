@@ -1,14 +1,10 @@
 using System;
 using System.Html;
-using System.Runtime.CompilerServices;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
-		
-	[ScriptNamespace("Cayita.UI")]
 	public class InputText:InputBase
 	{
-
 		protected InputText(){}
 
 		public InputText(Element parent,  Action<TextElement> element)
@@ -28,8 +24,6 @@ namespace Cayita.Javascript.UI
 			return (TextElement)  base.Element() ;
 		}
 
-
 	}
 
 }
-

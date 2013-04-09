@@ -2,12 +2,11 @@ using System;
 using System.Linq;
 using System.Html;
 using System.Collections.Generic;
-using Cayita.Javascript.Data;
-using System.Runtime.CompilerServices;
+using Cayita.Data;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
-	[ScriptNamespace("Cayita.UI")]
+
 	[Serializable]
 	public class SelectedRow<T> : SelectedRow where T:new()
 	{
@@ -15,20 +14,19 @@ namespace Cayita.Javascript.UI
 		{
 			Record= new T();
 		}
-		public T  Record {get;set;}
+		public T  Record { get; set; }
 	}
 
-	[ScriptNamespace("Cayita.UI")]
+
 	[Serializable]
 	public class RequestMessage
 	{
 		public  RequestMessage(){}
-		public Element Target{get;set;}
-		public string Message {get;set;}
-		protected internal Element HtmlElement {get;set;}
+		public Element Target{ get; set; }
+		public string Message { get; set; }
+		protected internal Element HtmlElement { get; set; }
 	}
 
-	[ScriptNamespace("Cayita.UI")]
 	public class HtmlGrid<T>:HtmlTable where T: new()
 	{
 

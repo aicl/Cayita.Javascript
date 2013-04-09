@@ -1,13 +1,10 @@
 using System;
 using System.Html;
 using jQueryApi;
-using System.Runtime.CompilerServices;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
 	[Serializable]	
-	[ScriptNamespace("Cayita.UI")]
-	[ScriptName("StringExt")]
 	public static class StringExtensions
 	{
 		public static Element Header (this string text,  int size, Element parent)
@@ -59,4 +56,3 @@ namespace Cayita.Javascript.UI
 
 	}
 }
-

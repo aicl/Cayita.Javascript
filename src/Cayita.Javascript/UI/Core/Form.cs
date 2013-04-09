@@ -1,11 +1,9 @@
 using System;
 using System.Html;
-using System.Runtime.CompilerServices;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
-
-	[ScriptNamespace("Cayita.UI")]
+	
 	public class Form:ElementBase
 	{
 
@@ -29,4 +27,3 @@ namespace Cayita.Javascript.UI
 
 	}
 }
-

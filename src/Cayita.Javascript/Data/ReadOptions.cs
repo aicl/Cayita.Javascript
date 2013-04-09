@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace Cayita.Javascript.Data
+namespace Cayita.Data
 {
 	[Serializable]
-	[ScriptNamespace("Cayita.Data")]
 	public class ReadOptions 
 	{
 		dynamic query_= new {};
@@ -21,10 +20,10 @@ namespace Cayita.Javascript.Data
 		public  int? PageNumber {get; set;}
 		public  int? PageSize {get;  set;}
 		public JsDictionary<string,object> QueryParams {get; private set;}
-		public string OrderBy {get;set;}
-		public string OrderType {get;set;}
-		public string PageSizeParam {get;set;}
-		public string PageNumberParam {get;set;}
+		public string OrderBy { get; set; }
+		public string OrderType { get; set; }
+		public string PageSizeParam { get; set; }
+		public string PageNumberParam { get; set; }
 		public bool LocalPaging { get; set; }
 
 		public object OrderByParam {
@@ -72,8 +71,6 @@ namespace Cayita.Javascript.Data
 		}
 
 	}
-	
 	//FormData
-
 }
 

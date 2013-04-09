@@ -1,298 +1,12 @@
 ﻿(function() {
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Plugins.Message
-	var $Message = function() {
+	// Cayita.Data.AjaxResponse
+	var $Cayita_Data_AjaxResponse = function() {
 	};
-	$Message.createInstance = function() {
-		return $Message.$ctor();
+	$Cayita_Data_AjaxResponse.createInstance = function() {
+		return $Cayita_Data_AjaxResponse.$ctor();
 	};
-	$Message.remote = function($this, message) {
-		$this.msg.remote = message;
-		return $this;
-	};
-	$Message.required = function($this, message) {
-		$this.msg.required = message;
-		return $this;
-	};
-	$Message.email = function($this, message) {
-		$this.msg.email = message;
-		return $this;
-	};
-	$Message.url = function($this, message) {
-		$this.msg.url = message;
-		return $this;
-	};
-	$Message.date = function($this, message) {
-		$this.msg.date = message;
-		return $this;
-	};
-	$Message.dateISO = function($this, message) {
-		$this.msg.dateISO = message;
-		return $this;
-	};
-	$Message.number = function($this, message) {
-		$this.msg.number = message;
-		return $this;
-	};
-	$Message.digits = function($this, message) {
-		$this.msg.digits = message;
-		return $this;
-	};
-	$Message.creditcard = function($this, message) {
-		$this.msg.creditcard = message;
-		return $this;
-	};
-	$Message.equalTo = function($this, message) {
-		$this.msg.equalTo = message;
-		return $this;
-	};
-	$Message.maxlength = function($this, message) {
-		$this.msg.maxlength = message;
-		return $this;
-	};
-	$Message.minlength = function($this, message) {
-		$this.msg.minlength = message;
-		return $this;
-	};
-	$Message.max = function($this, message) {
-		$this.msg.max = message;
-		return $this;
-	};
-	$Message.min = function($this, message) {
-		$this.msg.min = message;
-		return $this;
-	};
-	$Message.range = function($this, message) {
-		$this.msg.range = message;
-		return $this;
-	};
-	$Message.rangelength = function($this, message) {
-		$this.msg.rangelength = message;
-		return $this;
-	};
-	$Message.$ctor = function() {
-		var $this = {};
-		$this.msg = {};
-		return $this;
-	};
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Plugins.MessageFor
-	var $MessageFor = function() {
-	};
-	$MessageFor.createInstance = function() {
-		return $MessageFor.$ctor();
-	};
-	$MessageFor.$ctor = function() {
-		var $this = {};
-		$this.element = null;
-		$this.message = null;
-		$this.message = $Message.$ctor();
-		return $this;
-	};
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Plugins.Range
-	var $Range = function() {
-	};
-	$Range.createInstance = function() {
-		return $Range.$ctor();
-	};
-	$Range.$ctor = function() {
-		var $this = {};
-		$this.top = 0;
-		$this.bottom = 0;
-		return $this;
-	};
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Plugins.Rule
-	var $Rule = function() {
-	};
-	$Rule.createInstance = function() {
-		return $Rule.$ctor();
-	};
-	$Rule.remote = function($this, url) {
-		$this.rl.url = url;
-		return $this;
-	};
-	$Rule.remote$1 = function($this, url, method) {
-		$this.rl.url = { url: url, method: method };
-		return $this;
-	};
-	$Rule.required = function($this) {
-		$this.rl.required = true;
-		return $this;
-	};
-	$Rule.required$1 = function($this, handler) {
-		$this.rl.required = handler;
-		return $this;
-	};
-	$Rule.email = function($this, dependCallback) {
-		if (ss.staticEquals(dependCallback, null)) {
-			$this.rl = { email: true, required: true };
-		}
-		else {
-			$this.rl.mail = { depends: dependCallback };
-		}
-		return $this;
-	};
-	$Rule.url = function($this) {
-		$this.rl.url = true;
-		return $this;
-	};
-	$Rule.date = function($this) {
-		$this.rl.date = true;
-		return $this;
-	};
-	$Rule.dateISO = function($this) {
-		$this.rl.dateISO = true;
-		return $this;
-	};
-	$Rule.number = function($this) {
-		$this.rl.number = true;
-		return $this;
-	};
-	$Rule.digits = function($this) {
-		$this.rl.digits = true;
-		return $this;
-	};
-	$Rule.creditcard = function($this, dependCallback) {
-		if (!ss.staticEquals(dependCallback, null)) {
-			$this.rl.creditcard = true;
-		}
-		else {
-			$this.rl.creditcard = { depends: dependCallback };
-		}
-		return $this;
-	};
-	$Rule.equalTo = function($this, element) {
-		$this.rl.equalTo = '#' + element.id;
-		return $this;
-	};
-	$Rule.maxlength = function($this, value) {
-		$this.rl.maxlength = value;
-		return $this;
-	};
-	$Rule.minlength = function($this, value) {
-		$this.rl.minlength = value;
-		return $this;
-	};
-	$Rule.max = function($this, value) {
-		$this.rl.max = value;
-		return $this;
-	};
-	$Rule.min = function($this, value) {
-		$this.rl.min = value;
-		return $this;
-	};
-	$Rule.range = function($this, range) {
-		$this.rl.range = [range.bottom, range.top];
-		return $this;
-	};
-	$Rule.rangeLength = function($this, range) {
-		$this.rl.rangelength = [range.bottom, range.top];
-		return $this;
-	};
-	$Rule.$ctor = function() {
-		var $this = {};
-		$this.rl = {};
-		return $this;
-	};
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Plugins.RuleFor
-	var $RuleFor = function() {
-	};
-	$RuleFor.createInstance = function() {
-		return $RuleFor.$ctor();
-	};
-	$RuleFor.$ctor = function() {
-		var $this = {};
-		$this.element = null;
-		$this.rule = null;
-		$this.rule = $Rule.$ctor();
-		return $this;
-	};
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Plugins.ValidateOptions
-	var $ValidateOptions = function() {
-	};
-	$ValidateOptions.createInstance = function() {
-		return $ValidateOptions.$ctor();
-	};
-	$ValidateOptions.setErrorClass = function($this, className) {
-		$this.errorClass = className;
-		return $this;
-	};
-	$ValidateOptions.setValidClass = function($this, className) {
-		$this.validClass = className;
-		return $this;
-	};
-	$ValidateOptions.setSubmitHandler = function($this, handler) {
-		$this.submitHandler = handler;
-		return $this;
-	};
-	$ValidateOptions.setHighlightHandler = function($this, handler) {
-		$this.highlight = handler;
-		return $this;
-	};
-	$ValidateOptions.setUnhighlightHandler = function($this, handler) {
-		$this.unhighlight = handler;
-		return $this;
-	};
-	$ValidateOptions.setSuccessHandler = function($this, handler) {
-		$this.success = handler;
-		return $this;
-	};
-	$ValidateOptions.addRule = function($this, rule) {
-		var rulefor = $RuleFor.$ctor();
-		var msg = $Message.$ctor();
-		rule(rulefor, msg);
-		if (!rulefor.element.hasAttribute('autonumeric')) {
-			$this.rules[rulefor.element.name] = rulefor.rule.rl;
-		}
-		else {
-			if (!!ss.isValue(rulefor.rule.rl.max)) {
-				cayita.fn.autoNumeric(rulefor.element, { vMax: rulefor.rule.rl.max });
-			}
-			if (!!ss.isValue(rulefor.rule.rl.min)) {
-				cayita.fn.autoNumeric(rulefor.element, { vMin: rulefor.rule.rl.min });
-			}
-			if (!!ss.isValue(rulefor.rule.rl.range)) {
-				cayita.fn.autoNumeric(rulefor.element, { vMin: rulefor.rule.rl.range.Bottom, vMax: rulefor.rule.rl.range.Top });
-			}
-		}
-		$this.messages[rulefor.element.name] = msg.msg;
-		return $this;
-	};
-	$ValidateOptions.$ctor = function() {
-		var $this = {};
-		$this.submitHandler = null;
-		$this.highlight = null;
-		$this.unhighlight = null;
-		$this.success = null;
-		$this.validClass = null;
-		$this.errorClass = null;
-		$this.messages = {};
-		$this.rules = {};
-		$this.errorClass = 'error';
-		$this.validClass = 'success';
-		$ValidateOptions.setHighlightHandler($this, function(element) {
-			$(element).closest('.control-group').removeClass($this.validClass).addClass($this.errorClass);
-		});
-		$ValidateOptions.setSuccessHandler($this, function(label) {
-			label.closest('.control-group').removeClass($this.errorClass).addClass($this.validClass);
-		});
-		$ValidateOptions.setUnhighlightHandler($this, function(element1) {
-			$(element1).closest('.control-group').removeClass($this.errorClass);
-		});
-		return $this;
-	};
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Data.AjaxResponse
-	var $Cayita_Ajax_AjaxResponse = function() {
-	};
-	$Cayita_Ajax_AjaxResponse.createInstance = function() {
-		return $Cayita_Ajax_AjaxResponse.$ctor();
-	};
-	$Cayita_Ajax_AjaxResponse.$ctor = function() {
+	$Cayita_Data_AjaxResponse.$ctor = function() {
 		var $this = {};
 		$this.ResponseStatus = null;
 		$this.Status = 0;
@@ -300,13 +14,13 @@
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Data.AppError
-	var $Cayita_Ajax_AppError = function() {
+	// Cayita.Data.AppError
+	var $Cayita_Data_AppError = function() {
 	};
-	$Cayita_Ajax_AppError.createInstance = function() {
-		return $Cayita_Ajax_AppError.$ctor();
+	$Cayita_Data_AppError.createInstance = function() {
+		return $Cayita_Data_AppError.$ctor();
 	};
-	$Cayita_Ajax_AppError.$ctor = function() {
+	$Cayita_Data_AppError.$ctor = function() {
 		var $this = {};
 		$this.ErrorCode = null;
 		$this.FieldName = null;
@@ -314,21 +28,7 @@
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Data.ResponseStatus
-	var $Cayita_Ajax_ResponseStatus = function() {
-	};
-	$Cayita_Ajax_ResponseStatus.createInstance = function() {
-		return $Cayita_Ajax_ResponseStatus.$ctor();
-	};
-	$Cayita_Ajax_ResponseStatus.$ctor = function() {
-		var $this = {};
-		$this.ErrorCode = null;
-		$this.Message = null;
-		$this.Errors = null;
-		return $this;
-	};
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Data.ReadOptions
+	// Cayita.Data.ReadOptions
 	var $Cayita_Data_ReadOptions = function() {
 	};
 	$Cayita_Data_ReadOptions.createInstance = function() {
@@ -390,7 +90,21 @@
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Data.Store
+	// Cayita.Data.ResponseStatus
+	var $Cayita_Data_ResponseStatus = function() {
+	};
+	$Cayita_Data_ResponseStatus.createInstance = function() {
+		return $Cayita_Data_ResponseStatus.$ctor();
+	};
+	$Cayita_Data_ResponseStatus.$ctor = function() {
+		var $this = {};
+		$this.ErrorCode = null;
+		$this.Message = null;
+		$this.Errors = null;
+		return $this;
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Data.Store
 	var $Cayita_Data_Store$1 = function(T) {
 		var $type = function() {
 			this.$st = [];
@@ -1070,7 +784,7 @@
 	};
 	ss.registerGenericClass(global, 'Cayita.Data.Store$1', $Cayita_Data_Store$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Data.StoreApi
+	// Cayita.Data.StoreApi
 	var $Cayita_Data_StoreApi$1 = function(T) {
 		var $type = function() {
 		};
@@ -1102,7 +816,12 @@
 	};
 	ss.registerGenericClass(global, 'Cayita.Data.StoreApi$1', $Cayita_Data_StoreApi$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Data.StoreChangedData
+	// Cayita.Data.StoreChangedAction
+	var $Cayita_Data_StoreChangedAction = function() {
+	};
+	$Cayita_Data_StoreChangedAction.prototype = { created: 0, read: 1, updated: 2, destroyed: 3, patched: 4, added: 5, inserted: 6, replaced: 7, removed: 8, cleared: 9, loaded: 10, filtered: 11 };
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Data.StoreChangedData
 	var $Cayita_Data_StoreChangedData$1 = function(T) {
 		var $type = function() {
 		};
@@ -1123,7 +842,7 @@
 	};
 	ss.registerGenericClass(global, 'Cayita.Data.StoreChangedData$1', $Cayita_Data_StoreChangedData$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Data.StoreError
+	// Cayita.Data.StoreError
 	var $Cayita_Data_StoreError$1 = function(T) {
 		var $type = function() {
 		};
@@ -1142,7 +861,12 @@
 	};
 	ss.registerGenericClass(global, 'Cayita.Data.StoreError$1', $Cayita_Data_StoreError$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Data.StoreRequest
+	// Cayita.Data.StoreErrorAction
+	var $Cayita_Data_StoreErrorAction = function() {
+	};
+	$Cayita_Data_StoreErrorAction.prototype = { create: 0, read: 1, update: 2, destroy: 3, patch: 4 };
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Data.StoreRequest
 	var $Cayita_Data_StoreRequest = function() {
 	};
 	$Cayita_Data_StoreRequest.$ctor = function() {
@@ -1152,110 +876,303 @@
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.ModuleBase
-	var $Cayita_Javascript_ModuleBase = function() {
+	// Cayita.Data.StoreRequestAction
+	var $Cayita_Data_StoreRequestAction = function() {
 	};
-	$Cayita_Javascript_ModuleBase.prototype = { execute: null };
+	$Cayita_Data_StoreRequestAction.prototype = { create: 0, read: 1, update: 2, destroy: 3, patch: 4 };
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Data.StoreChangedAction
-	var $Cayita_Javascript_Data_StoreChangedAction = function() {
+	// Cayita.Data.StoreRequestState
+	var $Cayita_Data_StoreRequestState = function() {
 	};
-	$Cayita_Javascript_Data_StoreChangedAction.prototype = { created: 0, read: 1, updated: 2, destroyed: 3, patched: 4, added: 5, inserted: 6, replaced: 7, removed: 8, cleared: 9, loaded: 10, filtered: 11 };
+	$Cayita_Data_StoreRequestState.prototype = { started: 0, finished: 1 };
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Data.StoreErrorAction
-	var $Cayita_Javascript_Data_StoreErrorAction = function() {
+	// Cayita.Plugins.Message
+	var $Cayita_Plugins_Message = function() {
 	};
-	$Cayita_Javascript_Data_StoreErrorAction.prototype = { create: 0, read: 1, update: 2, destroy: 3, patch: 4 };
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Data.StoreRequestAction
-	var $Cayita_Javascript_Data_StoreRequestAction = function() {
+	$Cayita_Plugins_Message.createInstance = function() {
+		return $Cayita_Plugins_Message.$ctor();
 	};
-	$Cayita_Javascript_Data_StoreRequestAction.prototype = { create: 0, read: 1, update: 2, destroy: 3, patch: 4 };
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Data.StoreRequestState
-	var $Cayita_Javascript_Data_StoreRequestState = function() {
+	$Cayita_Plugins_Message.remote = function($this, message) {
+		$this.msg.remote = message;
+		return $this;
 	};
-	$Cayita_Javascript_Data_StoreRequestState.prototype = { started: 0, finished: 1 };
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.Bootbox
-	var $Cayita_Javascript_UI_Bootbox = function() {
+	$Cayita_Plugins_Message.required = function($this, message) {
+		$this.msg.required = message;
+		return $this;
 	};
-	$Cayita_Javascript_UI_Bootbox.dialog$3 = function(message, options, buttons) {
-		bootbox.dialog(message, buttons || [], options);
+	$Cayita_Plugins_Message.email = function($this, message) {
+		$this.msg.email = message;
+		return $this;
 	};
-	$Cayita_Javascript_UI_Bootbox.dialog$4 = function(message, options, buttons) {
-		var opt = $Cayita_Javascript_UI_DialogOptions.$ctor();
-		if (!ss.staticEquals(options, null)) {
-			options(opt);
-		}
-		var bt = [];
-		if (!ss.staticEquals(buttons, null)) {
-			buttons(bt);
-		}
-		bootbox.dialog(message, bt, opt);
+	$Cayita_Plugins_Message.url = function($this, message) {
+		$this.msg.url = message;
+		return $this;
 	};
-	$Cayita_Javascript_UI_Bootbox.dialog$2 = function(body, options, buttons) {
-		$Cayita_Javascript_UI_Bootbox.dialog$5($(body), options, buttons);
+	$Cayita_Plugins_Message.date = function($this, message) {
+		$this.msg.date = message;
+		return $this;
 	};
-	$Cayita_Javascript_UI_Bootbox.dialog$1 = function(body, options, buttons) {
-		$Cayita_Javascript_UI_Bootbox.dialog$5(body.jQuery(), options, buttons);
+	$Cayita_Plugins_Message.dateISO = function($this, message) {
+		$this.msg.dateISO = message;
+		return $this;
 	};
-	$Cayita_Javascript_UI_Bootbox.dialog$5 = function(body, options, buttons) {
-		var opt = $Cayita_Javascript_UI_DialogOptions.$ctor();
-		if (!ss.staticEquals(options, null)) {
-			options(opt);
-		}
-		var bt = [];
-		if (!ss.staticEquals(buttons, null)) {
-			buttons(bt);
-		}
-		bootbox.dialog(body, bt, opt);
+	$Cayita_Plugins_Message.number = function($this, message) {
+		$this.msg.number = message;
+		return $this;
 	};
-	$Cayita_Javascript_UI_Bootbox.dialog = function(message) {
-		bootbox.dialog(message, [], $Cayita_Javascript_UI_DialogOptions.$ctor());
+	$Cayita_Plugins_Message.digits = function($this, message) {
+		$this.msg.digits = message;
+		return $this;
 	};
-	$Cayita_Javascript_UI_Bootbox.error = function(message, caption) {
-		var $t1 = $Cayita_Javascript_UI_DialogOptions.$ctor();
-		$t1.header = ss.formatString('<p style="color:red;"><i class="icon-minus-sign" style="margin-top:8px;margin-right:8px;"></i>{0}</p>', caption);
-		bootbox.dialog(message, [], $t1);
+	$Cayita_Plugins_Message.creditcard = function($this, message) {
+		$this.msg.creditcard = message;
+		return $this;
 	};
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.DialogButton
-	var $Cayita_Javascript_UI_DialogButton = function() {
+	$Cayita_Plugins_Message.equalTo = function($this, message) {
+		$this.msg.equalTo = message;
+		return $this;
 	};
-	$Cayita_Javascript_UI_DialogButton.createInstance = function() {
-		return $Cayita_Javascript_UI_DialogButton.$ctor();
+	$Cayita_Plugins_Message.maxlength = function($this, message) {
+		$this.msg.maxlength = message;
+		return $this;
 	};
-	$Cayita_Javascript_UI_DialogButton.$ctor = function() {
+	$Cayita_Plugins_Message.minlength = function($this, message) {
+		$this.msg.minlength = message;
+		return $this;
+	};
+	$Cayita_Plugins_Message.max = function($this, message) {
+		$this.msg.max = message;
+		return $this;
+	};
+	$Cayita_Plugins_Message.min = function($this, message) {
+		$this.msg.min = message;
+		return $this;
+	};
+	$Cayita_Plugins_Message.range = function($this, message) {
+		$this.msg.range = message;
+		return $this;
+	};
+	$Cayita_Plugins_Message.rangelength = function($this, message) {
+		$this.msg.rangelength = message;
+		return $this;
+	};
+	$Cayita_Plugins_Message.$ctor = function() {
 		var $this = {};
-		$this.label = null;
-		$this.class = null;
-		$this.callback = null;
-		$this.callback = function() {
-		};
+		$this.msg = {};
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.DialogOptions
-	var $Cayita_Javascript_UI_DialogOptions = function() {
+	// Cayita.Plugins.MessageFor
+	var $Cayita_Plugins_MessageFor = function() {
 	};
-	$Cayita_Javascript_UI_DialogOptions.createInstance = function() {
-		return $Cayita_Javascript_UI_DialogOptions.$ctor();
+	$Cayita_Plugins_MessageFor.createInstance = function() {
+		return $Cayita_Plugins_MessageFor.$ctor();
 	};
-	$Cayita_Javascript_UI_DialogOptions.$ctor = function() {
+	$Cayita_Plugins_MessageFor.$ctor = function() {
 		var $this = {};
-		$this.header = null;
-		$this.animate = null;
-		$this.classes = null;
-		$this.onEscape = null;
-		$this.header = null;
-		$this.classes = null;
-		$this.onEscape = function() {
-		};
+		$this.element = null;
+		$this.message = null;
+		$this.message = $Cayita_Plugins_Message.$ctor();
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.Anchor
+	// Cayita.Plugins.Range
+	var $Cayita_Plugins_Range = function() {
+	};
+	$Cayita_Plugins_Range.createInstance = function() {
+		return $Cayita_Plugins_Range.$ctor();
+	};
+	$Cayita_Plugins_Range.$ctor = function() {
+		var $this = {};
+		$this.top = 0;
+		$this.bottom = 0;
+		return $this;
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Plugins.Rule
+	var $Cayita_Plugins_Rule = function() {
+	};
+	$Cayita_Plugins_Rule.createInstance = function() {
+		return $Cayita_Plugins_Rule.$ctor();
+	};
+	$Cayita_Plugins_Rule.remote = function($this, url) {
+		$this.rl.url = url;
+		return $this;
+	};
+	$Cayita_Plugins_Rule.remote$1 = function($this, url, method) {
+		$this.rl.url = { url: url, method: method };
+		return $this;
+	};
+	$Cayita_Plugins_Rule.required = function($this) {
+		$this.rl.required = true;
+		return $this;
+	};
+	$Cayita_Plugins_Rule.required$1 = function($this, handler) {
+		$this.rl.required = handler;
+		return $this;
+	};
+	$Cayita_Plugins_Rule.email = function($this, dependCallback) {
+		if (ss.staticEquals(dependCallback, null)) {
+			$this.rl = { email: true, required: true };
+		}
+		else {
+			$this.rl.mail = { depends: dependCallback };
+		}
+		return $this;
+	};
+	$Cayita_Plugins_Rule.url = function($this) {
+		$this.rl.url = true;
+		return $this;
+	};
+	$Cayita_Plugins_Rule.date = function($this) {
+		$this.rl.date = true;
+		return $this;
+	};
+	$Cayita_Plugins_Rule.dateISO = function($this) {
+		$this.rl.dateISO = true;
+		return $this;
+	};
+	$Cayita_Plugins_Rule.number = function($this) {
+		$this.rl.number = true;
+		return $this;
+	};
+	$Cayita_Plugins_Rule.digits = function($this) {
+		$this.rl.digits = true;
+		return $this;
+	};
+	$Cayita_Plugins_Rule.creditcard = function($this, dependCallback) {
+		if (!ss.staticEquals(dependCallback, null)) {
+			$this.rl.creditcard = true;
+		}
+		else {
+			$this.rl.creditcard = { depends: dependCallback };
+		}
+		return $this;
+	};
+	$Cayita_Plugins_Rule.equalTo = function($this, element) {
+		$this.rl.equalTo = '#' + element.id;
+		return $this;
+	};
+	$Cayita_Plugins_Rule.maxlength = function($this, value) {
+		$this.rl.maxlength = value;
+		return $this;
+	};
+	$Cayita_Plugins_Rule.minlength = function($this, value) {
+		$this.rl.minlength = value;
+		return $this;
+	};
+	$Cayita_Plugins_Rule.max = function($this, value) {
+		$this.rl.max = value;
+		return $this;
+	};
+	$Cayita_Plugins_Rule.min = function($this, value) {
+		$this.rl.min = value;
+		return $this;
+	};
+	$Cayita_Plugins_Rule.range = function($this, range) {
+		$this.rl.range = [range.bottom, range.top];
+		return $this;
+	};
+	$Cayita_Plugins_Rule.rangeLength = function($this, range) {
+		$this.rl.rangelength = [range.bottom, range.top];
+		return $this;
+	};
+	$Cayita_Plugins_Rule.$ctor = function() {
+		var $this = {};
+		$this.rl = {};
+		return $this;
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Plugins.RuleFor
+	var $Cayita_Plugins_RuleFor = function() {
+	};
+	$Cayita_Plugins_RuleFor.createInstance = function() {
+		return $Cayita_Plugins_RuleFor.$ctor();
+	};
+	$Cayita_Plugins_RuleFor.$ctor = function() {
+		var $this = {};
+		$this.element = null;
+		$this.rule = null;
+		$this.rule = $Cayita_Plugins_Rule.$ctor();
+		return $this;
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Plugins.ValidateOptions
+	var $Cayita_Plugins_ValidateOptions = function() {
+	};
+	$Cayita_Plugins_ValidateOptions.createInstance = function() {
+		return $Cayita_Plugins_ValidateOptions.$ctor();
+	};
+	$Cayita_Plugins_ValidateOptions.setErrorClass = function($this, className) {
+		$this.errorClass = className;
+		return $this;
+	};
+	$Cayita_Plugins_ValidateOptions.setValidClass = function($this, className) {
+		$this.validClass = className;
+		return $this;
+	};
+	$Cayita_Plugins_ValidateOptions.setSubmitHandler = function($this, handler) {
+		$this.submitHandler = handler;
+		return $this;
+	};
+	$Cayita_Plugins_ValidateOptions.setHighlightHandler = function($this, handler) {
+		$this.highlight = handler;
+		return $this;
+	};
+	$Cayita_Plugins_ValidateOptions.setUnhighlightHandler = function($this, handler) {
+		$this.unhighlight = handler;
+		return $this;
+	};
+	$Cayita_Plugins_ValidateOptions.setSuccessHandler = function($this, handler) {
+		$this.success = handler;
+		return $this;
+	};
+	$Cayita_Plugins_ValidateOptions.addRule = function($this, rule) {
+		var rulefor = $Cayita_Plugins_RuleFor.$ctor();
+		var msg = $Cayita_Plugins_Message.$ctor();
+		rule(rulefor, msg);
+		if (!rulefor.element.hasAttribute('autonumeric')) {
+			$this.rules[rulefor.element.name] = rulefor.rule.rl;
+		}
+		else {
+			if (!!ss.isValue(rulefor.rule.rl.max)) {
+				cayita.fn.autoNumeric(rulefor.element, { vMax: rulefor.rule.rl.max });
+			}
+			if (!!ss.isValue(rulefor.rule.rl.min)) {
+				cayita.fn.autoNumeric(rulefor.element, { vMin: rulefor.rule.rl.min });
+			}
+			if (!!ss.isValue(rulefor.rule.rl.range)) {
+				cayita.fn.autoNumeric(rulefor.element, { vMin: rulefor.rule.rl.range.Bottom, vMax: rulefor.rule.rl.range.Top });
+			}
+		}
+		$this.messages[rulefor.element.name] = msg.msg;
+		return $this;
+	};
+	$Cayita_Plugins_ValidateOptions.$ctor = function() {
+		var $this = {};
+		$this.submitHandler = null;
+		$this.highlight = null;
+		$this.unhighlight = null;
+		$this.success = null;
+		$this.validClass = null;
+		$this.errorClass = null;
+		$this.messages = {};
+		$this.rules = {};
+		$this.errorClass = 'error';
+		$this.validClass = 'success';
+		$Cayita_Plugins_ValidateOptions.setHighlightHandler($this, function(element) {
+			$(element).closest('.control-group').removeClass($this.validClass).addClass($this.errorClass);
+		});
+		$Cayita_Plugins_ValidateOptions.setSuccessHandler($this, function(label) {
+			label.closest('.control-group').removeClass($this.errorClass).addClass($this.validClass);
+		});
+		$Cayita_Plugins_ValidateOptions.setUnhighlightHandler($this, function(element1) {
+			$(element1).closest('.control-group').removeClass($this.errorClass);
+		});
+		return $this;
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.Anchor
 	var $Cayita_UI_Anchor = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
 		this.$init(parent);
@@ -1276,7 +1193,50 @@
 	};
 	$Cayita_UI_Anchor.$ctor1.prototype = $Cayita_UI_Anchor.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.Button
+	// Cayita.UI.Bootbox
+	var $Cayita_UI_Bootbox = function() {
+	};
+	$Cayita_UI_Bootbox.dialog$3 = function(message, options, buttons) {
+		bootbox.dialog(message, buttons || [], options);
+	};
+	$Cayita_UI_Bootbox.dialog$4 = function(message, options, buttons) {
+		var opt = $Cayita_UI_DialogOptions.$ctor();
+		if (!ss.staticEquals(options, null)) {
+			options(opt);
+		}
+		var bt = [];
+		if (!ss.staticEquals(buttons, null)) {
+			buttons(bt);
+		}
+		bootbox.dialog(message, bt, opt);
+	};
+	$Cayita_UI_Bootbox.dialog$2 = function(body, options, buttons) {
+		$Cayita_UI_Bootbox.dialog$5($(body), options, buttons);
+	};
+	$Cayita_UI_Bootbox.dialog$1 = function(body, options, buttons) {
+		$Cayita_UI_Bootbox.dialog$5(body.jQuery(), options, buttons);
+	};
+	$Cayita_UI_Bootbox.dialog$5 = function(body, options, buttons) {
+		var opt = $Cayita_UI_DialogOptions.$ctor();
+		if (!ss.staticEquals(options, null)) {
+			options(opt);
+		}
+		var bt = [];
+		if (!ss.staticEquals(buttons, null)) {
+			buttons(bt);
+		}
+		bootbox.dialog(body, bt, opt);
+	};
+	$Cayita_UI_Bootbox.dialog = function(message) {
+		bootbox.dialog(message, [], $Cayita_UI_DialogOptions.$ctor());
+	};
+	$Cayita_UI_Bootbox.error = function(message, caption) {
+		var $t1 = $Cayita_UI_DialogOptions.$ctor();
+		$t1.header = ss.formatString('<p style="color:red;"><i class="icon-minus-sign" style="margin-top:8px;margin-right:8px;"></i>{0}</p>', caption);
+		bootbox.dialog(message, [], $t1);
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.Button
 	var $Cayita_UI_Button = function(parent) {
 		$Cayita_UI_ButtonBase.call(this);
 		this.createButton(parent, 'button');
@@ -1288,7 +1248,7 @@
 	};
 	$Cayita_UI_Button.$ctor1.prototype = $Cayita_UI_Button.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.ButtonBase
+	// Cayita.UI.ButtonBase
 	var $Cayita_UI_ButtonBase = function() {
 		$Cayita_UI_ElementBase.call(this);
 	};
@@ -1320,7 +1280,7 @@
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.CheckboxField
+	// Cayita.UI.CheckboxField
 	var $Cayita_UI_CheckboxField = function(parent, field) {
 		this.$controlGroup = null;
 		this.$controls = null;
@@ -1364,7 +1324,42 @@
 	};
 	$Cayita_UI_CheckboxField.$ctor1.prototype = $Cayita_UI_CheckboxField.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.Div
+	// Cayita.UI.DialogButton
+	var $Cayita_UI_DialogButton = function() {
+	};
+	$Cayita_UI_DialogButton.createInstance = function() {
+		return $Cayita_UI_DialogButton.$ctor();
+	};
+	$Cayita_UI_DialogButton.$ctor = function() {
+		var $this = {};
+		$this.label = null;
+		$this.class = null;
+		$this.callback = null;
+		$this.callback = function() {
+		};
+		return $this;
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.DialogOptions
+	var $Cayita_UI_DialogOptions = function() {
+	};
+	$Cayita_UI_DialogOptions.createInstance = function() {
+		return $Cayita_UI_DialogOptions.$ctor();
+	};
+	$Cayita_UI_DialogOptions.$ctor = function() {
+		var $this = {};
+		$this.header = null;
+		$this.animate = null;
+		$this.classes = null;
+		$this.onEscape = null;
+		$this.header = null;
+		$this.classes = null;
+		$this.onEscape = function() {
+		};
+		return $this;
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.Div
 	var $Cayita_UI_Div = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('div', parent);
@@ -1500,7 +1495,7 @@
 		return div;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.ElementBase
+	// Cayita.UI.ElementBase
 	var $Cayita_UI_ElementBase = function() {
 		this.$element_ = null;
 	};
@@ -1611,10 +1606,10 @@
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.Extensions
-	var $Cayita_UI_Ext = function() {
+	// Cayita.UI.Extensions
+	var $Cayita_UI_Extensions = function() {
 	};
-	$Cayita_UI_Ext.load = function(T) {
+	$Cayita_UI_Extensions.load = function(T) {
 		return function(cb, data, func, append) {
 			if (!append) {
 				$(cb).empty();
@@ -1631,47 +1626,47 @@
 			}
 		};
 	};
-	$Cayita_UI_Ext.createOption = function(T) {
+	$Cayita_UI_Extensions.createOption = function(T) {
 		return function(cb, data, func) {
 			$(cb).append(func(data));
 		};
 	};
-	$Cayita_UI_Ext.updateOption = function(T) {
+	$Cayita_UI_Extensions.updateOption = function(T) {
 		return function(cb, data, func, recordIdProperty) {
 			var d = data;
 			var old = $('option[value=' + d[recordIdProperty] + ']', cb);
 			cb.replaceChild(func(data), old[0]);
 		};
 	};
-	$Cayita_UI_Ext.removeOption = function(T) {
+	$Cayita_UI_Extensions.removeOption = function(T) {
 		return function(cb, data, recordIdProperty) {
 			var d = data;
 			$('option[value=' + d[recordIdProperty] + ']', cb).remove();
 		};
 	};
-	$Cayita_UI_Ext.loadTo = function(T) {
+	$Cayita_UI_Extensions.loadTo = function(T) {
 		return function(form) {
 			var data = ss.createInstance(T);
 			cayita.fn.loadTo(form, data);
 			return data;
 		};
 	};
-	$Cayita_UI_Ext.find = function(T) {
+	$Cayita_UI_Extensions.find = function(T) {
 		return function(form, selector) {
 			return $(selector, form)[0];
 		};
 	};
-	$Cayita_UI_Ext.findByName = function(T) {
+	$Cayita_UI_Extensions.findByName = function(T) {
 		return function(form, name) {
 			return $('[name=' + name + ']', form)[0];
 		};
 	};
-	$Cayita_UI_Ext.findById = function(T) {
+	$Cayita_UI_Extensions.findById = function(T) {
 		return function(form, id) {
 			return $('[id=' + id + ']', form)[0];
 		};
 	};
-	$Cayita_UI_Ext.createRow = function(T) {
+	$Cayita_UI_Extensions.createRow = function(T) {
 		return function(table, data, columns, recordIdProperty) {
 			var r = new $Cayita_UI_TableRow.$ctor1(null, function(row) {
 				row.setAttribute('record-id', data[recordIdProperty]);
@@ -1691,7 +1686,7 @@
 			$(table).append(r.element$1());
 		};
 	};
-	$Cayita_UI_Ext.updateRow = function(T) {
+	$Cayita_UI_Extensions.updateRow = function(T) {
 		return function(table, data, columns, recordIdProperty) {
 			var d = data;
 			var row = $('tr[record-id=' + d[recordIdProperty] + ']', table).empty();
@@ -1708,13 +1703,13 @@
 			}
 		};
 	};
-	$Cayita_UI_Ext.removeRow = function(T) {
+	$Cayita_UI_Extensions.removeRow = function(T) {
 		return function(table, data, recordIdProperty) {
 			var d = data;
 			$('tr[record-id=' + d[recordIdProperty] + ']', table).remove();
 		};
 	};
-	$Cayita_UI_Ext.createHeader = function(T) {
+	$Cayita_UI_Extensions.createHeader = function(T) {
 		return function(table, columns) {
 			new $Cayita_UI_TableHeader.$ctor1(table, function(th) {
 				new $Cayita_UI_TableRow.$ctor1(th, function(row) {
@@ -1733,7 +1728,7 @@
 			});
 		};
 	};
-	$Cayita_UI_Ext.createFooter = function(T) {
+	$Cayita_UI_Extensions.createFooter = function(T) {
 		return function(table, columns) {
 			new $Cayita_UI_TableFooter.$ctor1(table, function(tf) {
 				new $Cayita_UI_TableRow.$ctor1(tf, function(row) {
@@ -1752,7 +1747,7 @@
 			});
 		};
 	};
-	$Cayita_UI_Ext.load$1 = function(T) {
+	$Cayita_UI_Extensions.load$1 = function(T) {
 		return function(table, data, columns, recordIdProperty, append) {
 			var body;
 			if (table.tBodies.length === 0) {
@@ -1792,40 +1787,40 @@
 			body.appendChild(fbody);
 		};
 	};
-	$Cayita_UI_Ext.addItem$2 = function(parent, href, item) {
+	$Cayita_UI_Extensions.addItem$2 = function(parent, href, item) {
 		var il = new $Cayita_UI_ListItem(parent);
 		new $Cayita_UI_Anchor.$ctor1(il.element(), function(a) {
 			a.href = href;
 			$(a).text(item);
 		});
 	};
-	$Cayita_UI_Ext.addItem$1 = function(parent, item) {
+	$Cayita_UI_Extensions.addItem$1 = function(parent, item) {
 		var il = new $Cayita_UI_ListItem(parent);
 		new $Cayita_UI_Anchor.$ctor1(il.element(), function(a) {
 			a.href = '#';
 			$(a).text(item);
 		});
 	};
-	$Cayita_UI_Ext.addItem = function(parent, element) {
+	$Cayita_UI_Extensions.addItem = function(parent, element) {
 		var il = new $Cayita_UI_ListItem(parent);
 		var anchor = new $Cayita_UI_Anchor.$ctor1(il.element(), function(a) {
 			a.href = '#';
 		});
 		element(il.element(), anchor.element$1());
 	};
-	$Cayita_UI_Ext.addHeader = function(parent, item) {
+	$Cayita_UI_Extensions.addHeader = function(parent, item) {
 		new $Cayita_UI_ListItem.$ctor1(parent, function(l) {
 			l.className = 'nav-header';
 			$(l).text(item);
 		});
 	};
-	$Cayita_UI_Ext.addHDivider = function(parent) {
+	$Cayita_UI_Extensions.addHDivider = function(parent) {
 		new $Cayita_UI_ListItem.$ctor1(parent, function(l) {
 			l.className = 'divider';
 		});
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.FieldSet
+	// Cayita.UI.FieldSet
 	var $Cayita_UI_FieldSet = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('fieldset', parent);
@@ -1837,7 +1832,7 @@
 	};
 	$Cayita_UI_FieldSet.$ctor1.prototype = $Cayita_UI_FieldSet.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.Form
+	// Cayita.UI.Form
 	var $Cayita_UI_Form = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('form', parent);
@@ -1854,7 +1849,7 @@
 	};
 	$Cayita_UI_Form.$ctor1.prototype = $Cayita_UI_Form.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.HtmlGrid
+	// Cayita.UI.HtmlGrid
 	var $Cayita_UI_HtmlGrid$1 = function(T) {
 		var $type = function(parent) {
 			this.$columns = null;
@@ -1882,7 +1877,7 @@
 					var row1 = e.currentTarget;
 					this.$selectRowImp(row1, true);
 				}));
-				$Cayita_UI_Ext.createHeader(T).call(null, this.$table, this.$columns);
+				$Cayita_UI_Extensions.createHeader(T).call(null, this.$table, this.$columns);
 				var $t1 = $Cayita_UI_RequestMessage.$ctor();
 				$t1.target = this.$table;
 				$t1.message = 'Reading ' + ss.getTypeName(T);
@@ -1904,18 +1899,18 @@
 				this.$store.add_onStoreChanged(ss.mkdel(this, function(st, dt) {
 					switch (dt.action) {
 						case 0: {
-							$Cayita_UI_Ext.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							$Cayita_UI_Extensions.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
 							break;
 						}
 						case 11:
 						case 10:
 						case 1: {
-							$Cayita_UI_Ext.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
+							$Cayita_UI_Extensions.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
 							this.selectRow(true);
 							break;
 						}
 						case 2: {
-							$Cayita_UI_Ext.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							$Cayita_UI_Extensions.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
 							break;
 						}
 						case 3: {
@@ -1925,19 +1920,19 @@
 							break;
 						}
 						case 4: {
-							$Cayita_UI_Ext.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							$Cayita_UI_Extensions.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
 							break;
 						}
 						case 5: {
-							$Cayita_UI_Ext.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							$Cayita_UI_Extensions.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
 							break;
 						}
 						case 7: {
-							$Cayita_UI_Ext.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							$Cayita_UI_Extensions.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
 							break;
 						}
 						case 6: {
-							$Cayita_UI_Ext.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							$Cayita_UI_Extensions.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
 							break;
 						}
 						case 8: {
@@ -1990,7 +1985,7 @@
 				return this.$selectedrow;
 			},
 			render: function() {
-				$Cayita_UI_Ext.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
+				$Cayita_UI_Extensions.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
 				this.selectRow(true);
 			},
 			selectRow$1: function(recordId, trigger) {
@@ -2057,7 +2052,7 @@
 	};
 	ss.registerGenericClass(global, 'Cayita.UI.HtmlGrid$1', $Cayita_UI_HtmlGrid$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.HtmlList
+	// Cayita.UI.HtmlList
 	var $Cayita_UI_HtmlList = function(parent, ordered) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement((ordered ? 'ol' : 'ul'), parent);
@@ -2089,7 +2084,7 @@
 		return nl;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.HtmlOption
+	// Cayita.UI.HtmlOption
 	var $Cayita_UI_HtmlOption = function(element) {
 		$Cayita_UI_ElementBase.call(this);
 		this.$init(null);
@@ -2110,7 +2105,7 @@
 	};
 	$Cayita_UI_HtmlOption.$ctor1.prototype = $Cayita_UI_HtmlOption.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.HtmlSelect
+	// Cayita.UI.HtmlSelect
 	var $Cayita_UI_HtmlSelect = function() {
 		$Cayita_UI_ElementBase.call(this);
 	};
@@ -2123,7 +2118,7 @@
 		},
 		load: function(T) {
 			return function(data, func) {
-				$Cayita_UI_Ext.load(T).call(null, this.element$1(), data, func, false);
+				$Cayita_UI_Extensions.load(T).call(null, this.element$1(), data, func, false);
 			};
 		},
 		selectItem: function(value) {
@@ -2141,7 +2136,7 @@
 	};
 	$Cayita_UI_HtmlSelect.$ctor1.prototype = $Cayita_UI_HtmlSelect.$ctor2.prototype = $Cayita_UI_HtmlSelect.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.HtmlTable
+	// Cayita.UI.HtmlTable
 	var $Cayita_UI_HtmlTable = function() {
 		$Cayita_UI_ElementBase.call(this);
 	};
@@ -2161,7 +2156,7 @@
 	};
 	$Cayita_UI_HtmlTable.$ctor2.prototype = $Cayita_UI_HtmlTable.$ctor1.prototype = $Cayita_UI_HtmlTable.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.Icon
+	// Cayita.UI.Icon
 	var $Cayita_UI_Icon = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('i', parent);
@@ -2173,7 +2168,7 @@
 	};
 	$Cayita_UI_Icon.$ctor1.prototype = $Cayita_UI_Icon.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.IconAnchor
+	// Cayita.UI.IconAnchor
 	var $Cayita_UI_IconAnchor = function(parent, element) {
 		$Cayita_UI_Anchor.call(this, parent);
 		this.element$1().className = 'btn';
@@ -2181,7 +2176,7 @@
 		element(this.element$1(), i.element());
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.IconButton
+	// Cayita.UI.IconButton
 	var $Cayita_UI_IconButton = function(parent, element) {
 		$Cayita_UI_Button.call(this, parent);
 		this.element$1().className = 'btn';
@@ -2189,7 +2184,7 @@
 		element(this.element$1(), i.element());
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.Image
+	// Cayita.UI.Image
 	var $Cayita_UI_Image = function(parent, image) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('img', parent);
@@ -2201,7 +2196,7 @@
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.Input
+	// Cayita.UI.Input
 	var $Cayita_UI_Input = function(parent) {
 		$Cayita_UI_InputBase.$ctor1.call(this, parent, 'text');
 	};
@@ -2211,7 +2206,7 @@
 	};
 	$Cayita_UI_Input.$ctor1.prototype = $Cayita_UI_Input.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.InputBase
+	// Cayita.UI.InputBase
 	var $Cayita_UI_InputBase = function() {
 		$Cayita_UI_ElementBase.call(this);
 	};
@@ -2268,7 +2263,7 @@
 	};
 	$Cayita_UI_InputBase.$ctor1.prototype = $Cayita_UI_InputBase.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.InputCheckbox
+	// Cayita.UI.InputCheckbox
 	var $Cayita_UI_InputCheckbox = function() {
 		$Cayita_UI_InputBase.call(this);
 	};
@@ -2293,7 +2288,7 @@
 	};
 	$Cayita_UI_InputCheckbox.$ctor2.prototype = $Cayita_UI_InputCheckbox.$ctor1.prototype = $Cayita_UI_InputCheckbox.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.InputPassword
+	// Cayita.UI.InputPassword
 	var $Cayita_UI_InputPassword = function(parent) {
 		$Cayita_UI_InputText.$ctor1.call(this, parent);
 		this.element$2().type = 'password';
@@ -2304,7 +2299,7 @@
 	};
 	$Cayita_UI_InputPassword.$ctor1.prototype = $Cayita_UI_InputPassword.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.InputRadio
+	// Cayita.UI.InputRadio
 	var $Cayita_UI_InputRadio = function(parent, field) {
 		$Cayita_UI_InputBase.call(this);
 		new $Cayita_UI_Label.$ctor1(parent, ss.mkdel(this, function(lb) {
@@ -2321,7 +2316,7 @@
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.InputText
+	// Cayita.UI.InputText
 	var $Cayita_UI_InputText = function() {
 		$Cayita_UI_InputBase.call(this);
 	};
@@ -2339,7 +2334,7 @@
 	};
 	$Cayita_UI_InputText.$ctor2.prototype = $Cayita_UI_InputText.$ctor1.prototype = $Cayita_UI_InputText.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.Label
+	// Cayita.UI.Label
 	var $Cayita_UI_Label = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('label', parent);
@@ -2386,7 +2381,7 @@
 		});
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.Legend
+	// Cayita.UI.Legend
 	var $Cayita_UI_Legend = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('legend', parent);
@@ -2398,7 +2393,7 @@
 	};
 	$Cayita_UI_Legend.$ctor1.prototype = $Cayita_UI_Legend.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.ListItem
+	// Cayita.UI.ListItem
 	var $Cayita_UI_ListItem = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
 		this.$init(parent);
@@ -2423,7 +2418,7 @@
 		return il;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.Panel
+	// Cayita.UI.Panel
 	var $Cayita_UI_Panel = function() {
 		this.$pc = null;
 		this.$captionElement = null;
@@ -2472,7 +2467,7 @@
 					$(icon1).hide();
 				}
 			}));
-			this.$captionElement = $Cayita_UI_StringExt.header(this.$pc.caption, 6);
+			this.$captionElement = $Cayita_UI_StringExtensions.header(this.$pc.caption, 6);
 			this.$pc.header.jQuery().append(this.$captionElement);
 			this.$pc.container.jQuery().css('left', this.$pc.left).css('top', this.$pc.top);
 			this.$pc.body.jQuery().css('width', this.$pc.width).css('height', this.$pc.height);
@@ -2677,7 +2672,7 @@
 	};
 	$Cayita_UI_Panel.$ctor2.prototype = $Cayita_UI_Panel.$ctor1.prototype = $Cayita_UI_Panel.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.PanelConfig
+	// Cayita.UI.PanelConfig
 	var $Cayita_UI_PanelConfig = function() {
 	};
 	$Cayita_UI_PanelConfig.createInstance = function() {
@@ -2728,7 +2723,7 @@
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.Paragraph
+	// Cayita.UI.Paragraph
 	var $Cayita_UI_Paragraph = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('p', parent);
@@ -2740,7 +2735,7 @@
 	};
 	$Cayita_UI_Paragraph.$ctor1.prototype = $Cayita_UI_Paragraph.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.RadioField
+	// Cayita.UI.RadioField
 	var $Cayita_UI_RadioField = function(parent, label, fieldName, items, inline) {
 		this.$element = null;
 		this.$controls = null;
@@ -2774,7 +2769,7 @@
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.RadioItem
+	// Cayita.UI.RadioItem
 	var $Cayita_UI_RadioItem = function() {
 	};
 	$Cayita_UI_RadioItem.createInstance = function() {
@@ -2787,7 +2782,7 @@
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.RequestMessage
+	// Cayita.UI.RequestMessage
 	var $Cayita_UI_RequestMessage = function() {
 	};
 	$Cayita_UI_RequestMessage.createInstance = function() {
@@ -2801,7 +2796,7 @@
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.ResetButton
+	// Cayita.UI.ResetButton
 	var $Cayita_UI_ResetButton = function(parent) {
 		$Cayita_UI_ButtonBase.call(this);
 		this.createButton(parent, 'reset');
@@ -2813,7 +2808,7 @@
 	};
 	$Cayita_UI_ResetButton.$ctor1.prototype = $Cayita_UI_ResetButton.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.SelectedOption
+	// Cayita.UI.SelectedOption
 	var $Cayita_UI_SelectedOption$1 = function(T) {
 		var $type = function() {
 		};
@@ -2836,7 +2831,7 @@
 	};
 	ss.registerGenericClass(global, 'Cayita.UI.SelectedOption$1', $Cayita_UI_SelectedOption$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.SelectedRow
+	// Cayita.UI.SelectedRow
 	var $Cayita_UI_SelectedRow = function() {
 	};
 	$Cayita_UI_SelectedRow.createInstance = function() {
@@ -2849,7 +2844,7 @@
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.SelectedRow
+	// Cayita.UI.SelectedRow
 	var $Cayita_UI_SelectedRow$1 = function(T) {
 		var $type = function() {
 		};
@@ -2871,7 +2866,7 @@
 	};
 	ss.registerGenericClass(global, 'Cayita.UI.SelectedRow$1', $Cayita_UI_SelectedRow$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.SelectField
+	// Cayita.UI.SelectField
 	var $Cayita_UI_SelectField = function() {
 		this.controlGroup = null;
 		this.label = null;
@@ -2923,7 +2918,7 @@
 	};
 	$Cayita_UI_SelectField.$ctor1.prototype = $Cayita_UI_SelectField.$ctor2.prototype = $Cayita_UI_SelectField.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.SelectField
+	// Cayita.UI.SelectField
 	var $Cayita_UI_SelectField$1 = function(T) {
 		var $type = function(parent, element, store, optionFunc, defaultOption) {
 			this.$optionFunc = null;
@@ -2960,7 +2955,7 @@
 				store.add_onStoreChanged(ss.mkdel(this, function(st, dt) {
 					switch (dt.action) {
 						case 0: {
-							$Cayita_UI_Ext.createOption(T).call(null, this.$se, dt.newData, optionFunc);
+							$Cayita_UI_Extensions.createOption(T).call(null, this.$se, dt.newData, optionFunc);
 							break;
 						}
 						case 11:
@@ -2971,32 +2966,32 @@
 							break;
 						}
 						case 2: {
-							$Cayita_UI_Ext.updateOption(T).call(null, this.$se, dt.newData, optionFunc, store.getRecordIdProperty());
+							$Cayita_UI_Extensions.updateOption(T).call(null, this.$se, dt.newData, optionFunc, store.getRecordIdProperty());
 							break;
 						}
 						case 3: {
-							$Cayita_UI_Ext.removeOption(T).call(null, this.$se, dt.oldData, store.getRecordIdProperty());
+							$Cayita_UI_Extensions.removeOption(T).call(null, this.$se, dt.oldData, store.getRecordIdProperty());
 							this.selectOption();
 							break;
 						}
 						case 4: {
-							$Cayita_UI_Ext.updateOption(T).call(null, this.$se, dt.newData, optionFunc, store.getRecordIdProperty());
+							$Cayita_UI_Extensions.updateOption(T).call(null, this.$se, dt.newData, optionFunc, store.getRecordIdProperty());
 							break;
 						}
 						case 5: {
-							$Cayita_UI_Ext.createOption(T).call(null, this.$se, dt.newData, optionFunc);
+							$Cayita_UI_Extensions.createOption(T).call(null, this.$se, dt.newData, optionFunc);
 							break;
 						}
 						case 7: {
-							$Cayita_UI_Ext.updateOption(T).call(null, this.$se, dt.newData, optionFunc, store.getRecordIdProperty());
+							$Cayita_UI_Extensions.updateOption(T).call(null, this.$se, dt.newData, optionFunc, store.getRecordIdProperty());
 							break;
 						}
 						case 6: {
-							$Cayita_UI_Ext.createOption(T).call(null, this.$se, dt.newData, optionFunc);
+							$Cayita_UI_Extensions.createOption(T).call(null, this.$se, dt.newData, optionFunc);
 							break;
 						}
 						case 8: {
-							$Cayita_UI_Ext.removeOption(T).call(null, this.$se, dt.oldData, store.getRecordIdProperty());
+							$Cayita_UI_Extensions.removeOption(T).call(null, this.$se, dt.oldData, store.getRecordIdProperty());
 							this.selectOption();
 							break;
 						}
@@ -3012,11 +3007,11 @@
 				var append = false;
 				if (ss.isValue(this.$defaultoption.option) && ss.isNullOrEmptyString(this.$defaultoption.option.value)) {
 					append = true;
-					$Cayita_UI_Ext.createOption(T).call(null, this.$se, this.$defaultoption.record, ss.mkdel(this, function(f) {
+					$Cayita_UI_Extensions.createOption(T).call(null, this.$se, this.$defaultoption.record, ss.mkdel(this, function(f) {
 						return this.$defaultoption.option;
 					}));
 				}
-				$Cayita_UI_Ext.load(T).call(null, this.$se, this.$store, this.$optionFunc, append);
+				$Cayita_UI_Extensions.load(T).call(null, this.$se, this.$store, this.$optionFunc, append);
 				if (!ss.isNullOrEmptyString(this.$defaultoption.option.value)) {
 					var $t1 = this.$se;
 					$('option[value=' + this.$defaultoption.option.value + ']', $t1).attr('selected', true);
@@ -3091,7 +3086,7 @@
 	};
 	ss.registerGenericClass(global, 'Cayita.UI.SelectField$1', $Cayita_UI_SelectField$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.SideNavBar
+	// Cayita.UI.SideNavBar
 	var $Cayita_UI_SideNavBar = function(parent, navlist) {
 		this.$navList = null;
 		$Cayita_UI_Div.call(this, parent);
@@ -3104,7 +3099,7 @@
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.Span
+	// Cayita.UI.Span
 	var $Cayita_UI_Span = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('span', parent);
@@ -3116,7 +3111,7 @@
 	};
 	$Cayita_UI_Span.$ctor1.prototype = $Cayita_UI_Span.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.SpinnerIcon
+	// Cayita.UI.SpinnerIcon
 	var $Cayita_UI_SpinnerIcon = function(config, message) {
 		$Cayita_UI_SpinnerIcon.$ctor1.call(this, null, config, message);
 	};
@@ -3141,7 +3136,7 @@
 	};
 	$Cayita_UI_SpinnerIcon.$ctor1.prototype = $Cayita_UI_SpinnerIcon.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.StorePaging
+	// Cayita.UI.StorePaging
 	var $Cayita_UI_StorePaging$1 = function(T) {
 		var $type = function(parent, store) {
 			this.$divnav = null;
@@ -3288,45 +3283,45 @@
 	};
 	ss.registerGenericClass(global, 'Cayita.UI.StorePaging$1', $Cayita_UI_StorePaging$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.StringExtensions
-	var $Cayita_UI_StringExt = function() {
+	// Cayita.UI.StringExtensions
+	var $Cayita_UI_StringExtensions = function() {
 	};
-	$Cayita_UI_StringExt.header$1 = function(text, size, parent) {
+	$Cayita_UI_StringExtensions.header$1 = function(text, size, parent) {
 		var h = document.createElement('h' + size.toString());
 		h.innerHTML = text;
 		parent.appendChild(h);
 		return h;
 	};
-	$Cayita_UI_StringExt.header$2 = function(text, size, parent) {
+	$Cayita_UI_StringExtensions.header$2 = function(text, size, parent) {
 		var h = document.createElement('h' + size.toString());
 		h.innerHTML = text;
 		parent.append(h);
 		return h;
 	};
-	$Cayita_UI_StringExt.header = function(text, size) {
+	$Cayita_UI_StringExtensions.header = function(text, size) {
 		var h = document.createElement('h' + size.toString());
 		h.innerHTML = text;
 		return h;
 	};
-	$Cayita_UI_StringExt.paragraph$1 = function(text, parent) {
+	$Cayita_UI_StringExtensions.paragraph$1 = function(text, parent) {
 		var h = document.createElement('p');
 		h.innerHTML = text;
 		parent.appendChild(h);
 		return h;
 	};
-	$Cayita_UI_StringExt.paragraph$2 = function(text, parent) {
+	$Cayita_UI_StringExtensions.paragraph$2 = function(text, parent) {
 		var h = document.createElement('p');
 		h.innerHTML = text;
 		parent.append(h);
 		return h;
 	};
-	$Cayita_UI_StringExt.paragraph = function(text) {
+	$Cayita_UI_StringExtensions.paragraph = function(text) {
 		var h = document.createElement('p');
 		h.innerHTML = text;
 		return h;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.SubmitButton
+	// Cayita.UI.SubmitButton
 	var $Cayita_UI_SubmitButton = function(parent) {
 		$Cayita_UI_ButtonBase.call(this);
 		this.createButton(parent, 'submit');
@@ -3338,31 +3333,13 @@
 	};
 	$Cayita_UI_SubmitButton.$ctor1.prototype = $Cayita_UI_SubmitButton.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// System.SystemExtensions
-	var $Cayita_UI_SystemExt = function() {
-	};
-	$Cayita_UI_SystemExt.toJsDate = function(date) {
-		if (ss.staticEquals(date, null)) {
-			return null;
-		}
-		var tick = parseInt(date.toString());
-		var d = new Date(tick);
-		return new Date(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds());
-	};
-	$Cayita_UI_SystemExt.format = function(date, format) {
-		if (ss.staticEquals(date, null)) {
-			return '';
-		}
-		return ss.formatDate(date, format);
-	};
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.TableBody
+	// Cayita.UI.TableBody
 	var $Cayita_UI_TableBody = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('tbody', parent);
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.TableCell
+	// Cayita.UI.TableCell
 	var $Cayita_UI_TableCell = function() {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('td', null);
@@ -3388,7 +3365,7 @@
 	};
 	$Cayita_UI_TableCell.$ctor3.prototype = $Cayita_UI_TableCell.$ctor2.prototype = $Cayita_UI_TableCell.$ctor1.prototype = $Cayita_UI_TableCell.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.TableColumn
+	// Cayita.UI.TableColumn
 	var $Cayita_UI_TableColumn$1 = function(T) {
 		var $type = function() {
 		};
@@ -3413,7 +3390,7 @@
 	};
 	ss.registerGenericClass(global, 'Cayita.UI.TableColumn$1', $Cayita_UI_TableColumn$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.TableFooter
+	// Cayita.UI.TableFooter
 	var $Cayita_UI_TableFooter = function(parent) {
 		$Cayita_UI_HtmlTable.call(this);
 		this.createElement('tfoot', parent);
@@ -3430,7 +3407,7 @@
 	};
 	$Cayita_UI_TableFooter.$ctor1.prototype = $Cayita_UI_TableFooter.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.TableHeader
+	// Cayita.UI.TableHeader
 	var $Cayita_UI_TableHeader = function(parent) {
 		$Cayita_UI_HtmlTable.call(this);
 		this.createElement('thead', parent);
@@ -3447,7 +3424,7 @@
 	};
 	$Cayita_UI_TableHeader.$ctor1.prototype = $Cayita_UI_TableHeader.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.TableRow
+	// Cayita.UI.TableRow
 	var $Cayita_UI_TableRow = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('tr', parent);
@@ -3464,7 +3441,7 @@
 	};
 	$Cayita_UI_TableRow.$ctor1.prototype = $Cayita_UI_TableRow.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.TextArea
+	// Cayita.UI.TextArea
 	var $Cayita_UI_TextArea = function() {
 		$Cayita_UI_ElementBase.call(this);
 	};
@@ -3484,7 +3461,7 @@
 	};
 	$Cayita_UI_TextArea.$ctor2.prototype = $Cayita_UI_TextArea.$ctor1.prototype = $Cayita_UI_TextArea.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.TextAreaField
+	// Cayita.UI.TextAreaField
 	var $Cayita_UI_TextAreaField = function(parent, field) {
 		this.$controlGroup = null;
 		this.$label = null;
@@ -3536,7 +3513,7 @@
 	};
 	$Cayita_UI_TextAreaField.$ctor1.prototype = $Cayita_UI_TextAreaField.$ctor2.prototype = $Cayita_UI_TextAreaField.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.TextField
+	// Cayita.UI.TextField
 	var $Cayita_UI_TextField = function(parent, field) {
 		this.$controlGroup = null;
 		this.$label = null;
@@ -3588,7 +3565,7 @@
 	};
 	$Cayita_UI_TextField.$ctor1.prototype = $Cayita_UI_TextField.$ctor2.prototype = $Cayita_UI_TextField.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Javascript.UI.TopNavBar
+	// Cayita.UI.TopNavBar
 	var $Cayita_UI_TopNavBar = function(parent, brandText, navlist) {
 		$Cayita_UI_TopNavBar.$ctor1.call(this, parent, brandText, '', '', navlist);
 	};
@@ -3657,34 +3634,51 @@
 		}));
 	};
 	$Cayita_UI_TopNavBar.$ctor1.prototype = $Cayita_UI_TopNavBar.prototype;
-	ss.registerClass(global, 'Message', $Message);
-	ss.registerClass(global, 'MessageFor', $MessageFor);
-	ss.registerClass(global, 'Range', $Range);
-	ss.registerClass(global, 'Rule', $Rule);
-	ss.registerClass(global, 'RuleFor', $RuleFor);
-	ss.registerClass(global, 'ValidateOptions', $ValidateOptions);
-	ss.registerClass(global, 'Cayita.Ajax.AjaxResponse', $Cayita_Ajax_AjaxResponse);
-	ss.registerClass(global, 'Cayita.Ajax.AppError', $Cayita_Ajax_AppError);
-	ss.registerClass(global, 'Cayita.Ajax.ResponseStatus', $Cayita_Ajax_ResponseStatus);
+	////////////////////////////////////////////////////////////////////////////////
+	// System.SystemExtensions
+	var $System_SystemExtensions = function() {
+	};
+	$System_SystemExtensions.toJsDate = function(date) {
+		if (ss.staticEquals(date, null)) {
+			return null;
+		}
+		var tick = parseInt(date.toString());
+		var d = new Date(tick);
+		return new Date(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds());
+	};
+	$System_SystemExtensions.format = function(date, format) {
+		if (ss.staticEquals(date, null)) {
+			return '';
+		}
+		return ss.formatDate(date, format);
+	};
+	ss.registerClass(global, 'Cayita.Data.AjaxResponse', $Cayita_Data_AjaxResponse);
+	ss.registerClass(global, 'Cayita.Data.AppError', $Cayita_Data_AppError);
 	ss.registerClass(global, 'Cayita.Data.ReadOptions', $Cayita_Data_ReadOptions);
+	ss.registerClass(global, 'Cayita.Data.ResponseStatus', $Cayita_Data_ResponseStatus);
+	ss.registerEnum(global, 'Cayita.Data.StoreChangedAction', $Cayita_Data_StoreChangedAction);
+	ss.registerEnum(global, 'Cayita.Data.StoreErrorAction', $Cayita_Data_StoreErrorAction);
 	ss.registerClass(global, 'Cayita.Data.StoreRequest', $Cayita_Data_StoreRequest);
-	ss.registerClass(global, 'Cayita.Javascript.ModuleBase', $Cayita_Javascript_ModuleBase);
-	ss.registerEnum(global, 'Cayita.Javascript.Data.StoreChangedAction', $Cayita_Javascript_Data_StoreChangedAction);
-	ss.registerEnum(global, 'Cayita.Javascript.Data.StoreErrorAction', $Cayita_Javascript_Data_StoreErrorAction);
-	ss.registerEnum(global, 'Cayita.Javascript.Data.StoreRequestAction', $Cayita_Javascript_Data_StoreRequestAction);
-	ss.registerEnum(global, 'Cayita.Javascript.Data.StoreRequestState', $Cayita_Javascript_Data_StoreRequestState);
-	ss.registerClass(global, 'Cayita.Javascript.UI.Bootbox', $Cayita_Javascript_UI_Bootbox);
-	ss.registerClass(global, 'Cayita.Javascript.UI.DialogButton', $Cayita_Javascript_UI_DialogButton);
-	ss.registerClass(global, 'Cayita.Javascript.UI.DialogOptions', $Cayita_Javascript_UI_DialogOptions);
+	ss.registerEnum(global, 'Cayita.Data.StoreRequestAction', $Cayita_Data_StoreRequestAction);
+	ss.registerEnum(global, 'Cayita.Data.StoreRequestState', $Cayita_Data_StoreRequestState);
+	ss.registerClass(global, 'Cayita.Plugins.Message', $Cayita_Plugins_Message);
+	ss.registerClass(global, 'Cayita.Plugins.MessageFor', $Cayita_Plugins_MessageFor);
+	ss.registerClass(global, 'Cayita.Plugins.Range', $Cayita_Plugins_Range);
+	ss.registerClass(global, 'Cayita.Plugins.Rule', $Cayita_Plugins_Rule);
+	ss.registerClass(global, 'Cayita.Plugins.RuleFor', $Cayita_Plugins_RuleFor);
+	ss.registerClass(global, 'Cayita.Plugins.ValidateOptions', $Cayita_Plugins_ValidateOptions);
 	ss.registerClass(global, 'Cayita.UI.ElementBase', $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Anchor', $Cayita_UI_Anchor, $Cayita_UI_ElementBase);
+	ss.registerClass(global, 'Cayita.UI.Bootbox', $Cayita_UI_Bootbox);
 	ss.registerClass(global, 'Cayita.UI.ButtonBase', $Cayita_UI_ButtonBase, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Button', $Cayita_UI_Button, $Cayita_UI_ButtonBase);
 	ss.registerClass(global, 'Cayita.UI.InputBase', $Cayita_UI_InputBase, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.InputCheckbox', $Cayita_UI_InputCheckbox, $Cayita_UI_InputBase);
 	ss.registerClass(global, 'Cayita.UI.CheckboxField', $Cayita_UI_CheckboxField, $Cayita_UI_InputCheckbox);
+	ss.registerClass(global, 'Cayita.UI.DialogButton', $Cayita_UI_DialogButton);
+	ss.registerClass(global, 'Cayita.UI.DialogOptions', $Cayita_UI_DialogOptions);
 	ss.registerClass(global, 'Cayita.UI.Div', $Cayita_UI_Div, $Cayita_UI_ElementBase);
-	ss.registerClass(global, 'Cayita.UI.Ext', $Cayita_UI_Ext);
+	ss.registerClass(global, 'Cayita.UI.Extensions', $Cayita_UI_Extensions);
 	ss.registerClass(global, 'Cayita.UI.FieldSet', $Cayita_UI_FieldSet, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Form', $Cayita_UI_Form, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.HtmlList', $Cayita_UI_HtmlList, $Cayita_UI_ElementBase);
@@ -3714,9 +3708,8 @@
 	ss.registerClass(global, 'Cayita.UI.SideNavBar', $Cayita_UI_SideNavBar, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.Span', $Cayita_UI_Span, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.SpinnerIcon', $Cayita_UI_SpinnerIcon, $Cayita_UI_ElementBase);
-	ss.registerClass(global, 'Cayita.UI.StringExt', $Cayita_UI_StringExt);
+	ss.registerClass(global, 'Cayita.UI.StringExtensions', $Cayita_UI_StringExtensions);
 	ss.registerClass(global, 'Cayita.UI.SubmitButton', $Cayita_UI_SubmitButton, $Cayita_UI_ButtonBase);
-	ss.registerClass(global, 'Cayita.UI.SystemExt', $Cayita_UI_SystemExt);
 	ss.registerClass(global, 'Cayita.UI.TableBody', $Cayita_UI_TableBody, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.TableCell', $Cayita_UI_TableCell, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.TableFooter', $Cayita_UI_TableFooter, $Cayita_UI_HtmlTable);
@@ -3726,5 +3719,6 @@
 	ss.registerClass(global, 'Cayita.UI.TextAreaField', $Cayita_UI_TextAreaField, $Cayita_UI_TextArea);
 	ss.registerClass(global, 'Cayita.UI.TextField', $Cayita_UI_TextField, $Cayita_UI_InputText);
 	ss.registerClass(global, 'Cayita.UI.TopNavBar', $Cayita_UI_TopNavBar, $Cayita_UI_Div);
+	ss.registerClass(global, 'System.SystemExtensions', $System_SystemExtensions);
 	$Cayita_UI_ElementBase.$tags = new (ss.makeGenericType(ss.Dictionary$2, [String, ss.Int32]))();
 })();

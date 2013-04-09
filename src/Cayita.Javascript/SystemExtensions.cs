@@ -4,8 +4,6 @@ using System.Runtime.CompilerServices;
 namespace System
 {
 	[Serializable]	
-	[ScriptNamespace("Cayita.UI")]
-	[ScriptName("SystemExt")]
 	public static class SystemExtensions
 	{
 		public static JsDate ToJsDate(this DateTime date){

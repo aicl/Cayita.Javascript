@@ -1,11 +1,9 @@
 using System;
 using System.Html;
-using System.Runtime.CompilerServices;
 
-namespace Cayita.Javascript.UI
-{
-		
-	[ScriptNamespace("Cayita.UI")]
+namespace Cayita.UI
+{		
+
 	public class Label:ElementBase
 	{
 				

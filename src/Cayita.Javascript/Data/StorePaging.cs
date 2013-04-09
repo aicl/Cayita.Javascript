@@ -1,12 +1,11 @@
 using System;
-using Cayita.Javascript.UI;
-using System.Runtime.CompilerServices;
+using Cayita.UI;
 using System.Html;
-using Cayita.Javascript.Data;
+using Cayita.Data;
 
-namespace Cayita.Javascript.UI
+namespace Cayita.UI
 {
-	[ScriptNamespace("Cayita.UI")]
+
 	public class StorePaging<T>:Div where T: new ()
 	{
 		Div divnav;

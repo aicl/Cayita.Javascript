@@ -1,9 +1,8 @@
-using Cayita.Javascript.UI;
 using jQueryApi;
-using Cayita.Javascript;
 using System.Html;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
+using Cayita.UI;
 
 namespace Cayita.Javascritp.App
 {
