@@ -69,6 +69,15 @@ namespace Cayita.Javascritp.App
 				},
 				bt=>bt.Add(new DialogButton{Label="My super Button", Callback=()=> Bootbox.Prompt("simple prompt")} ));
 */
+
+				var error= new Paragraph ()
+					.Style(st=>{st.Color="red";})
+						.Append<Icon> (i => {
+							i.ClassName ("icon-minus-sign");
+							i.Style( st=>{st.MarginTop="8px"; st.MarginRight="8px";  });
+						})
+						.Append (" Error : Ha cerrado la ventana equivocada ! ");
+
 				new Panel().Render().OnCollapseHandler( (p,cl)=>{
 					("previous panel state:"+(cl?"collapsed":"expanded")).LogInfo() ;});
 				new Panel().Caption("Panel Caption I").Render();
@@ -78,7 +87,7 @@ namespace Cayita.Javascritp.App
 				new Panel()
 					.Caption("Panel Caption IV")
 						.Closable(true)
-						.OnCloseHandler(p=>{"Panel closed ".LogInfo(); })
+						.OnCloseHandler(p=>{   error.Element().LogError(); })
 						.Render();
 
 
@@ -119,6 +128,7 @@ namespace Cayita.Javascritp.App
 
 
 			});
+
 
 
 		}

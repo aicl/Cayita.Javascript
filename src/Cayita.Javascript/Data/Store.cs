@@ -74,7 +74,6 @@ namespace Cayita.Data
 				});
 
 				req.Always(t=>{
-					Firebug.Console.Log("create always");
 					OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Create, State=StoreRequestState.Finished});
 				});
 

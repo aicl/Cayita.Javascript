@@ -340,7 +340,7 @@ namespace Cayita.UI
 		}
 
 		[InlineCode("Alertify.log.error({message}.outerHTML,{delay})")]
-		public static void LogError(this Element message, int delay=5000)
+		public static void LogError(this Element message, int delay=0)
 		{
 			
 		}

@@ -149,6 +149,16 @@
 			//				opt.Classes="modal-large";
 			//				},
 			//				bt=>bt.Add(new DialogButton{Label="My super Button", Callback=()=> Bootbox.Prompt("simple prompt")} ));
+			var $t1 = (new Cayita.UI.Paragraph()).style(function(st) {
+				st.color = 'red';
+			});
+			var error = $t1.append$3(Cayita.UI.Icon).call($t1, function(i) {
+				i.className$1('icon-minus-sign');
+				i.style(function(st1) {
+					st1.marginTop = '8px';
+					st1.marginRight = '8px';
+				});
+			}).append$5(' Error : Ha cerrado la ventada equivocada ! ');
 			(new Cayita.UI.Panel()).render(null).onCollapseHandler(function(p, cl) {
 				Alertify.log.info('previous panel state:' + (cl ? 'collapsed' : 'expanded'), 5000);
 			});
@@ -156,7 +166,7 @@
 			(new Cayita.UI.Panel()).caption('Panel Caption II').closable(true).render(null);
 			(new Cayita.UI.Panel()).caption('Panel Caption III').closable(true).render(null);
 			(new Cayita.UI.Panel()).caption('Panel Caption IV').closable(true).onCloseHandler(function(p1) {
-				Alertify.log.info('Panel closed ', 5000);
+				Alertify.log.error(error.element().outerHTML, 0);
 			}).render(null);
 			(new Cayita.UI.Panel()).caption('Panel Caption V').closeIconClass('icon-th-large').closable(true).closeIconHandler(function(p2) {
 				p2.caption('* V now Overlay !');
@@ -172,7 +182,7 @@
 			}).onCloseHandler(function(p3) {
 				Alertify.log.info(Cayita.UI.StringExtensions.header('panel closed ', 3).outerHTML, 5000);
 			}).render(null);
-			(new Cayita.UI.Panel()).caption('Overlay').left('40%').top('10%').width('auto').height('400px').overlay(true).render(null).append$4('Hello World!').append$3(Cayita.UI.StringExtensions.header('Hello World!', 3)).append$2(new Cayita.UI.Panel()).append$2((new Cayita.UI.Panel()).append$2(new Cayita.UI.Button.$ctor1(null, function(bt) {
+			(new Cayita.UI.Panel()).caption('Overlay').left('40%').top('10%').width('auto').height('400px').overlay(true).render(null).append$5('Hello World!').append$4(Cayita.UI.StringExtensions.header('Hello World!', 3)).append$3(new Cayita.UI.Panel()).append$3((new Cayita.UI.Panel()).append$3(new Cayita.UI.Button.$ctor1(null, function(bt) {
 				$(bt).text('Click me');
 				bt.style.width = '100%';
 				bt.style.height = '100%';

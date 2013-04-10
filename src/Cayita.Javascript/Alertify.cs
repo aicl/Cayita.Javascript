@@ -30,8 +30,14 @@ namespace Cayita.UI
 			
 		}
 
+
+		/// <summary>
+		/// Creates the log.
+		/// </summary>
+		/// <param name="message">Message.</param>
+		/// <param name="delay">Delay in ms, 0 means persistent. defautl=0 ms</param>
 		[InlineCode("Alertify.log.error({message},{delay})")]
-		public static void LogError(string message, int delay=5000)
+		public static void LogError(string message, int delay=0)
 		{	
 		}
 

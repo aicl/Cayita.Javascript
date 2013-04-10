@@ -66,7 +66,7 @@ namespace Cayita.UI
 		}
 
 		[InlineCode("Alertify.log.error({message},{delay})")]
-		public static void LogError (this string message, int delay=5000)
+		public static void LogError (this string message, int delay=0)
 		{
 		}
 

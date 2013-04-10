@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using jQueryApi;
 using jQueryApi.UI.Interactions;
+using System;
 
 namespace Cayita.UI
 {
@@ -182,6 +183,13 @@ namespace Cayita.UI
 		}
 
 
+		public ElementBase Append<T>(Action<T> content) where T: ElementBase, new()
+		{ 
+			var e = new T ();
+			Append (e.element_);
+			content (e);
+			return this;
+		}
 	}
 	
 }

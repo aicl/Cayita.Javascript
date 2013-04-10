@@ -199,7 +199,6 @@
 					$t14(this, $t13);
 				}));
 				req.always(ss.mkdel(this, function(t) {
-					console.log('create always');
 					var $t16 = this.$1$OnStoreRequestField;
 					var $t15 = $Cayita_Data_StoreRequest.$ctor();
 					$t15.action = 0;
@@ -1596,13 +1595,21 @@
 		resizable: function() {
 			return $(this.$element_).resizable();
 		},
+		append$2: function(content) {
+			$(this.$element_).append(content);
+			return this;
+		},
 		append$1: function(content) {
 			$(this.$element_).append(content);
 			return this;
 		},
-		append: function(content) {
-			$(this.$element_).append(content);
-			return this;
+		append: function(T) {
+			return function(content) {
+				var e = ss.createInstance(T);
+				this.append$1(e.$element_);
+				content(e);
+				return this;
+			};
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
@@ -2157,22 +2164,38 @@
 	$Cayita_UI_HtmlTable.$ctor2.prototype = $Cayita_UI_HtmlTable.$ctor1.prototype = $Cayita_UI_HtmlTable.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Icon
-	var $Cayita_UI_Icon = function(parent) {
+	var $Cayita_UI_Icon = function() {
 		$Cayita_UI_ElementBase.call(this);
-		this.createElement('i', parent);
+		this.createElement('i', null);
 	};
-	$Cayita_UI_Icon.$ctor1 = function(parent, element) {
+	$Cayita_UI_Icon.prototype = {
+		append$3: function(T) {
+			return function(content) {
+				this.append(T).call(this, content);
+				return this;
+			};
+		},
+		style: function(style) {
+			style(this.element().style);
+			return this;
+		}
+	};
+	$Cayita_UI_Icon.$ctor2 = function(parent, element) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('i', parent);
 		element(this.element());
 	};
-	$Cayita_UI_Icon.$ctor1.prototype = $Cayita_UI_Icon.prototype;
+	$Cayita_UI_Icon.$ctor1 = function(parent) {
+		$Cayita_UI_ElementBase.call(this);
+		this.createElement('i', parent);
+	};
+	$Cayita_UI_Icon.$ctor2.prototype = $Cayita_UI_Icon.$ctor1.prototype = $Cayita_UI_Icon.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.IconAnchor
 	var $Cayita_UI_IconAnchor = function(parent, element) {
 		$Cayita_UI_Anchor.call(this, parent);
 		this.element$1().className = 'btn';
-		var i = new $Cayita_UI_Icon(this.element$1());
+		var i = new $Cayita_UI_Icon.$ctor1(this.element$1());
 		element(this.element$1(), i.element());
 	};
 	////////////////////////////////////////////////////////////////////////////////
@@ -2180,7 +2203,7 @@
 	var $Cayita_UI_IconButton = function(parent, element) {
 		$Cayita_UI_Button.call(this, parent);
 		this.element$1().className = 'btn';
-		var i = new $Cayita_UI_Icon(this.element$1());
+		var i = new $Cayita_UI_Icon.$ctor1(this.element$1());
 		element(this.element$1(), i.element());
 	};
 	////////////////////////////////////////////////////////////////////////////////
@@ -2447,7 +2470,7 @@
 					p1.collapse();
 				};
 			}
-			this.$closeIcon = new $Cayita_UI_Icon.$ctor1(this.$pc.header.element$1(), ss.mkdel(this, function(icon) {
+			this.$closeIcon = new $Cayita_UI_Icon.$ctor2(this.$pc.header.element$1(), ss.mkdel(this, function(icon) {
 				icon.className = this.$pc.closeIconClass;
 				$(icon).on('click', ss.mkdel(this, function(evt) {
 					evt.preventDefault();
@@ -2457,7 +2480,7 @@
 					$(icon).hide();
 				}
 			}));
-			this.$collapseIcon = new $Cayita_UI_Icon.$ctor1(this.$pc.header.element$1(), ss.mkdel(this, function(icon1) {
+			this.$collapseIcon = new $Cayita_UI_Icon.$ctor2(this.$pc.header.element$1(), ss.mkdel(this, function(icon1) {
 				icon1.className = this.$pc.collapseIconClass;
 				$(icon1).on('click', ss.mkdel(this, function(evt1) {
 					evt1.preventDefault();
@@ -2608,16 +2631,16 @@
 			}
 			this.$pc.container.remove();
 		},
+		append$5: function(content) {
+			this.$pc.body.append$2(content);
+			return this;
+		},
 		append$4: function(content) {
 			this.$pc.body.append$1(content);
 			return this;
 		},
 		append$3: function(content) {
-			this.$pc.body.append(content);
-			return this;
-		},
-		append$2: function(content) {
-			this.$pc.body.append(content.element());
+			this.$pc.body.append$1(content.element());
 			return this;
 		},
 		element$1: function() {
@@ -2724,16 +2747,40 @@
 	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Paragraph
-	var $Cayita_UI_Paragraph = function(parent) {
+	var $Cayita_UI_Paragraph = function() {
 		$Cayita_UI_ElementBase.call(this);
-		this.createElement('p', parent);
+		this.createElement('p', null);
 	};
-	$Cayita_UI_Paragraph.$ctor1 = function(parent, element) {
+	$Cayita_UI_Paragraph.prototype = {
+		append$3: function(T) {
+			return function(content) {
+				this.append(T).call(this, content);
+				return this;
+			};
+		},
+		append$5: function(content) {
+			this.append$2(content);
+			return this;
+		},
+		append$4: function(content) {
+			this.append$1(content);
+			return this;
+		},
+		style: function(style) {
+			style(this.element().style);
+			return this;
+		}
+	};
+	$Cayita_UI_Paragraph.$ctor2 = function(parent, element) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('p', parent);
 		element(this.element());
 	};
-	$Cayita_UI_Paragraph.$ctor1.prototype = $Cayita_UI_Paragraph.prototype;
+	$Cayita_UI_Paragraph.$ctor1 = function(parent) {
+		$Cayita_UI_ElementBase.call(this);
+		this.createElement('p', parent);
+	};
+	$Cayita_UI_Paragraph.$ctor2.prototype = $Cayita_UI_Paragraph.$ctor1.prototype = $Cayita_UI_Paragraph.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.RadioField
 	var $Cayita_UI_RadioField = function(parent, label, fieldName, items, inline) {
@@ -3128,7 +3175,7 @@
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('div', parent);
 		this.element$1().className = 'well well-large lead';
-		this.$icon = (new $Cayita_UI_Icon.$ctor1(this.element$1(), function(i) {
+		this.$icon = (new $Cayita_UI_Icon.$ctor2(this.element$1(), function(i) {
 			i.className = 'icon-spinner icon-spin icon-2x pull-left';
 		})).element();
 		config(this.element$1(), this.$icon);
@@ -3618,7 +3665,7 @@
 				})).element$1();
 				this.$navCollapse = new $Cayita_UI_Div.$ctor1(fluid, ss.mkdel(this, function(collapse) {
 					collapse.className = 'nav-collapse collapse';
-					this.$pullRightParagraph = (new $Cayita_UI_Paragraph.$ctor1(collapse, ss.mkdel(this, function(paragraph) {
+					this.$pullRightParagraph = (new $Cayita_UI_Paragraph.$ctor2(collapse, ss.mkdel(this, function(paragraph) {
 						paragraph.className = 'navbar-text pull-right';
 						$(paragraph).text(rightText);
 						this.$pullRightAnchor = (new $Cayita_UI_Anchor.$ctor1(paragraph, function(a) {
