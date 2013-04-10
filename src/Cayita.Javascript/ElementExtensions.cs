@@ -329,5 +329,21 @@ namespace Cayita.UI
 			return false;
 		}
 
+		[InlineCode("Alertify.log.info({message}.outerHTML,{delay})")]
+		public static void LogInfo(this Element message, int delay=5000)
+		{	
+		}
+
+		[InlineCode("Alertify.log.info({message}.outerHTML,{delay})")]
+		public static void LogSuccess(this Element message, int delay=5000)
+		{	
+		}
+
+		[InlineCode("Alertify.log.error({message}.outerHTML,{delay})")]
+		public static void LogError(this Element message, int delay=5000)
+		{
+			
+		}
+
 	}
 }

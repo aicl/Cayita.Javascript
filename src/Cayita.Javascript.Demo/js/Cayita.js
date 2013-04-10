@@ -3320,15 +3320,6 @@
 		h.innerHTML = text;
 		return h;
 	};
-	$Cayita_UI_StringExtensions.info = function(message, delay) {
-		Alertify.log.info(message, delay);
-	};
-	$Cayita_UI_StringExtensions.success = function(message, delay) {
-		Alertify.log.success(message, delay);
-	};
-	$Cayita_UI_StringExtensions.error = function(message, delay) {
-		Alertify.log.error(message, delay);
-	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.SubmitButton
 	var $Cayita_UI_SubmitButton = function(parent) {

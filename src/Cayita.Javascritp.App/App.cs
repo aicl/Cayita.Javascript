@@ -70,7 +70,7 @@ namespace Cayita.Javascritp.App
 				bt=>bt.Add(new DialogButton{Label="My super Button", Callback=()=> Bootbox.Prompt("simple prompt")} ));
 */
 				new Panel().Render().OnCollapseHandler( (p,cl)=>{
-					("previous panel state:"+(cl?"collapsed":"expanded")).Info() ;});
+					("previous panel state:"+(cl?"collapsed":"expanded")).LogInfo() ;});
 				new Panel().Caption("Panel Caption I").Render();
 				new Panel().Caption("Panel Caption II").Closable(true).Render();
 				new Panel().Caption("Panel Caption III").Closable(true).Render();
@@ -78,7 +78,7 @@ namespace Cayita.Javascritp.App
 				new Panel()
 					.Caption("Panel Caption IV")
 						.Closable(true)
-						.OnCloseHandler(p=>{"Panel closed ".Info(); })
+						.OnCloseHandler(p=>{"Panel closed ".LogInfo(); })
 						.Render();
 
 
@@ -96,7 +96,7 @@ namespace Cayita.Javascritp.App
 							p.Top("100px");
 							p.Overlay(true);
 						})
-						.OnCloseHandler(p=>{"panel closed ".Info(); })
+						.OnCloseHandler(p=>{ "panel closed ".Header(3).LogInfo(); })
 						.Render();
 
 				new Panel()
@@ -113,7 +113,7 @@ namespace Cayita.Javascritp.App
 						.Append( new Panel().Append( new Button(null, bt=>{
 							bt.Text("Click me");
 							bt.Style.Width="100%"; bt.Style.Height="100%";
-							bt.OnClick(evt=>{"button clicked!!!".Info();
+							bt.OnClick(evt=>{"button clicked!!!".LogInfo(0);
 							});
 						})));
 

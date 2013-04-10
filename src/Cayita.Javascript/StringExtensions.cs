@@ -1,6 +1,7 @@
 using System;
 using System.Html;
 using jQueryApi;
+using System.Runtime.CompilerServices;
 
 namespace Cayita.UI
 {
@@ -54,18 +55,19 @@ namespace Cayita.UI
 			return h;
 		}
 
-		public static void Info (this string message, int delay=5000)
+		[InlineCode("Alertify.log.info({message},{delay})")]
+		public static void LogInfo (this string message, int delay=5000)
 		{
-			Alertify.LogInfo(message,delay);
 		}
 
-		public static void Success (this string message, int delay=5000)
+		[InlineCode("Alertify.log.success({message},{delay})")]
+		public static void LogSuccess (this string message, int delay=5000)
 		{
-			Alertify.LogSuccess(message,delay);
 		}
-		public static void Error (this string message, int delay=5000)
+
+		[InlineCode("Alertify.log.error({message},{delay})")]
+		public static void LogError (this string message, int delay=5000)
 		{
-			Alertify.LogError(message,delay);
 		}
 
 	}

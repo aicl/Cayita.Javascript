@@ -194,9 +194,10 @@
 .alertify-logs {
   position: fixed;
   z-index: 9999;
-  bottom: 8px;
-  right: 8px;
-  width: 300px; }
+  top: 2px;
+  right:2px;
+  width: 300px;
+  padding-top:5px; }
 
 .alertify-log {
   margin-top: 8px;
