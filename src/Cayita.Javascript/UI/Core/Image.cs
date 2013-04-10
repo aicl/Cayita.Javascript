@@ -40,6 +40,25 @@ namespace Cayita.UI
 			return this;
 		}
 
+		public new Image ClassName(string className)
+		{
+			Element ().ClassName = className;
+			return this;
+		}
+		
+		public new Image RemoveClass(string className)
+		{
+			JQuery ().RemoveClass (className);
+			return this;
+		}
+		
+		public new Image AddClass(string className)
+		{
+			JQuery ().AddClass (className);
+			return this;
+		}
+
+
 	}
 }
 

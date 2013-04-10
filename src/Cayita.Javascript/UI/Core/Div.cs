@@ -196,5 +196,39 @@ namespace Cayita.UI
 			return div;
 		}
 
+
+
+		public new Div Append<T>(Action<T> content) where T: ElementBase, new()
+		{ 
+			base.Append<T> (content);
+			return this;
+		}
+		
+		public Div Style(Action<Style> style)
+		{
+			style (Element ().Style);
+			return this;
+		}
+		
+		public new Div ClassName(string className)
+		{
+			Element ().ClassName = className;
+			return this;
+		}
+		
+		
+		public new Div RemoveClass(string className)
+		{
+			JQuery ().RemoveClass (className);
+			return this;
+		}
+		
+		public new Div AddClass(string className)
+		{
+			JQuery ().AddClass (className);
+			return this;
+		}
+
+
 	}
 }

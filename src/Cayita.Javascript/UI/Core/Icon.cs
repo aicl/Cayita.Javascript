@@ -34,6 +34,25 @@ namespace Cayita.UI
 			style (Element ().Style);
 			return this;
 		}
+
+		public new Icon ClassName(string className)
+		{
+			Element ().ClassName = className;
+			return this;
+		}
+
+		public new Icon RemoveClass(string className)
+		{
+			JQuery ().RemoveClass (className);
+			return this;
+		}
+
+		public new Icon AddClass(string className)
+		{
+			JQuery ().AddClass (className);
+			return this;
+		}
+
 	}
 }
 

@@ -48,6 +48,24 @@ namespace Cayita.UI
 			return this;
 		}
 
+		public new Paragraph ClassName(string className)
+		{
+			Element ().ClassName = className;
+			return this;
+		}
+		
+		public new Paragraph RemoveClass(string className)
+		{
+			JQuery ().RemoveClass (className);
+			return this;
+		}
+		
+		public new Paragraph AddClass(string className)
+		{
+			JQuery ().AddClass (className);
+			return this;
+		}
+
 	}
 	
 }

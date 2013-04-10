@@ -40,6 +40,24 @@ namespace Cayita.UI
 			this.Element ().Href = url;
 			return this;
 		}
+
+		public new Anchor ClassName(string className)
+		{
+			Element ().ClassName = className;
+			return this;
+		}
+		
+		public new Anchor RemoveClass(string className)
+		{
+			JQuery ().RemoveClass (className);
+			return this;
+		}
+		
+		public new Anchor AddClass(string className)
+		{
+			JQuery ().AddClass (className);
+			return this;
+		}
 				
 	}
 }

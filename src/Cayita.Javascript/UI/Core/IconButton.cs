@@ -18,7 +18,6 @@ namespace Cayita.UI
 		public IconAnchor(Element parent,  Action<AnchorElement,Element> element)
 			:base(parent)
 		{
-			Element().ClassName="btn";
 			var i = new Icon( Element() );
 			element(Element(), i.Element());
 		}
