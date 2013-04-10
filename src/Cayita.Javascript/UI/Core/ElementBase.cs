@@ -183,7 +183,7 @@ namespace Cayita.UI
 		}
 
 
-		public ElementBase Append<T>(Action<T> content) where T: ElementBase, new()
+		protected internal ElementBase Append<T>(Action<T> content) where T: ElementBase, new()
 		{ 
 			var e = new T ();
 			Append (e.element_);
