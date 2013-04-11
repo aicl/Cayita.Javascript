@@ -107,7 +107,6 @@
 	};
 	$App.main = function() {
 		$(function() {
-			new Cayita.UI.MyTest();
 			var app = new $App();
 			app.$getMenuItems();
 			app.$showTopNavBar();

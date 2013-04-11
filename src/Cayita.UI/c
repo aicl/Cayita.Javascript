@@ -1,0 +1,30 @@
+/opt/mono/bin/dmcs  /noconfig  -nostdlib \
+"/out:bin/Debug/Cayita.UI.dll" \
+"/define:SALTARELLE" \
+"/debug" \
+"/r:../../lib/Saltarelle.Linq.dll" \
+"/r:../../lib/Saltarelle.jQuery.dll" \
+"/r:../../lib/Saltarelle.jQuery.UI.dll" \
+"/r:../../lib/Saltarelle.Web.dll" \
+"/r:../../lib/mscorlib.dll" \
+/t:library \
+"UI/Core/IHasElement.cs" \
+"UI/Core/Element.cs" \
+"UI/Core/CayitaElement.cs" \
+"UI/Core/Anchor.cs" \
+"UI/Core/Icon.cs" \
+"UI/Core/Div.cs" \
+"UI/Core/Span.cs" \
+"UI/Core/Input.cs" \
+"UI/Core/InputText.cs" \
+"UI/Core/InputPassword.cs" \
+"UI/Core/ButtonElement.cs" \
+"UI/Core/Button.cs" \
+"ElementExtensions.cs" \
+"Console.cs" \
+"MyTest.cs" \
+"AssemblyInfo.cs"
+
+echo "ready Cayita.UI.dll"
+
+./j
