@@ -26,7 +26,11 @@ namespace Cayita.Javascritp.App
 
 		public static void Main ()
 		{
+
+
 			jQuery.OnDocumentReady( ()=>{
+				new MyTest ();
+
 				var app = new App();
 				app.GetMenuItems();
 				app.ShowTopNavBar();

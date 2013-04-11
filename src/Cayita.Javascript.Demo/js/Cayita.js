@@ -1299,6 +1299,45 @@
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.CayitaElement
+	var $Cayita_UI_CayitaElement = function(tagName) {
+		this.$e = null;
+		this.$e = document.createElement(tagName);
+		console.log(' CayitaElement e, tagname', this.$e, tagName);
+	};
+	$Cayita_UI_CayitaElement.prototype = {
+		getElement: function() {
+			return this.$e;
+		},
+		element: function() {
+			return this.$e;
+		},
+		style: function() {
+			return this.$e.style;
+		},
+		style$1: function(style) {
+			style(this.$e.style);
+		},
+		jQuery: function() {
+			return $(this.$e);
+		},
+		jQuery$1: function(jquery) {
+			jquery($(this.$e));
+		},
+		className: function(value) {
+			this.$e.className = value;
+		},
+		addClass: function(value) {
+			return $(this.$e).addClass(value);
+		},
+		removeClass: function(value) {
+			return $(this.$e).removeClass(value);
+		},
+		addHtml: function(value) {
+			return $(this.$e).add(value);
+		}
+	};
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.CheckboxField
 	var $Cayita_UI_CheckboxField = function(parent, field) {
 		this.$controlGroup = null;
@@ -1535,6 +1574,47 @@
 		});
 		return div;
 	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.Element
+	var $Cayita_UI_Element$1 = function(T) {
+		var $type = function() {
+			this.$el = null;
+			this.$obj = ss.getDefaultValue(T);
+			this.$obj = ss.createInstance(T);
+			this.$el = this.$obj.element();
+		};
+		$type.prototype = {
+			append$1: function(TChild) {
+				return function(child) {
+					$(this.$el).append(child.element());
+					return this;
+				};
+			},
+			append: function(TChild) {
+				return function(child) {
+					var ch = new (ss.makeGenericType($Cayita_UI_Element$1, [TChild]))();
+					child(ch);
+					$(this.$el).append(ch.$el);
+					return this;
+				};
+			},
+			apply: function(element) {
+				element(this.$obj);
+				return this;
+			},
+			appendTo: function(parent) {
+				$(parent).append(this.$el);
+				return this;
+			}
+		};
+		ss.registerGenericClassInstance($type, $Cayita_UI_Element$1, [T], function() {
+			return null;
+		}, function() {
+			return [];
+		});
+		return $type;
+	};
+	ss.registerGenericClass(global, 'Cayita.UI.Element$1', $Cayita_UI_Element$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.ElementBase
 	var $Cayita_UI_ElementBase = function() {
@@ -2260,6 +2340,11 @@
 		element(this.element$1(), i.element());
 	};
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.IHasElement
+	var $Cayita_UI_IHasElement = function() {
+	};
+	$Cayita_UI_IHasElement.prototype = { element: null };
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Image
 	var $Cayita_UI_Image = function() {
 		$Cayita_UI_ElementBase.call(this);
@@ -2523,6 +2608,123 @@
 			$(a).text(item);
 		});
 		return il;
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.MyDiv
+	var $Cayita_UI_MyDiv = function() {
+		$Cayita_UI_CayitaElement.call(this, 'div');
+		console.log('Div base.Element', this.element());
+	};
+	$Cayita_UI_MyDiv.prototype = {
+		someMethod: function() {
+			console.log('MyDiv SomeMethod');
+			return 'X';
+		},
+		element: function() {
+			return this.getElement();
+		}
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.MyInput
+	var $Cayita_UI_MyInput = function() {
+		$Cayita_UI_CayitaElement.call(this, 'input');
+	};
+	$Cayita_UI_MyInput.prototype = {
+		element: function() {
+			return this.getElement();
+		}
+	};
+	$Cayita_UI_MyInput.$ctor1 = function(input) {
+		$Cayita_UI_MyInput.call(this);
+		input(this);
+	};
+	$Cayita_UI_MyInput.$ctor1.prototype = $Cayita_UI_MyInput.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.MyInputText
+	var $Cayita_UI_MyInputText = function() {
+		$Cayita_UI_MyInput.call(this);
+		this.element().type = 'text';
+	};
+	$Cayita_UI_MyInputText.prototype = {
+		element: function() {
+			return this.getElement();
+		}
+	};
+	$Cayita_UI_MyInputText.$ctor1 = function(input) {
+		$Cayita_UI_MyInputText.call(this);
+		input(this);
+	};
+	$Cayita_UI_MyInputText.$ctor1.prototype = $Cayita_UI_MyInputText.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.MySpan
+	var $Cayita_UI_MySpan = function() {
+		$Cayita_UI_CayitaElement.call(this, 'span');
+	};
+	$Cayita_UI_MySpan.prototype = {
+		text: function(value) {
+			this.element().innerHTML = value;
+			return this;
+		}
+	};
+	$Cayita_UI_MySpan.$ctor1 = function(span) {
+		$Cayita_UI_MySpan.call(this);
+		span(this);
+	};
+	$Cayita_UI_MySpan.$ctor1.prototype = $Cayita_UI_MySpan.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.MyTest
+	var $Cayita_UI_MyTest = function() {
+		var $t1 = new (ss.makeGenericType($Cayita_UI_Element$1, [$Cayita_UI_MyDiv]))();
+		var div = $t1.append$1($Cayita_UI_MySpan).call($t1, new $Cayita_UI_MySpan.$ctor1(function(s) {
+			s.text('Hola Munod 0');
+			s.style$1(function(st) {
+				st.color = 'white';
+				st.backgroundColor = 'black';
+			});
+		})).apply(function(d) {
+			d.style$1(function(st1) {
+				st1.borderColor = 'red';
+				st1.backgroundColor = 'blue';
+			});
+			d.someMethod();
+		});
+		console.log('div', div);
+		var $t2 = new (ss.makeGenericType($Cayita_UI_Element$1, [$Cayita_UI_MyDiv]))();
+		var div1 = $t2.append$1($Cayita_UI_MySpan).call($t2, (new $Cayita_UI_MySpan()).text('HELLO WORLD')).apply(function(d1) {
+			d1.style$1(function(st2) {
+				st2.borderColor = 'red';
+				st2.backgroundColor = 'blue';
+			});
+			d1.someMethod();
+		});
+		console.log('div1', div1);
+		var $t3 = new (ss.makeGenericType($Cayita_UI_Element$1, [$Cayita_UI_MyDiv]))();
+		var div2 = $t3.append($Cayita_UI_MySpan).call($t3, function(c) {
+			c.apply(function(e) {
+				e.text('hola mundo').style$1(function(st3) {
+					st3.color = 'green';
+				});
+			});
+		});
+		console.log('div2', div2);
+		var $t4 = new (ss.makeGenericType($Cayita_UI_Element$1, [$Cayita_UI_MyDiv]))();
+		var $t5 = $t4.append($Cayita_UI_MySpan).call($t4, function(c1) {
+			c1.apply(function(e1) {
+				e1.text('hola mundo');
+			});
+		});
+		var $t6 = $t5.append($Cayita_UI_MySpan).call($t5, function(e2) {
+			e2.apply(function(m) {
+				m.text('hello word').style().color = 'orange';
+			});
+		});
+		var div3 = $t6.append$1($Cayita_UI_MyInput).call($t6, new $Cayita_UI_MyInput.$ctor1(function(t) {
+			t.element().name = 'NOMBRE';
+			t.addClass('input-class');
+			t.element().value = 'Un valor INicia';
+		}));
+		console.log('div3', div3);
+		div3.appendTo(document.body);
 	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Panel
@@ -3847,6 +4049,8 @@
 	ss.registerClass(global, 'Cayita.UI.Bootbox', $Cayita_UI_Bootbox);
 	ss.registerClass(global, 'Cayita.UI.ButtonBase', $Cayita_UI_ButtonBase, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Button', $Cayita_UI_Button, $Cayita_UI_ButtonBase);
+	ss.registerInterface(global, 'Cayita.UI.IHasElement', $Cayita_UI_IHasElement);
+	ss.registerClass(global, 'Cayita.UI.CayitaElement', $Cayita_UI_CayitaElement, null, [$Cayita_UI_IHasElement]);
 	ss.registerClass(global, 'Cayita.UI.InputBase', $Cayita_UI_InputBase, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.InputCheckbox', $Cayita_UI_InputCheckbox, $Cayita_UI_InputBase);
 	ss.registerClass(global, 'Cayita.UI.CheckboxField', $Cayita_UI_CheckboxField, $Cayita_UI_InputCheckbox);
@@ -3871,6 +4075,11 @@
 	ss.registerClass(global, 'Cayita.UI.Label', $Cayita_UI_Label, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Legend', $Cayita_UI_Legend, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.ListItem', $Cayita_UI_ListItem, $Cayita_UI_ElementBase);
+	ss.registerClass(global, 'Cayita.UI.MyDiv', $Cayita_UI_MyDiv, $Cayita_UI_CayitaElement, [$Cayita_UI_IHasElement]);
+	ss.registerClass(global, 'Cayita.UI.MyInput', $Cayita_UI_MyInput, $Cayita_UI_CayitaElement, [$Cayita_UI_IHasElement]);
+	ss.registerClass(global, 'Cayita.UI.MyInputText', $Cayita_UI_MyInputText, $Cayita_UI_MyInput, [$Cayita_UI_IHasElement]);
+	ss.registerClass(global, 'Cayita.UI.MySpan', $Cayita_UI_MySpan, $Cayita_UI_CayitaElement, [$Cayita_UI_IHasElement]);
+	ss.registerClass(global, 'Cayita.UI.MyTest', $Cayita_UI_MyTest);
 	ss.registerClass(global, 'Cayita.UI.Panel', $Cayita_UI_Panel, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.PanelConfig', $Cayita_UI_PanelConfig);
 	ss.registerClass(global, 'Cayita.UI.Paragraph', $Cayita_UI_Paragraph, $Cayita_UI_ElementBase);

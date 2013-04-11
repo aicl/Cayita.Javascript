@@ -60,7 +60,7 @@
 				Cayita.UI.Extensions.addItem$1(nav, 'Contact');
 				Cayita.UI.Extensions.addItem$1(nav, 'About');
 			}));
-			this.get_$topNavBar().addClass('navbar-inverse navbar-fixed-top').appendTo(document.body);
+			this.get_$topNavBar().addClass$1('navbar-inverse navbar-fixed-top').appendTo$1(document.body);
 		},
 		$showMenu: function() {
 			Cayita.UI.Div.createContainerFluid$1(null, ss.mkdel(this, function(fluid) {
@@ -107,6 +107,7 @@
 	};
 	$App.main = function() {
 		$(function() {
+			new Cayita.UI.MyTest();
 			var app = new $App();
 			app.$getMenuItems();
 			app.$showTopNavBar();
@@ -153,12 +154,12 @@
 				st.color = 'red';
 			});
 			var error = $t1.append$3(Cayita.UI.Icon).call($t1, function(i) {
-				i.className$1('icon-minus-sign');
+				i.className$2('icon-minus-sign');
 				i.style(function(st1) {
 					st1.marginTop = '8px';
 					st1.marginRight = '8px';
 				});
-			}).append$5(' Error : Ha cerrado la ventada equivocada ! ');
+			}).append$5(' Error : Ha cerrado la ventana equivocada ! ');
 			(new Cayita.UI.Panel()).render(null).onCollapseHandler(function(p, cl) {
 				Alertify.log.info('previous panel state:' + (cl ? 'collapsed' : 'expanded'), 5000);
 			});
