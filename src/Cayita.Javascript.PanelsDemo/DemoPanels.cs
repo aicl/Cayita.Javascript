@@ -18,7 +18,50 @@ namespace Modals
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
 				
-				div.Append( new Button(div,b=>{
+				div.Append( Div.CreateContainerFluid(div, cf=>{
+					Div.CreateRowFluid(cf, rf=>{
+						new Div(rf, ld=>{
+							ld.ClassName="span6";
+							new Panel()
+								.Caption("Panel  I")
+									.Closable(false)
+									.Render(ld);
+						
+						});
+
+						new Div(rf, ld=>{
+							ld.ClassName="span6";
+							new Panel()
+								.Caption("Panel 2")
+									.Closable(false)
+									.Render(ld);
+						});
+
+					});
+
+					Div.CreateRowFluid(cf, rf=>{
+						new Div(rf, ld=>{
+							ld.ClassName="span6";
+							new Panel()
+								.Caption("Panel 3")
+									.Closable(false)
+									.Render(ld);
+							
+						});
+						
+						new Div(rf, ld=>{
+							ld.ClassName="span6";
+							new Panel()
+								.Caption("Panel 4")
+									.Closable(false)
+									.Render(ld);
+
+							
+						});
+						
+						
+					});
+
 
 				}));
 				
