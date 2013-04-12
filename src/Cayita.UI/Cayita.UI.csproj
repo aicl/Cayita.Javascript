@@ -69,6 +69,11 @@
     <Compile Include="UI\Core\InputRadio.cs" />
     <Compile Include="UI\Core\LabelElement.cs" />
     <Compile Include="UI\Core\Label.cs" />
+    <Compile Include="UI\Core\Paragraph.cs" />
+    <Compile Include="UI\Core\ParagraphElement.cs" />
+    <Compile Include="UI\Core\TableCell.cs" />
+    <Compile Include="UI\Core\TextArea.cs" />
+    <Compile Include="UI\CheckBoxField.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

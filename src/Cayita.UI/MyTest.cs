@@ -116,6 +116,11 @@ namespace Cayita.UI
 					});
 			
 			div4.AppendTo (Document.Body);
+
+			var div5 = new  Element<Div>()
+				.Append( new CheckBoxField().Apply(cb=>{
+					cb.l
+				}));
 		}
 	}
 }

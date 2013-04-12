@@ -1,16 +1,21 @@
 using System;
 using System.Html;
 using jQueryApi;
+using System.Collections.Generic;
 
 namespace Cayita.UI
 {
 	public abstract class CayitaElement:IHasElement
 	{
+
+		static Dictionary<string,int> tags = new Dictionary<string,int>();
+
 		protected readonly Element El;
 		
 		public CayitaElement(string tagName)
 		{
 			El = Document.CreateElement (tagName);
+			El.ID = CreateId (tagName);
 		}
 		
 		
@@ -81,7 +86,14 @@ namespace Cayita.UI
 			return parent.El.Append( El);
 		}
 
-
+		string CreateId(string tagName)
+		{
+			int id;
+			tags.TryGetValue(tagName, out id);
+			tags[tagName]=++id;
+			
+			return string.Format("c-{0}-{1}",tagName,id);
+		}
 	}
 
 }

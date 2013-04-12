@@ -35,9 +35,14 @@
 "UI/Core/ListElement.cs" \
 "UI/Core/ListItem.cs" \
 "UI/Core/NavList.cs" \
+"UI/Core/Paragraph.cs" \
+"UI/Core/ParagraphElement.cs" \
 "UI/Core/Span.cs" \
+"UI/Core/TableCell.cs" \
 "UI/Core/TableColumn.cs" \
 "UI/Core/TableRow.cs" \
+"UI/Core/TextArea.cs" \
+"UI/CheckBoxField.cs" \
 "AssemblyInfo.cs" \
 "Console.cs" \
 "ElementExtensions.cs" \
