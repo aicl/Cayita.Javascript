@@ -10,11 +10,10 @@ namespace Cayita.UI
 			new Label(parent, lb=>{
 				lb.ClassName="radio inline";
 				CreateInput(null, "radio");
-				lb.SetAttribute("for", Element().ID);
+				lb.For=Element().ID;
 				field(lb, Element());  
 				lb.Append(Element());
 			});
-
 		}
 
 		public new CheckBoxElement Element()

@@ -14,19 +14,16 @@ namespace System.Html
 		{
 			get
 			{
-				return null;
+				return null; 
 			}
 		}
 
-		[InlzineCode("$({this}).attr('type', {type})")]
-		public void Type(string type)
-		{
-			
-		}
-		[InlineCode("$({this}).attr('type')")]
-		public string Type()
-		{
-			return null;
+		public string  Type {
+
+			[InlineCode("$({this}).attr('type')")]
+			get;
+			[InlineCode("$({this}).attr('type', {value})")]
+			set;	
 		}
 
 	}

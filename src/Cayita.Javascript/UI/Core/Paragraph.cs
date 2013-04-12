@@ -1,9 +1,9 @@
 using System;
 using System.Html;
+using System.Runtime.CompilerServices;
 
 namespace Cayita.UI
 {
-
 
 	public class Paragraph:ElementBase
 	{
@@ -12,7 +12,13 @@ namespace Cayita.UI
 			CreateElement("p", null);
 		}
 
-		public Paragraph(Element parent, Action<Element> element)
+		public Paragraph(Action<ParagraphElement> element)
+		{
+			CreateElement("p", null);
+			element(Element()); 
+		}
+
+		public Paragraph(Element parent, Action<ParagraphElement> element)
 		{
 			CreateElement("p", parent);
 			element(Element()); 
@@ -24,46 +30,25 @@ namespace Cayita.UI
 			CreateElement("p", parent);
 		}
 
-		public new Paragraph Append<T>(Action<T> content) where T: ElementBase, new()
-		{ 
-			base.Append<T> (content);
-			return this;
+		public new  ParagraphElement Element()
+		{
+			return (ParagraphElement)base.Element();
 		}
 
-		public new Paragraph Append (string content)
+
+		public  void LogInfo ( int delay=5000)
 		{
-			base.Append (content);
-			return this;
+			Element ().LogInfo (delay);
 		}
 
-		public new Paragraph Append (Element content)
+		public void LogSuccess ( int delay=5000)
 		{
-			base.Append (content);
-			return this;
+			Element ().LogSuccess (delay);
 		}
 
-		public Paragraph Style(Action<Style> style)
+		public void LogError ( int delay=0)
 		{
-			style (Element ().Style);
-			return this;
-		}
-
-		public new Paragraph ClassName(string className)
-		{
-			Element ().ClassName = className;
-			return this;
-		}
-		
-		public new Paragraph RemoveClass(string className)
-		{
-			JQuery ().RemoveClass (className);
-			return this;
-		}
-		
-		public new Paragraph AddClass(string className)
-		{
-			JQuery ().AddClass (className);
-			return this;
+			Element ().LogError (delay);
 		}
 
 	}

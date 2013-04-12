@@ -56,6 +56,12 @@ namespace Cayita.UI
 			return null;
 		}
 
+		[InlineCode("$({parent}).append({child}.element())")]
+		public static jQueryObject Append(this Element parent, ElementBase child)
+		{
+			return null;
+		}
+
 		[InlineCode("$({parent}).append({text})")]
 		public static jQueryObject Append(this Element parent, string text)
 		{
@@ -272,11 +278,6 @@ namespace Cayita.UI
 			return false;
 		}
 
-		[InlineCode("$({button}).attr('type',{value})")]
-		public static jQueryObject Type(this ButtonElement button, string value)
-		{
-			return null;
-		}
 
 		//
 

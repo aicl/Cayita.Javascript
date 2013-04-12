@@ -394,9 +394,9 @@
 		$t8.value = function(f7) {
 			return (new Cayita.UI.TableCell.$ctor1(function(c15) {
 				c15.style.textAlign = 'center';
-				$(c15).append((new Cayita.UI.Icon.$ctor1(c15, function(i) {
+				$(c15).append((new Cayita.UI.Icon.$ctor3(c15, function(i) {
 					i.className = (f7.IsActive ? 'icon-ok-circle' : 'icon-ban-circle');
-				})).element());
+				})).element$1());
 			})).element$1();
 		};
 		$t8.afterCellCreate = function(f8, row) {

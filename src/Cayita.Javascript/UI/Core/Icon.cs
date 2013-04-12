@@ -12,7 +12,13 @@ namespace Cayita.UI
 			CreateElement("i",null);
 		}
 
-		public Icon(Element parent,  Action<Element> element)
+		public Icon(Action<IconElement> element)
+		{
+			CreateElement("i", null);
+			element(Element());
+		}
+
+		public Icon(Element parent,  Action<IconElement> element)
 		{
 			CreateElement("i", parent);
 			element(Element());
@@ -23,35 +29,11 @@ namespace Cayita.UI
 			CreateElement("i", parent);
 		}
 
-		public new Icon Append<T>(Action<T> content) where T: ElementBase, new()
-		{ 
-			base.Append<T> (content);
-			return this;
+		public new  IconElement Element()
+		{
+			return (IconElement)base.Element();
 		}
 
-		public Icon Style(Action<Style> style)
-		{
-			style (Element ().Style);
-			return this;
-		}
-
-		public new Icon ClassName(string className)
-		{
-			Element ().ClassName = className;
-			return this;
-		}
-
-		public new Icon RemoveClass(string className)
-		{
-			JQuery ().RemoveClass (className);
-			return this;
-		}
-
-		public new Icon AddClass(string className)
-		{
-			JQuery ().AddClass (className);
-			return this;
-		}
 
 	}
 }

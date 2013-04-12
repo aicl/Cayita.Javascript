@@ -31,21 +31,12 @@ namespace Cayita.UI
 
 		public void ForField(string fieldId)
 		{
-			if(!string.IsNullOrEmpty(fieldId))
-			{
-				Element().SetAttribute("for", fieldId);
-			}
-			else
-			{
-				Element().RemoveAttribute("for");
-			}
-
+			Element().For=fieldId;
 		}
 
 		public string ForField()
 		{
-			object forF= Element().GetAttribute("for");
-			return forF==null? string.Empty:forF.ToString();
+			return Element ().For;
 		}
 
 
@@ -55,7 +46,7 @@ namespace Cayita.UI
 			return  new Label(parent, lb=>{
 				lb.Text(textLabel);
 				lb.ClassName= "control-label";
-				if (!string.IsNullOrEmpty(forField)) lb.SetAttribute("for", forField);
+				if (!string.IsNullOrEmpty(forField)) lb.For= forField;
 				if(!visible) lb.Hide();
 			});
 

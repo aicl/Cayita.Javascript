@@ -9,15 +9,11 @@ namespace System.Html
 		{
 		}
 
-		[InlineCode("$({this}).attr('for', {fieldId})")]
-		public void For(string fieldId)
-		{
-
-		}
-		[InlineCode("$({this}).attr('for')")]
-		public string For()
-		{
-			return null;
+		public string For {
+			[InlineCode("$({this}).attr('for')")]
+			get;
+			[InlineCode("$({this}).attr('for', {value})")]
+			set;
 		}
 	}
 }

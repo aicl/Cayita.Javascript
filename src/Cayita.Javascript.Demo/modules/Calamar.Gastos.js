@@ -311,13 +311,13 @@
 			var $t2 = this.get_$columns();
 			var $t1 = ss.makeGenericType(Cayita.UI.TableColumn$1, [Calamar.Model.Gasto]).$ctor();
 			$t1.header = (new Cayita.UI.TableCell.$ctor1(function(cell) {
-				new Cayita.UI.Anchor.$ctor1(cell, function(a) {
+				new Cayita.UI.Anchor.$ctor2(cell, function(a) {
 					$(a).text('Concepto');
 				});
 			})).element$1();
 			$t1.value = ss.mkdel(this, function(f) {
 				return (new Cayita.UI.TableCell.$ctor1(ss.mkdel(this, function(cell1) {
-					new Cayita.UI.Anchor.$ctor1(cell1, ss.mkdel(this, function(a1) {
+					new Cayita.UI.Anchor.$ctor2(cell1, ss.mkdel(this, function(a1) {
 						$(a1).text(Enumerable.from(this.get_$storeConceptos()).firstOrDefault(function(q) {
 							return ss.referenceEquals(q.Id.toString(), f.IdConcepto.toString());
 						}, ss.getDefaultValue(Calamar.Model.Concepto)).Nombre);

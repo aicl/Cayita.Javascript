@@ -43,7 +43,7 @@ namespace Cayita.Javascript.DemoTables
 				new IconButton(tb, (bt, ibn)=>{
 					ibn.ClassName="icon-save icon-large";
 					bt.ID="btn-save";
-					bt.Type("submit");
+					bt.Type="submit";
 					bt.Disabled=true;
 				});
 

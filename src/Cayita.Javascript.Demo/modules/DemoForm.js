@@ -18,7 +18,7 @@
 					new Cayita.UI.InputText.$ctor2(fs, function(input) {
 						$(input).attr('placeholder', 'Type something');
 					});
-					new Cayita.UI.Span.$ctor1(fs, function(sp) {
+					new Cayita.UI.Span.$ctor2(fs, function(sp) {
 						sp.className = 'help-block';
 						$(sp).text('Example block-level help text here');
 					});

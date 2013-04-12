@@ -30,6 +30,7 @@
 "UI/Core/Image.cs" \
 "UI/Core/Anchor.cs" \
 "UI/Core/Icon.cs" \
+"UI/Core/IconElement.cs" \
 "UI/Core/IconButton.cs" \
 "UI/Core/ElementBase.cs" \
 "UI/Core/Div.cs" \
@@ -43,7 +44,9 @@
 "UI/Core/ListItem.cs" \
 "UI/Core/HtmlOption.cs" \
 "UI/Core/HtmlSelect.cs" \
-"UI/Core/Span.cs" "UI/Core/Paragraph.cs" \
+"UI/Core/Span.cs" \
+"UI/Core/Paragraph.cs" \
+"UI/Core/ParagraphElement.cs" \
 "UI/Core/HtmlTable.cs" "UI/Core/TableRow.cs" "UI/Core/TableCell.cs" \
 "UI/Core/SelectedRow.cs" \
 "UI/Core/TableColumn.cs" \

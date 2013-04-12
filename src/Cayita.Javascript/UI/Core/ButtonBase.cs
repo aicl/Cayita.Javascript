@@ -12,7 +12,7 @@ namespace Cayita.UI
 		protected void CreateButton(Element parent,  string type)
 		{
 			CreateElement("button", parent);
-			if(!string.IsNullOrEmpty(type))  Element().Type(type);
+			if(!string.IsNullOrEmpty(type))  Element().Type=type;
 			Element().ClassName="btn";
 		}
 
