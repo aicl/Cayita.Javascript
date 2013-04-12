@@ -1,8 +1,6 @@
-using System;
 using System.Runtime.CompilerServices;
 using System.Html;
 using Cayita.UI;
-using jQueryApi;
 
 namespace Modals
 {

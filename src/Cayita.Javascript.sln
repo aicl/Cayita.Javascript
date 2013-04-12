@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navlist", "Navlist\Navlist.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Javascript.DemoModals", "Cayita.Javascript.DemoModals\Cayita.Javascript.DemoModals.csproj", "{4D955FD3-A63F-404A-95B6-8EF9C5EBBAD2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Javascript.PanelsDemo", "Cayita.Javascript.PanelsDemo\Cayita.Javascript.PanelsDemo.csproj", "{ED2CC190-0F29-477D-996E-38D12FE66AB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{E3E48E2A-144E-4732-B648-10BCE87A1672}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3E48E2A-144E-4732-B648-10BCE87A1672}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3E48E2A-144E-4732-B648-10BCE87A1672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED2CC190-0F29-477D-996E-38D12FE66AB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED2CC190-0F29-477D-996E-38D12FE66AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED2CC190-0F29-477D-996E-38D12FE66AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED2CC190-0F29-477D-996E-38D12FE66AB7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F8290CB8-3047-4EA2-BBC7-50156B200A6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F8290CB8-3047-4EA2-BBC7-50156B200A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8290CB8-3047-4EA2-BBC7-50156B200A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
