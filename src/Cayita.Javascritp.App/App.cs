@@ -33,44 +33,7 @@ namespace Cayita.Javascritp.App
 				app.GetMenuItems();
 				app.ShowTopNavBar();
 				app.ShowMenu();
-/*
-				Bootbox.Dialog("Este es un simple menaje");
 
-				Bootbox.Error("ha ocurrido un grave error");
-*/
-/*				Bootbox.Dialog("Message Text", new DialogOptions{Header="Header Text"});
-
-				Bootbox.Dialog("Message from App", opt=>{
-					opt.Header="Your Header Text";},
-				bt=>bt.Add(new DialogButton(){Label="Button Text", Class="btn btn-success"} ));
-
-				var d = new Div(null, div=>{
-					div.ClassName="span3";
-					new Span(div, sp=>sp.Text("!!! span !!!"));
-					new TextField(div, field=>{
-						field.SetPlaceHolder("just a field");
-
-					});
-					new CheckboxField(div,"Check..", cb=>{
-						cb.Checked=true;
-					});
-					new TextArea(div, area=>{
-						area.Value="cayita is amazing,  some text ...";
-					});
-					new Button(div, bt=>{
-						bt.OnClick(evt=>Bootbox.Alert("BUTTON CLICK"));
-						bt.Text("Info Button");
-					
-					});
-				});
-
-
-				Bootbox.Dialog(d, opt=>{
-					opt.Header="large-modal";
-					opt.Classes="modal-large";
-				},
-				bt=>bt.Add(new DialogButton{Label="My super Button", Callback=()=> Bootbox.Prompt("simple prompt")} ));
-*/
 
 				var error= new Paragraph (p=>{
 					p.Style.Color="red";
@@ -144,7 +107,8 @@ namespace Cayita.Javascritp.App
 			MenuItems.Add(new MenuItem{Title="Tables", File="modules/DemoTables.js", Class="DemoTables"});
 			MenuItems.Add(new MenuItem{Title="Navbar", File="modules/DemoNavbar.js", Class="DemoNavbar"});
 			MenuItems.Add(new MenuItem{Title="Navlist", File="modules/DemoNavlist.js", Class="DemoNavlist"});
-
+			MenuItems.Add(new MenuItem{Title="Modals", File="modules/DemoModals.js", Class="DemoModals"});
+			MenuItems.Add(new MenuItem{Title="Panels", File="modules/DemoPanels.js", Class="DemoPanels"});
 		}
 		
 		void ShowTopNavBar()

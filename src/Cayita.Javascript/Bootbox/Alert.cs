@@ -102,9 +102,9 @@ namespace Cayita.UI
 			DialogImpl (body, opt, bt);
 		}
 
-		public static void Dialog(string message )
+		public static void Dialog(string message, string caption="<br/>" )
 		{
-			DialogImpl (message, new DialogOptions (), new List<DialogButton>());
+			DialogImpl (message, new DialogOptions{Header=caption} , new List<DialogButton>());
 		}
 
 		public static void Error(string message, string caption="Error")

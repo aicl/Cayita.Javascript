@@ -51,6 +51,13 @@ namespace Cayita.UI
 		}
 
 		[InlineCode("$({parent}).append({child})")]
+		public static jQueryObject AppendTo(this Element child, Element parent)
+		{
+			return null;
+		}
+
+
+		[InlineCode("$({parent}).append({child})")]
 		public static jQueryObject Append(this Element parent, Element child)
 		{
 			return null;

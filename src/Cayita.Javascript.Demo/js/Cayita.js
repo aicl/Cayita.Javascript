@@ -1246,8 +1246,10 @@
 		}
 		bootbox.dialog(body, bt, opt);
 	};
-	$Cayita_UI_Bootbox.dialog = function(message) {
-		bootbox.dialog(message, [], $Cayita_UI_DialogOptions.$ctor());
+	$Cayita_UI_Bootbox.dialog = function(message, caption) {
+		var $t1 = $Cayita_UI_DialogOptions.$ctor();
+		$t1.header = caption;
+		bootbox.dialog(message, [], $t1);
 	};
 	$Cayita_UI_Bootbox.error = function(message, caption) {
 		var $t1 = $Cayita_UI_DialogOptions.$ctor();

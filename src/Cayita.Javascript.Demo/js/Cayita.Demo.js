@@ -52,6 +52,18 @@
 			$t7.set_file('modules/DemoNavlist.js');
 			$t7.set_class('DemoNavlist');
 			ss.add($t8, $t7);
+			var $t10 = this.get_$menuItems();
+			var $t9 = new $MenuItem();
+			$t9.set_title('Modals');
+			$t9.set_file('modules/DemoModals.js');
+			$t9.set_class('DemoModals');
+			ss.add($t10, $t9);
+			var $t12 = this.get_$menuItems();
+			var $t11 = new $MenuItem();
+			$t11.set_title('Panels');
+			$t11.set_file('modules/DemoPanels.js');
+			$t11.set_class('DemoPanels');
+			ss.add($t12, $t11);
 		},
 		$showTopNavBar: function() {
 			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(null, 'Cayita.Javascript - demo', '', '', function(nav) {
@@ -111,44 +123,6 @@
 			app.$getMenuItems();
 			app.$showTopNavBar();
 			app.$showMenu();
-			//
-			//				Bootbox.Dialog("Este es un simple menaje");
-			//
-			//				
-			//
-			//				Bootbox.Error("ha ocurrido un grave error");
-			//				Bootbox.Dialog("Message Text", new DialogOptions{Header="Header Text"});
-			//				
-			//				Bootbox.Dialog("Message from App", opt=>{
-			//				opt.Header="Your Header Text";},
-			//				bt=>bt.Add(new DialogButton(){Label="Button Text", Class="btn btn-success"} ));
-			//				
-			//				var d = new Div(null, div=>{
-			//				div.ClassName="span3";
-			//				new Span(div, sp=>sp.Text("!!! span !!!"));
-			//				new TextField(div, field=>{
-			//				field.SetPlaceHolder("just a field");
-			//				
-			//				});
-			//				new CheckboxField(div,"Check..", cb=>{
-			//				cb.Checked=true;
-			//				});
-			//				new TextArea(div, area=>{
-			//				area.Value="cayita is amazing,  some text ...";
-			//				});
-			//				new Button(div, bt=>{
-			//				bt.OnClick(evt=>Bootbox.Alert("BUTTON CLICK"));
-			//				bt.Text("Info Button");
-			//				
-			//				});
-			//				});
-			//				
-			//				
-			//				Bootbox.Dialog(d, opt=>{
-			//				opt.Header="large-modal";
-			//				opt.Classes="modal-large";
-			//				},
-			//				bt=>bt.Add(new DialogButton{Label="My super Button", Callback=()=> Bootbox.Prompt("simple prompt")} ));
 			var error = new Cayita.UI.Paragraph.$ctor1(function(p) {
 				p.style.color = 'red';
 				$(p).append((new Cayita.UI.Icon.$ctor1(function(i) {

@@ -90,7 +90,7 @@
 	var $DemoTables = function() {
 	};
 	$DemoTables.execute = function(parent) {
-		$(document.createElement('h3')).text('CRUD').appendTo(parent);
+		$(parent).append(Cayita.UI.StringExtensions.header('CRUD', 3));
 		(new Cayita.UI.Div.$ctor1(null, function(div) {
 			div.className = 'bs-docs-example';
 			$DemoTables.$uGrid = new $UserGrid(div, new $UserStore());
@@ -140,7 +140,7 @@
 		$($DemoTables.$uForm.element$1()).validate(vo);
 		$DemoTables.$uGrid.getStore$1().read(null, true);
 		$DemoTables.$showCodeCrud(parent);
-		$(document.createElement('h3')).text('Paged Tables').appendTo(parent);
+		$(parent).append(Cayita.UI.StringExtensions.header('Paged Tables', 3));
 		(new Cayita.UI.Div.$ctor1(null, function(div1) {
 			div1.className = 'bs-docs-example';
 			new Cayita.UI.Div.$ctor1(div1, function(ct) {
@@ -150,7 +150,7 @@
 			new (ss.makeGenericType(Cayita.UI.StorePaging$1, [$Customer]))(div1, $DemoTables.$cGrid.getStore$1());
 		})).appendTo$1(parent);
 		$DemoTables.$cGrid.getStore$1().read$1();
-		$(document.createElement('h3')).text('Filters').appendTo(parent);
+		$(parent).append(Cayita.UI.StringExtensions.header('Filters', 3));
 		var gc = null;
 		(new Cayita.UI.Div.$ctor1(null, function(div2) {
 			div2.className = 'bs-docs-example';

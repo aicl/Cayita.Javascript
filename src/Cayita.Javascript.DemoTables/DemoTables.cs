@@ -17,7 +17,7 @@ namespace Cayita.Javascript.DemoTables
 
 		public static void Execute(Element parent)
 		{
-			Document.CreateElement("h3").Text("CRUD").AppendTo(parent);
+			"CRUD".Header (3).AppendTo(parent);
 
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
@@ -81,8 +81,7 @@ namespace Cayita.Javascript.DemoTables
 
 			ShowCodeCrud (parent);
 
-
-			Document.CreateElement("h3").Text("Paged Tables").AppendTo(parent);
+			"Paged Tables".Header (3).AppendTo (parent);
 
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
@@ -97,8 +96,7 @@ namespace Cayita.Javascript.DemoTables
 
 			cGrid.GetStore ().Read ();
 
-
-			Document.CreateElement("h3").Text("Filters").AppendTo(parent);
+			"Filters".Header (3).AppendTo (parent);
 
 			CustomerGrid gc= null;
 
@@ -119,8 +117,6 @@ namespace Cayita.Javascript.DemoTables
 				});
 				
 			}).AppendTo(parent);
-			
-
 
 		}
 

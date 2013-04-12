@@ -14,7 +14,7 @@ namespace Cayita.Javascript.DemoForm
 		public static void Execute(Element parent)
 		{
 
-			Document.CreateElement("h2").Text("Default styles").AppendTo(parent);
+			"Default styles".Header (2).AppendTo (parent);
 
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
@@ -52,8 +52,8 @@ namespace Cayita.Javascript.DemoForm
 
 			//------------------
 
-			Document.CreateElement("h2").Text("Optional Layouts").AppendTo(parent);
-			Document.CreateElement("h3").Text("Search form").AppendTo(parent);
+			"Optional Layouts".Header (2).AppendTo (parent);
+			"Search form".Header(3).AppendTo(parent);
 
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
@@ -80,7 +80,7 @@ namespace Cayita.Javascript.DemoForm
 			}).AppendTo(parent);
 
 			//---------------------------------
-			Document.CreateElement("h3").Text("Inline Form").AppendTo(parent);
+			"Inline Form".Header(3).AppendTo(parent);
 
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
@@ -128,7 +128,7 @@ namespace Cayita.Javascript.DemoForm
 
 			//--------------------------------
 
-			Document.CreateElement("h3").Text("Horizontal Form").AppendTo(parent);
+			"Horizontal Form".Header(3).AppendTo(parent);
 			
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
@@ -175,8 +175,8 @@ namespace Cayita.Javascript.DemoForm
 
 			//----------------------------------
 
-			Document.CreateElement("h2").Text("Samples").AppendTo(parent);
-			Document.CreateElement("h3").Text("Login Form").AppendTo(parent);
+			"Samples".Header(2).AppendTo(parent);
+			"Login Form".Header(3).AppendTo(parent);
 
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
@@ -264,7 +264,7 @@ namespace Cayita.Javascript.DemoForm
 
 			//-----------------------------------
 
-			Document.CreateElement("h3").Text("Contact Form").AppendTo(parent);
+			"Contact Form".Header(3).AppendTo(parent);
 
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";

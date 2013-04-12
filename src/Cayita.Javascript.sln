@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navbar", "Navbar\Navbar.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navlist", "Navlist\Navlist.csproj", "{6A9223A6-7872-4424-BEF7-7128CE81E28F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Javascript.DemoModals", "Cayita.Javascript.DemoModals\Cayita.Javascript.DemoModals.csproj", "{4D955FD3-A63F-404A-95B6-8EF9C5EBBAD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{0AC5FED0-CCD1-401C-8BD3-E1851958CCEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AC5FED0-CCD1-401C-8BD3-E1851958CCEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AC5FED0-CCD1-401C-8BD3-E1851958CCEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D955FD3-A63F-404A-95B6-8EF9C5EBBAD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D955FD3-A63F-404A-95B6-8EF9C5EBBAD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D955FD3-A63F-404A-95B6-8EF9C5EBBAD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D955FD3-A63F-404A-95B6-8EF9C5EBBAD2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{586483AE-FF06-44B9-8371-1E0249AE7C39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{586483AE-FF06-44B9-8371-1E0249AE7C39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{586483AE-FF06-44B9-8371-1E0249AE7C39}.Release|Any CPU.ActiveCfg = Release|Any CPU
