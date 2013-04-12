@@ -59,7 +59,30 @@ namespace Cayita.UI
 			return jQuery.FromElement (El).AddHtml(value);
 		}
 		
-		
+
+		public jQueryObject Append(Element child)
+		{
+			return El.Append (child);
+		}
+
+		public jQueryObject Append(CayitaElement child)
+		{
+			return El.Append (child.El);
+		}
+
+		public jQueryObject AppendTo(Element parent)
+		{
+			return  parent.Append (El);
+		}
+
+
+		public jQueryObject AppendTo(CayitaElement parent)
+		{
+			return parent.El.Append( El);
+		}
+
+
 	}
+
 }
 

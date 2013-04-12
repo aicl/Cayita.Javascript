@@ -10,9 +10,9 @@ namespace Cayita.UI
 			ClassName ("btn");
 		}
 
-		public Button (Action<ButtonElement> div):this()
+		public Button (Action<ButtonElement> button):this()
 		{
-			div.Invoke (Element ());
+			button.Invoke (Element ());
 		}
 		
 		public new ButtonElement Element()

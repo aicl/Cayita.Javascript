@@ -29,6 +29,11 @@ namespace Cayita.UI
 		}
 
 
+		public Anchor Href(string value)
+		{
+			Element ().Href = value;
+			return this;
+		}
 
 	}
 }

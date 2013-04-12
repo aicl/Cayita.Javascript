@@ -15,38 +15,33 @@ namespace Cayita.UI
 
 		public Test()
 		{
-			
-			var div = new Element<Div> ().Append (new Span (s=>{
-				s.Text("Hola Munod 0");
-				s.Style.Color="white";
-				s.Style.BackgroundColor="black";
-			}))
-				.Apply (d => {
-					d.Style(st=>{ st.BorderColor="red"; st.BackgroundColor="blue"; });
-
-				});
-			
-			Firebug.Console.Log ("div", div);
-			
-			var div1 = new Element<Div> ().Append (new Span ().Text("HELLO WORLD") )
-				.Apply (d => {
-					d.Style(st=>{ st.BorderColor="red"; st.BackgroundColor="blue"; });
-
-				});
-			
-			Firebug.Console.Log ("div1", div1);
+		
 			
 			var div2 = new Element<Div> ()
-				.Append<Span> (c => {
-					c.Apply( e=> {e.Text("hola mundo").Style(st=>st.Color="green"); });
-				});
-			
-			Firebug.Console.Log ("div2", div2);
+				.Append<IconButton> (c => {
+					c.Apply( ib=>{
+						ib.Button(b=>b.Append("button-text"));
+						ib.Icon(i=>i.ClassName("icon-th-large"));
+
+					});
+				})
+					.Append<IconAnchor> (c => {
+						c.Apply( ib=>{
+							ib.Anchor(a=> a.Append(" ** Text **"));
+						ib.Icon(i=>i.ClassName("icon-th-large"));
+						
+					});
+				})
+					.Append( new IconButton()
+					        .Icon(i=>i.ClassName("icon-th-large"))
+					        .Button(b=>b.Append(" on more ..")));
+
+			div2.AppendTo (Document.Body);
+
 			
 			var div3 = new Element<Div> ()
-				.Append<Span> (c => {
-					c.Apply(e=>e.Text("hola mundo"));
-				})
+				.Append( new Span(s=>{s.Text("Hola mundo"); s.Style.Color="blue"; })
+				)
 					.Append<Span>(e =>{
 						e.Apply(m=>{m.Text("hello word").Style().Color="orange";});
 					})
@@ -58,10 +53,12 @@ namespace Cayita.UI
 					.Append( new InputText().Apply(i=>{
 						i.ClassName="input-class";
 						i.Style.Color="red";
+						i.Style.MarginBottom="0px";
 						i.Value="ESTO ES ROJO";
 					}))
 					.Append(new InputPassword(i=>{
 						i.PlaceHolder("password2");
+						i.Style.MarginBottom="0px";
 					}))
 					.Append<Anchor>(a=>{
 						a.Apply(ae=>{
@@ -76,6 +73,49 @@ namespace Cayita.UI
 			Firebug.Console.Log ("div3", div3);
 			
 			div3.AppendTo (Document.Body);
+
+
+			var div4 = new Element<Div> ()
+				.Append<Label> (c => { 
+					c.Apply(l=> { l.JQuery().Text("Check "); l.ClassName("checkbox"); });
+					c.Append( new InputCheckBox(cb=>cb.Checked=true));
+				})
+					.Append<Label> (c => { 
+						c.Apply(l=> {
+							l.For("opt-id-1").JQuery().Text("Opt 1 "); 
+							l.ClassName("radio");
+						});
+						c.Append( new InputRadio(r=>{r.Name="Option"; r.ID="opt-id-1";}));
+					})
+					.Append<Label> (c => { 
+						c.Apply(l=> {
+							l.For("opt-id-2").JQuery().Text("Opt 2 "); 
+							l.ClassName("radio");
+						});
+						c.Append( new InputRadio(r=>{r.Name="Option"; r.ID="opt-id-2";} ));
+					})
+					.Append<Div>(cg=>{
+						cg.ClassName("control-group");
+						cg.Append(new Label(l=>{
+							l.InnerText="Options:";l.ClassName="control-label";  
+							l.Style.Padding="5px"; l.Style.CssFloat="left";
+						}));
+						cg.Append<Div>(ct=>{
+							ct.ClassName("controls");
+							ct.Append( new Label(l=>{
+								l.ClassName="radio inline";
+								l.Text("Option 1");
+								l.Append(new InputRadio(r=>{ r.Name="Option"; r.Value="1";}));
+							}));
+							ct.Append( new Label(l=>{
+								l.ClassName="radio inline";
+								l.Text("Option 2");
+								l.Append(new InputRadio(r=>{ r.Name="Option"; r.Value="2";}));
+							}));
+						});
+					});
+			
+			div4.AppendTo (Document.Body);
 		}
 	}
 }

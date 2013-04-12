@@ -55,7 +55,21 @@ namespace Cayita.UI
 		{
 			return null;
 		}
-		
+
+		[InlineCode("$({parent}).append({child})")]
+		public static jQueryObject Append(this DocumentFragment parent, Element child)
+		{
+			return null;
+		}
+
+
+		[InlineCode("$({parent}).append({child}.el)")]
+		public static jQueryObject Append(this Element parent, CayitaElement child)
+		{
+			return null;
+		}
+
+
 		[InlineCode("$({parent}).append({text})")]
 		public static jQueryObject Append(this Element parent, string text)
 		{

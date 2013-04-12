@@ -50,6 +50,25 @@
     <Compile Include="UI\Core\Icon.cs" />
     <Compile Include="UI\Core\ButtonElement.cs" />
     <Compile Include="UI\Core\Button.cs" />
+    <Compile Include="UI\Core\Form.cs" />
+    <Compile Include="UI\Core\ListElement.cs" />
+    <Compile Include="UI\Core\HtmlList.cs" />
+    <Compile Include="UI\Core\NavList.cs" />
+    <Compile Include="UI\Core\HtmlOption.cs" />
+    <Compile Include="UI\Core\HtmlSelect.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="UI\Core\ItemElement.cs" />
+    <Compile Include="UI\Core\ListItem.cs" />
+    <Compile Include="UI\Core\HtmlTable.cs" />
+    <Compile Include="UI\Core\TableRow.cs" />
+    <Compile Include="UI\Core\TableColumn.cs" />
+    <Compile Include="UI\Core\IconButton.cs" />
+    <Compile Include="UI\Core\IconAnchor.cs" />
+    <Compile Include="UI\Core\Image.cs" />
+    <Compile Include="UI\Core\InputCheckBox.cs" />
+    <Compile Include="UI\Core\InputRadio.cs" />
+    <Compile Include="UI\Core\LabelElement.cs" />
+    <Compile Include="UI\Core\Label.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
