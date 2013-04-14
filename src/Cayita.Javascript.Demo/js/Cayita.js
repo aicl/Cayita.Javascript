@@ -2206,16 +2206,21 @@
 			return this.element();
 		}
 	};
-	$Cayita_UI_HtmlTable.$ctor2 = function(parent, element) {
+	$Cayita_UI_HtmlTable.$ctor3 = function(parent, element) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('table', parent);
 		element(this.element$1());
 	};
-	$Cayita_UI_HtmlTable.$ctor1 = function(parent) {
+	$Cayita_UI_HtmlTable.$ctor2 = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('table', parent);
 	};
-	$Cayita_UI_HtmlTable.$ctor2.prototype = $Cayita_UI_HtmlTable.$ctor1.prototype = $Cayita_UI_HtmlTable.prototype;
+	$Cayita_UI_HtmlTable.$ctor1 = function(element) {
+		$Cayita_UI_ElementBase.call(this);
+		this.createElement('table', null);
+		element(this.element$1());
+	};
+	$Cayita_UI_HtmlTable.$ctor3.prototype = $Cayita_UI_HtmlTable.$ctor2.prototype = $Cayita_UI_HtmlTable.$ctor1.prototype = $Cayita_UI_HtmlTable.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Icon
 	var $Cayita_UI_Icon = function() {

@@ -24,6 +24,12 @@ namespace Cayita.UI
 			return (TableElement) base.Element();
 		}
 
+		public HtmlTable (Action<TableElement> element)
+		{
+			CreateElement("table",null);
+			element(Element()); 
+		}
+
 	}
 
 	public class TableHeader:HtmlTable
