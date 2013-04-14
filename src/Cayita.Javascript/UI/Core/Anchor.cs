@@ -12,6 +12,12 @@ namespace Cayita.UI
 			Init (null);
 		}
 
+		public Anchor(Action<AnchorElement> element)
+		{
+			Init(null);
+			element(Element());
+		}
+
 
 		public Anchor(Element parent,  Action<AnchorElement> element)
 		{

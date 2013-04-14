@@ -113,11 +113,11 @@
 			});
 		},
 		$paint: function(parent) {
-			new Cayita.UI.Div.$ctor1(parent, function(div) {
+			new Cayita.UI.Div.$ctor2(parent, function(div) {
 				div.className = 'span6 offset2 well';
 				$(div).hide();
 			});
-			this.set_$searchDiv(new Cayita.UI.Div.$ctor1(null, ss.mkdel(this, function(searchdiv) {
+			this.set_$searchDiv(new Cayita.UI.Div.$ctor2(null, ss.mkdel(this, function(searchdiv) {
 				searchdiv.className = 'span6 offset2 nav';
 				var inputFecha = (new Cayita.UI.InputText.$ctor2(searchdiv, function(ip) {
 					ip.className = 'input-medium search-query';
@@ -160,8 +160,8 @@
 					}));
 				})));
 			})));
-			this.get_$searchDiv().appendTo$1(parent);
-			this.set_$formDiv(new Cayita.UI.Div.$ctor1(null, ss.mkdel(this, function(formdiv) {
+			this.get_$searchDiv().appendTo$2(parent);
+			this.set_$formDiv(new Cayita.UI.Div.$ctor2(null, ss.mkdel(this, function(formdiv) {
 				formdiv.className = 'span6 offset2 well';
 				this.set_$form(new Cayita.UI.Form.$ctor1(formdiv, ss.mkdel(this, function(f) {
 					f.className = 'form-horizontal';
@@ -261,13 +261,13 @@
 					$(f).validate(vo);
 				})));
 			})));
-			this.get_$formDiv().appendTo$1(parent);
-			this.set_$gridDiv(new Cayita.UI.Div.$ctor1(null, ss.mkdel(this, function(gdiv) {
+			this.get_$formDiv().appendTo$2(parent);
+			this.set_$gridDiv(new Cayita.UI.Div.$ctor2(null, ss.mkdel(this, function(gdiv) {
 				gdiv.className = 'span10';
 				this.set_$gridGastos(new (ss.makeGenericType(Cayita.UI.HtmlGrid$1, [Calamar.Model.Gasto]).$ctor1)(gdiv, this.get_$storeGastos(), this.get_$columns()));
 				$(gdiv).hide();
 			})));
-			this.get_$gridDiv().appendTo$1(parent);
+			this.get_$gridDiv().appendTo$2(parent);
 		},
 		$loadGastos: function(date) {
 			//StoreGastos.Read().Always(a=>{
@@ -311,13 +311,13 @@
 			var $t2 = this.get_$columns();
 			var $t1 = ss.makeGenericType(Cayita.UI.TableColumn$1, [Calamar.Model.Gasto]).$ctor();
 			$t1.header = (new Cayita.UI.TableCell.$ctor1(function(cell) {
-				new Cayita.UI.Anchor.$ctor2(cell, function(a) {
+				new Cayita.UI.Anchor.$ctor3(cell, function(a) {
 					$(a).text('Concepto');
 				});
 			})).element$1();
 			$t1.value = ss.mkdel(this, function(f) {
 				return (new Cayita.UI.TableCell.$ctor1(ss.mkdel(this, function(cell1) {
-					new Cayita.UI.Anchor.$ctor2(cell1, ss.mkdel(this, function(a1) {
+					new Cayita.UI.Anchor.$ctor3(cell1, ss.mkdel(this, function(a1) {
 						$(a1).text(Enumerable.from(this.get_$storeConceptos()).firstOrDefault(function(q) {
 							return ss.referenceEquals(q.Id.toString(), f.IdConcepto.toString());
 						}, ss.getDefaultValue(Calamar.Model.Concepto)).Nombre);

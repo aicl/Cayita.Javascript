@@ -36,11 +36,8 @@ namespace Cayita.UI
 		void Init( PanelConfig config)
 		{
 			var self = this;
-			
 			pc = config;
-
 			SetElement (pc.Container.Element ());
-
 			
 			if (pc.OnClickCloseIconHandler == null)
 				pc.OnClickCloseIconHandler = p => p.Close ();
@@ -84,19 +81,15 @@ namespace Cayita.UI
 
 			pc.Container.JQuery().CSS("z-index", "0");
 
-			dobject = pc.Container.Draggable ();
-			dobject.Stack = ".c-panel";
-			dobject.AddClasses = false;
-			dobject.Containment = "parent";
-			dobject.Distance = 10;
-			dobject.Handle = pc.Header.Element ();
-
+			InitDraggable ();
 
 			if (!pc.Draggable)
-				dobject.Disable ();
+				dobject.Destroy ();
 
-			robject = pc.Body.Resizable ();
-			robject.AlsoResize = pc.Container.JQuery ();
+			InitResizable ();
+
+			if (!pc.Resizable)
+				robject.Destroy ();
 
 			pc.Container.JQuery ().Click (evt => {
 				var zI= pc.Container.JQuery().GetCSS("z-index");
@@ -152,6 +145,39 @@ namespace Cayita.UI
 				closeIcon.JQuery ().Hide ();
 			return this;
 		}
+
+		public Panel Collapsible(bool value)
+		{
+			pc.Collapsible = value;
+			if (value)
+				collapseIcon.JQuery ().Show ();
+			else
+				collapseIcon.JQuery ().Hide ();
+			return this;
+		}
+
+
+
+		public Panel Draggable(bool value)
+		{
+			pc.Draggable = value;
+			if (value) {
+				InitDraggable ();
+			} else
+				dobject.Destroy ();
+			return this;
+		}
+
+		public Panel Resizable(bool value)
+		{
+			pc.Resizable = value;
+			if (value) {
+				InitResizable();
+			} else
+				robject.Destroy ();
+			return this;
+		}
+
 
 		/// <summary>
 		/// Raises the close handler event.
@@ -316,7 +342,25 @@ namespace Cayita.UI
 		/// Occurs when Toggle method is invoked => (Panel, Visible)
 		/// </summary>
 		public event Action<Panel,bool> OnToggle;
-		
+
+
+		void InitDraggable()
+		{
+			dobject = pc.Container.DraggableObject ();
+			dobject.Stack = ".c-panel";
+			dobject.AddClasses = false;
+			dobject.Containment = "parent";
+			dobject.Distance = 10;
+			dobject.Handle = pc.Header.Element ();
+		}
+
+
+		void InitResizable()
+		{
+			robject = pc.Body.ResizableObject ();
+			robject.AlsoResize = pc.Container.JQuery ();
+		}
+
 	}
 
 	[Serializable]

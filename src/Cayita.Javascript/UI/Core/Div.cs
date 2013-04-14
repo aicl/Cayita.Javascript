@@ -7,6 +7,14 @@ namespace Cayita.UI
 
 	public class Div:ElementBase
 	{
+
+		public Div (Action<DivElement> element)
+		{
+			CreateElement("div", null);
+			element(Element()); 
+		}
+
+
 		public Div (Element parent,  Action<DivElement> element)
 		{
 			CreateElement("div", parent);
