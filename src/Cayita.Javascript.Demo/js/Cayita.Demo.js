@@ -72,7 +72,7 @@
 				Cayita.UI.Extensions.addItem$1(nav, 'Contact');
 				Cayita.UI.Extensions.addItem$1(nav, 'About');
 			}));
-			this.get_$topNavBar().addClass$1('navbar-inverse navbar-fixed-top').appendTo$2(document.body);
+			this.get_$topNavBar().addClass$1('navbar-inverse navbar-fixed-top').appendTo$1(document.body);
 		},
 		$showMenu: function() {
 			Cayita.UI.Div.createContainerFluid$1(null, ss.mkdel(this, function(fluid) {
@@ -114,7 +114,7 @@
 						work.appendChild(Cayita.UI.StringExtensions.header('Welcome', 3));
 					}));
 				}));
-			})).appendTo$2(document.body);
+			})).appendTo$1(document.body);
 		}
 	};
 	$App.main = function() {

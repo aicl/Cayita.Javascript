@@ -160,7 +160,7 @@
 					}));
 				})));
 			})));
-			this.get_$searchDiv().appendTo$2(parent);
+			this.get_$searchDiv().appendTo$1(parent);
 			this.set_$formDiv(new Cayita.UI.Div.$ctor2(null, ss.mkdel(this, function(formdiv) {
 				formdiv.className = 'span6 offset2 well';
 				this.set_$form(new Cayita.UI.Form.$ctor1(formdiv, ss.mkdel(this, function(f) {
@@ -261,13 +261,13 @@
 					$(f).validate(vo);
 				})));
 			})));
-			this.get_$formDiv().appendTo$2(parent);
+			this.get_$formDiv().appendTo$1(parent);
 			this.set_$gridDiv(new Cayita.UI.Div.$ctor2(null, ss.mkdel(this, function(gdiv) {
 				gdiv.className = 'span10';
 				this.set_$gridGastos(new (ss.makeGenericType(Cayita.UI.HtmlGrid$1, [Calamar.Model.Gasto]).$ctor1)(gdiv, this.get_$storeGastos(), this.get_$columns()));
 				$(gdiv).hide();
 			})));
-			this.get_$gridDiv().appendTo$2(parent);
+			this.get_$gridDiv().appendTo$1(parent);
 		},
 		$loadGastos: function(date) {
 			//StoreGastos.Read().Always(a=>{

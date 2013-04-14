@@ -1634,14 +1634,11 @@
 			var name = this.$element_.getAttribute('name');
 			return (ss.isNullOrUndefined(name) ? '' : name.toString());
 		},
-		appendTo$2: function(parent) {
+		appendTo$1: function(parent) {
 			$(parent || document.body).append(this.$element_);
 		},
-		appendTo$1: function(parent) {
-			parent.appendChild(this.$element_);
-		},
 		appendTo: function(parent) {
-			$(this.$element_).append(parent.$element_);
+			parent.appendChild(this.$element_);
 		},
 		isVisible: function() {
 			return $(this.$element_).is(':visible');
@@ -1842,7 +1839,7 @@
 								col.afterCellCreate(this.d.$, row);
 							}
 						}
-					}))).appendTo$1(fbody);
+					}))).appendTo(fbody);
 				}
 			}
 			finally {
@@ -2270,39 +2267,22 @@
 		element$1: function() {
 			return this.element();
 		},
-		append$3: function(T) {
-			return function(content) {
-				this.append(T).call(this, content);
-				return this;
-			};
-		},
-		style: function(style) {
-			style(this.element$1().style);
-			return this;
-		},
 		src: function(url) {
 			this.element$1().src = url;
 			return this;
-		},
-		className$2: function(className) {
-			this.element$1().className = className;
-			return this;
-		},
-		removeClass$2: function(className) {
-			this.jQuery().removeClass(className);
-			return this;
-		},
-		addClass$1: function(className) {
-			this.jQuery().addClass(className);
-			return this;
 		}
 	};
-	$Cayita_UI_Image.$ctor1 = function(parent, image) {
+	$Cayita_UI_Image.$ctor1 = function(image) {
+		$Cayita_UI_ElementBase.call(this);
+		this.createElement('img', null);
+		image(this.element$1());
+	};
+	$Cayita_UI_Image.$ctor2 = function(parent, image) {
 		$Cayita_UI_ElementBase.call(this);
 		this.createElement('img', parent);
 		image(this.element$1());
 	};
-	$Cayita_UI_Image.$ctor1.prototype = $Cayita_UI_Image.prototype;
+	$Cayita_UI_Image.$ctor1.prototype = $Cayita_UI_Image.$ctor2.prototype = $Cayita_UI_Image.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Input
 	var $Cayita_UI_Input = function(parent) {
@@ -2606,7 +2586,7 @@
 			return this;
 		},
 		render: function(parent) {
-			this.appendTo$2(parent);
+			this.appendTo$1(parent);
 			return this;
 		},
 		overlay: function(value) {

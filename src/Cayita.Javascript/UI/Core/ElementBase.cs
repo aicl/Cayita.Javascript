@@ -152,10 +152,6 @@ namespace Cayita.UI
 			parent.AppendChild(element_);
 		}
 
-		public void AppendTo(ElementBase parent){
-			element_.Append (parent.element_);
-		}
-
 		public bool IsVisible()
 		{
 			return jQuery.FromElement(element_).Is(":visible");

@@ -10,6 +10,12 @@ namespace Cayita.UI
 			CreateElement("img", null);
 		}
 
+		public Image ( Action<ImageElement> image)
+		{
+			CreateElement("img", null);
+			image(Element()); 
+		}
+
 
 		public Image (Element parent, Action<ImageElement> image)
 		{
@@ -22,17 +28,6 @@ namespace Cayita.UI
 			return (ImageElement) base.Element();
 		}
 
-		public new Image Append<T>(Action<T> content) where T: ElementBase, new()
-		{ 
-			base.Append<T> (content);
-			return this;
-		}
-		
-		public Image Style(Action<Style> style)
-		{
-			style (Element ().Style);
-			return this;
-		}
 
 		public Image Src(string url)
 		{
@@ -40,23 +35,7 @@ namespace Cayita.UI
 			return this;
 		}
 
-		public new Image ClassName(string className)
-		{
-			Element ().ClassName = className;
-			return this;
-		}
-		
-		public new Image RemoveClass(string className)
-		{
-			JQuery ().RemoveClass (className);
-			return this;
-		}
-		
-		public new Image AddClass(string className)
-		{
-			JQuery ().AddClass (className);
-			return this;
-		}
+
 
 
 	}

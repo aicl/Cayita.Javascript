@@ -21,12 +21,12 @@ namespace Modals
 				new App{Tittle="Mail", Icon="img/mail.png"},
 				new App{Tittle="Jack Sparrow Navigator", Icon="img/web.png"},
 				new App{Tittle="MondDevelop", Icon="img/monodevelop.png"},
-				new App{Tittle="Tomboy", Icon="img/tomboy.png"}
+				new App{Tittle="Tomboy", Icon="img/tomboy.png"},
+				new App{Tittle="Skype", Icon="img/skype.png"}
 			} ;
 			return a;
 		}
 	}
-
 
 
 
@@ -43,11 +43,11 @@ namespace Modals
 			
 			new Div(null, div=>{
 				div.ClassName="bs-docs-example";
-				
-				div.Append( Div.CreateContainerFluid(div, cf=>{
-					Div.CreateRowFluid(cf, rf=>{
+				div.Style.PaddingLeft="40px";
+				div.Append( Div.CreateContainer(div, cf=>{
+					Div.CreateRow(cf, rf=>{
 						new Div(rf, ld=>{
-							ld.ClassName="span6";
+							ld.ClassName="span5";
 							var apps = new Panel().Caption("Apps").Closable(false).Resizable(false);
 							new Div(id=>{
 								id.ClassName="c-icons";
@@ -73,40 +73,38 @@ namespace Modals
 								apps.Append(id);
 							});
 							apps.Render(ld);
+
 						});
 
 						new Div(rf, ld=>{
-							ld.ClassName="span6";
-							new Panel()
-								.Caption("Panel 2")
-									.Closable(false)
-									.Render(ld);
-						});
+							ld.ClassName="span5";
+							var panel = new Panel()
+								.Caption("El Coyote").Closable(false).Render(ld).Draggable(false);
 
-					});
+							new Paragraph (p=>{
+								p.Append( new Image(i=>{
+									i.Src="img/coyote.jpg";
+									i.Style.Height="20px";
+									i.Style.Width="15px";
+								}));
+								p.Append(@"<i><b>El <a href=""https://es.wikipedia.org/wiki/Coyote"" title=""Coyote"" target=""_blank"">Coyote</a> y el <a href=""https://es.wikipedia.org/wiki/Geococcyx_californianus"" title=""Geococcyx californianus"" target=""_blank"">Correcaminos</a></b></i> (<i><b>Wile E. Coyote</b> and the <b>Road Runner</b></i>) son los personajes de una serie <a href=""https://es.wikipedia.org/wiki/Estados_Unidos"" title=""Estados Unidos"" target=""_blank"">estadounidense</a> de <a href=""https://es.wikipedia.org/wiki/Dibujos_animados"" title=""Dibujos animados"" target=""_blank"">dibujos animados</a> creada en el año de <a href=""https://es.wikipedia.org/wiki/1949"" title=""1949"" target=""_blank"">1949</a> por el animador <a href=""https://es.wikipedia.org/wiki/Chuck_Jones"" title=""Chuck Jones"" target=""_blank"">Chuck Jones</a> para <a href=""https://es.wikipedia.org/wiki/Warner_Brothers"" title=""Warner Brothers"" target=""_blank"">Warner Brothers</a>. Chuck Jones se inspiró para crear a estos personajes en un libro de <a href=""https://es.wikipedia.org/wiki/Mark_Twain"" title=""Mark Twain"" target=""_blank"">Mark Twain</a>, titulado <i>Roughin It</i>, en el que Twain denotaba que los coyotes hambrientos podrían cazar un correcaminos.");
+								panel.Append(p);
+							});
 
-					Div.CreateRowFluid(cf, rf=>{
-						new Div(rf, ld=>{
-							ld.ClassName="span6";
 							new Panel()
 								.Caption("Panel 3")
 									.Closable(false)
 									.Render(ld);
-							
-						});
-						
-						new Div(rf, ld=>{
-							ld.ClassName="span6";
+
 							new Panel()
 								.Caption("Panel 4")
 									.Closable(false)
 									.Render(ld);
 
-							
 						});
-						
-						
+
 					});
+
 
 
 				}));

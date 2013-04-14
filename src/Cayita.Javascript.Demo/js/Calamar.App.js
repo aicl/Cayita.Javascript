@@ -35,9 +35,9 @@
 		$showUserMenu: function(lr) {
 			var um = Cayita.UI.Div.createContainerFluid$1(null, ss.mkdel(this, function(fluid) {
 				Cayita.UI.Div.createRowFluid$1(fluid, ss.mkdel(this, function(row) {
-					new Cayita.UI.Div.$ctor1(row, ss.mkdel(this, function(span) {
+					new Cayita.UI.Div.$ctor2(row, ss.mkdel(this, function(span) {
 						span.className = 'span2';
-						new Cayita.UI.Div.$ctor1(span, ss.mkdel(this, function(nav) {
+						new Cayita.UI.Div.$ctor2(span, ss.mkdel(this, function(nav) {
 							nav.className = 'well sidebar-nav';
 							Cayita.UI.HtmlList.createNavList$1(nav, ss.mkdel(this, function(list) {
 								Cayita.UI.Extensions.addHeader(list, 'Menu');
@@ -75,7 +75,7 @@
 							}));
 						}));
 					}));
-					this.set_$work(new Cayita.UI.Div.$ctor1(row, function(work) {
+					this.set_$work(new Cayita.UI.Div.$ctor2(row, function(work) {
 						work.className = 'span10';
 						work.id = 'work';
 						var m = document.createElement('h3');
@@ -140,7 +140,7 @@
 			this.set_$container(Cayita.UI.Div.createContainer$1(null, ss.mkdel(this, function(container) {
 				Cayita.UI.Div.createRow$1(container, ss.mkdel(this, function(row) {
 					//
-					new Cayita.UI.Div.$ctor1(row, ss.mkdel(this, function(element) {
+					new Cayita.UI.Div.$ctor2(row, ss.mkdel(this, function(element) {
 						element.className = 'span4 offset4 well';
 						new Cayita.UI.Legend.$ctor1(element, function(l) {
 							$(l).text('Login Form');
