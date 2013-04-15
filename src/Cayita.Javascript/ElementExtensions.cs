@@ -325,13 +325,13 @@ namespace Cayita.UI
 			return null;
 		}
 
-		[InlineCode("$(element).is(':visible')")]
+		[InlineCode("$({element}).is(':visible')")]
 		public static bool IsVisible(this Element element)
 		{
 			return false;
 		}
 
-		[InlineCode("element.is(':visible')")]
+		[InlineCode("{element}.is(':visible')")]
 		public static bool IsVisible(this jQueryObject element)
 		{
 			return false;

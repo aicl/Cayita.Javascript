@@ -1263,16 +1263,21 @@
 	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Button
-	var $Cayita_UI_Button = function(parent) {
+	var $Cayita_UI_Button = function(element) {
 		$Cayita_UI_ButtonBase.call(this);
-		this.createButton(parent, 'button');
+		this.createButton(null, 'button');
+		element(this.element$1());
 	};
-	$Cayita_UI_Button.$ctor1 = function(parent, element) {
+	$Cayita_UI_Button.$ctor2 = function(parent, element) {
 		$Cayita_UI_ButtonBase.call(this);
 		this.createButton(parent, 'button');
 		element(this.element$1());
 	};
-	$Cayita_UI_Button.$ctor1.prototype = $Cayita_UI_Button.prototype;
+	$Cayita_UI_Button.$ctor1 = function(parent) {
+		$Cayita_UI_ButtonBase.call(this);
+		this.createButton(parent, 'button');
+	};
+	$Cayita_UI_Button.$ctor2.prototype = $Cayita_UI_Button.$ctor1.prototype = $Cayita_UI_Button.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.ButtonBase
 	var $Cayita_UI_ButtonBase = function() {
@@ -2268,7 +2273,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.IconButton
 	var $Cayita_UI_IconButton = function(parent, element) {
-		$Cayita_UI_Button.call(this, parent);
+		$Cayita_UI_Button.$ctor1.call(this, parent);
 		this.element$1().className = 'btn';
 		var i = new $Cayita_UI_Icon.$ctor2(this.element$1());
 		element(this.element$1(), i.element$1());
@@ -2541,7 +2546,7 @@
 		$init: function(config) {
 			var self = this;
 			this.$pc = config;
-			this.setElement(this.$pc.container.element$1());
+			this.setElement(this.$pc.container);
 			if (ss.staticEquals(this.$pc.onClickCloseIconHandler, null)) {
 				this.$pc.onClickCloseIconHandler = function(p) {
 					p.close();
@@ -2552,7 +2557,7 @@
 					p1.collapse();
 				};
 			}
-			this.$closeIcon = new $Cayita_UI_Icon.$ctor3(this.$pc.header.element$1(), ss.mkdel(this, function(icon) {
+			this.$closeIcon = new $Cayita_UI_Icon.$ctor3(this.$pc.header, ss.mkdel(this, function(icon) {
 				icon.className = this.$pc.closeIconClass;
 				$(icon).on('click', ss.mkdel(this, function(evt) {
 					evt.preventDefault();
@@ -2562,21 +2567,21 @@
 					$(icon).hide();
 				}
 			}));
-			this.$collapseIcon = new $Cayita_UI_Icon.$ctor3(this.$pc.header.element$1(), ss.mkdel(this, function(icon1) {
+			this.$collapseIcon = new $Cayita_UI_Icon.$ctor3(this.$pc.header, ss.mkdel(this, function(icon1) {
 				icon1.className = this.$pc.collapseIconClass;
 				$(icon1).on('click', ss.mkdel(this, function(evt1) {
 					evt1.preventDefault();
-					this.$pc.onClickCollapseIconHandler(self, !this.$pc.body.isVisible());
+					this.$pc.onClickCollapseIconHandler(self, !$(this.$pc.body).is(':visible'));
 				}));
 				if (!this.$pc.collapsible) {
 					$(icon1).hide();
 				}
 			}));
 			this.$captionElement = $Cayita_UI_StringExtensions.header(this.$pc.caption, 6);
-			this.$pc.header.jQuery().append(this.$captionElement);
-			this.$pc.container.jQuery().css('left', this.$pc.left).css('top', this.$pc.top);
-			this.$pc.body.jQuery().css('width', this.$pc.width).css('height', this.$pc.height);
-			this.$pc.container.jQuery().css('z-index', '0');
+			$(this.$pc.header).append(this.$captionElement);
+			$(this.$pc.container).css('left', this.$pc.left).css('top', this.$pc.top);
+			$(this.$pc.body).css('width', this.$pc.width).css('height', this.$pc.height);
+			$(this.$pc.container).css('z-index', '0');
 			this.$initDraggable();
 			if (!this.$pc.draggable) {
 				this.$dobject.draggable('destroy');
@@ -2585,10 +2590,10 @@
 			if (!this.$pc.resizable) {
 				this.$robject.resizable('destroy');
 			}
-			this.$pc.container.jQuery().click(ss.mkdel(this, function(evt2) {
-				var zI = this.$pc.container.jQuery().css('z-index');
+			$(this.$pc.container).click(ss.mkdel(this, function(evt2) {
+				var zI = $(this.$pc.container).css('z-index');
 				var hZ = parseInt(zI);
-				var hE = this.$pc.container.element$1();
+				var hE = this.$pc.container;
 				$('.c-panel').each(function(index, element) {
 					var cZ = parseInt($(element).css('z-index'));
 					if (cZ > hZ) {
@@ -2597,10 +2602,10 @@
 					}
 				});
 				$(hE).css('z-index', zI);
-				this.$pc.container.jQuery().css('z-index', ((hZ > 0) ? hZ.toString() : '1'));
+				$(this.$pc.container).css('z-index', ((hZ > 0) ? hZ.toString() : '1'));
 			}));
 			if (this.$pc.overlay) {
-				this.$pc.container.jQuery().css('position', 'fixed');
+				$(this.$pc.container).css('position', 'fixed');
 			}
 		},
 		caption: function(text) {
@@ -2615,10 +2620,10 @@
 		overlay: function(value) {
 			this.$pc.overlay = value;
 			if (value) {
-				this.$pc.container.jQuery().css('position', 'fixed');
+				$(this.$pc.container).css('position', 'fixed');
 			}
 			else {
-				this.$pc.container.jQuery().css('position', 'relative');
+				$(this.$pc.container).css('position', 'relative');
 			}
 			return this;
 		},
@@ -2662,6 +2667,9 @@
 			}
 			return this;
 		},
+		body: function() {
+			return this.$pc.body;
+		},
 		onCloseHandler: function(value) {
 			this.add_onClose(value);
 			return this;
@@ -2685,75 +2693,75 @@
 		},
 		collapseIconClass: function(value) {
 			this.$pc.collapseIconClass = value;
-			if (this.$pc.body.isVisible()) {
+			if ($(this.$pc.body).is(':visible')) {
 				this.$collapseIcon.className$1(value);
 			}
 			return this;
 		},
 		expandIconClass: function(value) {
 			this.$pc.expandIconClass = value;
-			if (!this.$pc.body.isVisible()) {
+			if (!$(this.$pc.body).is(':visible')) {
 				this.$collapseIcon.className$1(value);
 			}
 			return this;
 		},
 		left: function(value) {
 			this.$pc.top = value;
-			this.$pc.container.jQuery().css('left', value);
+			$(this.$pc.container).css('left', value);
 			return this;
 		},
 		top: function(value) {
 			this.$pc.top = value;
-			this.$pc.container.jQuery().css('top', value);
+			$(this.$pc.container).css('top', value);
 			return this;
 		},
 		width: function(value) {
 			this.$pc.width = value;
-			this.$pc.body.jQuery().css('width', value);
+			$(this.$pc.body).css('width', value);
 			return this;
 		},
 		height: function(value) {
 			this.$pc.height = value;
-			this.$pc.body.jQuery().css('height', value);
+			$(this.$pc.body).css('height', value);
 			return this;
 		},
 		collapse: function() {
-			var collapsed = !this.$pc.body.isVisible();
+			var collapsed = !$(this.$pc.body).is(':visible');
 			if (!ss.staticEquals(this.$2$OnCollapseField, null)) {
 				this.$2$OnCollapseField(this, collapsed);
 			}
-			this.$pc.body.jQuery().toggle();
+			$(this.$pc.body).toggle();
 			this.$collapseIcon.className$1((!collapsed ? this.$pc.collapseIconClass : this.$pc.expandIconClass));
 			return this;
 		},
 		toggle: function() {
-			var visible = this.$pc.container.isVisible();
+			var visible = $(this.$pc.container).is(':visible');
 			if (!ss.staticEquals(this.$2$OnToggleField, null)) {
 				this.$2$OnToggleField(this, visible);
 			}
-			this.$pc.container.jQuery().toggle();
+			$(this.$pc.container).toggle();
 			return this;
 		},
 		close: function() {
 			if (!ss.staticEquals(this.$2$OnCloseField, null)) {
 				this.$2$OnCloseField(this);
 			}
-			this.$pc.container.remove();
+			$(this.$pc.container).remove();
 		},
 		append$5: function(content) {
-			this.$pc.body.append$2(content);
+			$(this.$pc.body).append(content);
 			return this;
 		},
 		append$4: function(content) {
-			this.$pc.body.append$1(content);
+			$(this.$pc.body).append(content);
 			return this;
 		},
 		append$3: function(content) {
-			this.$pc.body.append$1(content.element());
+			$(this.$pc.body).append(content.element());
 			return this;
 		},
 		element$1: function() {
-			return this.$pc.container.element$1();
+			return this.$pc.container;
 		},
 		add_onClose: function(value) {
 			this.$2$OnCloseField = ss.delegateCombine(this.$2$OnCloseField, value);
@@ -2774,16 +2782,16 @@
 			this.$2$OnToggleField = ss.delegateRemove(this.$2$OnToggleField, value);
 		},
 		$initDraggable: function() {
-			this.$dobject = this.$pc.container.draggableObject();
+			this.$dobject = $(this.$pc.container).draggable();
 			this.$dobject.draggable('option', 'stack', '.c-panel');
 			this.$dobject.draggable('option', 'addClasses', false);
 			this.$dobject.draggable('option', 'containment', 'parent');
 			this.$dobject.draggable('option', 'distance', 10);
-			this.$dobject.draggable('option', 'handle', this.$pc.header.element$1());
+			this.$dobject.draggable('option', 'handle', this.$pc.header);
 		},
 		$initResizable: function() {
-			this.$robject = this.$pc.body.resizableObject();
-			this.$robject.resizable('option', 'alsoResize', this.$pc.container.jQuery());
+			this.$robject = $(this.$pc.body).resizable();
+			this.$robject.resizable('option', 'alsoResize', $(this.$pc.container));
 		}
 	};
 	$Cayita_UI_Panel.$ctor2 = function(config) {
@@ -2855,15 +2863,15 @@
 		$this.top = '';
 		$this.width = '';
 		$this.height = '';
-		$this.container = new $Cayita_UI_Div.$ctor2(null, function(ct) {
+		$this.container = (new $Cayita_UI_Div.$ctor2(null, function(ct) {
 			ct.className = 'c-panel';
-			$this.header = new $Cayita_UI_Div.$ctor2(ct, function(hd) {
+			$this.header = (new $Cayita_UI_Div.$ctor2(ct, function(hd) {
 				hd.className = 'c-panel-header';
-			});
-			$this.body = new $Cayita_UI_Div.$ctor2(ct, function(bd) {
+			})).element$1();
+			$this.body = (new $Cayita_UI_Div.$ctor2(ct, function(bd) {
 				bd.className = 'c-panel-content';
-			});
-		});
+			})).element$1();
+		})).element$1();
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////

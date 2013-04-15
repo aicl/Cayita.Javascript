@@ -37,7 +37,7 @@ namespace Cayita.UI
 		{
 			var self = this;
 			pc = config;
-			SetElement (pc.Container.Element ());
+			SetElement (pc.Container);
 			
 			if (pc.OnClickCloseIconHandler == null)
 				pc.OnClickCloseIconHandler = p => p.Close ();
@@ -46,7 +46,7 @@ namespace Cayita.UI
 				pc.OnClickCollapseIconHandler= (p,collapsed)=> p.Collapse();
 
 
-			closeIcon =new Icon (pc.Header.Element(), icon => {
+			closeIcon =new Icon (pc.Header, icon => {
 
 				icon.ClassName=pc.CloseIconClass;
 				
@@ -58,7 +58,7 @@ namespace Cayita.UI
 
 			});
 
-			collapseIcon = new Icon (pc.Header.Element (), icon => {
+			collapseIcon = new Icon (pc.Header, icon => {
 
 				icon.ClassName = pc.CollapseIconClass;
 				icon.OnClick (evt => {
@@ -94,7 +94,7 @@ namespace Cayita.UI
 			pc.Container.JQuery ().Click (evt => {
 				var zI= pc.Container.JQuery().GetCSS("z-index");
 				var hZ =int.Parse(zI);
-				Element hE= pc.Container.Element();
+				Element hE= pc.Container;
 				jQuery.Select(".c-panel").Each( (index, element)=>{
 					var cZ= int.Parse( jQuery.FromElement(element).GetCSS("z-index") );
 					if(cZ>hZ){
@@ -176,6 +176,11 @@ namespace Cayita.UI
 			} else
 				robject.Destroy ();
 			return this;
+		}
+
+		public DivElement Body ()
+		{
+			return pc.Body;
 		}
 
 
@@ -324,7 +329,7 @@ namespace Cayita.UI
 
 		public new DivElement Element()
 		{
-			return pc.Container.Element ();
+			return pc.Container;
 		}
 
 		/// <summary>
@@ -346,19 +351,21 @@ namespace Cayita.UI
 
 		void InitDraggable()
 		{
-			dobject = pc.Container.DraggableObject ();
+			dobject = pc.Container.JQuery ().Draggable ();
 			dobject.Stack = ".c-panel";
 			dobject.AddClasses = false;
 			dobject.Containment = "parent";
 			dobject.Distance = 10;
-			dobject.Handle = pc.Header.Element ();
+			dobject.Handle = pc.Header;
 		}
 
 
 		void InitResizable()
 		{
-			robject = pc.Body.ResizableObject ();
+			robject = pc.Body.JQuery ().Resizable ();
 			robject.AlsoResize = pc.Container.JQuery ();
+
+
 		}
 
 	}
@@ -389,12 +396,12 @@ namespace Cayita.UI
 				ct.ClassName="c-panel";
 				Header = new Div(ct, hd=>{
 					hd.ClassName="c-panel-header";
-				});
+				}).Element();
 				Body = new Div(ct, bd=>{
 					bd.ClassName="c-panel-content";
-				});
+				}).Element();
 
-			});
+			}).Element();
 		}
 
 
@@ -424,11 +431,11 @@ namespace Cayita.UI
 
 		public string ExpandIconClass { get; set; }
 
-		protected internal Div Container { get; set; }
+		protected internal DivElement Container { get; set; }
 		
-		protected internal Div Header { get; set; }
+		protected internal DivElement Header { get; set; }
 
-		protected internal Div Body { get; set; }
+		protected internal DivElement Body { get; set; }
 
 		/// <summary>
 		/// Gets or sets the on close handler = > click on close Icon

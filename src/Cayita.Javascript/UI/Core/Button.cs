@@ -6,10 +6,16 @@ namespace Cayita.UI
 
 	public class Button:ButtonBase
 	{
+		public Button (Action<ButtonElement> element)
+		{
+			CreateButton(null, "button");
+			element.Invoke(Element());
+		}
+
 		public Button (Element parent, Action<ButtonElement> element)
 		{
 			CreateButton(parent, "button");
-			element(Element());
+			element.Invoke(Element());
 		}
 
 		public Button(Element parent)
