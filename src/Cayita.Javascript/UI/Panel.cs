@@ -256,7 +256,8 @@ namespace Cayita.UI
 		public Panel Width(string value)
 		{
 			pc.Width = value;
-			pc.Body.JQuery ().CSS ("width", value);
+			//pc.Body.JQuery ().CSS ("width", value);
+			pc.Container.JQuery ().CSS ("width", value);
 			return this;
 		}
 

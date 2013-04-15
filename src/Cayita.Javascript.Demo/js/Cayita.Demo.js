@@ -123,46 +123,6 @@
 			app.$getMenuItems();
 			app.$showTopNavBar();
 			app.$showMenu();
-			var error = new Cayita.UI.Paragraph.$ctor1(function(p) {
-				p.style.color = 'red';
-				$(p).append((new Cayita.UI.Icon.$ctor1(function(i) {
-					i.className = 'icon-minus-sign';
-					i.style.marginTop = '8px';
-					i.style.marginRight = '8px';
-				})).element());
-				$(p).append(' Error : Ha cerrado la ventana equivocada ! ');
-			});
-			(new Cayita.UI.Panel()).render(null).onCollapseHandler(function(p1, cl) {
-				Alertify.log.info('previous panel state:' + (cl ? 'collapsed' : 'expanded'), 5000);
-			});
-			(new Cayita.UI.Panel()).caption('Panel Caption I').render(null);
-			(new Cayita.UI.Panel()).caption('Panel Caption II').closable(true).render(null);
-			(new Cayita.UI.Panel()).caption('Panel Caption III').closable(true).render(null);
-			(new Cayita.UI.Panel()).caption('Panel Caption IV').closable(true).onCloseHandler(function(p2) {
-				error.logError(0);
-			}).render(null);
-			(new Cayita.UI.Panel()).caption('Panel Caption V').closeIconClass('icon-th-large').closable(true).closeIconHandler(function(p3) {
-				p3.caption('* V now Overlay !');
-				p3.closeIconClass('icon-remove-circle');
-				p3.closeIconHandler(function(pn) {
-					pn.close();
-				});
-				p3.width('auto');
-				p3.height('400px');
-				p3.left('10px');
-				p3.top('100px');
-				p3.overlay(true);
-			}).onCloseHandler(function(p4) {
-				Alertify.log.info(Cayita.UI.StringExtensions.header('panel closed ', 3).outerHTML, 5000);
-			}).render(null);
-			(new Cayita.UI.Panel()).caption('Overlay').left('40%').top('10%').width('auto').height('400px').overlay(true).render(null).append$5('Hello World!').append$4(Cayita.UI.StringExtensions.header('Hello World!', 3)).append$3(new Cayita.UI.Panel()).append$3((new Cayita.UI.Panel()).append$3(new Cayita.UI.Button.$ctor1(null, function(bt) {
-				$(bt).text('Click me');
-				bt.style.width = '100%';
-				bt.style.height = '100%';
-				$(bt).on('click', function(evt) {
-					Alertify.log.info('button clicked!!!', 0);
-				});
-			})));
 		});
 	};
 	////////////////////////////////////////////////////////////////////////////////

@@ -167,8 +167,120 @@ namespace Modals
 				div.Append(@"");
 				
 			}).AppendTo(parent);
+
+
 			
+			new Div (null, div => {
+				div.ClassName = "bs-docs-example";
+				var i=1;
+
+				new Button(div, bt=>{
+					bt.Text("Window I");
+					bt.OnClick(evt=>{
+						new Panel()
+							.Caption("Window " +(i++).ToString())
+								.Left((i*5).ToString()+"px")
+								.Top((i*15).ToString()+"px")
+								.Width("300px")
+								.Height("100px")
+								.Overlay(true)
+								.Render();
+					});
+				});
+
+				div.Append(@"");
+
+
+			}).AppendTo(parent);
+				
+
+			new Div (null, div => {
+				div.ClassName = "bs-docs-example";
+				
+				new Button (div, bt => {
+					bt.Text ("Window II");
+					bt.OnClick (evt => {
+						
+						new Panel ()
+							.Caption ("Custom Close Icon and Handler")
+								.Overlay (true)
+								.Left ("20px")
+								.Top ("200px")
+								.Width ("auto")
+								.CloseIconClass ("icon-th-large")
+								.Closable (true)
+								.CloseIconHandler (p => { 
+							p.Caption ("Icon Close Changed !!! ");
+							p.CloseIconClass ("icon-remove-circle");
+							p.CloseIconHandler (pn => pn.Close ());
+							p.Height ("400px");
+						})
+								.OnCloseHandler (p => {
+							"panel closed ".Header (3).LogInfo (); })
+								.Append (new Button (b => {
+							b.Text ("Click me");
+							b.Style.Width = "100%";
+							b.Style.Height = "100%";
+							b.OnClick (ev => "button clicked!!!".LogInfo ());
+						}))
+								.Render ();						
+					});
 					
+				});
+
+				div.Append (@"");
+
+			}).AppendTo (parent);
+
+
+			new Div (null, div => {
+				div.ClassName = "bs-docs-example";
+				
+				new Button (div, bt => {
+					bt.Text ("Window III");
+					bt.OnClick (evt => {
+
+
+						var error= new Paragraph (p=>{
+							p.Style.Color="red";
+							p.Append( new Icon(i=>{
+								i.ClassName="icon-minus-sign";
+								i.Style.MarginTop="8px";
+								i.Style.MarginRight="8px";
+							}));
+							p.Append(" panel was closed ");
+						});
+
+						var pn=new Panel ()
+							.Caption ("No Closable No Collapsible")
+								.Overlay (true)
+								.Left ("30px")
+								.Top ("400px")
+								.Width ("auto")
+								.Closable (false)
+								.Collapsible(false)
+								.OnCloseHandler (p => {
+									error.LogInfo (); });
+						pn.Append( new Button( b=>{
+							b.Text("Click me");
+							b.Style.Width="100%"; b.Style.Height="100%";
+							b.OnClick(be=>{
+								pn.Closable(true);
+								pn.Collapsible(true);
+								pn.Caption("Now Closable and Collapsible");
+								b.Disabled=true;
+							});
+						}));
+						pn.Render ();						
+					});
+					
+				});
+				
+				div.Append (@"");
+				
+			}).AppendTo (parent);;
+
+
 		}
 		
 	}

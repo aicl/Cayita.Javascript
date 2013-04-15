@@ -2717,7 +2717,8 @@
 		},
 		width: function(value) {
 			this.$pc.width = value;
-			$(this.$pc.body).css('width', value);
+			//pc.Body.JQuery ().CSS ("width", value);
+			$(this.$pc.container).css('width', value);
 			return this;
 		},
 		height: function(value) {
