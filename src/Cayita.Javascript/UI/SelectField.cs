@@ -25,43 +25,28 @@ namespace Cayita.UI
 		SelectedOption<T> selectedoption;
 		SelectedOption<T> defaultoption;
 
-		public SelectField(Element parent, Action<SelectElement> element,
-		                   Store<T> store, Func<T,OptionElement> optionFunc, SelectedOption<T> defaultOption=null)
+		public SelectField(Element parent, Action<SelectElement> field,
+		                   Store<T> store, Func<T,OptionElement> optionFunc,
+		                   SelectedOption<T> defaultOption=null)
+			:base(parent, field)
 		{
-
-			ControlGroup = Div.CreateControlGroup(parent, cgDiv=>{
-				Label = Label.CreateControlLabel(cgDiv, "");
-				Label.Hide();
-				Controls = new Div( cgDiv,  ctDiv=>{
-					Init(ctDiv);
-					element(Element());
-					Label.ForField( Element().ID);
-					Init (store, optionFunc, defaultOption);
-				});
-			});
+			Init (store, optionFunc, defaultOption);
 		}
 
 		public SelectField(Element parent, Action<LabelElement,SelectElement> element,
-		                   Store<T> store, Func<T,OptionElement> optionFunc, SelectedOption<T> defaultOption=null)
+		                   Store<T> store, Func<T,OptionElement> optionFunc, 
+		                   SelectedOption<T> defaultOption=null)
+			:base(parent, element)
 
 		{
-			ControlGroup = Div.CreateControlGroup(parent, cgDiv=>{
-				Label = Label.CreateControlLabel(cgDiv, "");
-				Controls = Div.CreateControls( cgDiv, ctDiv=>{
-					Init(ctDiv);
-					element(Label.Element(), Element());
-					Label.ForField( Element().ID);
-					Init (store, optionFunc, defaultOption);
-				});
-				if( string.IsNullOrEmpty( Label.TextLabel()) ) Label.Hide();
-			});									
+			Init (store, optionFunc, defaultOption);									
 		}
 
 		void Init (Store<T> store, Func<T, OptionElement> optionFunc, SelectedOption<T> defaultOption)
 		{
 			this.store = store;
 			this.optionFunc = optionFunc;
-			se = Element ();
+			se = base.SelectElement ();
 			OnOptionSelected = (sf, opt) =>  {
 			};
 			defaultoption = defaultOption ?? new SelectedOption<T> ();
@@ -167,14 +152,17 @@ namespace Cayita.UI
 	}
 
 	[ScriptNamespace("Cayita.UI")]
-	public class SelectField :HtmlSelect
+	public class SelectField :Div
 	{
-		
-		protected  Div ControlGroup ;
-		protected Label Label ;
-		protected Div Controls ;
 
-		protected SelectField(){}
+		LabelElement lb ;
+		DivElement ctrls ;
+		SelectElement se;
+
+		public SelectField():base(default(Element))
+		{
+			Init ();
+		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Cayita.UI.SelectField"/> class.
@@ -185,17 +173,14 @@ namespace Cayita.UI
 		/// <param name='field'>
 		/// Field<LabelElement, SelectElement>.
 		/// </param>
-		public SelectField(Element parent, Action<LabelElement,SelectElement> field)
+		public SelectField(Element parent, Action<LabelElement,SelectElement> field):
+			base(parent)
 		{
-			ControlGroup = Div.CreateControlGroup(parent, cgDiv=>{
-				Label = Label.CreateControlLabel(cgDiv, "");
-				Controls = Div.CreateControls( cgDiv, ctDiv=>{
-					Init(ctDiv);
-					field(Label.Element(), Element());
-					Label.ForField( Element().ID);
-				});
-				if( string.IsNullOrEmpty( Label.TextLabel()) ) Label.Hide();
-			});  
+			Init ();
+			field.Invoke(lb, se);
+			lb.For=se.ID;
+			if( string.IsNullOrEmpty( lb.Text()) ) lb.Hide();
+
 		}
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Cayita.UI.SelectField"/> class.
@@ -206,32 +191,40 @@ namespace Cayita.UI
 		/// <param name='field'>
 		/// Field<SelectElement>
 		/// </param>
-		public SelectField(Element parent, Action<SelectElement> field)
+		public SelectField(Element parent, Action<SelectElement> field):base(parent)
 		{
-			ControlGroup = Div.CreateControlGroup(parent, cgDiv=>{
-				Label = Label.CreateControlLabel(cgDiv, "");
-				Label.Hide();
-				Controls = new Div( cgDiv,  ctDiv=>{
-					Init(ctDiv);
-					field(Element());
-					Label.ForField( Element().ID);
-				});
-			});  
+			Init ();
+			field.Invoke( se);
+			lb.For=se.ID;
+			lb.Hide();		  
 		}
 
-		public Div GetControlGroup()
+		void Init()
 		{
-			return ControlGroup;
+			var cg = Element ();
+			cg.ClassName = "control-group";
+
+			lb = new Label(cg, l=> l.ClassName="control-label").Element();
+
+			ctrls = Div.CreateControls( cg, div=>{
+				se = new HtmlSelect(div).Element();
+			}).Element();
+
 		}
-		
-		public Div GetControls()
+				
+		public DivElement Controls()
 		{
-			return Controls;
+			return ctrls;
 		}
 
-		public Label GetLabel()
+		public LabelElement Label()
 		{
-			return Label;
+			return lb;
+		}
+
+		public SelectElement SelectElement()
+		{
+			return se;
 		}
 
 	}

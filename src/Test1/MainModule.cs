@@ -219,19 +219,19 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 							
 						})
 							.AddRule((rule, msg)=>{
-								rule.Element=fieldValor.Element();
+								rule.Element=fieldValor.TextElement();
 								rule.Rule.Required();
 								msg.Required("Digite el valor del gasto");
 							})
 
 							.AddRule((rule, msg)=>{
-								rule.Element=cbConcepto.Element();
+								rule.Element=cbConcepto.SelectElement();
 								rule.Rule.Required();
 								msg.Required("Seleccione el concepto");
 							})
 							
 							.AddRule((rule, msg)=>{
-								rule.Element=cbFuente.Element();
+								rule.Element=cbFuente.SelectElement();
 								rule.Rule.Required();
 								msg.Required("Seleccione al fuente del pago");
 							});

@@ -6,11 +6,11 @@ namespace Cayita.UI
 	public class SideNavBar:Div
 	{
 
-		HtmlList navList;
+		ListElement nav;
 
-		public HtmlList GetNavList()
+		public ListElement NavList()
 		{
-			return navList;
+			return nav;
 		}
 		
 		public SideNavBar (Element parent,  Action<ListElement> navlist)
@@ -18,7 +18,7 @@ namespace Cayita.UI
 		{
 			
 			Element().ClassName="well sidebar-nav";
-			navList= HtmlList.CreateNavList(Element(), navlist);					
+			nav= HtmlList.CreateNavList(Element(), navlist).Element();					
 		}
 	}
 }

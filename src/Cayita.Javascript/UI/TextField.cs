@@ -3,68 +3,70 @@ using System.Html;
 
 namespace Cayita.UI
 {
+	
+	public class TextField:Div
+	{		
+		DivElement cg ;
+		LabelElement lb ;
+		DivElement ctrls ;
+		TextElement te;
+		
+		void Init()
+		{
+			cg = Element ();
+			cg.ClassName = "control-group";
 
-	public class TextField :InputText
-	{
-
-		Div controlGroup ;
-		Label label ;
-		Div controls ;
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Cayita.UI.TextField"/> class.
-		/// </summary>
-		/// <param name='parent'>
-		/// Parent.
-		/// </param>
-		/// <param name='field'>
-		/// Field<LabelElement, TextElement>
-		/// </param>
+			lb = new Label(cg,l=>l.ClassName="control-label").Element();
+			
+			ctrls = Div.CreateControls(cg, div=>{
+				te = new InputText(div).Element();
+				
+			}).Element();
+			
+		}
+		
+		
 		public TextField(Element parent, Action<LabelElement,TextElement> field)
+			:base(parent)
 		{
-			controlGroup = Div.CreateControlGroup(parent, cge=>{
-				label = Label.CreateControlLabel(cge,"");
-				controls = Div.CreateControls(cge, cte=>{
-					CreateInput(cte);
-					field(label.Element(), Element());
-					label.ForField( Element().ID);
-				});
-				if( string.IsNullOrEmpty( label.TextLabel()) ) label.Hide();
-			});
+			Init ();
+			
+			field.Invoke(lb, te);
+			lb.For= te.ID;
+			
+			if( string.IsNullOrEmpty( lb.Text()) ) lb.Hide();
+			
 		}
-
-		public TextField(Element parent, Action<TextElement> field)
+		
+		public TextField(Element parent, Action<TextElement> field):base(parent)
 		{
-			controlGroup = Div.CreateControlGroup(parent, cge=>{
-				label = Label.CreateControlLabel(cge,"");
-				label.Hide();
-				controls = new Div(cge, cte=>{
-					CreateInput(cte);
-					field(Element());
-					label.ForField( Element().ID);
-				});
-			});
+			Init ();
+			field.Invoke(te);
+			lb.For= te.ID;
+			lb.Hide();
+			
 		}
-
+		
 		public TextField(Element parent, string label, string fieldname):
 			this(parent, (l,f)=>{l.Text(label); f.Name=fieldname;})
 		{
 		}
-
-
-		public Div GetControlGroup()
+		
+		
+		
+		public DivElement Controls()
 		{
-			return controlGroup;
+			return ctrls;
 		}
 		
-		public Div GetControls()
+		public LabelElement Label()
 		{
-			return controls;
+			return lb;
 		}
 		
-		public Label GetLabel()
+		public TextElement TextElement()
 		{
-			return label;
+			return te;
 		}
 	}
 }

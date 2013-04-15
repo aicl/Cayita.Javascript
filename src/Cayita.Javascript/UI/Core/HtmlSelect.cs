@@ -8,17 +8,27 @@ namespace Cayita.UI
 	
 	public class HtmlSelect:ElementBase
 	{
-		protected HtmlSelect (){}
+		protected HtmlSelect ()
+		{
+			Init (null);
+		}
 
 		public HtmlSelect (Element parent )
 		{	
 			Init(parent);
 		}
 
+		public HtmlSelect (Action<SelectElement> element )
+		{	
+			Init(null);
+			element.Invoke(Element());
+		}
+
+
 		public HtmlSelect (Element parent,  Action<SelectElement> element )
 		{	
 			Init(parent);
-			element(Element());
+			element.Invoke(Element());
 		}
 		
 		protected void Init(Element parent)

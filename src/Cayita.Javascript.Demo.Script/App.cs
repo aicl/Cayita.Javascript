@@ -26,10 +26,10 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 		void OnLogin(LoginResponse loginResponse, LoginForm lf)
 		{
 			Firebug.Console.Log("App.OnLogin ", loginResponse);
-			var a = TopNavBar.GetPullRightAnchor();
+			var a = TopNavBar.PullRightAnchor();
 			a.Text(lf.UserName);
-			TopNavBar.GetPullRightParagraph().Text("");
-			TopNavBar.GetPullRightParagraph().Append(a);
+			TopNavBar.PullRightParagraph().Text("");
+			TopNavBar.PullRightParagraph().Append(a);
 			lf.Close();
 			ShowUserMenu(loginResponse);
 		}

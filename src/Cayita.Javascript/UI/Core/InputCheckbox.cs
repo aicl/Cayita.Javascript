@@ -6,7 +6,16 @@ namespace Cayita.UI
 
 	public class InputCheckbox:InputBase
 	{
-		protected InputCheckbox(){}
+		public InputCheckbox()
+		{
+			Init (null);
+		}
+
+		public InputCheckbox( Action<CheckBoxElement> element)
+		{
+			Init(null);
+			element(Element()); Element();
+		}
 
 
 		public InputCheckbox(Element parent,  Action<CheckBoxElement> element)

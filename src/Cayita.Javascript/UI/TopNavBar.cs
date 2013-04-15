@@ -6,41 +6,41 @@ namespace Cayita.UI
 
 	public class TopNavBar:Div
 	{
-		Div containerFluid;
-		Div navCollapse;
-		AnchorElement brand;
-		Element pullRightParagraph;
-		AnchorElement pullRightAnchor;
-		HtmlList navList;
+		DivElement ctFluid;
+		DivElement nCollapse;
+		AnchorElement bElement;
+		ParagraphElement pullRP;
+		AnchorElement pRA;
+		ListElement nList;
 
-		public Div GetContainerFluid()
+		public DivElement ContainerFluid()
 		{
-			return containerFluid;
+			return ctFluid;
 		}
 
-		public Div GetNavCollapse()
+		public DivElement NavCollapse()
 		{
-			return navCollapse;
+			return nCollapse;
 		}
 
-		public AnchorElement GetBrand()
+		public AnchorElement Brand()
 		{
-			return brand;
+			return bElement;
 		}
 
-		public Element GetPullRightParagraph() 
+		public ParagraphElement PullRightParagraph() 
 		{
-			return pullRightParagraph;
+			return pullRP;
 		}
 
-		public AnchorElement GetPullRightAnchor()
+		public AnchorElement PullRightAnchor()
 		{
-			return pullRightAnchor;
+			return pRA;
 		}
 
-		public HtmlList GetNavList()
+		public ListElement NavList()
 		{
-			return navList;
+			return nList;
 		}
 
 		public TopNavBar (Element parent, string brandText,  Action<ListElement> navlist)
@@ -55,7 +55,7 @@ namespace Cayita.UI
 
 			new Div(Element(),inner=>{
 				inner.ClassName="navbar-inner";
-				containerFluid = Div.CreateContainerFluid(inner,fluid=>{
+				ctFluid = Div.CreateContainerFluid(inner,fluid=>{
 					new Anchor(fluid, anchor=>{
 						anchor.ClassName="btn btn-navbar";
 						anchor.SetAttribute("data-toggle","collapse");
@@ -65,25 +65,25 @@ namespace Cayita.UI
 						}
 
 					});
-					brand= new Anchor(fluid, brnd=>{
+					bElement= new Anchor(fluid, brnd=>{
 						brnd.Href="#";
 						brnd.Text(brandText);
 						brnd.ClassName="brand";
 					}).Element();
-					navCollapse = new Div(fluid, collapse=>{
+					nCollapse = new Div(fluid, collapse=>{
 						collapse.ClassName="nav-collapse collapse";
-						pullRightParagraph= new Paragraph(collapse,
+						pullRP= new Paragraph(collapse,
 						paragraph=>{
 							paragraph.ClassName="navbar-text pull-right";
 							paragraph.Text(rightText);
-							pullRightAnchor= new Anchor(paragraph, a=>{
+							pRA= new Anchor(paragraph, a=>{
 								a.Href="#";  a.ClassName="navbar-link" ; a.Text(rightLinkText);
 							}).Element();
 						}).Element();
-						navList= HtmlList.CreateNavList(collapse, navlist);
-						navList.RemoveClass("nav-list");
-					});
-				});
+						nList= HtmlList.CreateNavList(collapse, navlist).Element();
+						nList.RemoveClass("nav-list");
+					}).Element();
+				}).Element();
 			});
 		}
 	}

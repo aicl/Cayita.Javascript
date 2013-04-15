@@ -4,21 +4,21 @@ using System.Html;
 
 namespace Cayita.UI
 {
-	public class SpinnerIcon:ElementBase
+	public class SpinnerIcon:Div
 	{
-		Element icon;
+		IconElement ic;
 
-		public SpinnerIcon (Element parent, Action<DivElement,Element> config, string message  )
+		public SpinnerIcon (Element parent, Action<DivElement,IconElement> config, string message  )
+			:base(parent)
 		{
 
-			CreateElement("div", parent);
 			Element().ClassName="well well-large lead";
 
-			icon = new Icon(Element(), i=>{
+			ic = new Icon(Element(), i=>{
 				i.ClassName="icon-spinner icon-spin icon-2x pull-left";
 			}).Element();
 
-			config.Invoke(Element(), icon);
+			config.Invoke(Element(), ic);
 
 			Element().Append(message);
 
@@ -34,9 +34,9 @@ namespace Cayita.UI
 		}
 
 
-		public Element GetIcon()
+		public Element Icon()
 		{
-			return icon;
+			return ic;
 		}
 
 	}

@@ -69,7 +69,7 @@
 					$(input3).attr('placeholder', 'Password');
 				});
 				new Cayita.UI.Label.$ctor1(f2, function(lb2) {
-					new Cayita.UI.InputCheckbox.$ctor2(lb2, function(cb1) {
+					new Cayita.UI.InputCheckbox.$ctor3(lb2, function(cb1) {
 					});
 					$(lb2).append('Remember me');
 					lb2.className = 'checkbox';

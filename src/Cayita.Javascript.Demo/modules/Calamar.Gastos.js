@@ -246,15 +246,15 @@
 						form.reset();
 						bt.resetLoadingText();
 					})), function(rule, msg) {
-						rule.element = fieldValor.element$2();
+						rule.element = fieldValor.textElement();
 						Cayita.Plugins.Rule.required(rule.rule);
 						Cayita.Plugins.Message.required(msg, 'Digite el valor del gasto');
 					}), ss.mkdel(this, function(rule1, msg1) {
-						rule1.element = this.$cbConcepto.element$1();
+						rule1.element = this.$cbConcepto.selectElement();
 						Cayita.Plugins.Rule.required(rule1.rule);
 						Cayita.Plugins.Message.required(msg1, 'Seleccione el concepto');
 					})), ss.mkdel(this, function(rule2, msg2) {
-						rule2.element = this.$cbFuente.element$1();
+						rule2.element = this.$cbFuente.selectElement();
 						Cayita.Plugins.Rule.required(rule2.rule);
 						Cayita.Plugins.Message.required(msg2, 'Seleccione al fuente del pago');
 					}));

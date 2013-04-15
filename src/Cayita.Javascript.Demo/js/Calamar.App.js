@@ -20,10 +20,10 @@
 		},
 		$onLogin: function(loginResponse, lf) {
 			console.log('App.OnLogin ', loginResponse);
-			var a = this.get_$topNavBar().getPullRightAnchor();
+			var a = this.get_$topNavBar().pullRightAnchor();
 			$(a).text(lf.get_userName());
-			$(this.get_$topNavBar().getPullRightParagraph()).text('');
-			$(this.get_$topNavBar().getPullRightParagraph()).append(a);
+			$(this.get_$topNavBar().pullRightParagraph()).text('');
+			$(this.get_$topNavBar().pullRightParagraph()).append(a);
 			lf.close();
 			this.$showUserMenu(loginResponse);
 		},

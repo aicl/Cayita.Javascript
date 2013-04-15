@@ -17,17 +17,21 @@ namespace Cayita.UI
 
 	public class RadioField:Div
 	{
-		DivElement element;
+		DivElement cg;
 
-		Div controls ;
+		DivElement ctrls ;
 
 		public RadioField (Element parent, string label, string fieldName, IList<RadioItem> items, bool inline=true)
 			:base(parent)
 		{
-			element= Element();
-			element.ClassName="control-group";
-			Label.CreateControlLabel(element, label);
-			controls = Div.CreateControls(element, ct=>{
+			cg= Element();
+			cg.ClassName="control-group";
+
+			new Label (cg, l => {
+				l.ClassName = "control-label";
+				l.Text (label); }).Element ();
+
+			ctrls = Div.CreateControls(cg, ct=>{
 				foreach( var item in items)
 				{
 					new InputRadio(ct, (lb,rd)=>{
@@ -37,12 +41,12 @@ namespace Cayita.UI
 						rd.SetValue(item.Value);
 					});
 				}
-			});
+			}).Element();
 		}
 		
-		public Div GetControls()
+		public DivElement Controls()
 		{
-			return controls;
+			return ctrls;
 		}
 	}
 }

@@ -4,11 +4,13 @@ using System.Html;
 namespace Cayita.UI
 {
 
-	public class CheckboxField :InputCheckbox
+	public class CheckboxField :Div
 	{
-		Div controlGroup ;
-		Div controls ;
-		
+		DivElement cg ;
+		DivElement ctrls ;
+
+		LabelElement lb;
+		CheckBoxElement cb;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Cayita.UI.CheckboxField"/> class.
@@ -19,20 +21,12 @@ namespace Cayita.UI
 		/// <param name='field'>
 		/// Field<LabelElement,ChecBoxElement>
 		/// </param>
-		public CheckboxField(Element parent, Action<LabelElement,CheckBoxElement> field)
+		public CheckboxField(Element parent, Action<LabelElement,CheckBoxElement> field):base(parent)
 		{
-
-			controlGroup =  Div.CreateControlGroup(parent,  cgDiv=>{
-				controls= Div.CreateControls(cgDiv,  ctdiv=>{
-					var label = new Label(ctdiv, lb=>{
-						lb.ClassName="checkbox";
-					});
-					Init( default(Element) );
-					field(label.Element(), Element());  
-					label.ForField(Element().ID);
-					label.Element().AppendChild(Element());
-				});
-			});
+			Init (null);
+			field.Invoke(lb,cb);
+			lb.For= cb.ID;
+			lb.Append(cb);
 		}
 
 		/// <summary>
@@ -47,32 +41,41 @@ namespace Cayita.UI
 		/// <param name='field'>
 		/// Field<CheckBoxElement>
 		/// </param>
-		public CheckboxField(Element parent,string textLabel, Action<CheckBoxElement> field)
+		public CheckboxField(Element parent,string textLabel, Action<CheckBoxElement> field):base(parent)
 		{
-			controlGroup = Div.CreateControlGroup(parent,cgDiv=>{
-				controls=  Div.CreateControls(cgDiv, ctdiv=>{
-					
-					var label = new Label(ctdiv, lb=>{
-						lb.ClassName="checkbox";
-						lb.Text(textLabel);
-					});
-					
-					Init( default(Element));
-					field( Element());  
-					label.ForField(Element().ID);
-					label.Element().AppendChild(Element());
-				});
-			});
+			Init (textLabel);
+			field.Invoke(cb);
+			lb.For= cb.ID;
+			lb.Append(cb);
 		}
 
-		public Div GetControlGroup()
+
+		void Init(string textLabel)
 		{
-			return controlGroup;
+			cg = Element ();
+			cg.ClassName="control-group";
+			
+			ctrls= Div.CreateControls(cg,  div=>{
+				lb = new Label(div, l=>{
+					l.ClassName="checkbox";
+					if(!string.IsNullOrEmpty(textLabel)) l.Text(textLabel);
+				}).Element();
+				
+				cb = new InputCheckbox().Element();
+			}).Element();
 		}
 
-		public Div GetControls()
+		public DivElement Controls()
 		{
-			return controls;
+			return ctrls;
+		}
+
+		public LabelElement Label(){
+			return lb;
+		}
+
+		public CheckBoxElement CheckBox(){
+			return cb;
 		}
 
 	}

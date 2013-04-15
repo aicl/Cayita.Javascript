@@ -4,57 +4,68 @@ using System.Html;
 namespace Cayita.UI
 {
 
-	public class TextAreaField:TextArea
+	public class TextAreaField:Div
 	{		
-		Div controlGroup ;
-		Label label ;
-		Div controls ;
+		DivElement cg ;
+		LabelElement lb ;
+		DivElement ctrls ;
+		TextAreaElement te;
+
+		void Init()
+		{
+			cg = Element ();
+			
+			lb = new Label(cg,l=>l.ClassName="control-group").Element();
+			
+			ctrls = Div.CreateControls(cg, div=>{
+				te = new TextArea(div).Element();
+				
+			}).Element();
+
+		}
+
 
 		public TextAreaField(Element parent, Action<LabelElement,TextAreaElement> field)
+			:base(parent)
 		{
-			controlGroup = Div.CreateControlGroup(parent, cge=>{
-				label = Label.CreateControlLabel(cge,"");
-				controls = Div.CreateControls(cge, cte=>{
-					CreateElement("textarea",cte);
-					field(label.Element(), Element());
-					label.ForField( Element().ID);
-				});
-				if( string.IsNullOrEmpty( label.TextLabel()) ) label.Hide();
-			});
+			Init ();
+
+			field.Invoke(lb, te);
+			lb.For= te.ID;
+
+			if( string.IsNullOrEmpty( lb.Text()) ) lb.Hide();
+
 		}
 		
-		public TextAreaField(Element parent, Action<TextAreaElement> field)
+		public TextAreaField(Element parent, Action<TextAreaElement> field):base(parent)
 		{
-			controlGroup = Div.CreateControlGroup(parent, cge=>{
-				label = Label.CreateControlLabel(cge,"");
-				label.Hide();
-				controls = new Div(cge, cte=>{
-					CreateElement("textarea",cte);
-					field(Element());
-					label.ForField( Element().ID);
-				});
-			});
+			Init ();
+			field.Invoke(te);
+			lb.For= te.ID;
+			lb.Hide();
+
 		}
 		
 		public TextAreaField(Element parent, string label, string fieldname):
 			this(parent, (l,f)=>{l.Text(label); f.Name=fieldname;})
 		{
 		}
+				
+
 		
-		
-		public Div GetControlGroup()
+		public DivElement Controls()
 		{
-			return controlGroup;
+			return ctrls;
 		}
 		
-		public Div GetControls()
+		public LabelElement Label()
 		{
-			return controls;
+			return lb;
 		}
-		
-		public Label GetLabel()
+
+		public TextAreaElement TextArea()
 		{
-			return label;
+			return te;
 		}
 	}
 }
