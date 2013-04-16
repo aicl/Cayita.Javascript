@@ -119,10 +119,35 @@
 	};
 	$App.main = function() {
 		$(function() {
+			var parent = document.body;
 			var app = new $App();
-			app.$getMenuItems();
-			app.$showTopNavBar();
-			app.$showMenu();
+			//app.GetMenuItems ();
+			//app.ShowTopNavBar ();
+			//app.ShowMenu ();
+			new Cayita.UI.Div(function(d) {
+				$(d).append('esto es un div');
+				$(document.body).append(d);
+			});
+			Cayita.UI.Div.createContainer$1(parent, function(ct) {
+				Cayita.UI.Div.createRow$1(ct, function(row) {
+					new Cayita.UI.Div.$ctor2(row, function(d1) {
+						d1.className = 'span2';
+						$(d1).append(' un div con span2');
+					});
+				});
+				Cayita.UI.Div.createRow$1(ct, function(row1) {
+					new Cayita.UI.Div.$ctor2(row1, function(d2) {
+						d2.className = 'span10';
+						$(d2).append((new Cayita.UI.SearchBox()).element$1());
+					});
+				});
+			});
+			var $t1 = (new Cayita.UI.SearchBox()).element$1();
+			$(document.body).append($t1);
+			new Cayita.UI.Div(function(d3) {
+				$(d3).append('esto es un div');
+				$(document.body).append(d3);
+			});
 		});
 	};
 	////////////////////////////////////////////////////////////////////////////////

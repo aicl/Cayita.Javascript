@@ -98,6 +98,7 @@
     <Compile Include="Alertify.cs" />
     <Compile Include="UI\Core\ParagraphElement.cs" />
     <Compile Include="UI\Core\IconElement.cs" />
+    <Compile Include="UI\SearchBox.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
