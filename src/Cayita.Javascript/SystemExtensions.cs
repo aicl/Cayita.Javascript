@@ -70,6 +70,19 @@ namespace System
 		{
 			return default(T);
 		}
+
+
+		public static  object GetValue(this object obj, string property)
+		{
+			return (object) ((dynamic)obj)[property] ;
+		}
+
+		public static  T GetValue<T>(this object obj, string property)
+		{
+			return (T) ((dynamic)obj)[property] ;
+		}
+
+
 	}
 }
 

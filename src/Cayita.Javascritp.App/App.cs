@@ -28,29 +28,12 @@ namespace Cayita.Javascritp.App
 		{
 
 			jQuery.OnDocumentReady (() => {
-				var parent = Document.Body;
-				var app = new App ();
-				//app.GetMenuItems ();
-				//app.ShowTopNavBar ();
-				//app.ShowMenu ();
-				new Div(d=>{d.Append("esto es un div"); d.AppendTo(Document.Body);});
-				Div.CreateContainer(parent, ct=>{
-					Div.CreateRow(ct, row=>{
-						new Div(row, d=>{
-							d.ClassName="span2";
-							d.Append(" un div con span2");
-						});
-					});
 
-					Div.CreateRow(ct, row=>{
-						new Div(row, d=>{
-							d.ClassName="span10";
-							new SearchBox().Element().AppendTo(d);
-						});
-					});
-				});
-				new SearchBox().Element().AppendTo(Document.Body);
-				new Div(d=>{d.Append("esto es un div"); d.AppendTo(Document.Body);});
+				var app = new App ();
+				app.GetMenuItems ();
+				app.ShowTopNavBar ();
+				app.ShowMenu ();
+
 			});
 
 		}
@@ -64,6 +47,8 @@ namespace Cayita.Javascritp.App
 			MenuItems.Add(new MenuItem{Title="Navlist", File="modules/DemoNavlist.js", Class="DemoNavlist"});
 			MenuItems.Add(new MenuItem{Title="Modals", File="modules/DemoModals.js", Class="DemoModals"});
 			MenuItems.Add(new MenuItem{Title="Panels", File="modules/DemoPanels.js", Class="DemoPanels"});
+			MenuItems.Add(new MenuItem{Title="SearchBox", File="modules/DemoSearchBox.js", Class="DemoSearchBox"});
+
 		}
 		
 		void ShowTopNavBar()

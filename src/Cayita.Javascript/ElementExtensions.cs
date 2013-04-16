@@ -168,7 +168,7 @@ namespace Cayita.UI
 		}
 
 		[InlineCode("$({element}).attr('required',{value})")]
-		public static jQueryObject SetRequired(this InputElement element, bool value=true)
+		public static jQueryObject Required(this InputElement element, bool value=true)
 		{
 			return null;
 		}

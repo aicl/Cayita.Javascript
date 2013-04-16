@@ -252,6 +252,7 @@
 					$t22(this, $t21);
 				}));
 				req1.fail(ss.mkdel(this, function(f1) {
+					console.log('store, FAil', f1);
 					var $t24 = this.$1$OnStoreErrorField;
 					var $t23 = ss.makeGenericType($Cayita_Data_StoreError$1, [T]).$ctor();
 					$t23.action = 1;
@@ -515,6 +516,7 @@
 				if (ss.isValue(this.$lastOption.pageNumber) && (!ss.isValue(this.$lastOption.pageSize) || ss.isValue(this.$lastOption.pageSize) && ss.Nullable.unbox(this.$lastOption.pageSize) === 0)) {
 					this.$lastOption.pageSize = this.$defaultPageSize;
 				}
+				console.log('Store read, lastOptios', this.$lastOption);
 				return this.$readFunc(this.$lastOption);
 			},
 			update: function(record) {
@@ -1976,6 +1978,7 @@
 						case 11:
 						case 10:
 						case 1: {
+							console.log('StoreChangedAction.Read: store, columns, RecordIdProperty', this.$store, this.$columns, this.$store.getRecordIdProperty());
 							$Cayita_UI_Extensions.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
 							this.selectRow(true);
 							break;
@@ -2988,30 +2991,89 @@
 	$Cayita_UI_ResetButton.$ctor1.prototype = $Cayita_UI_ResetButton.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.SearchBox
-	var $Cayita_UI_SearchBox = function() {
-		this.$te = null;
-		this.$bt = null;
-		this.$m = null;
-		this.$body = null;
-		$Cayita_UI_Div.$ctor1.call(this, null);
-		this.$init();
+	var $Cayita_UI_SearchBox$1 = function(T) {
+		var $type = function(store, columns, config) {
+			this.$cfg = null;
+			this.$te = null;
+			this.$he = null;
+			this.$bt = null;
+			this.$main = null;
+			this.$body = null;
+			this.$gr = null;
+			$Cayita_UI_Div.$ctor1.call(this, null);
+			this.$init(store, columns, config);
+		};
+		$type.prototype = {
+			$init: function(store, columns, config) {
+				this.$cfg = config;
+				if (ss.isNullOrEmptyString(this.$cfg.indexField)) {
+					this.$cfg.indexField = store.getRecordIdProperty();
+				}
+				this.$main = this.element$1();
+				this.$he = (new $Cayita_UI_Input.$ctor1(this.$main, ss.mkdel(this, function(e) {
+					$(e).hide();
+					e.name = this.$cfg.name;
+					if (this.$cfg.required) {
+						$(e).attr('required', true);
+					}
+				}))).element$1();
+				this.$te = (new $Cayita_UI_InputText.$ctor2(this.$main, function(e1) {
+					e1.className = 'search-query';
+				})).element$2();
+				this.$bt = (new $Cayita_UI_Button.$ctor2(this.$main, function(e2) {
+					$(e2).text('Search');
+				})).element$1();
+				this.$body = (new $Cayita_UI_Div.$ctor2(this.$main, function(e3) {
+					$(e3).hide();
+					e3.className = 'c-search-body';
+				})).element$1();
+				this.$gr = new (ss.makeGenericType($Cayita_UI_HtmlGrid$1, [T]).$ctor1)(this.$body, store, columns);
+				if (this.$cfg.paged) {
+					new (ss.makeGenericType($Cayita_UI_StorePaging$1, [T]))(this.$body, store);
+				}
+				this.$gr.add_onRowSelected(ss.mkdel(this, function(g, sr) {
+					if (ss.isValue(sr)) {
+						cayita.fn.setValue(this.$he, $System_SystemExtensions.getValue(sr.record, this.$cfg.indexField));
+						cayita.fn.setValue(this.$te, $System_SystemExtensions.getValue(sr.record, this.$cfg.textField));
+					}
+					else {
+						cayita.fn.setValue(this.$he, '');
+						cayita.fn.setValue(this.$te, '');
+					}
+				}));
+				$(this.$bt).on('click', ss.mkdel(this, function(e4) {
+					$(this.$body).toggle();
+				}));
+			}
+		};
+		ss.registerGenericClassInstance($type, $Cayita_UI_SearchBox$1, [T], function() {
+			return $Cayita_UI_Div;
+		}, function() {
+			return [];
+		});
+		return $type;
 	};
-	$Cayita_UI_SearchBox.prototype = {
-		$init: function() {
-			this.$m = this.element$1();
-			this.$te = (new $Cayita_UI_InputText.$ctor1(this.$m)).element$2();
-			this.$te.className = 'search-query';
-			this.$bt = (new $Cayita_UI_Button.$ctor1(this.$m)).element$1();
-			$(this.$bt).text('Search');
-			this.$body = (new $Cayita_UI_Div.$ctor1(this.$m)).element$1();
-			this.$body.className = 'modal';
-			$(this.$body).append(' BODY ');
-			$(this.$body).hide();
-			this.$body.className = 'c-search-body';
-			$(this.$bt).on('click', ss.mkdel(this, function(e) {
-				$(this.$body).toggle();
-			}));
-		}
+	ss.registerGenericClass(global, 'Cayita.UI.SearchBox$1', $Cayita_UI_SearchBox$1, 1);
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.SearchBoxConfig
+	var $Cayita_UI_SearchBoxConfig = function() {
+	};
+	$Cayita_UI_SearchBoxConfig.createInstance = function() {
+		return $Cayita_UI_SearchBoxConfig.$ctor();
+	};
+	$Cayita_UI_SearchBoxConfig.$ctor = function() {
+		var $this = {};
+		$this.remoteFilter = false;
+		$this.indexField = null;
+		$this.textField = null;
+		$this.name = null;
+		$this.required = false;
+		$this.paged = false;
+		$this.remoteFilter = true;
+		$this.indexField = 'Id';
+		$this.name = '';
+		$this.paged = true;
+		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.SelectedOption
@@ -3873,6 +3935,14 @@
 		}
 		return ss.formatDate(date, format);
 	};
+	$System_SystemExtensions.getValue = function(obj, property) {
+		return obj[property];
+	};
+	$System_SystemExtensions.getValue$1 = function(T) {
+		return function(obj, property) {
+			return ss.cast(obj[property], T);
+		};
+	};
 	ss.registerClass(global, 'Cayita.Data.AjaxResponse', $Cayita_Data_AjaxResponse);
 	ss.registerClass(global, 'Cayita.Data.AppError', $Cayita_Data_AppError);
 	ss.registerClass(global, 'Cayita.Data.ReadOptions', $Cayita_Data_ReadOptions);
@@ -3924,7 +3994,7 @@
 	ss.registerClass(global, 'Cayita.UI.RadioItem', $Cayita_UI_RadioItem);
 	ss.registerClass(global, 'Cayita.UI.RequestMessage', $Cayita_UI_RequestMessage);
 	ss.registerClass(global, 'Cayita.UI.ResetButton', $Cayita_UI_ResetButton, $Cayita_UI_ButtonBase);
-	ss.registerClass(global, 'Cayita.UI.SearchBox', $Cayita_UI_SearchBox, $Cayita_UI_Div);
+	ss.registerClass(global, 'Cayita.UI.SearchBoxConfig', $Cayita_UI_SearchBoxConfig);
 	ss.registerClass(global, 'Cayita.UI.SelectedRow', $Cayita_UI_SelectedRow);
 	ss.registerClass(global, 'Cayita.UI.SelectField', $Cayita_UI_SelectField, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.SideNavBar', $Cayita_UI_SideNavBar, $Cayita_UI_Div);

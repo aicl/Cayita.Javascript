@@ -64,6 +64,12 @@
 			$t11.set_file('modules/DemoPanels.js');
 			$t11.set_class('DemoPanels');
 			ss.add($t12, $t11);
+			var $t14 = this.get_$menuItems();
+			var $t13 = new $MenuItem();
+			$t13.set_title('SearchBox');
+			$t13.set_file('modules/DemoSearchBox.js');
+			$t13.set_class('DemoSearchBox');
+			ss.add($t14, $t13);
 		},
 		$showTopNavBar: function() {
 			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(null, 'Cayita.Javascript - demo', '', '', function(nav) {
@@ -119,35 +125,10 @@
 	};
 	$App.main = function() {
 		$(function() {
-			var parent = document.body;
 			var app = new $App();
-			//app.GetMenuItems ();
-			//app.ShowTopNavBar ();
-			//app.ShowMenu ();
-			new Cayita.UI.Div(function(d) {
-				$(d).append('esto es un div');
-				$(document.body).append(d);
-			});
-			Cayita.UI.Div.createContainer$1(parent, function(ct) {
-				Cayita.UI.Div.createRow$1(ct, function(row) {
-					new Cayita.UI.Div.$ctor2(row, function(d1) {
-						d1.className = 'span2';
-						$(d1).append(' un div con span2');
-					});
-				});
-				Cayita.UI.Div.createRow$1(ct, function(row1) {
-					new Cayita.UI.Div.$ctor2(row1, function(d2) {
-						d2.className = 'span10';
-						$(d2).append((new Cayita.UI.SearchBox()).element$1());
-					});
-				});
-			});
-			var $t1 = (new Cayita.UI.SearchBox()).element$1();
-			$(document.body).append($t1);
-			new Cayita.UI.Div(function(d3) {
-				$(d3).append('esto es un div');
-				$(document.body).append(d3);
-			});
+			app.$getMenuItems();
+			app.$showTopNavBar();
+			app.$showMenu();
 		});
 	};
 	////////////////////////////////////////////////////////////////////////////////
