@@ -252,7 +252,6 @@
 					$t22(this, $t21);
 				}));
 				req1.fail(ss.mkdel(this, function(f1) {
-					console.log('store, FAil', f1);
 					var $t24 = this.$1$OnStoreErrorField;
 					var $t23 = ss.makeGenericType($Cayita_Data_StoreError$1, [T]).$ctor();
 					$t23.action = 1;
@@ -516,7 +515,6 @@
 				if (ss.isValue(this.$lastOption.pageNumber) && (!ss.isValue(this.$lastOption.pageSize) || ss.isValue(this.$lastOption.pageSize) && ss.Nullable.unbox(this.$lastOption.pageSize) === 0)) {
 					this.$lastOption.pageSize = this.$defaultPageSize;
 				}
-				console.log('Store read, lastOptios', this.$lastOption);
 				return this.$readFunc(this.$lastOption);
 			},
 			update: function(record) {
@@ -1978,7 +1976,6 @@
 						case 11:
 						case 10:
 						case 1: {
-							console.log('StoreChangedAction.Read: store, columns, RecordIdProperty', this.$store, this.$columns, this.$store.getRecordIdProperty());
 							$Cayita_UI_Extensions.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
 							this.selectRow(true);
 							break;
@@ -3000,6 +2997,7 @@
 			this.$main = null;
 			this.$body = null;
 			this.$gr = null;
+			this.$searchText = null;
 			$Cayita_UI_Div.$ctor1.call(this, null);
 			this.$init(store, columns, config);
 		};
@@ -3035,14 +3033,27 @@
 					if (ss.isValue(sr)) {
 						cayita.fn.setValue(this.$he, $System_SystemExtensions.getValue(sr.record, this.$cfg.indexField));
 						cayita.fn.setValue(this.$te, $System_SystemExtensions.getValue(sr.record, this.$cfg.textField));
-					}
-					else {
-						cayita.fn.setValue(this.$he, '');
-						cayita.fn.setValue(this.$te, '');
+						this.$searchText = this.$te.value;
+						$(this.$body).hide();
 					}
 				}));
 				$(this.$bt).on('click', ss.mkdel(this, function(e4) {
-					$(this.$body).toggle();
+					if (!ss.referenceEquals(this.$te.value, this.$searchText)) {
+						this.$searchText = this.$te.value;
+						if (ss.staticEquals(this.$cfg.localFilter, null)) {
+							store.read(ss.mkdel(this, function(opt) {
+								opt.queryParams[this.$cfg.textField] = this.$searchText;
+							}), true);
+						}
+						else {
+							store.filter(ss.mkdel(this, function(t) {
+								return this.$cfg.localFilter(t, this.$searchText);
+							}));
+						}
+					}
+					if (!$(this.$body).is(':visible')) {
+						$(this.$body).show();
+					}
 				}));
 			}
 		};
@@ -3056,25 +3067,33 @@
 	ss.registerGenericClass(global, 'Cayita.UI.SearchBox$1', $Cayita_UI_SearchBox$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.SearchBoxConfig
-	var $Cayita_UI_SearchBoxConfig = function() {
+	var $Cayita_UI_SearchBoxConfig$1 = function(T) {
+		var $type = function() {
+		};
+		$type.createInstance = function() {
+			return $type.$ctor();
+		};
+		$type.$ctor = function() {
+			var $this = {};
+			$this.indexField = null;
+			$this.textField = null;
+			$this.name = null;
+			$this.required = false;
+			$this.paged = false;
+			$this.localFilter = null;
+			$this.indexField = 'Id';
+			$this.name = '';
+			$this.paged = true;
+			return $this;
+		};
+		ss.registerGenericClassInstance($type, $Cayita_UI_SearchBoxConfig$1, [T], function() {
+			return null;
+		}, function() {
+			return [];
+		});
+		return $type;
 	};
-	$Cayita_UI_SearchBoxConfig.createInstance = function() {
-		return $Cayita_UI_SearchBoxConfig.$ctor();
-	};
-	$Cayita_UI_SearchBoxConfig.$ctor = function() {
-		var $this = {};
-		$this.remoteFilter = false;
-		$this.indexField = null;
-		$this.textField = null;
-		$this.name = null;
-		$this.required = false;
-		$this.paged = false;
-		$this.remoteFilter = true;
-		$this.indexField = 'Id';
-		$this.name = '';
-		$this.paged = true;
-		return $this;
-	};
+	ss.registerGenericClass(global, 'Cayita.UI.SearchBoxConfig$1', $Cayita_UI_SearchBoxConfig$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.SelectedOption
 	var $Cayita_UI_SelectedOption$1 = function(T) {
@@ -3994,7 +4013,6 @@
 	ss.registerClass(global, 'Cayita.UI.RadioItem', $Cayita_UI_RadioItem);
 	ss.registerClass(global, 'Cayita.UI.RequestMessage', $Cayita_UI_RequestMessage);
 	ss.registerClass(global, 'Cayita.UI.ResetButton', $Cayita_UI_ResetButton, $Cayita_UI_ButtonBase);
-	ss.registerClass(global, 'Cayita.UI.SearchBoxConfig', $Cayita_UI_SearchBoxConfig);
 	ss.registerClass(global, 'Cayita.UI.SelectedRow', $Cayita_UI_SelectedRow);
 	ss.registerClass(global, 'Cayita.UI.SelectField', $Cayita_UI_SelectField, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.SideNavBar', $Cayita_UI_SideNavBar, $Cayita_UI_Div);

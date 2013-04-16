@@ -8,7 +8,7 @@ namespace Cayita.UI
 {
 	public class SearchBox<T>:Div where T: new()
 	{
-		SearchBoxConfig cfg;
+		SearchBoxConfig<T> cfg;
 
 		TextElement te;
 		InputElement he;
@@ -19,14 +19,16 @@ namespace Cayita.UI
 
 		HtmlGrid<T> gr;
 
+		string searchText;
 
-		public SearchBox (Store<T> store, List<TableColumn<T>> columns, SearchBoxConfig config):base(default(Element))
+
+		public SearchBox (Store<T> store, List<TableColumn<T>> columns, SearchBoxConfig<T> config):base(default(Element))
 		{
 			Init (store, columns, config);
 		}
 
 					
-		void Init(Store<T> store, List<TableColumn<T>> columns, SearchBoxConfig config )
+		void Init(Store<T> store, List<TableColumn<T>> columns, SearchBoxConfig<T> config )
 		{
 
 			cfg = config;
@@ -61,34 +63,41 @@ namespace Cayita.UI
 				if(sr!=null){
 					he.SetValue( sr.Record.GetValue(cfg.IndexField));
 					te.SetValue( sr.Record.GetValue(cfg.TextField));
-				} else {
-					he.SetValue("");
-					te.SetValue("");
+					searchText=te.Value;
+					body.Hide();
 				}
 			});
 
 			bt.OnClick (e => {
-				body.JQuery().Toggle();
+				if(te.Value!=searchText){
+					searchText=te.Value;
+
+					if(cfg.LocalFilter==null){
+						store.Read(opt=>{
+							opt.QueryParams[cfg.TextField]=searchText;
+						});
+					} else {
+						store.Filter(t=> cfg.LocalFilter(t,searchText));
+					}				
+				}
+				if(!body.IsVisible()) body.Show();
+
 			});
 		}
-
-
 
 	}
 
 	[Serializable]
-	public class SearchBoxConfig
+	public class SearchBoxConfig<T> where T: new()
 	{
 		public SearchBoxConfig()
 		{
-
-			RemoteFilter = true;
 			IndexField = "Id";
 			Name = "";
 			Paged = true;
 		}
 
-		public bool RemoteFilter{ get; set; }
+
 
 		public string IndexField { get; set; }
 
@@ -100,6 +109,7 @@ namespace Cayita.UI
 
 		public bool Paged { get; set; }
 
+		public Func<T,string,bool> LocalFilter{get;set;}
 	}
 
 }

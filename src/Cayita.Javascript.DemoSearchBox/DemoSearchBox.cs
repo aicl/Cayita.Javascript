@@ -17,9 +17,10 @@ namespace Cayita.Javascript
 		{
 
 			var countryStore = new CountryStore ();
-			var config = new SearchBoxConfig{
+			var config = new SearchBoxConfig<Country>{
 				TextField="Name",
-				IndexField="Code"
+				IndexField="Code",
+				LocalFilter= (t,v)=> t.Name.StartsWith(v)
 			};
 
 			"SearchBox".Header (3).AppendTo (parent);

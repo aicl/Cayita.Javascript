@@ -1,5 +1,6 @@
 .c-search-body {
 padding:4px;
+margin-top:4px;
 position: fixed;
 z-index: 1040;
 width: auto;
