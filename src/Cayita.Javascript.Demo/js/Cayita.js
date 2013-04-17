@@ -3033,7 +3033,6 @@
 					if (ss.isValue(sr)) {
 						cayita.fn.setValue(this.$he, $System_SystemExtensions.getValue(sr.record, this.$cfg.indexField));
 						cayita.fn.setValue(this.$te, $System_SystemExtensions.getValue(sr.record, this.$cfg.textField));
-						this.$searchText = this.$te.value;
 						$(this.$body).hide();
 					}
 				}));

@@ -63,7 +63,6 @@ namespace Cayita.UI
 				if(sr!=null){
 					he.SetValue( sr.Record.GetValue(cfg.IndexField));
 					te.SetValue( sr.Record.GetValue(cfg.TextField));
-					searchText=te.Value;
 					body.Hide();
 				}
 			});
