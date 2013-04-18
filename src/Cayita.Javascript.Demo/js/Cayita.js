@@ -1985,7 +1985,7 @@
 							break;
 						}
 						case 3: {
-							var recordId = dt.oldData[this.$store.getRecordIdProperty()];
+							var recordId = $System_SystemExtensions.getValue(dt.oldData, this.$store.getRecordIdProperty());
 							$('tr[record-id=' + recordId + ']', this.$table).remove();
 							this.selectRow(true);
 							break;
@@ -2007,7 +2007,7 @@
 							break;
 						}
 						case 8: {
-							var id = dt.oldData[this.$store.getRecordIdProperty()];
+							var id = $System_SystemExtensions.getValue(dt.oldData, this.$store.getRecordIdProperty());
 							$('tr[record-id=' + id + ']', this.$table).remove();
 							this.selectRow(true);
 							break;
@@ -2075,7 +2075,7 @@
 				$('tbody tr', this.$table).removeClass('info');
 				$(row).addClass('info');
 				var record = Enumerable.from(this.$store).first(function(f) {
-					return ss.referenceEquals(f[self.$store.getRecordIdProperty()].toString(), row.getAttribute('record-id'));
+					return ss.referenceEquals($System_SystemExtensions.getValue(f, self.$store.getRecordIdProperty()).toString(), row.getAttribute('record-id'));
 				});
 				var $t1 = ss.makeGenericType($Cayita_UI_SelectedRow$1, [T]).$ctor();
 				$t1.recordId = row.getAttribute('record-id');
@@ -3034,19 +3034,20 @@
 						cayita.fn.setValue(this.$he, $System_SystemExtensions.getValue(sr.record, this.$cfg.indexField));
 						cayita.fn.setValue(this.$te, $System_SystemExtensions.getValue(sr.record, this.$cfg.textField));
 						$(this.$body).hide();
+						this.$searchText = this.$te.value;
 					}
 				}));
 				$(this.$bt).on('click', ss.mkdel(this, function(e4) {
 					if (!ss.referenceEquals(this.$te.value, this.$searchText)) {
-						this.$searchText = this.$te.value;
+						var st = this.$te.value;
 						if (ss.staticEquals(this.$cfg.localFilter, null)) {
 							store.read(ss.mkdel(this, function(opt) {
-								opt.queryParams[this.$cfg.textField] = this.$searchText;
+								opt.queryParams[this.$cfg.textField] = st;
 							}), true);
 						}
 						else {
 							store.filter(ss.mkdel(this, function(t) {
-								return this.$cfg.localFilter(t, this.$searchText);
+								return this.$cfg.localFilter(t, st);
 							}));
 						}
 					}

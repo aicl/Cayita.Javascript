@@ -20,7 +20,7 @@ namespace Cayita.Javascript
 			var config = new SearchBoxConfig<Country>{
 				TextField="Name",
 				IndexField="Code",
-				LocalFilter= (t,v)=> t.Name.StartsWith(v)
+				LocalFilter= (t,v)=> t.Name.ToUpper().StartsWith(v.ToUpper())
 			};
 
 			"SearchBox".Header (3).AppendTo (parent);

@@ -64,19 +64,20 @@ namespace Cayita.UI
 					he.SetValue( sr.Record.GetValue(cfg.IndexField));
 					te.SetValue( sr.Record.GetValue(cfg.TextField));
 					body.Hide();
+					searchText=te.Value;
 				}
 			});
 
 			bt.OnClick (e => {
 				if(te.Value!=searchText){
-					searchText=te.Value;
+					var st=te.Value;
 
 					if(cfg.LocalFilter==null){
 						store.Read(opt=>{
-							opt.QueryParams[cfg.TextField]=searchText;
+							opt.QueryParams[cfg.TextField]=st;
 						});
 					} else {
-						store.Filter(t=> cfg.LocalFilter(t,searchText));
+						store.Filter(t=> cfg.LocalFilter(t,st));
 					}				
 				}
 				if(!body.IsVisible()) body.Show();

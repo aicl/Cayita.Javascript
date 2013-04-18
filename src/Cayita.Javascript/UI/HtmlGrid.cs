@@ -102,8 +102,8 @@ namespace Cayita.UI
 					table.UpdateRow(dt.NewData, columns, store.GetRecordIdProperty());
 					break;
 				case StoreChangedAction.Destroyed:
-					var recordId = ((dynamic) dt.OldData)[store.GetRecordIdProperty()];
-					table.JSelectRow((object)recordId).Remove();
+					var recordId = dt.OldData.GetValue(store.GetRecordIdProperty());
+					table.JSelectRow(recordId).Remove();
 					SelectRow(true);
 					break;
 				case StoreChangedAction.Patched:
@@ -120,8 +120,8 @@ namespace Cayita.UI
 					table.CreateRow(dt.NewData, columns, store.GetRecordIdProperty());
 					break;
 				case StoreChangedAction.Removed:
-					var id = ((dynamic) dt.OldData)[store.GetRecordIdProperty()];
-					table.JSelectRow((object)id).Remove();
+					var id = dt.OldData.GetValue(store.GetRecordIdProperty());
+					table.JSelectRow(id).Remove();
 					SelectRow(true);
 					break;
 				case StoreChangedAction.Cleared:
@@ -199,7 +199,7 @@ namespace Cayita.UI
 			var self= this;
 			table.JSelectRows().RemoveClass ("info");
 			row.JQuery ().AddClass ("info");
-			var record = store.First (f =>((object)((dynamic) f)[self.store.GetRecordIdProperty()]).ToString() == row.GetRecordId());
+			var record = store.First (f => f.GetValue(self.store.GetRecordIdProperty()).ToString() == row.GetRecordId());
 			selectedrow= new SelectedRow<T>{ RecordId= row.GetRecordId(), Row= row, Record= record};
 			if(trigger) OnRowSelected(this, selectedrow);
 		}
