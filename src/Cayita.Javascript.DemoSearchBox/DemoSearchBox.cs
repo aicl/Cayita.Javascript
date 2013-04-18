@@ -20,14 +20,16 @@ namespace Cayita.Javascript
 			var config = new SearchBoxConfig<Country>{
 				TextField="Name",
 				IndexField="Code",
-				LocalFilter= (t,v)=> t.Name.ToUpper().StartsWith(v.ToUpper())
+				LocalFilter= (t,v)=> t.Name.ToUpper().StartsWith(v.ToUpper()),
+				SearchButton=true,
+				ResetButton=true,
 			};
 
 			"SearchBox".Header (3).AppendTo (parent);
 
-			new Div(null, div=>{
+			new Div( div=>{
 				div.ClassName="bs-docs-example";
-				new SearchBox<Country>(countryStore, DefineColumns(), config).AppendTo(div);
+				new SearchBox<Country>(div, countryStore, DefineColumns(), config);
 			}).AppendTo(parent);
 
 			countryStore.Read ();

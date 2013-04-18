@@ -105,7 +105,8 @@ namespace Cayita.Javascript.DemoTables
 				new InputText(div, e=>{
 					e.SetPlaceHolder("Country");
 					e.On("keyup", evt=>{
-						gc.GetStore().Filter( f=>f.Country.ToUpper().StartsWith(e.Value.ToUpper()));
+						var st = e.Value.ToUpper();
+						gc.GetStore().Filter( f=>f.Country.ToUpper().StartsWith(st));
 					});
 				});
 

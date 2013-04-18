@@ -2990,16 +2990,7 @@
 	// Cayita.UI.SearchBox
 	var $Cayita_UI_SearchBox$1 = function(T) {
 		var $type = function(store, columns, config) {
-			this.$cfg = null;
-			this.$te = null;
-			this.$he = null;
-			this.$bt = null;
-			this.$main = null;
-			this.$body = null;
-			this.$gr = null;
-			this.$searchText = null;
-			$Cayita_UI_Div.$ctor1.call(this, null);
-			this.$init(store, columns, config);
+			$type.$ctor1.call(this, null, store, columns, config);
 		};
 		$type.prototype = {
 			$init: function(store, columns, config) {
@@ -3018,12 +3009,42 @@
 				this.$te = (new $Cayita_UI_InputText.$ctor2(this.$main, function(e1) {
 					e1.className = 'search-query';
 				})).element$2();
-				this.$bt = (new $Cayita_UI_Button.$ctor2(this.$main, function(e2) {
-					$(e2).text('Search');
-				})).element$1();
-				this.$body = (new $Cayita_UI_Div.$ctor2(this.$main, function(e3) {
-					$(e3).hide();
-					e3.className = 'c-search-body';
+				new $Cayita_UI_IconButton(this.$main, ss.mkdel(this, function(b, ibn) {
+					if (!this.$cfg.searchButton) {
+						$(b).hide();
+					}
+					ibn.className = this.$cfg.searchIconClassName;
+					$(b).on('click', ss.mkdel(this, function(e2) {
+						if (!ss.referenceEquals(this.$te.value, this.$searchText)) {
+							var st = this.$te.value;
+							if (ss.staticEquals(this.$cfg.localFilter, null)) {
+								store.read(ss.mkdel(this, function(opt) {
+									opt.queryParams[this.$cfg.textField] = st;
+								}), true);
+							}
+							else {
+								store.filter(ss.mkdel(this, function(t) {
+									return this.$cfg.localFilter(t, st);
+								}));
+							}
+						}
+						$(this.$body).toggle();
+					}));
+				}));
+				new $Cayita_UI_IconButton(this.$main, ss.mkdel(this, function(b1, ibn1) {
+					if (!this.$cfg.resetButton) {
+						$(b1).hide();
+					}
+					ibn1.className = this.$cfg.resetIconClassName;
+					$(b1).on('click', ss.mkdel(this, function(e3) {
+						this.$te.value = '';
+						this.$he.value = '';
+						this.$searchText = null;
+					}));
+				}));
+				this.$body = (new $Cayita_UI_Div.$ctor2(this.$main, function(e4) {
+					$(e4).hide();
+					e4.className = 'c-search-body';
 				})).element$1();
 				this.$gr = new (ss.makeGenericType($Cayita_UI_HtmlGrid$1, [T]).$ctor1)(this.$body, store, columns);
 				if (this.$cfg.paged) {
@@ -3037,26 +3058,20 @@
 						this.$searchText = this.$te.value;
 					}
 				}));
-				$(this.$bt).on('click', ss.mkdel(this, function(e4) {
-					if (!ss.referenceEquals(this.$te.value, this.$searchText)) {
-						var st = this.$te.value;
-						if (ss.staticEquals(this.$cfg.localFilter, null)) {
-							store.read(ss.mkdel(this, function(opt) {
-								opt.queryParams[this.$cfg.textField] = st;
-							}), true);
-						}
-						else {
-							store.filter(ss.mkdel(this, function(t) {
-								return this.$cfg.localFilter(t, st);
-							}));
-						}
-					}
-					if (!$(this.$body).is(':visible')) {
-						$(this.$body).show();
-					}
-				}));
 			}
 		};
+		$type.$ctor1 = function(parent, store, columns, config) {
+			this.$cfg = null;
+			this.$te = null;
+			this.$he = null;
+			this.$main = null;
+			this.$body = null;
+			this.$gr = null;
+			this.$searchText = null;
+			$Cayita_UI_Div.$ctor1.call(this, parent);
+			this.$init(store, columns, config);
+		};
+		$type.$ctor1.prototype = $type.prototype;
 		ss.registerGenericClassInstance($type, $Cayita_UI_SearchBox$1, [T], function() {
 			return $Cayita_UI_Div;
 		}, function() {
@@ -3081,9 +3096,19 @@
 			$this.required = false;
 			$this.paged = false;
 			$this.localFilter = null;
+			$this.searchButton = false;
+			$this.resetButton = false;
+			$this.delay = 0;
+			$this.autoSelect = false;
+			$this.minLength = 0;
+			$this.searchIconClassName = null;
+			$this.resetIconClassName = null;
 			$this.indexField = 'Id';
 			$this.name = '';
 			$this.paged = true;
+			$this.delay = 300;
+			$this.searchIconClassName = 'icon-search';
+			$this.resetIconClassName = 'icon-remove';
 			return $this;
 		};
 		ss.registerGenericClassInstance($type, $Cayita_UI_SearchBoxConfig$1, [T], function() {

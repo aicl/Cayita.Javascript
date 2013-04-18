@@ -13,7 +13,6 @@ namespace Cayita.UI
 		TextElement te;
 		InputElement he;
 
-		ButtonElement bt;
 		DivElement main;
 		DivElement body;
 
@@ -21,8 +20,13 @@ namespace Cayita.UI
 
 		string searchText;
 
+		public SearchBox (Store<T> store, List<TableColumn<T>> columns, SearchBoxConfig<T> config)
+			:this(null, store, columns, config)
+		{
+		}
 
-		public SearchBox (Store<T> store, List<TableColumn<T>> columns, SearchBoxConfig<T> config):base(default(Element))
+
+		public SearchBox (Element parent,Store<T> store, List<TableColumn<T>> columns, SearchBoxConfig<T> config):base(parent)
 		{
 			Init (store, columns, config);
 		}
@@ -46,7 +50,39 @@ namespace Cayita.UI
 
 			te = new InputText (main, e=> e.ClassName="search-query").Element();
 
-			bt = new Button (main, e=> e.Text("Search")).Element();
+			new IconButton(main, (b, ibn)=>{  
+
+				if(!cfg.SearchButton) b.Hide();
+				ibn.ClassName=cfg.SearchIconClassName;
+
+				b.OnClick (e => {
+					if(te.Value!=searchText){
+						var st=te.Value;
+						
+						if(cfg.LocalFilter==null){
+							store.Read(opt=>{
+								opt.QueryParams[cfg.TextField]=st;
+							});
+						} else {
+							store.Filter(t=> cfg.LocalFilter(t,st));
+						}				
+					}
+					body.JQuery().Toggle();
+				});
+			}); 
+
+			new IconButton(main, (b, ibn)=>{  
+				
+				if(!cfg.ResetButton) b.Hide();
+				ibn.ClassName=cfg.ResetIconClassName;
+				
+				b.OnClick (e => {
+					te.Value="";
+					he.Value="";
+					searchText=null;
+				});
+			});
+
 
 			body = new Div (main, e=>{
 				e.Hide();
@@ -68,21 +104,7 @@ namespace Cayita.UI
 				}
 			});
 
-			bt.OnClick (e => {
-				if(te.Value!=searchText){
-					var st=te.Value;
 
-					if(cfg.LocalFilter==null){
-						store.Read(opt=>{
-							opt.QueryParams[cfg.TextField]=st;
-						});
-					} else {
-						store.Filter(t=> cfg.LocalFilter(t,st));
-					}				
-				}
-				if(!body.IsVisible()) body.Show();
-
-			});
 		}
 
 	}
@@ -95,8 +117,10 @@ namespace Cayita.UI
 			IndexField = "Id";
 			Name = "";
 			Paged = true;
+			Delay = 300;
+			SearchIconClassName = "icon-search";
+			ResetIconClassName = "icon-remove";
 		}
-
 
 
 		public string IndexField { get; set; }
@@ -110,6 +134,22 @@ namespace Cayita.UI
 		public bool Paged { get; set; }
 
 		public Func<T,string,bool> LocalFilter{get;set;}
+
+		public bool SearchButton { get; set; }
+
+		public bool ResetButton { get; set; }
+
+		public int Delay { get; set; }
+
+		public bool AutoSelect { get; set; }
+
+		public int MinLength {get;set;}
+
+		public string SearchIconClassName {get;set;}
+						
+		public string ResetIconClassName {get;set;}
+
+		//public SearchButtonConfig  SearchButtonConfig { get; set; }
 	}
 
 }

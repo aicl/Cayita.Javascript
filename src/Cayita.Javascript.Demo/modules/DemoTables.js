@@ -157,8 +157,9 @@
 			new Cayita.UI.InputText.$ctor2(div2, function(e1) {
 				$(e1).attr('placeholder', 'Country');
 				$(e1).on('keyup', function(evt2) {
+					var st = e1.value.toUpperCase();
 					gc.getStore$1().filter(function(f) {
-						return ss.startsWithString(f.Country.toUpperCase(), e1.value.toUpperCase());
+						return ss.startsWithString(f.Country.toUpperCase(), st);
 					});
 				});
 			});
