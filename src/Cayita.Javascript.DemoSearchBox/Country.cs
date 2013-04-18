@@ -2,6 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using jQueryApi;
 using Cayita.Data;
+using System.Html;
 
 namespace Cayita.Javascript
 {
@@ -32,14 +33,21 @@ namespace Cayita.Javascript
 			});
 		}
 		
-		public IDeferred<Country> Read()
+		public override IDeferred<Country> Read(Action<ReadOptions> options=null, bool clear=true)
 		{
-			Firebug.Console.Log ("Country Read", this);
-			return base.Read (ro=>{
-				ro.LocalPaging=true;
-				ro.PageNumber = 0;
-				ro.PageSize = 10;
-			});
+								
+			if (options == null) {
+
+				return base.Read (ro => {
+					ro.LocalPaging = true;
+					ro.PageNumber = 0;
+					ro.PageSize = 10;
+				}, clear);
+			} else {
+				return base.Read (options, clear);
+			}
+
+
 		}
 		
 	}

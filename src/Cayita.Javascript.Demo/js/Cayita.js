@@ -3006,40 +3006,92 @@
 						$(e).attr('required', true);
 					}
 				}))).element$1();
-				this.$te = (new $Cayita_UI_InputText.$ctor2(this.$main, function(e1) {
+				this.$te = (new $Cayita_UI_InputText.$ctor2(this.$main, ss.mkdel(this, function(e1) {
 					e1.className = 'search-query';
-				})).element$2();
-				new $Cayita_UI_IconButton(this.$main, ss.mkdel(this, function(b, ibn) {
+					$(e1).keyup(ss.mkdel(this, function(evt) {
+						var b = ss.mkdel(this, function() {
+							switch (evt.which) {
+								case 40:
+								case 35:
+								case 36:
+								case 37:
+								case 107:
+								case 110:
+								case 111:
+								case 106:
+								case 109:
+								case 34:
+								case 33:
+								case 39:
+								case 38: {
+									// down
+									// end
+									// home
+									//left
+									//numpad_add
+									//numpad_decimal
+									//numpad_divid
+									//numpad_multiply
+									//numpad_substract
+									//page_down
+									//page_up
+									//right
+									//up
+									break;
+								}
+								case 27: {
+									// esc
+									this.$he.value = this.$searchIndex;
+									this.$te.value = this.$searchText;
+									if ($(this.$body).is(':visible')) {
+										$(this.$body).hide();
+									}
+									break;
+								}
+								case 9: {
+									// tab
+									break;
+								}
+								case 13:
+								case 108:
+								default: {
+									// enter
+									// numpad enter
+									if (!this.$cfg.searchButton || !ss.staticEquals(this.$cfg.localFilter, null)) {
+										this.$search(store);
+										if (!$(this.$body).is(':visible')) {
+											$(this.$body).show();
+										}
+									}
+									break;
+								}
+							}
+						});
+						cayita.fn.delay(b, this.$cfg.delay);
+					}));
+				}))).element$2();
+				//search button
+				new $Cayita_UI_IconButton(this.$main, ss.mkdel(this, function(b1, ibn) {
 					if (!this.$cfg.searchButton) {
-						$(b).hide();
+						$(b1).hide();
 					}
 					ibn.className = this.$cfg.searchIconClassName;
-					$(b).on('click', ss.mkdel(this, function(e2) {
-						if (!ss.referenceEquals(this.$te.value, this.$searchText)) {
-							var st = this.$te.value;
-							if (ss.staticEquals(this.$cfg.localFilter, null)) {
-								store.read(ss.mkdel(this, function(opt) {
-									opt.queryParams[this.$cfg.textField] = st;
-								}), true);
-							}
-							else {
-								store.filter(ss.mkdel(this, function(t) {
-									return this.$cfg.localFilter(t, st);
-								}));
-							}
-						}
+					$(b1).on('click', ss.mkdel(this, function(e2) {
+						this.$search(store);
 						$(this.$body).toggle();
 					}));
 				}));
-				new $Cayita_UI_IconButton(this.$main, ss.mkdel(this, function(b1, ibn1) {
+				// reset button
+				new $Cayita_UI_IconButton(this.$main, ss.mkdel(this, function(b2, ibn1) {
 					if (!this.$cfg.resetButton) {
-						$(b1).hide();
+						$(b2).hide();
 					}
 					ibn1.className = this.$cfg.resetIconClassName;
-					$(b1).on('click', ss.mkdel(this, function(e3) {
+					$(b2).on('click', ss.mkdel(this, function(e3) {
 						this.$te.value = '';
 						this.$he.value = '';
 						this.$searchText = null;
+						this.$searchIndex = null;
 					}));
 				}));
 				this.$body = (new $Cayita_UI_Div.$ctor2(this.$main, function(e4) {
@@ -3056,8 +3108,47 @@
 						cayita.fn.setValue(this.$te, $System_SystemExtensions.getValue(sr.record, this.$cfg.textField));
 						$(this.$body).hide();
 						this.$searchText = this.$te.value;
+						this.$searchIndex = this.$he.value;
+					}
+					if (!ss.staticEquals(this.$3$OnRowSelectedField, null)) {
+						this.$3$OnRowSelectedField(this, sr);
 					}
 				}));
+				if (!ss.staticEquals(this.$cfg.onRowSelectedHandler, null)) {
+					this.add_onRowSelected(this.$cfg.onRowSelectedHandler);
+				}
+			},
+			$search: function(store) {
+				if (!ss.referenceEquals(this.$te.value, this.$searchText)) {
+					this.$he.value = null;
+					var st = this.$te.value;
+					if (ss.staticEquals(this.$cfg.localFilter, null)) {
+						if (st.length < this.$cfg.minLength) {
+							return;
+						}
+						store.read(ss.mkdel(this, function(opt) {
+							opt.queryParams[this.$cfg.textField] = st;
+						}), true);
+					}
+					else {
+						store.filter(ss.mkdel(this, function(t) {
+							return this.$cfg.localFilter(t, st);
+						}));
+					}
+				}
+			},
+			$delay: function() {
+				var timer = 0;
+				return function(callback, delay) {
+					window.clearTimeout(timer);
+					timer = window.setTimeout(callback, delay);
+				};
+			},
+			add_onRowSelected: function(value) {
+				this.$3$OnRowSelectedField = ss.delegateCombine(this.$3$OnRowSelectedField, value);
+			},
+			remove_onRowSelected: function(value) {
+				this.$3$OnRowSelectedField = ss.delegateRemove(this.$3$OnRowSelectedField, value);
 			}
 		};
 		$type.$ctor1 = function(parent, store, columns, config) {
@@ -3068,6 +3159,8 @@
 			this.$body = null;
 			this.$gr = null;
 			this.$searchText = null;
+			this.$searchIndex = null;
+			this.$3$OnRowSelectedField = null;
 			$Cayita_UI_Div.$ctor1.call(this, parent);
 			this.$init(store, columns, config);
 		};
@@ -3103,12 +3196,14 @@
 			$this.minLength = 0;
 			$this.searchIconClassName = null;
 			$this.resetIconClassName = null;
+			$this.onRowSelectedHandler = null;
 			$this.indexField = 'Id';
 			$this.name = '';
 			$this.paged = true;
-			$this.delay = 300;
+			$this.delay = 400;
 			$this.searchIconClassName = 'icon-search';
 			$this.resetIconClassName = 'icon-remove';
+			$this.minLength = 4;
 			return $this;
 		};
 		ss.registerGenericClassInstance($type, $Cayita_UI_SearchBoxConfig$1, [T], function() {

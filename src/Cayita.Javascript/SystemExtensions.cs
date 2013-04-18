@@ -77,11 +77,15 @@ namespace System
 			return (object) ((dynamic)obj)[property] ;
 		}
 
-		public static  T GetValue<T>(this object obj, string property)
+		public static  T GetValue<T>(this object obj, string property) where T: class
 		{
 			return (T) ((dynamic)obj)[property] ;
 		}
 
+		[InlineCode("cayita.fn.delay({block},{miliseconds})")]
+		public static void Delay (this Action block, int miliseconds )
+		{
+		}
 
 	}
 }

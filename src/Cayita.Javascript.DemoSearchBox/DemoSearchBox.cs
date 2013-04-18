@@ -15,9 +15,36 @@ namespace Cayita.Javascript
 
 		public static void Execute(Element parent)
 		{
+			var countryStore1 = new CountryStore ();
+			var config1 = new SearchBoxConfig<Country>{
+				TextField="Name",
+				IndexField="Code",
+				LocalFilter= (t,v)=> t.Name.ToUpper().StartsWith(v.ToUpper()),
+				ResetButton=true,
+				OnRowSelectedHandler=(sb, sr)=>{
+					if(sr!=null)
+							("selected: "+ sr.Record.Code+" " +sr.Record.Name).LogInfo();
+					else
+						"nothing selected".LogInfo();
+				}
+			};
+			
+			"SearchBox".Header (3).AppendTo (parent);
+			
+			new Div( div=>{
+				div.ClassName="bs-docs-example";
+				new SearchBox<Country>(div, countryStore1, DefineColumns(), config1);
+				
+				div.Append(@"");
+				
+			}).AppendTo(parent);
+			
+			countryStore1.Read ();
 
-			var countryStore = new CountryStore ();
-			var config = new SearchBoxConfig<Country>{
+
+			//
+			var countryStore2 = new CountryStore ();
+			var config2 = new SearchBoxConfig<Country>{
 				TextField="Name",
 				IndexField="Code",
 				LocalFilter= (t,v)=> t.Name.ToUpper().StartsWith(v.ToUpper()),
@@ -29,10 +56,34 @@ namespace Cayita.Javascript
 
 			new Div( div=>{
 				div.ClassName="bs-docs-example";
-				new SearchBox<Country>(div, countryStore, DefineColumns(), config);
+				new SearchBox<Country>(div, countryStore2, DefineColumns(), config2);
+
+				div.Append(@"");
+
 			}).AppendTo(parent);
 
-			countryStore.Read ();
+			countryStore2.Read ();
+
+
+
+			var countryStore3 = new CountryStore ();
+			var config3 = new SearchBoxConfig<Country>{
+				TextField="Name",
+				IndexField="Code",
+				ResetButton=true,
+			};
+			
+			"SearchBox".Header (3).AppendTo (parent);
+			
+			new Div( div=>{
+				div.ClassName="bs-docs-example";
+				new SearchBox<Country>(div, countryStore3, DefineColumns(), config3);
+				
+				div.Append(@"");
+				
+			}).AppendTo(parent);
+			
+			//countryStore3.Read ();
 
 		}
 

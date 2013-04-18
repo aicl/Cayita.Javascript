@@ -316,7 +316,7 @@ namespace Cayita.Data
 		}
 
 
-		public IDeferred<T> Read(Action<ReadOptions> options=null, bool clear=true)
+		public virtual IDeferred<T> Read(Action<ReadOptions> options=null, bool clear=true)
 		{
 			if(clear) st.Clear();
 

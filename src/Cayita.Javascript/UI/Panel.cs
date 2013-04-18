@@ -185,7 +185,6 @@ namespace Cayita.UI
 
 
 		/// <summary>
-		/// Raises the close handler event.
 		/// Called whent Close method is invoked
 		/// </summary>
 		/// <param name="value">Value.</param>
@@ -195,7 +194,6 @@ namespace Cayita.UI
 			return this;
 		}
 		/// <summary>
-		/// Raises the collapse handler event.
 		/// Called when Collapse method is invoked
 		/// </summary>
 		/// <param name="value">Value (Panel,bool) </param>
