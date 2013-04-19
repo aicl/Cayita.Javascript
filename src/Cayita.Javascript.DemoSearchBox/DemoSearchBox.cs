@@ -71,6 +71,7 @@ namespace Cayita.Javascript
 				TextField="Name",
 				IndexField="Code",
 				ResetButton=true,
+				MinLength=2
 			};
 			
 			"SearchBox".Header (3).AppendTo (parent);

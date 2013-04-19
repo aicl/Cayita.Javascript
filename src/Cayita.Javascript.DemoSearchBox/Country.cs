@@ -44,7 +44,14 @@ namespace Cayita.Javascript
 					ro.PageSize = 10;
 				}, clear);
 			} else {
-				return base.Read (options, clear);
+				return base.Read (options, clear)
+					.Done(t=>{ // mimic server side
+						Firebug.Console.Log("read country", Count, GetTotalCount());
+						Filter(f=> f.Name.ToUpper().StartsWith(
+							GetLastOption().QueryParams["Name"].ToString().ToUpper() ) );
+						Firebug.Console.Log("read country", Count, GetTotalCount());
+						
+				});
 			}
 
 
