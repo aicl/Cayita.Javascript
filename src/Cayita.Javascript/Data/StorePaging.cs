@@ -116,15 +116,14 @@ namespace Cayita.UI
 
 		public void Update()
 		{
-			//currentPage.SetValue (1);
 
 			var lo = store_.GetLastOption();
 			var pageNumber = lo.PageNumber.HasValue ? lo.PageNumber.Value : 0;
-			var pageSize = lo.PageSize.HasValue ? lo.PageSize.Value : 0;
+			var pageSize = lo.PageSize.HasValue ? lo.PageSize.Value : store_.GetTotalCount();
 
 			var from_ = (pageNumber*pageSize) +1;
 			
-			var to_ = (pageNumber * pageSize) +(lo.PageSize.HasValue? lo.PageSize.Value:0);
+			var to_ = (pageNumber * pageSize) + pageSize;
 
 			var pagesCount = store_.GetPagesCount ();
 
@@ -140,10 +139,10 @@ namespace Cayita.UI
 
 			page.Text(pText);
 
-			currentPage.SetValue (pageNumber + 1);
-			//currentPage.AutoNumeric(new {vMax=pagesCount});
+			currentPage.SetValue (pageNumber<pagesCount? pageNumber + 1: pagesCount );
 
-			totalPages.Text ( ofText + " "+ pagesCount.ToString() );
+
+			totalPages.Text ( ofText + " "+ pagesCount );
 
 			info.Text(	string.Format(infoTmpl, from_, to_, store_.GetTotalCount( )) );
 	

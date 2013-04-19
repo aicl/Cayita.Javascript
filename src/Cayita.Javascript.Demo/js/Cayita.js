@@ -3669,12 +3669,11 @@
 				return this;
 			},
 			update: function() {
-				//currentPage.SetValue (1);
 				var lo = this.$store_.getLastOption();
 				var pageNumber = (ss.isValue(lo.pageNumber) ? ss.Nullable.unbox(lo.pageNumber) : 0);
-				var pageSize = (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0);
+				var pageSize = (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : this.$store_.getTotalCount());
 				var from_ = pageNumber * pageSize + 1;
-				var to_ = pageNumber * pageSize + (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : 0);
+				var to_ = pageNumber * pageSize + pageSize;
 				var pagesCount = this.$store_.getPagesCount();
 				if (to_ > this.$store_.getTotalCount()) {
 					to_ = this.$store_.getTotalCount();
@@ -3687,9 +3686,8 @@
 				this.$next.disabled = !this.$store_.hasNextPage();
 				this.$last.disabled = !this.$store_.hasNextPage();
 				$(this.$page).text(this.$pText);
-				cayita.fn.setValue(this.$currentPage, pageNumber + 1);
-				//currentPage.AutoNumeric(new {vMax=pagesCount});
-				$(this.$totalPages).text(this.$ofText + ' ' + pagesCount.toString());
+				cayita.fn.setValue(this.$currentPage, ((pageNumber < pagesCount) ? (pageNumber + 1) : pagesCount));
+				$(this.$totalPages).text(this.$ofText + ' ' + pagesCount);
 				$(this.$info).text(ss.formatString(this.$infoTmpl, from_, to_, this.$store_.getTotalCount()));
 			}
 		};
