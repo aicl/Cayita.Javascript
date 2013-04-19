@@ -17,6 +17,10 @@ namespace Cayita.UI
 		public T  Record { get; set; }
 	}
 
+	[Serializable]
+	public class ClickedRow<T>: SelectedRow<T> where T:new()
+	{
+	}
 
 	[Serializable]
 	public class RequestMessage
@@ -33,7 +37,7 @@ namespace Cayita.UI
 		List<TableColumn<T>> columns;
 		Store<T> store ;
 		TableElement table;
-		SelectedRow<T> selectedrow;
+		ClickedRow<T> selectedrow;
 		Func<HtmlGrid<T>, Element> readRequestStarted;
 		Action<HtmlGrid<T>, Element> readRequestFinished;
 		RequestMessage readRequestMessage;
@@ -60,9 +64,12 @@ namespace Cayita.UI
 			store= datastore;
 			
 			OnRowSelected=(grid,row)=>{};
+			OnRowClicked=(grid,row)=>{};
+
 			table.OnClick("tbody tr", e =>  { 
 				var row = (TableRowElement)e.CurrentTarget;
-				SelectRowImp(row, true);
+				SelectRowImp(row, true,true);
+
 			}); 
 			
 			table.CreateHeader(columns);
@@ -184,24 +191,25 @@ namespace Cayita.UI
 		public void SelectRow(object recordId, bool trigger =true)
 		{
 			var row = (TableRowElement) table.JSelectRow(recordId).GetElement(0);
-			SelectRowImp(row, trigger);
+			SelectRowImp(row, trigger,false);
 		}
 
 		public void SelectRow(bool trigger =true)
 		{
 			table.JSelectRows().RemoveClass ("info");
-			selectedrow=default(SelectedRow<T>);
+			selectedrow=default(ClickedRow<T>);
 			if(trigger) OnRowSelected(this, selectedrow);
 		}
 
-		void SelectRowImp(TableRowElement row, bool trigger=true)
+		void SelectRowImp(TableRowElement row, bool triggerSelected=true, bool triggerClicked=false)
 		{
 			var self= this;
 			table.JSelectRows().RemoveClass ("info");
 			row.JQuery ().AddClass ("info");
 			var record = store.First (f => f.GetValue(self.store.GetRecordIdProperty()).ToString() == row.GetRecordId());
-			selectedrow= new SelectedRow<T>{ RecordId= row.GetRecordId(), Row= row, Record= record};
-			if(trigger) OnRowSelected(this, selectedrow);
+			selectedrow= new ClickedRow<T>{ RecordId= row.GetRecordId(), Row= row, Record= record};
+			if(triggerClicked) OnRowClicked(this, selectedrow);
+			if(triggerSelected) OnRowSelected(this, selectedrow);
 		}
 
 		/// <summary>
@@ -229,6 +237,7 @@ namespace Cayita.UI
 		}
 
 		public event Action<HtmlGrid<T> ,SelectedRow<T>> OnRowSelected;
+		public event Action<HtmlGrid<T> ,ClickedRow<T>> OnRowClicked;
 
 	}
 }

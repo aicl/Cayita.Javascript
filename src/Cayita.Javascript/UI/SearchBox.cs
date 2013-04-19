@@ -133,7 +133,7 @@ namespace Cayita.UI
 			if(cfg.Paged) new StorePaging<T>(body, store);
 
 
-			gr.OnRowSelected += ((g, sr) => {
+			gr.OnRowClicked += ((g, sr) => {
 
 				if(sr!=null){
 					he.SetValue( sr.Record.GetValue(cfg.IndexField));

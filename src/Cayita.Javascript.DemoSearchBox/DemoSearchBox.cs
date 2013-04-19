@@ -111,4 +111,7 @@ namespace Cayita.Javascript
 
 	}
 }
-
+// rowclicked => click on a row
+// row selected =>  click on a row o selected by keyboard
+// EnterOnRow = > presss enter on a selected row...
+// keyOnRow  

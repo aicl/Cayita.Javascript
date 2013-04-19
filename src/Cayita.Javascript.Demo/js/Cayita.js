@@ -1361,6 +1361,26 @@
 	};
 	$Cayita_UI_CheckboxField.$ctor1.prototype = $Cayita_UI_CheckboxField.prototype;
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.ClickedRow
+	var $Cayita_UI_ClickedRow$1 = function(T) {
+		var $type = function() {
+		};
+		$type.createInstance = function() {
+			return $type.$ctor();
+		};
+		$type.$ctor = function() {
+			var $this = ss.makeGenericType($Cayita_UI_SelectedRow$1, [T]).$ctor();
+			return $this;
+		};
+		ss.registerGenericClassInstance($type, $Cayita_UI_ClickedRow$1, [T], function() {
+			return ss.makeGenericType($Cayita_UI_SelectedRow$1, [T]);
+		}, function() {
+			return [];
+		});
+		return $type;
+	};
+	ss.registerGenericClass(global, 'Cayita.UI.ClickedRow$1', $Cayita_UI_ClickedRow$1, 1);
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.DialogButton
 	var $Cayita_UI_DialogButton = function() {
 	};
@@ -1932,6 +1952,7 @@
 			this.$readRequestFinished = null;
 			this.$readRequestMessage = null;
 			this.$3$OnRowSelectedField = null;
+			this.$3$OnRowClickedField = null;
 			$Cayita_UI_HtmlTable.call(this);
 			this.$init(parent, new (ss.makeGenericType($Cayita_Data_Store$1, [T]))(), []);
 		};
@@ -1945,16 +1966,18 @@
 				this.$store = datastore;
 				this.$3$OnRowSelectedField = function(grid, row) {
 				};
+				this.$3$OnRowClickedField = function(grid1, row1) {
+				};
 				$(this.$table).on('click', 'tbody tr', ss.mkdel(this, function(e) {
-					var row1 = e.currentTarget;
-					this.$selectRowImp(row1, true);
+					var row2 = e.currentTarget;
+					this.$selectRowImp(row2, true, true);
 				}));
 				$Cayita_UI_Extensions.createHeader(T).call(null, this.$table, this.$columns);
 				var $t1 = $Cayita_UI_RequestMessage.$ctor();
 				$t1.target = this.$table;
 				$t1.message = 'Reading ' + ss.getTypeName(T);
 				this.$readRequestMessage = $t1;
-				this.$readRequestStarted = ss.mkdel(this, function(grid1) {
+				this.$readRequestStarted = ss.mkdel(this, function(grid2) {
 					var sp = new $Cayita_UI_SpinnerIcon(function(div, icon) {
 						div.style.position = 'fixed';
 						div.style.zIndex = 10000;
@@ -1965,7 +1988,7 @@
 					$(this.$readRequestMessage.target).append(sp.element$2());
 					return sp.element$2();
 				});
-				this.$readRequestFinished = function(grid2, el) {
+				this.$readRequestFinished = function(grid3, el) {
 					$(el).remove();
 				};
 				this.$store.add_onStoreChanged(ss.mkdel(this, function(st, dt) {
@@ -2062,7 +2085,7 @@
 			},
 			selectRow$1: function(recordId, trigger) {
 				var row = $('tr[record-id=' + recordId + ']', this.$table).get(0);
-				this.$selectRowImp(row, trigger);
+				this.$selectRowImp(row, trigger, false);
 			},
 			selectRow: function(trigger) {
 				$('tbody tr', this.$table).removeClass('info');
@@ -2071,19 +2094,22 @@
 					this.$3$OnRowSelectedField(this, this.$selectedrow);
 				}
 			},
-			$selectRowImp: function(row, trigger) {
+			$selectRowImp: function(row, triggerSelected, triggerClicked) {
 				var self = this;
 				$('tbody tr', this.$table).removeClass('info');
 				$(row).addClass('info');
 				var record = Enumerable.from(this.$store).first(function(f) {
 					return ss.referenceEquals($System_SystemExtensions.getValue(f, self.$store.getRecordIdProperty()).toString(), row.getAttribute('record-id'));
 				});
-				var $t1 = ss.makeGenericType($Cayita_UI_SelectedRow$1, [T]).$ctor();
+				var $t1 = ss.makeGenericType($Cayita_UI_ClickedRow$1, [T]).$ctor();
 				$t1.recordId = row.getAttribute('record-id');
 				$t1.row = row;
 				$t1.record = record;
 				this.$selectedrow = $t1;
-				if (trigger) {
+				if (triggerClicked) {
+					this.$3$OnRowClickedField(this, this.$selectedrow);
+				}
+				if (triggerSelected) {
 					this.$3$OnRowSelectedField(this, this.$selectedrow);
 				}
 			},
@@ -2100,6 +2126,12 @@
 			},
 			remove_onRowSelected: function(value) {
 				this.$3$OnRowSelectedField = ss.delegateRemove(this.$3$OnRowSelectedField, value);
+			},
+			add_onRowClicked: function(value) {
+				this.$3$OnRowClickedField = ss.delegateCombine(this.$3$OnRowClickedField, value);
+			},
+			remove_onRowClicked: function(value) {
+				this.$3$OnRowClickedField = ss.delegateRemove(this.$3$OnRowClickedField, value);
 			}
 		};
 		$type.$ctor1 = function(parent, store, columns) {
@@ -2111,6 +2143,7 @@
 			this.$readRequestFinished = null;
 			this.$readRequestMessage = null;
 			this.$3$OnRowSelectedField = null;
+			this.$3$OnRowClickedField = null;
 			$Cayita_UI_HtmlTable.call(this);
 			this.$init(parent, store, columns);
 		};
@@ -3103,7 +3136,7 @@
 				if (this.$cfg.paged) {
 					new (ss.makeGenericType($Cayita_UI_StorePaging$1, [T]))(this.$body, store);
 				}
-				this.$gr.add_onRowSelected(ss.mkdel(this, function(g, sr) {
+				this.$gr.add_onRowClicked(ss.mkdel(this, function(g, sr) {
 					if (ss.isValue(sr)) {
 						cayita.fn.setValue(this.$he, $System_SystemExtensions.getValue(sr.record, this.$cfg.indexField));
 						cayita.fn.setValue(this.$te, $System_SystemExtensions.getValue(sr.record, this.$cfg.textField));
