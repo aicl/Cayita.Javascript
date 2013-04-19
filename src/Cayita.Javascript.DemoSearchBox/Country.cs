@@ -2,7 +2,8 @@ using System;
 using System.Runtime.CompilerServices;
 using jQueryApi;
 using Cayita.Data;
-using System.Html;
+using System.Serialization;
+using Cayita.UI;
 
 namespace Cayita.Javascript
 {
@@ -22,8 +23,15 @@ namespace Cayita.Javascript
 	public class CountryStore:Store<Country>
 	{
 		
-		public CountryStore():base()
+		public CountryStore(Action<ReadOptions> options=null):base()
 		{
+			var ro = GetLastOption ();
+			ro.PageNumber = 0;
+			ro.PageSize = 10;
+
+			if (options != null)
+				options.Invoke (ro);
+
 			SetIdProperty ("Code");
 
 			SetReadApi(api=>{
@@ -31,28 +39,23 @@ namespace Cayita.Javascript
 				api.DataProperty="Countries";
 
 			});
+
+
 		}
 		
 		public override IDeferred<Country> Read(Action<ReadOptions> options=null, bool clear=true)
-		{
-								
-			if (options == null) {
+		{					
 
-				return base.Read (ro => {
-					ro.LocalPaging = true;
-					ro.PageNumber = 0;
-					ro.PageSize = 10;
-				}, clear);
-			} else {
-				return base.Read (options, clear)
-					.Done(t=>{ // mimic server side
-						Firebug.Console.Log("read country", Count, GetTotalCount());
+			return base.Read (options, clear)
+				.Done(t=>{ // mimic server side
+					if( GetLastOption().QueryParams.ContainsKey("Name") )
+					{
+						("Request: "+ Json.Stringify(((object)GetLastOption().GetRequestObject()))).LogInfo();
 						Filter(f=> f.Name.ToUpper().StartsWith(
-							GetLastOption().QueryParams["Name"].ToString().ToUpper() ) );
-						Firebug.Console.Log("read country", Count, GetTotalCount());
-						
-				});
-			}
+													GetLastOption().QueryParams["Name"].ToString().ToUpper() ) );
+
+					}				
+			});
 
 
 		}

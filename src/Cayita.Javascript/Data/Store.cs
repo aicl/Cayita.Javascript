@@ -468,6 +468,7 @@ namespace Cayita.Data
 
 			if(!append )st.Clear();
 			st.AddRange(data);
+			totalCount = st.Count (filterFunc);
 			OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Loaded});
 		}
 

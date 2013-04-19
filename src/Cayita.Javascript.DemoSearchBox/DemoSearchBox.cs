@@ -3,6 +3,7 @@ using System.Html;
 using Cayita.UI;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Linq;
 
 namespace Cayita.Javascript
 {
@@ -15,7 +16,7 @@ namespace Cayita.Javascript
 
 		public static void Execute(Element parent)
 		{
-			var countryStore1 = new CountryStore ();
+			var countryStore1 = new CountryStore ( o=>o.LocalPaging=true);
 			var config1 = new SearchBoxConfig<Country>{
 				TextField="Name",
 				IndexField="Code",
@@ -43,7 +44,7 @@ namespace Cayita.Javascript
 
 
 			//
-			var countryStore2 = new CountryStore ();
+			var countryStore2 = new CountryStore (o=>o.LocalPaging=true);
 			var config2 = new SearchBoxConfig<Country>{
 				TextField="Name",
 				IndexField="Code",
@@ -66,7 +67,7 @@ namespace Cayita.Javascript
 
 
 
-			var countryStore3 = new CountryStore ();
+			var countryStore3 = new CountryStore (o=>{o.PageSize=null; o.PageNumber=null;});
 			var config3 = new SearchBoxConfig<Country>{
 				TextField="Name",
 				IndexField="Code",
@@ -86,6 +87,7 @@ namespace Cayita.Javascript
 			
 			//countryStore3.Read ();
 
+			countryStore3.Where (t => true);
 		}
 
 

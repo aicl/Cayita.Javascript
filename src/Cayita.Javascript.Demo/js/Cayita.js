@@ -645,6 +645,7 @@
 					ss.clear(this.$st);
 				}
 				ss.arrayAddRange(this.$st, data);
+				this.$totalCount = Enumerable.from(this.$st).count(this.$filterFunc);
 				var $t2 = this.$1$OnStoreChangedField;
 				var $t1 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
 				$t1.action = 10;
