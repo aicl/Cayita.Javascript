@@ -57,7 +57,6 @@ namespace Cayita.UI
 					Action b= ()=>{
 						switch(evt.Which)
 						{
-						case 40: // down
 						case 35: // end
 						case 36: // home
 						case 37: //left
@@ -79,8 +78,12 @@ namespace Cayita.UI
 							
 						case 9: // tab
 							break;
+						case 40: // down
 						case 13: // enter
 						case 108: // numpad enter
+							if(!body.IsVisible()) body.Show();
+							gr.JQuery().Focus();
+							break;
 						default:
 							if(! cfg.SearchButton || cfg.LocalFilter!=null)
 							{
@@ -135,19 +138,18 @@ namespace Cayita.UI
 
 			gr.OnRowClicked += ((g, sr) => {
 
-				if(sr!=null){
-					he.SetValue( sr.Record.GetValue(cfg.IndexField));
-					te.SetValue( sr.Record.GetValue(cfg.TextField));
-					body.Hide();
-					searchText=te.Value;
-					searchIndex=he.Value;
-				}
+				he.SetValue( sr.Record.GetValue(cfg.IndexField));
+				te.SetValue( sr.Record.GetValue(cfg.TextField));
+				body.Hide();
+				searchText=te.Value;
+				searchIndex=he.Value;
 
-				if(OnRowSelected!=null) OnRowSelected(this,sr);
+				OnRowSelected(this,sr);
 
 			});
 
 
+			OnRowSelected = (sb,sr) => {};
 
 			if (cfg.OnRowSelectedHandler != null)
 				OnRowSelected += cfg.OnRowSelectedHandler;

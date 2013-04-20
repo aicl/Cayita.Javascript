@@ -3153,7 +3153,6 @@
 					$(e1).keyup(ss.mkdel(this, function(evt) {
 						var b = ss.mkdel(this, function() {
 							switch (evt.which) {
-								case 40:
 								case 35:
 								case 36:
 								case 37:
@@ -3166,7 +3165,6 @@
 								case 33:
 								case 39:
 								case 38: {
-									// down
 									// end
 									// home
 									//left
@@ -3194,11 +3192,19 @@
 									// tab
 									break;
 								}
+								case 40:
 								case 13:
-								case 108:
-								default: {
+								case 108: {
+									// down
 									// enter
 									// numpad enter
+									if (!$(this.$body).is(':visible')) {
+										$(this.$body).show();
+									}
+									this.$gr.jQuery().focus();
+									break;
+								}
+								default: {
 									if (!this.$cfg.searchButton || !ss.staticEquals(this.$cfg.localFilter, null)) {
 										this.$search(store);
 										if (!$(this.$body).is(':visible')) {
@@ -3245,17 +3251,15 @@
 					new (ss.makeGenericType($Cayita_UI_StorePaging$1, [T]))(this.$body, store);
 				}
 				this.$gr.add_onRowClicked(ss.mkdel(this, function(g, sr) {
-					if (ss.isValue(sr)) {
-						cayita.fn.setValue(this.$he, $System_SystemExtensions.getValue(sr.record, this.$cfg.indexField));
-						cayita.fn.setValue(this.$te, $System_SystemExtensions.getValue(sr.record, this.$cfg.textField));
-						$(this.$body).hide();
-						this.$searchText = this.$te.value;
-						this.$searchIndex = this.$he.value;
-					}
-					if (!ss.staticEquals(this.$3$OnRowSelectedField, null)) {
-						this.$3$OnRowSelectedField(this, sr);
-					}
+					cayita.fn.setValue(this.$he, $System_SystemExtensions.getValue(sr.record, this.$cfg.indexField));
+					cayita.fn.setValue(this.$te, $System_SystemExtensions.getValue(sr.record, this.$cfg.textField));
+					$(this.$body).hide();
+					this.$searchText = this.$te.value;
+					this.$searchIndex = this.$he.value;
+					this.$3$OnRowSelectedField(this, sr);
 				}));
+				this.$3$OnRowSelectedField = function(sb, sr1) {
+				};
 				if (!ss.staticEquals(this.$cfg.onRowSelectedHandler, null)) {
 					this.add_onRowSelected(this.$cfg.onRowSelectedHandler);
 				}
