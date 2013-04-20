@@ -3,6 +3,7 @@ using System.Linq;
 using System.Html;
 using System.Collections.Generic;
 using Cayita.Data;
+using jQueryApi;
 
 namespace Cayita.UI
 {
@@ -42,6 +43,9 @@ namespace Cayita.UI
 		Action<HtmlGrid<T>, Element> readRequestFinished;
 		RequestMessage readRequestMessage;
 
+		readonly List<int>  nvkeys= new List<int>(){33, 34,  35, 36, 38, 40 };
+		// page_up, page_down, end, home, up, donw
+
 		protected HtmlGrid (Element parent)
 		{
 			Init (parent, new Store<T>(), new List<TableColumn<T>>() );
@@ -64,53 +68,16 @@ namespace Cayita.UI
 			columns= tablecolumns;
 			store= datastore;
 			
-			OnRowSelected=(grid,row)=>{};
-			OnRowClicked=(grid,row)=>{};
+			OnRowSelected = (grid,row) => {};
+			OnRowClicked = (grid,row) => {};
+			OnKey = (grid, evt) => {};
 
 			table.OnClick("tbody tr", e =>  { 
 				var row = (TableRowElement)e.CurrentTarget;
 				SelectRowImp(row, true,true);
-
 			}); 
 
-
-			table.JQuery ().Keydown (evt => {
-
-				evt.PreventDefault();
-				switch(evt.Which)
-				{
-				case 40: 
-					NextRow();
-					break;
-				case 35: // end
-				case 36: // home
-				case 37: //left
-				case 107: //numpad_add
-				case 110: //numpad_decimal
-				case 111: //numpad_divid
-				case 106: //numpad_multiply
-				case 109: //numpad_substract
-				case 34: //page_down
-				case 33: //page_up
-				case 39: //right
-				case 38: //up
-					PreviousRow();
-					break;
-				case 27: // esc
-
-					break;
-					
-				case 9: // tab
-					break;
-				case 13: // enter
-				case 108: // numpad enter
-				default:
-
-					break;
-				}
-
-			});
-
+			table.JQuery ().Keydown (evt => KeydownHandler (evt));
 
 			table.CreateHeader(columns);
 			
@@ -202,6 +169,44 @@ namespace Cayita.UI
 				}
 				
 			};
+		}
+
+		protected virtual void NavKeyHandler (jQueryEvent evt)
+		{
+
+			evt.PreventDefault();
+			switch(evt.Which)
+			{
+			case 34: //page_down
+				store.ReadNextPage();
+				break;
+			case 33: //page_up
+				store.ReadPreviousPage();
+				break;
+			case 35: // end
+				break;
+			case 36: // home
+				break;
+			case 38: //up
+				PreviousRow();
+				break;
+			case 40: 
+				NextRow();
+				break;
+			default:	
+				break;
+			}
+
+		}
+
+		protected  virtual void KeydownHandler(jQueryEvent evt)
+		{
+			if (nvkeys.Contains (evt.Which)) {
+				NavKeyHandler (evt);
+				return ;
+			}
+			OnKey (this, evt);
+
 		}
 
 		public void NextRow()
@@ -317,6 +322,8 @@ namespace Cayita.UI
 
 		public event Action<HtmlGrid<T> ,SelectedRow<T>> OnRowSelected;
 		public event Action<HtmlGrid<T> ,ClickedRow<T>> OnRowClicked;
+		public event Action<HtmlGrid<T> ,jQueryEvent> OnKey; 
+
 
 	}
 }

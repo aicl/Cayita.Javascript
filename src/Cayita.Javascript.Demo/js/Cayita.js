@@ -683,10 +683,11 @@
 					$t2(this, $t1);
 				}
 			},
-			readNextPage: function() {
-				if (this.hasNextPage()) {
-					this.$lastOption.pageNumber = ss.Nullable.add(this.$lastOption.pageNumber, 1);
+			readNextPage: function(checkForNext) {
+				if (checkForNext && !this.hasNextPage()) {
+					return;
 				}
+				this.$lastOption.pageNumber = ss.Nullable.add(this.$lastOption.pageNumber, 1);
 				if (!this.$lastOption.localPaging) {
 					this.$readFunc(this.$lastOption);
 				}
@@ -697,10 +698,11 @@
 					$t2(this, $t1);
 				}
 			},
-			readPreviousPage: function() {
-				if (this.hasPreviousPage()) {
-					this.$lastOption.pageNumber = ss.Nullable.sub(this.$lastOption.pageNumber, 1);
+			readPreviousPage: function(checkForPrevious) {
+				if (checkForPrevious && !this.hasPreviousPage()) {
+					return;
 				}
+				this.$lastOption.pageNumber = ss.Nullable.sub(this.$lastOption.pageNumber, 1);
 				if (!this.$lastOption.localPaging) {
 					this.$readFunc(this.$lastOption);
 				}
@@ -1951,8 +1953,17 @@
 			this.$readRequestStarted = null;
 			this.$readRequestFinished = null;
 			this.$readRequestMessage = null;
+			var $t1 = [];
+			ss.add($t1, 33);
+			ss.add($t1, 34);
+			ss.add($t1, 35);
+			ss.add($t1, 36);
+			ss.add($t1, 38);
+			ss.add($t1, 40);
+			this.$nvkeys = $t1;
 			this.$3$OnRowSelectedField = null;
 			this.$3$OnRowClickedField = null;
+			this.$3$OnKeyField = null;
 			$Cayita_UI_HtmlTable.call(this);
 			this.$init(parent, new (ss.makeGenericType($Cayita_Data_Store$1, [T]))(), []);
 		};
@@ -1969,67 +1980,21 @@
 				};
 				this.$3$OnRowClickedField = function(grid1, row1) {
 				};
+				this.$3$OnKeyField = function(grid2, evt) {
+				};
 				$(this.$table).on('click', 'tbody tr', ss.mkdel(this, function(e) {
 					var row2 = e.currentTarget;
 					this.$selectRowImp(row2, true, true);
 				}));
-				$(this.$table).keydown(ss.mkdel(this, function(evt) {
-					evt.preventDefault();
-					switch (evt.which) {
-						case 40: {
-							this.nextRow();
-							break;
-						}
-						case 35:
-						case 36:
-						case 37:
-						case 107:
-						case 110:
-						case 111:
-						case 106:
-						case 109:
-						case 34:
-						case 33:
-						case 39:
-						case 38: {
-							// end
-							// home
-							//left
-							//numpad_add
-							//numpad_decimal
-							//numpad_divid
-							//numpad_multiply
-							//numpad_substract
-							//page_down
-							//page_up
-							//right
-							//up
-							this.previousRow();
-							break;
-						}
-						case 27: {
-							// esc
-							break;
-						}
-						case 9: {
-							// tab
-							break;
-						}
-						case 13:
-						case 108:
-						default: {
-							// enter
-							// numpad enter
-							break;
-						}
-					}
+				$(this.$table).keydown(ss.mkdel(this, function(evt1) {
+					this.keydownHandler(evt1);
 				}));
 				$Cayita_UI_Extensions.createHeader(T).call(null, this.$table, this.$columns);
 				var $t1 = $Cayita_UI_RequestMessage.$ctor();
 				$t1.target = this.$table;
 				$t1.message = 'Reading ' + ss.getTypeName(T);
 				this.$readRequestMessage = $t1;
-				this.$readRequestStarted = ss.mkdel(this, function(grid2) {
+				this.$readRequestStarted = ss.mkdel(this, function(grid3) {
 					var sp = new $Cayita_UI_SpinnerIcon(function(div, icon) {
 						div.style.position = 'fixed';
 						div.style.zIndex = 10000;
@@ -2040,7 +2005,7 @@
 					$(this.$readRequestMessage.target).append(sp.element$2());
 					return sp.element$2();
 				});
-				this.$readRequestFinished = function(grid3, el) {
+				this.$readRequestFinished = function(grid4, el) {
 					$(el).remove();
 				};
 				this.$store.add_onStoreChanged(ss.mkdel(this, function(st, dt) {
@@ -2120,6 +2085,48 @@
 						}
 					}
 				}));
+			},
+			navKeyHandler: function(evt) {
+				evt.preventDefault();
+				switch (evt.which) {
+					case 34: {
+						//page_down
+						this.$store.readNextPage(true);
+						break;
+					}
+					case 33: {
+						//page_up
+						this.$store.readPreviousPage(true);
+						break;
+					}
+					case 35: {
+						// end
+						break;
+					}
+					case 36: {
+						// home
+						break;
+					}
+					case 38: {
+						//up
+						this.previousRow();
+						break;
+					}
+					case 40: {
+						this.nextRow();
+						break;
+					}
+					default: {
+						break;
+					}
+				}
+			},
+			keydownHandler: function(evt) {
+				if (ss.contains(this.$nvkeys, evt.which)) {
+					this.navKeyHandler(evt);
+					return;
+				}
+				this.$3$OnKeyField(this, evt);
 			},
 			nextRow: function() {
 				var row;
@@ -2218,6 +2225,12 @@
 			},
 			remove_onRowClicked: function(value) {
 				this.$3$OnRowClickedField = ss.delegateRemove(this.$3$OnRowClickedField, value);
+			},
+			add_onKey: function(value) {
+				this.$3$OnKeyField = ss.delegateCombine(this.$3$OnKeyField, value);
+			},
+			remove_onKey: function(value) {
+				this.$3$OnKeyField = ss.delegateRemove(this.$3$OnKeyField, value);
 			}
 		};
 		$type.$ctor1 = function(parent, store, columns) {
@@ -2228,8 +2241,17 @@
 			this.$readRequestStarted = null;
 			this.$readRequestFinished = null;
 			this.$readRequestMessage = null;
+			var $t1 = [];
+			ss.add($t1, 33);
+			ss.add($t1, 34);
+			ss.add($t1, 35);
+			ss.add($t1, 36);
+			ss.add($t1, 38);
+			ss.add($t1, 40);
+			this.$nvkeys = $t1;
 			this.$3$OnRowSelectedField = null;
 			this.$3$OnRowClickedField = null;
+			this.$3$OnKeyField = null;
 			$Cayita_UI_HtmlTable.call(this);
 			this.$init(parent, store, columns);
 		};
@@ -3708,7 +3730,7 @@
 				this.$prev = (new $Cayita_UI_IconButton(d, ss.mkdel(this, function(b1, i1) {
 					b1.disabled = true;
 					$(b1).on('click', ss.mkdel(this, function(evt1) {
-						this.$store_.readPreviousPage();
+						this.$store_.readPreviousPage(true);
 					}));
 					$(b1).addClass('btn-small');
 					i1.className = 'icon-angle-left';
@@ -3716,7 +3738,7 @@
 				this.$next = (new $Cayita_UI_IconButton(d, ss.mkdel(this, function(b2, i2) {
 					b2.disabled = true;
 					$(b2).on('click', ss.mkdel(this, function(evt2) {
-						this.$store_.readNextPage();
+						this.$store_.readNextPage(true);
 					}));
 					$(b2).addClass('btn-small');
 					i2.className = 'icon-angle-right';

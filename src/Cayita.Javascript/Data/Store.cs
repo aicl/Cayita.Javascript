@@ -512,19 +512,24 @@ namespace Cayita.Data
 
 		}
 
-		public void ReadNextPage()
+		public void ReadNextPage(bool checkForNext=true)
 		{
-			if(HasNextPage())
-				lastOption.PageNumber++;
+			if (checkForNext && !HasNextPage ())
+				return;
+
+			lastOption.PageNumber++;
 			if (!lastOption.LocalPaging)
 				readFunc (lastOption);
 			else
 				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
 		}
 
-		public void ReadPreviousPage()
+		public void ReadPreviousPage(bool checkForPrevious=true)
 		{
-			if(HasPreviousPage()) lastOption.PageNumber--;
+			if (checkForPrevious && !HasPreviousPage ())
+				return;
+
+			lastOption.PageNumber--;
 
 			if (!lastOption.LocalPaging)  
 				readFunc( lastOption);
