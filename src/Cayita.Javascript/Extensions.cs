@@ -95,7 +95,7 @@ namespace Cayita.UI
 		public static void UpdateRow<T>(this TableElement table, T data, List<TableColumn<T>> columns, string recordIdProperty="Id")
 		{
 			var d = (dynamic) data;
-			var row = table.JSelectRow((object) d[recordIdProperty]).Empty();
+			var row = table.GetRow((object) d[recordIdProperty]).Empty();
 			foreach (var col in columns)
 			{
 				var c = col.Value(data);
@@ -108,7 +108,7 @@ namespace Cayita.UI
 		public static void RemoveRow<T>(this TableElement table, T data,  string recordIdProperty="Id")
 		{
 			var d = (dynamic) data;
-			table.JSelectRow((object) d[recordIdProperty]).Remove();
+			table.GetRow((object) d[recordIdProperty]).Remove();
 		}
 
 		public static void CreateHeader<T>(this TableElement table,  List<TableColumn<T>> columns)

@@ -1960,6 +1960,7 @@
 			$init: function(parent, datastore, tablecolumns) {
 				this.createElement('table', parent);
 				this.$table = this.element$1();
+				this.$table.tabIndex = -1;
 				this.$table.className = 'table table-striped table-hover table-condensed';
 				this.$table.setAttribute('data-provides', 'rowlink');
 				this.$columns = tablecolumns;
@@ -1971,6 +1972,57 @@
 				$(this.$table).on('click', 'tbody tr', ss.mkdel(this, function(e) {
 					var row2 = e.currentTarget;
 					this.$selectRowImp(row2, true, true);
+				}));
+				$(this.$table).keydown(ss.mkdel(this, function(evt) {
+					evt.preventDefault();
+					switch (evt.which) {
+						case 40: {
+							this.nextRow();
+							break;
+						}
+						case 35:
+						case 36:
+						case 37:
+						case 107:
+						case 110:
+						case 111:
+						case 106:
+						case 109:
+						case 34:
+						case 33:
+						case 39:
+						case 38: {
+							// end
+							// home
+							//left
+							//numpad_add
+							//numpad_decimal
+							//numpad_divid
+							//numpad_multiply
+							//numpad_substract
+							//page_down
+							//page_up
+							//right
+							//up
+							this.previousRow();
+							break;
+						}
+						case 27: {
+							// esc
+							break;
+						}
+						case 9: {
+							// tab
+							break;
+						}
+						case 13:
+						case 108:
+						default: {
+							// enter
+							// numpad enter
+							break;
+						}
+					}
 				}));
 				$Cayita_UI_Extensions.createHeader(T).call(null, this.$table, this.$columns);
 				var $t1 = $Cayita_UI_RequestMessage.$ctor();
@@ -2069,6 +2121,37 @@
 					}
 				}));
 			},
+			nextRow: function() {
+				var row;
+				if (ss.isNullOrUndefined(this.$selectedrow)) {
+					var jfr = $('tbody tr', this.$table).first();
+					if (jfr.length === 0) {
+						return;
+					}
+					row = jfr.get(0);
+				}
+				else {
+					row = this.$selectedrow.row.nextSibling;
+				}
+				this.$selectRowImp(row, true, false);
+			},
+			previousRow: function() {
+				var row;
+				if (ss.isNullOrUndefined(this.$selectedrow)) {
+					var jfr = $('tbody tr', this.$table).first();
+					if (jfr.length === 0) {
+						return;
+					}
+					row = jfr.get(0);
+				}
+				else {
+					row = this.$selectedrow.row.previousSibling;
+					if (ss.isNullOrUndefined(row)) {
+						return;
+					}
+				}
+				this.$selectRowImp(row, true, false);
+			},
 			getStore: function() {
 				return this.$store;
 			},
@@ -2095,6 +2178,9 @@
 				}
 			},
 			$selectRowImp: function(row, triggerSelected, triggerClicked) {
+				if (ss.isNullOrUndefined(row)) {
+					return;
+				}
 				var self = this;
 				$('tbody tr', this.$table).removeClass('info');
 				$(row).addClass('info');

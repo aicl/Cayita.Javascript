@@ -148,6 +148,7 @@ namespace Cayita.UI
 			});
 
 
+
 			if (cfg.OnRowSelectedHandler != null)
 				OnRowSelected += cfg.OnRowSelectedHandler;
 		}

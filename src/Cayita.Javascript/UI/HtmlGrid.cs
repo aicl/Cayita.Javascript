@@ -58,6 +58,7 @@ namespace Cayita.UI
 		{
 			CreateElement("table", parent);
 			table =Element();
+			table.TabIndex = -1;
 			table.ClassName = "table table-striped table-hover table-condensed";
 			table.SetAttribute ("data-provides", "rowlink");
 			columns= tablecolumns;
@@ -71,7 +72,46 @@ namespace Cayita.UI
 				SelectRowImp(row, true,true);
 
 			}); 
-			
+
+
+			table.JQuery ().Keydown (evt => {
+
+				evt.PreventDefault();
+				switch(evt.Which)
+				{
+				case 40: 
+					NextRow();
+					break;
+				case 35: // end
+				case 36: // home
+				case 37: //left
+				case 107: //numpad_add
+				case 110: //numpad_decimal
+				case 111: //numpad_divid
+				case 106: //numpad_multiply
+				case 109: //numpad_substract
+				case 34: //page_down
+				case 33: //page_up
+				case 39: //right
+				case 38: //up
+					PreviousRow();
+					break;
+				case 27: // esc
+
+					break;
+					
+				case 9: // tab
+					break;
+				case 13: // enter
+				case 108: // numpad enter
+				default:
+
+					break;
+				}
+
+			});
+
+
 			table.CreateHeader(columns);
 			
 			readRequestMessage= new RequestMessage{Target=table, Message="Reading " + typeof(T).Name };
@@ -110,7 +150,7 @@ namespace Cayita.UI
 					break;
 				case StoreChangedAction.Destroyed:
 					var recordId = dt.OldData.GetValue(store.GetRecordIdProperty());
-					table.JSelectRow(recordId).Remove();
+					table.GetRow(recordId).Remove();
 					SelectRow(true);
 					break;
 				case StoreChangedAction.Patched:
@@ -128,7 +168,7 @@ namespace Cayita.UI
 					break;
 				case StoreChangedAction.Removed:
 					var id = dt.OldData.GetValue(store.GetRecordIdProperty());
-					table.JSelectRow(id).Remove();
+					table.GetRow(id).Remove();
 					SelectRow(true);
 					break;
 				case StoreChangedAction.Cleared:
@@ -164,6 +204,42 @@ namespace Cayita.UI
 			};
 		}
 
+		public void NextRow()
+		{
+			TableRowElement row;
+			if (selectedrow == null) {
+				var jfr = table.GetFirstRow ();
+				if (jfr.Length == 0)
+					return;
+				row = jfr.GetElement (0).As<TableRowElement> ();
+
+			} else {
+				row =selectedrow.Row.NextSibling.As<TableRowElement> ();
+
+			}
+			SelectRowImp (row, true, false);
+		}
+
+		public void PreviousRow()
+		{
+
+			TableRowElement row;
+			if (selectedrow == null) {
+				var jfr = table.GetFirstRow ();
+				if (jfr.Length == 0)
+					return;
+				row = jfr.GetElement (0).As<TableRowElement> ();
+				
+			} else {
+				row =selectedrow.Row.PreviousSibling.As<TableRowElement> ();
+				if (row==null) 
+					return;
+				
+			}
+			SelectRowImp (row, true, false);
+		}
+
+
 		public Store<T> GetStore()
 		{
 			return store;
@@ -190,21 +266,24 @@ namespace Cayita.UI
 
 		public void SelectRow(object recordId, bool trigger =true)
 		{
-			var row = (TableRowElement) table.JSelectRow(recordId).GetElement(0);
+			var row = (TableRowElement) table.GetRow(recordId).GetElement(0);
 			SelectRowImp(row, trigger,false);
 		}
 
 		public void SelectRow(bool trigger =true)
 		{
-			table.JSelectRows().RemoveClass ("info");
+			table.GetRows().RemoveClass ("info");
 			selectedrow=default(ClickedRow<T>);
 			if(trigger) OnRowSelected(this, selectedrow);
 		}
 
 		void SelectRowImp(TableRowElement row, bool triggerSelected=true, bool triggerClicked=false)
 		{
+			if (row == null)
+				return;
+
 			var self= this;
-			table.JSelectRows().RemoveClass ("info");
+			table.GetRows().RemoveClass ("info");
 			row.JQuery ().AddClass ("info");
 			var record = store.First (f => f.GetValue(self.store.GetRecordIdProperty()).ToString() == row.GetRecordId());
 			selectedrow= new ClickedRow<T>{ RecordId= row.GetRecordId(), Row= row, Record= record};

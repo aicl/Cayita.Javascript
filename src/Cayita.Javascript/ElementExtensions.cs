@@ -156,13 +156,19 @@ namespace Cayita.UI
 
 
 		[InlineCode("$('tbody tr', {element})")]
-		public static jQueryObject JSelectRows(this TableElement element)
+		public static jQueryObject GetRows(this TableElement element)
+		{
+			return null;
+		}
+
+		[InlineCode("$('tbody tr', {element}).first()")]
+		public static jQueryObject GetFirstRow(this TableElement element)
 		{
 			return null;
 		}
 
 		[InlineCode("$('tr[record-id='+{recordId}+']', {element})")]
-		public static jQueryObject JSelectRow(this TableElement element, object recordId)
+		public static jQueryObject GetRow(this TableElement element, object recordId)
 		{
 			return null;
 		}
