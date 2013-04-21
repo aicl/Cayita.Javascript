@@ -53,48 +53,41 @@ namespace Cayita.UI
 			te = new InputText (main, e=>{
 				e.ClassName="search-query";
 				e.JQuery().Keyup(evt=>{
-								
-					Action b= ()=>{
-						switch(evt.Which)
-						{
-						case 35: // end
-						case 36: // home
-						case 37: //left
-						case 107: //numpad_add
-						case 110: //numpad_decimal
-						case 111: //numpad_divid
-						case 106: //numpad_multiply
-						case 109: //numpad_substract
-						case 34: //page_down
-						case 33: //page_up
-						case 39: //right
-						case 38: //up
-							break;
-						case 27: // esc
-							he.Value=searchIndex;
-							te.Value=searchText;
-							if(body.IsVisible()) body.Hide();
-							break;
-							
-						case 9: // tab
-							break;
-						case 40: // down
-						case 13: // enter
-						case 108: // numpad enter
-							if(!body.IsVisible()) body.Show();
-							gr.JQuery().Focus();
-							break;
-						default:
-							if(! cfg.SearchButton || cfg.LocalFilter!=null)
-							{
-								Search(store);
-								if(!body.IsVisible()) body.Show();
-							}
-							break;
-						}
+						
+					var k = evt.Which;
 
-					};
-					b.Delay(cfg.Delay);
+					//down enter numpad_enter
+					if ( k== 40 || k==13 || k==108  )
+					{
+						if(!body.IsVisible()) body.Show();
+						gr.JQuery().Focus();
+						return;
+					}
+					// esc
+					if( k== 27 )
+					{
+						he.Value=searchIndex;
+						te.Value=searchText;
+						if(body.IsVisible()) body.Hide();
+					}
+
+					// end home left 
+					//numpad_add numpad_decimal numpad_divid numpad_multiply numpad_substract
+					// page_down page_up right up tab
+					if(k==35 || k==36 || k==37 || k==107 || k==110 || k==11 || k==106 || k==109
+					   || k==34 || k==33 || k==39 || k==38 || k==9)
+					{
+						return;
+					}
+
+					if(! cfg.SearchButton || cfg.LocalFilter!=null)
+					{
+						Action b= ()=>{
+								Search(store);
+								if(!body.IsVisible()) body.Show();		
+						};
+						b.Delay(cfg.Delay);
+					}
 
 				});
 			}).Element();
@@ -107,7 +100,7 @@ namespace Cayita.UI
 
 				b.OnClick (e => {
 					Search(store);
-					body.JQuery().Toggle();
+					body.JQuery().Toggle(); if(body.IsVisible()) gr.JQuery().Focus();
 				});
 			}); 
 
@@ -136,23 +129,44 @@ namespace Cayita.UI
 			if(cfg.Paged) new StorePaging<T>(body, store);
 
 
-			gr.OnRowClicked += ((g, sr) => {
+			gr.OnRowClicked += (g, sr) => {
+				ReadSelectedRow (sr);
+			};
 
-				he.SetValue( sr.Record.GetValue(cfg.IndexField));
-				te.SetValue( sr.Record.GetValue(cfg.TextField));
-				body.Hide();
-				searchText=te.Value;
-				searchIndex=he.Value;
+			gr.OnKey += (g,evt) => {
+				var k= evt.Which;
 
-				OnRowSelected(this,sr);
+				if (k==27){
+					body.Hide();
+					return;
+				}
 
-			});
+				if( k==13 || k== 107){
+					var sr =g.GetSelectedRow();
+					ReadSelectedRow(sr);
+					return;
+				}
+			
 
+			};
 
 			OnRowSelected = (sb,sr) => {};
 
 			if (cfg.OnRowSelectedHandler != null)
 				OnRowSelected += cfg.OnRowSelectedHandler;
+		}
+
+		void ReadSelectedRow (SelectedRow<T> sr)
+		{
+			if (sr == null)
+				return;
+
+			he.SetValue (sr.Record.GetValue (cfg.IndexField));
+			te.SetValue (sr.Record.GetValue (cfg.TextField));
+			searchText = te.Value;
+			searchIndex = he.Value;
+			body.Hide ();
+			OnRowSelected (this, sr);
 		}
 
 		void Search (Store<T> store)

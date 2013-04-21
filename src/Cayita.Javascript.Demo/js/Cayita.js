@@ -3151,71 +3151,38 @@
 				this.$te = (new $Cayita_UI_InputText.$ctor2(this.$main, ss.mkdel(this, function(e1) {
 					e1.className = 'search-query';
 					$(e1).keyup(ss.mkdel(this, function(evt) {
-						var b = ss.mkdel(this, function() {
-							switch (evt.which) {
-								case 35:
-								case 36:
-								case 37:
-								case 107:
-								case 110:
-								case 111:
-								case 106:
-								case 109:
-								case 34:
-								case 33:
-								case 39:
-								case 38: {
-									// end
-									// home
-									//left
-									//numpad_add
-									//numpad_decimal
-									//numpad_divid
-									//numpad_multiply
-									//numpad_substract
-									//page_down
-									//page_up
-									//right
-									//up
-									break;
-								}
-								case 27: {
-									// esc
-									this.$he.value = this.$searchIndex;
-									this.$te.value = this.$searchText;
-									if ($(this.$body).is(':visible')) {
-										$(this.$body).hide();
-									}
-									break;
-								}
-								case 9: {
-									// tab
-									break;
-								}
-								case 40:
-								case 13:
-								case 108: {
-									// down
-									// enter
-									// numpad enter
-									if (!$(this.$body).is(':visible')) {
-										$(this.$body).show();
-									}
-									this.$gr.jQuery().focus();
-									break;
-								}
-								default: {
-									if (!this.$cfg.searchButton || !ss.staticEquals(this.$cfg.localFilter, null)) {
-										this.$search(store);
-										if (!$(this.$body).is(':visible')) {
-											$(this.$body).show();
-										}
-									}
-									break;
-								}
+						var k = evt.which;
+						//down enter numpad_enter
+						if (k === 40 || k === 13 || k === 108) {
+							if (!$(this.$body).is(':visible')) {
+								$(this.$body).show();
 							}
-						});
-						cayita.fn.delay(b, this.$cfg.delay);
+							this.$gr.jQuery().focus();
+							return;
+						}
+						// esc
+						if (k === 27) {
+							this.$he.value = this.$searchIndex;
+							this.$te.value = this.$searchText;
+							if ($(this.$body).is(':visible')) {
+								$(this.$body).hide();
+							}
+						}
+						// end home left 
+						//numpad_add numpad_decimal numpad_divid numpad_multiply numpad_substract
+						// page_down page_up right up tab
+						if (k === 35 || k === 36 || k === 37 || k === 107 || k === 110 || k === 11 || k === 106 || k === 109 || k === 34 || k === 33 || k === 39 || k === 38 || k === 9) {
+							return;
+						}
+						if (!this.$cfg.searchButton || !ss.staticEquals(this.$cfg.localFilter, null)) {
+							var b = ss.mkdel(this, function() {
+								this.$search(store);
+								if (!$(this.$body).is(':visible')) {
+									$(this.$body).show();
+								}
+							});
+							cayita.fn.delay(b, this.$cfg.delay);
+						}
 					}));
 				}))).element$2();
 				//search button
@@ -3227,6 +3194,9 @@
 					$(b1).on('click', ss.mkdel(this, function(e2) {
 						this.$search(store);
 						$(this.$body).toggle();
+						if ($(this.$body).is(':visible')) {
+							this.$gr.jQuery().focus();
+						}
 					}));
 				}));
 				// reset button
@@ -3251,18 +3221,36 @@
 					new (ss.makeGenericType($Cayita_UI_StorePaging$1, [T]))(this.$body, store);
 				}
 				this.$gr.add_onRowClicked(ss.mkdel(this, function(g, sr) {
-					cayita.fn.setValue(this.$he, $System_SystemExtensions.getValue(sr.record, this.$cfg.indexField));
-					cayita.fn.setValue(this.$te, $System_SystemExtensions.getValue(sr.record, this.$cfg.textField));
-					$(this.$body).hide();
-					this.$searchText = this.$te.value;
-					this.$searchIndex = this.$he.value;
-					this.$3$OnRowSelectedField(this, sr);
+					this.$readSelectedRow(sr);
 				}));
-				this.$3$OnRowSelectedField = function(sb, sr1) {
+				this.$gr.add_onKey(ss.mkdel(this, function(g1, evt1) {
+					var k1 = evt1.which;
+					if (k1 === 27) {
+						$(this.$body).hide();
+						return;
+					}
+					if (k1 === 13 || k1 === 107) {
+						var sr1 = g1.getSelectedRow();
+						this.$readSelectedRow(sr1);
+						return;
+					}
+				}));
+				this.$3$OnRowSelectedField = function(sb, sr2) {
 				};
 				if (!ss.staticEquals(this.$cfg.onRowSelectedHandler, null)) {
 					this.add_onRowSelected(this.$cfg.onRowSelectedHandler);
 				}
+			},
+			$readSelectedRow: function(sr) {
+				if (ss.isNullOrUndefined(sr)) {
+					return;
+				}
+				cayita.fn.setValue(this.$he, $System_SystemExtensions.getValue(sr.record, this.$cfg.indexField));
+				cayita.fn.setValue(this.$te, $System_SystemExtensions.getValue(sr.record, this.$cfg.textField));
+				this.$searchText = this.$te.value;
+				this.$searchIndex = this.$he.value;
+				$(this.$body).hide();
+				this.$3$OnRowSelectedField(this, sr);
 			},
 			$search: function(store) {
 				if (!ss.referenceEquals(this.$te.value, this.$searchText)) {
