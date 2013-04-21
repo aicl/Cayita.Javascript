@@ -76,7 +76,6 @@ namespace Cayita.UI
 					{
 						he.Value=searchIndex;
 						te.Value=searchText;
-						searchIndex=searchText=null;
 						if(body.IsVisible()) body.Hide();
 						return;
 					}

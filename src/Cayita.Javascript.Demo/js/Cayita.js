@@ -3171,7 +3171,6 @@
 						if (k === 27) {
 							this.$he.value = this.$searchIndex;
 							this.$te.value = this.$searchText;
-							this.$searchIndex = this.$searchText = null;
 							if ($(this.$body).is(':visible')) {
 								$(this.$body).hide();
 							}
