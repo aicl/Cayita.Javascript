@@ -78,6 +78,7 @@ namespace Cayita.Javascript.DemoTables
 			uForm.Element().Validate(vo);
 
 			uGrid.GetStore().Read();
+			uGrid.JQuery ().Focus ();
 
 			ShowCodeCrud (parent);
 

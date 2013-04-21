@@ -12,7 +12,7 @@ namespace Cayita.Javascript
 	[PreserveMemberCase]
 	public class Country
 	{
-		
+	
 		public Country (){}
 		public string Code { get; set; }
 		public string Name { get; set; }
@@ -40,7 +40,6 @@ namespace Cayita.Javascript
 
 			});
 
-
 		}
 		
 		public override IDeferred<Country> Read(Action<ReadOptions> options=null, bool clear=true)
@@ -56,7 +55,6 @@ namespace Cayita.Javascript
 
 					}				
 			});
-
 
 		}
 		

@@ -78,7 +78,7 @@
 	};
 	$CustomerStore.prototype = {
 		read$1: function() {
-			return this.read(function(ro) {
+			return ss.makeGenericType(Cayita.Data.Store$1, [$Customer]).prototype.read.call(this, function(ro) {
 				ro.localPaging = true;
 				ro.pageNumber = 0;
 				ro.pageSize = 10;
@@ -139,6 +139,7 @@
 		});
 		$($DemoTables.$uForm.element$1()).validate(vo);
 		$DemoTables.$uGrid.getStore$1().read(null, true);
+		$DemoTables.$uGrid.jQuery().focus();
 		$DemoTables.$showCodeCrud(parent);
 		$(parent).append(Cayita.UI.StringExtensions.header('Paged Tables', 3));
 		(new Cayita.UI.Div.$ctor2(null, function(div1) {

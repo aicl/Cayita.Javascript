@@ -3,7 +3,6 @@ using System.Html;
 using Cayita.UI;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Linq;
 
 namespace Cayita.Javascript
 {
@@ -16,8 +15,11 @@ namespace Cayita.Javascript
 
 		public static void Execute(Element parent)
 		{
+			"SearchBox Local I".Header (3).AppendTo (parent);
+
 			var countryStore1 = new CountryStore ( o=>o.LocalPaging=true);
 			var config1 = new SearchBoxConfig<Country>{
+				PlaceHolder="type country name",
 				TextField="Name",
 				IndexField="Code",
 				LocalFilter= (t,v)=> t.Name.ToUpper().StartsWith(v.ToUpper()),
@@ -30,30 +32,28 @@ namespace Cayita.Javascript
 				}
 			};
 			
-			"SearchBox".Header (3).AppendTo (parent);
-			
+						
 			new Div( div=>{
 				div.ClassName="bs-docs-example";
-				new SearchBox<Country>(div, countryStore1, DefineColumns(), config1);
-				
+				new SearchBox<Country>(div, countryStore1, DefineColumnsWithFlags(), config1);
 				div.Append(@"");
 				
 			}).AppendTo(parent);
 			
 			countryStore1.Read ();
 
-
 			//
+			"SearchBox Local II".Header (3).AppendTo (parent);
+
 			var countryStore2 = new CountryStore (o=>o.LocalPaging=true);
 			var config2 = new SearchBoxConfig<Country>{
+				PlaceHolder="type country name",
 				TextField="Name",
 				IndexField="Code",
 				LocalFilter= (t,v)=> t.Name.ToUpper().StartsWith(v.ToUpper()),
 				SearchButton=true,
 				ResetButton=true,
 			};
-
-			"SearchBox".Header (3).AppendTo (parent);
 
 			new Div( div=>{
 				div.ClassName="bs-docs-example";
@@ -65,18 +65,18 @@ namespace Cayita.Javascript
 
 			countryStore2.Read ();
 
-
+			
+			"SearchBox Remote".Header (3).AppendTo (parent);
 
 			var countryStore3 = new CountryStore (o=>{o.PageSize=null; o.PageNumber=null;});
 			var config3 = new SearchBoxConfig<Country>{
+				PlaceHolder="type country name",
 				TextField="Name",
 				IndexField="Code",
 				ResetButton=true,
 				MinLength=1
 			};
-			
-			"SearchBox".Header (3).AppendTo (parent);
-			
+
 			new Div( div=>{
 				div.ClassName="bs-docs-example";
 				new SearchBox<Country>(div, countryStore3, DefineColumns(), config3);
@@ -84,10 +84,7 @@ namespace Cayita.Javascript
 				div.Append(@"");
 				
 			}).AppendTo(parent);
-			
-			//countryStore3.Read ();
 
-			countryStore3.Where (t => true);
 		}
 
 
@@ -98,7 +95,7 @@ namespace Cayita.Javascript
 				Header= new TableCell(c=> c.Text("Country")).Element(),
 				Value= (f)=>{
 					return new TableCell( c=>{
-						c.SetValue(f.Name); c.Style.Width="40%";
+						c.SetValue(f.Name);
 					}).Element();
 				}
 			});
@@ -107,6 +104,31 @@ namespace Cayita.Javascript
 			return columns;
 		}
 
+		public static List<TableColumn<Country>> DefineColumnsWithFlags()
+		{
+			List<TableColumn<Country>> columns= new List<TableColumn<Country>>();
+			columns.Add(new TableColumn<Country>(){
+				Header= new TableCell(c=> c.Text("Country")).Element(),
+				Value= (f)=>{
+					return new TableCell( c=>{
+						//c.SetValue(f.Name); c.Style.Width="40%";
+						new Paragraph (c, p=>{
+							
+							p.Append( new Image(i=>{
+								i.Src= "img/flags/"+f.Code.ToLower()+".png";
+								i.Style.MarginRight="8px";
+							}));
+							p.Append(f.Name);
+						});
+						
+						
+					}).Element();
+				}
+			});
+			
+			
+			return columns;
+		}
 
 
 	}

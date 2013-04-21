@@ -60,6 +60,7 @@ namespace Cayita.UI
 
 			te = new InputText (main, e=>{
 				e.ClassName="search-query";
+				e.SetPlaceHolder(cfg.PlaceHolder);
 				e.JQuery().Keyup(evt=>{
 						
 					var k = evt.Which;
@@ -242,7 +243,7 @@ namespace Cayita.UI
 
 		public int Delay { get; set; }
 
-		public bool AutoSelect { get; set; }
+		//public bool AutoSelect { get; set; }
 
 		public int MinLength {get;set;}
 
@@ -252,7 +253,8 @@ namespace Cayita.UI
 
 		public Action<SearchBox<T>, SelectedRow<T>> OnRowSelectedHandler{ get; set; }
 
-		//public SearchButtonConfig  SearchButtonConfig { get; set; }
+		public string PlaceHolder { get; set; }
+
 	}
 
 }

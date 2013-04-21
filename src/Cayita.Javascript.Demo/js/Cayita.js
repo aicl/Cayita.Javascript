@@ -3157,6 +3157,7 @@
 				}))).element$1();
 				this.$te = (new $Cayita_UI_InputText.$ctor2(this.$main, ss.mkdel(this, function(e1) {
 					e1.className = 'search-query';
+					$(e1).attr('placeholder', this.$cfg.placeHolder);
 					$(e1).keyup(ss.mkdel(this, function(evt) {
 						var k = evt.which;
 						//down enter numpad_enter
@@ -3331,11 +3332,11 @@
 			$this.searchButton = false;
 			$this.resetButton = false;
 			$this.delay = 0;
-			$this.autoSelect = false;
 			$this.minLength = 0;
 			$this.searchIconClassName = null;
 			$this.resetIconClassName = null;
 			$this.onRowSelectedHandler = null;
+			$this.placeHolder = null;
 			$this.indexField = 'Id';
 			$this.name = '';
 			$this.paged = true;
