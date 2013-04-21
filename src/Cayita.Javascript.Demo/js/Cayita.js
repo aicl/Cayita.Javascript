@@ -3135,6 +3135,13 @@
 			$type.$ctor1.call(this, null, store, columns, config);
 		};
 		$type.prototype = {
+			$reset: function() {
+				this.$te.value = '';
+				this.$he.value = '';
+				this.$searchText = null;
+				this.$searchIndex = null;
+				this.$3$OnRowSelectedField(this, null);
+			},
 			$init: function(store, columns, config) {
 				this.$cfg = config;
 				if (ss.isNullOrEmptyString(this.$cfg.indexField)) {
@@ -3164,9 +3171,11 @@
 						if (k === 27) {
 							this.$he.value = this.$searchIndex;
 							this.$te.value = this.$searchText;
+							this.$searchIndex = this.$searchText = null;
 							if ($(this.$body).is(':visible')) {
 								$(this.$body).hide();
 							}
+							return;
 						}
 						// end home left 
 						//numpad_add numpad_decimal numpad_divid numpad_multiply numpad_substract
@@ -3206,10 +3215,7 @@
 					}
 					ibn1.className = this.$cfg.resetIconClassName;
 					$(b2).on('click', ss.mkdel(this, function(e3) {
-						this.$te.value = '';
-						this.$he.value = '';
-						this.$searchText = null;
-						this.$searchIndex = null;
+						this.$reset();
 					}));
 				}));
 				this.$body = (new $Cayita_UI_Div.$ctor2(this.$main, function(e4) {
