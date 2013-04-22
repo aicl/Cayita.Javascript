@@ -186,19 +186,19 @@ namespace Cayita.UI
 		}
 
 		[InlineCode("$({element}).attr('placeholder',{value})")]
-		public static jQueryObject SetPlaceHolder(this TextElement element, string value)
+		public static jQueryObject PlaceHolder(this TextElement element, string value)
 		{
 			return null;
 		}
 
 		[InlineCode("$({element}).attr('minlength',{value})")]
-		public static jQueryObject SetMinLength(this TextElement element, int value)
+		public static jQueryObject MinLength(this TextElement element, int value)
 		{
 			return null;
 		}
 			
 		[InlineCode("$({element}).attr('maxlength',{value})")]
-		public static jQueryObject SetMaxLength(this TextElement element, int value)
+		public static jQueryObject MaxLength(this TextElement element, int value)
 		{
 			return null;
 		}

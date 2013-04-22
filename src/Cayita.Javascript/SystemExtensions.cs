@@ -72,12 +72,12 @@ namespace System
 		}
 
 
-		public static  object GetValue(this object obj, string property)
+		public static  object Get(this object obj, string property)
 		{
 			return (object) ((dynamic)obj)[property] ;
 		}
 
-		public static  T GetValue<T>(this object obj, string property) where T: class
+		public static  T Get<T>(this object obj, string property) where T: class
 		{
 			return (T) ((dynamic)obj)[property] ;
 		}

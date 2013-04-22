@@ -60,7 +60,7 @@ namespace Cayita.UI
 
 			te = new InputText (main, e=>{
 				e.ClassName="search-query";
-				e.SetPlaceHolder(cfg.PlaceHolder);
+				e.PlaceHolder(cfg.PlaceHolder);
 				e.JQuery().Keyup(evt=>{
 						
 					var k = evt.Which;
@@ -167,8 +167,8 @@ namespace Cayita.UI
 			if (sr == null)
 				return;
 
-			he.SetValue (sr.Record.GetValue (cfg.IndexField));
-			te.SetValue (sr.Record.GetValue (cfg.TextField));
+			he.SetValue (sr.Record.Get (cfg.IndexField));
+			te.SetValue (sr.Record.Get (cfg.TextField));
 			searchText = te.Value;
 			searchIndex = he.Value;
 			body.Hide ();

@@ -76,7 +76,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 				var inputFecha=new InputText(searchdiv, ip=>{
 					ip.ClassName="input-medium search-query";
 					ip.SetAttribute("data-mask","99.99.9999");
-					ip.SetPlaceHolder("dd.mm.aaaa");
+					ip.PlaceHolder("dd.mm.aaaa");
 				}).Element(); 
 				
 				new IconButton(searchdiv, (abn, ibn)=>{
@@ -173,7 +173,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 					var fieldValor= new TextField(f,(field)=>{
 						field.ClassName="span12";
 						field.Name="Valor";
-						field.SetPlaceHolder("$$$$$$$$$$");
+						field.PlaceHolder("$$$$$$$$$$");
 						field.AutoNumeric();
 
 					});
@@ -181,13 +181,13 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 					new TextField(f,(field)=>{
 						field.ClassName="span12";
 						field.Name="Beneficiario";
-						field.SetPlaceHolder("Pagado a ....");
+						field.PlaceHolder("Pagado a ....");
 					});
 					
 					new TextField(f,(field)=>{
 						field.ClassName="span12";
 						field.Name="Descripcion";
-						field.SetPlaceHolder("Descripcion");
+						field.PlaceHolder("Descripcion");
 					});
 										
 					var bt = new SubmitButton(f, b=>{

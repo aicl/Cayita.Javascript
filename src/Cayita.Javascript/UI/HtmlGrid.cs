@@ -116,7 +116,7 @@ namespace Cayita.UI
 					table.UpdateRow(dt.NewData, columns, store.GetRecordIdProperty());
 					break;
 				case StoreChangedAction.Destroyed:
-					var recordId = dt.OldData.GetValue(store.GetRecordIdProperty());
+					var recordId = dt.OldData.Get(store.GetRecordIdProperty());
 					table.GetRow(recordId).Remove();
 					SelectRow(true);
 					break;
@@ -134,7 +134,7 @@ namespace Cayita.UI
 					table.CreateRow(dt.NewData, columns, store.GetRecordIdProperty());
 					break;
 				case StoreChangedAction.Removed:
-					var id = dt.OldData.GetValue(store.GetRecordIdProperty());
+					var id = dt.OldData.Get(store.GetRecordIdProperty());
 					table.GetRow(id).Remove();
 					SelectRow(true);
 					break;
@@ -290,7 +290,7 @@ namespace Cayita.UI
 			var self= this;
 			table.GetRows().RemoveClass ("info");
 			row.JQuery ().AddClass ("info");
-			var record = store.First (f => f.GetValue(self.store.GetRecordIdProperty()).ToString() == row.GetRecordId());
+			var record = store.First (f => f.Get(self.store.GetRecordIdProperty()).ToString() == row.GetRecordId());
 			selectedrow= new ClickedRow<T>{ RecordId= row.GetRecordId(), Row= row, Record= record};
 			if(triggerClicked) OnRowClicked(this, selectedrow);
 			if(triggerSelected) OnRowSelected(this, selectedrow);

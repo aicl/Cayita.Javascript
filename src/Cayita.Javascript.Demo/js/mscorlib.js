@@ -47,6 +47,14 @@ ss.isArray = function ss$isArray(obj) {
 	return Object.prototype.toString.call(obj) === '[object Array]';
 };
 
+ss.isTypedArrayType = function ss$isTypedArrayType(type) {
+	return ['Float32Array', 'Float64Array', 'Int8Array', 'Int16Array', 'Int32Array', 'Uint8Array', 'Uint16Array', 'Uint32Array', 'Uint8ClampedArray'].indexOf(ss.getTypeFullName(type)) >= 0;
+};
+
+ss.isArrayOrTypedArray = function ss$isArray(obj) {
+	return ss.isArray(obj) || ss.isTypedArrayType(ss.getInstanceType(obj));
+};
+
 ss.getHashCode = function ss$getHashCode(obj) {
 	if (!ss.isValue(obj))
 		throw 'Cannot get hash code of null';
@@ -75,7 +83,7 @@ ss.getHashCode = function ss$getHashCode(obj) {
 };
 
 ss.defaultHashCode = function ss$defaultHashCode(obj) {
-	return obj.$__hashCode__ || (obj.$__hashCode__ = (Math.random() * 0xffffffff) | 0);
+	return obj.$__hashCode__ || (obj.$__hashCode__ = (Math.random() * 0x100000000) | 0);
 };
 
 ss.equals = function ss$equals(a, b) {
@@ -348,16 +356,7 @@ ss.getBaseType = function ss$getBaseType(type) {
 };
 
 ss.getTypeFullName = function ss$getTypeFullName(type) {
-	if (type === Array) return 'Array';
-	if (type === Boolean) return 'Boolean';
-	if (type === Date) return 'Date';
-	if (type === Error) return 'Error';
-	if (type === Function) return 'Function';
-	if (type === Number) return 'Number';
-	if (type === Object) return 'Object';
-	if (type === RegExp) return 'RegExp';
-	if (type === String) return 'String';
-	return type.__typeName || 'Object';
+	return type.__typeName || type.name || (type.toString().match(/^\s*function\s*([^\s(]+)/) || [])[1] || 'Object';
 };
 
 ss.getTypeName = function ss$getTypeName(type) {
@@ -368,14 +367,16 @@ ss.getTypeName = function ss$getTypeName(type) {
 };
 
 ss.getInterfaces = function ss$getInterfaces(type) {
-	if (type === Array)
-		return [ ss_IEnumerable, ss_ICollection, ss_IList ];
+	if (type.__interfaces)
+		return type.__interfaces;
 	else if (type === Date || type === Number)
 		return [ ss_IEquatable, ss_IComparable, ss_IFormattable ];
 	else if (type === Boolean || type === String)
 		return [ ss_IEquatable, ss_IComparable ];
+	else if (type === Array || ss.isTypedArrayType(type))
+		return [ ss_IEnumerable, ss_ICollection, ss_IList ];
 	else
-		return type.__interfaces || [];
+		return [];
 };
 
 ss.isInstanceOfType = function ss$isInstanceOfType(instance, type) {
@@ -872,7 +873,7 @@ ss._netFormatNumber = function ss$_netFormatNumber(num, format, useLocale) {
 				var index = s.indexOf('.');
 				s = s.substr(0, index) + nf.currencyDecimalSeparator + s.substr(index + 1);
 			}
-			s = ss._commaFormatnumber(s, nf.currencyGroupSizes, nf.currencyDecimalSeparator, nf.currencyGroupSeparator);
+			s = ss._commaFormatNumber(s, nf.currencyGroupSizes, nf.currencyDecimalSeparator, nf.currencyGroupSeparator);
 			if (num < 0) {
 				s = ss.formatString(nf.currencyNegativePattern, s);
 			}
@@ -2087,7 +2088,7 @@ ss_IEnumerable.prototype = {
 ss.registerInterface(global, 'ss.IEnumerable', ss_IEnumerable);
 
 ss.getEnumerator = function ss$getEnumerator(obj) {
-	return ss.isArray(obj) ? new ss_ArrayEnumerator(obj) : obj.getEnumerator();
+	return obj.getEnumerator ? obj.getEnumerator() : new ss_ArrayEnumerator(obj);
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -2105,19 +2106,31 @@ ss_ICollection.prototype = {
 ss.registerInterface(global, 'ss.ICollection', ss_ICollection);
 
 ss.count = function ss$count(obj) {
-	return ss.isArray(obj) ? obj.length : obj.get_count();
+	return obj.get_count ? obj.get_count() : obj.length;
 };
 
 ss.add = function ss$add(obj, item) {
-	ss.isArray(obj) ? obj.push(item) : obj.add(item);
+	if (obj.add)
+		obj.add(item);
+	else if (ss.isArray(obj))
+		obj.push(item);
+	else
+		throw new ss_NotSupportedException();
 };
 
-ss.clear = function ss$clear(obj, item) {
-	ss.isArray(obj) ? (obj.length = 0) : obj.clear();
+ss.clear = function ss$clear(obj) {
+	if (obj.clear)
+		obj.clear();
+	else if (ss.isArray(obj))
+		obj.length = 0;
+	else
+		throw new ss_NotSupportedException();
 };
 
 ss.remove = function ss$remove(obj, item) {
-	if (ss.isArray(obj)) {
+	if (obj.remove)
+		return obj.remove(item);
+	else if (ss.isArray(obj)) {
 		var index = ss.indexOf(obj, item);
 		if (index >= 0) {
 			obj.splice(index, 1);
@@ -2126,11 +2139,14 @@ ss.remove = function ss$remove(obj, item) {
 		return false;
 	}
 	else
-		return obj.remove(item);
+		throw new ss_NotSupportedException();
 };
 
 ss.contains = function ss$contains(obj, item) {
-	return ss.isArray(obj) ? (ss.indexOf(obj, item) >= 0) : obj.contains(item);
+	if (obj.contains)
+		return obj.contains(item);
+	else
+		return ss.indexOf(obj, item) >= 0;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -2334,15 +2350,15 @@ ss_IList.prototype = {
 ss.registerInterface(global, 'ss.IList', ss_IList, [ss_ICollection, ss_IEnumerable]);
 
 ss.getItem = function ss$getItem(obj, index) {
-	return ss.isArray(obj) ? obj[index] : obj.get_item(index);
+	return obj.get_item ? obj.get_item(index) : obj[index];
 }
 
 ss.setItem = function ss$setItem(obj, index, value) {
-	ss.isArray(obj) ? (obj[index] = value) : obj.set_item(index, value);
+	obj.set_item ? obj.set_item(index, value) : (obj[index] = value);
 }
 
 ss.indexOf = function ss$indexOf(obj, item) {
-	if (ss.isArray(obj)) {
+	if (ss.isArrayOrTypedArray(obj)) {
 		for (var i = 0; i < obj.length; i++) {
 			if (ss.staticEquals(obj[i], item)) {
 				return i;
@@ -2355,11 +2371,21 @@ ss.indexOf = function ss$indexOf(obj, item) {
 };
 
 ss.insert = function ss$insert(obj, index, item) {
-	ss.isArray(obj) ? obj.splice(index, 0, item) : obj.insert(index, item);
+	if (obj.insert)
+		obj.insert(index, item);
+	else if (ss.isArray(obj))
+		obj.splice(index, 0, item);
+	else
+		throw new ss_NotSupportedException();
 };
 
 ss.removeAt = function ss$removeAt(obj, index) {
-	ss.isArray(obj) ? obj.splice(index, 1) : obj.removeAt(index);
+	if (obj.removeAt)
+		obj.removeAt(index);
+	else if (ss.isArray(obj))
+		obj.splice(index, 1);
+	else
+		throw new ss_NotSupportedException();
 };
 
 ///////////////////////////////////////////////////////////////////////////////

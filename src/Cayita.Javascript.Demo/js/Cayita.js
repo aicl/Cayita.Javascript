@@ -2026,7 +2026,7 @@
 							break;
 						}
 						case 3: {
-							var recordId = $System_SystemExtensions.getValue(dt.oldData, this.$store.getRecordIdProperty());
+							var recordId = $System_SystemExtensions.get(dt.oldData, this.$store.getRecordIdProperty());
 							$('tr[record-id=' + recordId + ']', this.$table).remove();
 							this.selectRow(true);
 							break;
@@ -2048,7 +2048,7 @@
 							break;
 						}
 						case 8: {
-							var id = $System_SystemExtensions.getValue(dt.oldData, this.$store.getRecordIdProperty());
+							var id = $System_SystemExtensions.get(dt.oldData, this.$store.getRecordIdProperty());
 							$('tr[record-id=' + id + ']', this.$table).remove();
 							this.selectRow(true);
 							break;
@@ -2192,7 +2192,7 @@
 				$('tbody tr', this.$table).removeClass('info');
 				$(row).addClass('info');
 				var record = Enumerable.from(this.$store).first(function(f) {
-					return ss.referenceEquals($System_SystemExtensions.getValue(f, self.$store.getRecordIdProperty()).toString(), row.getAttribute('record-id'));
+					return ss.referenceEquals($System_SystemExtensions.get(f, self.$store.getRecordIdProperty()).toString(), row.getAttribute('record-id'));
 				});
 				var $t1 = ss.makeGenericType($Cayita_UI_ClickedRow$1, [T]).$ctor();
 				$t1.recordId = row.getAttribute('record-id');
@@ -3251,8 +3251,8 @@
 				if (ss.isNullOrUndefined(sr)) {
 					return;
 				}
-				cayita.fn.setValue(this.$he, $System_SystemExtensions.getValue(sr.record, this.$cfg.indexField));
-				cayita.fn.setValue(this.$te, $System_SystemExtensions.getValue(sr.record, this.$cfg.textField));
+				cayita.fn.setValue(this.$he, $System_SystemExtensions.get(sr.record, this.$cfg.indexField));
+				cayita.fn.setValue(this.$te, $System_SystemExtensions.get(sr.record, this.$cfg.textField));
 				this.$searchText = this.$te.value;
 				this.$searchIndex = this.$he.value;
 				$(this.$body).hide();
@@ -4212,10 +4212,10 @@
 		}
 		return ss.formatDate(date, format);
 	};
-	$System_SystemExtensions.getValue = function(obj, property) {
+	$System_SystemExtensions.get = function(obj, property) {
 		return obj[property];
 	};
-	$System_SystemExtensions.getValue$1 = function(T) {
+	$System_SystemExtensions.get$1 = function(T) {
 		return function(obj, property) {
 			return ss.cast(obj[property], T);
 		};
