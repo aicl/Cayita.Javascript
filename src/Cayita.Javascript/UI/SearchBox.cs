@@ -22,15 +22,16 @@ namespace Cayita.UI
 		string searchText;
 		string searchIndex;
 
-		public SearchBox (Store<T> store, List<TableColumn<T>> columns, SearchBoxConfig<T> config)
-			:this(null, store, columns, config)
+		public SearchBox (Store<T> store,  SearchBoxConfig<T> config, List<TableColumn<T>> columns =null)
+			:this(null, store, config, columns)
 		{
 		}
 
 
-		public SearchBox (Element parent,Store<T> store, List<TableColumn<T>> columns, SearchBoxConfig<T> config):base(parent)
+		public SearchBox (Element parent,Store<T> store,
+		                  SearchBoxConfig<T> config,List<TableColumn<T>> columns =null):base(parent)
 		{
-			Init (store, columns, config);
+			Init (store, config, columns);
 		}
 
 		void Reset ()
@@ -42,9 +43,8 @@ namespace Cayita.UI
 			OnRowSelected (this, null);
 		}
 					
-		void Init(Store<T> store, List<TableColumn<T>> columns, SearchBoxConfig<T> config )
+		void Init(Store<T> store, SearchBoxConfig<T> config, List<TableColumn<T>> columns )
 		{
-
 			cfg = config;
 
 			if (string.IsNullOrEmpty (cfg.IndexField)) 
@@ -54,71 +54,75 @@ namespace Cayita.UI
 		
 			he = new Input (main, e => {
 				e.Hide (); 
-				e.Name=cfg.Name; 
-				if (cfg.Required) e.Required() ;
+				e.Name = cfg.Name; 
+				if (cfg.Required)
+					e.Required ();
 			}).Element ();
 
-			te = new InputText (main, e=>{
-				e.ClassName="search-query";
-				e.PlaceHolder(cfg.PlaceHolder);
-				e.JQuery().Keyup(evt=>{
+			te = new InputText (main, e => {
+				e.ClassName = "search-query";
+				e.PlaceHolder (cfg.PlaceHolder);
+				e.JQuery ().Keyup (evt => {
 						
 					var k = evt.Which;
 
 					//down enter numpad_enter
-					if ( k== 40 || k==13 || k==108  )
-					{
-						if(!body.IsVisible()) body.Show();
-						gr.JQuery().Focus();
+					if (k == 40 || k == 13 || k == 108) {
+						if (!body.IsVisible ())
+							body.Show ();
+						gr.JQuery ().Focus ();
 						return;
 					}
 					// esc
-					if( k== 27 )
-					{
-						he.Value=searchIndex;
-						te.Value=searchText;
-						if(body.IsVisible()) body.Hide();
+					if (k == 27) {
+						he.Value = searchIndex;
+						te.Value = searchText;
+						if (body.IsVisible ())
+							body.Hide ();
 						return;
 					}
 
 					// end home left 
 					//numpad_add numpad_decimal numpad_divid numpad_multiply numpad_substract
 					// page_down page_up right up tab
-					if(k==35 || k==36 || k==37 || k==107 || k==110 || k==11 || k==106 || k==109
-					   || k==34 || k==33 || k==39 || k==38 || k==9)
-					{
+					if (k == 35 || k == 36 || k == 37 || k == 107 || k == 110 || k == 11 || k == 106 || k == 109
+						|| k == 34 || k == 33 || k == 39 || k == 38 || k == 9) {
 						return;
 					}
 
-					if(! cfg.SearchButton || cfg.LocalFilter!=null)
-					{
-						Action b= ()=>{
-								Search(store);
-								if(!body.IsVisible()) body.Show();		
+					if (! cfg.SearchButton || cfg.LocalFilter != null) {
+						Action b = () => {
+							Search (store);
+							if (!body.IsVisible ())
+								body.Show ();		
 						};
-						b.Delay(cfg.Delay);
+						b.Delay (cfg.Delay);
 					}
 
 				});
-			}).Element();
+			}).Element ();
 
 			//search button
-			new IconButton(main, (b, ibn)=>{  
+			new IconButton (main, (b, ibn) => {  
 
-				if(!cfg.SearchButton) b.Hide();
-				ibn.ClassName=cfg.SearchIconClassName;
+				if (!cfg.SearchButton)
+					b.Hide ();
+				ibn.ClassName = cfg.SearchIconClassName;
 
 				b.OnClick (e => {
-					Search(store);
-					body.JQuery().Toggle(); if(body.IsVisible()) gr.JQuery().Focus();
+					Search (store);
+					body.JQuery ().Toggle ();
+					if (body.IsVisible ())
+						gr.JQuery ().Focus ();
 				});
 			}); 
 
 			// reset button
-			new IconButton(main, (b, ibn)=>{  
+			new IconButton (main, (b, ibn) => {  
 				
-				if(!cfg.ResetButton) b.Hide();
-				ibn.ClassName=cfg.ResetIconClassName;
+				if (!cfg.ResetButton)
+					b.Hide ();
+				ibn.ClassName = cfg.ResetIconClassName;
 				
 				b.OnClick (e => {
 					Reset ();
@@ -126,11 +130,17 @@ namespace Cayita.UI
 			});
 
 
-			body = new Div (main, e=>{
-				e.Hide();
-				e.ClassName="c-search-body";
-			}).Element();
+			body = new Div (main, e => {
+				e.Hide ();
+				e.ClassName = "c-search-body";
+			}).Element ();
 
+
+			if (columns == null) {
+				columns=new List<TableColumn<T>>();
+				columns.Add(new TableColumn<T>(cfg.TextField, autoHeader:false));
+			}
+		
 			gr = new HtmlGrid<T> (body, store, columns);
 
 			if(cfg.Paged) new StorePaging<T>(body, store);

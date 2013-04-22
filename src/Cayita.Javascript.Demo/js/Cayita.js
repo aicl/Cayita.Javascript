@@ -3131,8 +3131,8 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.SearchBox
 	var $Cayita_UI_SearchBox$1 = function(T) {
-		var $type = function(store, columns, config) {
-			$type.$ctor1.call(this, null, store, columns, config);
+		var $type = function(store, config, columns) {
+			$type.$ctor1.call(this, null, store, config, columns);
 		};
 		$type.prototype = {
 			$reset: function() {
@@ -3142,7 +3142,7 @@
 				this.$searchIndex = null;
 				this.$3$OnRowSelectedField(this, null);
 			},
-			$init: function(store, columns, config) {
+			$init: function(store, config, columns) {
 				this.$cfg = config;
 				if (ss.isNullOrEmptyString(this.$cfg.indexField)) {
 					this.$cfg.indexField = store.getRecordIdProperty();
@@ -3222,6 +3222,10 @@
 					$(e4).hide();
 					e4.className = 'c-search-body';
 				})).element$1();
+				if (ss.isNullOrUndefined(columns)) {
+					columns = [];
+					ss.add(columns, ss.makeGenericType($Cayita_UI_TableColumn$1, [T]).$ctor1(this.$cfg.textField, null, null, false));
+				}
 				this.$gr = new (ss.makeGenericType($Cayita_UI_HtmlGrid$1, [T]).$ctor1)(this.$body, store, columns);
 				if (this.$cfg.paged) {
 					new (ss.makeGenericType($Cayita_UI_StorePaging$1, [T]))(this.$body, store);
@@ -3291,7 +3295,7 @@
 				this.$3$OnRowSelectedField = ss.delegateRemove(this.$3$OnRowSelectedField, value);
 			}
 		};
-		$type.$ctor1 = function(parent, store, columns, config) {
+		$type.$ctor1 = function(parent, store, config, columns) {
 			this.$cfg = null;
 			this.$te = null;
 			this.$he = null;
@@ -3302,7 +3306,7 @@
 			this.$searchIndex = null;
 			this.$3$OnRowSelectedField = null;
 			$Cayita_UI_Div.$ctor1.call(this, parent);
-			this.$init(store, columns, config);
+			this.$init(store, config, columns);
 		};
 		$type.$ctor1.prototype = $type.prototype;
 		ss.registerGenericClassInstance($type, $Cayita_UI_SearchBox$1, [T], function() {
@@ -3936,6 +3940,33 @@
 			$this.footer = null;
 			$this.hidden = false;
 			$this.afterCellCreate = null;
+			return $this;
+		};
+		$type.$ctor1 = function(index, header, val, autoHeader) {
+			var $this = {};
+			$this.header = null;
+			$this.value = null;
+			$this.footer = null;
+			$this.hidden = false;
+			$this.afterCellCreate = null;
+			if (ss.isNullOrEmptyString(header) && autoHeader) {
+				header = index;
+			}
+			if (!ss.isNullOrEmptyString(header)) {
+				$this.header = (new $Cayita_UI_TableCell.$ctor1(function(c) {
+					$(c).text(header);
+				})).element$1();
+			}
+			if (ss.staticEquals(val, null)) {
+				val = function(t, c1) {
+					$(c1).text($System_SystemExtensions.get(t, index));
+				};
+			}
+			$this.value = function(t1) {
+				var cell = (new $Cayita_UI_TableCell()).element$1();
+				val(t1, cell);
+				return cell;
+			};
 			return $this;
 		};
 		ss.registerGenericClassInstance($type, $Cayita_UI_TableColumn$1, [T], function() {
