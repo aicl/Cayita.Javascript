@@ -201,6 +201,14 @@
 			}
 		}
 		
+		cayita.fn.delay = (function(){
+		  	var timer = 0;
+  			return function(callback, ms){
+    			clearTimeout (timer);
+    			timer = setTimeout(callback, ms);
+  			};
+		})();
+		
 		cayita.fn.getAjaxResponse=function(jqXHR)
 		{
 			var resStatus ={ErrorCode:"", Message:"", Errors:[] };
