@@ -34,13 +34,17 @@ namespace Cayita.UI
 			Init (store, config, columns);
 		}
 
-		void Reset ()
+		void Reset (bool all =true)
 		{
-			te.Value = "";
-			he.Value = "";
-			searchText = null;
-			searchIndex = null;
-			OnRowSelected (this, null);
+			if (all) {
+				te.Value = "";
+				he.Value = "";
+			}
+			if (!string.IsNullOrEmpty (searchText)) {
+				searchText = null;
+				searchIndex = null;
+				OnRowSelected (this, null);
+			}
 		}
 					
 		void Init(Store<T> store, SearchBoxConfig<T> config, List<TableColumn<T>> columns )
@@ -125,7 +129,7 @@ namespace Cayita.UI
 				ibn.ClassName = cfg.ResetIconClassName;
 				
 				b.OnClick (e => {
-					Reset ();
+					Reset (true);
 				});
 			});
 
@@ -189,7 +193,6 @@ namespace Cayita.UI
 		{
 
 			if(te.Value!=searchText){
-				he.Value=null;
 
 				var st=te.Value;
 				
@@ -203,7 +206,9 @@ namespace Cayita.UI
 
 				} else {
 					store.Filter(t=> cfg.LocalFilter(t,st));
-				}				
+				}
+
+				Reset(false);
 			}
 		}
 

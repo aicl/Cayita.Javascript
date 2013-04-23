@@ -3135,12 +3135,16 @@
 			$type.$ctor1.call(this, null, store, config, columns);
 		};
 		$type.prototype = {
-			$reset: function() {
-				this.$te.value = '';
-				this.$he.value = '';
-				this.$searchText = null;
-				this.$searchIndex = null;
-				this.$3$OnRowSelectedField(this, null);
+			$reset: function(all) {
+				if (all) {
+					this.$te.value = '';
+					this.$he.value = '';
+				}
+				if (!ss.isNullOrEmptyString(this.$searchText)) {
+					this.$searchText = null;
+					this.$searchIndex = null;
+					this.$3$OnRowSelectedField(this, null);
+				}
 			},
 			$init: function(store, config, columns) {
 				this.$cfg = config;
@@ -3215,7 +3219,7 @@
 					}
 					ibn1.className = this.$cfg.resetIconClassName;
 					$(b2).on('click', ss.mkdel(this, function(e3) {
-						this.$reset();
+						this.$reset(true);
 					}));
 				}));
 				this.$body = (new $Cayita_UI_Div.$ctor2(this.$main, function(e4) {
@@ -3264,7 +3268,6 @@
 			},
 			$search: function(store) {
 				if (!ss.referenceEquals(this.$te.value, this.$searchText)) {
-					this.$he.value = null;
 					var st = this.$te.value;
 					if (ss.staticEquals(this.$cfg.localFilter, null)) {
 						if (st.length < this.$cfg.minLength) {
@@ -3279,6 +3282,7 @@
 							return this.$cfg.localFilter(t, st);
 						}));
 					}
+					this.$reset(false);
 				}
 			},
 			$delay: function() {
