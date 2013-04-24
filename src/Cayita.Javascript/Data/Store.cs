@@ -377,7 +377,7 @@ namespace Cayita.Data
 		public void Replace(object recordId, Action<T> record)
 		{
 			var self=this;
-			var source =st.First( f=>( (object)((dynamic)f)[self.idProperty]).ToString()== recordId.ToString());
+			var source = st.First (f => f.Get (self.idProperty).ToString () == recordId.ToString ());
 			var index = st.IndexOf(source);
 			var old = source.Clone();
 			record(source);
@@ -387,7 +387,7 @@ namespace Cayita.Data
 		public void Replace(T record)
 		{
 			var self=this;
-			var source =st.First( f=>( (object)((dynamic)f)[self.idProperty]).ToString()==((object)((dynamic)record)[self.idProperty]).ToString() );
+			var source = st.First (f => f.Get (self.idProperty).ToString () == record.Get (self.idProperty).ToString ());
 			var index = st.IndexOf(source);
 			var old = source.Clone();
 			source.PopulateFrom(record);

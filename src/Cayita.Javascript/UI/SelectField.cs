@@ -135,11 +135,11 @@ namespace Cayita.UI
 
 		void SelectedOptionImp (OptionElement option, bool trigger=true)
 		{
-			var self= this;
 			var recordId = option.Value;
 			if(! string.IsNullOrEmpty(recordId))
 			{
-				var record = store.First (f =>((object)((dynamic) f)[self.store.GetRecordIdProperty()]).ToString() == option.Value);
+				var self = this;
+				var record = store.First (f =>f.Get(self.store.GetRecordIdProperty()).ToString() == option.Value);
 				selectedoption= new SelectedOption<T>{ Option=option, Record= record};
 			}
 			else

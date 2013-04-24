@@ -26,15 +26,13 @@ namespace Cayita.UI
 
 		public static void UpdateOption<T>(this SelectElement cb, T data, Func<T, OptionElement> func, string recordIdProperty="Id" )
 		{
-			var d = (dynamic) data;
-			var old= cb.GetOption( (object) d[recordIdProperty]);
-			cb.ReplaceChild(func(data), old[0]);
+			var old = cb.GetOption (data.Get (recordIdProperty));
+			cb.ReplaceChild (func (data), old [0]);
 		}
 
 		public static void RemoveOption<T>(this SelectElement cb, T data,  string recordIdProperty="Id" )
 		{
-			var d = (dynamic) data;
-			cb.GetOption( (object) d[recordIdProperty]).Remove();
+			cb.GetOption (data.Get (recordIdProperty)).Remove ();
 		}
 
 		[InlineCode("cayita.fn.loadTo({form},{data})")]
@@ -79,7 +77,7 @@ namespace Cayita.UI
 		{
 
 			var r = new TableRow (default(Element), row =>  {
-				row.SetAttribute("record-id", ((dynamic)data)[recordIdProperty]);
+				row.SetAttribute("record-id", data.Get(recordIdProperty));
 				row.ClassName="rowlink";
 				foreach(var col in columns)
 				{
@@ -94,8 +92,7 @@ namespace Cayita.UI
 
 		public static void UpdateRow<T>(this TableElement table, T data, List<TableColumn<T>> columns, string recordIdProperty="Id")
 		{
-			var d = (dynamic) data;
-			var row = table.GetRow((object) d[recordIdProperty]).Empty();
+			var row = table.GetRow(data.Get(recordIdProperty)).Empty();
 			foreach (var col in columns)
 			{
 				var c = col.Value(data);

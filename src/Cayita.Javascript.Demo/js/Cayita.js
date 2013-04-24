@@ -561,7 +561,7 @@
 			replace$1: function(recordId, record) {
 				var self = this;
 				var source = Enumerable.from(this.$st).first(function(f) {
-					return ss.referenceEquals(f[self.$idProperty].toString(), recordId.toString());
+					return ss.referenceEquals($System_SystemExtensions.get(f, self.$idProperty).toString(), recordId.toString());
 				});
 				var index = ss.indexOf(this.$st, source);
 				var old = cayita.fn.clone(source);
@@ -577,7 +577,7 @@
 			replace: function(record) {
 				var self = this;
 				var source = Enumerable.from(this.$st).first(function(f) {
-					return ss.referenceEquals(f[self.$idProperty].toString(), record[self.$idProperty].toString());
+					return ss.referenceEquals($System_SystemExtensions.get(f, self.$idProperty).toString(), $System_SystemExtensions.get(record, self.$idProperty).toString());
 				});
 				var index = ss.indexOf(this.$st, source);
 				var old = cayita.fn.clone(source);
@@ -1727,15 +1727,13 @@
 	};
 	$Cayita_UI_Extensions.updateOption = function(T) {
 		return function(cb, data, func, recordIdProperty) {
-			var d = data;
-			var old = $('option[value=' + d[recordIdProperty] + ']', cb);
+			var old = $('option[value=' + $System_SystemExtensions.get(data, recordIdProperty) + ']', cb);
 			cb.replaceChild(func(data), old[0]);
 		};
 	};
 	$Cayita_UI_Extensions.removeOption = function(T) {
 		return function(cb, data, recordIdProperty) {
-			var d = data;
-			$('option[value=' + d[recordIdProperty] + ']', cb).remove();
+			$('option[value=' + $System_SystemExtensions.get(data, recordIdProperty) + ']', cb).remove();
 		};
 	};
 	$Cayita_UI_Extensions.loadTo = function(T) {
@@ -1763,7 +1761,7 @@
 	$Cayita_UI_Extensions.createRow = function(T) {
 		return function(table, data, columns, recordIdProperty) {
 			var r = new $Cayita_UI_TableRow.$ctor1(null, function(row) {
-				row.setAttribute('record-id', data[recordIdProperty]);
+				row.setAttribute('record-id', $System_SystemExtensions.get(data, recordIdProperty));
 				row.className = 'rowlink';
 				for (var $t1 = 0; $t1 < columns.length; $t1++) {
 					var col = columns[$t1];
@@ -1782,8 +1780,7 @@
 	};
 	$Cayita_UI_Extensions.updateRow = function(T) {
 		return function(table, data, columns, recordIdProperty) {
-			var d = data;
-			var row = $('tr[record-id=' + d[recordIdProperty] + ']', table).empty();
+			var row = $('tr[record-id=' + $System_SystemExtensions.get(data, recordIdProperty) + ']', table).empty();
 			for (var $t1 = 0; $t1 < columns.length; $t1++) {
 				var col = columns[$t1];
 				var c = col.value(data);
@@ -3583,11 +3580,11 @@
 				this.$4$OnOptionSelectedField(this, this.$selectedoption);
 			},
 			$selectedOptionImp: function(option, trigger) {
-				var self = this;
 				var recordId = option.value;
 				if (!ss.isNullOrEmptyString(recordId)) {
+					var self = this;
 					var record = Enumerable.from(this.$store).first(function(f) {
-						return ss.referenceEquals(f[self.$store.getRecordIdProperty()].toString(), option.value);
+						return ss.referenceEquals($System_SystemExtensions.get(f, self.$store.getRecordIdProperty()).toString(), option.value);
 					});
 					var $t1 = ss.makeGenericType($Cayita_UI_SelectedOption$1, [T]).$ctor();
 					$t1.option = option;
