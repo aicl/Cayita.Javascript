@@ -159,7 +159,7 @@ namespace Cayita.Plugins
 	[Serializable]
 	public class Message
 	{
-		protected internal dynamic msg =(dynamic) (new {});
+		protected internal dynamic msg = new {};
 
 		public Message(){}
 		
@@ -282,7 +282,7 @@ namespace Cayita.Plugins
 	[Serializable]
 	public class Rule
 	{
-		protected internal dynamic rl =(dynamic) (new {});
+		protected internal dynamic rl =new {};
 		public Rule(){}
 		
 		/// <summary>

@@ -129,8 +129,7 @@ namespace Cayita.Data
 					{
 						foreach (var item in ((IList<T>) res))
 						{
-							dynamic i = (dynamic)item;
-							var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
+							var ur =st.First( f=> f.Get(idProperty)== item.Get(idProperty));
 							var old = new T();
 							old.PopulateFrom(ur);
 							ur.PopulateFrom(item);
@@ -139,8 +138,7 @@ namespace Cayita.Data
 					}
 					else
 					{
-						dynamic i = (dynamic)res;
-						var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
+						var ur =st.First( f=> f.Get(idProperty)== res.Get(idProperty));
 						var old = new T();
 						old.PopulateFrom(ur);
 						ur.PopulateFrom((T)res);
@@ -159,10 +157,10 @@ namespace Cayita.Data
 			destroyFunc= (record)=>{	
 				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Destroy, State=StoreRequestState.Started});
 				var data = (dynamic) new {};
-				data[idProperty]=((dynamic)record)[idProperty];
+				data[idProperty]=record.Get(idProperty);
 				var req= jQuery.PostRequest<string>(destroyApi.Url, (object)data, cb=>{},destroyApi.DataType);
 				req.Done(scb=>{
-					var dr =st.First( f=> ((dynamic)f)[idProperty]== ((dynamic)record)[idProperty]);
+					var dr =st.First( f=> f.Get(idProperty)== record.Get(idProperty));
 					st.Remove(dr);
 					OnStoreChanged(this, new StoreChangedData<T>{ NewData= dr, OldData=dr, Action= StoreChangedAction.Destroyed});
 				});
@@ -188,8 +186,7 @@ namespace Cayita.Data
 					{
 						foreach (var item in ((IList<T>) res))
 						{
-							dynamic i = (dynamic)item;
-							var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
+							var ur =st.First( f=> f.Get(idProperty)== item.Get(idProperty));
 							var old = new T();
 							old.PopulateFrom(ur);
 							ur.PopulateFrom(item);
@@ -198,8 +195,7 @@ namespace Cayita.Data
 					}
 					else
 					{
-						dynamic i = (dynamic)res;
-						var ur =st.First( f=> ((dynamic)f)[idProperty]== i[idProperty]);
+						var ur =st.First( f=> f.Get(idProperty)== res.Get(idProperty));
 						var old = new T();
 						old.PopulateFrom(ur);
 						ur.PopulateFrom((T)res);

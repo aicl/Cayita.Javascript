@@ -283,14 +283,13 @@
 						var $t29 = ss.getEnumerator(ss.cast(res2, ss.IList));
 						try {
 							while ($t29.moveNext()) {
-								var item2 = $t29.current();
-								var i = { $: item2 };
-								var ur = Enumerable.from(this.$st).first(function(f3) {
-									return !!ss.referenceEquals(f3[this.$idProperty], i.$[this.$idProperty]);
-								});
+								var item2 = { $: $t29.current() };
+								var ur = Enumerable.from(this.$st).first(ss.mkdel({ item2: item2, $this: this }, function(f3) {
+									return ss.referenceEquals($System_SystemExtensions.get(f3, this.$this.$idProperty), $System_SystemExtensions.get(this.item2.$, this.$this.$idProperty));
+								}));
 								var old = ss.createInstance(T);
 								cayita.fn.populateFrom(old, ur);
-								cayita.fn.populateFrom(ur, item2);
+								cayita.fn.populateFrom(ur, item2.$);
 								var $t31 = this.$1$OnStoreChangedField;
 								var $t30 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
 								$t30.newData = ur;
@@ -304,10 +303,9 @@
 						}
 					}
 					else {
-						var i1 = res2;
-						var ur1 = Enumerable.from(this.$st).first(function(f4) {
-							return !!ss.referenceEquals(f4[this.$idProperty], i1[this.$idProperty]);
-						});
+						var ur1 = Enumerable.from(this.$st).first(ss.mkdel(this, function(f4) {
+							return !!ss.referenceEquals($System_SystemExtensions.get(f4, this.$idProperty), res2.Get(this.$idProperty));
+						}));
 						var old1 = ss.createInstance(T);
 						cayita.fn.populateFrom(old1, ur1);
 						cayita.fn.populateFrom(ur1, ss.cast(res2, T));
@@ -342,13 +340,13 @@
 				$t38.state = 0;
 				$t39(this, $t38);
 				var data4 = {};
-				data4[this.$idProperty] = record2[this.$idProperty];
+				data4[this.$idProperty] = $System_SystemExtensions.get(record2, this.$idProperty);
 				var req3 = $.post(this.$destroyApi.url, data4, function(cb3) {
 				}, this.$destroyApi.dataType);
 				req3.done(ss.mkdel(this, function(scb3) {
-					var dr = Enumerable.from(this.$st).first(function(f7) {
-						return !!ss.referenceEquals(f7[this.$idProperty], record2[this.$idProperty]);
-					});
+					var dr = Enumerable.from(this.$st).first(ss.mkdel(this, function(f7) {
+						return ss.referenceEquals($System_SystemExtensions.get(f7, this.$idProperty), $System_SystemExtensions.get(record2, this.$idProperty));
+					}));
 					ss.remove(this.$st, dr);
 					var $t41 = this.$1$OnStoreChangedField;
 					var $t40 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
@@ -388,14 +386,13 @@
 						var $t48 = ss.getEnumerator(ss.cast(res3, ss.IList));
 						try {
 							while ($t48.moveNext()) {
-								var item3 = $t48.current();
-								var i2 = { $: item3 };
-								var ur2 = Enumerable.from(this.$st).first(function(f10) {
-									return !!ss.referenceEquals(f10[this.$idProperty], i2.$[this.$idProperty]);
-								});
+								var item3 = { $: $t48.current() };
+								var ur2 = Enumerable.from(this.$st).first(ss.mkdel({ item3: item3, $this: this }, function(f10) {
+									return ss.referenceEquals($System_SystemExtensions.get(f10, this.$this.$idProperty), $System_SystemExtensions.get(this.item3.$, this.$this.$idProperty));
+								}));
 								var old2 = ss.createInstance(T);
 								cayita.fn.populateFrom(old2, ur2);
-								cayita.fn.populateFrom(ur2, item3);
+								cayita.fn.populateFrom(ur2, item3.$);
 								var $t50 = this.$1$OnStoreChangedField;
 								var $t49 = ss.makeGenericType($Cayita_Data_StoreChangedData$1, [T]).$ctor();
 								$t49.newData = ur2;
@@ -409,10 +406,9 @@
 						}
 					}
 					else {
-						var i3 = res3;
-						var ur3 = Enumerable.from(this.$st).first(function(f11) {
-							return !!ss.referenceEquals(f11[this.$idProperty], i3[this.$idProperty]);
-						});
+						var ur3 = Enumerable.from(this.$st).first(ss.mkdel(this, function(f11) {
+							return !!ss.referenceEquals($System_SystemExtensions.get(f11, this.$idProperty), res3.Get(this.$idProperty));
+						}));
 						var old3 = ss.createInstance(T);
 						cayita.fn.populateFrom(old3, ur3);
 						cayita.fn.populateFrom(ur3, ss.cast(res3, T));
