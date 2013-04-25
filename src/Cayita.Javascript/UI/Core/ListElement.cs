@@ -10,4 +10,14 @@ namespace System.Html
 		}
 
 	}
+
+	[IgnoreNamespace, Imported (ObeysTypeSystem = true), ScriptName ("Element")]
+	public class ListItemElement:Element
+	{
+		ListItemElement ()
+		{
+		}
+		
+	}
+
 }

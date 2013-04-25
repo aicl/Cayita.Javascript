@@ -180,24 +180,24 @@
 	};
 	$Extensions.addItem$2 = function(parent, href, item) {
 		var il = new $Cayita_UI_ListItem(parent);
-		new $Cayita_UI_Anchor.$ctor3(il.element(), function(a) {
+		new $Cayita_UI_Anchor.$ctor3(il.element$1(), function(a) {
 			a.href = href;
 			$(a).text(item);
 		});
 	};
 	$Extensions.addItem$1 = function(parent, item) {
 		var il = new $Cayita_UI_ListItem(parent);
-		new $Cayita_UI_Anchor.$ctor3(il.element(), function(a) {
+		new $Cayita_UI_Anchor.$ctor3(il.element$1(), function(a) {
 			a.href = '#';
 			$(a).text(item);
 		});
 	};
 	$Extensions.addItem = function(parent, element) {
 		var il = new $Cayita_UI_ListItem(parent);
-		var anchor = new $Cayita_UI_Anchor.$ctor3(il.element(), function(a) {
+		var anchor = new $Cayita_UI_Anchor.$ctor3(il.element$1(), function(a) {
 			a.href = '#';
 		});
-		element(il.element(), anchor.element$1());
+		element(il.element$1(), anchor.element$1());
 	};
 	$Extensions.addHeader = function(parent, item) {
 		new $Cayita_UI_ListItem.$ctor1(parent, function(l) {
@@ -2710,17 +2710,20 @@
 	$Cayita_UI_ListItem.prototype = {
 		$init: function(parent) {
 			this.createElement('li', parent);
+		},
+		element$1: function() {
+			return ss.cast(this.element(), Element);
 		}
 	};
 	$Cayita_UI_ListItem.$ctor1 = function(parent, element) {
 		$Cayita_UI_ElementBase.call(this);
 		this.$init(parent);
-		element(this.element());
+		element(this.element$1());
 	};
 	$Cayita_UI_ListItem.$ctor1.prototype = $Cayita_UI_ListItem.prototype;
 	$Cayita_UI_ListItem.createNavListItem = function(parent, href, item) {
 		var il = new $Cayita_UI_ListItem(parent);
-		new $Cayita_UI_Anchor.$ctor3(il.element(), function(a) {
+		new $Cayita_UI_Anchor.$ctor3(il.element$1(), function(a) {
 			a.href = href;
 			$(a).text(item);
 		});

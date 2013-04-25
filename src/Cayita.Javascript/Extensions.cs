@@ -201,7 +201,7 @@ namespace Cayita.UI
 		/// <param name="parent">Parent.</param>
 		/// <param name="element">Action<Element,AnchorElement></param>
 		public static void AddItem(this ListElement parent,
-		                           Action<Element,AnchorElement> element)
+		                           Action<ListItemElement,AnchorElement> element)
 		{
 			var il = new ListItem(parent);
 			var anchor = new Anchor(il.Element(), a=>{

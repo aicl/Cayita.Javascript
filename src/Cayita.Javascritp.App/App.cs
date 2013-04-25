@@ -55,15 +55,28 @@ namespace Cayita.Javascritp.App
 		{
 			TopNavBar= new TopNavBar(null,"Cayita.Javascript - demo","","",nav=>{
 
-				nav.AddItem("Home");
-				nav.AddItem("License");
-				nav.AddItem("Contact");
-				nav.AddItem("About");
+				nav.AddItem((l,a)=>{
+					a.Text("Home");
+					a.OnClick(GoHome);
+				});
+				nav.AddItem((l,a)=>{
+					a.Text("Licence");
+					a.OnClick(GoLicence);
+				});
+				nav.AddItem((l,a)=>{
+					a.Text("Contact");
+					a.OnClick(GoContact);
+				});
+				nav.AddItem((l,a)=>{
+					a.Text("About");
+					a.OnClick(GoAbout);
+				});
+
 			});
 
 			TopNavBar.AddClass("navbar-inverse navbar-fixed-top").AppendTo (Document.Body);
 		}
-		
+
 		void ShowMenu()
 		{	
 			Div.CreateContainerFluid(default(Element), fluid=>{
@@ -109,15 +122,28 @@ namespace Cayita.Javascritp.App
 
 		[InlineCode("window[{className}]['execute']({parent})")]
 		void ExecuteModule(Element parent, string className){}
-				
+
+
+		void GoHome(jQueryEvent evt)
+		{
+			"Home".LogInfo ();
+		}
+		
+		void GoLicence(jQueryEvent evt)
+		{
+			"Licence".LogInfo ();
+		}
+		
+		void GoContact(jQueryEvent evt)
+		{
+			"Contact".LogInfo ();
+		}
+		
+		void GoAbout(jQueryEvent evt)
+		{
+			"About".LogInfo ();
+		}
+
 	}
 }
 
-
-/*
-Cayita.UI
-Cayita.Data
-Cayita.Plugins
-Cayita.Ajax
-Cayita.Extensions
-*/

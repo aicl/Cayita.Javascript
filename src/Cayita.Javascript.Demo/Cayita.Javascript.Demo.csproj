@@ -353,6 +353,7 @@
     <Content Include="img\flags\za.png" />
     <Content Include="img\flags\zm.png" />
     <Content Include="img\flags\zw.png" />
+    <Content Include="img\form.demo-1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

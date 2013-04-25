@@ -72,13 +72,37 @@
 			ss.add($t14, $t13);
 		},
 		$showTopNavBar: function() {
-			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(null, 'Cayita.Javascript - demo', '', '', function(nav) {
-				Extensions.addItem$1(nav, 'Home');
-				Extensions.addItem$1(nav, 'License');
-				Extensions.addItem$1(nav, 'Contact');
-				Extensions.addItem$1(nav, 'About');
-			}));
+			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(null, 'Cayita.Javascript - demo', '', '', ss.mkdel(this, function(nav) {
+				Extensions.addItem(nav, ss.mkdel(this, function(l, a) {
+					$(a).text('Home');
+					$(a).on('click', ss.mkdel(this, this.$goHome));
+				}));
+				Extensions.addItem(nav, ss.mkdel(this, function(l1, a1) {
+					$(a1).text('Licence');
+					$(a1).on('click', ss.mkdel(this, this.$goLicence));
+				}));
+				Extensions.addItem(nav, ss.mkdel(this, function(l2, a2) {
+					$(a2).text('Contact');
+					$(a2).on('click', ss.mkdel(this, this.$goContact));
+				}));
+				Extensions.addItem(nav, ss.mkdel(this, function(l3, a3) {
+					$(a3).text('About');
+					$(a3).on('click', ss.mkdel(this, this.$goAbout));
+				}));
+			})));
 			this.get_$topNavBar().addClass$1('navbar-inverse navbar-fixed-top').appendTo$1(document.body);
+		},
+		$goHome: function(evt) {
+			Alertify.log.info('Home', 5000);
+		},
+		$goLicence: function(evt) {
+			Alertify.log.info('Licence', 5000);
+		},
+		$goContact: function(evt) {
+			Alertify.log.info('Contact', 5000);
+		},
+		$goAbout: function(evt) {
+			Alertify.log.info('About', 5000);
 		},
 		$showMenu: function() {
 			Cayita.UI.Div.createContainerFluid$1(null, ss.mkdel(this, function(fluid) {

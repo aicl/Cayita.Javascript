@@ -1,8 +1,8 @@
-Cayita is a library for building javascript apps using C#  as base language and the Saltarelle compiler ( http://www.saltarelle-compiler.com)
+Cayita is a library for building Webapps using C# as base language and the Saltarelle compiler ( http://www.saltarelle-compiler.com)
 
 Saltarelle compiler allows you to write apps  that run in any modern web browser, using your favourite programming tools:  C# and Visual Studio or Monodevelop.
 
-Saltarelle compiler gives you  all the advantages of C#:  static type checking, IntelliSense (that really works) and lambda expressions when writing code for the browser. 
+Saltarelle compiler gives you  all the advantages of C#: OP, static type checking, IntelliSense (that really works) and lambda expressions when writing code for the browser. 
 
 Cayita extends the Saltarelle.Web.dll  library adding some new usefull methods and classes, that streamline  coding your app  using only the C # language.
 
@@ -70,27 +70,29 @@ new Form( container, f=>{
     });  
 });  
 ```
-imagen = (https://docs.google.com/file/d/0B5PxAJVNHVdKVFUwcEI5S2syU00/edit?usp=sharing)
+imagen = (https://raw.github.com/aicl/aicl.github.com/master/img/form.demo-1.png)
 
 ##Requirements:
 * **Development**
 * Saltarelle compiler.
-* Saltarelle.jQuery.dll 
+* Saltarelle.jQuery.dll
+* Saltarelle.jQuery.UI.dll  
 * Saltarelle.Web.dll
 * Saltarelle.Linq.dll
 * Cayita.Javascript.dll
 * mscorlib.dll
 * **Production**
-* Cayita.Javascript.UI.js
+* Cayita.js
 * mscorlib.js ( from saltarelle)
 * linq.js ( from saltarelle)
 * jquery-1.9.1.js
 * autonumeric-1.8.7.js (http://www.decorplanit.com/plugin/)
 * jQuery Validation Plugin - v1.11.0 - 2/4/2013  (https://github.com/jzaefferer/jquery-validation)
-* Calendar plugin from jQuery UI 1.10.1
-* Jasny version of Twitter Boostrap (http://jasny.github.com/bootstrap/)
+* Calendar plugin from jQuery UI 1.10.2
+* Twitter Boostrap (Jasny version http://jasny.github.com/bootstrap/)
 * Font Awesome (http://fortawesome.github.com/Font-Awesome/)
-
+* alertify (http://fabien-d.github.io/alertify.js/)
+* bootbox (http://bootboxjs.com/)
 
 ##Demo
 Demo at (https://googledrive.com/host/0B5PxAJVNHVdKaGFMczUxX2RRSkk/index.html)

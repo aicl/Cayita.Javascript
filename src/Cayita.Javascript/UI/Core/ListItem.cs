@@ -7,7 +7,7 @@ namespace Cayita.UI
 	public class ListItem:ElementBase
 	{
 				
-		public ListItem(ListElement parent,  Action<Element> element)
+		public ListItem(ListElement parent,  Action<ListItemElement> element)
 		{
 			Init(parent);
 			element(Element());
@@ -25,6 +25,11 @@ namespace Cayita.UI
 
 		}
 
+
+		public new ListItemElement Element()
+		{
+			return (ListItemElement)base.Element();
+		}
 
 		public static ListItem CreateNavListItem(ListElement parent, string href, string item)
 		{
