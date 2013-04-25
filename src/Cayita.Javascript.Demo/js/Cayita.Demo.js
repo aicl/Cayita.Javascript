@@ -73,10 +73,10 @@
 		},
 		$showTopNavBar: function() {
 			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(null, 'Cayita.Javascript - demo', '', '', function(nav) {
-				Cayita.UI.Extensions.addItem$1(nav, 'Home');
-				Cayita.UI.Extensions.addItem$1(nav, 'License');
-				Cayita.UI.Extensions.addItem$1(nav, 'Contact');
-				Cayita.UI.Extensions.addItem$1(nav, 'About');
+				Extensions.addItem$1(nav, 'Home');
+				Extensions.addItem$1(nav, 'License');
+				Extensions.addItem$1(nav, 'Contact');
+				Extensions.addItem$1(nav, 'About');
 			}));
 			this.get_$topNavBar().addClass$1('navbar-inverse navbar-fixed-top').appendTo$1(document.body);
 		},
@@ -86,12 +86,12 @@
 					new Cayita.UI.Div.$ctor2(row, ss.mkdel(this, function(span) {
 						span.className = 'span2';
 						new Cayita.UI.SideNavBar(span, ss.mkdel(this, function(list) {
-							Cayita.UI.Extensions.addHeader(list, 'Main Menu');
-							Cayita.UI.Extensions.addHDivider(list);
+							Extensions.addHeader(list, 'Main Menu');
+							Extensions.addHDivider(list);
 							var $t1 = this.get_$menuItems();
 							for (var $t2 = 0; $t2 < $t1.length; $t2++) {
 								var item = { $: $t1[$t2] };
-								Cayita.UI.Extensions.addItem(list, ss.mkdel({ item: item, $this: this }, function(li, anchor) {
+								Extensions.addItem(list, ss.mkdel({ item: item, $this: this }, function(li, anchor) {
 									$(anchor).text(this.item.$.get_title());
 									$(anchor).on('click', ss.mkdel({ item: this.item, $this: this.$this }, function(e) {
 										e.preventDefault();
@@ -117,7 +117,7 @@
 					this.set_$work(new Cayita.UI.Div.$ctor2(row, function(work) {
 						work.className = 'span10';
 						work.id = 'work';
-						work.appendChild(Cayita.UI.StringExtensions.header('Welcome', 3));
+						work.appendChild(StringExtensions.header('Welcome', 3));
 					}));
 				}));
 			})).appendTo$1(document.body);

@@ -7,10 +7,10 @@
 		(new Cayita.UI.Div.$ctor2(null, function(div) {
 			div.className = 'bs-docs-example';
 			new Cayita.UI.TopNavBar(div, 'App Title', function(nav) {
-				Cayita.UI.Extensions.addItem$1(nav, 'Home');
-				Cayita.UI.Extensions.addItem$1(nav, 'License');
-				Cayita.UI.Extensions.addItem$1(nav, 'Contact');
-				Cayita.UI.Extensions.addItem$1(nav, 'About');
+				Extensions.addItem$1(nav, 'Home');
+				Extensions.addItem$1(nav, 'License');
+				Extensions.addItem$1(nav, 'Contact');
+				Extensions.addItem$1(nav, 'About');
 				$(nav).on('click', 'a', function(ev) {
 					ev.preventDefault();
 					$('#div-log').text($(ev.currentTarget).text() + ' clicked');

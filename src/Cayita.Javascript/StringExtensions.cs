@@ -5,7 +5,8 @@ using System.Runtime.CompilerServices;
 
 namespace Cayita.UI
 {
-	[Serializable]	
+	[Serializable]
+	[IgnoreNamespace]
 	public static class StringExtensions
 	{
 		public static Element Header (this string text,  int size, Element parent)

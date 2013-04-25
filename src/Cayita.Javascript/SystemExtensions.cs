@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 namespace System
 {
 	[Serializable]	
+	[IgnoreNamespace]
 	public static class SystemExtensions
 	{
 		public static JsDate ToJsDate(this DateTime date){

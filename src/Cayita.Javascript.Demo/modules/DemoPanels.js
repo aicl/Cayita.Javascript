@@ -4,7 +4,7 @@
 	var $DemoPanels = function() {
 	};
 	$DemoPanels.execute = function(parent) {
-		$(parent).append(Cayita.UI.StringExtensions.header('Panels', 2));
+		$(parent).append(StringExtensions.header('Panels', 2));
 		(new Cayita.UI.Div.$ctor2(null, function(div) {
 			div.className = 'bs-docs-example';
 			div.style.paddingLeft = '40px';
@@ -135,7 +135,7 @@
 						});
 						p.height('400px');
 					}).onCloseHandler(function(p1) {
-						Alertify.log.info(Cayita.UI.StringExtensions.header('panel closed ', 3).outerHTML, 5000);
+						Alertify.log.info(StringExtensions.header('panel closed ', 3).outerHTML, 5000);
 					}).append$3(new Cayita.UI.Button(function(b) {
 						$(b).text('Click me');
 						b.style.width = '100%';

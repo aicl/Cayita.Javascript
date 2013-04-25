@@ -8,7 +8,8 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Cayita.UI
 {
-	[Serializable]	
+	[Serializable]
+	[IgnoreNamespace]
 	public static  class Extensions
 	{
 		public static void Load<T>(this SelectElement cb,  IList<T> data, Func<T, OptionElement> func, bool append=false )
@@ -153,7 +154,7 @@ namespace Cayita.UI
 
 			foreach (var d in data) {
 				new TableRow (null, row =>  {
-					row.SetAttribute("record-id", ((dynamic)d)[recordIdProperty]);
+					row.SetAttribute("record-id", d.Get(recordIdProperty));
 					row.ClassName="rowlink";
 					foreach(var col in columns)
 					{

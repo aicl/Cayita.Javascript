@@ -40,10 +40,10 @@
 						new Cayita.UI.Div.$ctor2(span, ss.mkdel(this, function(nav) {
 							nav.className = 'well sidebar-nav';
 							Cayita.UI.HtmlList.createNavList$1(nav, ss.mkdel(this, function(list) {
-								Cayita.UI.Extensions.addHeader(list, 'Menu');
+								Extensions.addHeader(list, 'Menu');
 								for (var $t1 = 0; $t1 < lr.Roles.length; $t1++) {
 									var role = { $: lr.Roles[$t1] };
-									Cayita.UI.Extensions.addItem(list, ss.mkdel({ role: role, $this: this }, function(li, anchor) {
+									Extensions.addItem(list, ss.mkdel({ role: role, $this: this }, function(li, anchor) {
 										$(anchor).text(this.role.$.Title);
 										$(anchor).click(ss.mkdel({ role: this.role, $this: this.$this }, function(e) {
 											e.preventDefault();
@@ -54,7 +54,7 @@
 										}));
 									}));
 								}
-								Cayita.UI.Extensions.addItem(list, ss.mkdel(this, function(li1, anchor1) {
+								Extensions.addItem(list, ss.mkdel(this, function(li1, anchor1) {
 									$(anchor1).text('Close Session');
 									$(anchor1).click(ss.mkdel(this, function(e1) {
 										e1.preventDefault();

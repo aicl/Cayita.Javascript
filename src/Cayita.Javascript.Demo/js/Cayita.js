@@ -1,5 +1,280 @@
 ﻿(function() {
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.Extensions
+	var $Extensions = function() {
+	};
+	$Extensions.load = function(T) {
+		return function(cb, data, func, append) {
+			if (!append) {
+				$(cb).empty();
+			}
+			var $t1 = ss.getEnumerator(data);
+			try {
+				while ($t1.moveNext()) {
+					var d = $t1.current();
+					$(cb).append(func(d));
+				}
+			}
+			finally {
+				$t1.dispose();
+			}
+		};
+	};
+	$Extensions.createOption = function(T) {
+		return function(cb, data, func) {
+			$(cb).append(func(data));
+		};
+	};
+	$Extensions.updateOption = function(T) {
+		return function(cb, data, func, recordIdProperty) {
+			var old = $('option[value=' + $SystemExtensions.get(data, recordIdProperty) + ']', cb);
+			cb.replaceChild(func(data), old[0]);
+		};
+	};
+	$Extensions.removeOption = function(T) {
+		return function(cb, data, recordIdProperty) {
+			$('option[value=' + $SystemExtensions.get(data, recordIdProperty) + ']', cb).remove();
+		};
+	};
+	$Extensions.loadTo = function(T) {
+		return function(form) {
+			var data = ss.createInstance(T);
+			cayita.fn.loadTo(form, data);
+			return data;
+		};
+	};
+	$Extensions.find = function(T) {
+		return function(form, selector) {
+			return $(selector, form)[0];
+		};
+	};
+	$Extensions.findByName = function(T) {
+		return function(form, name) {
+			return $('[name=' + name + ']', form)[0];
+		};
+	};
+	$Extensions.findById = function(T) {
+		return function(form, id) {
+			return $('[id=' + id + ']', form)[0];
+		};
+	};
+	$Extensions.createRow = function(T) {
+		return function(table, data, columns, recordIdProperty) {
+			var r = new $Cayita_UI_TableRow.$ctor1(null, function(row) {
+				row.setAttribute('record-id', $SystemExtensions.get(data, recordIdProperty));
+				row.className = 'rowlink';
+				for (var $t1 = 0; $t1 < columns.length; $t1++) {
+					var col = columns[$t1];
+					var c = col.value(data);
+					if (col.hidden) {
+						$(c).hide();
+					}
+					$(row).append(c);
+					if (!ss.staticEquals(col.afterCellCreate, null)) {
+						col.afterCellCreate(data, row);
+					}
+				}
+			});
+			$(table).append(r.element$1());
+		};
+	};
+	$Extensions.updateRow = function(T) {
+		return function(table, data, columns, recordIdProperty) {
+			var row = $('tr[record-id=' + $SystemExtensions.get(data, recordIdProperty) + ']', table).empty();
+			for (var $t1 = 0; $t1 < columns.length; $t1++) {
+				var col = columns[$t1];
+				var c = col.value(data);
+				if (col.hidden) {
+					$(c).hide();
+				}
+				row.append(c);
+				if (!ss.staticEquals(col.afterCellCreate, null)) {
+					col.afterCellCreate(data, row.get(0));
+				}
+			}
+		};
+	};
+	$Extensions.removeRow = function(T) {
+		return function(table, data, recordIdProperty) {
+			var d = data;
+			$('tr[record-id=' + d[recordIdProperty] + ']', table).remove();
+		};
+	};
+	$Extensions.createHeader = function(T) {
+		return function(table, columns) {
+			new $Cayita_UI_TableHeader.$ctor1(table, function(th) {
+				new $Cayita_UI_TableRow.$ctor1(th, function(row) {
+					for (var $t1 = 0; $t1 < columns.length; $t1++) {
+						var col = columns[$t1];
+						if (ss.isNullOrUndefined(col.header)) {
+							continue;
+						}
+						var c = col.header;
+						if (col.hidden) {
+							$(c).hide();
+						}
+						$(row).append(c);
+					}
+				});
+			});
+		};
+	};
+	$Extensions.createFooter = function(T) {
+		return function(table, columns) {
+			new $Cayita_UI_TableFooter.$ctor1(table, function(tf) {
+				new $Cayita_UI_TableRow.$ctor1(tf, function(row) {
+					for (var $t1 = 0; $t1 < columns.length; $t1++) {
+						var col = columns[$t1];
+						if (ss.isNullOrUndefined(col.footer)) {
+							continue;
+						}
+						var c = col.footer;
+						if (col.hidden) {
+							$(c).hide();
+						}
+						$(row).append(c);
+					}
+				});
+			});
+		};
+	};
+	$Extensions.load$1 = function(T) {
+		return function(table, data, columns, recordIdProperty, append) {
+			var body;
+			if (table.tBodies.length === 0) {
+				body = (new $Cayita_UI_TableBody(table)).element();
+			}
+			else {
+				body = table.tBodies[0];
+				if (!append) {
+					$(body).empty();
+				}
+			}
+			var fbody = document.createDocumentFragment();
+			var $t1 = ss.getEnumerator(data);
+			try {
+				while ($t1.moveNext()) {
+					var d = { $: $t1.current() };
+					(new $Cayita_UI_TableRow.$ctor1(null, ss.mkdel({ d: d }, function(row) {
+						row.setAttribute('record-id', $SystemExtensions.get(this.d.$, recordIdProperty));
+						row.className = 'rowlink';
+						for (var $t2 = 0; $t2 < columns.length; $t2++) {
+							var col = columns[$t2];
+							var c = col.value(this.d.$);
+							if (col.hidden) {
+								$(c).hide();
+							}
+							$(row).append(c);
+							if (!ss.staticEquals(col.afterCellCreate, null)) {
+								col.afterCellCreate(this.d.$, row);
+							}
+						}
+					}))).appendTo(fbody);
+				}
+			}
+			finally {
+				$t1.dispose();
+			}
+			body.appendChild(fbody);
+		};
+	};
+	$Extensions.addItem$2 = function(parent, href, item) {
+		var il = new $Cayita_UI_ListItem(parent);
+		new $Cayita_UI_Anchor.$ctor3(il.element(), function(a) {
+			a.href = href;
+			$(a).text(item);
+		});
+	};
+	$Extensions.addItem$1 = function(parent, item) {
+		var il = new $Cayita_UI_ListItem(parent);
+		new $Cayita_UI_Anchor.$ctor3(il.element(), function(a) {
+			a.href = '#';
+			$(a).text(item);
+		});
+	};
+	$Extensions.addItem = function(parent, element) {
+		var il = new $Cayita_UI_ListItem(parent);
+		var anchor = new $Cayita_UI_Anchor.$ctor3(il.element(), function(a) {
+			a.href = '#';
+		});
+		element(il.element(), anchor.element$1());
+	};
+	$Extensions.addHeader = function(parent, item) {
+		new $Cayita_UI_ListItem.$ctor1(parent, function(l) {
+			l.className = 'nav-header';
+			$(l).text(item);
+		});
+	};
+	$Extensions.addHDivider = function(parent) {
+		new $Cayita_UI_ListItem.$ctor1(parent, function(l) {
+			l.className = 'divider';
+		});
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.StringExtensions
+	var $StringExtensions = function() {
+	};
+	$StringExtensions.header$1 = function(text, size, parent) {
+		var h = document.createElement('h' + size.toString());
+		h.innerHTML = text;
+		parent.appendChild(h);
+		return h;
+	};
+	$StringExtensions.header$2 = function(text, size, parent) {
+		var h = document.createElement('h' + size.toString());
+		h.innerHTML = text;
+		parent.append(h);
+		return h;
+	};
+	$StringExtensions.header = function(text, size) {
+		var h = document.createElement('h' + size.toString());
+		h.innerHTML = text;
+		return h;
+	};
+	$StringExtensions.paragraph$1 = function(text, parent) {
+		var h = document.createElement('p');
+		h.innerHTML = text;
+		parent.appendChild(h);
+		return h;
+	};
+	$StringExtensions.paragraph$2 = function(text, parent) {
+		var h = document.createElement('p');
+		h.innerHTML = text;
+		parent.append(h);
+		return h;
+	};
+	$StringExtensions.paragraph = function(text) {
+		var h = document.createElement('p');
+		h.innerHTML = text;
+		return h;
+	};
+	////////////////////////////////////////////////////////////////////////////////
+	// System.SystemExtensions
+	var $SystemExtensions = function() {
+	};
+	$SystemExtensions.toJsDate = function(date) {
+		if (ss.staticEquals(date, null)) {
+			return null;
+		}
+		var tick = parseInt(date.toString());
+		var d = new Date(tick);
+		return new Date(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds());
+	};
+	$SystemExtensions.format = function(date, format) {
+		if (ss.staticEquals(date, null)) {
+			return '';
+		}
+		return ss.formatDate(date, format);
+	};
+	$SystemExtensions.get = function(obj, property) {
+		return obj[property];
+	};
+	$SystemExtensions.get$1 = function(T) {
+		return function(obj, property) {
+			return ss.cast(obj[property], T);
+		};
+	};
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Data.AjaxResponse
 	var $Cayita_Data_AjaxResponse = function() {
 	};
@@ -285,7 +560,7 @@
 							while ($t29.moveNext()) {
 								var item2 = { $: $t29.current() };
 								var ur = Enumerable.from(this.$st).first(ss.mkdel({ item2: item2, $this: this }, function(f3) {
-									return ss.referenceEquals($System_SystemExtensions.get(f3, this.$this.$idProperty), $System_SystemExtensions.get(this.item2.$, this.$this.$idProperty));
+									return ss.referenceEquals($SystemExtensions.get(f3, this.$this.$idProperty), $SystemExtensions.get(this.item2.$, this.$this.$idProperty));
 								}));
 								var old = ss.createInstance(T);
 								cayita.fn.populateFrom(old, ur);
@@ -304,7 +579,7 @@
 					}
 					else {
 						var ur1 = Enumerable.from(this.$st).first(ss.mkdel(this, function(f4) {
-							return !!ss.referenceEquals($System_SystemExtensions.get(f4, this.$idProperty), res2.Get(this.$idProperty));
+							return !!ss.referenceEquals($SystemExtensions.get(f4, this.$idProperty), res2.Get(this.$idProperty));
 						}));
 						var old1 = ss.createInstance(T);
 						cayita.fn.populateFrom(old1, ur1);
@@ -340,12 +615,12 @@
 				$t38.state = 0;
 				$t39(this, $t38);
 				var data4 = {};
-				data4[this.$idProperty] = $System_SystemExtensions.get(record2, this.$idProperty);
+				data4[this.$idProperty] = $SystemExtensions.get(record2, this.$idProperty);
 				var req3 = $.post(this.$destroyApi.url, data4, function(cb3) {
 				}, this.$destroyApi.dataType);
 				req3.done(ss.mkdel(this, function(scb3) {
 					var dr = Enumerable.from(this.$st).first(ss.mkdel(this, function(f7) {
-						return ss.referenceEquals($System_SystemExtensions.get(f7, this.$idProperty), $System_SystemExtensions.get(record2, this.$idProperty));
+						return ss.referenceEquals($SystemExtensions.get(f7, this.$idProperty), $SystemExtensions.get(record2, this.$idProperty));
 					}));
 					ss.remove(this.$st, dr);
 					var $t41 = this.$1$OnStoreChangedField;
@@ -388,7 +663,7 @@
 							while ($t48.moveNext()) {
 								var item3 = { $: $t48.current() };
 								var ur2 = Enumerable.from(this.$st).first(ss.mkdel({ item3: item3, $this: this }, function(f10) {
-									return ss.referenceEquals($System_SystemExtensions.get(f10, this.$this.$idProperty), $System_SystemExtensions.get(this.item3.$, this.$this.$idProperty));
+									return ss.referenceEquals($SystemExtensions.get(f10, this.$this.$idProperty), $SystemExtensions.get(this.item3.$, this.$this.$idProperty));
 								}));
 								var old2 = ss.createInstance(T);
 								cayita.fn.populateFrom(old2, ur2);
@@ -407,7 +682,7 @@
 					}
 					else {
 						var ur3 = Enumerable.from(this.$st).first(ss.mkdel(this, function(f11) {
-							return !!ss.referenceEquals($System_SystemExtensions.get(f11, this.$idProperty), res3.Get(this.$idProperty));
+							return !!ss.referenceEquals($SystemExtensions.get(f11, this.$idProperty), res3.Get(this.$idProperty));
 						}));
 						var old3 = ss.createInstance(T);
 						cayita.fn.populateFrom(old3, ur3);
@@ -557,7 +832,7 @@
 			replace$1: function(recordId, record) {
 				var self = this;
 				var source = Enumerable.from(this.$st).first(function(f) {
-					return ss.referenceEquals($System_SystemExtensions.get(f, self.$idProperty).toString(), recordId.toString());
+					return ss.referenceEquals($SystemExtensions.get(f, self.$idProperty).toString(), recordId.toString());
 				});
 				var index = ss.indexOf(this.$st, source);
 				var old = cayita.fn.clone(source);
@@ -573,7 +848,7 @@
 			replace: function(record) {
 				var self = this;
 				var source = Enumerable.from(this.$st).first(function(f) {
-					return ss.referenceEquals($System_SystemExtensions.get(f, self.$idProperty).toString(), $System_SystemExtensions.get(record, self.$idProperty).toString());
+					return ss.referenceEquals($SystemExtensions.get(f, self.$idProperty).toString(), $SystemExtensions.get(record, self.$idProperty).toString());
 				});
 				var index = ss.indexOf(this.$st, source);
 				var old = cayita.fn.clone(source);
@@ -1696,217 +1971,6 @@
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.UI.Extensions
-	var $Cayita_UI_Extensions = function() {
-	};
-	$Cayita_UI_Extensions.load = function(T) {
-		return function(cb, data, func, append) {
-			if (!append) {
-				$(cb).empty();
-			}
-			var $t1 = ss.getEnumerator(data);
-			try {
-				while ($t1.moveNext()) {
-					var d = $t1.current();
-					$(cb).append(func(d));
-				}
-			}
-			finally {
-				$t1.dispose();
-			}
-		};
-	};
-	$Cayita_UI_Extensions.createOption = function(T) {
-		return function(cb, data, func) {
-			$(cb).append(func(data));
-		};
-	};
-	$Cayita_UI_Extensions.updateOption = function(T) {
-		return function(cb, data, func, recordIdProperty) {
-			var old = $('option[value=' + $System_SystemExtensions.get(data, recordIdProperty) + ']', cb);
-			cb.replaceChild(func(data), old[0]);
-		};
-	};
-	$Cayita_UI_Extensions.removeOption = function(T) {
-		return function(cb, data, recordIdProperty) {
-			$('option[value=' + $System_SystemExtensions.get(data, recordIdProperty) + ']', cb).remove();
-		};
-	};
-	$Cayita_UI_Extensions.loadTo = function(T) {
-		return function(form) {
-			var data = ss.createInstance(T);
-			cayita.fn.loadTo(form, data);
-			return data;
-		};
-	};
-	$Cayita_UI_Extensions.find = function(T) {
-		return function(form, selector) {
-			return $(selector, form)[0];
-		};
-	};
-	$Cayita_UI_Extensions.findByName = function(T) {
-		return function(form, name) {
-			return $('[name=' + name + ']', form)[0];
-		};
-	};
-	$Cayita_UI_Extensions.findById = function(T) {
-		return function(form, id) {
-			return $('[id=' + id + ']', form)[0];
-		};
-	};
-	$Cayita_UI_Extensions.createRow = function(T) {
-		return function(table, data, columns, recordIdProperty) {
-			var r = new $Cayita_UI_TableRow.$ctor1(null, function(row) {
-				row.setAttribute('record-id', $System_SystemExtensions.get(data, recordIdProperty));
-				row.className = 'rowlink';
-				for (var $t1 = 0; $t1 < columns.length; $t1++) {
-					var col = columns[$t1];
-					var c = col.value(data);
-					if (col.hidden) {
-						$(c).hide();
-					}
-					$(row).append(c);
-					if (!ss.staticEquals(col.afterCellCreate, null)) {
-						col.afterCellCreate(data, row);
-					}
-				}
-			});
-			$(table).append(r.element$1());
-		};
-	};
-	$Cayita_UI_Extensions.updateRow = function(T) {
-		return function(table, data, columns, recordIdProperty) {
-			var row = $('tr[record-id=' + $System_SystemExtensions.get(data, recordIdProperty) + ']', table).empty();
-			for (var $t1 = 0; $t1 < columns.length; $t1++) {
-				var col = columns[$t1];
-				var c = col.value(data);
-				if (col.hidden) {
-					$(c).hide();
-				}
-				row.append(c);
-				if (!ss.staticEquals(col.afterCellCreate, null)) {
-					col.afterCellCreate(data, row.get(0));
-				}
-			}
-		};
-	};
-	$Cayita_UI_Extensions.removeRow = function(T) {
-		return function(table, data, recordIdProperty) {
-			var d = data;
-			$('tr[record-id=' + d[recordIdProperty] + ']', table).remove();
-		};
-	};
-	$Cayita_UI_Extensions.createHeader = function(T) {
-		return function(table, columns) {
-			new $Cayita_UI_TableHeader.$ctor1(table, function(th) {
-				new $Cayita_UI_TableRow.$ctor1(th, function(row) {
-					for (var $t1 = 0; $t1 < columns.length; $t1++) {
-						var col = columns[$t1];
-						if (ss.isNullOrUndefined(col.header)) {
-							continue;
-						}
-						var c = col.header;
-						if (col.hidden) {
-							$(c).hide();
-						}
-						$(row).append(c);
-					}
-				});
-			});
-		};
-	};
-	$Cayita_UI_Extensions.createFooter = function(T) {
-		return function(table, columns) {
-			new $Cayita_UI_TableFooter.$ctor1(table, function(tf) {
-				new $Cayita_UI_TableRow.$ctor1(tf, function(row) {
-					for (var $t1 = 0; $t1 < columns.length; $t1++) {
-						var col = columns[$t1];
-						if (ss.isNullOrUndefined(col.footer)) {
-							continue;
-						}
-						var c = col.footer;
-						if (col.hidden) {
-							$(c).hide();
-						}
-						$(row).append(c);
-					}
-				});
-			});
-		};
-	};
-	$Cayita_UI_Extensions.load$1 = function(T) {
-		return function(table, data, columns, recordIdProperty, append) {
-			var body;
-			if (table.tBodies.length === 0) {
-				body = (new $Cayita_UI_TableBody(table)).element();
-			}
-			else {
-				body = table.tBodies[0];
-				if (!append) {
-					$(body).empty();
-				}
-			}
-			var fbody = document.createDocumentFragment();
-			var $t1 = ss.getEnumerator(data);
-			try {
-				while ($t1.moveNext()) {
-					var d = { $: $t1.current() };
-					(new $Cayita_UI_TableRow.$ctor1(null, ss.mkdel({ d: d }, function(row) {
-						row.setAttribute('record-id', this.d.$[recordIdProperty]);
-						row.className = 'rowlink';
-						for (var $t2 = 0; $t2 < columns.length; $t2++) {
-							var col = columns[$t2];
-							var c = col.value(this.d.$);
-							if (col.hidden) {
-								$(c).hide();
-							}
-							$(row).append(c);
-							if (!ss.staticEquals(col.afterCellCreate, null)) {
-								col.afterCellCreate(this.d.$, row);
-							}
-						}
-					}))).appendTo(fbody);
-				}
-			}
-			finally {
-				$t1.dispose();
-			}
-			body.appendChild(fbody);
-		};
-	};
-	$Cayita_UI_Extensions.addItem$2 = function(parent, href, item) {
-		var il = new $Cayita_UI_ListItem(parent);
-		new $Cayita_UI_Anchor.$ctor3(il.element(), function(a) {
-			a.href = href;
-			$(a).text(item);
-		});
-	};
-	$Cayita_UI_Extensions.addItem$1 = function(parent, item) {
-		var il = new $Cayita_UI_ListItem(parent);
-		new $Cayita_UI_Anchor.$ctor3(il.element(), function(a) {
-			a.href = '#';
-			$(a).text(item);
-		});
-	};
-	$Cayita_UI_Extensions.addItem = function(parent, element) {
-		var il = new $Cayita_UI_ListItem(parent);
-		var anchor = new $Cayita_UI_Anchor.$ctor3(il.element(), function(a) {
-			a.href = '#';
-		});
-		element(il.element(), anchor.element$1());
-	};
-	$Cayita_UI_Extensions.addHeader = function(parent, item) {
-		new $Cayita_UI_ListItem.$ctor1(parent, function(l) {
-			l.className = 'nav-header';
-			$(l).text(item);
-		});
-	};
-	$Cayita_UI_Extensions.addHDivider = function(parent) {
-		new $Cayita_UI_ListItem.$ctor1(parent, function(l) {
-			l.className = 'divider';
-		});
-	};
-	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.FieldSet
 	var $Cayita_UI_FieldSet = function(parent) {
 		$Cayita_UI_ElementBase.call(this);
@@ -1982,7 +2046,7 @@
 				$(this.$table).keydown(ss.mkdel(this, function(evt1) {
 					this.keydownHandler(evt1);
 				}));
-				$Cayita_UI_Extensions.createHeader(T).call(null, this.$table, this.$columns);
+				$Extensions.createHeader(T).call(null, this.$table, this.$columns);
 				var $t1 = $Cayita_UI_RequestMessage.$ctor();
 				$t1.target = this.$table;
 				$t1.message = 'Reading ' + ss.getTypeName(T);
@@ -2004,44 +2068,44 @@
 				this.$store.add_onStoreChanged(ss.mkdel(this, function(st, dt) {
 					switch (dt.action) {
 						case 0: {
-							$Cayita_UI_Extensions.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							$Extensions.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
 							break;
 						}
 						case 11:
 						case 10:
 						case 1: {
-							$Cayita_UI_Extensions.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
+							$Extensions.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
 							this.selectRow(true);
 							break;
 						}
 						case 2: {
-							$Cayita_UI_Extensions.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							$Extensions.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
 							break;
 						}
 						case 3: {
-							var recordId = $System_SystemExtensions.get(dt.oldData, this.$store.getRecordIdProperty());
+							var recordId = $SystemExtensions.get(dt.oldData, this.$store.getRecordIdProperty());
 							$('tr[record-id=' + recordId + ']', this.$table).remove();
 							this.selectRow(true);
 							break;
 						}
 						case 4: {
-							$Cayita_UI_Extensions.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							$Extensions.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
 							break;
 						}
 						case 5: {
-							$Cayita_UI_Extensions.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							$Extensions.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
 							break;
 						}
 						case 7: {
-							$Cayita_UI_Extensions.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							$Extensions.updateRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
 							break;
 						}
 						case 6: {
-							$Cayita_UI_Extensions.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
+							$Extensions.createRow(T).call(null, this.$table, dt.newData, this.$columns, this.$store.getRecordIdProperty());
 							break;
 						}
 						case 8: {
-							var id = $System_SystemExtensions.get(dt.oldData, this.$store.getRecordIdProperty());
+							var id = $SystemExtensions.get(dt.oldData, this.$store.getRecordIdProperty());
 							$('tr[record-id=' + id + ']', this.$table).remove();
 							this.selectRow(true);
 							break;
@@ -2163,7 +2227,7 @@
 				return this.$selectedrow;
 			},
 			render: function() {
-				$Cayita_UI_Extensions.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
+				$Extensions.load$1(T).call(null, this.$table, this.$store, this.$columns, this.$store.getRecordIdProperty(), false);
 				this.selectRow(true);
 			},
 			selectRow$1: function(recordId, trigger) {
@@ -2185,7 +2249,7 @@
 				$('tbody tr', this.$table).removeClass('info');
 				$(row).addClass('info');
 				var record = Enumerable.from(this.$store).first(function(f) {
-					return ss.referenceEquals($System_SystemExtensions.get(f, self.$store.getRecordIdProperty()).toString(), row.getAttribute('record-id'));
+					return ss.referenceEquals($SystemExtensions.get(f, self.$store.getRecordIdProperty()).toString(), row.getAttribute('record-id'));
 				});
 				var $t1 = ss.makeGenericType($Cayita_UI_ClickedRow$1, [T]).$ctor();
 				$t1.recordId = row.getAttribute('record-id');
@@ -2325,7 +2389,7 @@
 		},
 		load: function(T) {
 			return function(data, func) {
-				$Cayita_UI_Extensions.load(T).call(null, this.element$1(), data, func, false);
+				$Extensions.load(T).call(null, this.element$1(), data, func, false);
 			};
 		},
 		selectItem: function(value) {
@@ -2712,7 +2776,7 @@
 					$(icon1).hide();
 				}
 			}));
-			this.$captionElement = $Cayita_UI_StringExtensions.header(this.$pc.caption, 6);
+			this.$captionElement = $StringExtensions.header(this.$pc.caption, 6);
 			$(this.$pc.header).append(this.$captionElement);
 			$(this.$pc.container).css('left', this.$pc.left).css('top', this.$pc.top);
 			$(this.$pc.body).css('width', this.$pc.width).css('height', this.$pc.height);
@@ -3252,8 +3316,8 @@
 				if (ss.isNullOrUndefined(sr)) {
 					return;
 				}
-				cayita.fn.setValue(this.$he, $System_SystemExtensions.get(sr.record, this.$cfg.indexField));
-				cayita.fn.setValue(this.$te, $System_SystemExtensions.get(sr.record, this.$cfg.textField));
+				cayita.fn.setValue(this.$he, $SystemExtensions.get(sr.record, this.$cfg.indexField));
+				cayita.fn.setValue(this.$te, $SystemExtensions.get(sr.record, this.$cfg.textField));
 				this.$searchText = this.$te.value;
 				this.$searchIndex = this.$he.value;
 				$(this.$body).hide();
@@ -3495,7 +3559,7 @@
 				store.add_onStoreChanged(ss.mkdel(this, function(st, dt) {
 					switch (dt.action) {
 						case 0: {
-							$Cayita_UI_Extensions.createOption(T).call(null, this.$se$1, dt.newData, optionFunc);
+							$Extensions.createOption(T).call(null, this.$se$1, dt.newData, optionFunc);
 							break;
 						}
 						case 11:
@@ -3506,32 +3570,32 @@
 							break;
 						}
 						case 2: {
-							$Cayita_UI_Extensions.updateOption(T).call(null, this.$se$1, dt.newData, optionFunc, store.getRecordIdProperty());
+							$Extensions.updateOption(T).call(null, this.$se$1, dt.newData, optionFunc, store.getRecordIdProperty());
 							break;
 						}
 						case 3: {
-							$Cayita_UI_Extensions.removeOption(T).call(null, this.$se$1, dt.oldData, store.getRecordIdProperty());
+							$Extensions.removeOption(T).call(null, this.$se$1, dt.oldData, store.getRecordIdProperty());
 							this.selectOption();
 							break;
 						}
 						case 4: {
-							$Cayita_UI_Extensions.updateOption(T).call(null, this.$se$1, dt.newData, optionFunc, store.getRecordIdProperty());
+							$Extensions.updateOption(T).call(null, this.$se$1, dt.newData, optionFunc, store.getRecordIdProperty());
 							break;
 						}
 						case 5: {
-							$Cayita_UI_Extensions.createOption(T).call(null, this.$se$1, dt.newData, optionFunc);
+							$Extensions.createOption(T).call(null, this.$se$1, dt.newData, optionFunc);
 							break;
 						}
 						case 7: {
-							$Cayita_UI_Extensions.updateOption(T).call(null, this.$se$1, dt.newData, optionFunc, store.getRecordIdProperty());
+							$Extensions.updateOption(T).call(null, this.$se$1, dt.newData, optionFunc, store.getRecordIdProperty());
 							break;
 						}
 						case 6: {
-							$Cayita_UI_Extensions.createOption(T).call(null, this.$se$1, dt.newData, optionFunc);
+							$Extensions.createOption(T).call(null, this.$se$1, dt.newData, optionFunc);
 							break;
 						}
 						case 8: {
-							$Cayita_UI_Extensions.removeOption(T).call(null, this.$se$1, dt.oldData, store.getRecordIdProperty());
+							$Extensions.removeOption(T).call(null, this.$se$1, dt.oldData, store.getRecordIdProperty());
 							this.selectOption();
 							break;
 						}
@@ -3547,11 +3611,11 @@
 				var append = false;
 				if (ss.isValue(this.$defaultoption.option) && ss.isNullOrEmptyString(this.$defaultoption.option.value)) {
 					append = true;
-					$Cayita_UI_Extensions.createOption(T).call(null, this.$se$1, this.$defaultoption.record, ss.mkdel(this, function(f) {
+					$Extensions.createOption(T).call(null, this.$se$1, this.$defaultoption.record, ss.mkdel(this, function(f) {
 						return this.$defaultoption.option;
 					}));
 				}
-				$Cayita_UI_Extensions.load(T).call(null, this.$se$1, this.$store, this.$optionFunc, append);
+				$Extensions.load(T).call(null, this.$se$1, this.$store, this.$optionFunc, append);
 				if (!ss.isNullOrEmptyString(this.$defaultoption.option.value)) {
 					var $t1 = this.$se$1;
 					$('option[value=' + this.$defaultoption.option.value + ']', $t1).attr('selected', true);
@@ -3580,7 +3644,7 @@
 				if (!ss.isNullOrEmptyString(recordId)) {
 					var self = this;
 					var record = Enumerable.from(this.$store).first(function(f) {
-						return ss.referenceEquals($System_SystemExtensions.get(f, self.$store.getRecordIdProperty()).toString(), option.value);
+						return ss.referenceEquals($SystemExtensions.get(f, self.$store.getRecordIdProperty()).toString(), option.value);
 					});
 					var $t1 = ss.makeGenericType($Cayita_UI_SelectedOption$1, [T]).$ctor();
 					$t1.option = option;
@@ -3841,44 +3905,6 @@
 	};
 	ss.registerGenericClass(global, 'Cayita.UI.StorePaging$1', $Cayita_UI_StorePaging$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.UI.StringExtensions
-	var $Cayita_UI_StringExtensions = function() {
-	};
-	$Cayita_UI_StringExtensions.header$1 = function(text, size, parent) {
-		var h = document.createElement('h' + size.toString());
-		h.innerHTML = text;
-		parent.appendChild(h);
-		return h;
-	};
-	$Cayita_UI_StringExtensions.header$2 = function(text, size, parent) {
-		var h = document.createElement('h' + size.toString());
-		h.innerHTML = text;
-		parent.append(h);
-		return h;
-	};
-	$Cayita_UI_StringExtensions.header = function(text, size) {
-		var h = document.createElement('h' + size.toString());
-		h.innerHTML = text;
-		return h;
-	};
-	$Cayita_UI_StringExtensions.paragraph$1 = function(text, parent) {
-		var h = document.createElement('p');
-		h.innerHTML = text;
-		parent.appendChild(h);
-		return h;
-	};
-	$Cayita_UI_StringExtensions.paragraph$2 = function(text, parent) {
-		var h = document.createElement('p');
-		h.innerHTML = text;
-		parent.append(h);
-		return h;
-	};
-	$Cayita_UI_StringExtensions.paragraph = function(text) {
-		var h = document.createElement('p');
-		h.innerHTML = text;
-		return h;
-	};
-	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.SubmitButton
 	var $Cayita_UI_SubmitButton = function(parent) {
 		$Cayita_UI_ButtonBase.call(this);
@@ -3956,7 +3982,7 @@
 			}
 			if (ss.staticEquals(val, null)) {
 				val = function(t, c1) {
-					$(c1).text($System_SystemExtensions.get(t, index));
+					$(c1).text($SystemExtensions.get(t, index));
 				};
 			}
 			$this.value = function(t1) {
@@ -4222,32 +4248,9 @@
 		}));
 	};
 	$Cayita_UI_TopNavBar.$ctor1.prototype = $Cayita_UI_TopNavBar.prototype;
-	////////////////////////////////////////////////////////////////////////////////
-	// System.SystemExtensions
-	var $System_SystemExtensions = function() {
-	};
-	$System_SystemExtensions.toJsDate = function(date) {
-		if (ss.staticEquals(date, null)) {
-			return null;
-		}
-		var tick = parseInt(date.toString());
-		var d = new Date(tick);
-		return new Date(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds());
-	};
-	$System_SystemExtensions.format = function(date, format) {
-		if (ss.staticEquals(date, null)) {
-			return '';
-		}
-		return ss.formatDate(date, format);
-	};
-	$System_SystemExtensions.get = function(obj, property) {
-		return obj[property];
-	};
-	$System_SystemExtensions.get$1 = function(T) {
-		return function(obj, property) {
-			return ss.cast(obj[property], T);
-		};
-	};
+	ss.registerClass(global, 'Extensions', $Extensions);
+	ss.registerClass(global, 'StringExtensions', $StringExtensions);
+	ss.registerClass(global, 'SystemExtensions', $SystemExtensions);
 	ss.registerClass(global, 'Cayita.Data.AjaxResponse', $Cayita_Data_AjaxResponse);
 	ss.registerClass(global, 'Cayita.Data.AppError', $Cayita_Data_AppError);
 	ss.registerClass(global, 'Cayita.Data.ReadOptions', $Cayita_Data_ReadOptions);
@@ -4272,7 +4275,6 @@
 	ss.registerClass(global, 'Cayita.UI.CheckboxField', $Cayita_UI_CheckboxField, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.DialogButton', $Cayita_UI_DialogButton);
 	ss.registerClass(global, 'Cayita.UI.DialogOptions', $Cayita_UI_DialogOptions);
-	ss.registerClass(global, 'Cayita.UI.Extensions', $Cayita_UI_Extensions);
 	ss.registerClass(global, 'Cayita.UI.FieldSet', $Cayita_UI_FieldSet, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Form', $Cayita_UI_Form, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.HtmlList', $Cayita_UI_HtmlList, $Cayita_UI_ElementBase);
@@ -4304,7 +4306,6 @@
 	ss.registerClass(global, 'Cayita.UI.SideNavBar', $Cayita_UI_SideNavBar, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.Span', $Cayita_UI_Span, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.SpinnerIcon', $Cayita_UI_SpinnerIcon, $Cayita_UI_Div);
-	ss.registerClass(global, 'Cayita.UI.StringExtensions', $Cayita_UI_StringExtensions);
 	ss.registerClass(global, 'Cayita.UI.SubmitButton', $Cayita_UI_SubmitButton, $Cayita_UI_ButtonBase);
 	ss.registerClass(global, 'Cayita.UI.TableBody', $Cayita_UI_TableBody, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.TableCell', $Cayita_UI_TableCell, $Cayita_UI_ElementBase);
@@ -4315,6 +4316,5 @@
 	ss.registerClass(global, 'Cayita.UI.TextAreaField', $Cayita_UI_TextAreaField, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.TextField', $Cayita_UI_TextField, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.TopNavBar', $Cayita_UI_TopNavBar, $Cayita_UI_Div);
-	ss.registerClass(global, 'System.SystemExtensions', $System_SystemExtensions);
 	$Cayita_UI_ElementBase.$tags = new (ss.makeGenericType(ss.Dictionary$2, [String, ss.Int32]))();
 })();

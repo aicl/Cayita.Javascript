@@ -90,7 +90,7 @@
 	var $DemoTables = function() {
 	};
 	$DemoTables.execute = function(parent) {
-		$(parent).append(Cayita.UI.StringExtensions.header('CRUD', 3));
+		$(parent).append(StringExtensions.header('CRUD', 3));
 		(new Cayita.UI.Div.$ctor2(null, function(div) {
 			div.className = 'bs-docs-example';
 			$DemoTables.$uGrid = new $UserGrid(div, new $UserStore());
@@ -118,21 +118,21 @@
 			}
 		});
 		var vo = Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.setSubmitHandler(Cayita.Plugins.ValidateOptions.$ctor(), function(form) {
-			var user = Cayita.UI.Extensions.loadTo($User).call(null, form);
+			var user = Extensions.loadTo($User).call(null, form);
 			$DemoTables.$uGrid.getStore$1().save(user);
 			$DemoTables.$uGrid.selectRow$1(user.Id, true);
 		}), function(r, m) {
-			r.element = Cayita.UI.Extensions.findByName(Element).call(null, $DemoTables.$uForm.element$1(), 'Name');
+			r.element = Extensions.findByName(Element).call(null, $DemoTables.$uForm.element$1(), 'Name');
 			Cayita.Plugins.Rule.required(r.rule);
 			Cayita.Plugins.Rule.minlength(r.rule, 6);
 			Cayita.Plugins.Message.required(m, 'write username');
 			Cayita.Plugins.Message.minlength(m, 'min 6 chars');
 		}), function(r1, m1) {
-			r1.element = Cayita.UI.Extensions.findByName(Element).call(null, $DemoTables.$uForm.element$1(), 'Email');
+			r1.element = Extensions.findByName(Element).call(null, $DemoTables.$uForm.element$1(), 'Email');
 			Cayita.Plugins.Rule.email(r1.rule, null);
 			Cayita.Plugins.Message.email(m1, 'write a valid email address');
 		}), function(r2, m2) {
-			r2.element = Cayita.UI.Extensions.findByName(Element).call(null, $DemoTables.$uForm.element$1(), 'Rating');
+			r2.element = Extensions.findByName(Element).call(null, $DemoTables.$uForm.element$1(), 'Rating');
 			cayita.fn.autoNumeric(r2.element, { mDec: 0, wEmpty: 'zero' });
 			Cayita.Plugins.Rule.max(r2.rule, 10000);
 			Cayita.Plugins.Rule.min(r2.rule, 0);
@@ -141,7 +141,7 @@
 		$DemoTables.$uGrid.getStore$1().read(null, true);
 		$DemoTables.$uGrid.jQuery().focus();
 		$DemoTables.$showCodeCrud(parent);
-		$(parent).append(Cayita.UI.StringExtensions.header('Paged Tables', 3));
+		$(parent).append(StringExtensions.header('Paged Tables', 3));
 		(new Cayita.UI.Div.$ctor2(null, function(div1) {
 			div1.className = 'bs-docs-example';
 			new Cayita.UI.Div.$ctor2(div1, function(ct) {
@@ -151,7 +151,7 @@
 			new (ss.makeGenericType(Cayita.UI.StorePaging$1, [$Customer]))(div1, $DemoTables.$cGrid.getStore$1());
 		})).appendTo$1(parent);
 		$DemoTables.$cGrid.getStore$1().read$1();
-		$(parent).append(Cayita.UI.StringExtensions.header('Filters', 3));
+		$(parent).append(StringExtensions.header('Filters', 3));
 		var gc = null;
 		(new Cayita.UI.Div.$ctor2(null, function(div2) {
 			div2.className = 'bs-docs-example';
@@ -287,13 +287,13 @@
 	};
 	$UserForm.prototype = {
 		getSaveButton: function() {
-			return Cayita.UI.Extensions.findById(Element).call(null, this.$f, 'btn-save');
+			return Extensions.findById(Element).call(null, this.$f, 'btn-save');
 		},
 		getDestroyButton: function() {
-			return Cayita.UI.Extensions.findById(Element).call(null, this.$f, 'btn-destroy');
+			return Extensions.findById(Element).call(null, this.$f, 'btn-destroy');
 		},
 		getCreateButton: function() {
-			return Cayita.UI.Extensions.findById(Element).call(null, this.$f, 'btn-create');
+			return Extensions.findById(Element).call(null, this.$f, 'btn-create');
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////

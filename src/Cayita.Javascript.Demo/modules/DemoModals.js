@@ -4,7 +4,7 @@
 	var $DemoModals = function() {
 	};
 	$DemoModals.execute = function(parent) {
-		$(parent).append(Cayita.UI.StringExtensions.header('Modals', 2));
+		$(parent).append(StringExtensions.header('Modals', 2));
 		(new Cayita.UI.Div.$ctor2(null, function(div) {
 			div.className = 'bs-docs-example';
 			$(div).append((new Cayita.UI.Button.$ctor2(div, function(b) {
