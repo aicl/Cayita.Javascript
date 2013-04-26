@@ -1,4 +1,4 @@
-Cayita is a library for building Webapps using C# as base language and the Saltarelle compiler ( http://www.saltarelle-compiler.com)
+Cayita is a library for building Webapps using C# as base language and the Saltarelle compiler (http://www.saltarelle-compiler.com)
 
 Saltarelle compiler allows you to write apps  that run in any modern web browser, using your favourite programming tools:  C# and Visual Studio or Monodevelop.
 
@@ -70,7 +70,7 @@ new Form( container, f=>{
     });  
 });  
 ```
-imagen = (https://raw.github.com/aicl/aicl.github.com/master/img/form.demo-1.png)
+![demo img](https://raw.github.com/aicl/aicl.github.com/master/img/form.demo-1.png)
 
 ##Requirements:
 * **Development**
@@ -80,15 +80,14 @@ imagen = (https://raw.github.com/aicl/aicl.github.com/master/img/form.demo-1.png
 * Saltarelle.Web.dll
 * Saltarelle.Linq.dll
 * Cayita.Javascript.dll
-* mscorlib.dll
+* Saltarelle mscorlib.dll
 * **Production**
 * Cayita.js
-* mscorlib.js ( from saltarelle)
-* linq.js ( from saltarelle)
-* jquery-1.9.1.js
+* Saltarelle mscorlib.js  & linq.js (http://www.saltarelle-compiler.com)
+* jquery-1.9.1.js (http://jquery.com)
+* Draggable, Resizable and Calendar plugins from jQuery UI 1.10.2 (http://jqueryui.com)
 * autonumeric-1.8.7.js (http://www.decorplanit.com/plugin/)
 * jQuery Validation Plugin - v1.11.0 - 2/4/2013  (https://github.com/jzaefferer/jquery-validation)
-* Calendar plugin from jQuery UI 1.10.2
 * Twitter Boostrap (Jasny version http://jasny.github.com/bootstrap/)
 * Font Awesome (http://fortawesome.github.com/Font-Awesome/)
 * alertify (http://fabien-d.github.io/alertify.js/)
