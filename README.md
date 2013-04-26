@@ -1,4 +1,4 @@
-Cayita is a library for building Webapps using C# as base language and the Saltarelle compiler (http://www.saltarelle-compiler.com)
+Cayita is a CSharp library for the Saltarelle compiler (http://www.saltarelle-compiler.com), based on jQuery and Twitter's bootstrap, for writing webapps that run in any modern web browser, using your favourite programming tools: C# and Visual Studio/Monodevelop.)
 
 Saltarelle compiler allows you to write apps  that run in any modern web browser, using your favourite programming tools:  C# and Visual Studio or Monodevelop.
 

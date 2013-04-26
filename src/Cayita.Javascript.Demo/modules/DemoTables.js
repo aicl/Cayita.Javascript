@@ -17,7 +17,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Javascript.DemoTables.CustomerGrid
 	var $CustomerGrid = function(parent, store) {
-		$CustomerGrid.$ctor1.call(this, parent, store, null);
+		$CustomerGrid.$ctor1.call(this, parent, store, $CustomerGrid.defineColumns());
 	};
 	$CustomerGrid.prototype = {
 		getStore$1: function() {

@@ -117,10 +117,11 @@ namespace Cayita.Javascritp.App
 		void GoHome()
 		{
 			Work.Empty ();
-			Work.Append (@"<p>Cayita is a library for building Webapps using C#  as base language and the Saltarelle compiler ( <a href=""http://www.saltarelle-compiler.com"" target=""_blank"">http://www.saltarelle-compiler.com</a>)
+			Work.Append (@"<p>Cayita is a CSharp library for the 
+<a href=""http://www.saltarelle-compiler.com"" target=""_blank"">Saltarelle compiler </a>,
+ based on jQuery and Twitter's bootstrap, for writing webapps  that run in any modern web browser,
+ using your favourite programming tools: C# and Visual Studio/Monodevelop.)
 </p>
-
-<p>Saltarelle compiler allows you to write apps  that run in any modern web browser, using your favourite programming tools:  C# and Visual Studio or Monodevelop.</p>
 
 <p>Saltarelle compiler gives you  all the advantages of C#:  static type checking, IntelliSense (that really works) and lambda expressions when writing code for the browser. </p>
 
