@@ -169,18 +169,7 @@ namespace Cayita.UI
 		}
 
 		//
-
-		public static void AddItem(this ListElement parent, string href, string item)
-		{
-			var il = new ListItem(parent);
-			new Anchor(il.Element(),
-			           a=>{
-				a.Href= href;
-				a.Text( item );
-			});
-
-		}
-		
+				
 		/// <summary>
 		/// Adds a item.
 		/// </summary>
@@ -193,6 +182,24 @@ namespace Cayita.UI
 				a.Href= "#";
 				a.Text(item);
 			});
+		}
+
+
+		/// <summary>
+		/// Adds the item.
+		/// </summary>
+		/// <param name="parent">Parent.</param>
+		/// <param name="item">Item.</param>
+		/// <param name="action">Action<jQueryEvent></para>.</param>
+		public static void AddItem(this ListElement parent, string item, Action<jQueryEvent> action)
+		{
+			var il = new ListItem(parent);
+			new Anchor(il.Element(), a=>{
+				a.Href= "#";
+				a.Text(item);
+				a.OnClick(evt=> action(evt) );
+			});
+
 		}
 
 		/// <summary>
@@ -227,7 +234,6 @@ namespace Cayita.UI
 			});
 			
 		}
-
 
 		//
 

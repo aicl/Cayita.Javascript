@@ -73,22 +73,10 @@
 		},
 		$showTopNavBar: function() {
 			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(null, 'Cayita.Javascript - demo', '', '', ss.mkdel(this, function(nav) {
-				Extensions.addItem(nav, ss.mkdel(this, function(l, a) {
-					$(a).text('Home');
-					$(a).on('click', ss.mkdel(this, this.$goHomeClick));
-				}));
-				Extensions.addItem(nav, ss.mkdel(this, function(l1, a1) {
-					$(a1).text('License');
-					$(a1).on('click', ss.mkdel(this, this.$goLicense));
-				}));
-				Extensions.addItem(nav, ss.mkdel(this, function(l2, a2) {
-					$(a2).text('Contact');
-					$(a2).on('click', ss.mkdel(this, this.$goContact));
-				}));
-				Extensions.addItem(nav, ss.mkdel(this, function(l3, a3) {
-					$(a3).text('About');
-					$(a3).on('click', ss.mkdel(this, this.$goAbout));
-				}));
+				Extensions.addItem$2(nav, 'Home', ss.mkdel(this, this.$goHomeClick));
+				Extensions.addItem$2(nav, 'License', ss.mkdel(this, this.$goLicense));
+				Extensions.addItem$2(nav, 'Contact', ss.mkdel(this, this.$goContact));
+				Extensions.addItem$2(nav, 'About', ss.mkdel(this, this.$goAbout));
 			})));
 			this.get_$topNavBar().addClass$1('navbar-inverse navbar-fixed-top').appendTo$1(document.body);
 		},
@@ -103,25 +91,22 @@
 							var $t1 = this.get_$menuItems();
 							for (var $t2 = 0; $t2 < $t1.length; $t2++) {
 								var item = { $: $t1[$t2] };
-								Extensions.addItem(list, ss.mkdel({ item: item, $this: this }, function(li, anchor) {
-									$(anchor).text(this.item.$.get_title());
-									$(anchor).on('click', ss.mkdel({ item: this.item, $this: this.$this }, function(e) {
-										e.preventDefault();
-										this.$this.get_$work().empty();
-										if (ss.contains(this.$this.$modules, this.item.$.get_class())) {
-											var $t3 = this.$this;
-											var $t4 = this.$this.get_$work().element$1();
-											window[this.item.$.get_class()]['execute']($t4);
-										}
-										else {
-											$.getScript(this.item.$.get_file(), ss.mkdel({ item: this.item, $this: this.$this }, function(o) {
-												ss.add(this.$this.$modules, this.item.$.get_class());
-												var $t5 = this.$this;
-												var $t6 = this.$this.get_$work().element$1();
-												window[this.item.$.get_class()]['execute']($t6);
-											}));
-										}
-									}));
+								Extensions.addItem$2(list, item.$.get_title(), ss.mkdel({ item: item, $this: this }, function(e) {
+									e.preventDefault();
+									this.$this.get_$work().empty();
+									if (ss.contains(this.$this.$modules, this.item.$.get_class())) {
+										var $t3 = this.$this;
+										var $t4 = this.$this.get_$work().element$1();
+										window[this.item.$.get_class()]['execute']($t4);
+									}
+									else {
+										$.getScript(this.item.$.get_file(), ss.mkdel({ item: this.item, $this: this.$this }, function(o) {
+											ss.add(this.$this.$modules, this.item.$.get_class());
+											var $t5 = this.$this;
+											var $t6 = this.$this.get_$work().element$1();
+											window[this.item.$.get_class()]['execute']($t6);
+										}));
+									}
 								}));
 							}
 						}));

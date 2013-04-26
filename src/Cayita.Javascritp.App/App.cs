@@ -55,22 +55,10 @@ namespace Cayita.Javascritp.App
 		{
 			TopNavBar= new TopNavBar(null,"Cayita.Javascript - demo","","",nav=>{
 
-				nav.AddItem((l,a)=>{
-					a.Text("Home");
-					a.OnClick(GoHomeClick);
-				});
-				nav.AddItem((l,a)=>{
-					a.Text("License");
-					a.OnClick(GoLicense);
-				});
-				nav.AddItem((l,a)=>{
-					a.Text("Contact");
-					a.OnClick(GoContact);
-				});
-				nav.AddItem((l,a)=>{
-					a.Text("About");
-					a.OnClick(GoAbout);
-				});
+				nav.AddItem("Home", GoHomeClick);
+				nav.AddItem("License",GoLicense);
+				nav.AddItem("Contact",GoContact);
+				nav.AddItem("About",GoAbout);
 
 			});
 
@@ -88,23 +76,20 @@ namespace Cayita.Javascritp.App
 							list.AddHeader( "Main Menu");
 							list.AddHDivider();
 							foreach(var item in MenuItems){
-								list.AddItem( (li,anchor)=>{
-									anchor.Text(item.Title);
-									anchor.OnClick(e=>{
-										e.PreventDefault();
-										Work.Empty();
-										if(modules.Contains(item.Class))
-										{
+								list.AddItem( item.Title, e=> {
+									e.PreventDefault();
+									Work.Empty();
+									if(modules.Contains(item.Class))
+									{
+										ExecuteModule(Work.Element(), item.Class);
+									}
+									else
+									{
+										jQuery.GetScript(item.File, (o)=>{
+											modules.Add(item.Class);
 											ExecuteModule(Work.Element(), item.Class);
-										}
-										else
-										{
-											jQuery.GetScript(item.File, (o)=>{
-												modules.Add(item.Class);
-												ExecuteModule(Work.Element(), item.Class);
-											});											
-										}
-									});
+										});											
+									}
 								});
 							}
 						});

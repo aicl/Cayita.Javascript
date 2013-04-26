@@ -178,18 +178,21 @@
 			body.appendChild(fbody);
 		};
 	};
-	$Extensions.addItem$2 = function(parent, href, item) {
-		var il = new $Cayita_UI_ListItem(parent);
-		new $Cayita_UI_Anchor.$ctor3(il.element$1(), function(a) {
-			a.href = href;
-			$(a).text(item);
-		});
-	};
 	$Extensions.addItem$1 = function(parent, item) {
 		var il = new $Cayita_UI_ListItem(parent);
 		new $Cayita_UI_Anchor.$ctor3(il.element$1(), function(a) {
 			a.href = '#';
 			$(a).text(item);
+		});
+	};
+	$Extensions.addItem$2 = function(parent, item, action) {
+		var il = new $Cayita_UI_ListItem(parent);
+		new $Cayita_UI_Anchor.$ctor3(il.element$1(), function(a) {
+			a.href = '#';
+			$(a).text(item);
+			$(a).on('click', function(evt) {
+				action(evt);
+			});
 		});
 	};
 	$Extensions.addItem = function(parent, element) {
