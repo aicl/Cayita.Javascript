@@ -2025,16 +2025,16 @@
 			this.$3$OnRowClickedField = null;
 			this.$3$OnKeyField = null;
 			$Cayita_UI_HtmlTable.call(this);
-			this.$init(parent, new (ss.makeGenericType($Cayita_Data_Store$1, [T]))(), []);
+			this.$init(parent, new (ss.makeGenericType($Cayita_Data_Store$1, [T]))(), null);
 		};
 		$type.prototype = {
-			$init: function(parent, datastore, tablecolumns) {
+			$init: function(parent, datastore, cols) {
 				this.createElement('table', parent);
 				this.$table = this.element$1();
 				this.$table.tabIndex = -1;
 				this.$table.className = 'table table-striped table-hover table-condensed';
 				this.$table.setAttribute('data-provides', 'rowlink');
-				this.$columns = tablecolumns;
+				this.$columns = cols || ss.makeGenericType($Cayita_UI_TableColumn$1, [T]).buildColumns(true);
 				this.$store = datastore;
 				this.$3$OnRowSelectedField = function(grid, row) {
 				};
@@ -3961,6 +3961,16 @@
 		};
 		$type.createInstance = function() {
 			return $type.$ctor();
+		};
+		$type.buildColumns = function(autoHeader) {
+			var cols = [];
+			var o = ss.createInstance(T);
+			var props = cayita.fn.getProperties(o);
+			for (var $t1 = 0; $t1 < props.length; $t1++) {
+				var p = props[$t1];
+				ss.add(cols, $type.$ctor1(p, null, null, autoHeader));
+			}
+			return cols;
 		};
 		$type.$ctor = function() {
 			var $this = {};

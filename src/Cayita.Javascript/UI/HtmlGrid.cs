@@ -48,24 +48,23 @@ namespace Cayita.UI
 
 		protected HtmlGrid (Element parent)
 		{
-			Init (parent, new Store<T>(), new List<TableColumn<T>>() );
+			Init (parent, new Store<T>()  );
 		}
 
-		public HtmlGrid (Element parent,  Store<T> store, List<TableColumn<T>> columns)
+		public HtmlGrid (Element parent,  Store<T> store, List<TableColumn<T>> columns=null)
 		{
-
 			Init(parent, store, columns);
-
 		}
 
-		private void Init(Element parent,  Store<T> datastore, List<TableColumn<T>> tablecolumns )
+
+		private void Init(Element parent,  Store<T> datastore, List<TableColumn<T>> cols=null )
 		{
 			CreateElement("table", parent);
 			table =Element();
 			table.TabIndex = -1;
 			table.ClassName = "table table-striped table-hover table-condensed";
 			table.SetAttribute ("data-provides", "rowlink");
-			columns= tablecolumns;
+			columns = cols ?? TableColumn<T>.BuildColumns (true);
 			store= datastore;
 			
 			OnRowSelected = (grid,row) => {};

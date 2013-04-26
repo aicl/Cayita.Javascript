@@ -74,7 +74,7 @@ namespace Cayita.UI
 			return (form.JQuery("[id="+id+"]")[0]).As<T>();
 		}
 
-		public static void CreateRow<T>(this TableElement table, T data, List<TableColumn<T>> columns, string recordIdProperty="Id" )
+		public static void CreateRow<T>(this TableElement table, T data, List<TableColumn<T>> columns, string recordIdProperty="Id" ) where T:new()
 		{
 
 			var r = new TableRow (default(Element), row =>  {
@@ -91,7 +91,7 @@ namespace Cayita.UI
 			table.Append(r.Element());
 		}
 
-		public static void UpdateRow<T>(this TableElement table, T data, List<TableColumn<T>> columns, string recordIdProperty="Id")
+		public static void UpdateRow<T>(this TableElement table, T data, List<TableColumn<T>> columns, string recordIdProperty="Id")  where T:new()
 		{
 			var row = table.GetRow(data.Get(recordIdProperty)).Empty();
 			foreach (var col in columns)
@@ -109,7 +109,7 @@ namespace Cayita.UI
 			table.GetRow((object) d[recordIdProperty]).Remove();
 		}
 
-		public static void CreateHeader<T>(this TableElement table,  List<TableColumn<T>> columns)
+		public static void CreateHeader<T>(this TableElement table,  List<TableColumn<T>> columns)  where T:new()
 		{
 			new TableHeader(table, th=>{
 				new TableRow (th, row =>  {
@@ -124,7 +124,7 @@ namespace Cayita.UI
 			});
 		}
 
-		public static void CreateFooter<T>(this TableElement table,  List<TableColumn<T>> columns)
+		public static void CreateFooter<T>(this TableElement table,  List<TableColumn<T>> columns)  where T:new()
 		{
 			new TableFooter(table, tf=>{
 				new TableRow (tf, row =>  {
@@ -140,7 +140,7 @@ namespace Cayita.UI
 		}
 
 
-		public static void Load<T>(this TableElement table, IList<T> data,List<TableColumn<T>> columns, string recordIdProperty="Id", bool append=false )
+		public static void Load<T>(this TableElement table, IList<T> data,List<TableColumn<T>> columns, string recordIdProperty="Id", bool append=false )  where T:new()
 		{
 			Element body;
 			if( table.tBodies.Length==0)

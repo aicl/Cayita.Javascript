@@ -209,6 +209,15 @@
   			};
 		})();
 		
+		cayita.fn.getProperties=function(obj)
+		{
+			var props=[];
+			for (var i in obj){
+				if(typeof(obj[i])!="function") props.push(i);
+			}
+			return props;
+		};
+		
 		cayita.fn.getAjaxResponse=function(jqXHR)
 		{
 			var resStatus ={ErrorCode:"", Message:"", Errors:[] };

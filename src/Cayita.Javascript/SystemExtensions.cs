@@ -88,6 +88,12 @@ namespace System
 		{
 		}
 
+		[InlineCode("cayita.fn.getProperties({obj})")]
+		public static string[]  GetProperties(this object obj)
+		{
+			return null;
+		}
+
 	}
 }
 

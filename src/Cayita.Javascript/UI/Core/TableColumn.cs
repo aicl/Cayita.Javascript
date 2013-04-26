@@ -1,11 +1,12 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Html;
+using System.Collections.Generic;
 
 namespace Cayita.UI
 {
 	[Serializable]	
-	public class TableColumn<T>
+	public class TableColumn<T> where T:new()
 	{
 		public TableColumn (){}
 
@@ -37,6 +38,19 @@ namespace Cayita.UI
 		public bool Hidden { get; set; }
 
 		public Action<T,TableRowElement> AfterCellCreate { get; set; }
+
+		public static List<TableColumn<T>> BuildColumns(bool autoHeader=true)
+		{
+			List<TableColumn<T>> cols = new List<TableColumn<T>> ();
+			var o = new T ();
+			var props= o.GetProperties ();
+			foreach (var p in props) {
+				cols.Add( new TableColumn<T>(p,autoHeader:autoHeader));
+			}
+			
+			return cols;
+		}
+
 	}
 }
 
