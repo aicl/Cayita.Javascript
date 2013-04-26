@@ -72,7 +72,7 @@
 			ss.add($t14, $t13);
 		},
 		$showTopNavBar: function() {
-			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(null, 'Cayita.Javascript - demo', '', '', ss.mkdel(this, function(nav) {
+			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(null, 'Cayita - demo', '', '', ss.mkdel(this, function(nav) {
 				Extensions.addItem$2(nav, 'Home', ss.mkdel(this, this.$goHomeClick));
 				Extensions.addItem$2(nav, 'License', ss.mkdel(this, this.$goLicense));
 				Extensions.addItem$2(nav, 'Contact', ss.mkdel(this, this.$goContact));

@@ -53,7 +53,7 @@ namespace Cayita.Javascritp.App
 		
 		void ShowTopNavBar()
 		{
-			TopNavBar= new TopNavBar(null,"Cayita.Javascript - demo","","",nav=>{
+			TopNavBar= new TopNavBar(null,"Cayita - demo","","",nav=>{
 
 				nav.AddItem("Home", GoHomeClick);
 				nav.AddItem("License",GoLicense);
