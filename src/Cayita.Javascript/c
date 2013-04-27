@@ -23,6 +23,7 @@
 "Data/StoreApi.cs" \
 "Data/ReadOptions.cs" \
 "Data/ReqExtensions.cs" \
+"UI/Core/Alert.cs" \
 "UI/Core/ButtonElement.cs" \
 "UI/Core/ListElement.cs" \
 "UI/Core/LabelElement.cs" \
@@ -59,7 +60,7 @@
 "UI/HtmlGrid.cs" \
 "UI/SpinnerIcon.cs" \
 "UI/Panel.cs" \
-"Bootbox/Alert.cs" \
+"Bootbox/Bootbox.cs" \
 "Alertify.cs"
 
 

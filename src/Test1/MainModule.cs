@@ -83,7 +83,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 					ibn.ClassName="icon-search icon-large";
 					abn.JQuery().Click(evt=>{
 						if( ! inputFecha.Value.IsDateFormatted()){
-							Div.CreateAlertErrorAfter(SearchDiv.Element(),"Digite una fecha valida");
+							Alert.Error(SearchDiv.Element(),"Digite una fecha valida",false);
 							return;
 						}
 						LoadGastos( inputFecha.Value.ToServerDate() );

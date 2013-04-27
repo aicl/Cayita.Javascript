@@ -186,7 +186,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 											
 										})
 											.Error((request,  textStatus,  error)=>{
-												Div.CreateAlertErrorBefore(fe.Elements[0],textStatus+": "
+												Alert.Error(fe.FirstChild,textStatus+": "
 												                           +( request.StatusText.StartsWith("ValidationException")?
 												  "Usario/clave no validos":
 												  request.StatusText));
