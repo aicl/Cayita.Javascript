@@ -119,7 +119,7 @@ namespace Cayita.Javascritp.App
 			Work.Empty ();
 			Work.Append (@"<p>Cayita is a CSharp library for the 
 <a href=""http://www.saltarelle-compiler.com"" target=""_blank"">Saltarelle compiler </a>,
- based on jQuery and Twitter's bootstrap, for writing webapps  that run in any modern web browser,
+ based on jQuery and Twitter's bootstrap, for writing responsive webapps  that run in any modern web browser,
  using your favourite programming tools: C# and Visual Studio/Monodevelop.)
 </p>
 
