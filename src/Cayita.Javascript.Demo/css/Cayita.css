@@ -182,7 +182,7 @@ width:auto;
   background: #E3E3E3;
   background: #FFF;
 }
-
+/*
 @media (max-width: 480px){
   .c-panel {
     top: 10px;
@@ -190,10 +190,9 @@ width:auto;
     left: 10px;
     width:auto;
   }
-
 }
 
-
+*/
 
 /*----------------------------------------------------------------*/
 .c-icons {
