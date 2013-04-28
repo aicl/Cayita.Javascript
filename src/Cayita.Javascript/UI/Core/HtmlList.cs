@@ -9,14 +9,14 @@ namespace Cayita.UI
 				
 		public HtmlList(Element parent, Action<ListElement> element, bool ordered=false)
 		{
-			CreateElement( ordered? "ol":"ul", parent);
-			element(Element());
+			CreateElement (ordered ? "ol" : "ul", parent);
+			element.Invoke (Element ());
 		}
 		
 
 		public HtmlList (Element parent, bool ordered=false)
 		{
-			CreateElement( ordered? "ol":"ul", parent);
+			CreateElement (ordered ? "ol" : "ul", parent);
 		}
 
 		public new ListElement Element()

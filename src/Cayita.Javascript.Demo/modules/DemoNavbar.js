@@ -11,6 +11,10 @@
 				Extensions.addItem$1(nav, 'License');
 				Extensions.addItem$1(nav, 'Contact');
 				Extensions.addItem$1(nav, 'About');
+				Extensions.addItem$2(nav, 'Config', new Cayita.UI.DropDownMenu(function(l) {
+					Extensions.addItem$1(l, 'Users');
+					Extensions.addItem$1(l, 'Groups');
+				}));
 				$(nav).on('click', 'a', function(ev) {
 					ev.preventDefault();
 					$('#div-log').text($(ev.currentTarget).text() + ' clicked');

@@ -22,6 +22,10 @@ namespace Navbar
 					nav.AddItem("License");
 					nav.AddItem("Contact");
 					nav.AddItem("About");
+					nav.AddItem("Config", new DropDownMenu(l=>{
+						l.AddItem("Users");
+						l.AddItem("Groups");
+					}));
 
 					nav.OnClick("a", ev=>{
 						ev.PreventDefault();

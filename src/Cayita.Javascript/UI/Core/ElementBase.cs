@@ -181,6 +181,12 @@ namespace Cayita.UI
 			return this ;
 		}
 
+		public  ElementBase Append(ElementBase content)
+		{
+			jQuery.FromElement (element_).Append (content.element_);
+			return this ;
+		}
+
 
 		protected internal ElementBase Append<T>(Action<T> content) where T: ElementBase, new()
 		{ 

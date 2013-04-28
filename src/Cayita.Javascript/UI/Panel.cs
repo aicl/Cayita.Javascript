@@ -319,7 +319,7 @@ namespace Cayita.UI
 			return this;
 		}
 
-		public Panel Append (ElementBase content)
+		public new Panel Append (ElementBase content)
 		{
 			pc.Body.Append (content.Element());
 			return this;

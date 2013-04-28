@@ -51,7 +51,9 @@
 "UI/Core/HtmlTable.cs" "UI/Core/TableRow.cs" "UI/Core/TableCell.cs" \
 "UI/Core/SelectedRow.cs" \
 "UI/Core/TableColumn.cs" \
-"UI/TextField.cs" "UI/CheckboxField.cs" \
+"UI/TextField.cs"  \
+"UI/CheckboxField.cs" \
+"UI/DropDownMenu.cs" \
 "UI/RadioField.cs" \
 "UI/SearchBox.cs" \
 "UI/TextAreaField.cs" \
