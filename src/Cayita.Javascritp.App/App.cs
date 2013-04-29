@@ -30,8 +30,6 @@ namespace Cayita.Javascritp.App
 			jQuery.OnDocumentReady (() => {
 
 				var app = new App ();
-
-				Alert.PageAlert("soy UN GRAN MENSAJE");
 				app.GetMenuItems ();
 				app.ShowTopNavBar ();
 				app.ShowMenu ();

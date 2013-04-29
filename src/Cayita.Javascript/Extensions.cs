@@ -235,22 +235,26 @@ namespace Cayita.UI
 			
 		}
 
-		public static void AddItem(this ListElement parent, string item, DropDownMenu menu)
+		public static void AddItem(this ListElement parent, string item, Menu menu)
 		{
 			var il = new ListItem(parent);
 			il.ClassName ("dropdown");
 			new Anchor(il.Element(), a=>{
 				a.Href= "#";
+				a.TabIndex=-1;
 				a.ClassName="dropdown-toggle";
 				a.SetAttribute("role","button");
 				a.SetAttribute("data-toggle","dropdown");
 				a.Text(item);
-				a.Append("<b class=\"caret\"></b>");
+				a.Append(string.Format("<b class=\"caret{0}\"></b>",!parent.JQuery().HasClass("nav-list")?"":" pull-right"));
 			});
 			il.Append(menu);
 		}
 
-
+		public static void AddItem(this ListElement parent,  SubMenu submenu)
+		{
+			parent.Append (submenu);
+		}
 
 		//
 

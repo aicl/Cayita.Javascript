@@ -8,12 +8,12 @@
 			div.className = 'bs-docs-example';
 			var sb = new Cayita.UI.SideNavBar(div, function(nav) {
 				Extensions.addHeader(nav, 'Menu');
-				Extensions.addItem$1(nav, 'Tables');
-				Extensions.addItem$1(nav, 'Form');
-				Extensions.addItem$1(nav, 'Navbar');
-				Extensions.addItem$1(nav, 'Navlist');
+				Extensions.addItem$2(nav, 'Tables');
+				Extensions.addItem$2(nav, 'Form');
+				Extensions.addItem$2(nav, 'Navbar');
+				Extensions.addItem$2(nav, 'Navlist');
 				Extensions.addHDivider(nav);
-				Extensions.addItem$1(nav, 'Exit');
+				Extensions.addItem$2(nav, 'Exit');
 				$(nav).on('click', 'a', function(ev) {
 					ev.preventDefault();
 					$('#div-log').text($(ev.currentTarget).text() + ' clicked');

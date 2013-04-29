@@ -73,10 +73,10 @@
 		},
 		$showTopNavBar: function() {
 			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(null, 'Cayita - demo', '', '', ss.mkdel(this, function(nav) {
-				Extensions.addItem$3(nav, 'Home', ss.mkdel(this, this.$goHomeClick));
-				Extensions.addItem$3(nav, 'License', ss.mkdel(this, this.$goLicense));
-				Extensions.addItem$3(nav, 'Contact', ss.mkdel(this, this.$goContact));
-				Extensions.addItem$3(nav, 'About', ss.mkdel(this, this.$goAbout));
+				Extensions.addItem$4(nav, 'Home', ss.mkdel(this, this.$goHomeClick));
+				Extensions.addItem$4(nav, 'License', ss.mkdel(this, this.$goLicense));
+				Extensions.addItem$4(nav, 'Contact', ss.mkdel(this, this.$goContact));
+				Extensions.addItem$4(nav, 'About', ss.mkdel(this, this.$goAbout));
 			})));
 			this.get_$topNavBar().addClass$1('navbar-inverse navbar-fixed-top').appendTo$1(document.body);
 		},
@@ -91,7 +91,7 @@
 							var $t1 = this.get_$menuItems();
 							for (var $t2 = 0; $t2 < $t1.length; $t2++) {
 								var item = { $: $t1[$t2] };
-								Extensions.addItem$3(list, item.$.get_title(), ss.mkdel({ item: item, $this: this }, function(e) {
+								Extensions.addItem$4(list, item.$.get_title(), ss.mkdel({ item: item, $this: this }, function(e) {
 									e.preventDefault();
 									this.$this.get_$work().empty();
 									if (ss.contains(this.$this.$modules, this.item.$.get_class())) {
@@ -146,7 +146,6 @@
 	$App.main = function() {
 		$(function() {
 			var app = new $App();
-			Cayita.UI.Alert.pageAlert('soy UN GRAN MENSAJE', '');
 			app.$getMenuItems();
 			app.$showTopNavBar();
 			app.$showMenu();

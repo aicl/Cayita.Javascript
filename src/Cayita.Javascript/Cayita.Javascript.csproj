@@ -100,7 +100,7 @@
     <Compile Include="UI\SearchBox.cs" />
     <Compile Include="Bootbox\Bootbox.cs" />
     <Compile Include="UI\Core\Alert.cs" />
-    <Compile Include="UI\DropDownMenu.cs" />
+    <Compile Include="UI\Menu.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
