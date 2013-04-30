@@ -35,7 +35,7 @@
 									}));
 								}));
 							}
-							apps.append$4(id);
+							apps.append$5(id);
 						});
 						apps.render(ld);
 						var pn = (new Cayita.UI.Panel()).caption('Demo Panel').closable(false).resizable(false).draggable(false);
@@ -44,21 +44,21 @@
 							$(bt).on('click', function(evt) {
 								pn.body().style.backgroundColor = 'grey';
 							});
-							pn.append$4(bt);
+							pn.append$5(bt);
 						});
 						new Cayita.UI.Button(function(bt1) {
 							$(bt1).text('White background');
 							$(bt1).on('click', function(evt1) {
 								pn.body().style.backgroundColor = 'white';
 							});
-							pn.append$4(bt1);
+							pn.append$5(bt1);
 						});
 						new Cayita.UI.Button(function(bt2) {
 							$(bt2).text('Collapse');
 							$(bt2).on('click', function(evt2) {
 								pn.collapse();
 							});
-							pn.append$4(bt2);
+							pn.append$5(bt2);
 						});
 						pn.render(ld);
 					});
@@ -71,12 +71,12 @@
 								i.src = 'img/coyote.jpg';
 								i.style.height = '20%';
 							});
-							coyote.append$4(d);
+							coyote.append$5(d);
 						});
 						new Cayita.UI.Div(function(d1) {
 							d1.className = 'span10';
 							$(d1).append('<i><b>El <a href=\'https://es.wikipedia.org/wiki/Coyote\' title=\'Coyote\' target=\'_blank\'>Coyote</a> y el <a href=\'https://es.wikipedia.org/wiki/Geococcyx_californianus\' title=\'Geococcyx californianus\' target=\'_blank\'>Correcaminos</a></b></i> (<i><b>Wile E. Coyote</b> and the <b>Road Runner</b></i>) son los personajes de una serie <a href=\'https://es.wikipedia.org/wiki/Estados_Unidos\' title=\'Estados Unidos\' target=\'_blank\'>estadounidense</a> de <a href=\'https://es.wikipedia.org/wiki/Dibujos_animados\' title=\'Dibujos animados\' target=\'_blank\'>dibujos animados</a> creada en el año de <a href=\'https://es.wikipedia.org/wiki/1949\' title=\'1949\' target=\'_blank\'>1949</a> por el animador <a href=\'https://es.wikipedia.org/wiki/Chuck_Jones\' title=\'Chuck Jones\' target=\'_blank\'>Chuck Jones</a> para <a href=\'https://es.wikipedia.org/wiki/Warner_Brothers\' title=\'Warner Brothers\' target=\'_blank\'>Warner Brothers</a>. Chuck Jones se inspiró para crear a estos personajes en un libro de <a href=\'https://es.wikipedia.org/wiki/Mark_Twain\' title=\'Mark Twain\' target=\'_blank\'>Mark Twain</a>, titulado <i>Roughin It</i>, en el que Twain denotaba que los coyotes hambrientos podrían cazar un correcaminos.<br/><a href=\'https://es.wikipedia.org/wiki/El_Coyote_y_el_Correcaminos\' title=\'Coyote\' target=\'_blank\'>El Coyote (wikipedia)</a> ');
-							coyote.append$4(d1);
+							coyote.append$5(d1);
 						});
 						var tbp = (new Cayita.UI.Panel()).caption('Table').closable(false).draggable(false).resizable(false);
 						new Cayita.UI.HtmlTable.$ctor1(function(t) {
@@ -103,7 +103,7 @@
 									}));
 								}));
 							}
-							tbp.append$4(t);
+							tbp.append$5(t);
 						});
 						tbp.render(ld1);
 					});
@@ -136,7 +136,7 @@
 						p.height('400px');
 					}).onCloseHandler(function(p1) {
 						Alertify.log.info(StringExtensions.header('panel closed ', 3).outerHTML, 5000);
-					}).append$3(new Cayita.UI.Button(function(b) {
+					}).append$4(new Cayita.UI.Button(function(b) {
 						$(b).text('Click me');
 						b.style.width = '100%';
 						b.style.height = '100%';
@@ -165,7 +165,7 @@
 					var pn2 = (new Cayita.UI.Panel()).caption('No Closable No Collapsible').overlay(true).left('30px').top('400px').width('auto').closable(false).collapsible(false).onCloseHandler(function(p3) {
 						error.logInfo(5000);
 					});
-					pn2.append$3(new Cayita.UI.Button(function(b1) {
+					pn2.append$4(new Cayita.UI.Button(function(b1) {
 						$(b1).text('Click me');
 						b1.style.width = '100%';
 						b1.style.height = '100%';

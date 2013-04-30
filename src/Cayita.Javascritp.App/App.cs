@@ -18,7 +18,7 @@ namespace Cayita.Javascritp.App
 	[IgnoreNamespace]
 	public class App
 	{
-		TopNavBar TopNavBar {get;set;}
+		NavBar TopNavBar {get;set;}
 		Div Work {get;set;}
 		List<MenuItem> MenuItems {get;set;}
 
@@ -53,7 +53,7 @@ namespace Cayita.Javascritp.App
 		
 		void ShowTopNavBar()
 		{
-			TopNavBar= new TopNavBar(null,"Cayita - demo","","",nav=>{
+			TopNavBar= new NavBar(null,"Cayita - demo","","",nav=>{
 
 				nav.AddItem("Home", GoHomeClick);
 				nav.AddItem("License",GoLicense);
@@ -71,7 +71,7 @@ namespace Cayita.Javascritp.App
 				Div.CreateRowFluid(fluid,  row=>{
 					new Div(row,  span=>{
 						span.ClassName="span2";
-						new SideNavBar(span, list=>{
+						new NavList(span, list=>{
 
 							list.AddHeader( "Main Menu");
 							list.AddHDivider();

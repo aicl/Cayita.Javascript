@@ -61,7 +61,6 @@
     <Compile Include="ValidatePlugin\ValidateOptions.cs" />
     <Compile Include="UI\Core\ListItem.cs" />
     <Compile Include="UI\Core\HtmlList.cs" />
-    <Compile Include="UI\TopNavBar.cs" />
     <Compile Include="UI\Core\Span.cs" />
     <Compile Include="UI\Core\Paragraph.cs" />
     <Compile Include="ModuleBase.cs" />
@@ -82,7 +81,6 @@
     <Compile Include="Data\ReadOptions.cs" />
     <Compile Include="UI\HtmlGrid.cs" />
     <Compile Include="UI\SpinnerIcon.cs" />
-    <Compile Include="UI\SideNavBar.cs" />
     <Compile Include="UI\Core\TextArea.cs" />
     <Compile Include="UI\Core\InputRadio.cs" />
     <Compile Include="UI\RadioField.cs" />
@@ -100,7 +98,9 @@
     <Compile Include="UI\SearchBox.cs" />
     <Compile Include="Bootbox\Bootbox.cs" />
     <Compile Include="UI\Core\Alert.cs" />
-    <Compile Include="UI\Menu.cs" />
+    <Compile Include="UI\DropDownMenu.cs" />
+    <Compile Include="UI\NavList.cs" />
+    <Compile Include="UI\NavBar.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

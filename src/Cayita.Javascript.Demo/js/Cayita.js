@@ -1871,6 +1871,51 @@
 		return d;
 	};
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.DropDownMenu
+	var $Cayita_UI_DropDownMenu = function(list) {
+		$Cayita_UI_DropDownMenu.$ctor1.call(this, null, list);
+	};
+	$Cayita_UI_DropDownMenu.prototype = {
+		appendTo$2: function(parent) {
+			$(parent).append(this.element()).addClass('dropdown');
+			return this;
+		}
+	};
+	$Cayita_UI_DropDownMenu.$ctor1 = function(parent, list) {
+		$Cayita_UI_HtmlList.call(this, parent, false);
+		var el = this.element$1();
+		el.className = 'dropdown-menu';
+		el.setAttribute('role', 'menu');
+		list(this.element$1());
+	};
+	$Cayita_UI_DropDownMenu.$ctor1.prototype = $Cayita_UI_DropDownMenu.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.DropDownSubmenu
+	var $Cayita_UI_DropDownSubmenu = function(item, list) {
+		$Cayita_UI_DropDownSubmenu.$ctor1.call(this, null, item, list);
+	};
+	$Cayita_UI_DropDownSubmenu.prototype = {
+		appendTo$2: function(parent) {
+			parent.append(this);
+			return this;
+		}
+	};
+	$Cayita_UI_DropDownSubmenu.$ctor1 = function(parent, item, list) {
+		$Cayita_UI_ListItem.call(this, parent);
+		var li = this.element$1();
+		li.className = 'dropdown-submenu';
+		new $Cayita_UI_Anchor.$ctor3(li, function(a) {
+			a.href = '#';
+			a.tabIndex = -1;
+			$(a).text(item);
+		});
+		new $Cayita_UI_HtmlList.$ctor1(li, function(nl) {
+			nl.className = 'dropdown-menu';
+			list(nl);
+		}, false);
+	};
+	$Cayita_UI_DropDownSubmenu.$ctor1.prototype = $Cayita_UI_DropDownSubmenu.prototype;
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.ElementBase
 	var $Cayita_UI_ElementBase = function() {
 		this.$element_ = null;
@@ -2361,9 +2406,9 @@
 		element(this.element$1());
 	};
 	$Cayita_UI_HtmlList.$ctor1.prototype = $Cayita_UI_HtmlList.prototype;
-	$Cayita_UI_HtmlList.createNavList = function(parent) {
+	$Cayita_UI_HtmlList.createNav = function(parent, navType) {
 		var l = new $Cayita_UI_HtmlList.$ctor1(parent, function(e) {
-			e.className = 'nav nav-list';
+			e.className = ss.formatString('nav{0}', (ss.isNullOrEmptyString(navType) ? '' : (' ' + navType)));
 			$(e).on('click', 'li', function(ev) {
 				$('li', e).removeClass('active');
 				$(ev.currentTarget).addClass('active');
@@ -2371,8 +2416,8 @@
 		}, false);
 		return l;
 	};
-	$Cayita_UI_HtmlList.createNavList$1 = function(parent, element) {
-		var nl = $Cayita_UI_HtmlList.createNavList(parent);
+	$Cayita_UI_HtmlList.createNav$1 = function(parent, element, navType) {
+		var nl = $Cayita_UI_HtmlList.createNav(parent, navType);
 		element(nl.element$1());
 		return nl;
 	};
@@ -2753,24 +2798,87 @@
 		return il;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.UI.Menu
-	var $Cayita_UI_Menu = function(list) {
-		$Cayita_UI_Menu.$ctor1.call(this, null, list);
+	// Cayita.UI.NavBar
+	var $Cayita_UI_NavBar = function(parent, brandText, navlist) {
+		$Cayita_UI_NavBar.$ctor1.call(this, parent, brandText, '', '', navlist);
 	};
-	$Cayita_UI_Menu.prototype = {
-		appendTo$2: function(parent) {
-			$(parent).append(this.element()).addClass('dropdown');
-			return this;
+	$Cayita_UI_NavBar.prototype = {
+		containerFluid: function() {
+			return this.$ctFluid;
+		},
+		navCollapse: function() {
+			return this.$nCollapse;
+		},
+		brand: function() {
+			return this.$bElement;
+		},
+		pullRightParagraph: function() {
+			return this.$pullRP;
+		},
+		pullRightAnchor: function() {
+			return this.$pRA;
+		},
+		navLinks: function() {
+			return this.$nList;
 		}
 	};
-	$Cayita_UI_Menu.$ctor1 = function(parent, list) {
-		$Cayita_UI_HtmlList.call(this, parent, false);
-		var el = this.element$1();
-		el.className = 'dropdown-menu';
-		el.setAttribute('role', 'menu');
-		list(this.element$1());
+	$Cayita_UI_NavBar.$ctor1 = function(parent, brandText, rightText, rightLinkText, navlist) {
+		this.$ctFluid = null;
+		this.$nCollapse = null;
+		this.$bElement = null;
+		this.$pullRP = null;
+		this.$pRA = null;
+		this.$nList = null;
+		$Cayita_UI_Div.$ctor1.call(this, parent);
+		this.element$1().className = 'navbar';
+		new $Cayita_UI_Div.$ctor2(this.element$1(), ss.mkdel(this, function(inner) {
+			inner.className = 'navbar-inner';
+			this.$ctFluid = $Cayita_UI_Div.createContainerFluid$1(inner, ss.mkdel(this, function(fluid) {
+				new $Cayita_UI_Anchor.$ctor3(fluid, function(anchor) {
+					anchor.className = 'btn btn-navbar';
+					anchor.setAttribute('data-toggle', 'collapse');
+					anchor.setAttribute('data-target', '.nav-collapse');
+					for (var i = 0; i < 3; i++) {
+						new $Cayita_UI_Span.$ctor2(anchor, function(span) {
+							span.className = 'icon-bar';
+						});
+					}
+				});
+				this.$bElement = (new $Cayita_UI_Anchor.$ctor3(fluid, function(brnd) {
+					brnd.href = '#';
+					$(brnd).text(brandText);
+					brnd.className = 'brand';
+				})).element$1();
+				this.$nCollapse = (new $Cayita_UI_Div.$ctor2(fluid, ss.mkdel(this, function(collapse) {
+					collapse.className = 'nav-collapse collapse';
+					this.$pullRP = (new $Cayita_UI_Paragraph.$ctor3(collapse, ss.mkdel(this, function(paragraph) {
+						paragraph.className = 'navbar-text pull-right';
+						$(paragraph).text(rightText);
+						this.$pRA = (new $Cayita_UI_Anchor.$ctor3(paragraph, function(a) {
+							a.href = '#';
+							a.className = 'navbar-link';
+							$(a).text(rightLinkText);
+						})).element$1();
+					}))).element$1();
+					this.$nList = $Cayita_UI_HtmlList.createNav$1(collapse, navlist, '').element$1();
+				}))).element$1();
+			})).element$1();
+		}));
 	};
-	$Cayita_UI_Menu.$ctor1.prototype = $Cayita_UI_Menu.prototype;
+	$Cayita_UI_NavBar.$ctor1.prototype = $Cayita_UI_NavBar.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.NavList
+	var $Cayita_UI_NavList = function(parent, navlist) {
+		this.$nav = null;
+		$Cayita_UI_Div.$ctor1.call(this, parent);
+		this.element$1().className = 'well sidebar-nav';
+		this.$nav = $Cayita_UI_HtmlList.createNav$1(this.element$1(), navlist, 'nav-list').element$1();
+	};
+	$Cayita_UI_NavList.prototype = {
+		navLinks: function() {
+			return this.$nav;
+		}
+	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Panel
 	var $Cayita_UI_Panel = function() {
@@ -3724,19 +3832,6 @@
 	};
 	ss.registerGenericClass(global, 'Cayita.UI.SelectField$1', $Cayita_UI_SelectField$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.UI.SideNavBar
-	var $Cayita_UI_SideNavBar = function(parent, navlist) {
-		this.$nav = null;
-		$Cayita_UI_Div.$ctor1.call(this, parent);
-		this.element$1().className = 'well sidebar-nav';
-		this.$nav = $Cayita_UI_HtmlList.createNavList$1(this.element$1(), navlist).element$1();
-	};
-	$Cayita_UI_SideNavBar.prototype = {
-		navList: function() {
-			return this.$nav;
-		}
-	};
-	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Span
 	var $Cayita_UI_Span = function() {
 		$Cayita_UI_ElementBase.call(this);
@@ -3949,31 +4044,6 @@
 		return $type;
 	};
 	ss.registerGenericClass(global, 'Cayita.UI.StorePaging$1', $Cayita_UI_StorePaging$1, 1);
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.UI.SubMenu
-	var $Cayita_UI_SubMenu = function(item, list) {
-		$Cayita_UI_SubMenu.$ctor1.call(this, null, item, list);
-	};
-	$Cayita_UI_SubMenu.prototype = {
-		appendTo$2: function(parent) {
-			parent.append(this);
-			return this;
-		}
-	};
-	$Cayita_UI_SubMenu.$ctor1 = function(parent, item, list) {
-		$Cayita_UI_ListItem.call(this, parent);
-		var li = this.element$1();
-		li.className = 'dropdown-submenu';
-		new $Cayita_UI_Anchor.$ctor3(li, function(a) {
-			a.href = '#';
-			a.tabIndex = -1;
-			$(a).text(item);
-		});
-		var nv = $Cayita_UI_HtmlList.createNavList(li);
-		nv.className$1('dropdown-menu');
-		list(nv.element$1());
-	};
-	$Cayita_UI_SubMenu.$ctor1.prototype = $Cayita_UI_SubMenu.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.SubmitButton
 	var $Cayita_UI_SubmitButton = function(parent) {
@@ -4258,76 +4328,6 @@
 		});
 	};
 	$Cayita_UI_TextField.$ctor1.prototype = $Cayita_UI_TextField.$ctor2.prototype = $Cayita_UI_TextField.prototype;
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.UI.TopNavBar
-	var $Cayita_UI_TopNavBar = function(parent, brandText, navlist) {
-		$Cayita_UI_TopNavBar.$ctor1.call(this, parent, brandText, '', '', navlist);
-	};
-	$Cayita_UI_TopNavBar.prototype = {
-		containerFluid: function() {
-			return this.$ctFluid;
-		},
-		navCollapse: function() {
-			return this.$nCollapse;
-		},
-		brand: function() {
-			return this.$bElement;
-		},
-		pullRightParagraph: function() {
-			return this.$pullRP;
-		},
-		pullRightAnchor: function() {
-			return this.$pRA;
-		},
-		navList: function() {
-			return this.$nList;
-		}
-	};
-	$Cayita_UI_TopNavBar.$ctor1 = function(parent, brandText, rightText, rightLinkText, navlist) {
-		this.$ctFluid = null;
-		this.$nCollapse = null;
-		this.$bElement = null;
-		this.$pullRP = null;
-		this.$pRA = null;
-		this.$nList = null;
-		$Cayita_UI_Div.$ctor1.call(this, parent);
-		this.element$1().className = 'navbar';
-		new $Cayita_UI_Div.$ctor2(this.element$1(), ss.mkdel(this, function(inner) {
-			inner.className = 'navbar-inner';
-			this.$ctFluid = $Cayita_UI_Div.createContainerFluid$1(inner, ss.mkdel(this, function(fluid) {
-				new $Cayita_UI_Anchor.$ctor3(fluid, function(anchor) {
-					anchor.className = 'btn btn-navbar';
-					anchor.setAttribute('data-toggle', 'collapse');
-					anchor.setAttribute('data-target', '.nav-collapse');
-					for (var i = 0; i < 3; i++) {
-						new $Cayita_UI_Span.$ctor2(anchor, function(span) {
-							span.className = 'icon-bar';
-						});
-					}
-				});
-				this.$bElement = (new $Cayita_UI_Anchor.$ctor3(fluid, function(brnd) {
-					brnd.href = '#';
-					$(brnd).text(brandText);
-					brnd.className = 'brand';
-				})).element$1();
-				this.$nCollapse = (new $Cayita_UI_Div.$ctor2(fluid, ss.mkdel(this, function(collapse) {
-					collapse.className = 'nav-collapse collapse';
-					this.$pullRP = (new $Cayita_UI_Paragraph.$ctor3(collapse, ss.mkdel(this, function(paragraph) {
-						paragraph.className = 'navbar-text pull-right';
-						$(paragraph).text(rightText);
-						this.$pRA = (new $Cayita_UI_Anchor.$ctor3(paragraph, function(a) {
-							a.href = '#';
-							a.className = 'navbar-link';
-							$(a).text(rightLinkText);
-						})).element$1();
-					}))).element$1();
-					this.$nList = $Cayita_UI_HtmlList.createNavList$1(collapse, navlist).element$1();
-					$(this.$nList).removeClass('nav-list');
-				}))).element$1();
-			})).element$1();
-		}));
-	};
-	$Cayita_UI_TopNavBar.$ctor1.prototype = $Cayita_UI_TopNavBar.prototype;
 	ss.registerClass(global, 'Extensions', $Extensions);
 	ss.registerClass(global, 'StringExtensions', $StringExtensions);
 	ss.registerClass(global, 'SystemExtensions', $SystemExtensions);
@@ -4356,9 +4356,12 @@
 	ss.registerClass(global, 'Cayita.UI.CheckboxField', $Cayita_UI_CheckboxField, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.DialogButton', $Cayita_UI_DialogButton);
 	ss.registerClass(global, 'Cayita.UI.DialogOptions', $Cayita_UI_DialogOptions);
+	ss.registerClass(global, 'Cayita.UI.HtmlList', $Cayita_UI_HtmlList, $Cayita_UI_ElementBase);
+	ss.registerClass(global, 'Cayita.UI.DropDownMenu', $Cayita_UI_DropDownMenu, $Cayita_UI_HtmlList);
+	ss.registerClass(global, 'Cayita.UI.ListItem', $Cayita_UI_ListItem, $Cayita_UI_ElementBase);
+	ss.registerClass(global, 'Cayita.UI.DropDownSubmenu', $Cayita_UI_DropDownSubmenu, $Cayita_UI_ListItem);
 	ss.registerClass(global, 'Cayita.UI.FieldSet', $Cayita_UI_FieldSet, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Form', $Cayita_UI_Form, $Cayita_UI_ElementBase);
-	ss.registerClass(global, 'Cayita.UI.HtmlList', $Cayita_UI_HtmlList, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.HtmlOption', $Cayita_UI_HtmlOption, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.HtmlSelect', $Cayita_UI_HtmlSelect, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.HtmlTable', $Cayita_UI_HtmlTable, $Cayita_UI_ElementBase);
@@ -4374,8 +4377,8 @@
 	ss.registerClass(global, 'Cayita.UI.InputRadio', $Cayita_UI_InputRadio, $Cayita_UI_InputBase);
 	ss.registerClass(global, 'Cayita.UI.Label', $Cayita_UI_Label, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Legend', $Cayita_UI_Legend, $Cayita_UI_ElementBase);
-	ss.registerClass(global, 'Cayita.UI.ListItem', $Cayita_UI_ListItem, $Cayita_UI_ElementBase);
-	ss.registerClass(global, 'Cayita.UI.Menu', $Cayita_UI_Menu, $Cayita_UI_HtmlList);
+	ss.registerClass(global, 'Cayita.UI.NavBar', $Cayita_UI_NavBar, $Cayita_UI_Div);
+	ss.registerClass(global, 'Cayita.UI.NavList', $Cayita_UI_NavList, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.Panel', $Cayita_UI_Panel, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.PanelConfig', $Cayita_UI_PanelConfig);
 	ss.registerClass(global, 'Cayita.UI.Paragraph', $Cayita_UI_Paragraph, $Cayita_UI_ElementBase);
@@ -4385,10 +4388,8 @@
 	ss.registerClass(global, 'Cayita.UI.ResetButton', $Cayita_UI_ResetButton, $Cayita_UI_ButtonBase);
 	ss.registerClass(global, 'Cayita.UI.SelectedRow', $Cayita_UI_SelectedRow);
 	ss.registerClass(global, 'Cayita.UI.SelectField', $Cayita_UI_SelectField, $Cayita_UI_Div);
-	ss.registerClass(global, 'Cayita.UI.SideNavBar', $Cayita_UI_SideNavBar, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.Span', $Cayita_UI_Span, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.SpinnerIcon', $Cayita_UI_SpinnerIcon, $Cayita_UI_Div);
-	ss.registerClass(global, 'Cayita.UI.SubMenu', $Cayita_UI_SubMenu, $Cayita_UI_ListItem);
 	ss.registerClass(global, 'Cayita.UI.SubmitButton', $Cayita_UI_SubmitButton, $Cayita_UI_ButtonBase);
 	ss.registerClass(global, 'Cayita.UI.TableBody', $Cayita_UI_TableBody, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.TableCell', $Cayita_UI_TableCell, $Cayita_UI_ElementBase);
@@ -4398,6 +4399,5 @@
 	ss.registerClass(global, 'Cayita.UI.TextArea', $Cayita_UI_TextArea, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.TextAreaField', $Cayita_UI_TextAreaField, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.TextField', $Cayita_UI_TextField, $Cayita_UI_Div);
-	ss.registerClass(global, 'Cayita.UI.TopNavBar', $Cayita_UI_TopNavBar, $Cayita_UI_Div);
 	$Cayita_UI_ElementBase.$tags = new (ss.makeGenericType(ss.Dictionary$2, [String, ss.Int32]))();
 })();

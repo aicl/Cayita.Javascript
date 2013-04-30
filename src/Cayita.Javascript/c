@@ -53,11 +53,12 @@
 "UI/Core/TableColumn.cs" \
 "UI/TextField.cs" \
 "UI/CheckboxField.cs" \
-"UI/Menu.cs" \
+"UI/DropDownMenu.cs" \
 "UI/RadioField.cs" \
 "UI/SearchBox.cs" \
 "UI/TextAreaField.cs" \
-"UI/TopNavBar.cs" "UI/SideNavBar.cs" \
+"UI/NavBar.cs" \
+"UI/NavList.cs" \
 "UI/SelectField.cs" \
 "UI/HtmlGrid.cs" \
 "UI/SpinnerIcon.cs" \

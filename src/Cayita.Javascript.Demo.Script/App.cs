@@ -11,7 +11,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 	[IgnoreNamespace]
 	public class App
 	{
-		TopNavBar TopNavBar {get;set;}
+		NavBar TopNavBar {get;set;}
 		Div Work {get;set;}
 
 		public static void Main ()
@@ -36,7 +36,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 		
 		void ShowTopNavBar()
 		{
-			TopNavBar= new TopNavBar(default(Element),"Cayita.Javascript - demo","No logged","",navlist=>{
+			TopNavBar= new NavBar(default(Element),"Cayita.Javascript - demo","No logged","",navlist=>{
 				
 			});
 			Document.Body.AppendChild(TopNavBar.Element());
@@ -50,7 +50,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 						span.ClassName="span2";
 						new Div(span, nav=>{
 							nav.ClassName="well sidebar-nav";
-							HtmlList.CreateNavList(nav, list=>{
+							HtmlList.CreateNav(nav, list=>{
 								list.AddHeader("Menu");
 								foreach(var role in lr.Roles){
 									 list.AddItem( (li,anchor)=>{
@@ -87,7 +87,7 @@ namespace Aicl.Calamar.Scripts.ModuloAuth
 												});
 									});
 								});
-							});
+							},"nav-list");
 						});
 					});
 

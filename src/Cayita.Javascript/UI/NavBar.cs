@@ -4,7 +4,7 @@ using System.Html;
 namespace Cayita.UI
 {
 
-	public class TopNavBar:Div
+	public class NavBar:Div
 	{
 		DivElement ctFluid;
 		DivElement nCollapse;
@@ -38,16 +38,16 @@ namespace Cayita.UI
 			return pRA;
 		}
 
-		public ListElement NavList()
+		public ListElement NavLinks()
 		{
 			return nList;
 		}
 
-		public TopNavBar (Element parent, string brandText,  Action<ListElement> navlist)
+		public NavBar (Element parent, string brandText,  Action<ListElement> navlist)
 			:this(parent, brandText,"","", navlist)
 		{}
 
-		public TopNavBar (Element parent, string brandText, string rightText, string rightLinkText,
+		public NavBar (Element parent, string brandText, string rightText, string rightLinkText,
 		                  Action<ListElement> navlist)
 			:base(parent)
 		{
@@ -80,8 +80,7 @@ namespace Cayita.UI
 								a.Href="#";  a.ClassName="navbar-link" ; a.Text(rightLinkText);
 							}).Element();
 						}).Element();
-						nList= HtmlList.CreateNavList(collapse, navlist).Element();
-						nList.RemoveClass("nav-list");
+						nList= HtmlList.CreateNav(collapse, navlist).Element();
 					}).Element();
 				}).Element();
 			});

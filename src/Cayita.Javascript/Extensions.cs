@@ -235,7 +235,7 @@ namespace Cayita.UI
 			
 		}
 
-		public static void AddItem(this ListElement parent, string item, Menu menu)
+		public static void AddItem(this ListElement parent, string item, DropDownMenu menu)
 		{
 			var il = new ListItem(parent);
 			il.ClassName ("dropdown");
@@ -251,7 +251,7 @@ namespace Cayita.UI
 			il.Append(menu);
 		}
 
-		public static void AddItem(this ListElement parent,  SubMenu submenu)
+		public static void AddItem(this ListElement parent,  DropDownSubmenu submenu)
 		{
 			parent.Append (submenu);
 		}

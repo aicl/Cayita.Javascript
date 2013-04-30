@@ -25,10 +25,10 @@ namespace Cayita.UI
 		}
 
 
-		public static HtmlList CreateNavList(Element parent)
+		public static HtmlList CreateNav(Element parent, string navType="")
 		{
 			var l = new HtmlList(parent, e=>{
-				e.ClassName="nav nav-list";
+				e.ClassName=string.Format("nav{0}", string.IsNullOrEmpty(navType)?"": " "+navType);
 				e.OnClick("li", ev=>{
 					e.JQuery("li").RemoveClass("active");
 					ev.CurrentTarget.AddClass("active");
@@ -38,9 +38,9 @@ namespace Cayita.UI
 			return l;
 		}
 
-		public static HtmlList CreateNavList(Element parent, Action<ListElement> element)
+		public static HtmlList CreateNav(Element parent, Action<ListElement> element, string navType="")
 		{
-			var nl = HtmlList.CreateNavList(parent);
+			var nl = HtmlList.CreateNav(parent, navType);
 			element(nl.Element());
 			return nl;
 		}

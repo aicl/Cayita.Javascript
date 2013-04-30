@@ -72,7 +72,7 @@
 			ss.add($t14, $t13);
 		},
 		$showTopNavBar: function() {
-			this.set_$topNavBar(new Cayita.UI.TopNavBar.$ctor1(null, 'Cayita - demo', '', '', ss.mkdel(this, function(nav) {
+			this.set_$topNavBar(new Cayita.UI.NavBar.$ctor1(null, 'Cayita - demo', '', '', ss.mkdel(this, function(nav) {
 				Extensions.addItem$4(nav, 'Home', ss.mkdel(this, this.$goHomeClick));
 				Extensions.addItem$4(nav, 'License', ss.mkdel(this, this.$goLicense));
 				Extensions.addItem$4(nav, 'Contact', ss.mkdel(this, this.$goContact));
@@ -85,7 +85,7 @@
 				Cayita.UI.Div.createRowFluid$1(fluid, ss.mkdel(this, function(row) {
 					new Cayita.UI.Div.$ctor2(row, ss.mkdel(this, function(span) {
 						span.className = 'span2';
-						new Cayita.UI.SideNavBar(span, ss.mkdel(this, function(list) {
+						new Cayita.UI.NavList(span, ss.mkdel(this, function(list) {
 							Extensions.addHeader(list, 'Main Menu');
 							Extensions.addHDivider(list);
 							var $t1 = this.get_$menuItems();
