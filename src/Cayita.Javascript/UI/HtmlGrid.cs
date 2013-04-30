@@ -219,6 +219,8 @@ namespace Cayita.UI
 
 			} else {
 				row =selectedrow.Row.NextSibling.As<TableRowElement> ();
+				if(row==null) 
+					store.ReadNextPage();
 
 			}
 			SelectRowImp (row, true, false);
@@ -229,7 +231,7 @@ namespace Cayita.UI
 
 			TableRowElement row;
 			if (selectedrow == null) {
-				var jfr = table.GetFirstRow ();
+				var jfr = table.GetLastRow ();
 				if (jfr.Length == 0)
 					return;
 				row = jfr.GetElement (0).As<TableRowElement> ();
@@ -237,7 +239,7 @@ namespace Cayita.UI
 			} else {
 				row =selectedrow.Row.PreviousSibling.As<TableRowElement> ();
 				if (row==null) 
-					return;
+					if(row==null) store.ReadPreviousPage();
 				
 			}
 			SelectRowImp (row, true, false);

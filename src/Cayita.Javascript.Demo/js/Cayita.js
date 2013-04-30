@@ -2264,13 +2264,16 @@
 				}
 				else {
 					row = this.$selectedrow.row.nextSibling;
+					if (ss.isNullOrUndefined(row)) {
+						this.$store.readNextPage(true);
+					}
 				}
 				this.$selectRowImp(row, true, false);
 			},
 			previousRow: function() {
 				var row;
 				if (ss.isNullOrUndefined(this.$selectedrow)) {
-					var jfr = $('tbody tr', this.$table).first();
+					var jfr = $('tbody tr', this.$table).last();
 					if (jfr.length === 0) {
 						return;
 					}
@@ -2279,7 +2282,9 @@
 				else {
 					row = this.$selectedrow.row.previousSibling;
 					if (ss.isNullOrUndefined(row)) {
-						return;
+						if (ss.isNullOrUndefined(row)) {
+							this.$store.readPreviousPage(true);
+						}
 					}
 				}
 				this.$selectRowImp(row, true, false);

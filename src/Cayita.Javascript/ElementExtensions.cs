@@ -167,6 +167,12 @@ namespace Cayita.UI
 			return null;
 		}
 
+		[InlineCode("$('tbody tr', {element}).last()")]
+		public static jQueryObject GetLastRow(this TableElement element)
+		{
+			return null;
+		}
+
 		[InlineCode("$('tr[record-id='+{recordId}+']', {element})")]
 		public static jQueryObject GetRow(this TableElement element, object recordId)
 		{
