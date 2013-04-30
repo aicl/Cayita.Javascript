@@ -62,6 +62,7 @@
 "UI/SelectField.cs" \
 "UI/HtmlGrid.cs" \
 "UI/SpinnerIcon.cs" \
+"UI/TabPanel.cs" \
 "UI/Panel.cs" \
 "Bootbox/Bootbox.cs" \
 "Alertify.cs"

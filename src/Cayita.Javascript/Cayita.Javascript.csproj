@@ -101,6 +101,7 @@
     <Compile Include="UI\DropDownMenu.cs" />
     <Compile Include="UI\NavList.cs" />
     <Compile Include="UI\NavBar.cs" />
+    <Compile Include="UI\TabPanel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
