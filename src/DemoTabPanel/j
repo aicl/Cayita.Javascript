@@ -1,0 +1,19 @@
+/opt/mono/bin/sc  \
+"/outscript:bin/Debug/DemoTabPanel.js" \
+"/define:JS" \
+"/debug" \
+"/r:../../lib/Saltarelle.Linq.dll" \
+"/r:../../lib/Saltarelle.jQuery.dll" \
+"/r:../../lib/Saltarelle.jQuery.UI.dll" \
+"/r:../../lib/Saltarelle.Web.dll" \
+"/r:../../lib/mscorlib.dll" \
+"/r:../Cayita.Javascript/bin/Debug/Cayita.Javascript.dll" \
+"/r:../../lib/Aicl.Calamar.Scripts.Modelos.dll" \
+/t:library \
+"DemoTabPanel.cs" 
+
+cp bin/Debug/DemoTabPanel.js ../Cayita.Javascript.Demo/modules/
+
+echo "ready DemoTabPanel"
+
+

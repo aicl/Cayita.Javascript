@@ -13,35 +13,50 @@ namespace Cayita.UI
 		TabPanelConfig cfg;
 		List<Tab> tabs = new List<Tab> ();
 
-		public TabPanel (Element parent):this(parent, new TabPanelConfig() )
+		public TabPanel (Element parent):base(parent)
 		{
+			Init (new TabPanelConfig ());
+		}
 
+		public TabPanel (Element parent, Action<TabPanelConfig> config):base(parent)
+		{
+			var c = new TabPanelConfig ();
+			config.Invoke (c);
+			Init (c);
 		}
 
 		public TabPanel(Element parent, TabPanelConfig config):base(parent)
 		{
+			Init (config);
+		}
+
+		void Init (TabPanelConfig config)
+		{
 			var el = Element ();
-			el.ClassName = string.Format("tabbable{0}{1}", 
-			                             config.Bordered?" tabbable-bordered":"",
-			                             "tabs-"+config.TabsPosition);
+			el.ClassName = string.Format ("tabbable{0}{1}", config.Bordered ? " tabbable-bordered" : "", " tabs-" + config.TabsPosition);
 			el.Append (config.Links).Append (config.Content);
-
 			cfg = config;
-
-			this.JQuery ("a[data-toggle='tab']").On ("shown", evt => {
-				var crt =evt.Target.As<AnchorElement>();
-				var prv = evt.RelatedTarget.As<AnchorElement>();
-
-				if(crt!=null){
-					var current = tabs.First(f=>"#"+f.Body.ID== crt.Href );
+			this.JQuery ("a[data-toggle='tab']").On ("shown", evt =>  {
+				if (OnTabShown != null) {
+					OnTabShown (this, GetTab (evt.Target.As<AnchorElement> ()), GetTab (evt.RelatedTarget.As<AnchorElement> ()));
 				}
-
-				if(prv!=null){
-				}
-
-
 			});
+			this.JQuery ("a[data-toggle='tab']").On ("show", evt =>  {
+				if (OnTabShow != null) {
+					OnTabShow (this, GetTab (evt.Target.As<AnchorElement> ()), GetTab (evt.RelatedTarget.As<AnchorElement> ()));
+				}
+			});
+			this.JQuery ("a[data-toggle='tab']").On ("Click", evt =>  {
+				if (OnTabClick != null) {
+					evt.PreventDefault ();
+					OnTabClick (this, GetTab (evt.Target.As<AnchorElement> ()));
+				}
+			});
+		}
 
+
+		Tab GetTab(AnchorElement anchor){
+			return (anchor != null) ? tabs.First (f => "#" + f.Body.ID == anchor.Href) : default(Tab);
 		}
 
 		public void AddTab(string title)
@@ -61,6 +76,24 @@ namespace Cayita.UI
 			cfg.Content.Append (tab.Body);
 		}
 
+
+		public void AddTab(Action<Tab> tab, Action<AnchorElement> anchor = null)
+		{
+			var t = new Tab ();
+			tab.Invoke (t);
+			tabs.Add (t);
+
+			cfg.Links.AddItem ((i,a) => {
+				a.Href="#"+t.Body.ID;
+				a.SetAttribute("data-toggle", "tab");
+				if(anchor!=null) anchor.Invoke(a);
+				else a.Text(t.Title);
+			});
+			
+			cfg.Content.Append (t.Body);
+
+		}
+
 		public Tab GetTab(int index)
 		{
 			return new Tab ();
@@ -72,14 +105,36 @@ namespace Cayita.UI
 			Show(this.JQuery ("a[href='#" + t.Body.ID + "']"));
 		}
 
+		public void Show(Tab tab)
+		{
+			Show(this.JQuery ("a[href='#" + tab.Body.ID + "']"));
+		}
+
 		[InlineCode("{tab}.tab('show')")]
 		void Show(jQueryObject tab)
 		{
 		}
 
-		public event Action<TabPanel,Tab,Tab> OnShown;
-		public event Action<TabPanel,Tab,Tab> OnShow;
-		public event Action<TabPanel,Tab> OnClick;
+
+		/// <summary>
+		/// This event fires on tab show after a tab has been shown.
+		/// <TabPanel,Tab,Tab> 
+		/// TabPanel, the active tab and the previous active tab (if available) respectively.
+		/// </summary>
+		public event Action<TabPanel,Tab,Tab> OnTabShown;
+
+		/// <summary>
+		/// This event fires on tab show, but before the new tab has been shown. 
+		/// <TabPanel,Tab,Tab> 
+		/// TabPanel, the active tab and the previous active tab (if available) respectively.
+		/// </summary>
+		public event Action<TabPanel,Tab,Tab> OnTabShow;
+
+		/// <summary>
+		/// Occurs when on tab click.
+		/// <TabPanel,Tab> TabPanel, Tab clicked.
+		/// </summary>
+		public event Action<TabPanel,Tab> OnTabClick;
 
 	}
 
@@ -88,13 +143,13 @@ namespace Cayita.UI
 	{
 		public TabPanelConfig()
 		{
-			Bordered = true;
+			Bordered = false;
 			TabsPosition = "top";
 
 			NavType = "tabs";
 
 			new HtmlList (null, l => {
-				l.ClassName = string.Format ("nav nav-{0}", NavType);
+				l.ClassName = string.Format ("nav nav-{0}{1}",NavType,Stacked?" nav-stacked":"");
 				Links=l;
 			});
 
@@ -123,6 +178,9 @@ namespace Cayita.UI
 		/// <value>The type of the nav:tabs || pills.</value>
 		public string NavType { get; set; }
 
+
+		public bool Stacked { get; set; }
+
 		public ListElement Links { get; set; }
 
 		public DivElement Content { get; set; }
@@ -146,7 +204,6 @@ namespace Cayita.UI
 
 		public string Title { get; set; }
 		public string Name { get; set; }
-		public Action<jQueryEvent> OnClickHandler{ get; set; }
 		public DivElement Body { get; set; }
 
 	}

@@ -70,6 +70,12 @@
 			$t13.set_file('modules/DemoSearchBox.js');
 			$t13.set_class('DemoSearchBox');
 			ss.add($t14, $t13);
+			var $t16 = this.get_$menuItems();
+			var $t15 = new $MenuItem();
+			$t15.set_title('TabPanel');
+			$t15.set_file('modules/DemoTabPanel.js');
+			$t15.set_class('DemoTabPanel');
+			ss.add($t16, $t15);
 		},
 		$showTopNavBar: function() {
 			this.set_$topNavBar(new Cayita.UI.NavBar.$ctor1(null, 'Cayita - demo', '', '', ss.mkdel(this, function(nav) {

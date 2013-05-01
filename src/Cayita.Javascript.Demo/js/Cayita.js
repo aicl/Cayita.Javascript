@@ -4072,7 +4072,6 @@
 		var $this = {};
 		$this.title = null;
 		$this.name = null;
-		$this.onClickHandler = null;
 		$this.body = null;
 		$this.title = '';
 		$this.name = '';
@@ -4230,9 +4229,42 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.TabPanel
 	var $Cayita_UI_TabPanel = function(parent) {
-		$Cayita_UI_TabPanel.$ctor1.call(this, parent, $Cayita_UI_TabPanelConfig.$ctor());
+		this.$cfg = null;
+		this.$tabs = [];
+		this.$3$OnTabShownField = null;
+		this.$3$OnTabShowField = null;
+		this.$3$OnTabClickField = null;
+		$Cayita_UI_Div.$ctor1.call(this, parent);
+		this.$init($Cayita_UI_TabPanelConfig.$ctor());
 	};
 	$Cayita_UI_TabPanel.prototype = {
+		$init: function(config) {
+			var el = this.element$1();
+			el.className = ss.formatString('tabbable{0}{1}', (config.bordered ? ' tabbable-bordered' : ''), ' tabs-' + config.tabsPosition);
+			$(el).append(config.links).append(config.content);
+			this.$cfg = config;
+			this.jQuery$1('a[data-toggle=\'tab\']').on('shown', ss.mkdel(this, function(evt) {
+				if (!ss.staticEquals(this.$3$OnTabShownField, null)) {
+					this.$3$OnTabShownField(this, this.$getTab(evt.target), this.$getTab(evt.relatedTarget));
+				}
+			}));
+			this.jQuery$1('a[data-toggle=\'tab\']').on('show', ss.mkdel(this, function(evt1) {
+				if (!ss.staticEquals(this.$3$OnTabShowField, null)) {
+					this.$3$OnTabShowField(this, this.$getTab(evt1.target), this.$getTab(evt1.relatedTarget));
+				}
+			}));
+			this.jQuery$1('a[data-toggle=\'tab\']').on('Click', ss.mkdel(this, function(evt2) {
+				if (!ss.staticEquals(this.$3$OnTabClickField, null)) {
+					evt2.preventDefault();
+					this.$3$OnTabClickField(this, this.$getTab(evt2.target));
+				}
+			}));
+		},
+		$getTab: function(anchor) {
+			return (ss.isValue(anchor) ? Enumerable.from(this.$tabs).first(function(f) {
+				return ss.referenceEquals('#' + f.body.id, anchor.href);
+			}) : null);
+		},
 		addTab$1: function(title) {
 			var $t1 = $Cayita_UI_Tab.$ctor();
 			$t1.title = title;
@@ -4247,56 +4279,72 @@
 			});
 			$(this.$cfg.content).append(tab.body);
 		},
+		addTab$2: function(tab, anchor) {
+			var t = $Cayita_UI_Tab.$ctor();
+			tab(t);
+			ss.add(this.$tabs, t);
+			$Extensions.addItem$1(this.$cfg.links, function(i, a) {
+				a.href = '#' + t.body.id;
+				a.setAttribute('data-toggle', 'tab');
+				if (!ss.staticEquals(anchor, null)) {
+					anchor(a);
+				}
+				else {
+					$(a).text(t.title);
+				}
+			});
+			$(this.$cfg.content).append(t.body);
+		},
 		getTab: function(index) {
 			return $Cayita_UI_Tab.$ctor();
 		},
-		show$1: function(index) {
+		show$2: function(index) {
 			var t = this.$tabs[index];
 			this.jQuery$1('a[href=\'#' + t.body.id + '\']').tab('show');
 		},
-		add_onShown: function(value) {
-			this.$3$OnShownField = ss.delegateCombine(this.$3$OnShownField, value);
+		show$1: function(tab) {
+			this.jQuery$1('a[href=\'#' + tab.body.id + '\']').tab('show');
 		},
-		remove_onShown: function(value) {
-			this.$3$OnShownField = ss.delegateRemove(this.$3$OnShownField, value);
+		add_onTabShown: function(value) {
+			this.$3$OnTabShownField = ss.delegateCombine(this.$3$OnTabShownField, value);
 		},
-		add_onShow: function(value) {
-			this.$3$OnShowField = ss.delegateCombine(this.$3$OnShowField, value);
+		remove_onTabShown: function(value) {
+			this.$3$OnTabShownField = ss.delegateRemove(this.$3$OnTabShownField, value);
 		},
-		remove_onShow: function(value) {
-			this.$3$OnShowField = ss.delegateRemove(this.$3$OnShowField, value);
+		add_onTabShow: function(value) {
+			this.$3$OnTabShowField = ss.delegateCombine(this.$3$OnTabShowField, value);
 		},
-		add_onClick: function(value) {
-			this.$3$OnClickField = ss.delegateCombine(this.$3$OnClickField, value);
+		remove_onTabShow: function(value) {
+			this.$3$OnTabShowField = ss.delegateRemove(this.$3$OnTabShowField, value);
 		},
-		remove_onClick: function(value) {
-			this.$3$OnClickField = ss.delegateRemove(this.$3$OnClickField, value);
+		add_onTabClick: function(value) {
+			this.$3$OnTabClickField = ss.delegateCombine(this.$3$OnTabClickField, value);
+		},
+		remove_onTabClick: function(value) {
+			this.$3$OnTabClickField = ss.delegateRemove(this.$3$OnTabClickField, value);
 		}
+	};
+	$Cayita_UI_TabPanel.$ctor2 = function(parent, config) {
+		this.$cfg = null;
+		this.$tabs = [];
+		this.$3$OnTabShownField = null;
+		this.$3$OnTabShowField = null;
+		this.$3$OnTabClickField = null;
+		$Cayita_UI_Div.$ctor1.call(this, parent);
+		var c = $Cayita_UI_TabPanelConfig.$ctor();
+		config(c);
+		this.$init(c);
 	};
 	$Cayita_UI_TabPanel.$ctor1 = function(parent, config) {
 		this.$cfg = null;
 		this.$tabs = [];
-		this.$3$OnShownField = null;
-		this.$3$OnShowField = null;
-		this.$3$OnClickField = null;
+		this.$3$OnTabShownField = null;
+		this.$3$OnTabShowField = null;
+		this.$3$OnTabClickField = null;
 		$Cayita_UI_Div.$ctor1.call(this, parent);
-		var el = this.element$1();
-		el.className = ss.formatString('tabbable{0}{1}', (config.bordered ? ' tabbable-bordered' : ''), 'tabs-' + config.tabsPosition);
-		$(el).append(config.links).append(config.content);
-		this.$cfg = config;
-		this.jQuery$1('a[data-toggle=\'tab\']').on('shown', ss.mkdel(this, function(evt) {
-			var crt = evt.target;
-			var prv = evt.relatedTarget;
-			if (ss.isValue(crt)) {
-				var current = Enumerable.from(this.$tabs).first(function(f) {
-					return ss.referenceEquals('#' + f.body.id, crt.href);
-				});
-			}
-			if (ss.isValue(prv)) {
-			}
-		}));
+		this.$init(config);
 	};
-	$Cayita_UI_TabPanel.$ctor1.prototype = $Cayita_UI_TabPanel.prototype;
+	$Cayita_UI_TabPanel.$ctor2.prototype = $Cayita_UI_TabPanel.$ctor1.prototype = $Cayita_UI_TabPanel.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.TabPanelConfig
 	var $Cayita_UI_TabPanelConfig = function() {
@@ -4309,13 +4357,14 @@
 		$this.bordered = false;
 		$this.tabsPosition = null;
 		$this.navType = null;
+		$this.stacked = false;
 		$this.links = null;
 		$this.content = null;
-		$this.bordered = true;
+		$this.bordered = false;
 		$this.tabsPosition = 'top';
 		$this.navType = 'tabs';
 		new $Cayita_UI_HtmlList.$ctor1(null, function(l) {
-			l.className = ss.formatString('nav nav-{0}', $this.navType);
+			l.className = ss.formatString('nav nav-{0}{1}', $this.navType, ($this.stacked ? ' nav-stacked' : ''));
 			$this.links = l;
 		}, false);
 		new $Cayita_UI_Div.$ctor2(null, function(d) {
