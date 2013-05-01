@@ -152,7 +152,7 @@
 								$(bt4).button('loading');
 								window.setTimeout(function() {
 									$(bt4).button('reset');
-									Cayita.UI.Alert.success(f4, 'Welcome : ' + cayita.fn.getValue(Extensions.findByName(Element).call(null, f4, 'UserName')), false);
+									Cayita.UI.Alert.success$1(f4, 'Welcome : ' + cayita.fn.getValue(Extensions.findByName(Element).call(null, f4, 'UserName')), false);
 									cayita.fn.clearForm(f4);
 								}, 1000);
 							}));
@@ -227,7 +227,7 @@
 							$(bt5).text('Send');
 						});
 						$(f5).validate(Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.setSubmitHandler(Cayita.Plugins.ValidateOptions.$ctor(), function(vf) {
-							Cayita.UI.Alert.success(vf.firstChild, 'message sent', true);
+							Cayita.UI.Alert.success$1(vf.firstChild, 'message sent', true);
 							cayita.fn.clearForm(vf);
 						}), function(rf, ms) {
 							rf.element = Extensions.findByName(Element).call(null, f5, 'Subject');

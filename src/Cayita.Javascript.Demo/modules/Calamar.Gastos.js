@@ -128,7 +128,7 @@
 					ibn.className = 'icon-search icon-large';
 					$(abn).click(ss.mkdel(this, function(evt) {
 						if (!cayita.fn.isDateFormatted(inputFecha.value)) {
-							Cayita.UI.Alert.error(this.get_$searchDiv().element$1(), 'Digite una fecha valida', false);
+							Cayita.UI.Alert.error$1(this.get_$searchDiv().element$1(), 'Digite una fecha valida', false);
 							return;
 						}
 						this.$loadGastos(cayita.fn.toServerDate(inputFecha.value));

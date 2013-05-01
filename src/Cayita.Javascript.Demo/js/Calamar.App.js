@@ -176,7 +176,7 @@
 										this.get_onLogin()(d, this);
 									}
 								})).error(function(request, textStatus, error) {
-									Cayita.UI.Alert.error(fe.firstChild, textStatus + ': ' + (ss.startsWithString(request.statusText, 'ValidationException') ? 'Usario/clave no validos' : request.statusText), true);
+									Cayita.UI.Alert.error$1(fe.firstChild, textStatus + ': ' + (ss.startsWithString(request.statusText, 'ValidationException') ? 'Usario/clave no validos' : request.statusText), true);
 								}).always(function(a) {
 									bt.resetLoadingText();
 								});
