@@ -17,7 +17,13 @@ namespace Cayita.UI
 			var jq = jQuery.Select (string.Format (ErrorTemplate (), message));
 			return before ? jq.InsertBefore (element) : jq.InsertAfter (element);
 		}
-				
+
+		public static jQueryObject Error(string message)
+		{
+			return jQuery.Select (string.Format (ErrorTemplate (), message));
+
+		}
+
 		//-------------------------------------------------------------------------------------
 		
 		public static string SuccessTemplate()
@@ -31,6 +37,10 @@ namespace Cayita.UI
 			return before ? jq.InsertBefore (element) : jq.InsertAfter (element);
 		}
 
+		public static jQueryObject Success(string message)
+		{
+			return jQuery.Select (string.Format (SuccessTemplate (), message));
+		}
 
 		//-------------------------------------------------------------------------------------
 		
@@ -44,7 +54,14 @@ namespace Cayita.UI
 			var jq = jQuery.Select (string.Format (InfoTemplate (), message));
 			return before ? jq.InsertBefore (element) : jq.InsertAfter (element);
 		}
-		
+
+		public static jQueryObject Info(string message)
+		{
+			return  jQuery.Select (string.Format (InfoTemplate (), message));
+
+		}
+
+
 		//-------------------------------------------------------------------------------------
 
 

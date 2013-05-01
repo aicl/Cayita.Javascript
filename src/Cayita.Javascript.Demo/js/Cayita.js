@@ -1471,23 +1471,32 @@
 	$Cayita_UI_Alert.errorTemplate = function() {
 		return '<div class=\'alert alert-block alert-error\'><a class=\'close\' data-dismiss=\'alert\' href=\'#\'>×</a>{0}</div>';
 	};
-	$Cayita_UI_Alert.error = function(element, message, before) {
+	$Cayita_UI_Alert.error$1 = function(element, message, before) {
 		var jq = $(ss.formatString($Cayita_UI_Alert.errorTemplate(), message));
 		return (before ? jq.insertBefore(element) : jq.insertAfter(element));
+	};
+	$Cayita_UI_Alert.error = function(message) {
+		return $(ss.formatString($Cayita_UI_Alert.errorTemplate(), message));
 	};
 	$Cayita_UI_Alert.successTemplate = function() {
 		return '<div class=\'alert alert-block alert-success\'><a class=\'close\' data-dismiss=\'alert\' href=\'#\'>×</a>{0}</div>';
 	};
-	$Cayita_UI_Alert.success = function(element, message, before) {
+	$Cayita_UI_Alert.success$1 = function(element, message, before) {
 		var jq = $(ss.formatString($Cayita_UI_Alert.successTemplate(), message));
 		return (before ? jq.insertBefore(element) : jq.insertAfter(element));
+	};
+	$Cayita_UI_Alert.success = function(message) {
+		return $(ss.formatString($Cayita_UI_Alert.successTemplate(), message));
 	};
 	$Cayita_UI_Alert.infoTemplate = function() {
 		return '<div class=\'alert alert-block alert-info\'><a class=\'close\' data-dismiss=\'alert\' href=\'#\'>×</a>{0}</div>';
 	};
-	$Cayita_UI_Alert.info = function(element, message, before) {
+	$Cayita_UI_Alert.info$1 = function(element, message, before) {
 		var jq = $(ss.formatString($Cayita_UI_Alert.infoTemplate(), message));
 		return (before ? jq.insertBefore(element) : jq.insertAfter(element));
+	};
+	$Cayita_UI_Alert.info = function(message) {
+		return $(ss.formatString($Cayita_UI_Alert.infoTemplate(), message));
 	};
 	$Cayita_UI_Alert.warningTemplate = function() {
 		return '<div class=\'alert alert-block\'><a class=\'close\' data-dismiss=\'alert\' href=\'#\'>×</a>{0}</div>';
@@ -4241,7 +4250,12 @@
 		$init: function(config) {
 			var el = this.element$1();
 			el.className = ss.formatString('tabbable{0}{1}', (config.bordered ? ' tabbable-bordered' : ''), ' tabs-' + config.tabsPosition);
-			$(el).append(config.links).append(config.content);
+			if (config.tabsPosition !== 'below') {
+				$(el).append(config.links).append(config.content);
+			}
+			else {
+				$(el).append(config.content).append(config.links);
+			}
 			this.$cfg = config;
 			this.jQuery$1('a[data-toggle=\'tab\']').on('shown', ss.mkdel(this, function(evt) {
 				if (!ss.staticEquals(this.$3$OnTabShownField, null)) {
@@ -4300,10 +4314,18 @@
 		},
 		show$2: function(index) {
 			var t = this.$tabs[index];
-			this.jQuery$1('a[href=\'#' + t.body.id + '\']').tab('show');
+			var jq = $(this.$cfg.links);
+			console.log('jq ', jq);
+			var $t1 = this.$cfg.links;
+			var jq2 = $('a[href=\'#' + t.body.id + '\']', $t1);
+			console.log('jq2 ', jq2);
+			console.log('t.Body.ID ', t.body.id);
+			var $t2 = this.$cfg.links;
+			$('a[href=\'#' + t.body.id + '\']', $t2).tab('show');
 		},
 		show$1: function(tab) {
-			this.jQuery$1('a[href=\'#' + tab.body.id + '\']').tab('show');
+			var $t1 = this.$cfg.links;
+			$('a[href=\'#' + tab.body.id + '\']', $t1).tab('show');
 		},
 		add_onTabShown: function(value) {
 			this.$3$OnTabShownField = ss.delegateCombine(this.$3$OnTabShownField, value);

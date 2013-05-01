@@ -34,7 +34,10 @@ namespace Cayita.UI
 		{
 			var el = Element ();
 			el.ClassName = string.Format ("tabbable{0}{1}", config.Bordered ? " tabbable-bordered" : "", " tabs-" + config.TabsPosition);
-			el.Append (config.Links).Append (config.Content);
+
+			if(config.TabsPosition!="below") el.Append (config.Links).Append (config.Content);
+			else  el.Append (config.Content).Append (config.Links);
+
 			cfg = config;
 			this.JQuery ("a[data-toggle='tab']").On ("shown", evt =>  {
 				if (OnTabShown != null) {
@@ -102,12 +105,17 @@ namespace Cayita.UI
 		public void Show(int index)
 		{
 			var t = tabs [index];
-			Show(this.JQuery ("a[href='#" + t.Body.ID + "']"));
+			var jq = cfg.Links.JQuery ();
+			Firebug.Console.Log ("jq ", jq);
+			var jq2 = cfg.Links.JQuery ("a[href='#" + t.Body.ID + "']");
+			Firebug.Console.Log ("jq2 ", jq2);
+			Firebug.Console.Log ("t.Body.ID ", t.Body.ID);
+			Show(cfg.Links.JQuery("a[href='#" + t.Body.ID + "']"));
 		}
 
 		public void Show(Tab tab)
 		{
-			Show(this.JQuery ("a[href='#" + tab.Body.ID + "']"));
+			Show(cfg.Links.JQuery ("a[href='#" + tab.Body.ID + "']"));
 		}
 
 		[InlineCode("{tab}.tab('show')")]
