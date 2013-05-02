@@ -13,6 +13,10 @@ namespace Cayita
 //http://markusslima.github.io/bootstrap-filestyle/ tomar api
 // ver implementacion: http://blueimp.github.io/jQuery-File-Upload/
 // leer : http://duckranger.com/2012/06/pretty-file-input-field-in-bootstrap/
+
+// var f = document.getElementById("fu"); 
+// $f.on("change.fileupload", function(evt){console.log("change",evt)});
+// ver evt.target que es un input con el valor del archivo.
 /*
 
 <input type="hidden" value="" name="">
