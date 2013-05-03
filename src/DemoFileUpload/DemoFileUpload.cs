@@ -3,6 +3,7 @@ using System.Html;
 using Cayita.UI;
 using System.Collections.Generic;
 using System.Html.IO;
+using System;
 
 namespace Cayita.Javascript
 {
@@ -14,19 +15,18 @@ namespace Cayita.Javascript
 		static void ShowFileInfo ( IList<File> files, ElementBase log)
 		{
 			log.Empty ();
-
 			if(files.Count==0) return ;
 			var file = files[0]; 
-			log.Append (string.Format("Name:{0}<br/>Size:{1}<br/>Type:{2}",
-			                          file.Name,file.Size,file.Type));
-
+			log.Append (string.Format("Name:{0}<br>Size:{1}<br>Type:{2}<br>LastModifiedDate:{3}",
+			                          file.Name,
+			                          file.Size,
+			                          file.Type,
+			                          file.LastModifiedDate.Format("dd-MM-yyyy HH:mm:ss")));
 		}
 
 		public static void Execute(Element parent)
 		{
-
 			"File upload".Header (3).AppendTo (parent);
-
 			FileUpload fu= new FileUpload();
 			Div logFu = new Div ();
 			SubmitButton sbFu= new SubmitButton (null, bt => {
