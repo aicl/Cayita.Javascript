@@ -21,7 +21,7 @@ namespace Cayita.UI
 			element.Invoke (Element ());
 		}
 
-		public Div (Element parent)
+		public Div (Element parent=null)
 		{
 			CreateElement ("div", parent);
 

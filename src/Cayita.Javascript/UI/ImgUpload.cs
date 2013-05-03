@@ -7,12 +7,12 @@ namespace Cayita
 	public class ImgUpload:Div
 	{
 		ImgUploadConfig cfg;
-		InputElement input;
+		FileElement input;
 		ImageElement img;
 		DivElement divNew;
 		DivElement divExists;
 		
-		public ImgUpload (Element parent):base(parent)
+		public ImgUpload (Element parent=null):base(parent)
 		{
 			Init ( new ImgUploadConfig());
 		}
@@ -77,11 +77,10 @@ namespace Cayita
 						t.InnerHTML=cfg.SelectText??"";
 					});
 					
-					new Input(sp, i=>{
+					new InputFile(sp, i=>{
 						i.Name=cfg.Fieldname;
-						i.PlaceHolder(cfg.PlaceHolder);
 						input= i;
-					},"file");
+					});
 				});
 				
 				new Anchor(d, a=>{
@@ -99,13 +98,13 @@ namespace Cayita
 				});
 				
 				JQuery().On("change.fileupload",evt=>{
-					Firebug.Console.Log("change.fileupload", evt);
+					OnFileSelected();
 				});
 				
 			}).AppendTo(e);
 		}
 		
-		public ImgUpload Input(Action<InputElement> action){
+		public ImgUpload Input(Action<FileElement> action){
 			action (input);
 			return this;
 		}
@@ -133,29 +132,27 @@ namespace Cayita
 			return this;
 		}
 
+
+		public event Action<ImgUpload> FileSelected=f=>{};
+		
+		protected virtual void OnFileSelected()
+		{
+			FileSelected (this);
+		}
+
 	}
 	
-	public class ImgUploadConfig
+	public class ImgUploadConfig:FileUploadConfig
 	{
-		public ImgUploadConfig()
+		public ImgUploadConfig():base()
 		{
-			SelectIconClass = "icon-folder-open";
-			RemoveIconClass = "icon-remove";
-			Fieldname = "";
-			PlaceHolder = "";
-			SpanSize = 3;
+
 			ImgSrc = "http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image";
 			ImgWidth = "200px";
 			ImgHeight = "150px";
 		}
 		
-		public string SelectText {get;set;}
-		public string SelectIconClass { get; set; }
-		public string RemoveText {get;set;}
-		public string RemoveIconClass { get; set; }
-		public string Fieldname { get; set; }
-		public int SpanSize { get; set; }
-		public string PlaceHolder { get; set; }
+
 		public string ImgSrc { get; set; }
 		public string ImgWidth { get; set; }
 		public string ImgHeight { get; set; }

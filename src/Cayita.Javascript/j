@@ -17,6 +17,7 @@
 "SystemExtensions.cs" \
 "StringExtensions.cs" \
 "Extensions.cs" \
+"File.cs" \
 "ElementExtensions.cs" \
 "Data/Store.cs" \
 "Data/StorePaging.cs" \
@@ -28,6 +29,7 @@
 "UI/Core/ListElement.cs" \
 "UI/Core/LabelElement.cs" \
 "UI/Core/ElementBase.cs" \
+"UI/Core/FileElement.cs" \
 "UI/Core/Legend.cs" \
 "UI/Core/Anchor.cs" \
 "UI/Core/Image.cs" \
@@ -38,7 +40,10 @@
 "UI/Core/Label.cs" \
 "UI/Core/TextArea.cs" \
 "UI/Core/InputBase.cs" "UI/Core/Input.cs" \
-"UI/Core/InputText.cs"  "UI/Core/InputPassword.cs" "UI/Core/InputCheckbox.cs" "UI/Core/InputRadio.cs" \
+"UI/Core/InputText.cs" "UI/Core/InputPassword.cs" \
+"UI/Core/InputCheckbox.cs" \
+"UI/Core/InputFile.cs" \
+"UI/Core/InputRadio.cs" \
 "UI/Core/ButtonBase.cs" "UI/Core/Button.cs" "UI/Core/SubmitButton.cs" "UI/Core/ResetButton.cs" \
 "UI/Core/Form.cs" \
 "UI/Core/HtmlList.cs" \

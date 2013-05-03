@@ -104,6 +104,9 @@
     <Compile Include="UI\TabPanel.cs" />
     <Compile Include="UI\FileUpload.cs" />
     <Compile Include="UI\ImgUpload.cs" />
+    <Compile Include="File.cs" />
+    <Compile Include="UI\Core\FileElement.cs" />
+    <Compile Include="UI\Core\InputFile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

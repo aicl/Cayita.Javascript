@@ -7,9 +7,9 @@ namespace Cayita
 	public class FileUpload:Div
 	{
 		FileUploadConfig cfg;
-		InputElement input;
+		FileElement input;
 
-		public FileUpload (Element parent):base(parent)
+		public FileUpload (Element parent=null):base(parent)
 		{
 			Init ( new FileUploadConfig());
 		}
@@ -63,11 +63,10 @@ namespace Cayita
 						t.InnerHTML=cfg.SelectText??"";
 					});
 
-					new Input(sp, i=>{
+					new InputFile(sp, i=>{
 						i.Name=cfg.Fieldname;
-						i.PlaceHolder(cfg.PlaceHolder);
 						input= i;
-					},"file");
+					});
 				});
 
 				new Anchor(d, a=>{
@@ -85,17 +84,24 @@ namespace Cayita
 				});
 
 				JQuery().On("change.fileupload",evt=>{
-					Firebug.Console.Log("change.fileupload", evt);
+					OnFileSelected();
 				});
 
 			}).AppendTo(e);
 		}
 
-		public FileUpload Input(Action<InputElement> action ){
+		public FileUpload Input(Action<FileElement> action ){
 			action (input);
 			return this;
 		}
 
+
+		public event Action<FileUpload> FileSelected=f=>{};
+
+		protected virtual void OnFileSelected()
+		{
+			FileSelected (this);
+		}
 	}
 
 	public class FileUploadConfig
@@ -105,7 +111,7 @@ namespace Cayita
 			SelectIconClass = "icon-folder-open";
 			RemoveIconClass = "icon-remove";
 			Fieldname = "";
-			PlaceHolder = "";
+			//PlaceHolder = "";
 			SpanSize = 3;
 
 		}
@@ -116,7 +122,7 @@ namespace Cayita
 		public string RemoveIconClass { get; set; }
 		public string Fieldname { get; set; }
 		public int SpanSize { get; set; }
-		public string PlaceHolder { get; set; }
+		//public string PlaceHolder { get; set; }
 	}
 }
 
