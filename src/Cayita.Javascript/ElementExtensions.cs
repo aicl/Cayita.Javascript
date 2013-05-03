@@ -192,7 +192,7 @@ namespace Cayita.UI
 		}
 
 		[InlineCode("$({element}).attr('placeholder',{value})")]
-		public static jQueryObject PlaceHolder(this TextElement element, string value)
+		public static jQueryObject PlaceHolder(this InputElement element, string value)
 		{
 			return null;
 		}

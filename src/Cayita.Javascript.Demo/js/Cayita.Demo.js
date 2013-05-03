@@ -76,6 +76,12 @@
 			$t15.set_file('modules/DemoTabPanel.js');
 			$t15.set_class('DemoTabPanel');
 			ss.add($t16, $t15);
+			var $t18 = this.get_$menuItems();
+			var $t17 = new $MenuItem();
+			$t17.set_title('File Upload');
+			$t17.set_file('modules/DemoFileUpload.js');
+			$t17.set_class('DemoFileUpload');
+			ss.add($t18, $t17);
 		},
 		$showTopNavBar: function() {
 			this.set_$topNavBar(new Cayita.UI.NavBar.$ctor1(null, 'Cayita - demo', '', '', ss.mkdel(this, function(nav) {

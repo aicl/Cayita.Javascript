@@ -295,6 +295,150 @@
 		};
 	};
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.FileUpload
+	var $Cayita_FileUpload = function(parent) {
+		this.$cfg = null;
+		this.$input = null;
+		$Cayita_UI_Div.$ctor1.call(this, parent);
+		this.$init(new $Cayita_FileUploadConfig());
+	};
+	$Cayita_FileUpload.prototype = {
+		$init: function(config) {
+			this.$cfg = config;
+			var e = this.element$1();
+			e.className = 'fileupload fileupload-new';
+			e.setAttribute('data-provides', 'fileupload');
+			(new $Cayita_UI_Div(ss.mkdel(this, function(d) {
+				d.className = 'input-append';
+				new $Cayita_UI_Div.$ctor2(d, ss.mkdel(this, function(inpt) {
+					inpt.className = 'uneditable-input span' + this.$cfg.get_spanSize();
+					new $Cayita_UI_Icon.$ctor3(inpt, function(i) {
+						i.className = 'icon-file fileupload-exists';
+					});
+					new $Cayita_UI_Span.$ctor2(inpt, function(s) {
+						s.className = 'fileupload-preview';
+					});
+				}));
+				new $Cayita_UI_Span.$ctor2(d, ss.mkdel(this, function(sp) {
+					sp.className = 'btn btn-file';
+					new $Cayita_UI_Span.$ctor2(sp, ss.mkdel(this, function(sl) {
+						sl.className = 'fileupload-new';
+						new $Cayita_UI_Icon.$ctor3(sl, ss.mkdel(this, function(i1) {
+							i1.className = this.$cfg.get_selectIconClass();
+						}));
+						var t = document.createElement('ctxt');
+						$(sl).append(t);
+						t.innerHTML = ss.coalesce(this.$cfg.get_selectText(), '');
+					}));
+					new $Cayita_UI_Span.$ctor2(sp, ss.mkdel(this, function(sl1) {
+						sl1.className = 'fileupload-exists';
+						new $Cayita_UI_Icon.$ctor3(sl1, ss.mkdel(this, function(i2) {
+							i2.className = this.$cfg.get_selectIconClass();
+						}));
+						var t1 = document.createElement('ctxt');
+						$(sl1).append(t1);
+						t1.innerHTML = ss.coalesce(this.$cfg.get_selectText(), '');
+					}));
+					this.$input = new $Cayita_UI_Input.$ctor1(sp, ss.mkdel(this, function(i3) {
+						i3.name = this.$cfg.get_fieldname();
+						$(i3).attr('placeholder', this.$cfg.get_placeHolder());
+					}), 'file');
+				}));
+				new $Cayita_UI_Anchor.$ctor3(d, ss.mkdel(this, function(a) {
+					a.className = 'btn fileupload-exists';
+					a.setAttribute('data-dismiss', 'fileupload');
+					new $Cayita_UI_Icon.$ctor3(a, ss.mkdel(this, function(i4) {
+						i4.className = this.$cfg.get_removeIconClass();
+					}));
+					var t2 = document.createElement('ctxt');
+					$(a).append(t2);
+					t2.innerHTML = ss.coalesce(this.$cfg.get_removeText(), '');
+				}));
+				this.jQuery().on('change.fileupload', function(evt) {
+					console.log('change.fileupload', evt);
+				});
+			}))).appendTo$1(e);
+		},
+		input: function() {
+			return this.$input;
+		}
+	};
+	$Cayita_FileUpload.$ctor2 = function(parent, config) {
+		this.$cfg = null;
+		this.$input = null;
+		$Cayita_UI_Div.$ctor1.call(this, parent);
+		var c = new $Cayita_FileUploadConfig();
+		config(c);
+		this.$init(c);
+	};
+	$Cayita_FileUpload.$ctor1 = function(parent, config) {
+		this.$cfg = null;
+		this.$input = null;
+		$Cayita_UI_Div.$ctor1.call(this, parent);
+		this.$init(config);
+	};
+	$Cayita_FileUpload.$ctor2.prototype = $Cayita_FileUpload.$ctor1.prototype = $Cayita_FileUpload.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.FileUploadConfig
+	var $Cayita_FileUploadConfig = function() {
+		this.$1$SelectTextField = null;
+		this.$1$SelectIconClassField = null;
+		this.$1$RemoveTextField = null;
+		this.$1$RemoveIconClassField = null;
+		this.$1$FieldnameField = null;
+		this.$1$SpanSizeField = 0;
+		this.$1$PlaceHolderField = null;
+		this.set_selectIconClass('icon-folder-open');
+		this.set_removeIconClass('icon-remove');
+		this.set_fieldname('');
+		this.set_placeHolder('');
+		this.set_spanSize(3);
+	};
+	$Cayita_FileUploadConfig.prototype = {
+		get_selectText: function() {
+			return this.$1$SelectTextField;
+		},
+		set_selectText: function(value) {
+			this.$1$SelectTextField = value;
+		},
+		get_selectIconClass: function() {
+			return this.$1$SelectIconClassField;
+		},
+		set_selectIconClass: function(value) {
+			this.$1$SelectIconClassField = value;
+		},
+		get_removeText: function() {
+			return this.$1$RemoveTextField;
+		},
+		set_removeText: function(value) {
+			this.$1$RemoveTextField = value;
+		},
+		get_removeIconClass: function() {
+			return this.$1$RemoveIconClassField;
+		},
+		set_removeIconClass: function(value) {
+			this.$1$RemoveIconClassField = value;
+		},
+		get_fieldname: function() {
+			return this.$1$FieldnameField;
+		},
+		set_fieldname: function(value) {
+			this.$1$FieldnameField = value;
+		},
+		get_spanSize: function() {
+			return this.$1$SpanSizeField;
+		},
+		set_spanSize: function(value) {
+			this.$1$SpanSizeField = value;
+		},
+		get_placeHolder: function() {
+			return this.$1$PlaceHolderField;
+		},
+		set_placeHolder: function(value) {
+			this.$1$PlaceHolderField = value;
+		}
+	};
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Data.AjaxResponse
 	var $Cayita_Data_AjaxResponse = function() {
 	};
@@ -2587,11 +2731,11 @@
 	$Cayita_UI_Image.$ctor1.prototype = $Cayita_UI_Image.$ctor2.prototype = $Cayita_UI_Image.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Input
-	var $Cayita_UI_Input = function(parent) {
-		$Cayita_UI_InputBase.$ctor1.call(this, parent, 'text');
+	var $Cayita_UI_Input = function(parent, type) {
+		$Cayita_UI_InputBase.$ctor1.call(this, parent, type);
 	};
-	$Cayita_UI_Input.$ctor1 = function(parent, element) {
-		$Cayita_UI_InputBase.$ctor1.call(this, parent, 'text');
+	$Cayita_UI_Input.$ctor1 = function(parent, element, type) {
+		$Cayita_UI_InputBase.$ctor1.call(this, parent, type);
 		element(this.element$1());
 	};
 	$Cayita_UI_Input.$ctor1.prototype = $Cayita_UI_Input.prototype;
@@ -3382,7 +3526,7 @@
 					if (this.$cfg.required) {
 						$(e).attr('required', true);
 					}
-				}))).element$1();
+				}), 'text')).element$1();
 				this.$te = (new $Cayita_UI_InputText.$ctor2(this.$main, ss.mkdel(this, function(e1) {
 					e1.className = 'search-query';
 					$(e1).attr('placeholder', this.$cfg.placeHolder);
@@ -3990,7 +4134,7 @@
 							this.$store_.readPage(cayita.fn.getValue(i4) - 1);
 						}
 					}));
-				}))).element$1();
+				}), 'text')).element$1();
 				this.$totalPages = (new $Cayita_UI_Label.$ctor1(d1, ss.mkdel(this, function(l1) {
 					l1.className = 'checkbox';
 					l1.style.paddingLeft = '2px';
@@ -4525,6 +4669,10 @@
 	ss.registerClass(global, 'Extensions', $Extensions);
 	ss.registerClass(global, 'StringExtensions', $StringExtensions);
 	ss.registerClass(global, 'SystemExtensions', $SystemExtensions);
+	ss.registerClass(global, 'Cayita.UI.ElementBase', $Cayita_UI_ElementBase);
+	ss.registerClass(global, 'Cayita.UI.Div', $Cayita_UI_Div, $Cayita_UI_ElementBase);
+	ss.registerClass(global, 'Cayita.FileUpload', $Cayita_FileUpload, $Cayita_UI_Div);
+	ss.registerClass(global, 'Cayita.FileUploadConfig', $Cayita_FileUploadConfig);
 	ss.registerClass(global, 'Cayita.Data.AjaxResponse', $Cayita_Data_AjaxResponse);
 	ss.registerClass(global, 'Cayita.Data.AppError', $Cayita_Data_AppError);
 	ss.registerClass(global, 'Cayita.Data.ReadOptions', $Cayita_Data_ReadOptions);
@@ -4541,12 +4689,10 @@
 	ss.registerClass(global, 'Cayita.Plugins.RuleFor', $Cayita_Plugins_RuleFor);
 	ss.registerClass(global, 'Cayita.Plugins.ValidateOptions', $Cayita_Plugins_ValidateOptions);
 	ss.registerClass(global, 'Cayita.UI.Alert', $Cayita_UI_Alert);
-	ss.registerClass(global, 'Cayita.UI.ElementBase', $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Anchor', $Cayita_UI_Anchor, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Bootbox', $Cayita_UI_Bootbox);
 	ss.registerClass(global, 'Cayita.UI.ButtonBase', $Cayita_UI_ButtonBase, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Button', $Cayita_UI_Button, $Cayita_UI_ButtonBase);
-	ss.registerClass(global, 'Cayita.UI.Div', $Cayita_UI_Div, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.CheckboxField', $Cayita_UI_CheckboxField, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.DialogButton', $Cayita_UI_DialogButton);
 	ss.registerClass(global, 'Cayita.UI.DialogOptions', $Cayita_UI_DialogOptions);

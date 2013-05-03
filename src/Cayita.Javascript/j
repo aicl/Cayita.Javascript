@@ -54,6 +54,7 @@
 "UI/TextField.cs"  \
 "UI/CheckboxField.cs" \
 "UI/DropDownMenu.cs" \
+"UI/FileUpload.cs" \
 "UI/RadioField.cs" \
 "UI/SearchBox.cs" \
 "UI/TextAreaField.cs" \

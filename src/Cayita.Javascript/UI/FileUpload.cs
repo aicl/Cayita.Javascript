@@ -7,6 +7,7 @@ namespace Cayita
 	public class FileUpload:Div
 	{
 		FileUploadConfig cfg;
+		Input input;
 
 		public FileUpload (Element parent):base(parent)
 		{
@@ -35,7 +36,7 @@ namespace Cayita
 			new Div ( d => {
 				d.ClassName="input-append";
 				new Div(d, inpt=>{
-					inpt.ClassName="uneditable-input span3";
+					inpt.ClassName= "uneditable-input span"+ cfg.SpanSize;
 					new Icon(inpt, i=> i.ClassName="icon-file fileupload-exists");
 					new Span(inpt, s=> s.ClassName="fileupload-preview");
 				});
@@ -43,6 +44,7 @@ namespace Cayita
 				new Span(d, sp=>{
 					sp.ClassName="btn btn-file";
 					new Span(sp, sl=>{
+						sl.ClassName="fileupload-new";
 						new Icon(sl, i=>{
 							i.ClassName=cfg.SelectIconClass;
 						});
@@ -52,6 +54,7 @@ namespace Cayita
 					});
 
 					new Span(sp, sl=>{
+						sl.ClassName="fileupload-exists";
 						new Icon(sl, i=>{
 							i.ClassName=cfg.SelectIconClass;
 						});
@@ -60,25 +63,36 @@ namespace Cayita
 						t.InnerHTML=cfg.SelectText??"";
 					});
 
-					new Input(sp, i=>{
-						i.Type="file";
+					input= new Input(sp, i=>{
 						i.Name=cfg.Fieldname;
-					});
+						i.PlaceHolder(cfg.PlaceHolder);
+					},"file");
 				});
 
 				new Anchor(d, a=>{
 					a.ClassName="btn fileupload-exists";
 					a.SetAttribute("data-dismiss","fileupload");
+
+					new Icon(a, i=>{
+						i.ClassName=cfg.RemoveIconClass;
+					});
+
 					var t= Document.CreateElement("ctxt");
 					t.AppendTo(a);
 					t.InnerHTML=cfg.RemoveText??"";
 				
 				});
 
+				JQuery().On("change.fileupload",evt=>{
+					Firebug.Console.Log("change.fileupload", evt);
+				});
+
 			}).AppendTo(e);
 		}
 
-
+		public Input Input(){
+			return input;
+		}
 
 	}
 
@@ -89,6 +103,8 @@ namespace Cayita
 			SelectIconClass = "icon-folder-open";
 			RemoveIconClass = "icon-remove";
 			Fieldname = "";
+			PlaceHolder = "";
+			SpanSize = 3;
 
 		}
 
@@ -97,6 +113,8 @@ namespace Cayita
 		public string RemoveText {get;set;}
 		public string RemoveIconClass { get; set; }
 		public string Fieldname { get; set; }
+		public int SpanSize { get; set; }
+		public string PlaceHolder { get; set; }
 	}
 }
 
