@@ -32,6 +32,28 @@ namespace Cayita.Javascript
 				});
 
 			}).AppendTo (parent);
+
+
+			"Image upload".Header (3).AppendTo (parent);
+			
+			new Div (null, div => {
+				div.ClassName = "bs-docs-example";
+				
+				new Form (div, f => {
+					
+					new ImgUpload (f);
+					
+					new SubmitButton (f, bt => {
+						bt.ClassName = "btn btn-info";
+						bt.Text ("Upload");
+						bt.OnClick (ev => {
+							ev.PreventDefault ();});
+					});
+					
+				});
+				
+			}).AppendTo (parent);
+
 		}
 
 	}

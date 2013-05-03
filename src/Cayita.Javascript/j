@@ -62,6 +62,7 @@
 "UI/NavList.cs" \
 "UI/SelectField.cs" \
 "UI/HtmlGrid.cs" \
+"UI/ImgUpload.cs" \
 "UI/SpinnerIcon.cs" \
 "UI/TabPanel.cs" \
 "UI/Panel.cs" \

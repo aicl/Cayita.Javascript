@@ -7,7 +7,7 @@ namespace Cayita
 	public class FileUpload:Div
 	{
 		FileUploadConfig cfg;
-		Input input;
+		InputElement input;
 
 		public FileUpload (Element parent):base(parent)
 		{
@@ -63,9 +63,10 @@ namespace Cayita
 						t.InnerHTML=cfg.SelectText??"";
 					});
 
-					input= new Input(sp, i=>{
+					new Input(sp, i=>{
 						i.Name=cfg.Fieldname;
 						i.PlaceHolder(cfg.PlaceHolder);
+						input= i;
 					},"file");
 				});
 
@@ -90,8 +91,9 @@ namespace Cayita
 			}).AppendTo(e);
 		}
 
-		public Input Input(){
-			return input;
+		public FileUpload Input(Action<InputElement> action ){
+			action (input);
+			return this;
 		}
 
 	}
