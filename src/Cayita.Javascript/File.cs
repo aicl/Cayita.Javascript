@@ -1,7 +1,7 @@
 
 using System.Runtime.CompilerServices;
 
-namespace System.IO
+namespace System.Html.IO
 {
 	[IgnoreNamespace, Imported (ObeysTypeSystem = true)]
 	public class File

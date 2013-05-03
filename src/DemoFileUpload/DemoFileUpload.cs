@@ -1,8 +1,8 @@
-using System;
 using System.Runtime.CompilerServices;
 using System.Html;
 using Cayita.UI;
-using jQueryApi;
+using System.Collections.Generic;
+using System.Html.IO;
 
 namespace Cayita.Javascript
 {
@@ -11,17 +11,14 @@ namespace Cayita.Javascript
 	{
 		public DemoFileUpload (){}
 
-		static void ShowFileInfo ( FileUpload fu, Div log)
+		static void ShowFileInfo ( IList<File> files, ElementBase log)
 		{
 			log.Empty ();
-			fu.Input (i => {
-				if(i.Files.Count==0) return ;
-				var file = i.Files[0];
 
-				log.Append (string.Format("Name:{0}<br/>Size:{1}<br/>Type:{2}",
-				                          file.Name,file.Size,file.Type));
-			});
-
+			if(files.Count==0) return ;
+			var file = files[0]; 
+			log.Append (string.Format("Name:{0}<br/>Size:{1}<br/>Type:{2}",
+			                          file.Name,file.Size,file.Type));
 
 		}
 
@@ -31,8 +28,8 @@ namespace Cayita.Javascript
 			"File upload".Header (3).AppendTo (parent);
 
 			FileUpload fu= new FileUpload();
-			Div log = new Div ();
-			SubmitButton sb= new SubmitButton (null, bt => {
+			Div logFu = new Div ();
+			SubmitButton sbFu= new SubmitButton (null, bt => {
 				bt.ClassName = "btn btn-info";
 				bt.Text ("Upload");
 				bt.Disabled=true;
@@ -47,37 +44,49 @@ namespace Cayita.Javascript
 				div.ClassName = "bs-docs-example";
 				new Form (div, f => {
 					f.Append(fu);										
-					f.Append(sb);
+					f.Append(sbFu);
 				});
-				div.Append(log);
+				div.Append(logFu);
 			}).AppendTo (parent);
 
 			fu.FileSelected += u => {
-				fu.Input( i=>sb.Element().Disabled= i.Files.Count==0 );
-				ShowFileInfo( fu, log );
+				fu.Input( i=>{
+					sbFu.Disable(i.Files.Count==0);
+					ShowFileInfo( i.Files, logFu );
+				});
 			};
 
 
 			//------------------------------------------------------
 			"Image upload".Header (3).AppendTo (parent);
-			
+			ImgUpload iu= new ImgUpload();
+			Div logIm = new Div ();
+			SubmitButton sbIm= new SubmitButton (null, bt => {
+				bt.ClassName = "btn btn-info";
+				bt.Text ("Upload");
+				bt.Disabled=true;
+				bt.OnClick (ev => {
+					ev.PreventDefault();
+					"uploading".LogInfo(2000);
+				});
+			});
+						
 			new Div (null, div => {
 				div.ClassName = "bs-docs-example";
-				
 				new Form (div, f => {
-					
-					new ImgUpload (f);
-					
-					new SubmitButton (f, bt => {
-						bt.ClassName = "btn btn-info";
-						bt.Text ("Upload");
-						bt.OnClick (ev => {
-							ev.PreventDefault ();});
-					});
-					
+					f.Append(iu);										
+					f.Append(sbIm);
 				});
-				
+				div.Append(logIm);
 			}).AppendTo (parent);
+			
+			iu.FileSelected += u => {
+				iu.Input( i=>{ 
+					sbIm.Disable(i.Files.Count==0);
+					ShowFileInfo( i.Files, logIm );
+				});
+
+			};
 
 		}
 

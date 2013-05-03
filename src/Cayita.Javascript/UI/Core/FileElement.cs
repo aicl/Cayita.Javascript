@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
-using System.IO;
+using System.Html.IO;
 
 namespace System.Html
 {

@@ -2241,6 +2241,16 @@
 	};
 	$Cayita_UI_DropDownSubmenu.$ctor1.prototype = $Cayita_UI_DropDownSubmenu.prototype;
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.EBE
+	var $Cayita_UI_EBE = function() {
+	};
+	$Cayita_UI_EBE.disable = function(TElement) {
+		return function(eb, disable) {
+			eb.element().disabled = disable;
+			return eb;
+		};
+	};
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.ElementBase
 	var $Cayita_UI_ElementBase = function() {
 		this.$element_ = null;
@@ -4892,6 +4902,7 @@
 	ss.registerClass(global, 'Cayita.UI.DropDownMenu', $Cayita_UI_DropDownMenu, $Cayita_UI_HtmlList);
 	ss.registerClass(global, 'Cayita.UI.ListItem', $Cayita_UI_ListItem, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.DropDownSubmenu', $Cayita_UI_DropDownSubmenu, $Cayita_UI_ListItem);
+	ss.registerClass(global, 'Cayita.UI.EBE', $Cayita_UI_EBE);
 	ss.registerClass(global, 'Cayita.UI.FieldSet', $Cayita_UI_FieldSet, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.Form', $Cayita_UI_Form, $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.HtmlOption', $Cayita_UI_HtmlOption, $Cayita_UI_ElementBase);

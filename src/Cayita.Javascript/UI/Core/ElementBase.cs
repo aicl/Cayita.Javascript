@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using jQueryApi;
 using jQueryApi.UI.Interactions;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Cayita.UI
 {
@@ -195,6 +196,24 @@ namespace Cayita.UI
 			content (e);
 			return this;
 		}
+
+		[ScriptSkip]
+		public TElement As<TElement> () where TElement : ElementBase
+		{
+			return (TElement)((object)null);
+		}
+
+
+	}
+
+	public static class EBE
+	{
+		public static TElement Disable<TElement> (this TElement eb, bool disable) where TElement : ElementBase
+		{
+			eb.Element ().Disabled = disable;
+			return eb.As<TElement> ();
+		}
+
 	}
 	
 }
