@@ -126,29 +126,6 @@ namespace Cayita
 	}
 }
 
-/*
- * 
- * 
- * files: FileList Implementar File (y FileList ?);
-0: File
-lastModifiedDate: Mon Apr 29 2013 10:05:53 GMT-0500 (COT)
-name: "texture.png"
-size: 79876
-type: "image/png"
-webkitRelativePath: ""
-__proto__: File
-length: 1
-__proto__: FileList
-
-buttonText	String	Customization of button text.
-textField	Bool	Show and hide text field.
-classButton	String	Use of classes Bootstrap for button.
-classText	String	Use of classes Bootstrap for text field.
-icon	Bool	Use icon.
-classIcon	String	Use of classes Bootstrap for icons.
-Methods
-clear	String	Clears a set filestyl
- */ 
 
 //http://markusslima.github.io/bootstrap-filestyle/  api ?
 // ver implementacion: http://blueimp.github.io/jQuery-File-Upload/

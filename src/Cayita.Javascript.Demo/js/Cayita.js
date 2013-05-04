@@ -280,12 +280,6 @@
 		var d = new Date(tick);
 		return new Date(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds());
 	};
-	$SystemExtensions.format = function(date, format) {
-		if (ss.staticEquals(date, null)) {
-			return '';
-		}
-		return ss.formatDate(date, format);
-	};
 	$SystemExtensions.get = function(obj, property) {
 		return obj[property];
 	};

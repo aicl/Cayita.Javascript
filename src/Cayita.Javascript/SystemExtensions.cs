@@ -20,10 +20,6 @@ namespace System
 			return default(DateTime);
 		}
 
-		public static string Format(this JsDate date, string format){
-			if(date==null) return string.Empty;
-			return date.Format(format);
-		}
 
 		/// <summary>
 		/// Determines if value is date formatted. 
