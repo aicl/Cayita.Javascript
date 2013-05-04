@@ -60,6 +60,7 @@
 "UI/CheckboxField.cs" \
 "UI/DropDownMenu.cs" \
 "UI/FileUpload.cs" \
+"UI/FormData.cs" \
 "UI/RadioField.cs" \
 "UI/SearchBox.cs" \
 "UI/TextAreaField.cs" \

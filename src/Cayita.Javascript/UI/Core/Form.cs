@@ -25,5 +25,10 @@ namespace Cayita.UI
 			return (FormElement) base.Element();
 		}
 
+		public FormData FormData()
+		{
+			return new FormData(Element());
+		}
+
 	}
 }

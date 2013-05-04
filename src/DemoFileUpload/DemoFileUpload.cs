@@ -47,6 +47,7 @@ namespace Cayita.Javascript
 					f.Append(sbFu);
 				});
 				div.Append(logFu);
+
 			}).AppendTo (parent);
 
 			fu.FileSelected += u => {

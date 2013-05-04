@@ -2388,6 +2388,9 @@
 	$Cayita_UI_Form.prototype = {
 		element$1: function() {
 			return this.element();
+		},
+		formData: function() {
+			return new FormData(this.element$1());
 		}
 	};
 	$Cayita_UI_Form.$ctor1 = function(parent, element) {
