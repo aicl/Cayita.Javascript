@@ -5,19 +5,26 @@ using jQueryApi;
 namespace Cayita.UI
 {
 
-	public abstract class ButtonBase:ElementBase<ButtonBase>
+	public abstract class ButtonBase<T>:ElementBase<T> where T:ElementBase
 	{
 		protected ButtonBase(){}
 				
 		protected void CreateButton(Element parent,  string type)
 		{
 			CreateElement("button", parent);
-			if(!string.IsNullOrEmpty(type))  Element().Type=type;
-			Element().ClassName="btn";
+			var el = Element ();
+			if(!string.IsNullOrEmpty(type))  el.Type=type;
+			el.ClassName="btn";
+
+			el.OnClick (evt => OnClicked (evt));
+
 		}
 
-		public void Text(string value){
-			Element().Text(value);
+		public event  Action<ButtonBase<T>,jQueryEvent> Clicked = (b,e) => {};
+
+		protected void OnClicked(jQueryEvent evt)
+		{
+			Clicked (this, evt);
 		}
 
 		public void LoadingText(string value)

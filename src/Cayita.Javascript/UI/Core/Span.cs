@@ -33,13 +33,7 @@ namespace Cayita.UI
 			style (Element ().Style);
 			return this;
 		}
-		
 
-		public Span Text(string value)
-		{
-			JQuery ().Text (value);
-			return this;
-		}
 
 		public new SpanElement Element()
 		{

@@ -4,16 +4,16 @@ using System.Html;
 namespace Cayita.UI
 {
 
-	public class SubmitButton:ButtonBase
+	public class SubmitButton:ButtonBase<SubmitButton>
 	{
 		public SubmitButton (Element parent, Action<ButtonElement> element)
 
 		{
 			CreateButton(parent, "submit");
-			element(Element()); 
+			element.Invoke(Element()); 
 		}
 
-		public SubmitButton(Element parent)
+		public SubmitButton(Element parent=null)
 		{
 			CreateButton(parent, "submit");
 		}

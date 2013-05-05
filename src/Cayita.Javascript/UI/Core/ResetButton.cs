@@ -3,12 +3,12 @@ using System.Html;
 
 namespace Cayita.UI
 {
-	public class ResetButton:ButtonBase
+	public class ResetButton:ButtonBase<ResetButton>
 	{
 		public ResetButton (Element parent, Action<ButtonElement> element)
 		{
 			CreateButton(parent, "reset");
-			element(Element());
+			element.Invoke(Element());
 		}
 	
 		public ResetButton(Element parent)

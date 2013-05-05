@@ -27,28 +27,28 @@ namespace Cayita.Javascript
 		public static void Execute(Element parent)
 		{
 			"File upload".Header (3).AppendTo (parent);
-			FileUpload fu= new FileUpload();
-			Div logFu = new Div ();
-			SubmitButton sbFu= new SubmitButton (null, bt => {
-				bt.ClassName = "btn btn-info";
-				bt.Text ("Upload");
-				bt.Disabled=true;
-				bt.OnClick (ev => {
-					ev.PreventDefault();
-					"uploading".LogInfo(2000);
-				});
-			});
 
+			var logFu = new Div ();
+			var fu= new FileUpload();
 
-			new Div (null, div => {
-				div.ClassName = "bs-docs-example";
-				new Form (div, f => {
-					f.Append(fu);										
-					f.Append(sbFu);
-				});
-				div.Append(logFu);
+			var sbFu = new SubmitButton ()
+				.AddClass ("btn-info")
+					.IconClass ("icon-upload")
+					.Text ("Upload")
+					.Disable (true);
 
-			}).AppendTo (parent);
+			sbFu.Clicked+= (b,ev) => {
+				ev.PreventDefault();
+				fu.Input(i=> ( "uploading: " + i.Files[0].Name).LogInfo(2000) );
+			};
+
+			new Div ()
+				.ClassName ("")
+					.Append (new Form (null)
+					        .Append (fu)
+					         .Append (sbFu))
+					.Append (logFu)
+					.AppendTo (parent);
 
 			fu.FileSelected += u => {
 				fu.Input( i=>{

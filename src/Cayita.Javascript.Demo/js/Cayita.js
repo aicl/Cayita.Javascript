@@ -1911,52 +1911,73 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Button
 	var $Cayita_UI_Button = function(element) {
-		$Cayita_UI_ButtonBase.call(this);
+		ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_Button]).call(this);
 		this.createButton(null, 'button');
 		element(this.element$1());
 	};
 	$Cayita_UI_Button.$ctor2 = function(parent, element) {
-		$Cayita_UI_ButtonBase.call(this);
+		ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_Button]).call(this);
 		this.createButton(parent, 'button');
 		element(this.element$1());
 	};
 	$Cayita_UI_Button.$ctor1 = function(parent) {
-		$Cayita_UI_ButtonBase.call(this);
+		ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_Button]).call(this);
 		this.createButton(parent, 'button');
 	};
 	$Cayita_UI_Button.$ctor2.prototype = $Cayita_UI_Button.$ctor1.prototype = $Cayita_UI_Button.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.ButtonBase
-	var $Cayita_UI_ButtonBase = function() {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_ButtonBase]).call(this);
-	};
-	$Cayita_UI_ButtonBase.prototype = {
-		createButton: function(parent, type) {
-			this.createElement('button', parent);
-			if (!ss.isNullOrEmptyString(type)) {
-				$(this.element$1()).attr('type', type);
+	var $Cayita_UI_ButtonBase$1 = function(T) {
+		var $type = function() {
+			this.$3$ClickedField = function(b, e) {
+			};
+			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
+		};
+		$type.prototype = {
+			createButton: function(parent, type) {
+				this.createElement('button', parent);
+				var el = this.element$1();
+				if (!ss.isNullOrEmptyString(type)) {
+					$(el).attr('type', type);
+				}
+				el.className = 'btn';
+				$(el).on('click', ss.mkdel(this, function(evt) {
+					this.onClicked(evt);
+				}));
+			},
+			add_clicked: function(value) {
+				this.$3$ClickedField = ss.delegateCombine(this.$3$ClickedField, value);
+			},
+			remove_clicked: function(value) {
+				this.$3$ClickedField = ss.delegateRemove(this.$3$ClickedField, value);
+			},
+			onClicked: function(evt) {
+				this.$3$ClickedField(this, evt);
+			},
+			loadingText: function(value) {
+				$(this.element$1()).button.defaults.loadingText = value;
+			},
+			showLoadingText: function() {
+				return $(this.element$1()).button('loading');
+			},
+			resetLoadingText: function() {
+				return $(this.element$1()).button('reset');
+			},
+			toggle: function() {
+				return $(this.element$1()).toggle();
+			},
+			element$1: function() {
+				return ss.cast(this.element(), Element);
 			}
-			this.element$1().className = 'btn';
-		},
-		text: function(value) {
-			$(this.element$1()).text(value);
-		},
-		loadingText: function(value) {
-			$(this.element$1()).button.defaults.loadingText = value;
-		},
-		showLoadingText: function() {
-			return $(this.element$1()).button('loading');
-		},
-		resetLoadingText: function() {
-			return $(this.element$1()).button('reset');
-		},
-		toggle: function() {
-			return $(this.element$1()).toggle();
-		},
-		element$1: function() {
-			return ss.cast(this.element(), Element);
-		}
+		};
+		ss.registerGenericClassInstance($type, $Cayita_UI_ButtonBase$1, [T], function() {
+			return ss.makeGenericType($Cayita_UI_ElementBase$1, [T]);
+		}, function() {
+			return [];
+		});
+		return $type;
 	};
+	ss.registerGenericClass(global, 'Cayita.UI.ButtonBase$1', $Cayita_UI_ButtonBase$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.CheckboxField
 	var $Cayita_UI_CheckboxField = function(parent, field) {
@@ -2230,7 +2251,7 @@
 			var id = {};
 			$Cayita_UI_ElementBase.$tags.tryGetValue(tagName, id);
 			$Cayita_UI_ElementBase.$tags.set_item(tagName, ++id.$);
-			return ss.formatString('cyt-{0}-{1}', tagName, id.$);
+			return ss.formatString('c-{0}-{1}', tagName, id.$);
 		},
 		selectorById: function() {
 			return '#' + this.$element_.id;
@@ -2342,6 +2363,26 @@
 			},
 			appendTo: function(parent) {
 				parent.appendChild(this.element());
+				return this;
+			},
+			text: function(text) {
+				var ctxt = this.jQuery$1('ctxt');
+				if (ctxt.length === 0) {
+					var txt = document.createElement('ctxt');
+					this.append$2(txt);
+					ctxt = $(txt);
+				}
+				ctxt.html(ss.coalesce(text, ''));
+				return this;
+			},
+			iconClass: function(iconClass) {
+				var i = this.jQuery$1('i');
+				if (i.length === 0) {
+					var ie = document.createElement('i');
+					this.append$2(ie);
+					i = $(ie);
+				}
+				i.addClass(ss.coalesce(iconClass, ''));
 				return this;
 			}
 		};
@@ -3677,11 +3718,11 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.ResetButton
 	var $Cayita_UI_ResetButton = function(parent) {
-		$Cayita_UI_ButtonBase.call(this);
+		ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_ResetButton]).call(this);
 		this.createButton(parent, 'reset');
 	};
 	$Cayita_UI_ResetButton.$ctor1 = function(parent, element) {
-		$Cayita_UI_ButtonBase.call(this);
+		ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_ResetButton]).call(this);
 		this.createButton(parent, 'reset');
 		element(this.element$1());
 	};
@@ -4196,10 +4237,6 @@
 			style(this.element$1().style);
 			return this;
 		},
-		text: function(value) {
-			this.jQuery().text(value);
-			return this;
-		},
 		element$1: function() {
 			return this.element();
 		}
@@ -4386,11 +4423,11 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.SubmitButton
 	var $Cayita_UI_SubmitButton = function(parent) {
-		$Cayita_UI_ButtonBase.call(this);
+		ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_SubmitButton]).call(this);
 		this.createButton(parent, 'submit');
 	};
 	$Cayita_UI_SubmitButton.$ctor1 = function(parent, element) {
-		$Cayita_UI_ButtonBase.call(this);
+		ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_SubmitButton]).call(this);
 		this.createButton(parent, 'submit');
 		element(this.element$1());
 	};
@@ -4863,8 +4900,7 @@
 	ss.registerClass(global, 'Cayita.UI.Alert', $Cayita_UI_Alert);
 	ss.registerClass(global, 'Cayita.UI.Anchor', $Cayita_UI_Anchor, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Anchor]));
 	ss.registerClass(global, 'Cayita.UI.Bootbox', $Cayita_UI_Bootbox);
-	ss.registerClass(global, 'Cayita.UI.ButtonBase', $Cayita_UI_ButtonBase, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_ButtonBase]));
-	ss.registerClass(global, 'Cayita.UI.Button', $Cayita_UI_Button, $Cayita_UI_ButtonBase);
+	ss.registerClass(global, 'Cayita.UI.Button', $Cayita_UI_Button, ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_Button]));
 	ss.registerClass(global, 'Cayita.UI.CheckboxField', $Cayita_UI_CheckboxField, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.DialogButton', $Cayita_UI_DialogButton);
 	ss.registerClass(global, 'Cayita.UI.DialogOptions', $Cayita_UI_DialogOptions);
@@ -4899,12 +4935,12 @@
 	ss.registerClass(global, 'Cayita.UI.RadioField', $Cayita_UI_RadioField, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.RadioItem', $Cayita_UI_RadioItem);
 	ss.registerClass(global, 'Cayita.UI.RequestMessage', $Cayita_UI_RequestMessage);
-	ss.registerClass(global, 'Cayita.UI.ResetButton', $Cayita_UI_ResetButton, $Cayita_UI_ButtonBase);
+	ss.registerClass(global, 'Cayita.UI.ResetButton', $Cayita_UI_ResetButton, ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_ResetButton]));
 	ss.registerClass(global, 'Cayita.UI.SelectedRow', $Cayita_UI_SelectedRow);
 	ss.registerClass(global, 'Cayita.UI.SelectField', $Cayita_UI_SelectField, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.Span', $Cayita_UI_Span, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Span]));
 	ss.registerClass(global, 'Cayita.UI.SpinnerIcon', $Cayita_UI_SpinnerIcon, $Cayita_UI_Div);
-	ss.registerClass(global, 'Cayita.UI.SubmitButton', $Cayita_UI_SubmitButton, $Cayita_UI_ButtonBase);
+	ss.registerClass(global, 'Cayita.UI.SubmitButton', $Cayita_UI_SubmitButton, ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_SubmitButton]));
 	ss.registerClass(global, 'Cayita.UI.Tab', $Cayita_UI_Tab);
 	ss.registerClass(global, 'Cayita.UI.TableBody', $Cayita_UI_TableBody, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TableBody]));
 	ss.registerClass(global, 'Cayita.UI.TableCell', $Cayita_UI_TableCell, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TableCell]));

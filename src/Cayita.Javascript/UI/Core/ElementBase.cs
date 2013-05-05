@@ -116,6 +116,32 @@ namespace Cayita.UI
 			return As<T> ();
 		}
 
+		public T Text(string text)
+		{
+			var ctxt=JQuery ("ctxt");
+			if (ctxt.Length == 0) {
+				var txt =  Document.CreateElement("ctxt");
+				Append(txt);
+				ctxt= jQuery.FromElement(txt);
+			}
+			ctxt.Html (text??"");
+
+			return As<T> ();
+		}
+
+		public T IconClass(string iconClass)
+		{
+			var i=JQuery ("i");
+			if (i.Length == 0) {
+				var ie =  Document.CreateElement("i");
+				Append(ie);
+				i= jQuery.FromElement(ie);
+			}
+			i.AddClass (iconClass??"");
+			return As<T> ();
+		}
+
+
 	}
 
 		
@@ -142,7 +168,7 @@ namespace Cayita.UI
 			int id;
 			tags.TryGetValue(tagName, out id);
 			tags[tagName]=++id;
-			return string.Format("cyt-{0}-{1}",tagName,id);
+			return string.Format("c-{0}-{1}",tagName,id);
 		}
 
 
