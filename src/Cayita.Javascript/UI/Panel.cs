@@ -254,7 +254,6 @@ namespace Cayita.UI
 		public Panel Width(string value)
 		{
 			pc.Width = value;
-			//pc.Body.JQuery ().CSS ("width", value);
 			pc.Container.JQuery ().CSS ("width", value);
 			return this;
 		}
@@ -275,8 +274,6 @@ namespace Cayita.UI
 				OnCollapse (this, collapsed );
 
 			pc.Body.JQuery ().Toggle ();
-
-
 
 			collapseIcon.ClassName (!collapsed ? pc.CollapseIconClass : pc.ExpandIconClass);
 			return this;

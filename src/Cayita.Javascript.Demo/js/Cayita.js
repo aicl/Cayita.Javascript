@@ -2241,24 +2241,6 @@
 		element: function() {
 			return this.$element_;
 		},
-		show: function() {
-			return $(this.$element_).show();
-		},
-		hide: function() {
-			return $(this.$element_).hide();
-		},
-		slideToggle: function() {
-			return $(this.$element_).slideToggle();
-		},
-		fadeIn: function() {
-			return $(this.$element_).fadeIn();
-		},
-		fadeOut: function() {
-			return $(this.$element_).fadeOut();
-		},
-		fadeToggle: function() {
-			return $(this.$element_).fadeToggle();
-		},
 		jQuery: function() {
 			return $(this.$element_);
 		},
@@ -2332,6 +2314,30 @@
 			},
 			append$1: function(content) {
 				this.jQuery().append(content.element());
+				return this;
+			},
+			show: function() {
+				$(this.element()).show();
+				return this;
+			},
+			hide: function() {
+				$(this.element()).hide();
+				return this;
+			},
+			slideToggle: function() {
+				$(this.element()).slideToggle();
+				return this;
+			},
+			fadeIn: function() {
+				$(this.element()).fadeIn();
+				return this;
+			},
+			fadeOut: function() {
+				$(this.element()).fadeOut();
+				return this;
+			},
+			fadeToggle: function() {
+				$(this.element()).fadeToggle();
 				return this;
 			}
 		};
@@ -3406,7 +3412,6 @@
 		},
 		width: function(value) {
 			this.$pc.width = value;
-			//pc.Body.JQuery ().CSS ("width", value);
 			$(this.$pc.container).css('width', value);
 			return this;
 		},

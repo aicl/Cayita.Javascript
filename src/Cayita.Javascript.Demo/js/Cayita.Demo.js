@@ -90,7 +90,7 @@
 				Extensions.addItem$4(nav, 'Contact', ss.mkdel(this, this.$goContact));
 				Extensions.addItem$4(nav, 'About', ss.mkdel(this, this.$goAbout));
 			})));
-			this.get_$topNavBar().addClass$1('navbar-inverse navbar-fixed-top').appendTo$1(document.body);
+			this.get_$topNavBar().addClass('navbar-inverse navbar-fixed-top').appendTo$1(document.body);
 		},
 		$showMenu: function() {
 			Cayita.UI.Div.createContainerFluid$1(null, ss.mkdel(this, function(fluid) {

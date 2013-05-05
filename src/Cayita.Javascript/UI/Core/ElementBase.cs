@@ -59,6 +59,43 @@ namespace Cayita.UI
 		}
 
 
+		public T Show()
+		{
+			Element ().Show ();
+			return As<T> ();
+		}
+		
+		
+		public T Hide()
+		{
+			Element ().Hide ();
+			return As<T> ();
+		}
+		
+		public T SlideToggle()
+		{
+			Element ().SlideToggle ();
+			return As<T> ();
+		}
+		
+		public T FadeIn()
+		{
+			Element ().FadeIn ();
+			return As<T> ();
+		}
+		
+		public T FadeOut()
+		{
+			Element ().FadeOut ();
+			return As<T> ();
+		}
+		
+		public T FadeToggle()
+		{
+			Element ().FadeToggle ();
+			return As<T> ();
+		}
+
 	}
 
 		
@@ -106,37 +143,6 @@ namespace Cayita.UI
 			return element_;
 		}
 					
-		public  jQueryObject Show()
-		{
-			return element_.Show();
-		}
-
-
-		public  jQueryObject Hide()
-		{
-			return element_.Hide ();
-		}
-		
-		public  jQueryObject SlideToggle()
-		{
-			return jQuery.FromElement(element_).SlideToggle();
-		}
-
-		public jQueryObject FadeIn()
-		{
-			return jQuery.FromElement(element_).FadeIn();
-		}
-
-		public jQueryObject FadeOut()
-		{
-			return jQuery.FromElement(element_).FadeOut();
-		}
-
-		public jQueryObject FadeToggle()
-		{
-			return jQuery.FromElement(element_).FadeToggle();
-		}
-
 
 		public jQueryObject JQuery()
 		{
