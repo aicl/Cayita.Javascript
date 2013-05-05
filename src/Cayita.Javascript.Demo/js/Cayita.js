@@ -2247,18 +2247,6 @@
 		jQuery$1: function(selector) {
 			return $(selector, this.$element_);
 		},
-		remove: function() {
-			return $(this.$element_).remove();
-		},
-		empty: function() {
-			return $(this.$element_).empty();
-		},
-		appendTo$1: function(parent) {
-			$(parent || document.body).append(this.$element_);
-		},
-		appendTo: function(parent) {
-			parent.appendChild(this.$element_);
-		},
 		isVisible: function() {
 			return $(this.$element_).is(':visible');
 		},
@@ -2338,6 +2326,22 @@
 			},
 			fadeToggle: function() {
 				$(this.element()).fadeToggle();
+				return this;
+			},
+			remove: function() {
+				$(this.element()).remove();
+				return this;
+			},
+			empty: function() {
+				$(this.element()).empty();
+				return this;
+			},
+			appendTo$1: function(parent) {
+				$(parent || document.body).append(this.element());
+				return this;
+			},
+			appendTo: function(parent) {
+				parent.appendChild(this.element());
 				return this;
 			}
 		};

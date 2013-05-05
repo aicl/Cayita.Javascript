@@ -58,14 +58,12 @@ namespace Cayita.UI
 			return As<T> ();
 		}
 
-
 		public T Show()
 		{
 			Element ().Show ();
 			return As<T> ();
 		}
-		
-		
+
 		public T Hide()
 		{
 			Element ().Hide ();
@@ -93,6 +91,28 @@ namespace Cayita.UI
 		public T FadeToggle()
 		{
 			Element ().FadeToggle ();
+			return As<T> ();
+		}
+
+		public T Remove()
+		{
+			Element().Remove();
+			return As<T> ();
+		}
+		
+		public T Empty()
+		{
+			Element().Empty();
+			return As<T> ();
+		}
+
+		public T AppendTo(Element parent=null){
+			(parent??Document.Body).Append(Element());
+			return As<T> ();
+		}
+		
+		public T AppendTo(DocumentFragment parent){
+			parent.AppendChild(Element());
 			return As<T> ();
 		}
 
@@ -154,24 +174,6 @@ namespace Cayita.UI
 			return jQuery.Select(selector, element_);
 		}
 
-		public jQueryObject Remove()
-		{
-			return jQuery.FromElement(element_).Remove();
-		}
-
-		public jQueryObject Empty()
-		{
-			return jQuery.FromElement(element_).Empty();
-		}
-
-
-		public void AppendTo(Element parent=null){
-			(parent??Document.Body).Append(element_);
-		}
-
-		public void AppendTo(DocumentFragment parent){
-			parent.AppendChild(element_);
-		}
 
 		public bool IsVisible()
 		{
@@ -187,7 +189,6 @@ namespace Cayita.UI
 		{
 			return jQuery.FromElement (element_).Resizable ();
 		}
-
 
 
 		protected internal ElementBase Append<T>(Action<T> content) where T: ElementBase, new()
