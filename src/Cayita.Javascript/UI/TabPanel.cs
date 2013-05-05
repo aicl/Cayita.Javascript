@@ -204,15 +204,13 @@ namespace Cayita.UI
 			Title = "";
 			Name = "";
 
-			new Div (null, d => {
-				d.ClassName="tab-pane";
-				Body=d;
-			});
+			Body= new Div ().ClassName("tab-pane");
+
 		}
 
 		public string Title { get; set; }
 		public string Name { get; set; }
-		public DivElement Body { get; set; }
+		public Div Body { get; set; }
 
 	}
 }

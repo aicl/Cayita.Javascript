@@ -14,7 +14,7 @@ namespace Cayita.UI
 		}
 
 
-		public Form (Element parent)
+		public Form (Element parent=null)
 		{
 			CreateElement("form", parent);
 		}

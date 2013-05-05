@@ -2,12 +2,17 @@ using System;
 using Cayita.UI;
 using System.Html;
 
-namespace Cayita
+namespace Cayita.UI
 {
 	public class FileUpload:Div
 	{
 		FileUploadConfig cfg;
-		FileElement input;
+
+		public FileElement Input {
+			get;
+			private set;
+		}
+
 
 		public FileUpload (Element parent=null):base(parent)
 		{
@@ -65,7 +70,7 @@ namespace Cayita
 
 					new InputFile(sp, i=>{
 						i.Name=cfg.Fieldname;
-						input= i;
+						Input=i;
 					});
 				});
 
@@ -88,11 +93,6 @@ namespace Cayita
 				});
 
 			}).AppendTo(e);
-		}
-
-		public FileUpload Input(Action<FileElement> action ){
-			action (input);
-			return this;
 		}
 
 

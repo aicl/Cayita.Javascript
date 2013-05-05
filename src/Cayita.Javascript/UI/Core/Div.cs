@@ -131,12 +131,7 @@ namespace Cayita.UI
 			return this;
 		}
 		
-		public Div Style(Action<Style> style)
-		{
-			style (Element ().Style);
-			return this;
-		}
-				
+					
 
 
 	}

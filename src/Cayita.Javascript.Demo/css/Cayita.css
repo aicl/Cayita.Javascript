@@ -253,6 +253,6 @@ width:auto;
  position: fixed;
 }
 
-.ui-icon, .ui-widget-content .ui-icon {
-background-image: url("");
+.ui-icon, .ui-resizable-handle .ui-resizable-se .ui-widget-content .ui-icon {
+ background-image: url("");
 }

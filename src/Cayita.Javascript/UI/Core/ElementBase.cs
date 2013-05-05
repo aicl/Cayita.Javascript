@@ -58,6 +58,13 @@ namespace Cayita.UI
 			return As<T> ();
 		}
 
+		public T Append(jQueryObject content)
+		{
+			JQuery().Append (content);
+			return As<T> ();
+		}
+
+
 		public T Show()
 		{
 			Element ().Show ();
@@ -144,11 +151,21 @@ namespace Cayita.UI
 
 	}
 
-		
 	public abstract class ElementBase
 	{
 		static Dictionary<string,int> tags = new Dictionary<string,int>();
 		Element element_;
+
+
+		public Style Style {
+			get ;
+			private set;
+		}
+
+		public string ID {
+			get;
+			private set;
+		}
 
 		protected void SetElement(Element element)
 		{
@@ -161,6 +178,9 @@ namespace Cayita.UI
 			element_= Document.CreateElement(tagName);
 			element_.ID= CreateId(tagName);
 			if(parent!=null) parent.Append(element_);
+			ID = element_.ID;
+			Style = element_.Style;
+
 		}
 
 		protected string CreateId(string tagName)
@@ -214,6 +234,11 @@ namespace Cayita.UI
 		public ResizableObject ResizableObject()
 		{
 			return jQuery.FromElement (element_).Resizable ();
+		}
+
+		public string GetId()
+		{
+			return element_.ID;
 		}
 
 

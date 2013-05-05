@@ -7,10 +7,15 @@ namespace Cayita
 	public class ImgUpload:Div
 	{
 		ImgUploadConfig cfg;
-		FileElement input;
 		ImageElement img;
 		DivElement divNew;
 		DivElement divExists;
+
+
+		public FileElement Input {
+			get;
+			private set;
+		}
 		
 		public ImgUpload (Element parent=null):base(parent)
 		{
@@ -79,7 +84,7 @@ namespace Cayita
 					
 					new InputFile(sp, i=>{
 						i.Name=cfg.Fieldname;
-						input= i;
+						Input= i;
 					});
 				});
 				
@@ -102,11 +107,6 @@ namespace Cayita
 				});
 				
 			}).AppendTo(e);
-		}
-		
-		public ImgUpload Input(Action<FileElement> action){
-			action (input);
-			return this;
 		}
 
 		public ImgUpload ImgSrc(string src)

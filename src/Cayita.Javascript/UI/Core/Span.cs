@@ -22,17 +22,7 @@ namespace Cayita.UI
 			CreateElement("span", parent);
 		}
 
-		public new Span Append<T>(Action<T> content) where T: ElementBase<T>, new()
-		{ 
-			base.Append<T> (content);
-			return this;
-		}
-		
-		public Span Style(Action<Style> style)
-		{
-			style (Element ().Style);
-			return this;
-		}
+				
 
 
 		public new SpanElement Element()

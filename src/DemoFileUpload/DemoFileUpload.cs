@@ -3,7 +3,6 @@ using System.Html;
 using Cayita.UI;
 using System.Collections.Generic;
 using System.Html.IO;
-using System;
 
 namespace Cayita.Javascript
 {
@@ -39,54 +38,50 @@ namespace Cayita.Javascript
 
 			sbFu.Clicked+= (b,ev) => {
 				ev.PreventDefault();
-				fu.Input(i=> ( "uploading: " + i.Files[0].Name).LogInfo(2000) );
+				( "uploading: " + fu.Input.Files[0].Name).LogInfo(2000) ;
 			};
 
 			new Div ()
-				.ClassName ("")
-					.Append (new Form (null)
+				.ClassName ("bs-docs-example")
+					.Append (new Form ()
 					        .Append (fu)
 					         .Append (sbFu))
 					.Append (logFu)
 					.AppendTo (parent);
 
 			fu.FileSelected += u => {
-				fu.Input( i=>{
-					sbFu.Disable(i.Files.Count==0);
-					ShowFileInfo( i.Files, logFu );
-				});
+				sbFu.Disable(fu.Input.Files.Count==0);
+				ShowFileInfo( fu.Input.Files, logFu );
+
 			};
 
 
 			//------------------------------------------------------
 			"Image upload".Header (3).AppendTo (parent);
-			ImgUpload iu= new ImgUpload();
-			Div logIm = new Div ();
-			SubmitButton sbIm= new SubmitButton (null, bt => {
-				bt.ClassName = "btn btn-info";
-				bt.Text ("Upload");
-				bt.Disabled=true;
-				bt.OnClick (ev => {
-					ev.PreventDefault();
-					"uploading".LogInfo(2000);
-				});
-			});
+			var iu= new ImgUpload();
+			var logIm = new Div ();
+			var sbIm= new SubmitButton ()
+				.AddClass ("btn-info")
+					.IconClass ("icon-upload")
+					.Text ("Upload")
+					.Disable (true);
+			
+			sbIm.Clicked+= (b,ev) => {
+				ev.PreventDefault();
+				( "uploading: " +iu.Input.Files[0].Name).LogInfo(2000) ;
+			};
 						
-			new Div (null, div => {
-				div.ClassName = "bs-docs-example";
-				new Form (div, f => {
-					f.Append(iu);										
-					f.Append(sbIm);
-				});
-				div.Append(logIm);
-			}).AppendTo (parent);
+			new Div ()
+				.ClassName ("bs-docs-example")
+					.Append (new Form ()
+					         .Append (iu)
+					         .Append (sbIm))
+					.Append (logIm)
+					.AppendTo (parent);
 			
 			iu.FileSelected += u => {
-				iu.Input( i=>{ 
-					sbIm.Disable(i.Files.Count==0);
-					ShowFileInfo( i.Files, logIm );
-				});
-
+				sbIm.Disable(iu.Input.Files.Count==0);
+				ShowFileInfo(iu.Input.Files, logIm );
 			};
 
 		}
