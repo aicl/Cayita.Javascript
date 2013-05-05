@@ -20,31 +20,35 @@ namespace Cayita.UI
 
 		}
 
-		public event  Action<ButtonBase<T>,jQueryEvent> Clicked = (b,e) => {};
+		public event  Action<T,jQueryEvent> Clicked = (b,e) => {};
 
 		protected void OnClicked(jQueryEvent evt)
 		{
-			Clicked (this, evt);
+			Clicked (this.As<T>(), evt);
 		}
 
-		public void LoadingText(string value)
+		public T LoadingText(string value)
 		{
 			Element().LoadingText(value);
+			return this.As<T>();
 		}
 
-		public  jQueryObject ShowLoadingText()
+		public  T ShowLoadingText()
 		{
-			return Element().ShowLoadingText();
+			Element().ShowLoadingText();
+			return this.As<T>();
 		}
 
-		public  jQueryObject ResetLoadingText()
+		public  T ResetLoadingText()
 		{
-			return Element().ResetLoadingText();
+			Element().ResetLoadingText();
+			return this.As<T>();
 		}
 
-		public  jQueryObject Toggle()
+		public  T Toggle()
 		{
-			return Element().Toggle(); 
+			Element().Toggle(); 
+			return this.As<T>();
 		}
 
 		public new ButtonElement Element()

@@ -258,5 +258,17 @@ namespace Cayita.UI
 
 		//
 
+
+		public static jQueryXmlHttpRequest Send (this FormData fd, string url)
+		{
+			return jQuery.Ajax ( new jQueryAjaxOptions{
+				Url=url,
+				Type="POST",
+				Data= fd.AsTypeOption(),
+				ProcessData=false,
+				ContentType=""
+			});
+		}
+
 	}
 }

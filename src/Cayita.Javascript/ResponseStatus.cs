@@ -12,7 +12,7 @@ namespace Cayita.Data
 		public AjaxResponse(){}
 		public ResponseStatus ResponseStatus{ get; set; }
 		public int Status  { get; set; }
-		public int StatusText  { get; set; }
+		public string StatusText  { get; set; }
 
 	}
 

@@ -18,7 +18,7 @@ namespace Cayita.UI
 			element.Invoke(Element());
 		}
 
-		public Button(Element parent)
+		public Button(Element parent=null)
 
 		{
 			CreateButton(parent, "button");

@@ -13,6 +13,11 @@ namespace jQueryApi
 			return default(AjaxResponse);	
 		}
 
+		[InlineCode("cayita.fn.getAjaxResponse({req})")]
+		public static AjaxResponse GetError (this jQueryXmlHttpRequest req){
+			return default(AjaxResponse);	
+		}
+
 	}
 }
 

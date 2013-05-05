@@ -230,6 +230,9 @@
 	$Extensions.addItem = function(parent, submenu) {
 		$(parent).append(submenu.element());
 	};
+	$Extensions.send = function(fd, url) {
+		return $.ajax({ url: url, type: 'POST', data: fd, processData: false, contentType: '' });
+	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.StringExtensions
 	var $StringExtensions = function() {
@@ -464,7 +467,7 @@
 		var $this = {};
 		$this.ResponseStatus = null;
 		$this.Status = 0;
-		$this.StatusText = 0;
+		$this.StatusText = null;
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
@@ -1805,15 +1808,19 @@
 			},
 			loadingText: function(value) {
 				$(this.element$1()).button.defaults.loadingText = value;
+				return this;
 			},
 			showLoadingText: function() {
-				return $(this.element$1()).button('loading');
+				$(this.element$1()).button('loading');
+				return this;
 			},
 			resetLoadingText: function() {
-				return $(this.element$1()).button('reset');
+				$(this.element$1()).button('reset');
+				return this;
 			},
 			toggle: function() {
-				return $(this.element$1()).toggle();
+				$(this.element$1()).toggle();
+				return this;
 			},
 			element$1: function() {
 				return ss.cast(this.element(), Element);

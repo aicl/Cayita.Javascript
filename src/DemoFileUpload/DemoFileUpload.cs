@@ -3,6 +3,7 @@ using System.Html;
 using Cayita.UI;
 using System.Collections.Generic;
 using System.Html.IO;
+using jQueryApi;
 
 namespace Cayita.Javascript
 {
@@ -23,6 +24,21 @@ namespace Cayita.Javascript
 			                          file.LastModifiedDate.Format("dd-MM-yyyy HH:mm:ss")));
 		}
 
+		static void SendFile (Button b, jQueryEvent ev, FileElement input)
+		{
+			b.ShowLoadingText ();
+			var fd = new FormData ();
+			fd.Append ("userfile", input.Files [0]);
+
+			var rq = fd.Send ("SaveFile");
+			rq.Done (() => "File Uploaded".LogSuccess (5000));
+			rq.Fail (() => rq.GetError ().StatusText.LogError ());
+			rq.Always (() => b.ResetLoadingText ());
+
+			b.ResetLoadingText ();
+		}
+
+
 		public static void Execute(Element parent)
 		{
 			"File upload".Header (3).AppendTo (parent);
@@ -30,27 +46,25 @@ namespace Cayita.Javascript
 			var logFu = new Div ();
 			var fu= new FileUpload();
 
-			var sbFu = new SubmitButton ()
+			var bFu = new Button ()
 				.AddClass ("btn-info")
 					.IconClass ("icon-upload")
 					.Text ("Upload")
-					.Disable (true);
+					.Disable (true).
+					LoadingText("uploading");
 
-			sbFu.Clicked+= (b,ev) => {
-				ev.PreventDefault();
-				( "uploading: " + fu.Input.Files[0].Name).LogInfo(2000) ;
-			};
+			bFu.Clicked+= (b,ev) => SendFile(b, ev, fu.Input);
+
 
 			new Div ()
 				.ClassName ("bs-docs-example")
-					.Append (new Form ()
-					        .Append (fu)
-					         .Append (sbFu))
+					.Append (fu)
+					.Append (bFu)
 					.Append (logFu)
 					.AppendTo (parent);
 
 			fu.FileSelected += u => {
-				sbFu.Disable(fu.Input.Files.Count==0);
+				bFu.Disable(fu.Input.Files.Count==0);
 				ShowFileInfo( fu.Input.Files, logFu );
 
 			};
@@ -60,27 +74,23 @@ namespace Cayita.Javascript
 			"Image upload".Header (3).AppendTo (parent);
 			var iu= new ImgUpload();
 			var logIm = new Div ();
-			var sbIm= new SubmitButton ()
+			var bIm= new Button ()
 				.AddClass ("btn-info")
 					.IconClass ("icon-upload")
 					.Text ("Upload")
 					.Disable (true);
 			
-			sbIm.Clicked+= (b,ev) => {
-				ev.PreventDefault();
-				( "uploading: " +iu.Input.Files[0].Name).LogInfo(2000) ;
-			};
+			bIm.Clicked+= (b,ev) => SendFile(b, ev, iu.Input);
 						
 			new Div ()
 				.ClassName ("bs-docs-example")
-					.Append (new Form ()
-					         .Append (iu)
-					         .Append (sbIm))
+					.Append (iu)
+					.Append (bIm)
 					.Append (logIm)
 					.AppendTo (parent);
 			
 			iu.FileSelected += u => {
-				sbIm.Disable(iu.Input.Files.Count==0);
+				bIm.Disable(iu.Input.Files.Count==0);
 				ShowFileInfo(iu.Input.Files, logIm );
 			};
 
