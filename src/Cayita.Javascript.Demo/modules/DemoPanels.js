@@ -127,7 +127,7 @@
 			new Cayita.UI.Button.$ctor2(div2, function(bt4) {
 				$(bt4).text('Window II');
 				$(bt4).on('click', function(evt4) {
-					(new Cayita.UI.Panel()).caption('Custom Close Icon and Handler').overlay(true).left('20px').top('200px').width('auto').closeIconClass('icon-th-large').closable(true).closeIconHandler(function(p) {
+					var $t5 = (new Cayita.UI.Panel()).caption('Custom Close Icon and Handler').overlay(true).left('20px').top('200px').width('auto').closeIconClass('icon-th-large').closable(true).closeIconHandler(function(p) {
 						p.caption('Icon Close Changed !!! ');
 						p.closeIconClass('icon-remove-circle');
 						p.closeIconHandler(function(pn1) {
@@ -136,7 +136,8 @@
 						p.height('400px');
 					}).onCloseHandler(function(p1) {
 						Alertify.log.info(StringExtensions.header('panel closed ', 3).outerHTML, 5000);
-					}).append$4(new Cayita.UI.Button(function(b) {
+					});
+					$t5.append$4(Cayita.UI.ButtonBase).call($t5, new Cayita.UI.Button(function(b) {
 						$(b).text('Click me');
 						b.style.width = '100%';
 						b.style.height = '100%';
@@ -165,7 +166,7 @@
 					var pn2 = (new Cayita.UI.Panel()).caption('No Closable No Collapsible').overlay(true).left('30px').top('400px').width('auto').closable(false).collapsible(false).onCloseHandler(function(p3) {
 						error.logInfo(5000);
 					});
-					pn2.append$4(new Cayita.UI.Button(function(b1) {
+					pn2.append$4(Cayita.UI.ButtonBase).call(pn2, new Cayita.UI.Button(function(b1) {
 						$(b1).text('Click me');
 						b1.style.width = '100%';
 						b1.style.height = '100%';

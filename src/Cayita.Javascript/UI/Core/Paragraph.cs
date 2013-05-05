@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 namespace Cayita.UI
 {
 
-	public class Paragraph:ElementBase
+	public class Paragraph:ElementBase<Paragraph>
 	{
 		public Paragraph()
 		{
@@ -15,13 +15,13 @@ namespace Cayita.UI
 		public Paragraph(Action<ParagraphElement> element)
 		{
 			CreateElement("p", null);
-			element(Element()); 
+			element.Invoke(Element()); 
 		}
 
 		public Paragraph(Element parent, Action<ParagraphElement> element)
 		{
 			CreateElement("p", parent);
-			element(Element()); 
+			element.Invoke(Element()); 
 		}
 		
 
@@ -32,7 +32,7 @@ namespace Cayita.UI
 
 		public new  ParagraphElement Element()
 		{
-			return (ParagraphElement)base.Element();
+			return base.Element().As<ParagraphElement>();
 		}
 
 

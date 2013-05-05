@@ -3,7 +3,7 @@ using System.Html;
 
 namespace Cayita.UI
 {
-	public class Image:ElementBase
+	public class Image:ElementBase<Image>
 	{
 		public Image ()
 		{
@@ -13,14 +13,14 @@ namespace Cayita.UI
 		public Image ( Action<ImageElement> image)
 		{
 			CreateElement("img", null);
-			image(Element()); 
+			image.Invoke(Element()); 
 		}
 
 
 		public Image (Element parent, Action<ImageElement> image)
 		{
 			CreateElement("img", parent);
-			image(Element()); 
+			image.Invoke(Element()); 
 		}
 
 		public new ImageElement Element()

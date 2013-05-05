@@ -108,6 +108,7 @@
     <Compile Include="UI\Core\FileElement.cs" />
     <Compile Include="UI\Core\InputFile.cs" />
     <Compile Include="UI\FormData.cs" />
+    <Compile Include="UI\Core\SpanElement.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -4,7 +4,7 @@ using System.Html;
 namespace Cayita.UI
 {
 
-	public class HtmlList:ElementBase
+	public class HtmlList:ElementBase<HtmlList>
 	{
 				
 		public HtmlList(Element parent, Action<ListElement> element, bool ordered=false)

@@ -7,6 +7,60 @@ using System.Runtime.CompilerServices;
 
 namespace Cayita.UI
 {
+	public abstract class ElementBase<T>:ElementBase where T: ElementBase
+	{
+		public T ClassName(string cssClass)
+		{
+			base.Element().ClassName= cssClass;
+			return As<T> ();
+		}
+
+		public T AddClass(string cssClass)
+		{
+			JQuery().AddClass(cssClass);
+			return As<T> ();
+		}
+
+		public T RemoveClass()
+		{
+			JQuery().RemoveClass();
+			return As<T> ();
+		}
+
+
+		public T RemoveClass(string cssClass)
+		{
+			JQuery().RemoveClass(cssClass);
+			return As<T> ();
+		}
+
+		public T Disable(bool disable) 
+		{
+			base.Element ().Disabled = disable;
+			return As<T> ();
+		}
+
+		public T Append(string content) 
+		{
+			JQuery().Append (content);
+			return As<T> ();
+		}
+				
+		public T Append(Element content)
+		{
+			JQuery().Append (content);
+			return As<T> ();
+		}
+		
+		public T Append(ElementBase content)
+		{
+			JQuery().Append (content.Element());
+			return As<T> ();
+		}
+
+
+	}
+
 		
 	public abstract class ElementBase
 	{
@@ -22,9 +76,7 @@ namespace Cayita.UI
 		{
 
 			element_= Document.CreateElement(tagName);
-						
 			element_.ID= CreateId(tagName);
-
 			if(parent!=null) parent.Append(element_);
 		}
 
@@ -33,45 +85,21 @@ namespace Cayita.UI
 			int id;
 			tags.TryGetValue(tagName, out id);
 			tags[tagName]=++id;
-			
 			return string.Format("cyt-{0}-{1}",tagName,id);
 		}
 
 
-		public string SelectorById(){
-			return element_.SelectorById();
-		}
-
-
-		public void ClassName(string cssClass)
+		public string SelectorById()
 		{
-			if(!string.IsNullOrEmpty(cssClass))
-			{
-				element_.ClassName= cssClass;
-			}
-
+			return element_.SelectorById ();
 		}
+
 
 		public string ClassName()
 		{
 			return element_.ClassName;
 		}
 
-		public jQueryObject AddClass(string cssClass)
-		{
-			return jQuery.FromElement(element_).AddClass(cssClass);
-		}
-
-		public jQueryObject RemoveClass(string cssClass)
-		{
-			return jQuery.FromElement(element_).RemoveClass(cssClass);
-		}
-
-
-		public jQueryObject RemoveClass()
-		{
-			return jQuery.FromElement(element_).RemoveClass();
-		}
 
 		public Element Element()
 		{
@@ -131,20 +159,6 @@ namespace Cayita.UI
 		}
 
 
-		public void Name(string name)
-		{
-			if(!string.IsNullOrEmpty(name))
-				element_.SetAttribute("name", name);
-			else
-				element_.RemoveAttribute("name");
-		}
-		
-		public string Name()
-		{
-			object name= element_.GetAttribute("name");
-			return name==null? string.Empty:name.ToString();
-		}
-
 		public void AppendTo(Element parent=null){
 			(parent??Document.Body).Append(element_);
 		}
@@ -169,30 +183,11 @@ namespace Cayita.UI
 		}
 
 
-		public ElementBase Append(string content) 
-		{
-			jQuery.FromElement (element_).Append (content);
-			return this;
-		}
-
-
-		public  ElementBase Append(Element content)
-		{
-			jQuery.FromElement (element_).Append (content);
-			return this ;
-		}
-
-		public  ElementBase Append(ElementBase content)
-		{
-			jQuery.FromElement (element_).Append (content.element_);
-			return this ;
-		}
-
 
 		protected internal ElementBase Append<T>(Action<T> content) where T: ElementBase, new()
 		{ 
 			var e = new T ();
-			Append (e.element_);
+			jQuery.FromElement(element_).Append (e.element_);
 			content (e);
 			return this;
 		}
@@ -206,15 +201,6 @@ namespace Cayita.UI
 
 	}
 
-	public static class EBE
-	{
-		public static TElement Disable<TElement> (this TElement eb, bool disable) where TElement : ElementBase
-		{
-			eb.Element ().Disabled = disable;
-			return eb.As<TElement> ();
-		}
 
-	}
-	
 }
 

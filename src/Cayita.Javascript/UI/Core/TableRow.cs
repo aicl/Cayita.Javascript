@@ -4,7 +4,7 @@ using System.Html;
 namespace Cayita.UI
 {
 	
-	public class TableRow:ElementBase
+	public class TableRow:ElementBase<TableRow>
 	{
 		public TableRow (Element parent,  Action<TableRowElement> element)
 		{
@@ -19,7 +19,7 @@ namespace Cayita.UI
 		
 		public new TableRowElement Element()
 		{
-			return (TableRowElement) base.Element();
+			return  base.Element().As<TableRowElement>();
 		}
 		
 	}

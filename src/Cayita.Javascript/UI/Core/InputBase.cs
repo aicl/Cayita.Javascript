@@ -4,7 +4,7 @@ using System.Html;
 namespace Cayita.UI
 {
 
-	public abstract class InputBase:ElementBase
+	public abstract class InputBase:ElementBase<InputBase>
 	{
 		protected InputBase(){}
 
@@ -72,11 +72,22 @@ namespace Cayita.UI
 			return Element().GetValue<string>();
 		}
 
-
 		public new InputElement Element()
 		{
 			return (InputElement)  base.Element() ;
 		}
+
+
+		public void Name(string name)
+		{
+			Element ().Name = name;
+		}
+		
+		public string Name()
+		{
+			return Element ().Name;
+		}
+
 	}
 }
 

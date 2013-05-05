@@ -12,7 +12,7 @@ namespace Cayita.Javascript
 	{
 		public DemoFileUpload (){}
 
-		static void ShowFileInfo ( IList<File> files, ElementBase log)
+		static void ShowFileInfo ( IList<File> files, Div log)
 		{
 			log.Empty ();
 			if(files.Count==0) return ;

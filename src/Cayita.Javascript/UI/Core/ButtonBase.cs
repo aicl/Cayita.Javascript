@@ -5,7 +5,7 @@ using jQueryApi;
 namespace Cayita.UI
 {
 
-	public abstract class ButtonBase:ElementBase
+	public abstract class ButtonBase:ElementBase<ButtonBase>
 	{
 		protected ButtonBase(){}
 				

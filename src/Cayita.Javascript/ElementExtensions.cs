@@ -64,7 +64,7 @@ namespace Cayita.UI
 		}
 
 		[InlineCode("$({parent}).append({child}.element())")]
-		public static jQueryObject Append(this Element parent, ElementBase child)
+		public static jQueryObject Append<T>(this Element parent, ElementBase<T> child) where T: ElementBase
 		{
 			return null;
 		}

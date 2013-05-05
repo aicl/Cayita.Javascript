@@ -4,19 +4,19 @@ using System.Runtime.CompilerServices;
 
 namespace Cayita.UI
 {
-	public class HtmlOption:ElementBase
+	public class HtmlOption:ElementBase<HtmlOption>
 	{
 
 		public HtmlOption ( Action<OptionElement> element )
 		{
-			Init(default(Element));
-			element(Element());
+			Init(null);
+			element.Invoke(Element());
 		}
 
 		public HtmlOption (SelectElement parent,  Action<OptionElement> element )
 		{
 			Init(parent);
-			element(Element());
+			element.Invoke(Element());
 		}
 
 		void Init(Element parent)
@@ -26,7 +26,7 @@ namespace Cayita.UI
 
 		public new OptionElement Element()
 		{
-			return (OptionElement) base.Element();
+			return  base.Element ().As<OptionElement> ();
 		}
 
 	}

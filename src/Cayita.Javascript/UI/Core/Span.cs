@@ -4,17 +4,17 @@ using System.Html;
 namespace Cayita.UI
 {
 
-	public class Span:ElementBase
+	public class Span:ElementBase<Span>
 	{
 		public Span ()
 		{
 			CreateElement("span", null);
 		}
 
-		public Span(Element parent,  Action<Element> element)
+		public Span(Element parent,  Action<SpanElement> element)
 		{
 			CreateElement("span", parent);
-			element(Element());
+			element.Invoke(Element());
 		}
 						
 		public Span (Element parent)
@@ -22,7 +22,7 @@ namespace Cayita.UI
 			CreateElement("span", parent);
 		}
 
-		public new Span Append<T>(Action<T> content) where T: ElementBase, new()
+		public new Span Append<T>(Action<T> content) where T: ElementBase<T>, new()
 		{ 
 			base.Append<T> (content);
 			return this;
@@ -34,24 +34,6 @@ namespace Cayita.UI
 			return this;
 		}
 		
-		public new Span ClassName(string className)
-		{
-			Element ().ClassName = className;
-			return this;
-		}
-		
-		
-		public new Span RemoveClass(string className)
-		{
-			JQuery ().RemoveClass (className);
-			return this;
-		}
-		
-		public new Span AddClass(string className)
-		{
-			JQuery ().AddClass (className);
-			return this;
-		}
 
 		public Span Text(string value)
 		{
@@ -59,6 +41,10 @@ namespace Cayita.UI
 			return this;
 		}
 
+		public new SpanElement Element()
+		{
+			return  base.Element ().As<SpanElement> ();
+		}
 
 	}
 	

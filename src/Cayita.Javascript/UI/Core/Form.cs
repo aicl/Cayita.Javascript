@@ -4,7 +4,7 @@ using System.Html;
 namespace Cayita.UI
 {
 	
-	public class Form:ElementBase
+	public class Form:ElementBase<Form>
 	{
 
 		public Form(Element parent, Action<FormElement> element)

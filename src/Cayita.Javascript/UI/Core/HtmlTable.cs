@@ -4,14 +4,14 @@ using System.Html;
 namespace Cayita.UI
 {
 		
-	public class HtmlTable:ElementBase
+	public class HtmlTable:ElementBase<HtmlTable>
 	{
 		protected HtmlTable(){}
 
 		public HtmlTable (Element parent,  Action<TableElement> element)
 		{
 			CreateElement("table", parent);
-			element(Element()); 
+			element.Invoke(Element()); 
 		}
 		
 		public HtmlTable (Element parent)
@@ -21,13 +21,13 @@ namespace Cayita.UI
 		
 		public new TableElement Element()
 		{
-			return (TableElement) base.Element();
+			return base.Element().As<TableElement>();
 		}
 
 		public HtmlTable (Action<TableElement> element)
 		{
 			CreateElement("table",null);
-			element(Element()); 
+			element.Invoke(Element()); 
 		}
 
 	}
@@ -37,7 +37,7 @@ namespace Cayita.UI
 		public TableHeader (Element parent,  Action<TableElement> element)
 		{
 			CreateElement("thead", parent);
-			element(Element()); 
+			element.Invoke(Element()); 
 		}
 		
 		public TableHeader (Element parent)
@@ -45,11 +45,7 @@ namespace Cayita.UI
 			CreateElement("thead", parent);
 		}
 		
-		public new TableElement Element()
-		{
-			return (TableElement) base.Element();
-		}
-		
+				
 	}
 	
 	public class TableFooter:HtmlTable
@@ -57,24 +53,20 @@ namespace Cayita.UI
 		public TableFooter (Element parent,  Action<TableElement> element)
 		{
 			CreateElement("tfoot", parent);
-			element(Element()); 
+			element.Invoke(Element()); 
 		}
 		
 		public TableFooter (Element parent)
 		{
 			CreateElement("tfoot", parent);
 		}
-		
-		public new TableElement Element()
-		{
-			return (TableElement) base.Element();
-		}
+
 		
 	}
 
 
 
-	public class TableBody:ElementBase
+	public class TableBody:ElementBase<TableBody>
 	{				 
 		public TableBody(TableElement parent)
 		{

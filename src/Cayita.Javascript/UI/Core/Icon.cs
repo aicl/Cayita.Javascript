@@ -4,7 +4,7 @@ using System.Html;
 namespace Cayita.UI
 {
 
-	public class Icon:ElementBase
+	public class Icon:ElementBase<Icon>
 	{
 
 		public Icon()

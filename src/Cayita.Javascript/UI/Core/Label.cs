@@ -4,7 +4,7 @@ using System.Html;
 namespace Cayita.UI
 {		
 
-	public class Label:ElementBase
+	public class Label:ElementBase<Label>
 	{
 				
 		public Label(Element parent,  Action<LabelElement> element)

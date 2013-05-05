@@ -44,7 +44,10 @@
 "UI/Core/InputCheckbox.cs" \
 "UI/Core/InputFile.cs" \
 "UI/Core/InputRadio.cs" \
-"UI/Core/ButtonBase.cs" "UI/Core/Button.cs" "UI/Core/SubmitButton.cs" "UI/Core/ResetButton.cs" \
+"UI/Core/ButtonBase.cs" "UI/Core/Button.cs" \
+"UI/Core/SubmitButton.cs" \
+"UI/Core/SpanElement.cs" \
+"UI/Core/ResetButton.cs" \
 "UI/Core/Form.cs" \
 "UI/Core/HtmlList.cs" \
 "UI/Core/ListItem.cs" \

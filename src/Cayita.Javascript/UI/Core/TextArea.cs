@@ -4,7 +4,7 @@ using System.Html;
 
 namespace Cayita.UI
 {
-	public class TextArea:ElementBase
+	public class TextArea:ElementBase<TextArea>
 	{
 		protected TextArea(){}
 
@@ -22,7 +22,7 @@ namespace Cayita.UI
 
 		public new  TextAreaElement Element()
 		{
-			return (TextAreaElement)base.Element();
+			return base.Element().As<TextAreaElement>();
 		}
 
 	}

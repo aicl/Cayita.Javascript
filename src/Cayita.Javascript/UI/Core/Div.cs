@@ -5,7 +5,7 @@ using jQueryApi;
 namespace Cayita.UI
 {
 
-	public class Div:ElementBase
+	public class Div:ElementBase<Div>
 	{
 
 		public Div (Action<DivElement> element)
@@ -125,7 +125,7 @@ namespace Cayita.UI
 		}
 	
 
-		public new Div Append<T>(Action<T> content) where T: ElementBase, new()
+		public new Div Append<T>(Action<T> content) where T: ElementBase<T>, new()
 		{ 
 			base.Append<T> (content);
 			return this;
@@ -136,25 +136,7 @@ namespace Cayita.UI
 			style (Element ().Style);
 			return this;
 		}
-		
-		public new Div ClassName(string className)
-		{
-			Element ().ClassName = className;
-			return this;
-		}
-		
-		
-		public new Div RemoveClass(string className)
-		{
-			JQuery ().RemoveClass (className);
-			return this;
-		}
-		
-		public new Div AddClass(string className)
-		{
-			JQuery ().AddClass (className);
-			return this;
-		}
+				
 
 
 	}

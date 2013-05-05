@@ -4,12 +4,12 @@ using System.Html;
 namespace Cayita.UI
 {
 
-	public class TableCell:ElementBase
+	public class TableCell:ElementBase<TableCell>
 	{
 		public TableCell (TableRowElement parent,  Action<TableCellElement> element)
 		{
 			CreateElement("td", parent);
-			element(Element()); 
+			element.Invoke(Element()); 
 		}
 		
 		public TableCell (TableRowElement parent)
@@ -25,12 +25,12 @@ namespace Cayita.UI
 		public TableCell (Action<TableCellElement> element)
 		{
 			CreateElement("td", default(Element));
-			element(Element()); 
+			element.Invoke(Element()); 
 		}
 
 		public new TableCellElement Element()
 		{
-			return (TableCellElement) base.Element();
+			return base.Element().As<TableCellElement>();
 		}
 		
 	}

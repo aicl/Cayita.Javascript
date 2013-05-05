@@ -6,7 +6,7 @@ using jQueryApi;
 
 namespace Cayita.UI
 {
-	public class Panel:ElementBase
+	public class Panel:ElementBase<Panel>
 	{
 		PanelConfig pc;
 
@@ -319,7 +319,8 @@ namespace Cayita.UI
 			return this;
 		}
 
-		public new Panel Append (ElementBase content)
+		public Panel Append<T> (ElementBase<T> content) where T: ElementBase
+		
 		{
 			pc.Body.Append (content.Element());
 			return this;

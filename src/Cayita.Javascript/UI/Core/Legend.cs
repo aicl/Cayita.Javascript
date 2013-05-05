@@ -4,7 +4,7 @@ using System.Html;
 namespace Cayita.UI
 {
 
-	public class Legend:ElementBase
+	public class Legend:ElementBase<Legend>
 	{
 
 		public Legend(Element parent, Action<Element> element)
@@ -21,7 +21,7 @@ namespace Cayita.UI
 	}
 
 
-	public class FieldSet:ElementBase
+	public class FieldSet:ElementBase<FieldSet>
 	{
 		
 		public FieldSet(Element parent, Action<Element> element)

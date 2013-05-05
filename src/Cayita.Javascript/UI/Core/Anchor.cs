@@ -4,7 +4,7 @@ using System.Html;
 namespace Cayita.UI
 {
 
-	public class Anchor:ElementBase
+	public class Anchor:ElementBase<Anchor>
 	{
 	
 		public Anchor()
@@ -15,19 +15,19 @@ namespace Cayita.UI
 		public Anchor(Action<AnchorElement> element)
 		{
 			Init(null);
-			element(Element());
+			element.Invoke(Element()); 
 		}
 
 
 		public Anchor(Element parent,  Action<AnchorElement> element)
 		{
 			Init(parent);
-			element(Element());
+			element.Invoke(Element());
 		}
 
 		public Anchor  (Element parent)	
 		{
-			Init(parent);
+			Init(parent); 
 		}
 		
 		void Init(Element parent)
@@ -47,23 +47,6 @@ namespace Cayita.UI
 			return this;
 		}
 
-		public new Anchor ClassName(string className)
-		{
-			Element ().ClassName = className;
-			return this;
-		}
-		
-		public new Anchor RemoveClass(string className)
-		{
-			JQuery ().RemoveClass (className);
-			return this;
-		}
-		
-		public new Anchor AddClass(string className)
-		{
-			JQuery ().AddClass (className);
-			return this;
-		}
 				
 	}
 }
