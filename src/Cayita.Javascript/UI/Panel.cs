@@ -39,11 +39,11 @@ namespace Cayita.UI
 			pc = config;
 			SetElement (pc.Container);
 			
-			if (pc.OnClickCloseIconHandler == null)
-				pc.OnClickCloseIconHandler = p => p.Close ();
+			if (pc.CloseIconHandler == null)
+				pc.CloseIconHandler = p => p.Close ();
 
-			if(pc.OnClickCollapseIconHandler==null)
-				pc.OnClickCollapseIconHandler= (p,collapsed)=> p.Collapse();
+			if(pc.CollapseIconHandler==null)
+				pc.CollapseIconHandler= (p,collapsed)=> p.Collapse();
 
 
 			closeIcon =new Icon (pc.Header, icon => {
@@ -52,7 +52,7 @@ namespace Cayita.UI
 				
 				icon.OnClick(evt=>{
 					evt.PreventDefault();
-					pc.OnClickCloseIconHandler(self);
+					pc.CloseIconHandler(self);
 				});
 				if(!pc.Closable) icon.Hide();
 
@@ -63,7 +63,7 @@ namespace Cayita.UI
 				icon.ClassName = pc.CollapseIconClass;
 				icon.OnClick (evt => {
 					evt.PreventDefault ();
-					pc.OnClickCollapseIconHandler (self, !pc.Body.IsVisible());
+					pc.CollapseIconHandler (self, !pc.Body.IsVisible());
 				});
 				if (!pc.Collapsible)
 					icon.Hide ();
@@ -188,30 +188,30 @@ namespace Cayita.UI
 		/// Called whent Close method is invoked
 		/// </summary>
 		/// <param name="value">Value.</param>
-		public Panel OnCloseHandler(Action<Panel> value)
+		public Panel ClosedHandler(Action<Panel> value)
 		{
-			OnClose += value;
+			Closed += value;
 			return this;
 		}
 		/// <summary>
 		/// Called when Collapse method is invoked
 		/// </summary>
 		/// <param name="value">Value (Panel,bool) </param>
-		public Panel OnCollapseHandler(Action<Panel,bool> value)
+		public Panel CollapsedHandler(Action<Panel,bool> value)
 		{
-			OnCollapse += value;
+			Collapsed += value;
 			return this;
 		}
 
 		public Panel CloseIconHandler(Action<Panel> value )
 		{
-			pc.OnClickCloseIconHandler = value;
+			pc.CloseIconHandler = value;
 			return this;
 		}
 
 		public Panel CollapseIconHandler(Action<Panel,bool> value )
 		{
-			pc.OnClickCollapseIconHandler = value;
+			pc.CollapseIconHandler = value;
 			return this;
 		}
 
@@ -270,8 +270,7 @@ namespace Cayita.UI
 		{
 			var collapsed = !pc.Body.IsVisible ();
 
-			if (OnCollapse != null)
-				OnCollapse (this, collapsed );
+			OnCollapsed (collapsed);
 
 			pc.Body.JQuery ().Toggle ();
 
@@ -287,9 +286,8 @@ namespace Cayita.UI
 		public Panel Toggle()
 		{
 			var visible = pc.Container.IsVisible ();
-			
-			if (OnToggle != null)
-				OnToggle (this, visible );
+
+			OnToggled (visible);
 			
 			pc.Container.JQuery ().Toggle ();
 			return this;
@@ -298,9 +296,7 @@ namespace Cayita.UI
 
 		public void Close()
 		{
-			if (OnClose != null)
-				OnClose (this);
-
+			OnClosed ();
 			pc.Container.Remove ();
 		}
 
@@ -332,19 +328,32 @@ namespace Cayita.UI
 		/// <summary>
 		/// Occurs when Close method is invoked
 		/// </summary>
-		public event Action<Panel> OnClose;
+		public event Action<Panel> Closed = (p) => {};
 
+		protected virtual void OnClosed ()
+		{
+			Closed (this);
+		}
 
 		/// <summary>
 		/// Occurs when Collapse method is invoked (Panel, Collapsed).
 		/// </summary>
-		public event Action<Panel,bool> OnCollapse;
+		public event Action<Panel,bool> Collapsed = (p,s) => {};
+
+		protected virtual void OnCollapsed ( bool collapsed)
+		{
+			Collapsed (this,collapsed);
+		}
 
 		/// <summary>
 		/// Occurs when Toggle method is invoked => (Panel, Visible)
 		/// </summary>
-		public event Action<Panel,bool> OnToggle;
+		public event Action<Panel,bool> Toggled = (p,s) => {};
 
+		protected virtual void OnToggled (bool toggled)
+		{
+			Toggled (this, toggled);
+		}
 
 		void InitDraggable()
 		{
@@ -438,13 +447,13 @@ namespace Cayita.UI
 		/// Gets or sets the on close handler = > click on close Icon
 		/// </summary>
 		/// <value>The on click close-icon handler.</value>
-		public Action<Panel> OnClickCloseIconHandler { get; set; }
+		public Action<Panel> CloseIconHandler { get; set; }
 
 		/// <summary>
 		/// Gets or sets the on collapse handler = > click on collapse Icon
 		/// </summary>
 		/// <value>The on click collapse-icon handler.</value>
-		public Action<Panel,bool> OnClickCollapseIconHandler { get; set; }
+		public Action<Panel,bool> CollapseIconHandler { get; set; }
 
 
 	}

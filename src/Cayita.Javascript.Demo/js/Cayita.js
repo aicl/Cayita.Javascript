@@ -3223,9 +3223,12 @@
 		this.$collapseIcon = null;
 		this.$dobject = null;
 		this.$robject = null;
-		this.$3$OnCloseField = null;
-		this.$3$OnCollapseField = null;
-		this.$3$OnToggleField = null;
+		this.$3$ClosedField = function(p) {
+		};
+		this.$3$CollapsedField = function(p, s) {
+		};
+		this.$3$ToggledField = function(p, s) {
+		};
 		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Panel]).call(this);
 		this.$init($Cayita_UI_PanelConfig.$ctor());
 	};
@@ -3234,13 +3237,13 @@
 			var self = this;
 			this.$pc = config;
 			this.setElement(this.$pc.container);
-			if (ss.staticEquals(this.$pc.onClickCloseIconHandler, null)) {
-				this.$pc.onClickCloseIconHandler = function(p) {
+			if (ss.staticEquals(this.$pc.closeIconHandler, null)) {
+				this.$pc.closeIconHandler = function(p) {
 					p.close();
 				};
 			}
-			if (ss.staticEquals(this.$pc.onClickCollapseIconHandler, null)) {
-				this.$pc.onClickCollapseIconHandler = function(p1, collapsed) {
+			if (ss.staticEquals(this.$pc.collapseIconHandler, null)) {
+				this.$pc.collapseIconHandler = function(p1, collapsed) {
 					p1.collapse();
 				};
 			}
@@ -3248,7 +3251,7 @@
 				icon.className = this.$pc.closeIconClass;
 				$(icon).on('click', ss.mkdel(this, function(evt) {
 					evt.preventDefault();
-					this.$pc.onClickCloseIconHandler(self);
+					this.$pc.closeIconHandler(self);
 				}));
 				if (!this.$pc.closable) {
 					$(icon).hide();
@@ -3258,7 +3261,7 @@
 				icon1.className = this.$pc.collapseIconClass;
 				$(icon1).on('click', ss.mkdel(this, function(evt1) {
 					evt1.preventDefault();
-					this.$pc.onClickCollapseIconHandler(self, !$(this.$pc.body).is(':visible'));
+					this.$pc.collapseIconHandler(self, !$(this.$pc.body).is(':visible'));
 				}));
 				if (!this.$pc.collapsible) {
 					$(icon1).hide();
@@ -3357,20 +3360,20 @@
 		body: function() {
 			return this.$pc.body;
 		},
-		onCloseHandler: function(value) {
-			this.add_onClose(value);
+		closedHandler: function(value) {
+			this.add_closed(value);
 			return this;
 		},
-		onCollapseHandler: function(value) {
-			this.add_onCollapse(value);
+		collapsedHandler: function(value) {
+			this.add_collapsed(value);
 			return this;
 		},
 		closeIconHandler: function(value) {
-			this.$pc.onClickCloseIconHandler = value;
+			this.$pc.closeIconHandler = value;
 			return this;
 		},
 		collapseIconHandler: function(value) {
-			this.$pc.onClickCollapseIconHandler = value;
+			this.$pc.collapseIconHandler = value;
 			return this;
 		},
 		closeIconClass: function(value) {
@@ -3414,25 +3417,19 @@
 		},
 		collapse: function() {
 			var collapsed = !$(this.$pc.body).is(':visible');
-			if (!ss.staticEquals(this.$3$OnCollapseField, null)) {
-				this.$3$OnCollapseField(this, collapsed);
-			}
+			this.onCollapsed(collapsed);
 			$(this.$pc.body).toggle();
 			this.$collapseIcon.className$1((!collapsed ? this.$pc.collapseIconClass : this.$pc.expandIconClass));
 			return this;
 		},
 		toggle: function() {
 			var visible = $(this.$pc.container).is(':visible');
-			if (!ss.staticEquals(this.$3$OnToggleField, null)) {
-				this.$3$OnToggleField(this, visible);
-			}
+			this.onToggled(visible);
 			$(this.$pc.container).toggle();
 			return this;
 		},
 		close: function() {
-			if (!ss.staticEquals(this.$3$OnCloseField, null)) {
-				this.$3$OnCloseField(this);
-			}
+			this.onClosed();
 			$(this.$pc.container).remove();
 		},
 		append$7: function(content) {
@@ -3452,23 +3449,32 @@
 		element$1: function() {
 			return this.$pc.container;
 		},
-		add_onClose: function(value) {
-			this.$3$OnCloseField = ss.delegateCombine(this.$3$OnCloseField, value);
+		add_closed: function(value) {
+			this.$3$ClosedField = ss.delegateCombine(this.$3$ClosedField, value);
 		},
-		remove_onClose: function(value) {
-			this.$3$OnCloseField = ss.delegateRemove(this.$3$OnCloseField, value);
+		remove_closed: function(value) {
+			this.$3$ClosedField = ss.delegateRemove(this.$3$ClosedField, value);
 		},
-		add_onCollapse: function(value) {
-			this.$3$OnCollapseField = ss.delegateCombine(this.$3$OnCollapseField, value);
+		onClosed: function() {
+			this.$3$ClosedField(this);
 		},
-		remove_onCollapse: function(value) {
-			this.$3$OnCollapseField = ss.delegateRemove(this.$3$OnCollapseField, value);
+		add_collapsed: function(value) {
+			this.$3$CollapsedField = ss.delegateCombine(this.$3$CollapsedField, value);
 		},
-		add_onToggle: function(value) {
-			this.$3$OnToggleField = ss.delegateCombine(this.$3$OnToggleField, value);
+		remove_collapsed: function(value) {
+			this.$3$CollapsedField = ss.delegateRemove(this.$3$CollapsedField, value);
 		},
-		remove_onToggle: function(value) {
-			this.$3$OnToggleField = ss.delegateRemove(this.$3$OnToggleField, value);
+		onCollapsed: function(collapsed) {
+			this.$3$CollapsedField(this, collapsed);
+		},
+		add_toggled: function(value) {
+			this.$3$ToggledField = ss.delegateCombine(this.$3$ToggledField, value);
+		},
+		remove_toggled: function(value) {
+			this.$3$ToggledField = ss.delegateRemove(this.$3$ToggledField, value);
+		},
+		onToggled: function(toggled) {
+			this.$3$ToggledField(this, toggled);
 		},
 		$initDraggable: function() {
 			this.$dobject = $(this.$pc.container).draggable();
@@ -3490,9 +3496,12 @@
 		this.$collapseIcon = null;
 		this.$dobject = null;
 		this.$robject = null;
-		this.$3$OnCloseField = null;
-		this.$3$OnCollapseField = null;
-		this.$3$OnToggleField = null;
+		this.$3$ClosedField = function(p) {
+		};
+		this.$3$CollapsedField = function(p, s) {
+		};
+		this.$3$ToggledField = function(p, s) {
+		};
 		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Panel]).call(this);
 		var p = $Cayita_UI_PanelConfig.$ctor();
 		config(p);
@@ -3505,9 +3514,12 @@
 		this.$collapseIcon = null;
 		this.$dobject = null;
 		this.$robject = null;
-		this.$3$OnCloseField = null;
-		this.$3$OnCollapseField = null;
-		this.$3$OnToggleField = null;
+		this.$3$ClosedField = function(p) {
+		};
+		this.$3$CollapsedField = function(p, s) {
+		};
+		this.$3$ToggledField = function(p, s) {
+		};
 		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Panel]).call(this);
 		this.$init(config);
 	};
@@ -3537,8 +3549,8 @@
 		$this.container = null;
 		$this.header = null;
 		$this.body = null;
-		$this.onClickCloseIconHandler = null;
-		$this.onClickCollapseIconHandler = null;
+		$this.closeIconHandler = null;
+		$this.collapseIconHandler = null;
 		$this.closeIconClass = 'icon-remove-circle';
 		$this.collapseIconClass = 'icon-circle-arrow-up';
 		$this.expandIconClass = 'icon-circle-arrow-down';
