@@ -59,6 +59,16 @@ namespace System.Html
 		{
 		}
 	
+		/// <summary>
+		/// Gets or sets the accept.
+		/// </summary>
+		/// <value>The accepted value : audio/*  video/* image/* image/jpeg, image/png  MIME_type </value>
+		/// 
+		[IntrinsicProperty]
+		public string Accept
+		{
+			get;set;
+		}
 
 	}
 }

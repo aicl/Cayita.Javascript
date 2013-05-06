@@ -91,6 +91,7 @@ namespace Cayita.UI
 
 					new InputFile (sp, i => {
 						i.Name = cfg.Fieldname;
+						i.Accept= cfg.Accept;
 						Input = i;
 					});
 				});
@@ -122,6 +123,7 @@ namespace Cayita.UI
 			SelectIconClass = "icon-folder-open";
 			RemoveIconClass = "icon-remove";
 			Fieldname = "";
+			Accept = "";
 			//PlaceHolder = "";
 			SpanSize = 3;
 
@@ -134,6 +136,13 @@ namespace Cayita.UI
 		public string Fieldname { get; set; }
 		public int SpanSize { get; set; }
 		//public string PlaceHolder { get; set; }
+
+		/// <summary>
+		/// Gets or sets the accepted file type.
+		/// </summary>
+		/// <value>The accepted value : audio/*  video/* image/*  MIME_type</value>
+		/// 
+		public string Accept { get; set; }
 	}
 }
 

@@ -344,6 +344,7 @@
 					}));
 					new $Cayita_UI_InputFile.$ctor2(sp, ss.mkdel(this, function(i3) {
 						i3.name = this.$cfg.get_fieldname();
+						i3.accept = this.$cfg.get_accept();
 						this.set_input(i3);
 					}));
 				}));
@@ -403,6 +404,7 @@
 		this.$2$ImgWidthField = null;
 		this.$2$ImgHeightField = null;
 		$Cayita_UI_FileUploadConfig.call(this);
+		this.set_accept('image/*');
 		this.set_imgSrc('http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image');
 		this.set_imgWidth('200px');
 		this.set_imgHeight('150px');
@@ -2295,6 +2297,7 @@
 					}));
 					new $Cayita_UI_InputFile.$ctor2(sp, ss.mkdel(this, function(i3) {
 						i3.name = this.$cfg.get_fieldname();
+						i3.accept = this.$cfg.get_accept();
 						this.set_input(i3);
 					}));
 				}));
@@ -2374,9 +2377,11 @@
 		this.$1$RemoveIconClassField = null;
 		this.$1$FieldnameField = null;
 		this.$1$SpanSizeField = 0;
+		this.$1$AcceptField = null;
 		this.set_selectIconClass('icon-folder-open');
 		this.set_removeIconClass('icon-remove');
 		this.set_fieldname('');
+		this.set_accept('');
 		//PlaceHolder = "";
 		this.set_spanSize(3);
 	};
@@ -2416,6 +2421,12 @@
 		},
 		set_spanSize: function(value) {
 			this.$1$SpanSizeField = value;
+		},
+		get_accept: function() {
+			return this.$1$AcceptField;
+		},
+		set_accept: function(value) {
+			this.$1$AcceptField = value;
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////

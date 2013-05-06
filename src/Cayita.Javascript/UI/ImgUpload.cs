@@ -75,6 +75,7 @@ namespace Cayita
 					
 					new InputFile(sp, i=>{
 						i.Name=cfg.Fieldname;
+						i.Accept=cfg.Accept;
 						Input= i;
 					});
 				});
@@ -126,7 +127,7 @@ namespace Cayita
 	{
 		public ImgUploadConfig():base()
 		{
-
+			Accept = "image/*";
 			ImgSrc = "http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image";
 			ImgWidth = "200px";
 			ImgHeight = "150px";
