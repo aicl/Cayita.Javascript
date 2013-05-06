@@ -2385,9 +2385,12 @@
 			ss.add($t1, 38);
 			ss.add($t1, 40);
 			this.$nvkeys = $t1;
-			this.$4$OnRowSelectedField = null;
-			this.$4$OnRowClickedField = null;
-			this.$4$OnKeyField = null;
+			this.$4$RowSelectedField = function(g, r) {
+			};
+			this.$4$RowClickedField = function(g, r) {
+			};
+			this.$4$KeyDownField = function(g, e) {
+			};
 			$Cayita_UI_HtmlTable.call(this);
 			this.$init(parent, new (ss.makeGenericType($Cayita_Data_Store$1, [T]))(), null);
 		};
@@ -2400,25 +2403,17 @@
 				this.$table.setAttribute('data-provides', 'rowlink');
 				this.$columns = cols || ss.makeGenericType($Cayita_UI_TableColumn$1, [T]).buildColumns(true);
 				this.$store = datastore;
-				this.$4$OnRowSelectedField = function(grid, row) {
-				};
-				this.$4$OnRowClickedField = function(grid1, row1) {
-				};
-				this.$4$OnKeyField = function(grid2, evt) {
-				};
 				$(this.$table).on('click', 'tbody tr', ss.mkdel(this, function(e) {
-					var row2 = e.currentTarget;
-					this.$selectRowImp(row2, true, true);
+					var row = e.currentTarget;
+					this.$selectRowImp(row, true, true);
 				}));
-				$(this.$table).keydown(ss.mkdel(this, function(evt1) {
-					this.keydownHandler(evt1);
-				}));
+				$(this.$table).keydown(ss.mkdel(this, this.keydownHandler));
 				$Extensions.createHeader(T).call(null, this.$table, this.$columns);
 				var $t1 = $Cayita_UI_RequestMessage.$ctor();
 				$t1.target = this.$table;
 				$t1.message = 'Reading ' + ss.getTypeName(T);
 				this.$readRequestMessage = $t1;
-				this.$readRequestStarted = ss.mkdel(this, function(grid3) {
+				this.$readRequestStarted = ss.mkdel(this, function(grid) {
 					var sp = new $Cayita_UI_SpinnerIcon(function(div, icon) {
 						div.style.position = 'fixed';
 						div.style.zIndex = 10000;
@@ -2429,7 +2424,7 @@
 					$(this.$readRequestMessage.target).append(sp.element$2());
 					return sp.element$2();
 				});
-				this.$readRequestFinished = function(grid4, el) {
+				this.$readRequestFinished = function(grid1, el) {
 					$(el).remove();
 				};
 				this.$store.add_storeChanged(ss.mkdel(this, function(st, dt) {
@@ -2550,7 +2545,7 @@
 					this.navKeyHandler(evt);
 					return;
 				}
-				this.$4$OnKeyField(this, evt);
+				this.onKeyDown(evt);
 			},
 			nextRow: function() {
 				var row;
@@ -2610,7 +2605,7 @@
 				$('tbody tr', this.$table).removeClass('info');
 				this.$selectedrow = null;
 				if (trigger) {
-					this.$4$OnRowSelectedField(this, this.$selectedrow);
+					this.onRowSelected(this.$selectedrow);
 				}
 			},
 			$selectRowImp: function(row, triggerSelected, triggerClicked) {
@@ -2629,10 +2624,10 @@
 				$t1.record = record;
 				this.$selectedrow = $t1;
 				if (triggerClicked) {
-					this.$4$OnRowClickedField(this, this.$selectedrow);
+					this.onRowClicked(this.$selectedrow);
 				}
 				if (triggerSelected) {
-					this.$4$OnRowSelectedField(this, this.$selectedrow);
+					this.onRowSelected(this.$selectedrow);
 				}
 			},
 			hideColumn: function(columnIndex) {
@@ -2643,23 +2638,32 @@
 				this.$columns[columnIndex++].hidden = false;
 				$(this.$table).find('td:nth-child(' + columnIndex + '),th:nth-child(' + columnIndex + ')').show();
 			},
-			add_onRowSelected: function(value) {
-				this.$4$OnRowSelectedField = ss.delegateCombine(this.$4$OnRowSelectedField, value);
+			add_rowSelected: function(value) {
+				this.$4$RowSelectedField = ss.delegateCombine(this.$4$RowSelectedField, value);
 			},
-			remove_onRowSelected: function(value) {
-				this.$4$OnRowSelectedField = ss.delegateRemove(this.$4$OnRowSelectedField, value);
+			remove_rowSelected: function(value) {
+				this.$4$RowSelectedField = ss.delegateRemove(this.$4$RowSelectedField, value);
 			},
-			add_onRowClicked: function(value) {
-				this.$4$OnRowClickedField = ss.delegateCombine(this.$4$OnRowClickedField, value);
+			add_rowClicked: function(value) {
+				this.$4$RowClickedField = ss.delegateCombine(this.$4$RowClickedField, value);
 			},
-			remove_onRowClicked: function(value) {
-				this.$4$OnRowClickedField = ss.delegateRemove(this.$4$OnRowClickedField, value);
+			remove_rowClicked: function(value) {
+				this.$4$RowClickedField = ss.delegateRemove(this.$4$RowClickedField, value);
 			},
-			add_onKey: function(value) {
-				this.$4$OnKeyField = ss.delegateCombine(this.$4$OnKeyField, value);
+			add_keyDown: function(value) {
+				this.$4$KeyDownField = ss.delegateCombine(this.$4$KeyDownField, value);
 			},
-			remove_onKey: function(value) {
-				this.$4$OnKeyField = ss.delegateRemove(this.$4$OnKeyField, value);
+			remove_keyDown: function(value) {
+				this.$4$KeyDownField = ss.delegateRemove(this.$4$KeyDownField, value);
+			},
+			onRowSelected: function(row) {
+				this.$4$RowSelectedField(this, row);
+			},
+			onRowClicked: function(row) {
+				this.$4$RowClickedField(this, row);
+			},
+			onKeyDown: function(evt) {
+				this.$4$KeyDownField(this, evt);
 			}
 		};
 		$type.$ctor1 = function(parent, store, columns) {
@@ -2678,9 +2682,12 @@
 			ss.add($t1, 38);
 			ss.add($t1, 40);
 			this.$nvkeys = $t1;
-			this.$4$OnRowSelectedField = null;
-			this.$4$OnRowClickedField = null;
-			this.$4$OnKeyField = null;
+			this.$4$RowSelectedField = function(g, r) {
+			};
+			this.$4$RowClickedField = function(g, r) {
+			};
+			this.$4$KeyDownField = function(g, e) {
+			};
 			$Cayita_UI_HtmlTable.call(this);
 			this.$init(parent, store, columns);
 		};
@@ -3773,10 +3780,10 @@
 				if (this.$cfg.paged) {
 					new (ss.makeGenericType($Cayita_UI_StorePaging$1, [T]))(this.$body, store);
 				}
-				this.$gr.add_onRowClicked(ss.mkdel(this, function(g, sr) {
+				this.$gr.add_rowClicked(ss.mkdel(this, function(g, sr) {
 					this.$readSelectedRow(sr);
 				}));
-				this.$gr.add_onKey(ss.mkdel(this, function(g1, evt1) {
+				this.$gr.add_keyDown(ss.mkdel(this, function(g1, evt1) {
 					var k1 = evt1.which;
 					if (k1 === 27) {
 						$(this.$body).hide();
@@ -4021,7 +4028,8 @@
 			this.$se$1 = null;
 			this.$selectedoption = null;
 			this.$defaultoption = null;
-			this.$5$OnOptionSelectedField = null;
+			this.$5$OptionSelectedField = function(sf, opt) {
+			};
 			$Cayita_UI_SelectField.$ctor2.call(this, parent, field);
 			this.$init$1(store, optionFunc, defaultOption);
 		};
@@ -4030,8 +4038,6 @@
 				this.$store = store;
 				this.$optionFunc = optionFunc;
 				this.$se$1 = this.selectElement();
-				this.$5$OnOptionSelectedField = function(sf, opt) {
-				};
 				this.$defaultoption = defaultOption || ss.makeGenericType($Cayita_UI_SelectedOption$1, [T]).$ctor();
 				$(this.$se$1).on('change', ss.mkdel(this, function(evt) {
 					var option = $(this.$se$1).find('option:selected')[0];
@@ -4106,11 +4112,14 @@
 			getSelectedOption: function() {
 				return this.$selectedoption;
 			},
-			add_onOptionSelected: function(value) {
-				this.$5$OnOptionSelectedField = ss.delegateCombine(this.$5$OnOptionSelectedField, value);
+			add_optionSelected: function(value) {
+				this.$5$OptionSelectedField = ss.delegateCombine(this.$5$OptionSelectedField, value);
 			},
-			remove_onOptionSelected: function(value) {
-				this.$5$OnOptionSelectedField = ss.delegateRemove(this.$5$OnOptionSelectedField, value);
+			remove_optionSelected: function(value) {
+				this.$5$OptionSelectedField = ss.delegateRemove(this.$5$OptionSelectedField, value);
+			},
+			onOptionSelected: function(option) {
+				this.$5$OptionSelectedField(this, option);
 			},
 			selectOption$1: function(value, trigger) {
 				var option = $('option[value=' + value + ']', this.$se$1).attr('selected', true)[0];
@@ -4119,7 +4128,7 @@
 			selectOption: function() {
 				$('option:selected', this.$se$1).prop('selected', false);
 				this.$selectedoption = null;
-				this.$5$OnOptionSelectedField(this, this.$selectedoption);
+				this.onOptionSelected(this.$selectedoption);
 			},
 			$selectedOptionImp: function(option, trigger) {
 				var recordId = option.value;
@@ -4137,7 +4146,7 @@
 					this.$selectedoption = null;
 				}
 				if (trigger) {
-					this.$5$OnOptionSelectedField(this, this.$selectedoption);
+					this.onOptionSelected(this.$selectedoption);
 				}
 			}
 		};
@@ -4147,7 +4156,8 @@
 			this.$se$1 = null;
 			this.$selectedoption = null;
 			this.$defaultoption = null;
-			this.$5$OnOptionSelectedField = null;
+			this.$5$OptionSelectedField = function(sf, opt) {
+			};
 			$Cayita_UI_SelectField.$ctor1.call(this, parent, element);
 			this.$init$1(store, optionFunc, defaultOption);
 		};

@@ -47,8 +47,6 @@ namespace Cayita.UI
 			this.store = store;
 			this.optionFunc = optionFunc;
 			se = base.SelectElement ();
-			OnOptionSelected = (sf, opt) =>  {
-			};
 			defaultoption = defaultOption ?? new SelectedOption<T> ();
 			se.JQuery ().On ("change", evt =>  {
 				var option = (OptionElement)se.JQuery ().Find ("option:selected") [0];
@@ -118,7 +116,12 @@ namespace Cayita.UI
 			return selectedoption;
 		}
 
-		public event Action<SelectField<T> ,SelectedOption<T>> OnOptionSelected;
+		public event Action<SelectField<T> ,SelectedOption<T>> OptionSelected = (sf, opt) => {};
+
+		protected void  OnOptionSelected(SelectedOption<T> option)
+		{
+			OptionSelected (this, option);
+		}
 
 		public void SelectOption ( object value, bool trigger = true)
 		{
@@ -130,7 +133,7 @@ namespace Cayita.UI
 		{
 			se.UnSelectOption();
 			selectedoption = default(SelectedOption<T>);
-			OnOptionSelected(this, selectedoption);
+			OnOptionSelected(selectedoption);
 		}
 
 		void SelectedOptionImp (OptionElement option, bool trigger=true)
@@ -147,7 +150,7 @@ namespace Cayita.UI
 				selectedoption = default(SelectedOption<T>);
 			}
 
-			if(trigger) OnOptionSelected(this, selectedoption);
+			if(trigger) OnOptionSelected(selectedoption);
 		}
 	}
 

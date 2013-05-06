@@ -150,11 +150,11 @@ namespace Cayita.UI
 			if(cfg.Paged) new StorePaging<T>(body, store);
 
 
-			gr.OnRowClicked += (g, sr) => {
+			gr.RowClicked += (g, sr) => {
 				ReadSelectedRow (sr);
 			};
 
-			gr.OnKey += (g,evt) => {
+			gr.KeyDown += (g,evt) => {
 				var k= evt.Which;
 
 				if (k==27){

@@ -67,16 +67,13 @@ namespace Cayita.UI
 			columns = cols ?? TableColumn<T>.BuildColumns (true);
 			store= datastore;
 			
-			OnRowSelected = (grid,row) => {};
-			OnRowClicked = (grid,row) => {};
-			OnKey = (grid, evt) => {};
 
 			table.OnClick("tbody tr", e =>  { 
 				var row = (TableRowElement)e.CurrentTarget;
 				SelectRowImp(row, true,true);
 			}); 
 
-			table.JQuery ().Keydown (evt => KeydownHandler (evt));
+			table.JQuery ().Keydown (KeydownHandler);
 
 			table.CreateHeader(columns);
 			
@@ -204,7 +201,7 @@ namespace Cayita.UI
 				NavKeyHandler (evt);
 				return ;
 			}
-			OnKey (this, evt);
+			OnKeyDown (evt);
 
 		}
 
@@ -280,7 +277,7 @@ namespace Cayita.UI
 		{
 			table.GetRows().RemoveClass ("info");
 			selectedrow=default(ClickedRow<T>);
-			if(trigger) OnRowSelected(this, selectedrow);
+			if(trigger) OnRowSelected(selectedrow);
 		}
 
 		void SelectRowImp(TableRowElement row, bool triggerSelected=true, bool triggerClicked=false)
@@ -293,8 +290,8 @@ namespace Cayita.UI
 			row.JQuery ().AddClass ("info");
 			var record = store.First (f => f.Get(self.store.GetRecordIdProperty()).ToString() == row.GetRecordId());
 			selectedrow= new ClickedRow<T>{ RecordId= row.GetRecordId(), Row= row, Record= record};
-			if(triggerClicked) OnRowClicked(this, selectedrow);
-			if(triggerSelected) OnRowSelected(this, selectedrow);
+			if(triggerClicked) OnRowClicked( selectedrow);
+			if(triggerSelected) OnRowSelected( selectedrow);
 		}
 
 		/// <summary>
@@ -321,11 +318,25 @@ namespace Cayita.UI
 			table.JQuery().Find ("td:nth-child("+columnIndex+"),th:nth-child("+columnIndex+")").Show();
 		}
 
-		public event Action<HtmlGrid<T> ,SelectedRow<T>> OnRowSelected;
-		public event Action<HtmlGrid<T> ,ClickedRow<T>> OnRowClicked;
-		public event Action<HtmlGrid<T> ,jQueryEvent> OnKey; 
+		public event Action<HtmlGrid<T> ,SelectedRow<T>> RowSelected  = (g,r) => {};
+		public event Action<HtmlGrid<T> ,ClickedRow<T>> RowClicked = (g,r) => {};
+		public event Action<HtmlGrid<T> ,jQueryEvent> KeyDown = (g,e) => {}; 
 
 
+		protected virtual void OnRowSelected ( SelectedRow<T> row)
+		{
+			RowSelected (this, row);
+		}
+
+		protected virtual void OnRowClicked ( ClickedRow<T> row)
+		{
+			RowClicked(this, row);
+		}
+
+		protected virtual void OnKeyDown (jQueryEvent evt)
+		{
+			KeyDown (this, evt);
+		}
 	}
 }
 
