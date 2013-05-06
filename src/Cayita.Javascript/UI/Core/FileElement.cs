@@ -70,5 +70,12 @@ namespace System.Html
 			get;set;
 		}
 
+
+		[IntrinsicProperty]
+		public bool Multiple
+		{
+			get;set;
+		}
+
 	}
 }

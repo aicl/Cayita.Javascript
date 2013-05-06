@@ -32,6 +32,16 @@ namespace Cayita.UI
 			FileSelected (this.As<T>());
 		}
 
+		protected void CreateInput (SpanElement sp, FileUploadConfig cfg)
+		{
+			new InputFile (sp, i =>  {
+				i.Name = cfg.Fieldname;
+				i.Accept = cfg.Accept;
+				i.Multiple= cfg.Multiple;
+				Input = i;
+			});
+		}
+
 	}
 
 	public class FileUpload:FileUpload<FileUpload>
@@ -54,6 +64,7 @@ namespace Cayita.UI
 		{
 			Init (config);
 		}
+
 
 		void Init(FileUploadConfig config )
 		{
@@ -89,11 +100,7 @@ namespace Cayita.UI
 						t.InnerHTML = cfg.SelectText ?? "";
 					});
 
-					new InputFile (sp, i => {
-						i.Name = cfg.Fieldname;
-						i.Accept= cfg.Accept;
-						Input = i;
-					});
+					CreateInput (sp, cfg);
 				});
 
 				new Anchor (d, a => {
@@ -143,6 +150,7 @@ namespace Cayita.UI
 		/// <value>The accepted value : audio/*  video/* image/*  MIME_type</value>
 		/// 
 		public string Accept { get; set; }
+		public bool Multiple { get; set; }
 	}
 }
 

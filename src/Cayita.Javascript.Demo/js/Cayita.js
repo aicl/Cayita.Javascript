@@ -342,17 +342,13 @@
 						$(sl1).append(t1);
 						t1.innerHTML = ss.coalesce(this.$cfg.get_selectText(), '');
 					}));
-					new $Cayita_UI_InputFile.$ctor2(sp, ss.mkdel(this, function(i3) {
-						i3.name = this.$cfg.get_fieldname();
-						i3.accept = this.$cfg.get_accept();
-						this.set_input(i3);
-					}));
+					this.createInput(sp, this.$cfg);
 				}));
 				new $Cayita_UI_Anchor.$ctor3(d2, ss.mkdel(this, function(a) {
 					a.className = 'btn fileupload-exists';
 					a.setAttribute('data-dismiss', 'fileupload');
-					new $Cayita_UI_Icon.$ctor3(a, ss.mkdel(this, function(i4) {
-						i4.className = this.$cfg.get_removeIconClass();
+					new $Cayita_UI_Icon.$ctor3(a, ss.mkdel(this, function(i3) {
+						i3.className = this.$cfg.get_removeIconClass();
 					}));
 					var t2 = document.createElement('ctxt');
 					$(a).append(t2);
@@ -2295,17 +2291,13 @@
 						$(sl1).append(t1);
 						t1.innerHTML = ss.coalesce(this.$cfg.get_selectText(), '');
 					}));
-					new $Cayita_UI_InputFile.$ctor2(sp, ss.mkdel(this, function(i3) {
-						i3.name = this.$cfg.get_fieldname();
-						i3.accept = this.$cfg.get_accept();
-						this.set_input(i3);
-					}));
+					this.createInput(sp, this.$cfg);
 				}));
 				new $Cayita_UI_Anchor.$ctor3(d, ss.mkdel(this, function(a) {
 					a.className = 'btn fileupload-exists';
 					a.setAttribute('data-dismiss', 'fileupload');
-					new $Cayita_UI_Icon.$ctor3(a, ss.mkdel(this, function(i4) {
-						i4.className = this.$cfg.get_removeIconClass();
+					new $Cayita_UI_Icon.$ctor3(a, ss.mkdel(this, function(i3) {
+						i3.className = this.$cfg.get_removeIconClass();
 					}));
 					var t2 = document.createElement('ctxt');
 					$(a).append(t2);
@@ -2358,6 +2350,14 @@
 			},
 			onFileSelected: function() {
 				this.$3$FileSelectedField(this);
+			},
+			createInput: function(sp, cfg) {
+				new $Cayita_UI_InputFile.$ctor2(sp, ss.mkdel(this, function(i) {
+					i.name = cfg.get_fieldname();
+					i.accept = cfg.get_accept();
+					i.multiple = cfg.get_multiple();
+					this.set_input(i);
+				}));
 			}
 		};
 		ss.registerGenericClassInstance($type, $Cayita_UI_FileUpload$1, [T], function() {
@@ -2378,6 +2378,7 @@
 		this.$1$FieldnameField = null;
 		this.$1$SpanSizeField = 0;
 		this.$1$AcceptField = null;
+		this.$1$MultipleField = false;
 		this.set_selectIconClass('icon-folder-open');
 		this.set_removeIconClass('icon-remove');
 		this.set_fieldname('');
@@ -2427,6 +2428,12 @@
 		},
 		set_accept: function(value) {
 			this.$1$AcceptField = value;
+		},
+		get_multiple: function() {
+			return this.$1$MultipleField;
+		},
+		set_multiple: function(value) {
+			this.$1$MultipleField = value;
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////

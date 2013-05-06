@@ -72,12 +72,9 @@ namespace Cayita
 						t.AppendTo(sl);
 						t.InnerHTML=cfg.SelectText??"";
 					});
-					
-					new InputFile(sp, i=>{
-						i.Name=cfg.Fieldname;
-						i.Accept=cfg.Accept;
-						Input= i;
-					});
+
+					CreateInput(sp, cfg);
+
 				});
 				
 				new Anchor(d, a=>{
