@@ -43,7 +43,7 @@ namespace Cayita.UI
 			if (!string.IsNullOrEmpty (searchText)) {
 				searchText = null;
 				searchIndex = null;
-				OnRowSelected (this, null);
+				OnRowSelected (null);
 			}
 		}
 					
@@ -170,10 +170,9 @@ namespace Cayita.UI
 
 			};
 
-			OnRowSelected = (sb,sr) => {};
 
-			if (cfg.OnRowSelectedHandler != null)
-				OnRowSelected += cfg.OnRowSelectedHandler;
+			if (cfg.RowSelectedHandler != null)
+				RowSelected += cfg.RowSelectedHandler;
 		}
 
 		void ReadSelectedRow (SelectedRow<T> sr)
@@ -186,7 +185,7 @@ namespace Cayita.UI
 			searchText = te.Value;
 			searchIndex = he.Value;
 			body.Hide ();
-			OnRowSelected (this, sr);
+			OnRowSelected (sr);
 		}
 
 		void Search (Store<T> store)
@@ -221,7 +220,12 @@ namespace Cayita.UI
 			};
 		}
 
-		public event Action<SearchBox<T>, SelectedRow<T>> OnRowSelected;
+		public event Action<SearchBox<T>, SelectedRow<T>> RowSelected = (s,r) => {};
+
+		public void OnRowSelected(SelectedRow<T> row)
+		{
+			RowSelected (this, row);
+		}
 	}
 
 	[Serializable]
@@ -266,7 +270,7 @@ namespace Cayita.UI
 						
 		public string ResetIconClassName {get;set;}
 
-		public Action<SearchBox<T>, SelectedRow<T>> OnRowSelectedHandler{ get; set; }
+		public Action<SearchBox<T>, SelectedRow<T>> RowSelectedHandler{ get; set; }
 
 		public string PlaceHolder { get; set; }
 

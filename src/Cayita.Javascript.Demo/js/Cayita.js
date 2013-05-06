@@ -3689,7 +3689,7 @@
 				if (!ss.isNullOrEmptyString(this.$searchText)) {
 					this.$searchText = null;
 					this.$searchIndex = null;
-					this.$4$OnRowSelectedField(this, null);
+					this.onRowSelected(null);
 				}
 			},
 			$init: function(store, config, columns) {
@@ -3795,10 +3795,8 @@
 						return;
 					}
 				}));
-				this.$4$OnRowSelectedField = function(sb, sr2) {
-				};
-				if (!ss.staticEquals(this.$cfg.onRowSelectedHandler, null)) {
-					this.add_onRowSelected(this.$cfg.onRowSelectedHandler);
+				if (!ss.staticEquals(this.$cfg.rowSelectedHandler, null)) {
+					this.add_rowSelected(this.$cfg.rowSelectedHandler);
 				}
 			},
 			$readSelectedRow: function(sr) {
@@ -3810,7 +3808,7 @@
 				this.$searchText = this.$te.value;
 				this.$searchIndex = this.$he.value;
 				$(this.$body).hide();
-				this.$4$OnRowSelectedField(this, sr);
+				this.onRowSelected(sr);
 			},
 			$search: function(store) {
 				if (!ss.referenceEquals(this.$te.value, this.$searchText)) {
@@ -3838,11 +3836,14 @@
 					timer = window.setTimeout(callback, delay);
 				};
 			},
-			add_onRowSelected: function(value) {
-				this.$4$OnRowSelectedField = ss.delegateCombine(this.$4$OnRowSelectedField, value);
+			add_rowSelected: function(value) {
+				this.$4$RowSelectedField = ss.delegateCombine(this.$4$RowSelectedField, value);
 			},
-			remove_onRowSelected: function(value) {
-				this.$4$OnRowSelectedField = ss.delegateRemove(this.$4$OnRowSelectedField, value);
+			remove_rowSelected: function(value) {
+				this.$4$RowSelectedField = ss.delegateRemove(this.$4$RowSelectedField, value);
+			},
+			onRowSelected: function(row) {
+				this.$4$RowSelectedField(this, row);
 			}
 		};
 		$type.$ctor1 = function(parent, store, config, columns) {
@@ -3854,7 +3855,8 @@
 			this.$gr = null;
 			this.$searchText = null;
 			this.$searchIndex = null;
-			this.$4$OnRowSelectedField = null;
+			this.$4$RowSelectedField = function(s, r) {
+			};
 			$Cayita_UI_Div.$ctor1.call(this, parent);
 			this.$init(store, config, columns);
 		};
@@ -3889,7 +3891,7 @@
 			$this.minLength = 0;
 			$this.searchIconClassName = null;
 			$this.resetIconClassName = null;
-			$this.onRowSelectedHandler = null;
+			$this.rowSelectedHandler = null;
 			$this.placeHolder = null;
 			$this.indexField = 'Id';
 			$this.name = '';
