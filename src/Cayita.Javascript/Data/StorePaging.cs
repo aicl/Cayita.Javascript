@@ -85,7 +85,7 @@ namespace Cayita.UI
 
 			});
 
-			store.OnStoreChanged += (st, dt) => {
+			store.StoreChanged += (st, dt) => {
 				Update();
 			};
 

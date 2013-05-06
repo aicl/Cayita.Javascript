@@ -17,14 +17,14 @@ namespace Cayita.Data
 		Func<T, IDeferred<string>> destroyFunc;
 		Func<T, IDeferred<T>> patchFunc;
 
-		Func<T, bool> filterFunc;
+		Func<T, bool> filterFunc = d => true;
 
-		StoreApi<T> createApi;
-		StoreApi<T> readApi;
-		StoreApi<T> updateApi;
-		StoreApi<string> destroyApi;
-		StoreApi<T> patchApi;
-		ReadOptions lastOption;
+		StoreApi<T> createApi=new StoreApi<T>{Url= "api/" + typeof(T).Name+"/create"};
+		StoreApi<T> readApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/read"};
+		StoreApi<T> updateApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/update"};
+		StoreApi<string> destroyApi = new StoreApi<string>{Url= "api/" + typeof(T).Name+"/destroy"};
+		StoreApi<T> patchApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/patch"};
+		ReadOptions lastOption= new ReadOptions();
 
 		int defaultPageSize=10;
 
@@ -34,21 +34,9 @@ namespace Cayita.Data
 		
 		public Store()
 		{
-			OnStoreChanged=(store, data)=>{};
-			OnStoreError=(store, request)=>{};
-			OnStoreRequest=(store, state )=>{};
-
-			filterFunc= d=> true; 
-
-			createApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/create"};
-			readApi= new StoreApi<T>{Url= "api/" + typeof(T).Name+"/read"};
-			updateApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/update"};
-			destroyApi = new StoreApi<string>{Url= "api/" + typeof(T).Name+"/destroy"};
-			patchApi = new StoreApi<T>{Url= "api/" + typeof(T).Name+"/patch"};
-			lastOption= new ReadOptions();
 
 			createFunc= (record)=>{	
-				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Create, State=StoreRequestState.Started});
+				StoreRequested(this, new StoreRequestedData{Action=StoreRequestedAction.Create, State=StoreRequestedState.Started});
 				var req= jQuery.PostRequest<T>(createApi.Url, record, cb=>{} ,createApi.DataType);
 				req.Done(scb=>{
 					var r = createApi.DataProperty;
@@ -59,29 +47,29 @@ namespace Cayita.Data
 						foreach (var item in ((IList<T>) res))
 						{
 							st.Add(item);
-							OnStoreChanged(this, new StoreChangedData<T>{ NewData= item, OldData=item, Action= StoreChangedAction.Created});
+							OnStoreChanged( item, item,  StoreChangedAction.Created);
 						}
 					}
 					else
 					{
 						st.Add((T)res);
-						OnStoreChanged(this, new StoreChangedData<T>{ NewData= (T)res, OldData=(T)res, Action= StoreChangedAction.Created});
+						OnStoreChanged((T)res, (T)res, StoreChangedAction.Created);
 					}
 
 				});
 				req.Fail(f=>{
-					OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Create, Request=req});
+					StoreError(this, new StoreErrorData<T>{Action=StoreErrorAction.Create, Request=req});
 				});
 
 				req.Always(t=>{
-					OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Create, State=StoreRequestState.Finished});
+					StoreRequested(this, new StoreRequestedData{Action=StoreRequestedAction.Create, State=StoreRequestedState.Finished});
 				});
 
 				return req;
 			};
 
 			readFunc= ( readOptions)=>{	
-				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Read, State=StoreRequestState.Started});
+				StoreRequested(this, new StoreRequestedData{Action=StoreRequestedAction.Read, State=StoreRequestedState.Started});
 				var req = jQuery.GetData<T>(readApi.Url, (object)readOptions.GetRequestObject() ,cb=>{},readApi.DataType);
 				req.Done(scb=>{
 					var r = readApi.DataProperty;
@@ -106,20 +94,20 @@ namespace Cayita.Data
 					int? tc = data[readApi.TotalCountProperty];
 					totalCount= tc.HasValue? tc.Value: st.Count(filterFunc);
 
-					OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
+					OnStoreChanged( StoreChangedAction.Read);
 				});
 				req.Fail(f=>{
-					OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Read, Request=req});
+					StoreError(this, new StoreErrorData<T>{Action=StoreErrorAction.Read, Request=req});
 				});
 				req.Always(f=>{
-					OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Read, State=StoreRequestState.Finished});
+					StoreRequested(this, new StoreRequestedData{Action=StoreRequestedAction.Read, State=StoreRequestedState.Finished});
 				});
 				return req;
 			};
 
 
 			updateFunc= (record)=>{	
-				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Update, State=StoreRequestState.Started});
+				StoreRequested(this, new StoreRequestedData{Action=StoreRequestedAction.Update, State=StoreRequestedState.Started});
 				var req= jQuery.PostRequest<T>(updateApi.Url, record, cb=>{},updateApi.DataType);
 				req.Done(scb=>{
 					var r = updateApi.DataProperty;
@@ -133,7 +121,7 @@ namespace Cayita.Data
 							var old = new T();
 							old.PopulateFrom(ur);
 							ur.PopulateFrom(item);
-							OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Updated});
+							OnStoreChanged(ur, old, StoreChangedAction.Updated);
 						}
 					}
 					else
@@ -142,33 +130,33 @@ namespace Cayita.Data
 						var old = new T();
 						old.PopulateFrom(ur);
 						ur.PopulateFrom((T)res);
-						OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Updated});
+						OnStoreChanged(ur, old, StoreChangedAction.Updated);
 					}
 				});
 				req.Fail(f=>{
-					OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Update, Request=req});
+					StoreError(this, new StoreErrorData<T>{Action=StoreErrorAction.Update, Request=req});
 				});
 				req.Always(f=>{
-					OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Update, State=StoreRequestState.Finished});
+					StoreRequested(this, new StoreRequestedData{Action=StoreRequestedAction.Update, State=StoreRequestedState.Finished});
 				});
 				return req;
 			};
 
 			destroyFunc= (record)=>{	
-				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Destroy, State=StoreRequestState.Started});
+				StoreRequested(this, new StoreRequestedData{Action=StoreRequestedAction.Destroy, State=StoreRequestedState.Started});
 				var data = (dynamic) new {};
 				data[idProperty]=record.Get(idProperty);
 				var req= jQuery.PostRequest<string>(destroyApi.Url, (object)data, cb=>{},destroyApi.DataType);
 				req.Done(scb=>{
 					var dr =st.First( f=> f.Get(idProperty)== record.Get(idProperty));
 					st.Remove(dr);
-					OnStoreChanged(this, new StoreChangedData<T>{ NewData= dr, OldData=dr, Action= StoreChangedAction.Destroyed});
+					OnStoreChanged(dr, dr, StoreChangedAction.Destroyed);
 				});
 				req.Fail(f=>{
-					OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Destroy});
+					StoreError(this, new StoreErrorData<T>{Action=StoreErrorAction.Destroy});
 				});
 				req.Always(f=>{
-					OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Destroy, State=StoreRequestState.Finished});
+					StoreRequested(this, new StoreRequestedData{Action=StoreRequestedAction.Destroy, State=StoreRequestedState.Finished});
 				});
 				return req;
 			};
@@ -176,7 +164,7 @@ namespace Cayita.Data
 
 			patchFunc= (record)=>{
 
-				OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Patch, State=StoreRequestState.Started});
+				StoreRequested(this, new StoreRequestedData{Action=StoreRequestedAction.Patch, State=StoreRequestedState.Started});
 				var req= jQuery.PostRequest<T>(patchApi.Url, record, cb=>{},patchApi.DataType);
 				req.Done(scb=>{	
 					var r = updateApi.DataProperty;
@@ -190,7 +178,7 @@ namespace Cayita.Data
 							var old = new T();
 							old.PopulateFrom(ur);
 							ur.PopulateFrom(item);
-							OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Patched});
+							OnStoreChanged(ur, old, StoreChangedAction.Patched);
 						}
 					}
 					else
@@ -199,14 +187,14 @@ namespace Cayita.Data
 						var old = new T();
 						old.PopulateFrom(ur);
 						ur.PopulateFrom((T)res);
-						OnStoreChanged(this, new StoreChangedData<T>{ NewData= ur, OldData=old, Action= StoreChangedAction.Patched});
+						OnStoreChanged(ur, old,StoreChangedAction.Patched);
 					}
 				});
 				req.Fail(f=>{
-					OnStoreError(this, new StoreError<T>{Action=StoreErrorAction.Patch, Request=req});
+					StoreError(this, new StoreErrorData<T>{Action=StoreErrorAction.Patch, Request=req});
 				});
 				req.Always(f=>{
-					OnStoreRequest(this, new StoreRequest{Action=StoreRequestAction.Patch, State=StoreRequestState.Finished});
+					StoreRequested(this, new StoreRequestedData{Action=StoreRequestedAction.Patch, State=StoreRequestedState.Finished});
 				});
 				return req;
 			};
@@ -352,13 +340,13 @@ namespace Cayita.Data
 		public void Insert (int index, T item)
 		{
 			st.Insert(index, item);
-			OnStoreChanged(this, new StoreChangedData<T>{ NewData= item, OldData=item, Action= StoreChangedAction.Inserted, Index= index});
+			OnStoreChanged(item, item, StoreChangedAction.Inserted, index);
 		}			
 		public void RemoveAt (int index)
 		{
 			var item = this[index];
 			st.RemoveAt(index);
-			OnStoreChanged(this, new StoreChangedData<T>{ NewData= item, OldData=item, Action= StoreChangedAction.Removed, Index= index});
+			OnStoreChanged(item, item, StoreChangedAction.Removed, index);
 		}			
 		public T this [int index] {
 			get {
@@ -377,7 +365,7 @@ namespace Cayita.Data
 			var index = st.IndexOf(source);
 			var old = source.Clone();
 			record(source);
-			OnStoreChanged(this, new StoreChangedData<T>{ NewData= source, OldData=old, Action= StoreChangedAction.Replaced, Index= index});
+			OnStoreChanged(source,old, StoreChangedAction.Replaced, index);
 		}
 
 		public void Replace(T record)
@@ -387,7 +375,7 @@ namespace Cayita.Data
 			var index = st.IndexOf(source);
 			var old = source.Clone();
 			source.PopulateFrom(record);
-			OnStoreChanged(this, new StoreChangedData<T>{ NewData= source, OldData=old, Action= StoreChangedAction.Replaced, Index= index});
+			OnStoreChanged(source, old, StoreChangedAction.Replaced, index);
 		}
 
 		#region ICollection implementation			
@@ -407,13 +395,13 @@ namespace Cayita.Data
 		public void Add (T item)
 		{
 			st.Add(item);
-			OnStoreChanged(this, new StoreChangedData<T>{ NewData= item, OldData=item, Action= StoreChangedAction.Added, Index=GetTotalCount()-1});
+			OnStoreChanged (item, item, StoreChangedAction.Added, GetTotalCount () - 1);
 		}
 
 		public void Clear ()
 		{
 			st.Clear();
-			OnStoreChanged(this, new StoreChangedData<T>{ Action=StoreChangedAction.Cleared });
+			OnStoreChanged (StoreChangedAction.Cleared);
 		}
 		public bool Contains (T item)
 		{
@@ -424,7 +412,8 @@ namespace Cayita.Data
 		{
 			var index = st.IndexOf(item);
 			var r =  st.Remove(item);
-			if(r) OnStoreChanged(this, new StoreChangedData<T>{ OldData=item, NewData=item, Action=StoreChangedAction.Removed, Index=index });
+			if (r) 
+				OnStoreChanged (item, item, StoreChangedAction.Removed, index);
 			return r;
 		}
 		#endregion
@@ -465,7 +454,7 @@ namespace Cayita.Data
 			if(!append )st.Clear();
 			st.AddRange(data);
 			totalCount = st.Count (filterFunc);
-			OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Loaded});
+			OnStoreChanged (StoreChangedAction.Loaded);
 		}
 
 		public ReadOptions GetLastOption()
@@ -504,7 +493,7 @@ namespace Cayita.Data
 			if (!lastOption.LocalPaging)
 				readFunc (lastOption);
 			else
-				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
+				OnStoreChanged (StoreChangedAction.Read);
 
 		}
 
@@ -517,7 +506,7 @@ namespace Cayita.Data
 			if (!lastOption.LocalPaging)
 				readFunc (lastOption);
 			else
-				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
+				OnStoreChanged (StoreChangedAction.Read);
 		}
 
 		public void ReadPreviousPage(bool checkForPrevious=true)
@@ -528,9 +517,9 @@ namespace Cayita.Data
 			lastOption.PageNumber--;
 
 			if (!lastOption.LocalPaging)  
-				readFunc( lastOption);
+				readFunc (lastOption);
 			else 
-				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
+				OnStoreChanged (StoreChangedAction.Read);
 		}
 
 		public void ReadLastPage ()
@@ -541,7 +530,7 @@ namespace Cayita.Data
 			if (!lastOption.LocalPaging)
 				readFunc (lastOption);
 			else
-				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
+				OnStoreChanged (StoreChangedAction.Read);
 		}
 
 		public void ReadPage(int page)
@@ -556,7 +545,7 @@ namespace Cayita.Data
 			if (!lastOption.LocalPaging)
 				readFunc (lastOption);
 			else
-				OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Read});
+				OnStoreChanged (StoreChangedAction.Read);
 
 		}
 
@@ -578,12 +567,22 @@ namespace Cayita.Data
 			totalCount = st.Count (filterFunc);
 			if (lastOption.PageNumber.HasValue)
 				lastOption.PageNumber = 0;
-			OnStoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Filtered});
+			StoreChanged(this, new StoreChangedData<T>{ Action= StoreChangedAction.Filtered});
 		}
 
-		public event Action<Store<T> , StoreChangedData<T> > OnStoreChanged;
-		public event Action<Store<T> , StoreError<T>> OnStoreError;
-		public event Action<Store<T> , StoreRequest> OnStoreRequest;
+		public event Action<Store<T> , StoreChangedData<T> > StoreChanged = (st, d) => {};
+		public event Action<Store<T> , StoreErrorData<T>> StoreError = (st, d) => {};
+		public event Action<Store<T> , StoreRequestedData> StoreRequested = (st, d) => {};
+
+		protected void OnStoreChanged(T newData, T oldData, StoreChangedAction action, int index=0)
+		{
+			StoreChanged (this, new StoreChangedData<T>{NewData=newData, OldData=oldData, Action=action, Index=index});
+		}
+
+		protected void OnStoreChanged(StoreChangedAction action)
+		{
+			StoreChanged (this, new StoreChangedData<T>{Action=action});
+		}
 
 	}
 
@@ -616,9 +615,9 @@ namespace Cayita.Data
 
 	[ScriptNamespace("Cayita.Data")]
 	[Serializable]
-	public class StoreError<T>
+	public class StoreErrorData<T>
 	{
-		protected internal StoreError(){}
+		protected internal StoreErrorData(){}
 		public StoreErrorAction Action { get; set; }
 		public jQueryDataHttpRequest<T> Request{ get; set; }
 
@@ -634,14 +633,14 @@ namespace Cayita.Data
 	
 	[ScriptNamespace("Cayita.Data")]
 	[Serializable]
-	public class StoreRequest
+	public class StoreRequestedData
 	{
-		protected internal StoreRequest(){}
-		public StoreRequestAction Action { get; set; }
-		public StoreRequestState State { get; set; }
+		protected internal StoreRequestedData(){}
+		public StoreRequestedAction Action { get; set; }
+		public StoreRequestedState State { get; set; }
 	}
 	
-	public enum StoreRequestAction{
+	public enum StoreRequestedAction{
 		Create,
 		Read,
 		Update,
@@ -649,7 +648,7 @@ namespace Cayita.Data
 		Patch
 	}
 
-	public enum StoreRequestState{
+	public enum StoreRequestedState{
 		Started,
 		Finished
 	}

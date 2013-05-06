@@ -55,7 +55,7 @@ namespace Cayita.UI
 				SelectedOptionImp (option, true);
 			});
 			Render();
-			store.OnStoreChanged += (st, dt) =>  {
+			store.StoreChanged += (st, dt) =>  {
 				switch (dt.Action) {
 				case StoreChangedAction.Created:
 					se.CreateOption (dt.NewData, optionFunc);

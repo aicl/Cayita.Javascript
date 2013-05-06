@@ -99,7 +99,7 @@ namespace Cayita.UI
 			};
 			
 			
-			store.OnStoreChanged+=(st, dt)=>{
+			store.StoreChanged+=(st, dt)=>{
 				switch(dt.Action)
 				{
 				case StoreChangedAction.Created:
@@ -144,12 +144,12 @@ namespace Cayita.UI
 				}
 			};
 			
-			store.OnStoreRequest+=(st, request)=>{
+			store.StoreRequested+=(st, request)=>{
 				switch (request.Action) {
-				case StoreRequestAction.Create:
+				case StoreRequestedAction.Create:
 					break;
-				case StoreRequestAction.Read:
-					if(request.State== StoreRequestState.Started)
+				case StoreRequestedAction.Read:
+					if(request.State== StoreRequestedState.Started)
 					{
 						readRequestMessage.HtmlElement= readRequestStarted(this);
 					}
@@ -158,11 +158,11 @@ namespace Cayita.UI
 						readRequestFinished(this, readRequestMessage.HtmlElement);
 					}
 					break;
-				case StoreRequestAction.Update:
+				case StoreRequestedAction.Update:
 					break;
-				case StoreRequestAction.Destroy:
+				case StoreRequestedAction.Destroy:
 					break;
-				case StoreRequestAction.Patch:
+				case StoreRequestedAction.Patch:
 					
 					break;
 				}
