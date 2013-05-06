@@ -289,7 +289,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 
 		void GridEvents ()
 		{
-			GridGastos.OnRowSelected+=(gd, sr)=>{
+			GridGastos.RowSelected+=(gd, sr)=>{
 				BDelete.Element ().Disabled = false;
 				BList.Element ().Disabled = false;
 				Form.Element ().Reset ();

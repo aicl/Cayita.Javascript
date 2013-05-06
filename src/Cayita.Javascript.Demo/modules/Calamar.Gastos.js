@@ -295,7 +295,7 @@
 			this.get_$gridDiv().fadeIn();
 		},
 		$gridEvents: function() {
-			this.get_$gridGastos().add_onRowSelected(ss.mkdel(this, function(gd, sr) {
+			this.get_$gridGastos().add_rowSelected(ss.mkdel(this, function(gd, sr) {
 				this.get_$bDelete().element$1().disabled = false;
 				this.get_$bList().element$1().disabled = false;
 				this.get_$form().element$1().reset();
