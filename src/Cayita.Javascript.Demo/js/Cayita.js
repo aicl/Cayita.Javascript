@@ -298,24 +298,13 @@
 		this.$img = null;
 		this.$divNew = null;
 		this.$divExists = null;
-		this.$4$InputField = null;
-		this.$4$FileSelectedField = function(f) {
-		};
-		$Cayita_UI_Div.$ctor1.call(this, parent);
+		ss.makeGenericType($Cayita_UI_FileUpload$1, [$Cayita_ImgUpload]).call(this, parent);
 		this.$init(new $Cayita_ImgUploadConfig());
 	};
 	$Cayita_ImgUpload.prototype = {
-		get_input: function() {
-			return this.$4$InputField;
-		},
-		set_input: function(value) {
-			this.$4$InputField = value;
-		},
 		$init: function(config) {
 			this.$cfg = config;
-			var e = this.element$1();
-			e.className = 'fileupload fileupload-new';
-			e.setAttribute('data-provides', 'fileupload');
+			var e = this.element();
 			(new $Cayita_UI_Div(ss.mkdel(this, function(d) {
 				d.className = 'fileupload-new thumbnail';
 				d.style.width = this.$cfg.get_imgWidth();
@@ -368,9 +357,6 @@
 					$(a).append(t2);
 					t2.innerHTML = ss.coalesce(this.$cfg.get_removeText(), '');
 				}));
-				this.jQuery().on('change.fileupload', ss.mkdel(this, function(evt) {
-					this.onFileSelected();
-				}));
 			}))).appendTo$1(e);
 		},
 		imgSrc: function(src) {
@@ -389,15 +375,6 @@
 			this.$divNew.style.height = height;
 			this.$divExists.style.height = height;
 			return this;
-		},
-		add_fileSelected: function(value) {
-			this.$4$FileSelectedField = ss.delegateCombine(this.$4$FileSelectedField, value);
-		},
-		remove_fileSelected: function(value) {
-			this.$4$FileSelectedField = ss.delegateRemove(this.$4$FileSelectedField, value);
-		},
-		onFileSelected: function() {
-			this.$4$FileSelectedField(this);
 		}
 	};
 	$Cayita_ImgUpload.$ctor2 = function(parent, config) {
@@ -405,10 +382,7 @@
 		this.$img = null;
 		this.$divNew = null;
 		this.$divExists = null;
-		this.$4$InputField = null;
-		this.$4$FileSelectedField = function(f) {
-		};
-		$Cayita_UI_Div.$ctor1.call(this, parent);
+		ss.makeGenericType($Cayita_UI_FileUpload$1, [$Cayita_ImgUpload]).call(this, parent);
 		var c = new $Cayita_ImgUploadConfig();
 		config(c);
 		this.$init(c);
@@ -418,10 +392,7 @@
 		this.$img = null;
 		this.$divNew = null;
 		this.$divExists = null;
-		this.$4$InputField = null;
-		this.$4$FileSelectedField = function(f) {
-		};
-		$Cayita_UI_Div.$ctor1.call(this, parent);
+		ss.makeGenericType($Cayita_UI_FileUpload$1, [$Cayita_ImgUpload]).call(this, parent);
 		this.$init(config);
 	};
 	$Cayita_ImgUpload.$ctor2.prototype = $Cayita_ImgUpload.$ctor1.prototype = $Cayita_ImgUpload.prototype;
@@ -2285,24 +2256,12 @@
 	// Cayita.UI.FileUpload
 	var $Cayita_UI_FileUpload = function(parent) {
 		this.$cfg = null;
-		this.$4$InputField = null;
-		this.$4$FileSelectedField = function(f) {
-		};
-		$Cayita_UI_Div.$ctor1.call(this, parent);
+		ss.makeGenericType($Cayita_UI_FileUpload$1, [$Cayita_UI_FileUpload]).call(this, parent);
 		this.$init(new $Cayita_UI_FileUploadConfig());
 	};
 	$Cayita_UI_FileUpload.prototype = {
-		get_input: function() {
-			return this.$4$InputField;
-		},
-		set_input: function(value) {
-			this.$4$InputField = value;
-		},
 		$init: function(config) {
 			this.$cfg = config;
-			var e = this.element$1();
-			e.className = 'fileupload fileupload-new';
-			e.setAttribute('data-provides', 'fileupload');
 			(new $Cayita_UI_Div(ss.mkdel(this, function(d) {
 				d.className = 'input-append';
 				new $Cayita_UI_Div.$ctor2(d, ss.mkdel(this, function(inpt) {
@@ -2349,40 +2308,63 @@
 					$(a).append(t2);
 					t2.innerHTML = ss.coalesce(this.$cfg.get_removeText(), '');
 				}));
-				this.jQuery().on('change.fileupload', ss.mkdel(this, function(evt) {
-					this.onFileSelected();
-				}));
-			}))).appendTo$1(e);
-		},
-		add_fileSelected: function(value) {
-			this.$4$FileSelectedField = ss.delegateCombine(this.$4$FileSelectedField, value);
-		},
-		remove_fileSelected: function(value) {
-			this.$4$FileSelectedField = ss.delegateRemove(this.$4$FileSelectedField, value);
-		},
-		onFileSelected: function() {
-			this.$4$FileSelectedField(this);
+			}))).appendTo$1(this.element());
 		}
 	};
 	$Cayita_UI_FileUpload.$ctor2 = function(parent, config) {
 		this.$cfg = null;
-		this.$4$InputField = null;
-		this.$4$FileSelectedField = function(f) {
-		};
-		$Cayita_UI_Div.$ctor1.call(this, parent);
+		ss.makeGenericType($Cayita_UI_FileUpload$1, [$Cayita_UI_FileUpload]).call(this, parent);
 		var c = new $Cayita_UI_FileUploadConfig();
 		config(c);
 		this.$init(c);
 	};
 	$Cayita_UI_FileUpload.$ctor1 = function(parent, config) {
 		this.$cfg = null;
-		this.$4$InputField = null;
-		this.$4$FileSelectedField = function(f) {
-		};
-		$Cayita_UI_Div.$ctor1.call(this, parent);
+		ss.makeGenericType($Cayita_UI_FileUpload$1, [$Cayita_UI_FileUpload]).call(this, parent);
 		this.$init(config);
 	};
 	$Cayita_UI_FileUpload.$ctor2.prototype = $Cayita_UI_FileUpload.$ctor1.prototype = $Cayita_UI_FileUpload.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.FileUpload
+	var $Cayita_UI_FileUpload$1 = function(T) {
+		var $type = function(parent) {
+			this.$3$InputField = null;
+			this.$3$FileSelectedField = function(f) {
+			};
+			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
+			this.createElement('div', parent);
+			var e = this.element();
+			e.className = 'fileupload fileupload-new';
+			e.setAttribute('data-provides', 'fileupload');
+			this.jQuery().on('change.fileupload', ss.mkdel(this, function(evt) {
+				this.onFileSelected();
+			}));
+		};
+		$type.prototype = {
+			get_input: function() {
+				return this.$3$InputField;
+			},
+			set_input: function(value) {
+				this.$3$InputField = value;
+			},
+			add_fileSelected: function(value) {
+				this.$3$FileSelectedField = ss.delegateCombine(this.$3$FileSelectedField, value);
+			},
+			remove_fileSelected: function(value) {
+				this.$3$FileSelectedField = ss.delegateRemove(this.$3$FileSelectedField, value);
+			},
+			onFileSelected: function() {
+				this.$3$FileSelectedField(this);
+			}
+		};
+		ss.registerGenericClassInstance($type, $Cayita_UI_FileUpload$1, [T], function() {
+			return ss.makeGenericType($Cayita_UI_ElementBase$1, [T]);
+		}, function() {
+			return [];
+		});
+		return $type;
+	};
+	ss.registerGenericClass(global, 'Cayita.UI.FileUpload$1', $Cayita_UI_FileUpload$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.FileUploadConfig
 	var $Cayita_UI_FileUploadConfig = function() {
@@ -4894,8 +4876,7 @@
 	ss.registerClass(global, 'Extensions', $Extensions);
 	ss.registerClass(global, 'StringExtensions', $StringExtensions);
 	ss.registerClass(global, 'SystemExtensions', $SystemExtensions);
-	ss.registerClass(global, 'Cayita.UI.Div', $Cayita_UI_Div, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Div]));
-	ss.registerClass(global, 'Cayita.ImgUpload', $Cayita_ImgUpload, $Cayita_UI_Div);
+	ss.registerClass(global, 'Cayita.ImgUpload', $Cayita_ImgUpload, ss.makeGenericType($Cayita_UI_FileUpload$1, [$Cayita_ImgUpload]));
 	ss.registerClass(global, 'Cayita.UI.FileUploadConfig', $Cayita_UI_FileUploadConfig);
 	ss.registerClass(global, 'Cayita.ImgUploadConfig', $Cayita_ImgUploadConfig, $Cayita_UI_FileUploadConfig);
 	ss.registerClass(global, 'Cayita.Data.AjaxResponse', $Cayita_Data_AjaxResponse);
@@ -4917,6 +4898,7 @@
 	ss.registerClass(global, 'Cayita.UI.Anchor', $Cayita_UI_Anchor, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Anchor]));
 	ss.registerClass(global, 'Cayita.UI.Bootbox', $Cayita_UI_Bootbox);
 	ss.registerClass(global, 'Cayita.UI.Button', $Cayita_UI_Button, ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_Button]));
+	ss.registerClass(global, 'Cayita.UI.Div', $Cayita_UI_Div, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Div]));
 	ss.registerClass(global, 'Cayita.UI.CheckboxField', $Cayita_UI_CheckboxField, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.DialogButton', $Cayita_UI_DialogButton);
 	ss.registerClass(global, 'Cayita.UI.DialogOptions', $Cayita_UI_DialogOptions);
@@ -4926,7 +4908,7 @@
 	ss.registerClass(global, 'Cayita.UI.DropDownSubmenu', $Cayita_UI_DropDownSubmenu, $Cayita_UI_ListItem);
 	ss.registerClass(global, 'Cayita.UI.ElementBase', $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.FieldSet', $Cayita_UI_FieldSet, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_FieldSet]));
-	ss.registerClass(global, 'Cayita.UI.FileUpload', $Cayita_UI_FileUpload, $Cayita_UI_Div);
+	ss.registerClass(global, 'Cayita.UI.FileUpload', $Cayita_UI_FileUpload, ss.makeGenericType($Cayita_UI_FileUpload$1, [$Cayita_UI_FileUpload]));
 	ss.registerClass(global, 'Cayita.UI.Form', $Cayita_UI_Form, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Form]));
 	ss.registerClass(global, 'Cayita.UI.HtmlOption', $Cayita_UI_HtmlOption, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlOption]));
 	ss.registerClass(global, 'Cayita.UI.HtmlSelect', $Cayita_UI_HtmlSelect, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlSelect]));

@@ -4,15 +4,39 @@ using System.Html;
 
 namespace Cayita.UI
 {
-	public class FileUpload:Div
+	public abstract class FileUpload<T>:ElementBase<T> where T:ElementBase  
 	{
-		FileUploadConfig cfg;
-
 		public FileElement Input {
 			get;
-			private set;
+			protected set;
 		}
 
+		public event Action<T> FileSelected=f=>{};
+
+		protected FileUpload(Element parent=null)
+		{
+			CreateElement ("div", parent);
+
+			var e = Element ();
+			e.ClassName = "fileupload fileupload-new";
+			e.SetAttribute ("data-provides", "fileupload");
+
+			JQuery().On("change.fileupload",evt=>{
+				OnFileSelected();
+			});
+
+		}
+
+		protected virtual void OnFileSelected()
+		{
+			FileSelected (this.As<T>());
+		}
+
+	}
+
+	public class FileUpload:FileUpload<FileUpload>
+	{
+		FileUploadConfig cfg;
 
 		public FileUpload (Element parent=null):base(parent)
 		{
@@ -35,73 +59,60 @@ namespace Cayita.UI
 		{
 			cfg = config;
 
-			var e = Element ();
-			e.ClassName = "fileupload fileupload-new";
-			e.SetAttribute ("data-provides", "fileupload");
-			new Div ( d => {
-				d.ClassName="input-append";
-				new Div(d, inpt=>{
-					inpt.ClassName= "uneditable-input span"+ cfg.SpanSize;
-					new Icon(inpt, i=> i.ClassName="icon-file fileupload-exists");
-					new Span(inpt, s=> s.ClassName="fileupload-preview");
+			new Div (d => {
+				d.ClassName = "input-append";
+				new Div (d, inpt => {
+					inpt.ClassName = "uneditable-input span" + cfg.SpanSize;
+					new Icon (inpt, i => i.ClassName = "icon-file fileupload-exists");
+					new Span (inpt, s => s.ClassName = "fileupload-preview");
 				});
 
-				new Span(d, sp=>{
-					sp.ClassName="btn btn-file";
-					new Span(sp, sl=>{
-						sl.ClassName="fileupload-new";
-						new Icon(sl, i=>{
-							i.ClassName=cfg.SelectIconClass;
+				new Span (d, sp => {
+					sp.ClassName = "btn btn-file";
+					new Span (sp, sl => {
+						sl.ClassName = "fileupload-new";
+						new Icon (sl, i => {
+							i.ClassName = cfg.SelectIconClass;
 						});
-						var t= Document.CreateElement("ctxt");
-						t.AppendTo(sl);
-						t.InnerHTML=cfg.SelectText??"";
+						var t = Document.CreateElement ("ctxt");
+						t.AppendTo (sl);
+						t.InnerHTML = cfg.SelectText ?? "";
 					});
 
-					new Span(sp, sl=>{
-						sl.ClassName="fileupload-exists";
-						new Icon(sl, i=>{
-							i.ClassName=cfg.SelectIconClass;
+					new Span (sp, sl => {
+						sl.ClassName = "fileupload-exists";
+						new Icon (sl, i => {
+							i.ClassName = cfg.SelectIconClass;
 						});
-						var t= Document.CreateElement("ctxt");
-						t.AppendTo(sl);
-						t.InnerHTML=cfg.SelectText??"";
+						var t = Document.CreateElement ("ctxt");
+						t.AppendTo (sl);
+						t.InnerHTML = cfg.SelectText ?? "";
 					});
 
-					new InputFile(sp, i=>{
-						i.Name=cfg.Fieldname;
-						Input=i;
+					new InputFile (sp, i => {
+						i.Name = cfg.Fieldname;
+						Input = i;
 					});
 				});
 
-				new Anchor(d, a=>{
-					a.ClassName="btn fileupload-exists";
-					a.SetAttribute("data-dismiss","fileupload");
+				new Anchor (d, a => {
+					a.ClassName = "btn fileupload-exists";
+					a.SetAttribute ("data-dismiss", "fileupload");
 
-					new Icon(a, i=>{
-						i.ClassName=cfg.RemoveIconClass;
+					new Icon (a, i => {
+						i.ClassName = cfg.RemoveIconClass;
 					});
 
-					var t= Document.CreateElement("ctxt");
-					t.AppendTo(a);
-					t.InnerHTML=cfg.RemoveText??"";
+					var t = Document.CreateElement ("ctxt");
+					t.AppendTo (a);
+					t.InnerHTML = cfg.RemoveText ?? "";
 				
 				});
 
-				JQuery().On("change.fileupload",evt=>{
-					OnFileSelected();
-				});
-
-			}).AppendTo(e);
+			}).AppendTo (Element ());
 		}
 
 
-		public event Action<FileUpload> FileSelected=f=>{};
-
-		protected virtual void OnFileSelected()
-		{
-			FileSelected (this);
-		}
 	}
 
 	public class FileUploadConfig

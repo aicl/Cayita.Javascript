@@ -4,19 +4,13 @@ using System.Html;
 
 namespace Cayita
 {
-	public class ImgUpload:Div
+	public class ImgUpload:FileUpload<ImgUpload>
 	{
 		ImgUploadConfig cfg;
 		ImageElement img;
 		DivElement divNew;
 		DivElement divExists;
 
-
-		public FileElement Input {
-			get;
-			private set;
-		}
-		
 		public ImgUpload (Element parent=null):base(parent)
 		{
 			Init ( new ImgUploadConfig());
@@ -39,8 +33,6 @@ namespace Cayita
 			cfg = config;
 			
 			var e = Element ();
-			e.ClassName = "fileupload fileupload-new";
-			e.SetAttribute ("data-provides", "fileupload");
 
 			new Div (d => {
 				d.ClassName = "fileupload-new thumbnail";
@@ -49,7 +41,6 @@ namespace Cayita
 				img = new Image (d, i => i.Src = cfg.ImgSrc).Element ();
 				divNew = d;
 			}).	AppendTo(e);
-
 
 			new  Div (d => {
 				d.ClassName = "fileupload-preview fileupload-exists thumbnail";
@@ -101,11 +92,7 @@ namespace Cayita
 					t.InnerHTML=cfg.RemoveText??"";
 					
 				});
-				
-				JQuery().On("change.fileupload",evt=>{
-					OnFileSelected();
-				});
-				
+												
 			}).AppendTo(e);
 		}
 
@@ -132,13 +119,6 @@ namespace Cayita
 			return this;
 		}
 
-
-		public event Action<ImgUpload> FileSelected=f=>{};
-		
-		protected virtual void OnFileSelected()
-		{
-			FileSelected (this);
-		}
 
 	}
 	
