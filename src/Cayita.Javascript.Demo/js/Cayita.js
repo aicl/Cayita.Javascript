@@ -4543,9 +4543,11 @@
 	var $Cayita_UI_TabPanel = function(parent) {
 		this.$cfg = null;
 		this.$tabs = [];
-		this.$4$OnTabShownField = null;
-		this.$4$OnTabShowField = null;
-		this.$4$OnTabClickField = null;
+		this.$4$TabShownField = function(p, ac, pr) {
+		};
+		this.$4$TabShowField = function(p, ac, pr) {
+		};
+		this.$4$TabClickedField = null;
 		$Cayita_UI_Div.$ctor1.call(this, parent);
 		this.$init($Cayita_UI_TabPanelConfig.$ctor());
 	};
@@ -4561,19 +4563,15 @@
 			}
 			this.$cfg = config;
 			this.jQuery$1('a[data-toggle=\'tab\']').on('shown', ss.mkdel(this, function(evt) {
-				if (!ss.staticEquals(this.$4$OnTabShownField, null)) {
-					this.$4$OnTabShownField(this, this.$getTab(evt.target), this.$getTab(evt.relatedTarget));
-				}
+				this.onTabShown(this.$getTab(evt.target), this.$getTab(evt.relatedTarget));
 			}));
 			this.jQuery$1('a[data-toggle=\'tab\']').on('show', ss.mkdel(this, function(evt1) {
-				if (!ss.staticEquals(this.$4$OnTabShowField, null)) {
-					this.$4$OnTabShowField(this, this.$getTab(evt1.target), this.$getTab(evt1.relatedTarget));
-				}
+				this.onTabShow(this.$getTab(evt1.target), this.$getTab(evt1.relatedTarget));
 			}));
 			this.jQuery$1('a[data-toggle=\'tab\']').on('Click', ss.mkdel(this, function(evt2) {
-				if (!ss.staticEquals(this.$4$OnTabClickField, null)) {
+				if (!ss.staticEquals(this.$4$TabClickedField, null)) {
 					evt2.preventDefault();
-					this.$4$OnTabClickField(this, this.$getTab(evt2.target));
+					this.$4$TabClickedField(this, this.$getTab(evt2.target));
 				}
 			}));
 		},
@@ -4630,31 +4628,44 @@
 			var $t1 = this.$cfg.links;
 			$('a[href=\'#' + tab.body.get_id() + '\']', $t1).tab('show');
 		},
-		add_onTabShown: function(value) {
-			this.$4$OnTabShownField = ss.delegateCombine(this.$4$OnTabShownField, value);
+		add_tabShown: function(value) {
+			this.$4$TabShownField = ss.delegateCombine(this.$4$TabShownField, value);
 		},
-		remove_onTabShown: function(value) {
-			this.$4$OnTabShownField = ss.delegateRemove(this.$4$OnTabShownField, value);
+		remove_tabShown: function(value) {
+			this.$4$TabShownField = ss.delegateRemove(this.$4$TabShownField, value);
 		},
-		add_onTabShow: function(value) {
-			this.$4$OnTabShowField = ss.delegateCombine(this.$4$OnTabShowField, value);
+		onTabShown: function(active, previous) {
+			this.$4$TabShownField(this, active, previous);
 		},
-		remove_onTabShow: function(value) {
-			this.$4$OnTabShowField = ss.delegateRemove(this.$4$OnTabShowField, value);
+		add_tabShow: function(value) {
+			this.$4$TabShowField = ss.delegateCombine(this.$4$TabShowField, value);
 		},
-		add_onTabClick: function(value) {
-			this.$4$OnTabClickField = ss.delegateCombine(this.$4$OnTabClickField, value);
+		remove_tabShow: function(value) {
+			this.$4$TabShowField = ss.delegateRemove(this.$4$TabShowField, value);
 		},
-		remove_onTabClick: function(value) {
-			this.$4$OnTabClickField = ss.delegateRemove(this.$4$OnTabClickField, value);
+		onTabShow: function(active, previous) {
+			this.$4$TabShowField(this, active, previous);
+		},
+		add_tabClicked: function(value) {
+			this.$4$TabClickedField = ss.delegateCombine(this.$4$TabClickedField, value);
+		},
+		remove_tabClicked: function(value) {
+			this.$4$TabClickedField = ss.delegateRemove(this.$4$TabClickedField, value);
+		},
+		onTabClicked: function(tab) {
+			if (!ss.staticEquals(this.$4$TabClickedField, null)) {
+				this.$4$TabClickedField(this, tab);
+			}
 		}
 	};
 	$Cayita_UI_TabPanel.$ctor2 = function(parent, config) {
 		this.$cfg = null;
 		this.$tabs = [];
-		this.$4$OnTabShownField = null;
-		this.$4$OnTabShowField = null;
-		this.$4$OnTabClickField = null;
+		this.$4$TabShownField = function(p, ac, pr) {
+		};
+		this.$4$TabShowField = function(p, ac, pr) {
+		};
+		this.$4$TabClickedField = null;
 		$Cayita_UI_Div.$ctor1.call(this, parent);
 		var c = $Cayita_UI_TabPanelConfig.$ctor();
 		config(c);
@@ -4663,9 +4674,11 @@
 	$Cayita_UI_TabPanel.$ctor1 = function(parent, config) {
 		this.$cfg = null;
 		this.$tabs = [];
-		this.$4$OnTabShownField = null;
-		this.$4$OnTabShowField = null;
-		this.$4$OnTabClickField = null;
+		this.$4$TabShownField = function(p, ac, pr) {
+		};
+		this.$4$TabShowField = function(p, ac, pr) {
+		};
+		this.$4$TabClickedField = null;
 		$Cayita_UI_Div.$ctor1.call(this, parent);
 		this.$init(config);
 	};

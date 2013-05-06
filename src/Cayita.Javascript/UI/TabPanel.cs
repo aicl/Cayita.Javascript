@@ -39,20 +39,16 @@ namespace Cayita.UI
 			else  el.Append (config.Content).Append (config.Links);
 
 			cfg = config;
-			this.JQuery ("a[data-toggle='tab']").On ("shown", evt =>  {
-				if (OnTabShown != null) {
-					OnTabShown (this, GetTab (evt.Target.As<AnchorElement> ()), GetTab (evt.RelatedTarget.As<AnchorElement> ()));
-				}
-			});
-			this.JQuery ("a[data-toggle='tab']").On ("show", evt =>  {
-				if (OnTabShow != null) {
-					OnTabShow (this, GetTab (evt.Target.As<AnchorElement> ()), GetTab (evt.RelatedTarget.As<AnchorElement> ()));
-				}
-			});
+			this.JQuery ("a[data-toggle='tab']").On ("shown", evt =>  
+				OnTabShown (GetTab (evt.Target.As<AnchorElement> ()), GetTab (evt.RelatedTarget.As<AnchorElement> ()))
+			);
+			this.JQuery ("a[data-toggle='tab']").On ("show", evt =>  
+				OnTabShow ( GetTab (evt.Target.As<AnchorElement> ()), GetTab (evt.RelatedTarget.As<AnchorElement> ()))
+			);
 			this.JQuery ("a[data-toggle='tab']").On ("Click", evt =>  {
-				if (OnTabClick != null) {
+				if (TabClicked != null) {
 					evt.PreventDefault ();
-					OnTabClick (this, GetTab (evt.Target.As<AnchorElement> ()));
+					TabClicked (this, GetTab (evt.Target.As<AnchorElement> ()));
 				}
 			});
 		}
@@ -129,21 +125,36 @@ namespace Cayita.UI
 		/// <TabPanel,Tab,Tab> 
 		/// TabPanel, the active tab and the previous active tab (if available) respectively.
 		/// </summary>
-		public event Action<TabPanel,Tab,Tab> OnTabShown;
+		public event Action<TabPanel,Tab,Tab> TabShown = (p,ac,pr) => {};
+
+		protected virtual void OnTabShown ( Tab active, Tab previous)
+		{
+			TabShown (this, active, previous);
+		}
 
 		/// <summary>
 		/// This event fires on tab show, but before the new tab has been shown. 
 		/// <TabPanel,Tab,Tab> 
 		/// TabPanel, the active tab and the previous active tab (if available) respectively.
 		/// </summary>
-		public event Action<TabPanel,Tab,Tab> OnTabShow;
+		public event Action<TabPanel,Tab,Tab> TabShow = (p,ac,pr) => {};
+
+		protected virtual void OnTabShow ( Tab active, Tab previous)
+		{
+			TabShow(this,active, previous);
+		}
 
 		/// <summary>
 		/// Occurs when on tab click.
 		/// <TabPanel,Tab> TabPanel, Tab clicked.
 		/// </summary>
-		public event Action<TabPanel,Tab> OnTabClick;
+		public event Action<TabPanel,Tab> TabClicked ;
 
+		protected virtual void OnTabClicked (Tab tab)
+		{
+			if (TabClicked != null)
+				TabClicked (this, tab);
+		}
 	}
 
 	[Serializable]
