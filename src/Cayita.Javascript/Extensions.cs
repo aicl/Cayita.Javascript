@@ -270,5 +270,24 @@ namespace Cayita.UI
 			});
 		}
 
+
+		public static jQueryObject Text(this Element element, string value)
+		{
+			var ctxt=element.JQuery ("ctxt");
+			if (ctxt.Length == 0) {
+				var txt =  Document.CreateElement("ctxt");
+				element.Append(txt);
+				ctxt= jQuery.FromElement(txt);
+			}
+			return ctxt.Html (value??"");
+		}
+		
+		
+		public static string Text(this Element element)
+		{
+			return element.JQuery ("ctxt").GetText ();
+		}
+
+
 	}
 }

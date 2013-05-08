@@ -8,7 +8,7 @@
 		(new Cayita.UI.Div.$ctor2(null, function(div) {
 			div.className = 'bs-docs-example';
 			$(div).append((new Cayita.UI.Button.$ctor2(div, function(b) {
-				$(b).text('Simple Modal Dialog I');
+				Extensions.text$1(b, 'Simple Modal Dialog I');
 				$(b).on('click', function(evt) {
 					Cayita.UI.Bootbox.dialog('Your App Text: cayita is awesome....', '<br/>');
 				});
@@ -18,7 +18,7 @@
 		(new Cayita.UI.Div.$ctor2(null, function(div1) {
 			div1.className = 'bs-docs-example';
 			$(div1).append((new Cayita.UI.Button.$ctor2(div1, function(b1) {
-				$(b1).text('Simple Modal Dialog II');
+				Extensions.text$1(b1, 'Simple Modal Dialog II');
 				$(b1).on('click', function(evt1) {
 					Cayita.UI.Bootbox.dialog('Your App Text: cayita is awesome....', 'Cayita Dialog');
 				});
@@ -28,7 +28,7 @@
 		(new Cayita.UI.Div.$ctor2(null, function(div2) {
 			div2.className = 'bs-docs-example';
 			$(div2).append((new Cayita.UI.Button.$ctor2(div2, function(b2) {
-				$(b2).text('Custom Dialog I');
+				Extensions.text$1(b2, 'Custom Dialog I');
 				$(b2).on('click', function(evt2) {
 					Cayita.UI.Bootbox.dialog$4('Message from App', function(opt) {
 						opt.header = 'Your Header Text';
@@ -51,7 +51,7 @@
 		(new Cayita.UI.Div.$ctor2(null, function(div3) {
 			div3.className = 'bs-docs-example';
 			$(div3).append((new Cayita.UI.Button.$ctor2(div3, function(b3) {
-				$(b3).text('Custom Dialog II');
+				Extensions.text$1(b3, 'Custom Dialog II');
 				$(b3).on('click', function(evt3) {
 					var d = new Cayita.UI.Div.$ctor2(null, function(dd) {
 						dd.className = 'span3';
@@ -93,7 +93,7 @@
 		(new Cayita.UI.Div.$ctor2(null, function(div4) {
 			div4.className = 'bs-docs-example';
 			$(div4).append((new Cayita.UI.Button.$ctor2(div4, function(b4) {
-				$(b4).text('Error Dialog ');
+				Extensions.text$1(b4, 'Error Dialog ');
 				$(b4).on('click', function(evt4) {
 					Cayita.UI.Bootbox.error('You must use cayita', 'Error !!!');
 				});
@@ -103,7 +103,7 @@
 		(new Cayita.UI.Div.$ctor2(null, function(div5) {
 			div5.className = 'bs-docs-example';
 			$(div5).append((new Cayita.UI.Button.$ctor2(div5, function(b5) {
-				$(b5).text('Alert ');
+				Extensions.text$1(b5, 'Alert ');
 				$(b5).on('click', function(evt5) {
 					bootbox.alert('User is over quota', 'OK', null);
 				});
@@ -113,7 +113,7 @@
 		(new Cayita.UI.Div.$ctor2(null, function(div6) {
 			div6.className = 'bs-docs-example';
 			$(div6).append((new Cayita.UI.Button.$ctor2(div6, function(b6) {
-				$(b6).text('Prompt');
+				Extensions.text$1(b6, 'Prompt');
 				$(b6).on('click', function(evt6) {
 					bootbox.prompt('Your name?', 'Cancel', 'OK', function(r) {
 						Alertify.log.info('Your name is:' + r, 5000);
@@ -125,7 +125,7 @@
 		(new Cayita.UI.Div.$ctor2(null, function(div7) {
 			div7.className = 'bs-docs-example';
 			$(div7).append((new Cayita.UI.Button.$ctor2(div7, function(b7) {
-				$(b7).text('Confirm');
+				Extensions.text$1(b7, 'Confirm');
 				$(b7).on('click', function(evt7) {
 					bootbox.confirm('Are you sure?', 'Cancel', 'OK', function(res) {
 						Alertify.log.info((res ? 'OK' : 'Cancel') + ' pressed', 5000);

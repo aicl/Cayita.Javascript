@@ -182,14 +182,14 @@
 		var il = new $Cayita_UI_ListItem(parent);
 		new $Cayita_UI_Anchor.$ctor3(il.element$1(), function(a) {
 			a.href = '#';
-			$(a).text(item);
+			$Extensions.text$1(a, item);
 		});
 	};
 	$Extensions.addItem$4 = function(parent, item, action) {
 		var il = new $Cayita_UI_ListItem(parent);
 		new $Cayita_UI_Anchor.$ctor3(il.element$1(), function(a) {
 			a.href = '#';
-			$(a).text(item);
+			$Extensions.text$1(a, item);
 			$(a).on('click', function(evt) {
 				action(evt);
 			});
@@ -205,7 +205,7 @@
 	$Extensions.addHeader = function(parent, item) {
 		new $Cayita_UI_ListItem.$ctor1(parent, function(l) {
 			l.className = 'nav-header';
-			$(l).text(item);
+			$Extensions.text$1(l, item);
 		});
 	};
 	$Extensions.addHDivider = function(parent) {
@@ -222,7 +222,7 @@
 			a.className = 'dropdown-toggle';
 			a.setAttribute('role', 'button');
 			a.setAttribute('data-toggle', 'dropdown');
-			$(a).text(item);
+			$Extensions.text$1(a, item);
 			$(a).append(ss.formatString('<b class="caret{0}"></b>', (!$(parent).hasClass('nav-list') ? '' : ' pull-right')));
 		});
 		il.append$1(menu);
@@ -232,6 +232,18 @@
 	};
 	$Extensions.send = function(fd, url) {
 		return $.ajax({ url: url, type: 'POST', data: fd, processData: false, contentType: '' });
+	};
+	$Extensions.text$1 = function(element, value) {
+		var ctxt = $('ctxt', element);
+		if (ctxt.length === 0) {
+			var txt = document.createElement('ctxt');
+			$(element).append(txt);
+			ctxt = $(txt);
+		}
+		return ctxt.html(ss.coalesce(value, ''));
+	};
+	$Extensions.text = function(element) {
+		return $('ctxt', element).text();
 	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.StringExtensions
@@ -1553,7 +1565,7 @@
 				element.href = '#';
 				element.className = 'close';
 				element.setAttribute('data-dismiss', 'alert');
-				$(element).text('×');
+				$Extensions.text$1(element, '×');
 			});
 			$(de).append(message);
 		});
@@ -1734,7 +1746,7 @@
 				this.$lb = (new $Cayita_UI_Label.$ctor1(div, function(l) {
 					l.className = 'checkbox';
 					if (!ss.isNullOrEmptyString(textLabel)) {
-						$(l).text(textLabel);
+						$Extensions.text$1(l, textLabel);
 					}
 				})).element$1();
 				this.$cb = (new $Cayita_UI_InputCheckbox()).element$2();
@@ -1954,7 +1966,7 @@
 		new $Cayita_UI_Anchor.$ctor3(li, function(a) {
 			a.href = '#';
 			a.tabIndex = -1;
-			$(a).text(item);
+			$Extensions.text$1(a, item);
 		});
 		new $Cayita_UI_HtmlList.$ctor1(li, function(nl) {
 			nl.className = 'dropdown-menu';
@@ -3059,10 +3071,10 @@
 	};
 	$Cayita_UI_Label.prototype = {
 		textLabel$1: function(textLabel) {
-			$(this.element$1()).text(textLabel);
+			$Extensions.text$1(this.element$1(), textLabel);
 		},
 		textLabel: function() {
-			return $(this.element$1()).text();
+			return $Extensions.text(this.element$1());
 		},
 		forField$1: function(fieldId) {
 			$(this.element$1()).attr('for', fieldId);
@@ -3082,7 +3094,7 @@
 	$Cayita_UI_Label.$ctor1.prototype = $Cayita_UI_Label.prototype;
 	$Cayita_UI_Label.createControlLabel = function(parent, textLabel, forField, visible) {
 		return new $Cayita_UI_Label.$ctor1(parent, function(lb) {
-			$(lb).text(textLabel);
+			$Extensions.text$1(lb, textLabel);
 			lb.className = 'control-label';
 			if (!ss.isNullOrEmptyString(forField)) {
 				$(lb).attr('for', forField);
@@ -3128,7 +3140,7 @@
 		var il = new $Cayita_UI_ListItem(parent);
 		new $Cayita_UI_Anchor.$ctor3(il.element$1(), function(a) {
 			a.href = href;
-			$(a).text(item);
+			$Extensions.text$1(a, item);
 		});
 		return il;
 	};
@@ -3181,18 +3193,18 @@
 				});
 				this.$bElement = (new $Cayita_UI_Anchor.$ctor3(fluid, function(brnd) {
 					brnd.href = '#';
-					$(brnd).text(brandText);
+					$Extensions.text$1(brnd, brandText);
 					brnd.className = 'brand';
 				})).element$1();
 				this.$nCollapse = (new $Cayita_UI_Div.$ctor2(fluid, ss.mkdel(this, function(collapse) {
 					collapse.className = 'nav-collapse collapse';
 					this.$pullRP = (new $Cayita_UI_Paragraph.$ctor3(collapse, ss.mkdel(this, function(paragraph) {
 						paragraph.className = 'navbar-text pull-right';
-						$(paragraph).text(rightText);
+						$Extensions.text$1(paragraph, rightText);
 						this.$pRA = (new $Cayita_UI_Anchor.$ctor3(paragraph, function(a) {
 							a.href = '#';
 							a.className = 'navbar-link';
-							$(a).text(rightLinkText);
+							$Extensions.text$1(a, rightLinkText);
 						})).element$1();
 					}))).element$1();
 					this.$nList = $Cayita_UI_HtmlList.createNav$1(collapse, navlist, '').element$1();
@@ -3300,7 +3312,7 @@
 		},
 		caption: function(text) {
 			this.$pc.caption = text;
-			$(this.$captionElement).text(text);
+			$Extensions.text$1(this.$captionElement, text);
 			return this;
 		},
 		render: function(parent) {
@@ -3620,7 +3632,7 @@
 		this.$cg.className = 'control-group';
 		(new $Cayita_UI_Label.$ctor1(this.$cg, function(l) {
 			l.className = 'control-label';
-			$(l).text(label);
+			$Extensions.text$1(l, label);
 		})).element$1();
 		this.$ctrls = $Cayita_UI_Div.createControls$1(this.$cg, function(ct) {
 			var $t1 = ss.getEnumerator(items);
@@ -3628,7 +3640,7 @@
 				while ($t1.moveNext()) {
 					var item = { $: $t1.current() };
 					new $Cayita_UI_InputRadio(ct, ss.mkdel({ item: item }, function(lb, rd) {
-						$(lb).text(this.item.$.text);
+						$Extensions.text$1(lb, this.item.$.text);
 						if (!inline) {
 							$(lb).removeClass('inline');
 						}
@@ -4018,7 +4030,7 @@
 		this.$init();
 		field(this.$lb, this.$se);
 		$(this.$lb).attr('for', this.$se.id);
-		if (ss.isNullOrEmptyString($(this.$lb).text())) {
+		if (ss.isNullOrEmptyString($Extensions.text(this.$lb))) {
 			$(this.$lb).hide();
 		}
 	};
@@ -4290,7 +4302,7 @@
 				this.$page = (new $Cayita_UI_Label.$ctor1(d1, ss.mkdel(this, function(l) {
 					l.className = 'checkbox';
 					l.style.paddingRight = '2px';
-					$(l).text(this.$pText);
+					$Extensions.text$1(l, this.$pText);
 					l.style.fontSize = '98%';
 				}))).element$1();
 				this.$currentPage = (new $Cayita_UI_Input.$ctor1(d1, ss.mkdel(this, function(i4) {
@@ -4310,7 +4322,7 @@
 				this.$totalPages = (new $Cayita_UI_Label.$ctor1(d1, ss.mkdel(this, function(l1) {
 					l1.className = 'checkbox';
 					l1.style.paddingLeft = '2px';
-					$(l1).text(this.$ofText + ' {0}');
+					$Extensions.text$1(l1, this.$ofText + ' {0}');
 					l1.style.fontSize = '98%';
 				}))).element$1();
 			}));
@@ -4319,7 +4331,7 @@
 				this.$info = (new $Cayita_UI_Label.$ctor1(d2, ss.mkdel(this, function(l2) {
 					l2.className = 'checkbox';
 					l2.style.paddingRight = '2px';
-					$(l2).text(this.$infoTmpl);
+					$Extensions.text$1(l2, this.$infoTmpl);
 					l2.style.fontSize = '98%';
 				}))).element$1();
 			}));
@@ -4360,10 +4372,10 @@
 				this.$prev.disabled = !this.$store_.hasPreviousPage();
 				this.$next.disabled = !this.$store_.hasNextPage();
 				this.$last.disabled = !this.$store_.hasNextPage();
-				$(this.$page).text(this.$pText);
+				$Extensions.text$1(this.$page, this.$pText);
 				cayita.fn.setValue(this.$currentPage, ((pageNumber < pagesCount) ? (pageNumber + 1) : pagesCount));
-				$(this.$totalPages).text(this.$ofText + ' ' + pagesCount);
-				$(this.$info).text(ss.formatString(this.$infoTmpl, from_, to_, this.$store_.getTotalCount()));
+				$Extensions.text$1(this.$totalPages, this.$ofText + ' ' + pagesCount);
+				$Extensions.text$1(this.$info, ss.formatString(this.$infoTmpl, from_, to_, this.$store_.getTotalCount()));
 			}
 		};
 		ss.registerGenericClassInstance($type, $Cayita_UI_StorePaging$1, [T], function() {
@@ -4474,7 +4486,7 @@
 			}
 			if (!ss.isNullOrEmptyString(header)) {
 				$this.header = (new $Cayita_UI_TableCell.$ctor1(function(c) {
-					$(c).text(header);
+					$Extensions.text$1(c, header);
 				})).element$1();
 			}
 			if (ss.staticEquals(val, null)) {
@@ -4590,7 +4602,7 @@
 			$Extensions.addItem$1(this.$cfg.links, function(i, a) {
 				a.href = '#' + tab.body.get_id();
 				a.setAttribute('data-toggle', 'tab');
-				$(a).text(tab.title);
+				$Extensions.text$1(a, tab.title);
 			});
 			$(this.$cfg.content).append(tab.body.element());
 		},
@@ -4605,7 +4617,7 @@
 					anchor(a);
 				}
 				else {
-					$(a).text(t.title);
+					$Extensions.text$1(a, t.title);
 				}
 			});
 			$(this.$cfg.content).append(t.body.element());
@@ -4742,7 +4754,7 @@
 		this.$init();
 		field(this.$lb, this.$te);
 		$(this.$lb).attr('for', this.$te.id);
-		if (ss.isNullOrEmptyString($(this.$lb).text())) {
+		if (ss.isNullOrEmptyString($Extensions.text(this.$lb))) {
 			$(this.$lb).hide();
 		}
 	};
@@ -4779,7 +4791,7 @@
 	};
 	$Cayita_UI_TextAreaField.$ctor2 = function(parent, label, fieldname) {
 		$Cayita_UI_TextAreaField.call(this, parent, function(l, f) {
-			$(l).text(label);
+			$Extensions.text$1(l, label);
 			f.name = fieldname;
 		});
 	};
@@ -4795,7 +4807,7 @@
 		this.$init();
 		field(this.$lb, this.$te);
 		$(this.$lb).attr('for', this.$te.id);
-		if (ss.isNullOrEmptyString($(this.$lb).text())) {
+		if (ss.isNullOrEmptyString($Extensions.text(this.$lb))) {
 			$(this.$lb).hide();
 		}
 	};
@@ -4833,7 +4845,7 @@
 	};
 	$Cayita_UI_TextField.$ctor2 = function(parent, label, fieldname) {
 		$Cayita_UI_TextField.call(this, parent, function(l, f) {
-			$(l).text(label);
+			$Extensions.text$1(l, label);
 			f.name = fieldname;
 		});
 	};

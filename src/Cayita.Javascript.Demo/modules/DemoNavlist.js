@@ -16,7 +16,7 @@
 				Extensions.addItem$2(nav, 'Exit');
 				$(nav).on('click', 'a', function(ev) {
 					ev.preventDefault();
-					$('#div-log').text($(ev.currentTarget).text() + ' clicked');
+					$('#div-log').text(Extensions.text(ev.currentTarget) + ' clicked');
 				});
 			});
 			sb.element$1().style.maxWidth = '240px';

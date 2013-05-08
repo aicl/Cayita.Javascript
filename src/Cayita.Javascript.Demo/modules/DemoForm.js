@@ -10,23 +10,23 @@
 			new Cayita.UI.Form.$ctor1(div, function(f) {
 				new Cayita.UI.FieldSet.$ctor1(f, function(fs) {
 					new Cayita.UI.Legend.$ctor1(fs, function(lg) {
-						$(lg).text('Legend');
+						Extensions.text$1(lg, 'Legend');
 					});
 					new Cayita.UI.Label.$ctor1(fs, function(lb) {
-						$(lb).text('Label Name');
+						Extensions.text$1(lb, 'Label Name');
 					});
 					new Cayita.UI.InputText.$ctor2(fs, function(input) {
 						$(input).attr('placeholder', 'Type something');
 					});
 					new Cayita.UI.Span.$ctor2(fs, function(sp) {
 						sp.className = 'help-block';
-						$(sp).text('Example block-level help text here');
+						Extensions.text$1(sp, 'Example block-level help text here');
 					});
 					new Cayita.UI.CheckboxField(fs, function(lb1, cb) {
-						$(lb1).text('check me out');
+						Extensions.text$1(lb1, 'check me out');
 					});
 					new Cayita.UI.SubmitButton.$ctor1(fs, function(bt) {
-						$(bt).text('Submit');
+						Extensions.text$1(bt, 'Submit');
 						$(bt).on('click', function(ev) {
 							ev.preventDefault();
 						});
@@ -46,7 +46,7 @@
 					input1.className = 'input-medium search-query';
 				});
 				new Cayita.UI.SubmitButton.$ctor1(f1, function(bt1) {
-					$(bt1).text('Search');
+					Extensions.text$1(bt1, 'Search');
 					$(bt1).on('click', function(ev1) {
 						ev1.preventDefault();
 					});
@@ -75,7 +75,7 @@
 					lb2.className = 'checkbox';
 				});
 				new Cayita.UI.SubmitButton.$ctor1(f2, function(bt2) {
-					$(bt2).text('Sign in');
+					Extensions.text$1(bt2, 'Sign in');
 					$(bt2).on('click', function(ev2) {
 						ev2.preventDefault();
 					});
@@ -90,18 +90,18 @@
 			new Cayita.UI.Form.$ctor1(div3, function(f3) {
 				f3.className = 'form-horizontal';
 				new Cayita.UI.TextField(f3, function(label, input4) {
-					$(label).text('Email');
+					Extensions.text$1(label, 'Email');
 					$(input4).attr('placeholder', 'Email');
 				});
 				new Cayita.UI.TextField(f3, function(label1, input5) {
-					$(label1).text('Password');
+					Extensions.text$1(label1, 'Password');
 					input5.type = 'password';
 					$(input5).attr('placeholder', 'Password');
 				});
 				new Cayita.UI.CheckboxField(f3, function(lb3, cb2) {
-					$(lb3).text('Remember me');
+					Extensions.text$1(lb3, 'Remember me');
 					new Cayita.UI.SubmitButton.$ctor1(lb3.parentNode, function(bt3) {
-						$(bt3).text('Sign in');
+						Extensions.text$1(bt3, 'Sign in');
 						$(bt3).on('click', function(ev3) {
 							ev3.preventDefault();
 						});
@@ -120,7 +120,7 @@
 					new Cayita.UI.Div.$ctor2(row, function(element) {
 						element.className = 'span4 offset3 well';
 						new Cayita.UI.Legend.$ctor1(element, function(l) {
-							$(l).text('Login Form');
+							Extensions.text$1(l, 'Login Form');
 						});
 						new Cayita.UI.Form.$ctor1(element, function(fe) {
 							new Cayita.UI.TextField.$ctor1(fe, function(i) {
@@ -139,11 +139,11 @@
 								i1.type = 'password';
 							});
 							new Cayita.UI.CheckboxField(fe, function(lb4, cb3) {
-								$(lb4).text('Remember me');
+								Extensions.text$1(lb4, 'Remember me');
 								cb3.name = 'Remember';
 							});
 							new Cayita.UI.SubmitButton.$ctor1(fe, function(b) {
-								$(b).text('Login');
+								Extensions.text$1(b, 'Login');
 								$(b).addClass('btn-info btn-block');
 								$(b).button.defaults.loadingText = '  authenticating ...';
 							});
@@ -173,50 +173,50 @@
 						new Cayita.UI.Div.$ctor2(row1, function(sp1) {
 							sp1.className = 'span5';
 							new Cayita.UI.TextField(sp1, function(l1, i2) {
-								$(l1).text('FirstName');
+								Extensions.text$1(l1, 'FirstName');
 								i2.name = 'FirstName';
 								i2.className = 'span12';
 							});
 							new Cayita.UI.TextField(sp1, function(l2, i3) {
-								$(l2).text('LastName');
+								Extensions.text$1(l2, 'LastName');
 								i3.name = 'LastName';
 								i3.className = 'span12';
 							});
 							new Cayita.UI.TextField(sp1, function(l3, i4) {
-								$(l3).text('Email address');
+								Extensions.text$1(l3, 'Email address');
 								i4.name = 'Email';
 								i4.className = 'span12';
 							});
 							new Cayita.UI.SelectField.$ctor1(sp1, function(l4, i5) {
-								$(l4).text('Subject');
+								Extensions.text$1(l4, 'Subject');
 								i5.name = 'Subject';
 								i5.className = 'span12';
 								new Cayita.UI.HtmlOption.$ctor1(i5, function(opt) {
 									opt.value = '';
-									$(opt).text('Choose One:');
+									Extensions.text$1(opt, 'Choose One:');
 								});
 								new Cayita.UI.HtmlOption.$ctor1(i5, function(opt1) {
 									opt1.value = '1';
-									$(opt1).text('General Customer Service');
+									Extensions.text$1(opt1, 'General Customer Service');
 								});
 								new Cayita.UI.HtmlOption.$ctor1(i5, function(opt2) {
 									opt2.value = '2';
-									$(opt2).text('Suggestions');
+									Extensions.text$1(opt2, 'Suggestions');
 								});
 								new Cayita.UI.HtmlOption.$ctor1(i5, function(opt3) {
 									opt3.value = '3';
-									$(opt3).text('Product Support');
+									Extensions.text$1(opt3, 'Product Support');
 								});
 								new Cayita.UI.HtmlOption.$ctor1(i5, function(opt4) {
 									opt4.value = '4';
-									$(opt4).text('Bug');
+									Extensions.text$1(opt4, 'Bug');
 								});
 							});
 						});
 						new Cayita.UI.Div.$ctor2(row1, function(sp2) {
 							sp2.className = 'span7';
 							new Cayita.UI.TextAreaField(sp2, function(l5, i6) {
-								$(l5).text('Message');
+								Extensions.text$1(l5, 'Message');
 								i6.className = 'input-xlarge span12';
 								i6.rows = 11;
 								i6.name = 'Message';
@@ -224,7 +224,7 @@
 						});
 						new Cayita.UI.SubmitButton.$ctor1(row1, function(bt5) {
 							$(bt5).addClass('btn-primary pull-right');
-							$(bt5).text('Send');
+							Extensions.text$1(bt5, 'Send');
 						});
 						$(f5).validate(Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.addRule(Cayita.Plugins.ValidateOptions.setSubmitHandler(Cayita.Plugins.ValidateOptions.$ctor(), function(vf) {
 							Cayita.UI.Alert.success$1(vf.firstChild, 'message sent', true);

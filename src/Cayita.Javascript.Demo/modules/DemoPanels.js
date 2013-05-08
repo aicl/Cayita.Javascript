@@ -40,21 +40,21 @@
 						apps.render(ld);
 						var pn = (new Cayita.UI.Panel()).caption('Demo Panel').closable(false).resizable(false).draggable(false);
 						new Cayita.UI.Button(function(bt) {
-							$(bt).text('Grey background');
+							Extensions.text$1(bt, 'Grey background');
 							$(bt).on('click', function(evt) {
 								pn.body().style.backgroundColor = 'grey';
 							});
 							pn.append$6(bt);
 						});
 						new Cayita.UI.Button(function(bt1) {
-							$(bt1).text('White background');
+							Extensions.text$1(bt1, 'White background');
 							$(bt1).on('click', function(evt1) {
 								pn.body().style.backgroundColor = 'white';
 							});
 							pn.append$6(bt1);
 						});
 						new Cayita.UI.Button(function(bt2) {
-							$(bt2).text('Collapse');
+							Extensions.text$1(bt2, 'Collapse');
 							$(bt2).on('click', function(evt2) {
 								pn.collapse();
 							});
@@ -115,7 +115,7 @@
 			div1.className = 'bs-docs-example';
 			var i1 = 1;
 			new Cayita.UI.Button.$ctor2(div1, function(bt3) {
-				$(bt3).text('Window I');
+				Extensions.text$1(bt3, 'Window I');
 				$(bt3).on('click', function(evt3) {
 					(new Cayita.UI.Panel()).caption('Window ' + (i1++).toString()).left((i1 * 5).toString() + 'px').top((i1 * 15).toString() + 'px').width('300px').height('100px').overlay(true).render(null);
 				});
@@ -125,7 +125,7 @@
 		(new Cayita.UI.Div.$ctor2(null, function(div2) {
 			div2.className = 'bs-docs-example';
 			new Cayita.UI.Button.$ctor2(div2, function(bt4) {
-				$(bt4).text('Window II');
+				Extensions.text$1(bt4, 'Window II');
 				$(bt4).on('click', function(evt4) {
 					var $t5 = (new Cayita.UI.Panel()).caption('Custom Close Icon and Handler').overlay(true).left('20px').top('200px').width('auto').closeIconClass('icon-th-large').closable(true).closeIconHandler(function(p) {
 						p.caption('Icon Close Changed !!! ');
@@ -138,7 +138,7 @@
 						Alertify.log.info(StringExtensions.header('panel closed ', 3).outerHTML, 5000);
 					});
 					$t5.append$5(Cayita.UI.Button).call($t5, new Cayita.UI.Button(function(b) {
-						$(b).text('Click me');
+						Extensions.text$1(b, 'Click me');
 						b.style.width = '100%';
 						b.style.height = '100%';
 						$(b).on('click', function(ev1) {
@@ -152,7 +152,7 @@
 		(new Cayita.UI.Div.$ctor2(null, function(div3) {
 			div3.className = 'bs-docs-example';
 			new Cayita.UI.Button.$ctor2(div3, function(bt5) {
-				$(bt5).text('Window III');
+				Extensions.text$1(bt5, 'Window III');
 				$(bt5).on('click', function(evt5) {
 					var error = new Cayita.UI.Paragraph.$ctor1(function(p2) {
 						p2.style.color = 'red';
@@ -167,7 +167,7 @@
 						error.logInfo(5000);
 					});
 					pn2.append$5(Cayita.UI.Button).call(pn2, new Cayita.UI.Button(function(b1) {
-						$(b1).text('Click me');
+						Extensions.text$1(b1, 'Click me');
 						b1.style.width = '100%';
 						b1.style.height = '100%';
 						$(b1).on('click', function(be) {

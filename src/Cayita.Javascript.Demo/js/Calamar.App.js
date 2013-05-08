@@ -21,8 +21,8 @@
 		$onLogin: function(loginResponse, lf) {
 			console.log('App.OnLogin ', loginResponse);
 			var a = this.get_$topNavBar().pullRightAnchor();
-			$(a).text(lf.get_userName());
-			$(this.get_$topNavBar().pullRightParagraph()).text('');
+			Extensions.text$1(a, lf.get_userName());
+			Extensions.text$1(this.get_$topNavBar().pullRightParagraph(), '');
 			$(this.get_$topNavBar().pullRightParagraph()).append(a);
 			lf.close();
 			this.$showUserMenu(loginResponse);
@@ -44,7 +44,7 @@
 								for (var $t1 = 0; $t1 < lr.Roles.length; $t1++) {
 									var role = { $: lr.Roles[$t1] };
 									Extensions.addItem$1(list, ss.mkdel({ role: role, $this: this }, function(li, anchor) {
-										$(anchor).text(this.role.$.Title);
+										Extensions.text$1(anchor, this.role.$.Title);
 										$(anchor).click(ss.mkdel({ role: this.role, $this: this.$this }, function(e) {
 											e.preventDefault();
 											this.$this.get_$work().empty();
@@ -55,7 +55,7 @@
 									}));
 								}
 								Extensions.addItem$1(list, ss.mkdel(this, function(li1, anchor1) {
-									$(anchor1).text('Close Session');
+									Extensions.text$1(anchor1, 'Close Session');
 									$(anchor1).click(ss.mkdel(this, function(e1) {
 										e1.preventDefault();
 										$(document.body).empty();
@@ -79,7 +79,7 @@
 						work.className = 'span10';
 						work.id = 'work';
 						var m = document.createElement('h3');
-						$(m).text('Welcome');
+						Extensions.text$1(m, 'Welcome');
 						work.appendChild(m);
 					}));
 				}));
@@ -143,7 +143,7 @@
 					new Cayita.UI.Div.$ctor2(row, ss.mkdel(this, function(element) {
 						element.className = 'span4 offset4 well';
 						new Cayita.UI.Legend.$ctor1(element, function(l) {
-							$(l).text('Login Form');
+							Extensions.text$1(l, 'Login Form');
 						});
 						new Cayita.UI.Form.$ctor1(element, ss.mkdel(this, function(fe) {
 							fe.action = 'json/loginResponse.json';

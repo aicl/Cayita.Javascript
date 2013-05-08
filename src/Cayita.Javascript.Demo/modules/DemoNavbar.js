@@ -21,7 +21,7 @@
 				Extensions.addItem$2(nav, 'About');
 				$(nav).on('click', 'a', function(ev) {
 					ev.preventDefault();
-					$('#div-log').text($(ev.currentTarget).text() + ' clicked');
+					$('#div-log').text(Extensions.text(ev.currentTarget) + ' clicked');
 				});
 			});
 			new Cayita.UI.Div.$ctor2(div, function(d) {

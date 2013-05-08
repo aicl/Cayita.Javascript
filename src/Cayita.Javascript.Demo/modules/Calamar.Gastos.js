@@ -312,13 +312,13 @@
 			var $t1 = ss.makeGenericType(Cayita.UI.TableColumn$1, [Calamar.Model.Gasto]).$ctor();
 			$t1.header = (new Cayita.UI.TableCell.$ctor1(function(cell) {
 				new Cayita.UI.Anchor.$ctor3(cell, function(a) {
-					$(a).text('Concepto');
+					Extensions.text$1(a, 'Concepto');
 				});
 			})).element$1();
 			$t1.value = ss.mkdel(this, function(f) {
 				return (new Cayita.UI.TableCell.$ctor1(ss.mkdel(this, function(cell1) {
 					new Cayita.UI.Anchor.$ctor3(cell1, ss.mkdel(this, function(a1) {
-						$(a1).text(Enumerable.from(this.get_$storeConceptos()).firstOrDefault(function(q) {
+						Extensions.text$1(a1, Enumerable.from(this.get_$storeConceptos()).firstOrDefault(function(q) {
 							return ss.referenceEquals(q.Id.toString(), f.IdConcepto.toString());
 						}, ss.getDefaultValue(Calamar.Model.Concepto)).Nombre);
 					}));
@@ -328,7 +328,7 @@
 			var $t4 = this.get_$columns();
 			var $t3 = ss.makeGenericType(Cayita.UI.TableColumn$1, [Calamar.Model.Gasto]).$ctor();
 			$t3.header = (new Cayita.UI.TableCell.$ctor1(function(cell2) {
-				$(cell2).text('Fuente');
+				Extensions.text$1(cell2, 'Fuente');
 			})).element$1();
 			$t3.value = ss.mkdel(this, function(f1) {
 				return (new Cayita.UI.TableCell.$ctor1(ss.mkdel(this, function(cell3) {
@@ -341,7 +341,7 @@
 			var $t6 = this.get_$columns();
 			var $t5 = ss.makeGenericType(Cayita.UI.TableColumn$1, [Calamar.Model.Gasto]).$ctor();
 			$t5.header = (new Cayita.UI.TableCell.$ctor1(function(cell4) {
-				$(cell4).text('Valor');
+				Extensions.text$1(cell4, 'Valor');
 				cell4.style.textAlign = 'right';
 			})).element$1();
 			$t5.value = function(f2) {
@@ -354,7 +354,7 @@
 			var $t8 = this.get_$columns();
 			var $t7 = ss.makeGenericType(Cayita.UI.TableColumn$1, [Calamar.Model.Gasto]).$ctor();
 			$t7.header = (new Cayita.UI.TableCell.$ctor1(function(cell6) {
-				$(cell6).text('Pagado a');
+				Extensions.text$1(cell6, 'Pagado a');
 			})).element$1();
 			$t7.value = function(f3) {
 				return (new Cayita.UI.TableCell.$ctor1(function(cell7) {
@@ -365,7 +365,7 @@
 			var $t10 = this.get_$columns();
 			var $t9 = ss.makeGenericType(Cayita.UI.TableColumn$1, [Calamar.Model.Gasto]).$ctor();
 			$t9.header = (new Cayita.UI.TableCell.$ctor1(function(cell8) {
-				$(cell8).text('Detalle');
+				Extensions.text$1(cell8, 'Detalle');
 			})).element$1();
 			$t9.value = function(f4) {
 				return (new Cayita.UI.TableCell.$ctor1(function(cell9) {
