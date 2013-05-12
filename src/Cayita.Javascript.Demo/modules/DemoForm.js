@@ -12,10 +12,10 @@
 					new Cayita.UI.Legend.$ctor1(fs, function(lg) {
 						Extensions.text$1(lg, 'Legend');
 					});
-					new Cayita.UI.Label.$ctor1(fs, function(lb) {
+					new Cayita.UI.Label.$ctor2(fs, function(lb) {
 						Extensions.text$1(lb, 'Label Name');
 					});
-					new Cayita.UI.InputText.$ctor2(fs, function(input) {
+					new Cayita.UI.InputText.$ctor1(fs, function(input) {
 						$(input).attr('placeholder', 'Type something');
 					});
 					new Cayita.UI.Span.$ctor2(fs, function(sp) {
@@ -42,7 +42,7 @@
 			div1.className = 'bs-docs-example';
 			new Cayita.UI.Form.$ctor1(div1, function(f1) {
 				f1.className = 'form-search';
-				new Cayita.UI.InputText.$ctor2(f1, function(input1) {
+				new Cayita.UI.InputText.$ctor1(f1, function(input1) {
 					input1.className = 'input-medium search-query';
 				});
 				new Cayita.UI.SubmitButton.$ctor1(f1, function(bt1) {
@@ -60,7 +60,7 @@
 			div2.className = 'bs-docs-example';
 			new Cayita.UI.Form.$ctor1(div2, function(f2) {
 				f2.className = 'form-inline';
-				new Cayita.UI.InputText.$ctor2(f2, function(input2) {
+				new Cayita.UI.InputText.$ctor1(f2, function(input2) {
 					input2.className = 'input-small';
 					$(input2).attr('placeholder', 'Email');
 				});
@@ -68,7 +68,7 @@
 					input3.className = 'input-small';
 					$(input3).attr('placeholder', 'Password');
 				});
-				new Cayita.UI.Label.$ctor1(f2, function(lb2) {
+				new Cayita.UI.Label.$ctor2(f2, function(lb2) {
 					new Cayita.UI.InputCheckbox.$ctor3(lb2, function(cb1) {
 					});
 					$(lb2).append('Remember me');
@@ -89,11 +89,11 @@
 			div3.className = 'bs-docs-example';
 			new Cayita.UI.Form.$ctor1(div3, function(f3) {
 				f3.className = 'form-horizontal';
-				new Cayita.UI.TextField(f3, function(label, input4) {
+				new Cayita.UI.TextField.$ctor1(f3, function(label, input4) {
 					Extensions.text$1(label, 'Email');
 					$(input4).attr('placeholder', 'Email');
 				});
-				new Cayita.UI.TextField(f3, function(label1, input5) {
+				new Cayita.UI.TextField.$ctor1(f3, function(label1, input5) {
 					Extensions.text$1(label1, 'Password');
 					input5.type = 'password';
 					$(input5).attr('placeholder', 'Password');
@@ -123,14 +123,14 @@
 							Extensions.text$1(l, 'Login Form');
 						});
 						new Cayita.UI.Form.$ctor1(element, function(fe) {
-							new Cayita.UI.TextField.$ctor1(fe, function(i) {
+							new Cayita.UI.TextField.$ctor2(fe, function(i) {
 								$(i).attr('placeholder', 'your username');
 								i.name = 'UserName';
 								i.className = 'span12';
 								$(i).attr('required', true);
 								$(i).attr('minlength', 8);
 							});
-							new Cayita.UI.TextField.$ctor1(fe, function(i1) {
+							new Cayita.UI.TextField.$ctor2(fe, function(i1) {
 								$(i1).attr('placeholder', 'your password');
 								i1.name = 'Password';
 								i1.className = 'span12';
@@ -172,17 +172,17 @@
 					Cayita.UI.Div.createRowFluid$1(f5, function(row1) {
 						new Cayita.UI.Div.$ctor2(row1, function(sp1) {
 							sp1.className = 'span5';
-							new Cayita.UI.TextField(sp1, function(l1, i2) {
+							new Cayita.UI.TextField.$ctor1(sp1, function(l1, i2) {
 								Extensions.text$1(l1, 'FirstName');
 								i2.name = 'FirstName';
 								i2.className = 'span12';
 							});
-							new Cayita.UI.TextField(sp1, function(l2, i3) {
+							new Cayita.UI.TextField.$ctor1(sp1, function(l2, i3) {
 								Extensions.text$1(l2, 'LastName');
 								i3.name = 'LastName';
 								i3.className = 'span12';
 							});
-							new Cayita.UI.TextField(sp1, function(l3, i4) {
+							new Cayita.UI.TextField.$ctor1(sp1, function(l3, i4) {
 								Extensions.text$1(l3, 'Email address');
 								i4.name = 'Email';
 								i4.className = 'span12';

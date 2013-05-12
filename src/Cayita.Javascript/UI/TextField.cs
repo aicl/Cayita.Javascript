@@ -6,67 +6,44 @@ namespace Cayita.UI
 	
 	public class TextField:Div
 	{		
-		DivElement cg ;
-		LabelElement lb ;
-		DivElement ctrls ;
-		TextElement te;
+		public Label Label  { get; protected set; }
+		public Div Controls { get; protected set; }
+		public InputText Input { get; protected set; }
 		
 		void Init()
 		{
-			cg = Element ();
-			cg.ClassName = "control-group";
-
-			lb = new Label(cg,l=>l.ClassName="control-label").Element();
-			
-			ctrls = Div.CreateControls(cg, div=>{
-				te = new InputText(div).Element();
-				
-			}).Element();
-			
+			ClassName("control-group");
+			Label = new Label().ClassName("control-label");
+			Input = new InputText ();
+			Controls = new Div ().ClassName("controls").Append (Input); 
+			Append (Label);
+			Append (Controls);
 		}
-		
-		
+				
 		public TextField(Element parent, Action<LabelElement,TextElement> field)
 			:base(parent)
 		{
 			Init ();
-			
-			field.Invoke(lb, te);
-			lb.For= te.ID;
-			
-			if( string.IsNullOrEmpty( lb.Text()) ) lb.Hide();
-			
+			field.Invoke(Label.Element(), Input.Element());
+			Label.For( Input.ID);
+			if( string.IsNullOrEmpty( Label.TextLabel()) ) Label.Hide();
 		}
 		
 		public TextField(Element parent, Action<TextElement> field):base(parent)
 		{
 			Init ();
-			field.Invoke(te);
-			lb.For= te.ID;
-			lb.Hide();
-			
+			field.Invoke(Input.Element());
+			Label.For(Input.ID).Hide();
 		}
 		
 		public TextField(Element parent, string label, string fieldname):
 			this(parent, (l,f)=>{l.Text(label); f.Name=fieldname;})
 		{
 		}
-		
-		
-		
-		public DivElement Controls()
+
+		public TextField(Element parent=null):base(parent)
 		{
-			return ctrls;
-		}
-		
-		public LabelElement Label()
-		{
-			return lb;
-		}
-		
-		public TextElement TextElement()
-		{
-			return te;
+			Init ();
 		}
 	}
 }

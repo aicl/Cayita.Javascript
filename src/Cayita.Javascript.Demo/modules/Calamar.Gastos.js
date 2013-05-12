@@ -119,7 +119,7 @@
 			});
 			this.set_$searchDiv(new Cayita.UI.Div.$ctor2(null, ss.mkdel(this, function(searchdiv) {
 				searchdiv.className = 'span6 offset2 nav';
-				var inputFecha = (new Cayita.UI.InputText.$ctor2(searchdiv, function(ip) {
+				var inputFecha = (new Cayita.UI.InputText.$ctor1(searchdiv, function(ip) {
 					ip.className = 'input-medium search-query';
 					ip.setAttribute('data-mask', '99.99.9999');
 					$(ip).attr('placeholder', 'dd.mm.aaaa');
@@ -165,7 +165,7 @@
 				formdiv.className = 'span6 offset2 well';
 				this.set_$form(new Cayita.UI.Form.$ctor1(formdiv, ss.mkdel(this, function(f) {
 					f.className = 'form-horizontal';
-					var inputId = new Cayita.UI.InputText.$ctor2(f, function(e) {
+					var inputId = new Cayita.UI.InputText.$ctor1(f, function(e) {
 						e.name = 'Id';
 						$(e).hide();
 					});
@@ -205,18 +205,18 @@
 						o1.text = 'Select Fuente ...';
 					})).element$1();
 					this.$cbFuente = new $t7(f, $t8, $t9, $t10, $t6);
-					var fieldValor = new Cayita.UI.TextField.$ctor1(f, function(field) {
+					var fieldValor = new Cayita.UI.TextField.$ctor2(f, function(field) {
 						field.className = 'span12';
 						field.name = 'Valor';
 						$(field).attr('placeholder', '$$$$$$$$$$');
 						cayita.fn.autoNumeric(field, null);
 					});
-					new Cayita.UI.TextField.$ctor1(f, function(field1) {
+					new Cayita.UI.TextField.$ctor2(f, function(field1) {
 						field1.className = 'span12';
 						field1.name = 'Beneficiario';
 						$(field1).attr('placeholder', 'Pagado a ....');
 					});
-					new Cayita.UI.TextField.$ctor1(f, function(field2) {
+					new Cayita.UI.TextField.$ctor2(f, function(field2) {
 						field2.className = 'span12';
 						field2.name = 'Descripcion';
 						$(field2).attr('placeholder', 'Descripcion');
@@ -246,7 +246,7 @@
 						form.reset();
 						bt.resetLoadingText();
 					})), function(rule, msg) {
-						rule.element = fieldValor.textElement();
+						rule.element = fieldValor.get_input().element$2();
 						Cayita.Plugins.Rule.required(rule.rule);
 						Cayita.Plugins.Message.required(msg, 'Digite el valor del gasto');
 					}), ss.mkdel(this, function(rule1, msg1) {

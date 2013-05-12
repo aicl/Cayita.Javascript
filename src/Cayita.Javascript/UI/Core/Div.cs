@@ -47,7 +47,7 @@ namespace Cayita.UI
 		}
 
 
-		public static Div CreateControls(Element parent){
+		public static Div CreateControls(Element parent=null){
 			return new Div(parent, div=>{
 				div.ClassName="controls";
 			});

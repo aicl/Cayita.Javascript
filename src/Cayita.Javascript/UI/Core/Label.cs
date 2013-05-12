@@ -6,22 +6,27 @@ namespace Cayita.UI
 
 	public class Label:ElementBase<Label>
 	{
-				
+
+		public Label(Action<LabelElement> element):this(null, element)
+		{
+		}
+
 		public Label(Element parent,  Action<LabelElement> element)
 		{
 			CreateElement("label", parent);
-			element(Element());
+			element.Invoke(Element());
 		}
 								
-		public Label (Element parent)
+		public Label (Element parent=null)
 		{
 			CreateElement("label", parent);
 		}
 				
 
-		public void TextLabel(string textLabel)
+		public Label TextLabel(string textLabel)
 		{
 			Element().Text(textLabel);
+			return this;
 		}
 
 		public string TextLabel()
@@ -29,12 +34,13 @@ namespace Cayita.UI
 			return Element().Text();
 		}
 
-		public void ForField(string fieldId)
+		public Label For(string fieldId)
 		{
 			Element().For=fieldId;
+			return this;
 		}
 
-		public string ForField()
+		public string For()
 		{
 			return Element ().For;
 		}

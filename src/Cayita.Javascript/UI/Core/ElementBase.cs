@@ -125,15 +125,13 @@ namespace Cayita.UI
 
 		public T Text(string text)
 		{
-			var ctxt=JQuery ("ctxt");
-			if (ctxt.Length == 0) {
-				var txt =  Document.CreateElement("ctxt");
-				Append(txt);
-				ctxt= jQuery.FromElement(txt);
-			}
-			ctxt.Html (text??"");
-
+			Element ().Text (text);
 			return As<T> ();
+		}
+
+		public string Text()
+		{
+			return Element ().Text ();
 		}
 
 		public T IconClass(string iconClass)

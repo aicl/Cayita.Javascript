@@ -3,7 +3,7 @@ using System.Html;
 
 namespace Cayita.UI
 {
-	public class InputRadio:InputBase
+	public class InputRadio:InputBase<InputRadio>
 	{
 		public InputRadio (Element parent,  Action<Element,CheckBoxElement> field)
 		{
@@ -18,7 +18,7 @@ namespace Cayita.UI
 
 		public new CheckBoxElement Element()
 		{
-			return (CheckBoxElement) base.Element();
+			return  base.Element().As<CheckBoxElement>();
 		}
 	}
 }

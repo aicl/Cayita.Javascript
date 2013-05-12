@@ -149,7 +149,7 @@
 							fe.action = 'json/loginResponse.json';
 							fe.method = 'get';
 							var cg = Cayita.UI.Div.createControlGroup(fe);
-							var user = new Cayita.UI.InputText.$ctor2(cg.element$1(), function(pe) {
+							var user = new Cayita.UI.InputText.$ctor1(cg.element$1(), function(pe) {
 								//pe.SetAttribute("data-provide","typeahead");
 								pe.className = 'span4';
 								$(pe).attr('placeholder', 'your username');

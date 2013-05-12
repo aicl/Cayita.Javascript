@@ -55,7 +55,7 @@
 				$(b3).on('click', function(evt3) {
 					var d = new Cayita.UI.Div.$ctor2(null, function(dd) {
 						dd.className = 'span3';
-						new Cayita.UI.TextField.$ctor1(dd, function(field) {
+						new Cayita.UI.TextField.$ctor2(dd, function(field) {
 							$(field).attr('placeholder', 'Your Name');
 						});
 						new Cayita.UI.CheckboxField.$ctor1(dd, 'I like cayita', function(cb) {

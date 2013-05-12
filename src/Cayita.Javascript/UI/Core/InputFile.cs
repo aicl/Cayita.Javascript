@@ -3,7 +3,7 @@ using System.Html;
 
 namespace Cayita.UI
 {
-	public class InputFile:InputBase
+	public class InputFile:InputBase<InputFile>
 	{
 		protected InputFile(){}
 		

@@ -155,7 +155,7 @@
 		var gc = null;
 		(new Cayita.UI.Div.$ctor2(null, function(div2) {
 			div2.className = 'bs-docs-example';
-			new Cayita.UI.InputText.$ctor2(div2, function(e1) {
+			new Cayita.UI.InputText.$ctor1(div2, function(e1) {
 				$(e1).attr('placeholder', 'Country');
 				$(e1).on('keyup', function(evt2) {
 					var st = e1.value.toUpperCase();
@@ -246,33 +246,33 @@
 				bt2.disabled = true;
 			});
 		});
-		new Cayita.UI.InputText.$ctor2(this.$f, function(e) {
+		new Cayita.UI.InputText.$ctor1(this.$f, function(e) {
 			e.name = 'Id';
 			$(e).hide();
 			$(e).attr('data-type', 'numeric');
 		});
-		new Cayita.UI.TextField(this.$f, function(l, e1) {
+		new Cayita.UI.TextField.$ctor1(this.$f, function(l, e1) {
 			Extensions.text$1(l, 'Name');
 			e1.name = 'Name';
 		});
-		new Cayita.UI.TextField(this.$f, function(l1, e2) {
+		new Cayita.UI.TextField.$ctor1(this.$f, function(l1, e2) {
 			Extensions.text$1(l1, 'City');
 			e2.name = 'City';
 		});
-		new Cayita.UI.TextField(this.$f, function(l2, e3) {
+		new Cayita.UI.TextField.$ctor1(this.$f, function(l2, e3) {
 			Extensions.text$1(l2, 'Address');
 			e3.name = 'Address';
 		});
-		new Cayita.UI.TextField(this.$f, function(l3, e4) {
+		new Cayita.UI.TextField.$ctor1(this.$f, function(l3, e4) {
 			Extensions.text$1(l3, 'Birthday');
 			e4.name = 'DoB';
 			cayita.fn.datepicker(e4, { dateFormat: 'dd.mm.yy' });
 		});
-		new Cayita.UI.TextField(this.$f, function(l4, e5) {
+		new Cayita.UI.TextField.$ctor1(this.$f, function(l4, e5) {
 			Extensions.text$1(l4, 'Email');
 			e5.name = 'Email';
 		});
-		new Cayita.UI.TextField(this.$f, function(l5, e6) {
+		new Cayita.UI.TextField.$ctor1(this.$f, function(l5, e6) {
 			Extensions.text$1(l5, 'Rating');
 			e6.name = 'Rating';
 			cayita.fn.autoNumeric(e6, null);

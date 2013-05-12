@@ -219,7 +219,7 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 							
 						})
 							.AddRule((rule, msg)=>{
-								rule.Element=fieldValor.TextElement();
+								rule.Element=fieldValor.Input.Element();
 								rule.Rule.Required();
 								msg.Required("Digite el valor del gasto");
 							})

@@ -141,6 +141,10 @@ namespace Cayita.Plugins
 		
 		public InputElement  Element  { get; set; }
 		public Message Message { get;set;}
+		public void Input<T> (InputBase<T> input) where T:ElementBase
+		{
+			Element = input.Element ();
+		}
 	}
 
 
@@ -153,6 +157,10 @@ namespace Cayita.Plugins
 		
 		public InputElement  Element  { get; set; }
 		public Rule Rule { get;set;}
+		public void Input<T> (InputBase<T> input) where T:ElementBase
+		{
+			Element = input.Element ();
+		}
 	}
 	
 	

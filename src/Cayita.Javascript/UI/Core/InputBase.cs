@@ -4,9 +4,10 @@ using System.Html;
 namespace Cayita.UI
 {
 
-	public abstract class InputBase:ElementBase<InputBase>
+	public abstract class InputBase<T>:ElementBase<T> where T:ElementBase
 	{
 		protected InputBase(){}
+
 
 		public InputBase(Element parent,  string type)
 		{
@@ -20,12 +21,13 @@ namespace Cayita.UI
 
 		}
 
-		public void PlaceHolder(string placeholder)
+		public T PlaceHolder(string placeholder)
 		{
 			if(!string.IsNullOrEmpty(placeholder))
 				Element().SetAttribute("placeholder", placeholder);
 			else
 				Element().RemoveAttribute("placeholder");
+			return this.As<T>();
 		}
 
 		public string PlaceHolder()
@@ -34,7 +36,7 @@ namespace Cayita.UI
 			return placeholder==null? string.Empty:placeholder.ToString();
 		}
 			
-		public void Required(bool required){
+		public T Required(bool required){
 			
 			if(required)
 			{
@@ -44,6 +46,7 @@ namespace Cayita.UI
 			{
 				Element().RemoveAttribute("required");
 			}
+			return this.As<T>();
 		}
 		
 		public bool Required(){
@@ -52,19 +55,22 @@ namespace Cayita.UI
 		}
 		
 		
-		public void RelativeSize (string relativeSize)
+		public T RelativeSize (string relativeSize)
 		{
 			AddClass(relativeSize);
+			return this.As<T>();
 		}
 
-		public void GridSize (string gridSize)
+		public T GridSize (string gridSize)
 		{
 			AddClass(gridSize);
+			return this.As<T>();
 		}
 
-		public void Value(string value)
+		public T Value(string value)
 		{
-			Element().SetValue(value);
+			Element().SetValue(value); 
+			return this.As<T>();
 		}
 
 		public string Value()
@@ -78,9 +84,10 @@ namespace Cayita.UI
 		}
 
 
-		public void Name(string name)
+		public T Name(string name)
 		{
 			Element ().Name = name;
+			return this.As<T>();
 		}
 		
 		public string Name()

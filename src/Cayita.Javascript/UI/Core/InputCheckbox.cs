@@ -4,7 +4,7 @@ using System.Html;
 namespace Cayita.UI
 {
 
-	public class InputCheckbox:InputBase
+	public class InputCheckbox:InputBase<InputCheckbox>
 	{
 		public InputCheckbox()
 		{
@@ -38,7 +38,7 @@ namespace Cayita.UI
 
 		public new CheckBoxElement Element()
 		{
-			return (CheckBoxElement) base.Element();
+			return  base.Element().As<CheckBoxElement>();
 		}
 
 	}

@@ -10,7 +10,7 @@ namespace Cayita.UI
 		public InputPassword(Element parent,  Action<TextElement> element)
 			:this(parent)
 		{
-			element(Element());
+			element.Invoke(Element());
 		}
 
 
