@@ -50,6 +50,7 @@ namespace Cayita.Javascritp.App
 			MenuItems.Add(new MenuItem{Title="SearchBox", File="modules/DemoSearchBox.js", Class="DemoSearchBox"});
 			MenuItems.Add(new MenuItem{Title="TabPanel", File="modules/DemoTabPanel.js", Class="DemoTabPanel"});
 			MenuItems.Add(new MenuItem{Title="File Upload", File="modules/DemoFileUpload.js", Class="DemoFileUpload"});
+			MenuItems.Add(new MenuItem{Title="Login", File="modules/TestForm.js", Class="Login"});
 
 		}
 		

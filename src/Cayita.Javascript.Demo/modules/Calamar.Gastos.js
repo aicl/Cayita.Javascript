@@ -160,7 +160,7 @@
 					}));
 				})));
 			})));
-			this.get_$searchDiv().appendTo$1(parent);
+			this.get_$searchDiv().appendTo$2(parent);
 			this.set_$formDiv(new Cayita.UI.Div.$ctor2(null, ss.mkdel(this, function(formdiv) {
 				formdiv.className = 'span6 offset2 well';
 				this.set_$form(new Cayita.UI.Form.$ctor1(formdiv, ss.mkdel(this, function(f) {
@@ -205,18 +205,18 @@
 						o1.text = 'Select Fuente ...';
 					})).element$1();
 					this.$cbFuente = new $t7(f, $t8, $t9, $t10, $t6);
-					var fieldValor = new Cayita.UI.TextField.$ctor2(f, function(field) {
+					var fieldValor = new Cayita.UI.TextField.$ctor4(f, function(field) {
 						field.className = 'span12';
 						field.name = 'Valor';
 						$(field).attr('placeholder', '$$$$$$$$$$');
 						cayita.fn.autoNumeric(field, null);
 					});
-					new Cayita.UI.TextField.$ctor2(f, function(field1) {
+					new Cayita.UI.TextField.$ctor4(f, function(field1) {
 						field1.className = 'span12';
 						field1.name = 'Beneficiario';
 						$(field1).attr('placeholder', 'Pagado a ....');
 					});
-					new Cayita.UI.TextField.$ctor2(f, function(field2) {
+					new Cayita.UI.TextField.$ctor4(f, function(field2) {
 						field2.className = 'span12';
 						field2.name = 'Descripcion';
 						$(field2).attr('placeholder', 'Descripcion');
@@ -261,13 +261,13 @@
 					$(f).validate(vo);
 				})));
 			})));
-			this.get_$formDiv().appendTo$1(parent);
+			this.get_$formDiv().appendTo$2(parent);
 			this.set_$gridDiv(new Cayita.UI.Div.$ctor2(null, ss.mkdel(this, function(gdiv) {
 				gdiv.className = 'span10';
 				this.set_$gridGastos(new (ss.makeGenericType(Cayita.UI.HtmlGrid$1, [Calamar.Model.Gasto]).$ctor1)(gdiv, this.get_$storeGastos(), this.get_$columns()));
 				$(gdiv).hide();
 			})));
-			this.get_$gridDiv().appendTo$1(parent);
+			this.get_$gridDiv().appendTo$2(parent);
 		},
 		$loadGastos: function(date) {
 			//StoreGastos.Read().Always(a=>{

@@ -194,7 +194,7 @@
 			return (a && a.length)? $(form).autoNumeric('getString'): $(form).serialize();
 		};
 		
-		cayita.fn.dataChanged=function(form){
+		cayita.fn.hasChanged=function(form){
 			return this.serialize(form)!=$(form).data("_source");		
 		};
 		

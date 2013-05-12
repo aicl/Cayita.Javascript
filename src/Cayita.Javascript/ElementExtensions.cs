@@ -125,8 +125,8 @@ namespace Cayita.UI
 			return null;
 		}
 
-		[InlineCode("cayita.fn.dataChanged({form})")]
-		public static bool DataChanged(this FormElement form)
+		[InlineCode("cayita.fn.hasChanged({form})")]
+		public static bool HasChanged(this FormElement form)
 		{
 			return false;
 		}
@@ -181,7 +181,7 @@ namespace Cayita.UI
 		}
 
 		[InlineCode("$({element}).attr('data-type','numeric')")]
-		public static jQueryObject IsNumeric(this InputElement element)
+		public static jQueryObject Numeric(this InputElement element)
 		{
 			return null;
 		}

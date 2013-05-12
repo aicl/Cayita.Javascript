@@ -123,6 +123,12 @@ namespace Cayita.UI
 			return As<T> ();
 		}
 
+		public T AppendTo(ElementBase parent){
+			parent.Element ().Append (this);
+			return As<T> ();
+		}
+
+
 		public T Text(string text)
 		{
 			Element ().Text (text);

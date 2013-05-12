@@ -82,6 +82,12 @@
 			$t17.set_file('modules/DemoFileUpload.js');
 			$t17.set_class('DemoFileUpload');
 			ss.add($t18, $t17);
+			var $t20 = this.get_$menuItems();
+			var $t19 = new $MenuItem();
+			$t19.set_title('Login');
+			$t19.set_file('modules/TestForm.js');
+			$t19.set_class('Login');
+			ss.add($t20, $t19);
 		},
 		$showTopNavBar: function() {
 			this.set_$topNavBar(new Cayita.UI.NavBar.$ctor1(null, 'Cayita - demo', '', '', ss.mkdel(this, function(nav) {
@@ -90,7 +96,7 @@
 				Extensions.addItem$4(nav, 'Contact', ss.mkdel(this, this.$goContact));
 				Extensions.addItem$4(nav, 'About', ss.mkdel(this, this.$goAbout));
 			})));
-			this.get_$topNavBar().addClass('navbar-inverse navbar-fixed-top').appendTo$1(document.body);
+			this.get_$topNavBar().addClass('navbar-inverse navbar-fixed-top').appendTo$2(document.body);
 		},
 		$showMenu: function() {
 			Cayita.UI.Div.createContainerFluid$1(null, ss.mkdel(this, function(fluid) {
@@ -129,7 +135,7 @@
 						work.appendChild(StringExtensions.header('Welcome', 3));
 					}));
 				}));
-			})).appendTo$1(document.body);
+			})).appendTo$2(document.body);
 		},
 		$goHomeClick: function(evt) {
 			evt.preventDefault();

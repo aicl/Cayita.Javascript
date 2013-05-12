@@ -110,7 +110,7 @@
 				});
 			}).element());
 			$DemoPanels.$showCodePanels(div);
-		})).appendTo$1(parent);
+		})).appendTo$2(parent);
 		(new Cayita.UI.Div.$ctor2(null, function(div1) {
 			div1.className = 'bs-docs-example';
 			var i1 = 1;
@@ -121,7 +121,7 @@
 				});
 			});
 			$DemoPanels.$showCodeWin1(div1);
-		})).appendTo$1(parent);
+		})).appendTo$2(parent);
 		(new Cayita.UI.Div.$ctor2(null, function(div2) {
 			div2.className = 'bs-docs-example';
 			new Cayita.UI.Button.$ctor2(div2, function(bt4) {
@@ -148,7 +148,7 @@
 				});
 			});
 			$DemoPanels.$showCodeWin2(div2);
-		})).appendTo$1(parent);
+		})).appendTo$2(parent);
 		(new Cayita.UI.Div.$ctor2(null, function(div3) {
 			div3.className = 'bs-docs-example';
 			new Cayita.UI.Button.$ctor2(div3, function(bt5) {
@@ -181,7 +181,7 @@
 				});
 			});
 			$DemoPanels.$showCodeWin3(div3);
-		})).appendTo$1(parent);
+		})).appendTo$2(parent);
 		;
 	};
 	$DemoPanels.$showCodePanels = function(parent) {

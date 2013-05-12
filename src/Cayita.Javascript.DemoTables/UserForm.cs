@@ -57,7 +57,7 @@ namespace Cayita.Javascript.DemoTables
 			new InputText(f, e=>{
 				e.Name="Id";
 				e.Hide();
-				e.IsNumeric();
+				e.Numeric();
 			}); 
 
 			new TextField(f,(l, e)=>{

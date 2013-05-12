@@ -4,14 +4,15 @@ using System.Html;
 namespace Cayita.UI
 {
 	
-	public class TextField:Div
+	public class TextField:ElementBase<TextField>
 	{		
 		public Label Label  { get; protected set; }
 		public Div Controls { get; protected set; }
 		public InputText Input { get; protected set; }
 		
-		void Init()
+		void Init(Element parent)
 		{
+			CreateElement ("div",parent);
 			ClassName("control-group");
 			Label = new Label().ClassName("control-label");
 			Input = new InputText ();
@@ -20,18 +21,27 @@ namespace Cayita.UI
 			Append (Controls);
 		}
 				
-		public TextField(Element parent, Action<LabelElement,TextElement> field)
-			:base(parent)
+		public TextField(Action<LabelElement,TextElement> field):this(null, field)
 		{
-			Init ();
+		}
+
+		public TextField(Element parent, Action<LabelElement,TextElement> field)
+
+		{
+			Init (parent);
 			field.Invoke(Label.Element(), Input.Element());
 			Label.For( Input.ID);
 			if( string.IsNullOrEmpty( Label.TextLabel()) ) Label.Hide();
 		}
-		
-		public TextField(Element parent, Action<TextElement> field):base(parent)
+
+
+		public TextField(Action<TextElement> field):this(null, field)
 		{
-			Init ();
+		}
+
+		public TextField(Element parent, Action<TextElement> field)
+		{
+			Init (parent);
 			field.Invoke(Input.Element());
 			Label.For(Input.ID).Hide();
 		}
@@ -41,9 +51,9 @@ namespace Cayita.UI
 		{
 		}
 
-		public TextField(Element parent=null):base(parent)
+		public TextField(Element parent=null)
 		{
-			Init ();
+			Init (null);
 		}
 	}
 }

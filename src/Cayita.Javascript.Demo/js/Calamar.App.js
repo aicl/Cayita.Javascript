@@ -84,7 +84,7 @@
 					}));
 				}));
 			}));
-			um.appendTo$1(document.body);
+			um.appendTo$2(document.body);
 		},
 		$showLoginForm: function() {
 			var form = new $LoginForm(document.body);
