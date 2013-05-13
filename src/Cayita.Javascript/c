@@ -35,6 +35,7 @@
 "UI/Core/IconElement.cs" \
 "UI/Core/IconButton.cs" \
 "UI/Core/ElementBase.cs" \
+"UI/Core/Field.cs" \
 "UI/Core/FileElement.cs" \
 "UI/Core/Div.cs" \
 "UI/Core/Label.cs" \

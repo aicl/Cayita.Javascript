@@ -6,7 +6,10 @@ namespace Cayita.UI
 
 	public abstract class InputBase<T>:ElementBase<T> where T:ElementBase
 	{
-		protected InputBase(){}
+		protected InputBase()
+		{
+			CreateInput (null, "text");
+		}
 
 
 		public InputBase(Element parent,  string type)
@@ -21,6 +24,14 @@ namespace Cayita.UI
 
 		}
 
+		public T Type (string type)
+		{
+			Element ().Type = type;
+			return this.As<T>();
+		}
+	
+
+
 		public T PlaceHolder(string placeholder)
 		{
 			if(!string.IsNullOrEmpty(placeholder))
@@ -29,6 +40,7 @@ namespace Cayita.UI
 				Element().RemoveAttribute("placeholder");
 			return this.As<T>();
 		}
+
 
 		public string PlaceHolder()
 		{

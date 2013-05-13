@@ -1737,53 +1737,41 @@
 	ss.registerGenericClass(global, 'Cayita.UI.ButtonBase$1', $Cayita_UI_ButtonBase$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.CheckboxField
-	var $Cayita_UI_CheckboxField = function(parent, field) {
-		this.$cg = null;
-		this.$ctrls = null;
-		this.$lb = null;
-		this.$cb = null;
-		$Cayita_UI_Div.$ctor1.call(this, parent);
-		this.$init(null);
-		field(this.$lb, this.$cb);
-		$(this.$lb).attr('for', this.$cb.id);
-		$(this.$lb).append(this.$cb);
+	var $Cayita_UI_CheckboxField = function(field) {
+		$Cayita_UI_CheckboxField.$ctor3.call(this, null, field);
 	};
 	$Cayita_UI_CheckboxField.prototype = {
-		$init: function(textLabel) {
-			this.$cg = this.element$1();
-			this.$cg.className = 'control-group';
-			this.$ctrls = $Cayita_UI_Div.createControls$1(this.$cg, ss.mkdel(this, function(div) {
-				this.$lb = (new $Cayita_UI_Label.$ctor2(div, function(l) {
-					l.className = 'checkbox';
-					if (!ss.isNullOrEmptyString(textLabel)) {
-						$Extensions.text$1(l, textLabel);
-					}
-				})).element$1();
-				this.$cb = (new $Cayita_UI_InputCheckbox()).element$2();
-			})).element$1();
-		},
-		controls: function() {
-			return this.$ctrls;
-		},
-		label: function() {
-			return this.$lb;
-		},
-		checkBox: function() {
-			return this.$cb;
+		element$2: function() {
+			return this.element$1();
 		}
 	};
-	$Cayita_UI_CheckboxField.$ctor1 = function(parent, textLabel, field) {
-		this.$cg = null;
-		this.$ctrls = null;
-		this.$lb = null;
-		this.$cb = null;
-		$Cayita_UI_Div.$ctor1.call(this, parent);
-		this.$init(textLabel);
-		field(this.$cb);
-		$(this.$lb).attr('for', this.$cb.id);
-		$(this.$lb).append(this.$cb);
+	$Cayita_UI_CheckboxField.$ctor2 = function(parent) {
+		ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_CheckboxField]).call(this, parent, 'checkbox', true);
+		this.element$2().value = 'true';
+		this.get_label().className$1('checkbox');
 	};
-	$Cayita_UI_CheckboxField.$ctor1.prototype = $Cayita_UI_CheckboxField.prototype;
+	$Cayita_UI_CheckboxField.$ctor3 = function(parent, field) {
+		$Cayita_UI_CheckboxField.$ctor2.call(this, parent);
+		field(this.get_label().element$1(), this.element$2());
+		this.get_label().for$2(this.element$2().id);
+		if (ss.isNullOrEmptyString(this.get_label().textLabel())) {
+			this.get_label().hide();
+		}
+	};
+	$Cayita_UI_CheckboxField.$ctor1 = function(field) {
+		$Cayita_UI_CheckboxField.$ctor4.call(this, null, field);
+	};
+	$Cayita_UI_CheckboxField.$ctor4 = function(parent, field) {
+		$Cayita_UI_CheckboxField.$ctor2.call(this, parent);
+		field(this.element$2());
+		this.get_label().for$2(this.element$2().id).hide();
+	};
+	$Cayita_UI_CheckboxField.$ctor5 = function(parent, label, fieldname) {
+		$Cayita_UI_CheckboxField.$ctor2.call(this, parent);
+		this.get_label().text$1(label);
+		this.name$1(fieldname);
+	};
+	$Cayita_UI_CheckboxField.$ctor2.prototype = $Cayita_UI_CheckboxField.$ctor3.prototype = $Cayita_UI_CheckboxField.$ctor1.prototype = $Cayita_UI_CheckboxField.$ctor4.prototype = $Cayita_UI_CheckboxField.$ctor5.prototype = $Cayita_UI_CheckboxField.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.ClickedRow
 	var $Cayita_UI_ClickedRow$1 = function(T) {
@@ -2171,6 +2159,109 @@
 		return $type;
 	};
 	ss.registerGenericClass(global, 'Cayita.UI.ElementBase$1', $Cayita_UI_ElementBase$1, 1);
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.Field
+	var $Cayita_UI_Field = function(field) {
+		$Cayita_UI_Field.$ctor3.call(this, null, field);
+	};
+	$Cayita_UI_Field.$ctor2 = function(parent) {
+		ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_Field]).call(this, parent, 'text', false);
+	};
+	$Cayita_UI_Field.$ctor3 = function(parent, field) {
+		$Cayita_UI_Field.$ctor2.call(this, parent);
+		field(this.get_label().element$1(), this.element$1());
+		this.get_label().for$2(this.element$1().id);
+		if (ss.isNullOrEmptyString(this.get_label().textLabel())) {
+			this.get_label().hide();
+		}
+	};
+	$Cayita_UI_Field.$ctor1 = function(field) {
+		$Cayita_UI_Field.$ctor4.call(this, null, field);
+	};
+	$Cayita_UI_Field.$ctor4 = function(parent, field) {
+		$Cayita_UI_Field.$ctor2.call(this, parent);
+		field(this.element$1());
+		this.get_label().for$2(this.element$1().id).hide();
+	};
+	$Cayita_UI_Field.$ctor5 = function(parent, label, fieldname) {
+		$Cayita_UI_Field.$ctor2.call(this, parent);
+		this.get_label().text$1(label);
+		this.name$1(fieldname);
+	};
+	$Cayita_UI_Field.$ctor2.prototype = $Cayita_UI_Field.$ctor3.prototype = $Cayita_UI_Field.$ctor1.prototype = $Cayita_UI_Field.$ctor4.prototype = $Cayita_UI_Field.$ctor5.prototype = $Cayita_UI_Field.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.Field
+	var $Cayita_UI_Field$1 = function(TField) {
+		var $type = function(parent, type, labelAsParent) {
+			this.$4$LabelField = null;
+			this.$4$ControlsField = null;
+			this.$4$ControlGroupField = null;
+			ss.makeGenericType($Cayita_UI_InputBase$1, [TField]).$ctor1.call(this, parent, type);
+			this.set_controlGroup((new $Cayita_UI_Div.$ctor1(parent)).className$1('control-group'));
+			this.set_label((new $Cayita_UI_Label.$ctor1(null)).className$1('control-label'));
+			this.set_controls((new $Cayita_UI_Div.$ctor1(null)).className$1('controls'));
+			if (labelAsParent) {
+				this.get_controlGroup().append$1(this.get_controls());
+				this.get_controls().append$1(this.get_label());
+				this.appendTo(this.get_label());
+			}
+			else {
+				this.appendTo(this.get_controls());
+				this.get_controlGroup().append$1(this.get_label());
+				this.get_controlGroup().append$1(this.get_controls());
+			}
+		};
+		$type.prototype = {
+			get_label: function() {
+				return this.$4$LabelField;
+			},
+			set_label: function(value) {
+				this.$4$LabelField = value;
+			},
+			get_controls: function() {
+				return this.$4$ControlsField;
+			},
+			set_controls: function(value) {
+				this.$4$ControlsField = value;
+			},
+			get_controlGroup: function() {
+				return this.$4$ControlGroupField;
+			},
+			set_controlGroup: function(value) {
+				this.$4$ControlGroupField = value;
+			},
+			text$3: function(value) {
+				this.get_label().text$1(value);
+				return this;
+			},
+			text$2: function() {
+				return this.get_label().text();
+			},
+			appendTo$3: function(parent) {
+				this.get_controlGroup().appendTo(parent);
+				return this;
+			},
+			slideToggle$1: function() {
+				this.get_controlGroup().slideToggle();
+				return this;
+			},
+			hide$1: function() {
+				this.get_controlGroup().hide();
+				return this;
+			},
+			show$1: function() {
+				this.get_controlGroup().show();
+				return this;
+			}
+		};
+		ss.registerGenericClassInstance($type, $Cayita_UI_Field$1, [TField], function() {
+			return ss.makeGenericType($Cayita_UI_InputBase$1, [TField]);
+		}, function() {
+			return [];
+		});
+		return $type;
+	};
+	ss.registerGenericClass(global, 'Cayita.UI.Field$1', $Cayita_UI_Field$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.FieldSet
 	var $Cayita_UI_FieldSet = function(parent) {
@@ -2976,6 +3067,7 @@
 	var $Cayita_UI_InputBase$1 = function(T) {
 		var $type = function() {
 			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
+			this.createInput(null, 'text');
 		};
 		$type.prototype = {
 			createInput: function(parent, type) {
@@ -2983,6 +3075,10 @@
 				if (!ss.isNullOrEmptyString(type)) {
 					this.element$1().type = type;
 				}
+			},
+			type: function(type) {
+				this.element$1().type = type;
+				return this;
 			},
 			placeHolder$1: function(placeholder) {
 				if (!ss.isNullOrEmptyString(placeholder)) {
@@ -4889,42 +4985,17 @@
 		$Cayita_UI_TextField.$ctor3.call(this, null, field);
 	};
 	$Cayita_UI_TextField.prototype = {
-		get_label: function() {
-			return this.$3$LabelField;
-		},
-		set_label: function(value) {
-			this.$3$LabelField = value;
-		},
-		get_controls: function() {
-			return this.$3$ControlsField;
-		},
-		set_controls: function(value) {
-			this.$3$ControlsField = value;
-		},
-		get_input: function() {
-			return this.$3$InputField;
-		},
-		set_input: function(value) {
-			this.$3$InputField = value;
-		},
-		$init: function(parent) {
-			this.createElement('div', parent);
-			this.className$1('control-group');
-			this.set_label((new $Cayita_UI_Label.$ctor1(null)).className$1('control-label'));
-			this.set_input(new $Cayita_UI_InputText.$ctor2(null, 'text'));
-			this.set_controls((new $Cayita_UI_Div.$ctor1(null)).className$1('controls').append$1(this.get_input()));
-			this.append$1(this.get_label());
-			this.append$1(this.get_controls());
+		element$2: function() {
+			return this.element$1();
 		}
 	};
+	$Cayita_UI_TextField.$ctor2 = function(parent) {
+		ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_TextField]).call(this, parent, 'text', false);
+	};
 	$Cayita_UI_TextField.$ctor3 = function(parent, field) {
-		this.$3$LabelField = null;
-		this.$3$ControlsField = null;
-		this.$3$InputField = null;
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TextField]).call(this);
-		this.$init(parent);
-		field(this.get_label().element$1(), this.get_input().element$2());
-		this.get_label().for$2(this.get_input().get_id());
+		$Cayita_UI_TextField.$ctor2.call(this, parent);
+		field(this.get_label().element$1(), this.element$2());
+		this.get_label().for$2(this.element$2().id);
 		if (ss.isNullOrEmptyString(this.get_label().textLabel())) {
 			this.get_label().hide();
 		}
@@ -4933,28 +5004,16 @@
 		$Cayita_UI_TextField.$ctor4.call(this, null, field);
 	};
 	$Cayita_UI_TextField.$ctor4 = function(parent, field) {
-		this.$3$LabelField = null;
-		this.$3$ControlsField = null;
-		this.$3$InputField = null;
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TextField]).call(this);
-		this.$init(parent);
-		field(this.get_input().element$2());
-		this.get_label().for$2(this.get_input().get_id()).hide();
+		$Cayita_UI_TextField.$ctor2.call(this, parent);
+		field(this.element$2());
+		this.get_label().for$2(this.element$2().id).hide();
 	};
 	$Cayita_UI_TextField.$ctor5 = function(parent, label, fieldname) {
-		$Cayita_UI_TextField.$ctor3.call(this, parent, function(l, f) {
-			$Extensions.text$1(l, label);
-			f.name = fieldname;
-		});
+		$Cayita_UI_TextField.$ctor2.call(this, parent);
+		this.get_label().text$1(label);
+		this.name$1(fieldname);
 	};
-	$Cayita_UI_TextField.$ctor2 = function(parent) {
-		this.$3$LabelField = null;
-		this.$3$ControlsField = null;
-		this.$3$InputField = null;
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TextField]).call(this);
-		this.$init(null);
-	};
-	$Cayita_UI_TextField.$ctor3.prototype = $Cayita_UI_TextField.$ctor1.prototype = $Cayita_UI_TextField.$ctor4.prototype = $Cayita_UI_TextField.$ctor5.prototype = $Cayita_UI_TextField.$ctor2.prototype = $Cayita_UI_TextField.prototype;
+	$Cayita_UI_TextField.$ctor2.prototype = $Cayita_UI_TextField.$ctor3.prototype = $Cayita_UI_TextField.$ctor1.prototype = $Cayita_UI_TextField.$ctor4.prototype = $Cayita_UI_TextField.$ctor5.prototype = $Cayita_UI_TextField.prototype;
 	ss.registerClass(global, 'Extensions', $Extensions);
 	ss.registerClass(global, 'StringExtensions', $StringExtensions);
 	ss.registerClass(global, 'SystemExtensions', $SystemExtensions);
@@ -4980,15 +5039,16 @@
 	ss.registerClass(global, 'Cayita.UI.Anchor', $Cayita_UI_Anchor, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Anchor]));
 	ss.registerClass(global, 'Cayita.UI.Bootbox', $Cayita_UI_Bootbox);
 	ss.registerClass(global, 'Cayita.UI.Button', $Cayita_UI_Button, ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_Button]));
-	ss.registerClass(global, 'Cayita.UI.Div', $Cayita_UI_Div, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Div]));
-	ss.registerClass(global, 'Cayita.UI.CheckboxField', $Cayita_UI_CheckboxField, $Cayita_UI_Div);
+	ss.registerClass(global, 'Cayita.UI.CheckboxField', $Cayita_UI_CheckboxField, ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_CheckboxField]));
 	ss.registerClass(global, 'Cayita.UI.DialogButton', $Cayita_UI_DialogButton);
 	ss.registerClass(global, 'Cayita.UI.DialogOptions', $Cayita_UI_DialogOptions);
+	ss.registerClass(global, 'Cayita.UI.Div', $Cayita_UI_Div, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Div]));
 	ss.registerClass(global, 'Cayita.UI.HtmlList', $Cayita_UI_HtmlList, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlList]));
 	ss.registerClass(global, 'Cayita.UI.DropDownMenu', $Cayita_UI_DropDownMenu, $Cayita_UI_HtmlList);
 	ss.registerClass(global, 'Cayita.UI.ListItem', $Cayita_UI_ListItem, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_ListItem]));
 	ss.registerClass(global, 'Cayita.UI.DropDownSubmenu', $Cayita_UI_DropDownSubmenu, $Cayita_UI_ListItem);
 	ss.registerClass(global, 'Cayita.UI.ElementBase', $Cayita_UI_ElementBase);
+	ss.registerClass(global, 'Cayita.UI.Field', $Cayita_UI_Field, ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_Field]));
 	ss.registerClass(global, 'Cayita.UI.FieldSet', $Cayita_UI_FieldSet, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_FieldSet]));
 	ss.registerClass(global, 'Cayita.UI.FileUpload', $Cayita_UI_FileUpload, ss.makeGenericType($Cayita_UI_FileUpload$1, [$Cayita_UI_FileUpload]));
 	ss.registerClass(global, 'Cayita.UI.Form', $Cayita_UI_Form, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Form]));
@@ -5031,6 +5091,6 @@
 	ss.registerClass(global, 'Cayita.UI.TabPanelConfig', $Cayita_UI_TabPanelConfig);
 	ss.registerClass(global, 'Cayita.UI.TextArea', $Cayita_UI_TextArea, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TextArea]));
 	ss.registerClass(global, 'Cayita.UI.TextAreaField', $Cayita_UI_TextAreaField, $Cayita_UI_Div);
-	ss.registerClass(global, 'Cayita.UI.TextField', $Cayita_UI_TextField, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TextField]));
+	ss.registerClass(global, 'Cayita.UI.TextField', $Cayita_UI_TextField, ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_TextField]));
 	$Cayita_UI_ElementBase.$tags = new (ss.makeGenericType(ss.Dictionary$2, [String, ss.Int32]))();
 })();

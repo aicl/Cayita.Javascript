@@ -3,6 +3,61 @@ using System.Html;
 
 namespace Cayita.UI
 {
+	
+	public class CheckboxField:Field<CheckboxField>
+	{
+		public CheckboxField(Element parent=null):base(parent, "checkbox",true)
+		{
+			Element ().Value = "true";
+			Label.ClassName ("checkbox");
+		}
+		
+		public CheckboxField(Action<LabelElement,TextElement> field):this(null, field)
+		{
+		}
+		
+		public CheckboxField(Element parent, Action<LabelElement,TextElement> field):this(parent)
+			
+		{
+			field.Invoke(Label.Element(), Element().As<TextElement>());
+			Label.For( Element().ID);
+			if( string.IsNullOrEmpty( Label.TextLabel()) ) Label.Hide();
+		}
+		
+		public CheckboxField(Action<TextElement> field):this(null, field)
+		{
+		}
+		
+		public CheckboxField(Element parent, Action<TextElement> field):this(parent)
+		{
+			field.Invoke(Element().As<TextElement>());
+			Label.For(Element().ID).Hide();
+		}
+		
+		public CheckboxField(Element parent, string label, string fieldname):
+			this(parent)
+		{
+			Label.Text (label);
+			Name(fieldname);
+		}
+		
+		public new CheckBoxElement Element()
+		{
+			return base.Element().As<CheckBoxElement> ();
+		}
+		
+	}
+	
+	
+}
+
+
+/*
+using System;
+using System.Html;
+
+namespace Cayita.UI
+{
 
 	public class CheckboxField :Div
 	{
@@ -80,3 +135,4 @@ namespace Cayita.UI
 
 	}
 }
+*/

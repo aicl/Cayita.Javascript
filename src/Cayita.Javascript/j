@@ -29,6 +29,7 @@
 "UI/Core/ListElement.cs" \
 "UI/Core/LabelElement.cs" \
 "UI/Core/ElementBase.cs" \
+"UI/Core/Field.cs" \
 "UI/Core/FileElement.cs" \
 "UI/Core/Legend.cs" \
 "UI/Core/Anchor.cs" \

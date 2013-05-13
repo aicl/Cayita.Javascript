@@ -14,18 +14,18 @@ namespace Cayita.UI
 		public InputCheckbox( Action<CheckBoxElement> element)
 		{
 			Init(null);
-			element(Element()); Element();
+			element.Invoke(Element()); Element();
 		}
 
 
 		public InputCheckbox(Element parent,  Action<CheckBoxElement> element)
 		{
 			Init(parent);
-			element(Element()); Element();
+			element.Invoke(Element()); Element();
 		}
 
 		
-		public InputCheckbox  (Element parent)
+		public InputCheckbox  (Element parent=null)
 		{
 			Init(parent);
 		}

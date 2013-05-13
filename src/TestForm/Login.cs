@@ -18,14 +18,26 @@ namespace TestForm
 
 			var form = new Form ();
 
-			var username = new TextField (i => {
-				i.PlaceHolder("your username");  i.Name="UserName";  i.ClassName="span12";
-			}).AppendTo(form);
+			var username = new TextField()
+				.PlaceHolder("your username")
+					.Name("UserName")
+					.ClassName("span12")
+					.AppendTo(form);
 
-			var password= new TextField (i => {
-				i.PlaceHolder("your password");  i.Name="Password";  i.ClassName="span12";
-				i.Type="password";
-			}).AppendTo(form);
+			var password= new TextField ()
+				.PlaceHolder("your password")
+					.Name("Password")
+					.ClassName("span12")
+					.Type("password")
+					.AppendTo(form);
+
+			var text = new TextField ()
+				.PlaceHolder ("una de texto")
+					.ClassName("span12").Text("Password")
+					.AppendTo(form);
+
+			new CheckboxField ().Text ("check me ").AppendTo (form);;
+
 
 			new SubmitButton ()
 				.Text("Login")
@@ -34,7 +46,7 @@ namespace TestForm
 					.AppendTo(form);  
 
 			form.AddRule ((r,m) => {
-				r.Input(username.Input);
+				r.Input(username);
 				r.Rule.Required();
 				r.Rule.Minlength(4);
 				m.Required("se requiere el nombre de usuario");
@@ -42,7 +54,7 @@ namespace TestForm
 			});
 
 			form.AddRule ((r,m) => {
-				r.Input(password.Input);
+				r.Input(password);
 				r.Rule.Required();
 				r.Rule.Minlength(2);
 				m.Required("se requiere la contraseña");
@@ -51,8 +63,9 @@ namespace TestForm
 
 			form.SetSubmitHanlder (f => {
 				Firebug.Console.Log(" este es mi submit !!!");
-				f.Append( Alert.Info("Bienvenido " + username.Input.Value()) );
-				form.Reset();
+				f.Append( Alert.Info("Bienvenido " + username.Value()) );
+				//form.Reset();
+				text.SlideToggle();
 			});
 
 			form.Validate ();
