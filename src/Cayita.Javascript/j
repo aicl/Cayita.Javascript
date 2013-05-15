@@ -67,6 +67,7 @@
 "UI/Field/SelectField.cs" \
 "UI/Field/TextAreaField.cs" \
 "UI/Field/TextField.cs" \
+"UI/Field/TextFieldBase.cs" \
 "UI/Group/CheckGroup.cs" \
 "UI/Group/GroupBase.cs" \
 "UI/Group/RadioGroup.cs" \

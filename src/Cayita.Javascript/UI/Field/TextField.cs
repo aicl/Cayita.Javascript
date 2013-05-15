@@ -4,48 +4,42 @@ using System.Html;
 namespace Cayita.UI
 {
 
-	public class TextField:Field<TextField>
+	public class TextField:TextFieldBase<TextField>
 	{
-		public TextElement Input { get; protected set; }
 
-		public TextField(Element parent=null):base(parent, "text")
+		public TextField():base(){}
+
+		public TextField(ElementBase parent):base(parent.Element()){}
+
+
+		public TextField(Element parent):base(parent)
 		{
-			Input = Element ();
 		}
 		
-		public TextField(Action<LabelElement,TextElement> field):this(null, field)
+		public TextField(Action<LabelElement,TextElement> field):base(null, field)
 		{
 		}
 		
-		public TextField(Element parent, Action<LabelElement,TextElement> field):this(parent)
+		public TextField(Element parent, Action<LabelElement,TextElement> field):base(parent)
 			
 		{
-			field.Invoke(ControlLabel.Element(), Element());
-			ControlLabel.For( Element().ID);
-			if( string.IsNullOrEmpty( ControlLabel.TextLabel()) ) ControlLabel.Hide();
+
 		}
 		
-		public TextField(Action<TextElement> field):this(null, field)
+		public TextField(Action<TextElement> field):base(null, field)
 		{
 		}
 		
-		public TextField(Element parent, Action<TextElement> field):this(parent)
+		public TextField(Element parent, Action<TextElement> field):base(parent, field)
 		{
-			field.Invoke(Element());
-			ControlLabel.For(Element().ID).Hide();
 		}
 		
 		public TextField(Element parent, string label, string fieldname):
-			this(parent)
+			base(parent,label, fieldname)
 		{
-			ControlLabel.Text (label);
-			Name(fieldname);
+
 		}
 
-		public new TextElement Element()
-		{
-			return base.Element().As<TextElement> ();
-		}
 
 	}
 

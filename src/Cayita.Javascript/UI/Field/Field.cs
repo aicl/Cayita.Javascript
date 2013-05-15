@@ -60,45 +60,7 @@ namespace Cayita.UI
 		}
 
 	}
-
-	public class Field:Field<Field>
-	{
-		public Field(Element parent=null):base(parent, "text")
-		{
-		}
-
-		public Field(Action<LabelElement,TextElement> field):this(null, field)
-		{
-		}
-		
-		public Field(Element parent, Action<LabelElement,TextElement> field):this(parent)
-			
-		{
-			field.Invoke(ControlLabel.Element(), Element().As<TextElement>());
-			ControlLabel.For( Element().ID);
-			if( string.IsNullOrEmpty( ControlLabel.TextLabel()) ) ControlLabel.Hide();
-		}
-
-		public Field(Action<TextElement> field):this(null, field)
-		{
-		}
-		
-		public Field(Element parent, Action<TextElement> field):this(parent)
-		{
-			field.Invoke(Element().As<TextElement>());
-			ControlLabel.For(Element().ID).Hide();
-		}
-		
-		public Field(Element parent, string label, string fieldname):
-			this(parent)
-		{
-			ControlLabel.Text (label);
-			Name(fieldname);
-		}
-
-	}
-
-
+	
 }
 
 
