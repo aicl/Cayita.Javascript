@@ -51,11 +51,20 @@ namespace Cayita.UI
 			Init (parent, new Store<T>()  );
 		}
 
+		public HtmlGrid (ElementBase parent,  Store<T> store, List<TableColumn<T>> columns=null)
+		{
+			Init(parent.Element(), store, columns);
+		}
+
 		public HtmlGrid (Element parent,  Store<T> store, List<TableColumn<T>> columns=null)
 		{
 			Init(parent, store, columns);
 		}
 
+		public HtmlGrid (Store<T> store, List<TableColumn<T>> columns=null)
+		{
+			Init(null, store, columns);
+		}
 
 		private void Init(Element parent,  Store<T> datastore, List<TableColumn<T>> cols=null )
 		{

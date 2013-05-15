@@ -16,7 +16,7 @@ namespace Cayita.Javascript.DemoTables
 		}
 
 		public UserGrid (Element parent, UserStore store, List<TableColumn<User>> columns)
-			:base(null, store, columns)
+			:base( store, columns)
 		{
 			AppendTo(parent);
 			us=store;

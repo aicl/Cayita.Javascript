@@ -89,11 +89,11 @@
 			div3.className = 'bs-docs-example';
 			new Cayita.UI.Form.$ctor1(div3, function(f3) {
 				f3.className = 'form-horizontal';
-				new Cayita.UI.TextField.$ctor3(f3, function(label, input4) {
+				new Cayita.UI.TextField.$ctor5(f3, function(label, input4) {
 					Extensions.text$1(label, 'Email');
 					$(input4).attr('placeholder', 'Email');
 				});
-				new Cayita.UI.TextField.$ctor3(f3, function(label1, input5) {
+				new Cayita.UI.TextField.$ctor5(f3, function(label1, input5) {
 					Extensions.text$1(label1, 'Password');
 					input5.type = 'password';
 					$(input5).attr('placeholder', 'Password');
@@ -123,14 +123,14 @@
 							Extensions.text$1(l, 'Login Form');
 						});
 						new Cayita.UI.Form.$ctor1(element, function(fe) {
-							new Cayita.UI.TextField.$ctor4(fe, function(i) {
+							new Cayita.UI.TextField.$ctor6(fe, function(i) {
 								$(i).attr('placeholder', 'your username');
 								i.name = 'UserName';
 								i.className = 'span12';
 								$(i).attr('required', true);
 								$(i).attr('minlength', 8);
 							});
-							new Cayita.UI.TextField.$ctor4(fe, function(i1) {
+							new Cayita.UI.TextField.$ctor6(fe, function(i1) {
 								$(i1).attr('placeholder', 'your password');
 								i1.name = 'Password';
 								i1.className = 'span12';
@@ -172,22 +172,22 @@
 					Cayita.UI.Div.createRowFluid$1(f5, function(row1) {
 						new Cayita.UI.Div.$ctor2(row1, function(sp1) {
 							sp1.className = 'span5';
-							new Cayita.UI.TextField.$ctor3(sp1, function(l1, i2) {
+							new Cayita.UI.TextField.$ctor5(sp1, function(l1, i2) {
 								Extensions.text$1(l1, 'FirstName');
 								i2.name = 'FirstName';
 								i2.className = 'span12';
 							});
-							new Cayita.UI.TextField.$ctor3(sp1, function(l2, i3) {
+							new Cayita.UI.TextField.$ctor5(sp1, function(l2, i3) {
 								Extensions.text$1(l2, 'LastName');
 								i3.name = 'LastName';
 								i3.className = 'span12';
 							});
-							new Cayita.UI.TextField.$ctor3(sp1, function(l3, i4) {
+							new Cayita.UI.TextField.$ctor5(sp1, function(l3, i4) {
 								Extensions.text$1(l3, 'Email address');
 								i4.name = 'Email';
 								i4.className = 'span12';
 							});
-							new Cayita.UI.SelectField.$ctor1(sp1, function(l4, i5) {
+							new Cayita.UI.SelectField.$ctor3(sp1, function(l4, i5) {
 								Extensions.text$1(l4, 'Subject');
 								i5.name = 'Subject';
 								i5.className = 'span12';

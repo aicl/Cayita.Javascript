@@ -2967,7 +2967,32 @@
 				this.$4$KeyDownField(this, evt);
 			}
 		};
-		$type.$ctor1 = function(parent, store, columns) {
+		$type.$ctor2 = function(parent, store, columns) {
+			this.$columns = null;
+			this.$store = null;
+			this.$table = null;
+			this.$selectedrow = null;
+			this.$readRequestStarted = null;
+			this.$readRequestFinished = null;
+			this.$readRequestMessage = null;
+			var $t1 = [];
+			ss.add($t1, 33);
+			ss.add($t1, 34);
+			ss.add($t1, 35);
+			ss.add($t1, 36);
+			ss.add($t1, 38);
+			ss.add($t1, 40);
+			this.$nvkeys = $t1;
+			this.$4$RowSelectedField = function(g, r) {
+			};
+			this.$4$RowClickedField = function(g, r) {
+			};
+			this.$4$KeyDownField = function(g, e) {
+			};
+			$Cayita_UI_HtmlTable.call(this);
+			this.$init(parent.element(), store, columns);
+		};
+		$type.$ctor3 = function(parent, store, columns) {
 			this.$columns = null;
 			this.$store = null;
 			this.$table = null;
@@ -2992,7 +3017,32 @@
 			$Cayita_UI_HtmlTable.call(this);
 			this.$init(parent, store, columns);
 		};
-		$type.$ctor1.prototype = $type.prototype;
+		$type.$ctor1 = function(store, columns) {
+			this.$columns = null;
+			this.$store = null;
+			this.$table = null;
+			this.$selectedrow = null;
+			this.$readRequestStarted = null;
+			this.$readRequestFinished = null;
+			this.$readRequestMessage = null;
+			var $t1 = [];
+			ss.add($t1, 33);
+			ss.add($t1, 34);
+			ss.add($t1, 35);
+			ss.add($t1, 36);
+			ss.add($t1, 38);
+			ss.add($t1, 40);
+			this.$nvkeys = $t1;
+			this.$4$RowSelectedField = function(g, r) {
+			};
+			this.$4$RowClickedField = function(g, r) {
+			};
+			this.$4$KeyDownField = function(g, e) {
+			};
+			$Cayita_UI_HtmlTable.call(this);
+			this.$init(null, store, columns);
+		};
+		$type.$ctor2.prototype = $type.$ctor3.prototype = $type.$ctor1.prototype = $type.prototype;
 		ss.registerGenericClassInstance($type, $Cayita_UI_HtmlGrid$1, [T], function() {
 			return $Cayita_UI_HtmlTable;
 		}, function() {
@@ -4029,7 +4079,7 @@
 	// Cayita.UI.SearchBox
 	var $Cayita_UI_SearchBox$1 = function(T) {
 		var $type = function(store, config, columns) {
-			$type.$ctor1.call(this, null, store, config, columns);
+			$type.$ctor2.call(this, null, store, config, columns);
 		};
 		$type.prototype = {
 			$reset: function(all) {
@@ -4127,7 +4177,7 @@
 					columns = [];
 					ss.add(columns, ss.makeGenericType($Cayita_UI_TableColumn$1, [T]).$ctor1(this.$cfg.textField, null, null, false));
 				}
-				this.$gr = new (ss.makeGenericType($Cayita_UI_HtmlGrid$1, [T]).$ctor1)(this.$body, store, columns);
+				this.$gr = new (ss.makeGenericType($Cayita_UI_HtmlGrid$1, [T]).$ctor3)(this.$body, store, columns);
 				if (this.$cfg.paged) {
 					new (ss.makeGenericType($Cayita_UI_StorePaging$1, [T]))(this.$body, store);
 				}
@@ -4198,6 +4248,9 @@
 			}
 		};
 		$type.$ctor1 = function(parent, store, config, columns) {
+			$type.$ctor2.call(this, parent.element(), store, config, columns);
+		};
+		$type.$ctor2 = function(parent, store, config, columns) {
 			this.$cfg = null;
 			this.$te = null;
 			this.$he = null;
@@ -4211,7 +4264,7 @@
 			$Cayita_UI_Div.$ctor1.call(this, parent);
 			this.$init(store, config, columns);
 		};
-		$type.$ctor1.prototype = $type.prototype;
+		$type.$ctor1.prototype = $type.$ctor2.prototype = $type.prototype;
 		ss.registerGenericClassInstance($type, $Cayita_UI_SearchBox$1, [T], function() {
 			return $Cayita_UI_Div;
 		}, function() {
@@ -5128,7 +5181,7 @@
 		ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_UI_TextField]).$ctor3.call(this, null, field);
 	};
 	$Cayita_UI_TextField.$ctor5 = function(parent, field) {
-		ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_UI_TextField]).$ctor2.call(this, parent);
+		ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_UI_TextField]).$ctor3.call(this, parent, field);
 	};
 	$Cayita_UI_TextField.$ctor3 = function(field) {
 		ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_UI_TextField]).$ctor4.call(this, null, field);

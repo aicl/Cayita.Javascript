@@ -20,7 +20,7 @@ namespace Cayita.UI
 		{
 		}
 		
-		public TextField(Element parent, Action<LabelElement,TextElement> field):base(parent)
+		public TextField(Element parent, Action<LabelElement,TextElement> field):base(parent,field)
 			
 		{
 		}

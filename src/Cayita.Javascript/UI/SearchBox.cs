@@ -23,10 +23,14 @@ namespace Cayita.UI
 		string searchIndex;
 
 		public SearchBox (Store<T> store,  SearchBoxConfig<T> config, List<TableColumn<T>> columns =null)
-			:this(null, store, config, columns)
+			:this(default(Element), store, config, columns)
 		{
 		}
 
+		public SearchBox (ElementBase parent, Store<T> store,  SearchBoxConfig<T> config, List<TableColumn<T>> columns =null)
+			:this(parent.Element(), store, config, columns)
+		{
+		}
 
 		public SearchBox (Element parent,Store<T> store,
 		                  SearchBoxConfig<T> config,List<TableColumn<T>> columns =null):base(parent)

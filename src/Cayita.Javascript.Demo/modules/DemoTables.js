@@ -26,7 +26,7 @@
 	};
 	$CustomerGrid.$ctor1 = function(parent, store, columns) {
 		this.$us = null;
-		ss.makeGenericType(Cayita.UI.HtmlGrid$1, [$Customer]).$ctor1.call(this, null, store, columns);
+		ss.makeGenericType(Cayita.UI.HtmlGrid$1, [$Customer]).$ctor1.call(this, store, columns);
 		this.appendTo$2(parent);
 		this.$us = store;
 	};
@@ -251,28 +251,28 @@
 			$(e).hide();
 			$(e).attr('data-type', 'numeric');
 		});
-		new Cayita.UI.TextField.$ctor3(this.$f, function(l, e1) {
+		new Cayita.UI.TextField.$ctor5(this.$f, function(l, e1) {
 			Extensions.text$1(l, 'Name');
 			e1.name = 'Name';
 		});
-		new Cayita.UI.TextField.$ctor3(this.$f, function(l1, e2) {
+		new Cayita.UI.TextField.$ctor5(this.$f, function(l1, e2) {
 			Extensions.text$1(l1, 'City');
 			e2.name = 'City';
 		});
-		new Cayita.UI.TextField.$ctor3(this.$f, function(l2, e3) {
+		new Cayita.UI.TextField.$ctor5(this.$f, function(l2, e3) {
 			Extensions.text$1(l2, 'Address');
 			e3.name = 'Address';
 		});
-		new Cayita.UI.TextField.$ctor3(this.$f, function(l3, e4) {
+		new Cayita.UI.TextField.$ctor5(this.$f, function(l3, e4) {
 			Extensions.text$1(l3, 'Birthday');
 			e4.name = 'DoB';
 			cayita.fn.datepicker(e4, { dateFormat: 'dd.mm.yy' });
 		});
-		new Cayita.UI.TextField.$ctor3(this.$f, function(l4, e5) {
+		new Cayita.UI.TextField.$ctor5(this.$f, function(l4, e5) {
 			Extensions.text$1(l4, 'Email');
 			e5.name = 'Email';
 		});
-		new Cayita.UI.TextField.$ctor3(this.$f, function(l5, e6) {
+		new Cayita.UI.TextField.$ctor5(this.$f, function(l5, e6) {
 			Extensions.text$1(l5, 'Rating');
 			e6.name = 'Rating';
 			cayita.fn.autoNumeric(e6, null);
@@ -308,7 +308,7 @@
 	};
 	$UserGrid.$ctor1 = function(parent, store, columns) {
 		this.$us = null;
-		ss.makeGenericType(Cayita.UI.HtmlGrid$1, [$User]).$ctor1.call(this, null, store, columns);
+		ss.makeGenericType(Cayita.UI.HtmlGrid$1, [$User]).$ctor1.call(this, store, columns);
 		this.appendTo$2(parent);
 		this.$us = store;
 	};

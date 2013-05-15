@@ -4,7 +4,7 @@ using System.Html;
 namespace Cayita.UI
 {
 	
-	public abstract class Field<TField>:InputBase<TField> where   TField:ElementBase
+	public abstract class Field<TField>:InputBase<TField> where  TField:ElementBase
 	{
 		public Label ControlLabel  { get; protected set; }
 		public Div Controls { get; protected set; }
