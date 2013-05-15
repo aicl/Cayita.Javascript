@@ -92,7 +92,7 @@ namespace Cayita.Javascript.DemoTables
 				e.AutoNumeric();
 			}); 
 
-			new RadioField(f, "Level", "Level", levelOptions);
+			new RadioGroup(f, "Level", "Level", levelOptions);
 
 			new CheckboxField(f,(l, e)=>{
 				l.Text("Is Active?");

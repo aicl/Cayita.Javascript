@@ -5,16 +5,17 @@ namespace Cayita.UI
 {
 	public class InputRadio:InputBase<InputRadio>
 	{
-		public InputRadio (Element parent,  Action<Element,CheckBoxElement> field)
+		public InputRadio (Element parent,  Action<LabelElement,CheckBoxElement> field, bool inline=true)
 		{
 			new Label(parent, lb=>{
-				lb.ClassName="radio inline";
+				lb.ClassName= string.Format("radio{0}", inline? " inline":"");
 				CreateInput(null, "radio");
 				lb.For=Element().ID;
 				field(lb, Element());  
 				lb.Append(Element());
 			});
 		}
+
 
 		public new CheckBoxElement Element()
 		{

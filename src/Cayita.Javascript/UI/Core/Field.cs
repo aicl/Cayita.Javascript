@@ -6,38 +6,32 @@ namespace Cayita.UI
 	
 	public abstract class Field<TField>:InputBase<TField> where   TField:ElementBase
 	{
-		public Label Label  { get; protected set; }
+		public Label ControlLabel  { get; protected set; }
 		public Div Controls { get; protected set; }
 		public Div ControlGroup { get; protected set; }
 
-		public Field (Element parent=null, string type="text", bool labelAsParent=false):base(parent, type)
+		public Field (Element parent=null, string type="text", bool append=true):base(parent, type)
 		{
 
 			ControlGroup = new Div (parent).ClassName ("control-group");
-			Label = new Label ().ClassName ("control-label");
+			ControlLabel = new Label ().ClassName ("control-label");
 			Controls = new Div ().ClassName ("controls");
 
-			if (labelAsParent) {
-				ControlGroup.Append (Controls);
-				Controls.Append(Label);
-				base.AppendTo (Label);
+			if(append) base.AppendTo (Controls);
+			ControlGroup.Append (ControlLabel);
+			ControlGroup.Append (Controls);
 
-			} else {
-				base.AppendTo (Controls);
-				ControlGroup.Append (Label);
-				ControlGroup.Append (Controls);
-			}
 		}
 
 		public new TField Text(string value)
 		{
-			Label.Text (value);
+			ControlLabel.Text (value);
 			return As<TField> ();
 		}
 
 		public new string Text()
 		{
-			return Label.Text ();
+			return ControlLabel.Text ();
 		}
 
 
@@ -80,9 +74,9 @@ namespace Cayita.UI
 		public Field(Element parent, Action<LabelElement,TextElement> field):this(parent)
 			
 		{
-			field.Invoke(Label.Element(), Element().As<TextElement>());
-			Label.For( Element().ID);
-			if( string.IsNullOrEmpty( Label.TextLabel()) ) Label.Hide();
+			field.Invoke(ControlLabel.Element(), Element().As<TextElement>());
+			ControlLabel.For( Element().ID);
+			if( string.IsNullOrEmpty( ControlLabel.TextLabel()) ) ControlLabel.Hide();
 		}
 
 		public Field(Action<TextElement> field):this(null, field)
@@ -92,13 +86,13 @@ namespace Cayita.UI
 		public Field(Element parent, Action<TextElement> field):this(parent)
 		{
 			field.Invoke(Element().As<TextElement>());
-			Label.For(Element().ID).Hide();
+			ControlLabel.For(Element().ID).Hide();
 		}
 		
 		public Field(Element parent, string label, string fieldname):
 			this(parent)
 		{
-			Label.Text (label);
+			ControlLabel.Text (label);
 			Name(fieldname);
 		}
 

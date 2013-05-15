@@ -39,6 +39,26 @@ namespace TestForm
 			new CheckboxField ().Text ("check me ").AppendTo (form);;
 
 
+			new RadioGroup ()
+				.Text("your favourite language")
+					.Name("language").
+					Add(new RadioItem{Text="CSharp",Value="1"})
+					.Add(new RadioItem{Text="Java",Value="2"}).
+					AppendTo(form);
+
+
+			var rg = new RadioGroup ()
+				.Text ("your favourite language")
+					.AddClass("well")
+					.Name ("language").
+					Add (new RadioItem{Text="CSharp",Value="1"})
+					.Add (new RadioItem{Text="Java",Value="2"})
+					.Inline (false)
+					.AppendTo (form);
+
+			rg.Style.CssText = "color:darkblue;font-weight: bold"; 
+			rg.ControlLabel.Style.CssText = "font-weight: bold"; 
+
 			new SubmitButton ()
 				.Text("Login")
 					.AddClass("btn-info btn-block")

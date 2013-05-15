@@ -83,7 +83,6 @@
     <Compile Include="UI\SpinnerIcon.cs" />
     <Compile Include="UI\Core\TextArea.cs" />
     <Compile Include="UI\Core\InputRadio.cs" />
-    <Compile Include="UI\RadioField.cs" />
     <Compile Include="UI\Core\ListElement.cs" />
     <Compile Include="UI\TextAreaField.cs" />
     <Compile Include="UI\Core\LabelElement.cs" />
@@ -110,6 +109,7 @@
     <Compile Include="UI\FormData.cs" />
     <Compile Include="UI\Core\SpanElement.cs" />
     <Compile Include="UI\Core\Field.cs" />
+    <Compile Include="UI\RadioGroup.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
