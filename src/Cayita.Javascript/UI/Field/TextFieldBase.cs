@@ -48,8 +48,5 @@ namespace Cayita.UI
 		}
 		
 	}
-	
-	
+
 }
-
-

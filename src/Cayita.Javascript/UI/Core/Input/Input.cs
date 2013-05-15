@@ -19,5 +19,23 @@ namespace Cayita.UI
 		}
 
 	}
-	
+
+
+	public  class InputHidden:InputBase<InputHidden>
+	{
+				
+		public InputHidden (Element parent, string name=null)
+			:base(parent,"text")
+		{
+			if (! string.IsNullOrEmpty (name))
+				Element ().Name = name;
+		}
+
+		public InputHidden () :this(null)
+		{}
+
+
+	}
+
+
 }

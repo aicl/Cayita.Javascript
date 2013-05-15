@@ -438,6 +438,19 @@
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.PasswordField
+	var $Cayita_PasswordField = function() {
+		$Cayita_PasswordField.$ctor2.call(this, null);
+	};
+	$Cayita_PasswordField.$ctor1 = function(parent) {
+		$Cayita_PasswordField.$ctor2.call(this, parent.element());
+	};
+	$Cayita_PasswordField.$ctor2 = function(parent) {
+		ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_PasswordField]).$ctor2.call(this, parent);
+		this.type('password');
+	};
+	$Cayita_PasswordField.$ctor1.prototype = $Cayita_PasswordField.$ctor2.prototype = $Cayita_PasswordField.prototype;
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Data.AjaxResponse
 	var $Cayita_Data_AjaxResponse = function() {
 	};
@@ -3277,6 +3290,18 @@
 	};
 	$Cayita_UI_InputFile.$ctor2.prototype = $Cayita_UI_InputFile.$ctor1.prototype = $Cayita_UI_InputFile.prototype;
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.InputHidden
+	var $Cayita_UI_InputHidden = function() {
+		$Cayita_UI_InputHidden.$ctor1.call(this, null, null);
+	};
+	$Cayita_UI_InputHidden.$ctor1 = function(parent, name) {
+		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputHidden]).$ctor1.call(this, parent, 'text', 'input');
+		if (!ss.isNullOrEmptyString(name)) {
+			this.element$1().name = name;
+		}
+	};
+	$Cayita_UI_InputHidden.$ctor1.prototype = $Cayita_UI_InputHidden.prototype;
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.InputPassword
 	var $Cayita_UI_InputPassword = function(parent) {
 		$Cayita_UI_InputText.$ctor2.call(this, parent, 'text');
@@ -5173,6 +5198,7 @@
 	ss.registerClass(global, 'Cayita.ImgUpload', $Cayita_ImgUpload, ss.makeGenericType($Cayita_UI_FileUpload$1, [$Cayita_ImgUpload]));
 	ss.registerClass(global, 'Cayita.UI.FileUploadConfig', $Cayita_UI_FileUploadConfig);
 	ss.registerClass(global, 'Cayita.ImgUploadConfig', $Cayita_ImgUploadConfig, $Cayita_UI_FileUploadConfig);
+	ss.registerClass(global, 'Cayita.PasswordField', $Cayita_PasswordField, ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_PasswordField]));
 	ss.registerClass(global, 'Cayita.Data.AjaxResponse', $Cayita_Data_AjaxResponse);
 	ss.registerClass(global, 'Cayita.Data.AppError', $Cayita_Data_AppError);
 	ss.registerClass(global, 'Cayita.Data.ReadOptions', $Cayita_Data_ReadOptions);
@@ -5215,6 +5241,7 @@
 	ss.registerClass(global, 'Cayita.UI.Input', $Cayita_UI_Input, ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_Input]));
 	ss.registerClass(global, 'Cayita.UI.InputCheckbox', $Cayita_UI_InputCheckbox, ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputCheckbox]));
 	ss.registerClass(global, 'Cayita.UI.InputFile', $Cayita_UI_InputFile, ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputFile]));
+	ss.registerClass(global, 'Cayita.UI.InputHidden', $Cayita_UI_InputHidden, ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputHidden]));
 	ss.registerClass(global, 'Cayita.UI.InputText', $Cayita_UI_InputText, ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputText]));
 	ss.registerClass(global, 'Cayita.UI.InputPassword', $Cayita_UI_InputPassword, $Cayita_UI_InputText);
 	ss.registerClass(global, 'Cayita.UI.InputRadio', $Cayita_UI_InputRadio, ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputRadio]));

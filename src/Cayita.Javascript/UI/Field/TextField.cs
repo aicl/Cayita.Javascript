@@ -23,7 +23,6 @@ namespace Cayita.UI
 		public TextField(Element parent, Action<LabelElement,TextElement> field):base(parent)
 			
 		{
-
 		}
 		
 		public TextField(Action<TextElement> field):base(null, field)
@@ -40,8 +39,6 @@ namespace Cayita.UI
 
 		}
 
-
 	}
-
-
+	
 }

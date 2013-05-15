@@ -64,6 +64,7 @@
 "UI/Core/TableColumn.cs" \
 "UI/Field/CheckboxField.cs" \
 "UI/Field/Field.cs" \
+"UI/Field/PasswordField.cs" \
 "UI/Field/SelectField.cs" \
 "UI/Field/TextAreaField.cs" \
 "UI/Field/TextField.cs" \

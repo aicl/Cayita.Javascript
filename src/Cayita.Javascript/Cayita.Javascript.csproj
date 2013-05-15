@@ -116,6 +116,7 @@
     <Compile Include="UI\Field\SelectField.cs" />
     <Compile Include="UI\Field\Field.cs" />
     <Compile Include="UI\Field\TextFieldBase.cs" />
+    <Compile Include="UI\Field\PasswordField.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
