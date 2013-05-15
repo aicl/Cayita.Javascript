@@ -246,7 +246,7 @@
 						form.reset();
 						bt.resetLoadingText();
 					})), function(rule, msg) {
-						rule.element = fieldValor.get_input().element$2();
+						rule.element = fieldValor.get_input();
 						Cayita.Plugins.Rule.required(rule.rule);
 						Cayita.Plugins.Message.required(msg, 'Digite el valor del gasto');
 					}), ss.mkdel(this, function(rule1, msg1) {

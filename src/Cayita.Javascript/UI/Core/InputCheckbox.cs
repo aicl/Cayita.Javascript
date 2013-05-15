@@ -25,7 +25,7 @@ namespace Cayita.UI
 		}
 
 		
-		public InputCheckbox  (Element parent=null)
+		public InputCheckbox  (Element parent)
 		{
 			Init(parent);
 		}

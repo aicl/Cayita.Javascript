@@ -25,7 +25,7 @@ namespace Cayita.Javascript.DemoTables
 			return f.FindById<ButtonElement>("btn-create");
 		}
 
-		public UserForm (Element parent, List<RadioItem> levelOptions):base(null)
+		public UserForm (Element parent, List<GroupItem> levelOptions):base(null)
 		{
 			f = Element();
 

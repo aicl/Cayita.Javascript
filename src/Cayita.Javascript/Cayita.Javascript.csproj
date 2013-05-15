@@ -110,6 +110,7 @@
     <Compile Include="UI\Core\SpanElement.cs" />
     <Compile Include="UI\Core\Field.cs" />
     <Compile Include="UI\RadioGroup.cs" />
+    <Compile Include="UI\Group\GroupBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -119,6 +120,7 @@
     <Folder Include="ValidatePlugin\" />
     <Folder Include="Data\" />
     <Folder Include="Bootbox\" />
+    <Folder Include="UI\Group\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="c" />

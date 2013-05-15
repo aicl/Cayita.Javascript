@@ -8,8 +8,22 @@ namespace Cayita.UI
 	{
 		public Label Label  { get; protected set; }
 
-		public CheckboxField(Element parent=null):base(parent, "checkbox",false)
+		public CheckBoxElement Input { get; protected set; }
+
+
+		public CheckboxField():this(default(Element))
 		{
+
+		}
+
+		public CheckboxField(ElementBase parent):this(parent.Element())
+		{
+			
+		}
+
+		public CheckboxField(Element parent ):base(parent, "checkbox",false)
+		{
+			Input = Element ();
 
 			Element ().Value = "true";
 			Label = new Label(Controls.Element(), l=>{

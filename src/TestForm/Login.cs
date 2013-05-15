@@ -36,28 +36,37 @@ namespace TestForm
 					.ClassName("span12").Text("Password")
 					.AppendTo(form);
 
-			new CheckboxField ().Text ("check me ").AppendTo (form);;
+			new CheckboxField (form).Text ("check me ");
 
 
 			new RadioGroup ()
 				.Text("your favourite language")
 					.Name("language").
-					Add(new RadioItem{Text="CSharp",Value="1"})
-					.Add(new RadioItem{Text="Java",Value="2"}).
+					Add(new GroupItem{Text="CSharp",Value="1"})
+					.Add(new GroupItem{Text="Java",Value="2"}).
 					AppendTo(form);
 
 
-			var rg = new RadioGroup ()
-				.Text ("your favourite language")
+			new RadioGroup ()
+				.Text ("your favourite programming language")
 					.AddClass("well")
 					.Name ("language").
-					Add (new RadioItem{Text="CSharp",Value="1"})
-					.Add (new RadioItem{Text="Java",Value="2"})
+					Add (new GroupItem{Text="CSharp",Value="1"})
+					.Add (new GroupItem{Text="Java",Value="2"})
 					.Inline (false)
 					.AppendTo (form);
 
-			rg.Style.CssText = "color:darkblue;font-weight: bold"; 
-			rg.ControlLabel.Style.CssText = "font-weight: bold"; 
+			var cbg = new CheckGroup (form)
+				.AddClass ("well")
+					.Text("languages")
+					.Add (new GroupItem{Text="English", Value="1"})
+					.Add (new GroupItem{Text="Spanish", Value="2"})
+					.Inline (false);
+
+			cbg.Style.CssText = "color:darkblue;font-weight: bold"; 
+			cbg.ControlLabel.Style.CssText = "font-weight: bold"; 
+
+
 
 			new SubmitButton ()
 				.Text("Login")

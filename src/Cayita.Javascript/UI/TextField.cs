@@ -6,8 +6,11 @@ namespace Cayita.UI
 
 	public class TextField:Field<TextField>
 	{
+		public TextElement Input { get; protected set; }
+
 		public TextField(Element parent=null):base(parent, "text")
 		{
+			Input = Element ();
 		}
 		
 		public TextField(Action<LabelElement,TextElement> field):this(null, field)
