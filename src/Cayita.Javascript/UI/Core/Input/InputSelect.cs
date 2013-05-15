@@ -6,26 +6,26 @@ using jQueryApi;
 namespace Cayita.UI
 {
 	
-	public class HtmlSelect:ElementBase<HtmlSelect>
+	public class InputSelect:ElementBase<InputSelect>
 	{
-		protected HtmlSelect ()
+		protected InputSelect ()
 		{
 			Init (null);
 		}
 
-		public HtmlSelect (Element parent )
+		public InputSelect (Element parent )
 		{	
 			Init(parent);
 		}
 
-		public HtmlSelect (Action<SelectElement> element )
+		public InputSelect (Action<SelectElement> element )
 		{	
 			Init(null);
 			element.Invoke(Element());
 		}
 
 
-		public HtmlSelect (Element parent,  Action<SelectElement> element )
+		public InputSelect (Element parent,  Action<SelectElement> element )
 		{	
 			Init(parent);
 			element.Invoke(Element());

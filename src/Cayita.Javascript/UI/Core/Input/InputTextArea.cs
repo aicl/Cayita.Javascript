@@ -1,21 +1,20 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Html;
 
 namespace Cayita.UI
 {
-	public class TextArea:ElementBase<TextArea>
+	public class InputTextArea:ElementBase<InputTextArea>
 	{
-		protected TextArea(){}
+		protected InputTextArea(){}
 
-		public TextArea(Element parent,  Action<TextAreaElement> element)
+		public InputTextArea(Element parent,  Action<TextAreaElement> element)
 
 		{
 			CreateElement("textarea", parent);
 			element.Invoke(Element());
 		}
 		
-		public TextArea (Element parent)
+		public InputTextArea (Element parent)
 		{
 			CreateElement("textarea", parent);
 		}

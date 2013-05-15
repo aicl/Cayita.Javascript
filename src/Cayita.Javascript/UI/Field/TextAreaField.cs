@@ -18,7 +18,7 @@ namespace Cayita.UI
 			lb = new Label(cg,l=>l.ClassName="control-group").Element();
 			
 			ctrls = Div.CreateControls(cg, div=>{
-				te = new TextArea(div).Element();
+				te = new InputTextArea(div).Element();
 				
 			}).Element();
 

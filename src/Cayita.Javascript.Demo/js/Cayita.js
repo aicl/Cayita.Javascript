@@ -3072,43 +3072,6 @@
 	};
 	$Cayita_UI_HtmlOption.$ctor1.prototype = $Cayita_UI_HtmlOption.prototype;
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.UI.HtmlSelect
-	var $Cayita_UI_HtmlSelect = function() {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlSelect]).call(this);
-		this.init(null);
-	};
-	$Cayita_UI_HtmlSelect.prototype = {
-		init: function(parent) {
-			this.createElement('select', parent);
-		},
-		element$1: function() {
-			return this.element();
-		},
-		load: function(T) {
-			return function(data, func) {
-				$Extensions.load(T).call(null, this.element$1(), data, func, false);
-			};
-		},
-		selectItem: function(value) {
-			return $('option[value=' + value + ']', this.element$1()).attr('selected', true);
-		}
-	};
-	$Cayita_UI_HtmlSelect.$ctor2 = function(parent) {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlSelect]).call(this);
-		this.init(parent);
-	};
-	$Cayita_UI_HtmlSelect.$ctor1 = function(element) {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlSelect]).call(this);
-		this.init(null);
-		element(this.element$1());
-	};
-	$Cayita_UI_HtmlSelect.$ctor3 = function(parent, element) {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlSelect]).call(this);
-		this.init(parent);
-		element(this.element$1());
-	};
-	$Cayita_UI_HtmlSelect.$ctor2.prototype = $Cayita_UI_HtmlSelect.$ctor1.prototype = $Cayita_UI_HtmlSelect.$ctor3.prototype = $Cayita_UI_HtmlSelect.prototype;
-	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.HtmlTable
 	var $Cayita_UI_HtmlTable = function() {
 		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlTable]).call(this);
@@ -3386,6 +3349,43 @@
 	};
 	$Cayita_UI_InputRadio.$ctor1.prototype = $Cayita_UI_InputRadio.$ctor3.prototype = $Cayita_UI_InputRadio.$ctor2.prototype = $Cayita_UI_InputRadio.prototype;
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.InputSelect
+	var $Cayita_UI_InputSelect = function() {
+		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_InputSelect]).call(this);
+		this.init(null);
+	};
+	$Cayita_UI_InputSelect.prototype = {
+		init: function(parent) {
+			this.createElement('select', parent);
+		},
+		element$1: function() {
+			return this.element();
+		},
+		load: function(T) {
+			return function(data, func) {
+				$Extensions.load(T).call(null, this.element$1(), data, func, false);
+			};
+		},
+		selectItem: function(value) {
+			return $('option[value=' + value + ']', this.element$1()).attr('selected', true);
+		}
+	};
+	$Cayita_UI_InputSelect.$ctor2 = function(parent) {
+		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_InputSelect]).call(this);
+		this.init(parent);
+	};
+	$Cayita_UI_InputSelect.$ctor1 = function(element) {
+		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_InputSelect]).call(this);
+		this.init(null);
+		element(this.element$1());
+	};
+	$Cayita_UI_InputSelect.$ctor3 = function(parent, element) {
+		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_InputSelect]).call(this);
+		this.init(parent);
+		element(this.element$1());
+	};
+	$Cayita_UI_InputSelect.$ctor2.prototype = $Cayita_UI_InputSelect.$ctor1.prototype = $Cayita_UI_InputSelect.$ctor3.prototype = $Cayita_UI_InputSelect.prototype;
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.InputText
 	var $Cayita_UI_InputText = function() {
 		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputText]).call(this);
@@ -3403,6 +3403,26 @@
 		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputText]).$ctor1.call(this, parent, 'text');
 	};
 	$Cayita_UI_InputText.$ctor1.prototype = $Cayita_UI_InputText.$ctor2.prototype = $Cayita_UI_InputText.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.InputTextArea
+	var $Cayita_UI_InputTextArea = function() {
+		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_InputTextArea]).call(this);
+	};
+	$Cayita_UI_InputTextArea.prototype = {
+		element$1: function() {
+			return this.element();
+		}
+	};
+	$Cayita_UI_InputTextArea.$ctor2 = function(parent, element) {
+		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_InputTextArea]).call(this);
+		this.createElement('textarea', parent);
+		element(this.element$1());
+	};
+	$Cayita_UI_InputTextArea.$ctor1 = function(parent) {
+		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_InputTextArea]).call(this);
+		this.createElement('textarea', parent);
+	};
+	$Cayita_UI_InputTextArea.$ctor2.prototype = $Cayita_UI_InputTextArea.$ctor1.prototype = $Cayita_UI_InputTextArea.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Label
 	var $Cayita_UI_Label = function(element) {
@@ -4319,7 +4339,7 @@
 				l.className = 'control-label';
 			})).element$1();
 			this.$ctrls = $Cayita_UI_Div.createControls$1(cg, ss.mkdel(this, function(div) {
-				this.$se = (new $Cayita_UI_HtmlSelect.$ctor2(div)).element$1();
+				this.$se = (new $Cayita_UI_InputSelect.$ctor2(div)).element$1();
 			})).element$1();
 		},
 		controls: function() {
@@ -5034,26 +5054,6 @@
 		return $this;
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.UI.TextArea
-	var $Cayita_UI_TextArea = function() {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TextArea]).call(this);
-	};
-	$Cayita_UI_TextArea.prototype = {
-		element$1: function() {
-			return this.element();
-		}
-	};
-	$Cayita_UI_TextArea.$ctor2 = function(parent, element) {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TextArea]).call(this);
-		this.createElement('textarea', parent);
-		element(this.element$1());
-	};
-	$Cayita_UI_TextArea.$ctor1 = function(parent) {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TextArea]).call(this);
-		this.createElement('textarea', parent);
-	};
-	$Cayita_UI_TextArea.$ctor2.prototype = $Cayita_UI_TextArea.$ctor1.prototype = $Cayita_UI_TextArea.prototype;
-	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.TextAreaField
 	var $Cayita_UI_TextAreaField = function(parent, field) {
 		this.$cg = null;
@@ -5075,7 +5075,7 @@
 				l.className = 'control-group';
 			})).element$1();
 			this.$ctrls = $Cayita_UI_Div.createControls$1(this.$cg, ss.mkdel(this, function(div) {
-				this.$te = (new $Cayita_UI_TextArea.$ctor1(div)).element$1();
+				this.$te = (new $Cayita_UI_InputTextArea.$ctor1(div)).element$1();
 			})).element$1();
 		},
 		controls: function() {
@@ -5190,7 +5190,6 @@
 	ss.registerClass(global, 'Cayita.UI.Form', $Cayita_UI_Form, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Form]));
 	ss.registerClass(global, 'Cayita.UI.GroupItem', $Cayita_UI_GroupItem);
 	ss.registerClass(global, 'Cayita.UI.HtmlOption', $Cayita_UI_HtmlOption, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlOption]));
-	ss.registerClass(global, 'Cayita.UI.HtmlSelect', $Cayita_UI_HtmlSelect, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlSelect]));
 	ss.registerClass(global, 'Cayita.UI.HtmlTable', $Cayita_UI_HtmlTable, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlTable]));
 	ss.registerClass(global, 'Cayita.UI.Icon', $Cayita_UI_Icon, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Icon]));
 	ss.registerClass(global, 'Cayita.UI.IconAnchor', $Cayita_UI_IconAnchor, $Cayita_UI_Anchor);
@@ -5202,6 +5201,8 @@
 	ss.registerClass(global, 'Cayita.UI.InputText', $Cayita_UI_InputText, ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputText]));
 	ss.registerClass(global, 'Cayita.UI.InputPassword', $Cayita_UI_InputPassword, $Cayita_UI_InputText);
 	ss.registerClass(global, 'Cayita.UI.InputRadio', $Cayita_UI_InputRadio, ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputRadio]));
+	ss.registerClass(global, 'Cayita.UI.InputSelect', $Cayita_UI_InputSelect, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_InputSelect]));
+	ss.registerClass(global, 'Cayita.UI.InputTextArea', $Cayita_UI_InputTextArea, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_InputTextArea]));
 	ss.registerClass(global, 'Cayita.UI.Label', $Cayita_UI_Label, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Label]));
 	ss.registerClass(global, 'Cayita.UI.Legend', $Cayita_UI_Legend, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Legend]));
 	ss.registerClass(global, 'Cayita.UI.NavBar', $Cayita_UI_NavBar, $Cayita_UI_Div);
@@ -5225,7 +5226,6 @@
 	ss.registerClass(global, 'Cayita.UI.TableRow', $Cayita_UI_TableRow, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TableRow]));
 	ss.registerClass(global, 'Cayita.UI.TabPanel', $Cayita_UI_TabPanel, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.TabPanelConfig', $Cayita_UI_TabPanelConfig);
-	ss.registerClass(global, 'Cayita.UI.TextArea', $Cayita_UI_TextArea, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TextArea]));
 	ss.registerClass(global, 'Cayita.UI.TextAreaField', $Cayita_UI_TextAreaField, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.TextField', $Cayita_UI_TextField, ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_TextField]));
 	$Cayita_UI_ElementBase.$tags = new (ss.makeGenericType(ss.Dictionary$2, [String, ss.Int32]))();

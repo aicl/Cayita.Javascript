@@ -39,17 +39,10 @@
     <Compile Include="Console.cs" />
     <Compile Include="JQueryApiExtensions.cs" />
     <Compile Include="SystemExtensions.cs" />
-    <Compile Include="UI\Core\InputText.cs" />
     <Compile Include="UI\Core\ElementBase.cs" />
-    <Compile Include="UI\Core\InputBase.cs" />
-    <Compile Include="UI\Core\InputCheckbox.cs" />
-    <Compile Include="UI\Core\InputPassword.cs" />
     <Compile Include="UI\Core\Label.cs" />
     <Compile Include="UI\Core\Div.cs" />
-    <Compile Include="UI\TextField.cs" />
     <Compile Include="ElementExtensions.cs" />
-    <Compile Include="UI\Core\Input.cs" />
-    <Compile Include="UI\CheckboxField.cs" />
     <Compile Include="UI\Core\Legend.cs" />
     <Compile Include="UI\Core\Anchor.cs" />
     <Compile Include="UI\Core\ButtonBase.cs" />
@@ -66,7 +59,6 @@
     <Compile Include="ModuleBase.cs" />
     <Compile Include="UI\Core\Icon.cs" />
     <Compile Include="UI\Core\HtmlOption.cs" />
-    <Compile Include="UI\Core\HtmlSelect.cs" />
     <Compile Include="UI\Core\IconButton.cs" />
     <Compile Include="UI\SelectField.cs" />
     <Compile Include="ResponseStatus.cs" />
@@ -81,10 +73,7 @@
     <Compile Include="Data\ReadOptions.cs" />
     <Compile Include="UI\HtmlGrid.cs" />
     <Compile Include="UI\SpinnerIcon.cs" />
-    <Compile Include="UI\Core\TextArea.cs" />
-    <Compile Include="UI\Core\InputRadio.cs" />
     <Compile Include="UI\Core\ListElement.cs" />
-    <Compile Include="UI\TextAreaField.cs" />
     <Compile Include="UI\Core\LabelElement.cs" />
     <Compile Include="Data\StorePaging.cs" />
     <Compile Include="UI\Core\Image.cs" />
@@ -105,13 +94,26 @@
     <Compile Include="UI\ImgUpload.cs" />
     <Compile Include="File.cs" />
     <Compile Include="UI\Core\FileElement.cs" />
-    <Compile Include="UI\Core\InputFile.cs" />
     <Compile Include="UI\FormData.cs" />
     <Compile Include="UI\Core\SpanElement.cs" />
-    <Compile Include="UI\Core\Field.cs" />
     <Compile Include="UI\Group\GroupBase.cs" />
     <Compile Include="UI\Group\RadioGroup.cs" />
     <Compile Include="UI\Group\CheckGroup.cs" />
+    <Compile Include="UI\Field\CheckboxField.cs" />
+    <Compile Include="UI\Field\Field.cs" />
+    <Compile Include="UI\Field\TextField.cs" />
+    <Compile Include="UI\Field\TextAreaField.cs" />
+    <Compile Include="UI\Core\Input\InputBase.cs" />
+    <Compile Include="UI\Core\Input\Input.cs" />
+    <Compile Include="UI\Core\Input\InputCheckbox.cs" />
+    <Compile Include="UI\Core\Input\InputFile.cs" />
+    <Compile Include="UI\Core\Input\InputPassword.cs">
+      <DependentUpon>InputBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Core\Input\InputRadio.cs" />
+    <Compile Include="UI\Core\Input\InputText.cs" />
+    <Compile Include="UI\Core\Input\InputTextArea.cs" />
+    <Compile Include="UI\Core\Input\InputSelect.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -122,6 +124,8 @@
     <Folder Include="Data\" />
     <Folder Include="Bootbox\" />
     <Folder Include="UI\Group\" />
+    <Folder Include="UI\Field\" />
+    <Folder Include="UI\Core\Input\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="c" />

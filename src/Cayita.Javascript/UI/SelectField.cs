@@ -210,7 +210,7 @@ namespace Cayita.UI
 			lb = new Label(cg, l=> l.ClassName="control-label").Element();
 
 			ctrls = Div.CreateControls( cg, div=>{
-				se = new HtmlSelect(div).Element();
+				se = new InputSelect(div).Element();
 			}).Element();
 
 		}
