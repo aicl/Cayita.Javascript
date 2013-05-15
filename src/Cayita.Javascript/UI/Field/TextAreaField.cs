@@ -3,69 +3,51 @@ using System.Html;
 
 namespace Cayita.UI
 {
-
-	public class TextAreaField:Div
-	{		
-		DivElement cg ;
-		LabelElement lb ;
-		DivElement ctrls ;
-		TextAreaElement te;
-
-		void Init()
+	
+	public class TextAreaField:Field<TextAreaField>
+	{
+		public TextAreaElement Input { get; protected set; }
+		
+		public TextAreaField(Element parent=null):base(parent, type:null,tagname:"textarea")
 		{
-			cg = Element ();
-			
-			lb = new Label(cg,l=>l.ClassName="control-group").Element();
-			
-			ctrls = Div.CreateControls(cg, div=>{
-				te = new InputTextArea(div).Element();
-				
-			}).Element();
-
-		}
-
-
-		public TextAreaField(Element parent, Action<LabelElement,TextAreaElement> field)
-			:base(parent)
-		{
-			Init ();
-
-			field.Invoke(lb, te);
-			lb.For= te.ID;
-
-			if( string.IsNullOrEmpty( lb.Text()) ) lb.Hide();
-
+			Input = Element ();
 		}
 		
-		public TextAreaField(Element parent, Action<TextAreaElement> field):base(parent)
+		public TextAreaField(Action<LabelElement,TextAreaElement> field):this(null, field)
 		{
-			Init ();
-			field.Invoke(te);
-			lb.For= te.ID;
-			lb.Hide();
-
+		}
+		
+		public TextAreaField(Element parent, Action<LabelElement,TextAreaElement> field):this(parent)
+			
+		{
+			field.Invoke(ControlLabel.Element(), Element().As<TextAreaElement>());
+			ControlLabel.For( Element().ID);
+			if( string.IsNullOrEmpty( ControlLabel.TextLabel()) ) ControlLabel.Hide();
+		}
+		
+		public TextAreaField(Action<TextAreaElement> field):this(null, field)
+		{
+		}
+		
+		public TextAreaField(Element parent, Action<TextAreaElement> field):this(parent)
+		{
+			field.Invoke(Element().As<TextAreaElement>());
+			ControlLabel.For(Element().ID).Hide();
 		}
 		
 		public TextAreaField(Element parent, string label, string fieldname):
-			this(parent, (l,f)=>{l.Text(label); f.Name=fieldname;})
+			this(parent)
 		{
-		}
-				
-
-		
-		public DivElement Controls()
-		{
-			return ctrls;
+			ControlLabel.Text (label);
+			Name(fieldname);
 		}
 		
-		public LabelElement Label()
+		public new TextAreaElement Element()
 		{
-			return lb;
+			return base.Element().As<TextAreaElement> ();
 		}
-
-		public TextAreaElement TextArea()
-		{
-			return te;
-		}
+		
 	}
+	
+	
 }

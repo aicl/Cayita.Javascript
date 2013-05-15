@@ -215,7 +215,7 @@
 						});
 						new Cayita.UI.Div.$ctor2(row1, function(sp2) {
 							sp2.className = 'span7';
-							new Cayita.UI.TextAreaField(sp2, function(l5, i6) {
+							new Cayita.UI.TextAreaField.$ctor3(sp2, function(l5, i6) {
 								Extensions.text$1(l5, 'Message');
 								i6.className = 'input-xlarge span12';
 								i6.rows = 11;

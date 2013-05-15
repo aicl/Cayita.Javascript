@@ -1770,7 +1770,7 @@
 	$Cayita_UI_CheckboxField.$ctor3 = function(parent) {
 		this.$5$LabelField = null;
 		this.$5$InputField = null;
-		ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_CheckboxField]).call(this, parent, 'checkbox', false);
+		ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_CheckboxField]).call(this, parent, 'checkbox', false, 'input');
 		this.set_input(this.element$2());
 		this.element$2().value = 'true';
 		this.set_label(new $Cayita_UI_Label.$ctor2(this.get_controls().element$1(), ss.mkdel(this, function(l) {
@@ -2198,7 +2198,7 @@
 		$Cayita_UI_Field.$ctor3.call(this, null, field);
 	};
 	$Cayita_UI_Field.$ctor2 = function(parent) {
-		ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_Field]).call(this, parent, 'text', true);
+		ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_Field]).call(this, parent, 'text', true, 'input');
 	};
 	$Cayita_UI_Field.$ctor3 = function(parent, field) {
 		$Cayita_UI_Field.$ctor2.call(this, parent);
@@ -2225,11 +2225,11 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Field
 	var $Cayita_UI_Field$1 = function(TField) {
-		var $type = function(parent, type, append) {
+		var $type = function(parent, type, append, tagname) {
 			this.$4$ControlLabelField = null;
 			this.$4$ControlsField = null;
 			this.$4$ControlGroupField = null;
-			ss.makeGenericType($Cayita_UI_InputBase$1, [TField]).$ctor1.call(this, parent, type);
+			ss.makeGenericType($Cayita_UI_InputBase$1, [TField]).$ctor1.call(this, parent, type, tagname);
 			this.set_controlGroup((new $Cayita_UI_Div.$ctor1(parent)).className$1('control-group'));
 			this.set_controlLabel((new $Cayita_UI_Label.$ctor1(null)).className$1('control-label'));
 			this.set_controls((new $Cayita_UI_Div.$ctor1(null)).className$1('controls'));
@@ -3166,10 +3166,10 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Input
 	var $Cayita_UI_Input = function(parent, type) {
-		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_Input]).$ctor1.call(this, parent, type);
+		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_Input]).$ctor1.call(this, parent, type, 'input');
 	};
 	$Cayita_UI_Input.$ctor1 = function(parent, element, type) {
-		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_Input]).$ctor1.call(this, parent, type);
+		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_Input]).$ctor1.call(this, parent, type, 'input');
 		element(this.element$1());
 	};
 	$Cayita_UI_Input.$ctor1.prototype = $Cayita_UI_Input.prototype;
@@ -3178,11 +3178,11 @@
 	var $Cayita_UI_InputBase$1 = function(T) {
 		var $type = function() {
 			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
-			this.createInput(null, 'text');
+			this.createInput(null, 'text', 'input');
 		};
 		$type.prototype = {
-			createInput: function(parent, type) {
-				this.createElement('input', parent);
+			createInput: function(parent, type, tagname) {
+				this.createElement(tagname, parent);
 				if (!ss.isNullOrEmptyString(type)) {
 					this.element$1().type = type;
 				}
@@ -3243,9 +3243,9 @@
 				return this.element$1().name;
 			}
 		};
-		$type.$ctor1 = function(parent, type) {
+		$type.$ctor1 = function(parent, type, tagname) {
 			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
-			this.createInput(parent, type);
+			this.createInput(parent, type, tagname);
 		};
 		$type.$ctor1.prototype = $type.prototype;
 		ss.registerGenericClassInstance($type, $Cayita_UI_InputBase$1, [T], function() {
@@ -3264,7 +3264,7 @@
 	};
 	$Cayita_UI_InputCheckbox.prototype = {
 		init: function(parent) {
-			this.createInput(parent, 'checkbox');
+			this.createInput(parent, 'checkbox', 'input');
 			this.element$2().value = 'true';
 		},
 		element$2: function() {
@@ -3299,11 +3299,11 @@
 		}
 	};
 	$Cayita_UI_InputFile.$ctor2 = function(parent, element) {
-		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputFile]).$ctor1.call(this, parent, 'file');
+		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputFile]).$ctor1.call(this, parent, 'file', 'input');
 		element(this.element$2());
 	};
 	$Cayita_UI_InputFile.$ctor1 = function(parent) {
-		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputFile]).$ctor1.call(this, parent, 'file');
+		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputFile]).$ctor1.call(this, parent, 'file', 'input');
 	};
 	$Cayita_UI_InputFile.$ctor2.prototype = $Cayita_UI_InputFile.$ctor1.prototype = $Cayita_UI_InputFile.prototype;
 	////////////////////////////////////////////////////////////////////////////////
@@ -3325,7 +3325,7 @@
 	};
 	$Cayita_UI_InputRadio.prototype = {
 		init: function(parent) {
-			this.createInput(parent, 'radio');
+			this.createInput(parent, 'radio', 'input');
 		},
 		element$2: function() {
 			return this.element$1();
@@ -3364,10 +3364,12 @@
 		load: function(T) {
 			return function(data, func) {
 				$Extensions.load(T).call(null, this.element$1(), data, func, false);
+				return this;
 			};
 		},
 		selectItem: function(value) {
-			return $('option[value=' + value + ']', this.element$1()).attr('selected', true);
+			$('option[value=' + value + ']', this.element$1()).attr('selected', true);
+			return this;
 		}
 	};
 	$Cayita_UI_InputSelect.$ctor2 = function(parent) {
@@ -3396,30 +3398,30 @@
 		}
 	};
 	$Cayita_UI_InputText.$ctor1 = function(parent, element) {
-		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputText]).$ctor1.call(this, parent, 'text');
+		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputText]).$ctor1.call(this, parent, 'text', 'input');
 		element(this.element$2());
 	};
 	$Cayita_UI_InputText.$ctor2 = function(parent, type) {
-		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputText]).$ctor1.call(this, parent, 'text');
+		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputText]).$ctor1.call(this, parent, 'text', 'input');
 	};
 	$Cayita_UI_InputText.$ctor1.prototype = $Cayita_UI_InputText.$ctor2.prototype = $Cayita_UI_InputText.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.InputTextArea
 	var $Cayita_UI_InputTextArea = function() {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_InputTextArea]).call(this);
+		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputTextArea]).call(this);
 	};
 	$Cayita_UI_InputTextArea.prototype = {
-		element$1: function() {
-			return this.element();
+		element$2: function() {
+			return this.element$1();
 		}
 	};
 	$Cayita_UI_InputTextArea.$ctor2 = function(parent, element) {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_InputTextArea]).call(this);
+		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputTextArea]).$ctor1.call(this, parent, 'textarea', 'input');
 		this.createElement('textarea', parent);
-		element(this.element$1());
+		element(this.element$2());
 	};
 	$Cayita_UI_InputTextArea.$ctor1 = function(parent) {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_InputTextArea]).call(this);
+		ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputTextArea]).call(this);
 		this.createElement('textarea', parent);
 	};
 	$Cayita_UI_InputTextArea.$ctor2.prototype = $Cayita_UI_InputTextArea.$ctor1.prototype = $Cayita_UI_InputTextArea.prototype;
@@ -5055,57 +5057,47 @@
 	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.TextAreaField
-	var $Cayita_UI_TextAreaField = function(parent, field) {
-		this.$cg = null;
-		this.$lb = null;
-		this.$ctrls = null;
-		this.$te = null;
-		$Cayita_UI_Div.$ctor1.call(this, parent);
-		this.$init();
-		field(this.$lb, this.$te);
-		$(this.$lb).attr('for', this.$te.id);
-		if (ss.isNullOrEmptyString($Extensions.text(this.$lb))) {
-			$(this.$lb).hide();
-		}
+	var $Cayita_UI_TextAreaField = function(field) {
+		$Cayita_UI_TextAreaField.$ctor3.call(this, null, field);
 	};
 	$Cayita_UI_TextAreaField.prototype = {
-		$init: function() {
-			this.$cg = this.element$1();
-			this.$lb = (new $Cayita_UI_Label.$ctor2(this.$cg, function(l) {
-				l.className = 'control-group';
-			})).element$1();
-			this.$ctrls = $Cayita_UI_Div.createControls$1(this.$cg, ss.mkdel(this, function(div) {
-				this.$te = (new $Cayita_UI_InputTextArea.$ctor1(div)).element$1();
-			})).element$1();
+		get_input: function() {
+			return this.$5$InputField;
 		},
-		controls: function() {
-			return this.$ctrls;
+		set_input: function(value) {
+			this.$5$InputField = value;
 		},
-		label: function() {
-			return this.$lb;
-		},
-		textArea: function() {
-			return this.$te;
+		element$2: function() {
+			return this.element$1();
 		}
 	};
-	$Cayita_UI_TextAreaField.$ctor1 = function(parent, field) {
-		this.$cg = null;
-		this.$lb = null;
-		this.$ctrls = null;
-		this.$te = null;
-		$Cayita_UI_Div.$ctor1.call(this, parent);
-		this.$init();
-		field(this.$te);
-		$(this.$lb).attr('for', this.$te.id);
-		$(this.$lb).hide();
+	$Cayita_UI_TextAreaField.$ctor2 = function(parent) {
+		this.$5$InputField = null;
+		ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_TextAreaField]).call(this, parent, null, true, 'textarea');
+		this.set_input(this.element$2());
 	};
-	$Cayita_UI_TextAreaField.$ctor2 = function(parent, label, fieldname) {
-		$Cayita_UI_TextAreaField.call(this, parent, function(l, f) {
-			$Extensions.text$1(l, label);
-			f.name = fieldname;
-		});
+	$Cayita_UI_TextAreaField.$ctor3 = function(parent, field) {
+		$Cayita_UI_TextAreaField.$ctor2.call(this, parent);
+		field(this.get_controlLabel().element$1(), this.element$2());
+		this.get_controlLabel().for$2(this.element$2().id);
+		if (ss.isNullOrEmptyString(this.get_controlLabel().textLabel())) {
+			this.get_controlLabel().hide();
+		}
 	};
-	$Cayita_UI_TextAreaField.$ctor1.prototype = $Cayita_UI_TextAreaField.$ctor2.prototype = $Cayita_UI_TextAreaField.prototype;
+	$Cayita_UI_TextAreaField.$ctor1 = function(field) {
+		$Cayita_UI_TextAreaField.$ctor4.call(this, null, field);
+	};
+	$Cayita_UI_TextAreaField.$ctor4 = function(parent, field) {
+		$Cayita_UI_TextAreaField.$ctor2.call(this, parent);
+		field(this.element$2());
+		this.get_controlLabel().for$2(this.element$2().id).hide();
+	};
+	$Cayita_UI_TextAreaField.$ctor5 = function(parent, label, fieldname) {
+		$Cayita_UI_TextAreaField.$ctor2.call(this, parent);
+		this.get_controlLabel().text$1(label);
+		this.name$1(fieldname);
+	};
+	$Cayita_UI_TextAreaField.$ctor2.prototype = $Cayita_UI_TextAreaField.$ctor3.prototype = $Cayita_UI_TextAreaField.$ctor1.prototype = $Cayita_UI_TextAreaField.$ctor4.prototype = $Cayita_UI_TextAreaField.$ctor5.prototype = $Cayita_UI_TextAreaField.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.TextField
 	var $Cayita_UI_TextField = function(field) {
@@ -5124,7 +5116,7 @@
 	};
 	$Cayita_UI_TextField.$ctor2 = function(parent) {
 		this.$5$InputField = null;
-		ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_TextField]).call(this, parent, 'text', true);
+		ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_TextField]).call(this, parent, 'text', true, 'input');
 		this.set_input(this.element$2());
 	};
 	$Cayita_UI_TextField.$ctor3 = function(parent, field) {
@@ -5202,7 +5194,7 @@
 	ss.registerClass(global, 'Cayita.UI.InputPassword', $Cayita_UI_InputPassword, $Cayita_UI_InputText);
 	ss.registerClass(global, 'Cayita.UI.InputRadio', $Cayita_UI_InputRadio, ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputRadio]));
 	ss.registerClass(global, 'Cayita.UI.InputSelect', $Cayita_UI_InputSelect, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_InputSelect]));
-	ss.registerClass(global, 'Cayita.UI.InputTextArea', $Cayita_UI_InputTextArea, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_InputTextArea]));
+	ss.registerClass(global, 'Cayita.UI.InputTextArea', $Cayita_UI_InputTextArea, ss.makeGenericType($Cayita_UI_InputBase$1, [$Cayita_UI_InputTextArea]));
 	ss.registerClass(global, 'Cayita.UI.Label', $Cayita_UI_Label, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Label]));
 	ss.registerClass(global, 'Cayita.UI.Legend', $Cayita_UI_Legend, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Legend]));
 	ss.registerClass(global, 'Cayita.UI.NavBar', $Cayita_UI_NavBar, $Cayita_UI_Div);
@@ -5226,7 +5218,7 @@
 	ss.registerClass(global, 'Cayita.UI.TableRow', $Cayita_UI_TableRow, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TableRow]));
 	ss.registerClass(global, 'Cayita.UI.TabPanel', $Cayita_UI_TabPanel, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.TabPanelConfig', $Cayita_UI_TabPanelConfig);
-	ss.registerClass(global, 'Cayita.UI.TextAreaField', $Cayita_UI_TextAreaField, $Cayita_UI_Div);
+	ss.registerClass(global, 'Cayita.UI.TextAreaField', $Cayita_UI_TextAreaField, ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_TextAreaField]));
 	ss.registerClass(global, 'Cayita.UI.TextField', $Cayita_UI_TextField, ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_TextField]));
 	$Cayita_UI_ElementBase.$tags = new (ss.makeGenericType(ss.Dictionary$2, [String, ss.Int32]))();
 })();

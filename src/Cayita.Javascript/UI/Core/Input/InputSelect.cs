@@ -41,9 +41,10 @@ namespace Cayita.UI
 			return  base.Element().As<SelectElement>();
 		}
 		
-		public void Load<T>(IList<T> data, Func<T, OptionElement> func)
+		public InputSelect Load<T>(IList<T> data, Func<T, OptionElement> func)
 		{
 			Element().Load(data, func);
+			return this;
 		}
 
 		/// <summary>
@@ -55,10 +56,10 @@ namespace Cayita.UI
 		/// <param name='value'>
 		/// Value.
 		/// </param>
-		public jQueryObject SelectItem(string value)
+		public InputSelect SelectItem(string value)
 		{
-			return Element().SelectOption(value);
-
+			Element().SelectOption(value);
+			return this;
 		}
 
 	}

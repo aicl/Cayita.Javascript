@@ -12,14 +12,14 @@ namespace Cayita.UI
 		}
 
 
-		public InputBase(Element parent,  string type)
+		public InputBase(Element parent,  string type, string tagname="input")
 		{
-			CreateInput(parent, type);
+			CreateInput(parent, type, tagname);
 		}
 
-		protected void CreateInput(Element parent,  string type="text")
+		protected void CreateInput(Element parent,  string type="text", string tagname="input")
 		{
-			CreateElement("input", parent);
+			CreateElement(tagname, parent);
 			if(!string.IsNullOrEmpty(type)) ((InputElement) Element()).Type=type;
 
 		}

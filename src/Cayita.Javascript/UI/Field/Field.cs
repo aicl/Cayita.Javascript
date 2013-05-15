@@ -10,7 +10,7 @@ namespace Cayita.UI
 		public Div Controls { get; protected set; }
 		public Div ControlGroup { get; protected set; }
 
-		public Field (Element parent=null, string type="text", bool append=true):base(parent, type)
+		public Field (Element parent=null, string type="text", bool append=true, string tagname="input"):base(parent,type,tagname)
 		{
 
 			ControlGroup = new Div (parent).ClassName ("control-group");
