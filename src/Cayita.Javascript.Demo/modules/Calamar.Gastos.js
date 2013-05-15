@@ -250,11 +250,11 @@
 						Cayita.Plugins.Rule.required(rule.rule);
 						Cayita.Plugins.Message.required(msg, 'Digite el valor del gasto');
 					}), ss.mkdel(this, function(rule1, msg1) {
-						rule1.element = this.$cbConcepto.selectElement();
+						rule1.element = this.$cbConcepto.get_input();
 						Cayita.Plugins.Rule.required(rule1.rule);
 						Cayita.Plugins.Message.required(msg1, 'Seleccione el concepto');
 					})), ss.mkdel(this, function(rule2, msg2) {
-						rule2.element = this.$cbFuente.selectElement();
+						rule2.element = this.$cbFuente.get_input();
 						Cayita.Plugins.Rule.required(rule2.rule);
 						Cayita.Plugins.Message.required(msg2, 'Seleccione al fuente del pago');
 					}));

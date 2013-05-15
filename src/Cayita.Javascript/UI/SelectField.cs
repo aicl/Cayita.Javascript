@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Html;
 using Cayita.Data;
 using System.Linq;
@@ -17,7 +16,7 @@ namespace Cayita.UI
 		public T Record { get; set; }
 	}
 
-	public class SelectField<T>:SelectField where T: new()
+	public class SelectField<T>:SelectFieldBase<SelectField<T>> where T: new()
 	{
 		Func<T,OptionElement> optionFunc;
 		Store<T> store ;
@@ -30,7 +29,7 @@ namespace Cayita.UI
 		                   SelectedOption<T> defaultOption=null)
 			:base(parent, field)
 		{
-			Init (store, optionFunc, defaultOption);
+			Init (store, optionFunc, defaultOption); 
 		}
 
 		public SelectField(Element parent, Action<LabelElement,SelectElement> element,
@@ -39,14 +38,14 @@ namespace Cayita.UI
 			:base(parent, element)
 
 		{
-			Init (store, optionFunc, defaultOption);									
+			Init (store, optionFunc, defaultOption); 
 		}
 
 		void Init (Store<T> store, Func<T, OptionElement> optionFunc, SelectedOption<T> defaultOption)
 		{
 			this.store = store;
 			this.optionFunc = optionFunc;
-			se = base.SelectElement ();
+			se = base.Input;
 			defaultoption = defaultOption ?? new SelectedOption<T> ();
 			se.JQuery ().On ("change", evt =>  {
 				var option = (OptionElement)se.JQuery ().Find ("option:selected") [0];
@@ -154,6 +153,7 @@ namespace Cayita.UI
 		}
 	}
 
+	/*
 	[ScriptNamespace("Cayita.UI")]
 	public class SelectField :Div
 	{
@@ -231,4 +231,5 @@ namespace Cayita.UI
 		}
 
 	}
+	*/
 }

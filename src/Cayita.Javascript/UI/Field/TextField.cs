@@ -20,7 +20,7 @@ namespace Cayita.UI
 		public TextField(Element parent, Action<LabelElement,TextElement> field):this(parent)
 			
 		{
-			field.Invoke(ControlLabel.Element(), Element().As<TextElement>());
+			field.Invoke(ControlLabel.Element(), Element());
 			ControlLabel.For( Element().ID);
 			if( string.IsNullOrEmpty( ControlLabel.TextLabel()) ) ControlLabel.Hide();
 		}
@@ -31,7 +31,7 @@ namespace Cayita.UI
 		
 		public TextField(Element parent, Action<TextElement> field):this(parent)
 		{
-			field.Invoke(Element().As<TextElement>());
+			field.Invoke(Element());
 			ControlLabel.For(Element().ID).Hide();
 		}
 		

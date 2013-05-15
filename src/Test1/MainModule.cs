@@ -225,13 +225,13 @@ namespace Aicl.Calamar.Scripts.ModuloGastos
 							})
 
 							.AddRule((rule, msg)=>{
-								rule.Element=cbConcepto.SelectElement();
+								rule.Element=cbConcepto.Input;
 								rule.Rule.Required();
 								msg.Required("Seleccione el concepto");
 							})
 							
 							.AddRule((rule, msg)=>{
-								rule.Element=cbFuente.SelectElement();
+								rule.Element=cbFuente.Input;
 								rule.Rule.Required();
 								msg.Required("Seleccione al fuente del pago");
 							});

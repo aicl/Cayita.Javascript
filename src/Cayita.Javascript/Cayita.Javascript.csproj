@@ -114,6 +114,7 @@
     <Compile Include="UI\Core\Input\InputText.cs" />
     <Compile Include="UI\Core\Input\InputTextArea.cs" />
     <Compile Include="UI\Core\Input\InputSelect.cs" />
+    <Compile Include="UI\Field\SelectField.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

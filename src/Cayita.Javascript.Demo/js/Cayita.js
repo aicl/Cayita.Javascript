@@ -4326,86 +4326,54 @@
 	ss.registerGenericClass(global, 'Cayita.UI.SelectedRow$1', $Cayita_UI_SelectedRow$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.SelectField
-	var $Cayita_UI_SelectField = function() {
-		this.$lb = null;
-		this.$ctrls = null;
-		this.$se = null;
-		$Cayita_UI_Div.$ctor1.call(this, null);
-		this.$init();
+	var $Cayita_UI_SelectField = function(field) {
+		ss.makeGenericType($Cayita_UI_SelectFieldBase$1, [$Cayita_UI_SelectField]).$ctor2.call(this, null, field);
 	};
-	$Cayita_UI_SelectField.prototype = {
-		$init: function() {
-			var cg = this.element$1();
-			cg.className = 'control-group';
-			this.$lb = (new $Cayita_UI_Label.$ctor2(cg, function(l) {
-				l.className = 'control-label';
-			})).element$1();
-			this.$ctrls = $Cayita_UI_Div.createControls$1(cg, ss.mkdel(this, function(div) {
-				this.$se = (new $Cayita_UI_InputSelect.$ctor2(div)).element$1();
-			})).element$1();
-		},
-		controls: function() {
-			return this.$ctrls;
-		},
-		label: function() {
-			return this.$lb;
-		},
-		selectElement: function() {
-			return this.$se;
-		}
+	$Cayita_UI_SelectField.$ctor2 = function(parent) {
+		ss.makeGenericType($Cayita_UI_SelectFieldBase$1, [$Cayita_UI_SelectField]).$ctor4.call(this, parent, 'select-one');
 	};
-	$Cayita_UI_SelectField.$ctor1 = function(parent, field) {
-		this.$lb = null;
-		this.$ctrls = null;
-		this.$se = null;
-		$Cayita_UI_Div.$ctor1.call(this, parent);
-		this.$init();
-		field(this.$lb, this.$se);
-		$(this.$lb).attr('for', this.$se.id);
-		if (ss.isNullOrEmptyString($Extensions.text(this.$lb))) {
-			$(this.$lb).hide();
-		}
+	$Cayita_UI_SelectField.$ctor3 = function(parent, field) {
+		ss.makeGenericType($Cayita_UI_SelectFieldBase$1, [$Cayita_UI_SelectField]).$ctor2.call(this, parent, field);
 	};
-	$Cayita_UI_SelectField.$ctor2 = function(parent, field) {
-		this.$lb = null;
-		this.$ctrls = null;
-		this.$se = null;
-		$Cayita_UI_Div.$ctor1.call(this, parent);
-		this.$init();
-		field(this.$se);
-		$(this.$lb).attr('for', this.$se.id);
-		$(this.$lb).hide();
+	$Cayita_UI_SelectField.$ctor1 = function(field) {
+		ss.makeGenericType($Cayita_UI_SelectFieldBase$1, [$Cayita_UI_SelectField]).$ctor3.call(this, null, field);
 	};
-	$Cayita_UI_SelectField.$ctor1.prototype = $Cayita_UI_SelectField.$ctor2.prototype = $Cayita_UI_SelectField.prototype;
+	$Cayita_UI_SelectField.$ctor4 = function(parent, field) {
+		ss.makeGenericType($Cayita_UI_SelectFieldBase$1, [$Cayita_UI_SelectField]).$ctor3.call(this, parent, field);
+	};
+	$Cayita_UI_SelectField.$ctor5 = function(parent, label, fieldname) {
+		ss.makeGenericType($Cayita_UI_SelectFieldBase$1, [$Cayita_UI_SelectField]).$ctor5.call(this, parent, label, fieldname);
+	};
+	$Cayita_UI_SelectField.$ctor2.prototype = $Cayita_UI_SelectField.$ctor3.prototype = $Cayita_UI_SelectField.$ctor1.prototype = $Cayita_UI_SelectField.$ctor4.prototype = $Cayita_UI_SelectField.$ctor5.prototype = $Cayita_UI_SelectField.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.SelectField
 	var $Cayita_UI_SelectField$1 = function(T) {
 		var $type = function(parent, field, store, optionFunc, defaultOption) {
 			this.$optionFunc = null;
 			this.$store = null;
-			this.$se$1 = null;
+			this.$se = null;
 			this.$selectedoption = null;
 			this.$defaultoption = null;
-			this.$5$OptionSelectedField = function(sf, opt) {
+			this.$6$OptionSelectedField = function(sf, opt) {
 			};
-			$Cayita_UI_SelectField.$ctor2.call(this, parent, field);
-			this.$init$1(store, optionFunc, defaultOption);
+			ss.makeGenericType($Cayita_UI_SelectFieldBase$1, [$type]).$ctor3.call(this, parent, field);
+			this.$init(store, optionFunc, defaultOption);
 		};
 		$type.prototype = {
-			$init$1: function(store, optionFunc, defaultOption) {
+			$init: function(store, optionFunc, defaultOption) {
 				this.$store = store;
 				this.$optionFunc = optionFunc;
-				this.$se$1 = this.selectElement();
+				this.$se = this.get_input();
 				this.$defaultoption = defaultOption || ss.makeGenericType($Cayita_UI_SelectedOption$1, [T]).$ctor();
-				$(this.$se$1).on('change', ss.mkdel(this, function(evt) {
-					var option = $(this.$se$1).find('option:selected')[0];
+				$(this.$se).on('change', ss.mkdel(this, function(evt) {
+					var option = $(this.$se).find('option:selected')[0];
 					this.$selectedOptionImp(option, true);
 				}));
 				this.render();
 				store.add_storeChanged(ss.mkdel(this, function(st, dt) {
 					switch (dt.action) {
 						case 0: {
-							$Extensions.createOption(T).call(null, this.$se$1, dt.newData, optionFunc);
+							$Extensions.createOption(T).call(null, this.$se, dt.newData, optionFunc);
 							break;
 						}
 						case 11:
@@ -4416,37 +4384,37 @@
 							break;
 						}
 						case 2: {
-							$Extensions.updateOption(T).call(null, this.$se$1, dt.newData, optionFunc, store.getRecordIdProperty());
+							$Extensions.updateOption(T).call(null, this.$se, dt.newData, optionFunc, store.getRecordIdProperty());
 							break;
 						}
 						case 3: {
-							$Extensions.removeOption(T).call(null, this.$se$1, dt.oldData, store.getRecordIdProperty());
+							$Extensions.removeOption(T).call(null, this.$se, dt.oldData, store.getRecordIdProperty());
 							this.selectOption();
 							break;
 						}
 						case 4: {
-							$Extensions.updateOption(T).call(null, this.$se$1, dt.newData, optionFunc, store.getRecordIdProperty());
+							$Extensions.updateOption(T).call(null, this.$se, dt.newData, optionFunc, store.getRecordIdProperty());
 							break;
 						}
 						case 5: {
-							$Extensions.createOption(T).call(null, this.$se$1, dt.newData, optionFunc);
+							$Extensions.createOption(T).call(null, this.$se, dt.newData, optionFunc);
 							break;
 						}
 						case 7: {
-							$Extensions.updateOption(T).call(null, this.$se$1, dt.newData, optionFunc, store.getRecordIdProperty());
+							$Extensions.updateOption(T).call(null, this.$se, dt.newData, optionFunc, store.getRecordIdProperty());
 							break;
 						}
 						case 6: {
-							$Extensions.createOption(T).call(null, this.$se$1, dt.newData, optionFunc);
+							$Extensions.createOption(T).call(null, this.$se, dt.newData, optionFunc);
 							break;
 						}
 						case 8: {
-							$Extensions.removeOption(T).call(null, this.$se$1, dt.oldData, store.getRecordIdProperty());
+							$Extensions.removeOption(T).call(null, this.$se, dt.oldData, store.getRecordIdProperty());
 							this.selectOption();
 							break;
 						}
 						case 9: {
-							$(this.$se$1).empty();
+							$(this.$se).empty();
 							this.selectOption();
 							break;
 						}
@@ -4457,13 +4425,13 @@
 				var append = false;
 				if (ss.isValue(this.$defaultoption.option) && ss.isNullOrEmptyString(this.$defaultoption.option.value)) {
 					append = true;
-					$Extensions.createOption(T).call(null, this.$se$1, this.$defaultoption.record, ss.mkdel(this, function(f) {
+					$Extensions.createOption(T).call(null, this.$se, this.$defaultoption.record, ss.mkdel(this, function(f) {
 						return this.$defaultoption.option;
 					}));
 				}
-				$Extensions.load(T).call(null, this.$se$1, this.$store, this.$optionFunc, append);
+				$Extensions.load(T).call(null, this.$se, this.$store, this.$optionFunc, append);
 				if (!ss.isNullOrEmptyString(this.$defaultoption.option.value)) {
-					var $t1 = this.$se$1;
+					var $t1 = this.$se;
 					$('option[value=' + this.$defaultoption.option.value + ']', $t1).attr('selected', true);
 				}
 			},
@@ -4471,20 +4439,20 @@
 				return this.$selectedoption;
 			},
 			add_optionSelected: function(value) {
-				this.$5$OptionSelectedField = ss.delegateCombine(this.$5$OptionSelectedField, value);
+				this.$6$OptionSelectedField = ss.delegateCombine(this.$6$OptionSelectedField, value);
 			},
 			remove_optionSelected: function(value) {
-				this.$5$OptionSelectedField = ss.delegateRemove(this.$5$OptionSelectedField, value);
+				this.$6$OptionSelectedField = ss.delegateRemove(this.$6$OptionSelectedField, value);
 			},
 			onOptionSelected: function(option) {
-				this.$5$OptionSelectedField(this, option);
+				this.$6$OptionSelectedField(this, option);
 			},
 			selectOption$1: function(value, trigger) {
-				var option = $('option[value=' + value + ']', this.$se$1).attr('selected', true)[0];
+				var option = $('option[value=' + value + ']', this.$se).attr('selected', true)[0];
 				this.$selectedOptionImp(option, true);
 			},
 			selectOption: function() {
-				$('option:selected', this.$se$1).prop('selected', false);
+				$('option:selected', this.$se).prop('selected', false);
 				this.$selectedoption = null;
 				this.onOptionSelected(this.$selectedoption);
 			},
@@ -4511,23 +4479,75 @@
 		$type.$ctor1 = function(parent, element, store, optionFunc, defaultOption) {
 			this.$optionFunc = null;
 			this.$store = null;
-			this.$se$1 = null;
+			this.$se = null;
 			this.$selectedoption = null;
 			this.$defaultoption = null;
-			this.$5$OptionSelectedField = function(sf, opt) {
+			this.$6$OptionSelectedField = function(sf, opt) {
 			};
-			$Cayita_UI_SelectField.$ctor1.call(this, parent, element);
-			this.$init$1(store, optionFunc, defaultOption);
+			ss.makeGenericType($Cayita_UI_SelectFieldBase$1, [$type]).$ctor2.call(this, parent, element);
+			this.$init(store, optionFunc, defaultOption);
 		};
 		$type.$ctor1.prototype = $type.prototype;
 		ss.registerGenericClassInstance($type, $Cayita_UI_SelectField$1, [T], function() {
-			return $Cayita_UI_SelectField;
+			return ss.makeGenericType($Cayita_UI_SelectFieldBase$1, [$type]);
 		}, function() {
 			return [];
 		});
 		return $type;
 	};
 	ss.registerGenericClass(global, 'Cayita.UI.SelectField$1', $Cayita_UI_SelectField$1, 1);
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.SelectFieldBase
+	var $Cayita_UI_SelectFieldBase$1 = function(T) {
+		var $type = function(field) {
+			$type.$ctor2.call(this, null, field);
+		};
+		$type.prototype = {
+			get_input: function() {
+				return this.$5$InputField;
+			},
+			set_input: function(value) {
+				this.$5$InputField = value;
+			},
+			element$2: function() {
+				return this.element$1();
+			}
+		};
+		$type.$ctor4 = function(parent, type) {
+			this.$5$InputField = null;
+			ss.makeGenericType($Cayita_UI_Field$1, [T]).call(this, parent, type, true, 'select');
+			this.set_input(this.element$2());
+		};
+		$type.$ctor2 = function(parent, field) {
+			$type.$ctor4.call(this, parent, 'select-one');
+			field(this.get_controlLabel().element$1(), this.element$2());
+			this.get_controlLabel().for$2(this.element$2().id);
+			if (ss.isNullOrEmptyString(this.get_controlLabel().textLabel())) {
+				this.get_controlLabel().hide();
+			}
+		};
+		$type.$ctor1 = function(field) {
+			$type.$ctor3.call(this, null, field);
+		};
+		$type.$ctor3 = function(parent, field) {
+			$type.$ctor4.call(this, parent, 'select-one');
+			field(this.element$2());
+			this.get_controlLabel().for$2(this.element$2().id).hide();
+		};
+		$type.$ctor5 = function(parent, label, fieldname) {
+			$type.$ctor4.call(this, parent, 'select-one');
+			this.get_controlLabel().text$1(label);
+			this.name$1(fieldname);
+		};
+		$type.$ctor4.prototype = $type.$ctor2.prototype = $type.$ctor1.prototype = $type.$ctor3.prototype = $type.$ctor5.prototype = $type.prototype;
+		ss.registerGenericClassInstance($type, $Cayita_UI_SelectFieldBase$1, [T], function() {
+			return ss.makeGenericType($Cayita_UI_Field$1, [T]);
+		}, function() {
+			return [];
+		});
+		return $type;
+	};
+	ss.registerGenericClass(global, 'Cayita.UI.SelectFieldBase$1', $Cayita_UI_SelectFieldBase$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Span
 	var $Cayita_UI_Span = function() {
@@ -5206,7 +5226,7 @@
 	ss.registerClass(global, 'Cayita.UI.RequestMessage', $Cayita_UI_RequestMessage);
 	ss.registerClass(global, 'Cayita.UI.ResetButton', $Cayita_UI_ResetButton, ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_ResetButton]));
 	ss.registerClass(global, 'Cayita.UI.SelectedRow', $Cayita_UI_SelectedRow);
-	ss.registerClass(global, 'Cayita.UI.SelectField', $Cayita_UI_SelectField, $Cayita_UI_Div);
+	ss.registerClass(global, 'Cayita.UI.SelectField', $Cayita_UI_SelectField, ss.makeGenericType($Cayita_UI_SelectFieldBase$1, [$Cayita_UI_SelectField]));
 	ss.registerClass(global, 'Cayita.UI.Span', $Cayita_UI_Span, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Span]));
 	ss.registerClass(global, 'Cayita.UI.SpinnerIcon', $Cayita_UI_SpinnerIcon, $Cayita_UI_Div);
 	ss.registerClass(global, 'Cayita.UI.SubmitButton', $Cayita_UI_SubmitButton, ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_SubmitButton]));
