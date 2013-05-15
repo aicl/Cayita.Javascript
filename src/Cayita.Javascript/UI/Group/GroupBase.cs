@@ -5,24 +5,6 @@ using System.Collections.Generic;
 namespace Cayita.UI
 {
 
-	public class CheckGroup:GroupBase<CheckGroup,InputCheckbox>
-	{
-	
-		public CheckGroup(Element parent):base("checkbox", parent)
-		{
-		}
-
-		public CheckGroup(ElementBase parent):base("checkbox", parent.Element())
-		{
-		}
-
-		public CheckGroup():base("checkbox")
-		{
-
-		}
-	
-	}
-
 	
 	[Serializable]
 	public class GroupItem
@@ -30,9 +12,9 @@ namespace Cayita.UI
 		public GroupItem(){}
 		public string Text { get; set;}
 		public string Value { get; set;}
-
 	}
-	
+
+
 	public abstract class GroupBase<TField,TInput>:ElementBase<TField> where  TField:ElementBase
 		where TInput:InputBase<TInput>, new ()
 	{
@@ -145,18 +127,7 @@ namespace Cayita.UI
 			if (!string.IsNullOrEmpty (nm))
 				Input.Name (nm);
 
-		
-			/*
-			new InputRadio (Controls.Element(), (lb,rd) => {
-				lb.Text (item.Text);
-				if (!il)
-					lb.RemoveClass ("inline");
-				if(!string.IsNullOrEmpty( nm)) rd.Name = nm;
-				rd.SetValue (item.Value);
-			});
-			*/
 		}
-		
 		
 	}
 	

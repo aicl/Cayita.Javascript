@@ -20,16 +20,12 @@ namespace Cayita.UI
 			
 		}
 
-
-
 		public RadioGroup (Element parent, string text, string fieldName, IList<GroupItem> items, bool inline=true)
 			:base("radio", parent, text, fieldName, items, inline)
 		{
 
 
 		}
-
-
 
 
 	}

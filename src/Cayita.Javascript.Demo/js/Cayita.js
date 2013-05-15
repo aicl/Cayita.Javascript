@@ -2661,20 +2661,6 @@
 				if (!ss.isNullOrEmptyString(this.$nm)) {
 					this.get_input().name$1(this.$nm);
 				}
-				//
-				//			new InputRadio (Controls.Element(), (lb,rd) => {
-				//
-				//			lb.Text (item.Text);
-				//
-				//			if (!il)
-				//
-				//			lb.RemoveClass ("inline");
-				//
-				//			if(!string.IsNullOrEmpty( nm)) rd.Name = nm;
-				//
-				//			rd.SetValue (item.Value);
-				//
-				//			});
 			}
 		};
 		ss.registerGenericClassInstance($type, $Cayita_UI_GroupBase$2, [TField, TInput], function() {
