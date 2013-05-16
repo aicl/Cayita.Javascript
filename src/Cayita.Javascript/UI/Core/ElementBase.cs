@@ -11,26 +11,26 @@ namespace Cayita.UI
 	{
 		public T ClassName(string cssClass)
 		{
-			base.Element().ClassName= cssClass;
+			GetMainElement().ClassName= cssClass;
 			return As<T> ();
 		}
 
 		public T AddClass(string cssClass)
 		{
-			JQuery().AddClass(cssClass);
+			GetMainElement().JQuery().AddClass(cssClass);
 			return As<T> ();
 		}
 
 		public T RemoveClass()
 		{
-			JQuery().RemoveClass();
+			GetMainElement().JQuery().RemoveClass();
 			return As<T> ();
 		}
 
 
 		public T RemoveClass(string cssClass)
 		{
-			JQuery().RemoveClass(cssClass);
+			GetMainElement().JQuery().RemoveClass(cssClass);
 			return As<T> ();
 		}
 
@@ -54,7 +54,7 @@ namespace Cayita.UI
 		
 		public T Append(ElementBase content)
 		{
-			JQuery().Append (content.Element());
+			JQuery ().Append (content.GetMainElement ());
 			return As<T> ();
 		}
 
@@ -67,49 +67,49 @@ namespace Cayita.UI
 
 		public T Show()
 		{
-			Element ().Show ();
+			GetMainElement ().Show ();
 			return As<T> ();
 		}
 
 		public T Hide()
 		{
-			Element ().Hide ();
+			GetMainElement ().Hide ();
 			return As<T> ();
 		}
 		
 		public T SlideToggle()
 		{
-			Element ().SlideToggle ();
+			GetMainElement().SlideToggle ();
 			return As<T> ();
 		}
 		
 		public T FadeIn()
 		{
-			Element ().FadeIn ();
+			GetMainElement ().FadeIn ();
 			return As<T> ();
 		}
 		
 		public T FadeOut()
 		{
-			Element ().FadeOut ();
+			GetMainElement ().FadeOut ();
 			return As<T> ();
 		}
 		
 		public T FadeToggle()
 		{
-			Element ().FadeToggle ();
+			GetMainElement ().FadeToggle ();
 			return As<T> ();
 		}
 
 		public T Remove()
 		{
-			Element().Remove();
+			GetMainElement().Remove();
 			return As<T> ();
 		}
 		
 		public T Empty()
 		{
-			Element().Empty();
+			GetMainElement().Empty();
 			return As<T> ();
 		}
 
@@ -124,9 +124,11 @@ namespace Cayita.UI
 		}
 
 		public T AppendTo(ElementBase parent){
-			parent.Element ().Append (this);
+
+			parent.Element ().Append ( GetMainElement ());
 			return As<T> ();
 		}
+
 
 
 		public T Text(string text)
@@ -253,6 +255,20 @@ namespace Cayita.UI
 			content (e);
 			return this;
 		}
+
+		protected internal Element GetMainElement()
+		{
+			var self = (dynamic)this;
+			var cgf = self ["get_controlGroup"];
+			if (cgf!=null) 
+			{
+				var cg= self["get_controlGroup"]();
+				return cg["element"]();
+			}
+			
+			return this.Element ();
+		}
+
 
 		[ScriptSkip]
 		public TElement As<TElement> () where TElement : ElementBase

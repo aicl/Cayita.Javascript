@@ -1,9 +1,8 @@
-using System;
 using System.Html;
 
 namespace Cayita.UI
 {
-	
+
 	public abstract class Field<TField>:InputBase<TField> where  TField:ElementBase
 	{
 		public Label ControlLabel  { get; protected set; }
@@ -17,7 +16,8 @@ namespace Cayita.UI
 			ControlLabel = new Label ().ClassName ("control-label");
 			Controls = new Div ().ClassName ("controls");
 
-			if(append) base.AppendTo (Controls);
+			if (append)
+				Controls.Append (base.Element ()); //base.AppendTo (Controls);
 			ControlGroup.Append (ControlLabel);
 			ControlGroup.Append (Controls);
 
@@ -32,31 +32,6 @@ namespace Cayita.UI
 		public new string Text()
 		{
 			return ControlLabel.Text ();
-		}
-
-
-		public new  TField AppendTo(ElementBase parent)
-		{
-			ControlGroup.AppendTo(parent);
-			return As<TField> ();
-		}
-
-		public new  TField SlideToggle()
-		{
-			ControlGroup.SlideToggle (); 
-			return As<TField> ();
-		}
-
-		public new  TField Hide()
-		{
-			ControlGroup.Hide ();
-			return As<TField> ();
-		}
-
-		public new  TField Show()
-		{
-			ControlGroup.Show ();
-			return As<TField> ();
 		}
 
 	}

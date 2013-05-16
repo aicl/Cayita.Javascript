@@ -18,40 +18,32 @@ namespace TestForm
 
 			var form = new Form ();
 
-			var username = new TextField()
-				.PlaceHolder("your username")
-					.Name("UserName")
-					.ClassName("span12")
-					.AppendTo(form);
+			var username = new TextField (form)
+				.PlaceHolder ("your username")
+					.Name ("UserName");
 
-			var password= new TextField ()
-				.PlaceHolder("your password")
-					.Name("Password")
-					.ClassName("span12")
-					.Type("password")
-					.AppendTo(form);
+			var password = new PasswordField (form)
+				.PlaceHolder ("your password")
+					.Name ("Password");
 
-			var text = new TextField ()
-				.PlaceHolder ("una de texto")
-					.ClassName("span12").Text("Password")
-					.AppendTo(form);
+			var text = new TextField (form)
+				.PlaceHolder ("your comments")
+					.Text ("Comments");
 
 			new CheckboxField (form).Text ("check me ");
 
 
-			new RadioGroup ()
-				.Text("your favourite language")
-					.Name("language").
-					Add(new GroupItem{Text="CSharp",Value="1"})
-					.Add(new GroupItem{Text="Java",Value="2"}).
-					AppendTo(form);
-
+			new RadioGroup (form)
+				.Text ("your favourite language")
+					.Name ("language").
+					Add (new GroupItem{Text="CSharp",Value="1"})
+					.Add (new GroupItem{Text="Java",Value="2"});
 
 			new RadioGroup ()
 				.Text ("your favourite programming language")
 					.AddClass("well")
-					.Name ("language").
-					Add (new GroupItem{Text="CSharp",Value="1"})
+					.Name ("language")
+					.Add (new GroupItem{Text="CSharp",Value="1"})
 					.Add (new GroupItem{Text="Java",Value="2"})
 					.Inline (false)
 					.AppendTo (form);

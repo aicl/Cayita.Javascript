@@ -1,8 +1,6 @@
-using System;
-using Cayita.UI;
 using System.Html;
 
-namespace Cayita
+namespace Cayita.UI
 {
 	public class PasswordField:TextFieldBase<PasswordField>
 	{

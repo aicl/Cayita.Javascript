@@ -438,19 +438,6 @@
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.PasswordField
-	var $Cayita_PasswordField = function() {
-		$Cayita_PasswordField.$ctor2.call(this, null);
-	};
-	$Cayita_PasswordField.$ctor1 = function(parent) {
-		$Cayita_PasswordField.$ctor2.call(this, parent.element());
-	};
-	$Cayita_PasswordField.$ctor2 = function(parent) {
-		ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_PasswordField]).$ctor2.call(this, parent);
-		this.type('password');
-	};
-	$Cayita_PasswordField.$ctor1.prototype = $Cayita_PasswordField.$ctor2.prototype = $Cayita_PasswordField.prototype;
-	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Data.AjaxResponse
 	var $Cayita_Data_AjaxResponse = function() {
 	};
@@ -2090,6 +2077,15 @@
 				content(e);
 				return this;
 			};
+		},
+		getMainElement: function() {
+			var self = this;
+			var cgf = self['get_controlGroup'];
+			if (!!ss.isValue(cgf)) {
+				var cg = self['get_controlGroup']();
+				return ss.cast(cg['element'](), Element);
+			}
+			return this.element();
 		}
 	};
 	////////////////////////////////////////////////////////////////////////////////
@@ -2100,19 +2096,19 @@
 		};
 		$type.prototype = {
 			className$1: function(cssClass) {
-				this.element().className = cssClass;
+				this.getMainElement().className = cssClass;
 				return this;
 			},
 			addClass: function(cssClass) {
-				this.jQuery().addClass(cssClass);
+				$(this.getMainElement()).addClass(cssClass);
 				return this;
 			},
 			removeClass: function() {
-				this.jQuery().removeClass();
+				$(this.getMainElement()).removeClass();
 				return this;
 			},
 			removeClass$1: function(cssClass) {
-				this.jQuery().removeClass(cssClass);
+				$(this.getMainElement()).removeClass(cssClass);
 				return this;
 			},
 			disable: function(disable) {
@@ -2128,7 +2124,7 @@
 				return this;
 			},
 			append$1: function(content) {
-				this.jQuery().append(content.element());
+				this.jQuery().append(content.getMainElement());
 				return this;
 			},
 			append$4: function(content) {
@@ -2136,35 +2132,35 @@
 				return this;
 			},
 			show: function() {
-				$(this.element()).show();
+				$(this.getMainElement()).show();
 				return this;
 			},
 			hide: function() {
-				$(this.element()).hide();
+				$(this.getMainElement()).hide();
 				return this;
 			},
 			slideToggle: function() {
-				$(this.element()).slideToggle();
+				$(this.getMainElement()).slideToggle();
 				return this;
 			},
 			fadeIn: function() {
-				$(this.element()).fadeIn();
+				$(this.getMainElement()).fadeIn();
 				return this;
 			},
 			fadeOut: function() {
-				$(this.element()).fadeOut();
+				$(this.getMainElement()).fadeOut();
 				return this;
 			},
 			fadeToggle: function() {
-				$(this.element()).fadeToggle();
+				$(this.getMainElement()).fadeToggle();
 				return this;
 			},
 			remove: function() {
-				$(this.element()).remove();
+				$(this.getMainElement()).remove();
 				return this;
 			},
 			empty: function() {
-				$(this.element()).empty();
+				$(this.getMainElement()).empty();
 				return this;
 			},
 			appendTo$2: function(parent) {
@@ -2176,7 +2172,7 @@
 				return this;
 			},
 			appendTo: function(parent) {
-				$(parent.element()).append(this.element());
+				$(parent.element()).append(this.getMainElement());
 				return this;
 			},
 			text$1: function(text) {
@@ -2217,8 +2213,9 @@
 			this.set_controlLabel((new $Cayita_UI_Label.$ctor1(null)).className$1('control-label'));
 			this.set_controls((new $Cayita_UI_Div.$ctor1(null)).className$1('controls'));
 			if (append) {
-				this.appendTo(this.get_controls());
+				this.get_controls().append$2(this.element$1());
 			}
+			//base.AppendTo (Controls);
 			this.get_controlGroup().append$1(this.get_controlLabel());
 			this.get_controlGroup().append$1(this.get_controls());
 		};
@@ -2247,22 +2244,6 @@
 			},
 			text$2: function() {
 				return this.get_controlLabel().text();
-			},
-			appendTo$3: function(parent) {
-				this.get_controlGroup().appendTo(parent);
-				return this;
-			},
-			slideToggle$1: function() {
-				this.get_controlGroup().slideToggle();
-				return this;
-			},
-			hide$1: function() {
-				this.get_controlGroup().hide();
-				return this;
-			},
-			show$1: function() {
-				this.get_controlGroup().show();
-				return this;
 			}
 		};
 		ss.registerGenericClassInstance($type, $Cayita_UI_Field$1, [TField], function() {
@@ -4035,6 +4016,19 @@
 	};
 	$Cayita_UI_Paragraph.$ctor1.prototype = $Cayita_UI_Paragraph.$ctor3.prototype = $Cayita_UI_Paragraph.$ctor2.prototype = $Cayita_UI_Paragraph.prototype;
 	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.PasswordField
+	var $Cayita_UI_PasswordField = function() {
+		$Cayita_UI_PasswordField.$ctor2.call(this, null);
+	};
+	$Cayita_UI_PasswordField.$ctor1 = function(parent) {
+		$Cayita_UI_PasswordField.$ctor2.call(this, parent.element());
+	};
+	$Cayita_UI_PasswordField.$ctor2 = function(parent) {
+		ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_UI_PasswordField]).$ctor2.call(this, parent);
+		this.type('password');
+	};
+	$Cayita_UI_PasswordField.$ctor1.prototype = $Cayita_UI_PasswordField.$ctor2.prototype = $Cayita_UI_PasswordField.prototype;
+	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.RadioGroup
 	var $Cayita_UI_RadioGroup = function() {
 		ss.makeGenericType($Cayita_UI_GroupBase$2, [$Cayita_UI_RadioGroup, $Cayita_UI_InputRadio]).call(this, 'radio', null, null, null, null, true);
@@ -5251,7 +5245,6 @@
 	ss.registerClass(global, 'Cayita.ImgUpload', $Cayita_ImgUpload, ss.makeGenericType($Cayita_UI_FileUpload$1, [$Cayita_ImgUpload]));
 	ss.registerClass(global, 'Cayita.UI.FileUploadConfig', $Cayita_UI_FileUploadConfig);
 	ss.registerClass(global, 'Cayita.ImgUploadConfig', $Cayita_ImgUploadConfig, $Cayita_UI_FileUploadConfig);
-	ss.registerClass(global, 'Cayita.PasswordField', $Cayita_PasswordField, ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_PasswordField]));
 	ss.registerClass(global, 'Cayita.Data.AjaxResponse', $Cayita_Data_AjaxResponse);
 	ss.registerClass(global, 'Cayita.Data.AppError', $Cayita_Data_AppError);
 	ss.registerClass(global, 'Cayita.Data.ReadOptions', $Cayita_Data_ReadOptions);
@@ -5307,6 +5300,7 @@
 	ss.registerClass(global, 'Cayita.UI.Panel', $Cayita_UI_Panel, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Panel]));
 	ss.registerClass(global, 'Cayita.UI.PanelConfig', $Cayita_UI_PanelConfig);
 	ss.registerClass(global, 'Cayita.UI.Paragraph', $Cayita_UI_Paragraph, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Paragraph]));
+	ss.registerClass(global, 'Cayita.UI.PasswordField', $Cayita_UI_PasswordField, ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_UI_PasswordField]));
 	ss.registerClass(global, 'Cayita.UI.RadioGroup', $Cayita_UI_RadioGroup, ss.makeGenericType($Cayita_UI_GroupBase$2, [$Cayita_UI_RadioGroup, $Cayita_UI_InputRadio]));
 	ss.registerClass(global, 'Cayita.UI.RequestMessage', $Cayita_UI_RequestMessage);
 	ss.registerClass(global, 'Cayita.UI.ResetButton', $Cayita_UI_ResetButton, ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_ResetButton]));
