@@ -24,6 +24,11 @@
 "Data/StoreApi.cs" \
 "Data/ReadOptions.cs" \
 "Data/ReqExtensions.cs" \
+"UI/Core/Button/Button.cs" \
+"UI/Core/Button/ButtonBase.cs" \
+"UI/Core/Button/ButtonElement.cs" \
+"UI/Core/Button/ResetButton.cs" \
+"UI/Core/Button/SubmitButton.cs" \
 "UI/Core/Input/Input.cs" \
 "UI/Core/Input/InputBase.cs" \
 "UI/Core/Input/InputCheckbox.cs" \
@@ -34,7 +39,6 @@
 "UI/Core/Input/InputText.cs" \
 "UI/Core/Input/InputTextArea.cs" \
 "UI/Core/Alert.cs" \
-"UI/Core/ButtonElement.cs" \
 "UI/Core/ListElement.cs" \
 "UI/Core/LabelElement.cs" \
 "UI/Core/ElementBase.cs" \
@@ -47,11 +51,7 @@
 "UI/Core/IconButton.cs" \
 "UI/Core/Div.cs" \
 "UI/Core/Label.cs" \
-"UI/Core/ButtonBase.cs" \
-"UI/Core/Button.cs" \
-"UI/Core/SubmitButton.cs" \
 "UI/Core/SpanElement.cs" \
-"UI/Core/ResetButton.cs" \
 "UI/Core/Form.cs" \
 "UI/Core/HtmlList.cs" \
 "UI/Core/ListItem.cs" \

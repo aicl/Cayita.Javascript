@@ -45,12 +45,7 @@
     <Compile Include="ElementExtensions.cs" />
     <Compile Include="UI\Core\Legend.cs" />
     <Compile Include="UI\Core\Anchor.cs" />
-    <Compile Include="UI\Core\ButtonBase.cs" />
-    <Compile Include="UI\Core\SubmitButton.cs" />
-    <Compile Include="UI\Core\Button.cs" />
-    <Compile Include="UI\Core\ResetButton.cs" />
     <Compile Include="UI\Core\Form.cs" />
-    <Compile Include="UI\Core\ButtonElement.cs" />
     <Compile Include="ValidatePlugin\ValidateOptions.cs" />
     <Compile Include="UI\Core\ListItem.cs" />
     <Compile Include="UI\Core\HtmlList.cs" />
@@ -117,6 +112,11 @@
     <Compile Include="UI\Field\Field.cs" />
     <Compile Include="UI\Field\TextFieldBase.cs" />
     <Compile Include="UI\Field\PasswordField.cs" />
+    <Compile Include="UI\Core\Button\Button.cs" />
+    <Compile Include="UI\Core\Button\ButtonBase.cs" />
+    <Compile Include="UI\Core\Button\ButtonElement.cs" />
+    <Compile Include="UI\Core\Button\ResetButton.cs" />
+    <Compile Include="UI\Core\Button\SubmitButton.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -129,6 +129,7 @@
     <Folder Include="UI\Group\" />
     <Folder Include="UI\Field\" />
     <Folder Include="UI\Core\Input\" />
+    <Folder Include="UI\Core\Button\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="c" />
