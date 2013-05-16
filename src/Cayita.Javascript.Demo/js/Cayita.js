@@ -2027,6 +2027,8 @@
 		},
 		setElement: function(element) {
 			this.$element_ = element;
+			this.set_id(this.getMainElement().id);
+			this.set_style(this.getMainElement().style);
 		},
 		createElement: function(tagName, parent) {
 			this.$element_ = document.createElement(tagName);
@@ -2044,31 +2046,31 @@
 			return ss.formatString('c-{0}-{1}', tagName, id.$);
 		},
 		selectorById: function() {
-			return '#' + this.$element_.id;
+			return '#' + this.getMainElement().id;
 		},
 		className: function() {
-			return this.$element_.className;
+			return this.getMainElement().className;
 		},
 		element: function() {
 			return this.$element_;
 		},
 		jQuery: function() {
-			return $(this.$element_);
+			return $(this.getMainElement());
 		},
 		jQuery$1: function(selector) {
-			return $(selector, this.$element_);
+			return $(selector, this.getMainElement());
 		},
 		isVisible: function() {
-			return $(this.$element_).is(':visible');
+			return $(this.getMainElement()).is(':visible');
 		},
 		draggableObject: function() {
-			return $(this.$element_).draggable();
+			return $(this.getMainElement()).draggable();
 		},
 		resizableObject: function() {
-			return $(this.$element_).resizable();
+			return $(this.getMainElement()).resizable();
 		},
 		getId: function() {
-			return this.$element_.id;
+			return this.getMainElement().id;
 		},
 		append: function(T) {
 			return function(content) {
@@ -2100,15 +2102,15 @@
 				return this;
 			},
 			addClass: function(cssClass) {
-				$(this.getMainElement()).addClass(cssClass);
+				this.jQuery().addClass(cssClass);
 				return this;
 			},
 			removeClass: function() {
-				$(this.getMainElement()).removeClass();
+				this.jQuery().removeClass();
 				return this;
 			},
 			removeClass$1: function(cssClass) {
-				$(this.getMainElement()).removeClass(cssClass);
+				this.jQuery().removeClass(cssClass);
 				return this;
 			},
 			disable: function(disable) {
@@ -2172,15 +2174,15 @@
 				return this;
 			},
 			appendTo: function(parent) {
-				$(parent.element()).append(this.getMainElement());
+				$(parent.getMainElement()).append(this.getMainElement());
 				return this;
 			},
 			text$1: function(text) {
-				$Extensions.text$1(this.element(), text);
+				$Extensions.text$1(this.getMainElement(), text);
 				return this;
 			},
 			text: function() {
-				return $Extensions.text(this.element());
+				return $Extensions.text(this.getMainElement());
 			},
 			iconClass: function(iconClass) {
 				var i = this.jQuery$1('i');

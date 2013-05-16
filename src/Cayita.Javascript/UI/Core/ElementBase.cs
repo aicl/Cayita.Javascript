@@ -14,38 +14,38 @@ namespace Cayita.UI
 			GetMainElement().ClassName= cssClass;
 			return As<T> ();
 		}
-
+		
 		public T AddClass(string cssClass)
 		{
-			GetMainElement().JQuery().AddClass(cssClass);
+			JQuery().AddClass(cssClass);
 			return As<T> ();
 		}
-
+		
 		public T RemoveClass()
 		{
-			GetMainElement().JQuery().RemoveClass();
+			JQuery().RemoveClass();
 			return As<T> ();
 		}
-
-
+		
+		
 		public T RemoveClass(string cssClass)
 		{
-			GetMainElement().JQuery().RemoveClass(cssClass);
+			JQuery().RemoveClass(cssClass);
 			return As<T> ();
 		}
-
+		
 		public T Disable(bool disable) 
 		{
 			base.Element ().Disabled = disable;
 			return As<T> ();
 		}
-
+		
 		public T Append(string content) 
 		{
 			JQuery().Append (content);
 			return As<T> ();
 		}
-				
+		
 		public T Append(Element content)
 		{
 			JQuery().Append (content);
@@ -57,20 +57,20 @@ namespace Cayita.UI
 			JQuery ().Append (content.GetMainElement ());
 			return As<T> ();
 		}
-
+		
 		public T Append(jQueryObject content)
 		{
 			JQuery().Append (content);
 			return As<T> ();
 		}
-
-
+		
+		
 		public T Show()
 		{
 			GetMainElement ().Show ();
 			return As<T> ();
 		}
-
+		
 		public T Hide()
 		{
 			GetMainElement ().Hide ();
@@ -100,7 +100,7 @@ namespace Cayita.UI
 			GetMainElement ().FadeToggle ();
 			return As<T> ();
 		}
-
+		
 		public T Remove()
 		{
 			GetMainElement().Remove();
@@ -112,7 +112,7 @@ namespace Cayita.UI
 			GetMainElement().Empty();
 			return As<T> ();
 		}
-
+		
 		public T AppendTo(Element parent=null){
 			(parent??Document.Body).Append(Element());
 			return As<T> ();
@@ -122,26 +122,26 @@ namespace Cayita.UI
 			parent.AppendChild(Element());
 			return As<T> ();
 		}
-
+		
 		public T AppendTo(ElementBase parent){
-
-			parent.Element ().Append ( GetMainElement ());
+			
+			parent.GetMainElement().Append ( GetMainElement ());
 			return As<T> ();
 		}
-
-
-
+		
+		
+		
 		public T Text(string text)
 		{
-			Element ().Text (text);
+			GetMainElement ().Text (text);
 			return As<T> ();
 		}
-
+		
 		public string Text()
 		{
-			return Element ().Text ();
+			return GetMainElement ().Text ();
 		}
-
+		
 		public T IconClass(string iconClass)
 		{
 			var i=JQuery ("i");
@@ -153,42 +153,44 @@ namespace Cayita.UI
 			i.AddClass (iconClass??"");
 			return As<T> ();
 		}
-
-
+		
+		
 	}
-
+	
 	public abstract class ElementBase
 	{
 		static Dictionary<string,int> tags = new Dictionary<string,int>();
 		Element element_;
-
-
+		
+		
 		public Style Style {
 			get ;
 			private set;
 		}
-
+		
 		public string ID {
 			get;
 			private set;
 		}
-
+		
 		protected void SetElement(Element element)
 		{
 			element_ = element;
+			ID = GetMainElement ().ID;
+			Style = GetMainElement().Style;
 		}
-
+		
 		protected void  CreateElement(string tagName, Element parent)
 		{
-
+			
 			element_= Document.CreateElement(tagName);
 			element_.ID= CreateId(tagName);
 			if(parent!=null) parent.Append(element_);
 			ID = element_.ID;
 			Style = element_.Style;
-
+			
 		}
-
+		
 		protected string CreateId(string tagName)
 		{
 			int id;
@@ -196,58 +198,58 @@ namespace Cayita.UI
 			tags[tagName]=++id;
 			return string.Format("c-{0}-{1}",tagName,id);
 		}
-
-
+		
+		
 		public string SelectorById()
 		{
-			return element_.SelectorById ();
+			return GetMainElement().SelectorById ();
 		}
-
-
+		
+		
 		public string ClassName()
 		{
-			return element_.ClassName;
+			return GetMainElement().ClassName;
 		}
-
-
+		
+		
 		public Element Element()
 		{
 			return element_;
 		}
-					
-
+		
+		
 		public jQueryObject JQuery()
 		{
-			return jQuery.FromElement(element_);
+			return jQuery.FromElement(GetMainElement());
 		}
-
+		
 		public jQueryObject JQuery(string selector)
 		{
-			return jQuery.Select(selector, element_);
+			return jQuery.Select(selector, GetMainElement());
 		}
-
-
+		
+		
 		public bool IsVisible()
 		{
-			return jQuery.FromElement(element_).Is(":visible");
+			return jQuery.FromElement(GetMainElement()).Is(":visible");
 		}
-
+		
 		public DraggableObject DraggableObject()
 		{
-			return jQuery.FromElement (element_).Draggable ();
+			return jQuery.FromElement (GetMainElement()).Draggable ();
 		}
-
+		
 		public ResizableObject ResizableObject()
 		{
-			return jQuery.FromElement (element_).Resizable ();
+			return jQuery.FromElement (GetMainElement()).Resizable ();
 		}
-
+		
 		public string GetId()
 		{
-			return element_.ID;
+			return GetMainElement().ID;
 		}
-
-
+		
+		
 		protected internal ElementBase Append<T>(Action<T> content) where T: ElementBase, new()
 		{ 
 			var e = new T ();
@@ -255,7 +257,7 @@ namespace Cayita.UI
 			content (e);
 			return this;
 		}
-
+		
 		protected internal Element GetMainElement()
 		{
 			var self = (dynamic)this;
@@ -266,19 +268,19 @@ namespace Cayita.UI
 				return cg["element"]();
 			}
 			
-			return this.Element ();
+			return Element ();
 		}
-
-
+		
+		
 		[ScriptSkip]
 		public TElement As<TElement> () where TElement : ElementBase
 		{
 			return (TElement)((object)null);
 		}
-
-
+		
+		
 	}
-
-
+	
+	
 }
 
