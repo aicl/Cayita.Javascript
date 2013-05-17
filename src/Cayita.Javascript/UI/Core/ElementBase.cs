@@ -65,7 +65,7 @@ namespace Cayita.UI
 		}
 		
 		
-		public T Show()
+		public T ShowTab()
 		{
 			GetMainElement ().Show ();
 			return As<T> ();

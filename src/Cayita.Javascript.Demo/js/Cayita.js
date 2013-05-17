@@ -2133,7 +2133,7 @@
 				this.jQuery().append(content);
 				return this;
 			},
-			show: function() {
+			showTab: function() {
 				$(this.getMainElement()).show();
 				return this;
 			},
@@ -3043,6 +3043,10 @@
 	$Cayita_UI_HtmlList.prototype = {
 		element$1: function() {
 			return this.element();
+		},
+		addItem: function(item) {
+			$Extensions.addItem$1(this.element$1(), item);
+			return this;
 		}
 	};
 	$Cayita_UI_HtmlList.$ctor1 = function(parent, element, ordered) {
@@ -4948,149 +4952,197 @@
 	$Cayita_UI_TableRow.$ctor1.prototype = $Cayita_UI_TableRow.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.TabPanel
-	var $Cayita_UI_TabPanel = function(parent) {
-		this.$cfg = null;
-		this.$tabs = [];
-		this.$4$TabShownField = function(p, ac, pr) {
-		};
-		this.$4$TabShowField = function(p, ac, pr) {
-		};
-		this.$4$TabClickedField = null;
-		$Cayita_UI_Div.$ctor1.call(this, parent);
-		this.$init($Cayita_UI_TabPanelConfig.$ctor());
+	var $Cayita_UI_TabPanel = function() {
+		ss.makeGenericType($Cayita_UI_TabPanelBase$1, [$Cayita_UI_TabPanel]).$ctor2.call(this, null);
 	};
-	$Cayita_UI_TabPanel.prototype = {
-		$init: function(config) {
-			var el = this.element$1();
-			el.className = ss.formatString('tabbable{0}{1}', (config.bordered ? ' tabbable-bordered' : ''), ' tabs-' + config.tabsPosition);
-			if (config.tabsPosition !== 'below') {
-				$(el).append(config.links).append(config.content);
-			}
-			else {
-				$(el).append(config.content).append(config.links);
-			}
-			this.$cfg = config;
-			this.jQuery$1('a[data-toggle=\'tab\']').on('shown', ss.mkdel(this, function(evt) {
-				this.onTabShown(this.$getTab(evt.target), this.$getTab(evt.relatedTarget));
-			}));
-			this.jQuery$1('a[data-toggle=\'tab\']').on('show', ss.mkdel(this, function(evt1) {
-				this.onTabShow(this.$getTab(evt1.target), this.$getTab(evt1.relatedTarget));
-			}));
-			this.jQuery$1('a[data-toggle=\'tab\']').on('Click', ss.mkdel(this, function(evt2) {
-				if (!ss.staticEquals(this.$4$TabClickedField, null)) {
-					evt2.preventDefault();
-					this.$4$TabClickedField(this, this.$getTab(evt2.target));
-				}
-			}));
-		},
-		$getTab: function(anchor) {
-			return (ss.isValue(anchor) ? Enumerable.from(this.$tabs).first(function(f) {
-				return ss.referenceEquals('#' + f.body.get_id(), anchor.href);
-			}) : null);
-		},
-		addTab$1: function(title) {
-			var $t1 = $Cayita_UI_Tab.$ctor();
-			$t1.title = title;
-			this.addTab($t1);
-		},
-		addTab: function(tab) {
-			ss.add(this.$tabs, tab);
-			$Extensions.addItem$1(this.$cfg.links, function(i, a) {
-				a.href = '#' + tab.body.get_id();
-				a.setAttribute('data-toggle', 'tab');
-				$Extensions.text$1(a, tab.title);
-			});
-			$(this.$cfg.content).append(tab.body.element());
-		},
-		addTab$2: function(tab, anchor) {
-			var t = $Cayita_UI_Tab.$ctor();
-			tab(t);
-			ss.add(this.$tabs, t);
-			$Extensions.addItem$1(this.$cfg.links, function(i, a) {
-				a.href = '#' + t.body.get_id();
-				a.setAttribute('data-toggle', 'tab');
-				if (!ss.staticEquals(anchor, null)) {
-					anchor(a);
+	$Cayita_UI_TabPanel.$ctor1 = function(parent) {
+		ss.makeGenericType($Cayita_UI_TabPanelBase$1, [$Cayita_UI_TabPanel]).$ctor2.call(this, parent.element());
+	};
+	$Cayita_UI_TabPanel.$ctor4 = function(parent, config) {
+		ss.makeGenericType($Cayita_UI_TabPanelBase$1, [$Cayita_UI_TabPanel]).$ctor6.call(this, parent.element(), config);
+	};
+	$Cayita_UI_TabPanel.$ctor3 = function(parent, config) {
+		ss.makeGenericType($Cayita_UI_TabPanelBase$1, [$Cayita_UI_TabPanel]).$ctor5.call(this, parent.element(), config);
+	};
+	$Cayita_UI_TabPanel.$ctor2 = function(parent) {
+		ss.makeGenericType($Cayita_UI_TabPanelBase$1, [$Cayita_UI_TabPanel]).$ctor2.call(this, parent);
+	};
+	$Cayita_UI_TabPanel.$ctor6 = function(parent, config) {
+		ss.makeGenericType($Cayita_UI_TabPanelBase$1, [$Cayita_UI_TabPanel]).$ctor6.call(this, parent, config);
+	};
+	$Cayita_UI_TabPanel.$ctor5 = function(parent, config) {
+		ss.makeGenericType($Cayita_UI_TabPanelBase$1, [$Cayita_UI_TabPanel]).$ctor5.call(this, parent, config);
+	};
+	$Cayita_UI_TabPanel.$ctor1.prototype = $Cayita_UI_TabPanel.$ctor4.prototype = $Cayita_UI_TabPanel.$ctor3.prototype = $Cayita_UI_TabPanel.$ctor2.prototype = $Cayita_UI_TabPanel.$ctor6.prototype = $Cayita_UI_TabPanel.$ctor5.prototype = $Cayita_UI_TabPanel.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.TabPanelBase
+	var $Cayita_UI_TabPanelBase$1 = function(T) {
+		var $type = function() {
+			$type.$ctor2.call(this, null);
+		};
+		$type.prototype = {
+			$init: function(parent, config) {
+				this.createElement('div', parent);
+				this.className$1(ss.formatString('tabbable{0}{1}', (config.bordered ? ' tabbable-bordered' : ''), ' tabs-' + config.tabsPosition));
+				if (config.tabsPosition !== 'below') {
+					this.append$1(config.links);
+					this.append$1(config.content);
 				}
 				else {
-					$Extensions.text$1(a, t.title);
+					this.append$1(config.content);
+					this.append$1(config.links);
 				}
-			});
-			$(this.$cfg.content).append(t.body.element());
-		},
-		getTab: function(index) {
-			return $Cayita_UI_Tab.$ctor();
-		},
-		show$2: function(index) {
-			var t = this.$tabs[index];
-			var jq = $(this.$cfg.links);
-			console.log('jq ', jq);
-			var $t1 = this.$cfg.links;
-			var jq2 = $('a[href=\'#' + t.body.get_id() + '\']', $t1);
-			console.log('jq2 ', jq2);
-			console.log('t.Body.ID ', t.body.get_id());
-			var $t2 = this.$cfg.links;
-			$('a[href=\'#' + t.body.get_id() + '\']', $t2).tab('show');
-		},
-		show$1: function(tab) {
-			var $t1 = this.$cfg.links;
-			$('a[href=\'#' + tab.body.get_id() + '\']', $t1).tab('show');
-		},
-		add_tabShown: function(value) {
-			this.$4$TabShownField = ss.delegateCombine(this.$4$TabShownField, value);
-		},
-		remove_tabShown: function(value) {
-			this.$4$TabShownField = ss.delegateRemove(this.$4$TabShownField, value);
-		},
-		onTabShown: function(active, previous) {
-			this.$4$TabShownField(this, active, previous);
-		},
-		add_tabShow: function(value) {
-			this.$4$TabShowField = ss.delegateCombine(this.$4$TabShowField, value);
-		},
-		remove_tabShow: function(value) {
-			this.$4$TabShowField = ss.delegateRemove(this.$4$TabShowField, value);
-		},
-		onTabShow: function(active, previous) {
-			this.$4$TabShowField(this, active, previous);
-		},
-		add_tabClicked: function(value) {
-			this.$4$TabClickedField = ss.delegateCombine(this.$4$TabClickedField, value);
-		},
-		remove_tabClicked: function(value) {
-			this.$4$TabClickedField = ss.delegateRemove(this.$4$TabClickedField, value);
-		},
-		onTabClicked: function(tab) {
-			if (!ss.staticEquals(this.$4$TabClickedField, null)) {
-				this.$4$TabClickedField(this, tab);
+				this.$cfg = config;
+				this.jQuery$1('a[data-toggle=\'tab\']').on('shown', ss.mkdel(this, function(evt) {
+					this.onTabShown(this.$getTab(evt.target), this.$getTab(evt.relatedTarget));
+				}));
+				this.jQuery$1('a[data-toggle=\'tab\']').on('show', ss.mkdel(this, function(evt1) {
+					this.onTabShow(this.$getTab(evt1.target), this.$getTab(evt1.relatedTarget));
+				}));
+				this.jQuery$1('a[data-toggle=\'tab\']').on('Click', ss.mkdel(this, function(evt2) {
+					if (!ss.staticEquals(this.$3$TabClickedField, null)) {
+						evt2.preventDefault();
+						this.$3$TabClickedField(this, this.$getTab(evt2.target));
+					}
+				}));
+			},
+			$getTab: function(anchor) {
+				return (ss.isValue(anchor) ? Enumerable.from(this.$tabs).first(function(f) {
+					return ss.referenceEquals('#' + f.body.get_id(), anchor.href);
+				}) : null);
+			},
+			addTab$1: function(title) {
+				var $t1 = $Cayita_UI_Tab.$ctor();
+				$t1.title = title;
+				return this.addTab($t1);
+			},
+			addTab: function(tab) {
+				ss.add(this.$tabs, tab);
+				this.$cfg.links.addItem(function(i, a) {
+					a.href = '#' + tab.body.get_id();
+					a.setAttribute('data-toggle', 'tab');
+					$Extensions.text$1(a, tab.title);
+				});
+				this.$cfg.content.append$1(tab.body);
+				return this;
+			},
+			addTab$2: function(tab, anchor) {
+				var t = $Cayita_UI_Tab.$ctor();
+				tab(t);
+				ss.add(this.$tabs, t);
+				this.$cfg.links.addItem(function(i, a) {
+					a.href = '#' + t.body.get_id();
+					a.setAttribute('data-toggle', 'tab');
+					if (!ss.staticEquals(anchor, null)) {
+						anchor(a);
+					}
+					else {
+						$Extensions.text$1(a, t.title);
+					}
+				});
+				this.$cfg.content.append$1(t.body);
+				return this;
+			},
+			getTab: function(index) {
+				return $Cayita_UI_Tab.$ctor();
+			},
+			showTab$2: function(index) {
+				var t = this.$tabs[index];
+				var jq = this.$cfg.links.jQuery();
+				console.log('jq ', jq);
+				var jq2 = this.$cfg.links.jQuery$1('a[href=\'#' + t.body.get_id() + '\']');
+				console.log('jq2 ', jq2);
+				console.log('t.Body.ID ', t.body.get_id());
+				this.$cfg.links.jQuery$1('a[href=\'#' + t.body.get_id() + '\']').tab('show');
+				return this;
+			},
+			showTab$1: function(tab) {
+				this.$cfg.links.jQuery$1('a[href=\'#' + tab.body.get_id() + '\']').tab('show');
+				return this;
+			},
+			add_tabShown: function(value) {
+				this.$3$TabShownField = ss.delegateCombine(this.$3$TabShownField, value);
+			},
+			remove_tabShown: function(value) {
+				this.$3$TabShownField = ss.delegateRemove(this.$3$TabShownField, value);
+			},
+			onTabShown: function(active, previous) {
+				this.$3$TabShownField(this, active, previous);
+			},
+			add_tabShow: function(value) {
+				this.$3$TabShowField = ss.delegateCombine(this.$3$TabShowField, value);
+			},
+			remove_tabShow: function(value) {
+				this.$3$TabShowField = ss.delegateRemove(this.$3$TabShowField, value);
+			},
+			onTabShow: function(active, previous) {
+				this.$3$TabShowField(this, active, previous);
+			},
+			add_tabClicked: function(value) {
+				this.$3$TabClickedField = ss.delegateCombine(this.$3$TabClickedField, value);
+			},
+			remove_tabClicked: function(value) {
+				this.$3$TabClickedField = ss.delegateRemove(this.$3$TabClickedField, value);
+			},
+			onTabClicked: function(tab) {
+				if (!ss.staticEquals(this.$3$TabClickedField, null)) {
+					this.$3$TabClickedField(this, tab);
+				}
 			}
-		}
+		};
+		$type.$ctor1 = function(parent) {
+			$type.$ctor2.call(this, parent.element());
+		};
+		$type.$ctor4 = function(parent, config) {
+			$type.$ctor6.call(this, parent.element(), config);
+		};
+		$type.$ctor3 = function(parent, config) {
+			$type.$ctor5.call(this, parent.element(), config);
+		};
+		$type.$ctor2 = function(parent) {
+			this.$cfg = null;
+			this.$tabs = [];
+			this.$3$TabShownField = function(p, ac, pr) {
+			};
+			this.$3$TabShowField = function(p, ac, pr) {
+			};
+			this.$3$TabClickedField = null;
+			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
+			this.$init(parent, $Cayita_UI_TabPanelConfig.$ctor());
+		};
+		$type.$ctor6 = function(parent, config) {
+			this.$cfg = null;
+			this.$tabs = [];
+			this.$3$TabShownField = function(p, ac, pr) {
+			};
+			this.$3$TabShowField = function(p, ac, pr) {
+			};
+			this.$3$TabClickedField = null;
+			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
+			var c = $Cayita_UI_TabPanelConfig.$ctor();
+			config(c);
+			this.$init(parent, c);
+		};
+		$type.$ctor5 = function(parent, config) {
+			this.$cfg = null;
+			this.$tabs = [];
+			this.$3$TabShownField = function(p, ac, pr) {
+			};
+			this.$3$TabShowField = function(p, ac, pr) {
+			};
+			this.$3$TabClickedField = null;
+			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
+			this.$init(parent, config);
+		};
+		$type.$ctor1.prototype = $type.$ctor4.prototype = $type.$ctor3.prototype = $type.$ctor2.prototype = $type.$ctor6.prototype = $type.$ctor5.prototype = $type.prototype;
+		ss.registerGenericClassInstance($type, $Cayita_UI_TabPanelBase$1, [T], function() {
+			return ss.makeGenericType($Cayita_UI_ElementBase$1, [T]);
+		}, function() {
+			return [];
+		});
+		return $type;
 	};
-	$Cayita_UI_TabPanel.$ctor2 = function(parent, config) {
-		this.$cfg = null;
-		this.$tabs = [];
-		this.$4$TabShownField = function(p, ac, pr) {
-		};
-		this.$4$TabShowField = function(p, ac, pr) {
-		};
-		this.$4$TabClickedField = null;
-		$Cayita_UI_Div.$ctor1.call(this, parent);
-		var c = $Cayita_UI_TabPanelConfig.$ctor();
-		config(c);
-		this.$init(c);
-	};
-	$Cayita_UI_TabPanel.$ctor1 = function(parent, config) {
-		this.$cfg = null;
-		this.$tabs = [];
-		this.$4$TabShownField = function(p, ac, pr) {
-		};
-		this.$4$TabShowField = function(p, ac, pr) {
-		};
-		this.$4$TabClickedField = null;
-		$Cayita_UI_Div.$ctor1.call(this, parent);
-		this.$init(config);
-	};
-	$Cayita_UI_TabPanel.$ctor2.prototype = $Cayita_UI_TabPanel.$ctor1.prototype = $Cayita_UI_TabPanel.prototype;
+	ss.registerGenericClass(global, 'Cayita.UI.TabPanelBase$1', $Cayita_UI_TabPanelBase$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.TabPanelConfig
 	var $Cayita_UI_TabPanelConfig = function() {
@@ -5109,13 +5161,11 @@
 		$this.bordered = false;
 		$this.tabsPosition = 'top';
 		$this.navType = 'tabs';
-		new $Cayita_UI_HtmlList.$ctor1(null, function(l) {
+		$this.links = new $Cayita_UI_HtmlList.$ctor1(null, function(l) {
 			l.className = ss.formatString('nav nav-{0}{1}', $this.navType, ($this.stacked ? ' nav-stacked' : ''));
-			$this.links = l;
 		}, false);
-		new $Cayita_UI_Div.$ctor2(null, function(d) {
+		$this.content = new $Cayita_UI_Div(function(d) {
 			d.className = 'tab-content';
-			$this.content = d;
 		});
 		return $this;
 	};
@@ -5317,7 +5367,7 @@
 	ss.registerClass(global, 'Cayita.UI.TableFooter', $Cayita_UI_TableFooter, $Cayita_UI_HtmlTable);
 	ss.registerClass(global, 'Cayita.UI.TableHeader', $Cayita_UI_TableHeader, $Cayita_UI_HtmlTable);
 	ss.registerClass(global, 'Cayita.UI.TableRow', $Cayita_UI_TableRow, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TableRow]));
-	ss.registerClass(global, 'Cayita.UI.TabPanel', $Cayita_UI_TabPanel, $Cayita_UI_Div);
+	ss.registerClass(global, 'Cayita.UI.TabPanel', $Cayita_UI_TabPanel, ss.makeGenericType($Cayita_UI_TabPanelBase$1, [$Cayita_UI_TabPanel]));
 	ss.registerClass(global, 'Cayita.UI.TabPanelConfig', $Cayita_UI_TabPanelConfig);
 	ss.registerClass(global, 'Cayita.UI.TextAreaField', $Cayita_UI_TextAreaField, ss.makeGenericType($Cayita_UI_Field$1, [$Cayita_UI_TextAreaField]));
 	ss.registerClass(global, 'Cayita.UI.TextField', $Cayita_UI_TextField, ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_UI_TextField]));

@@ -22,7 +22,16 @@ namespace Cayita.UI
 		public new ListElement Element()
 		{
 			return base.Element().As<ListElement>();
+
 		}
+
+		public HtmlList AddItem(Action<ListItemElement, AnchorElement> item)
+		{
+			Element().AddItem(item);
+			return this;
+		}
+
+
 
 
 		public static HtmlList CreateNav(Element parent, string navType="")

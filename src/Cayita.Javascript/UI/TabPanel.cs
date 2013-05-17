@@ -8,44 +8,96 @@ using System.Linq;
 namespace Cayita.UI
 
 {
-	public class TabPanel:Div
+	public class TabPanel:TabPanelBase<TabPanel>
+	{
+		public TabPanel (ElementBase parent):base(parent.Element())
+		{}
+		
+		public TabPanel(ElementBase parent, Action<TabPanelConfig> config)
+			:base(parent.Element(), config)
+		{}
+		
+		public TabPanel(ElementBase parent, TabPanelConfig config)
+			:base(parent.Element(), config)
+		{}
+		
+		public TabPanel ():base(default(Element))
+		{}
+		
+		public TabPanel (Element parent):base(parent)
+		{
+		}
+		
+		public TabPanel (Element parent, Action<TabPanelConfig> config):base(parent, config)
+		{
+		}
+		
+		public TabPanel(Element parent, TabPanelConfig config):base(parent,config)
+		{
+		}
+
+	}
+
+
+	public abstract class TabPanelBase<T>:ElementBase<T> where T:ElementBase 
 	{
 		TabPanelConfig cfg;
 		List<Tab> tabs = new List<Tab> ();
 
-		public TabPanel (Element parent):base(parent)
+		public TabPanelBase (ElementBase parent):this(parent.Element())
+		{}
+
+		public TabPanelBase (ElementBase parent, Action<TabPanelConfig> config)
+			:this(parent.Element(), config)
+		{}
+
+		public TabPanelBase (ElementBase parent, TabPanelConfig config)
+			:this(parent.Element(), config)
+		{}
+
+		public TabPanelBase ():this(default(Element))
+		{}
+
+		public TabPanelBase (Element parent)
 		{
-			Init (new TabPanelConfig ());
+			Init (parent, new TabPanelConfig ());
 		}
 
-		public TabPanel (Element parent, Action<TabPanelConfig> config):base(parent)
+		public TabPanelBase (Element parent, Action<TabPanelConfig> config)
 		{
 			var c = new TabPanelConfig ();
 			config.Invoke (c);
-			Init (c);
+			Init (parent, c);
 		}
 
-		public TabPanel(Element parent, TabPanelConfig config):base(parent)
+		public TabPanelBase(Element parent, TabPanelConfig config)
 		{
-			Init (config);
+			Init (parent, config);
 		}
 
-		void Init (TabPanelConfig config)
+		void Init (Element parent, TabPanelConfig config)
 		{
-			var el = Element ();
-			el.ClassName = string.Format ("tabbable{0}{1}", config.Bordered ? " tabbable-bordered" : "", " tabs-" + config.TabsPosition);
+			CreateElement ("div", parent);
+			ClassName (string.Format ("tabbable{0}{1}",
+			                         config.Bordered ? " tabbable-bordered" : "",
+			                         " tabs-" + config.TabsPosition));
 
-			if(config.TabsPosition!="below") el.Append (config.Links).Append (config.Content);
-			else  el.Append (config.Content).Append (config.Links);
+			if (config.TabsPosition != "below") {
+				Append (config.Links);
+				Append (config.Content);
+			} else {
+				Append (config.Content);
+				Append (config.Links);
+			}
 
 			cfg = config;
-			this.JQuery ("a[data-toggle='tab']").On ("shown", evt =>  
+			JQuery ("a[data-toggle='tab']").On ("shown", evt =>  
 				OnTabShown (GetTab (evt.Target.As<AnchorElement> ()), GetTab (evt.RelatedTarget.As<AnchorElement> ()))
 			);
-			this.JQuery ("a[data-toggle='tab']").On ("show", evt =>  
+			JQuery ("a[data-toggle='tab']").On ("show", evt =>  
 				OnTabShow ( GetTab (evt.Target.As<AnchorElement> ()), GetTab (evt.RelatedTarget.As<AnchorElement> ()))
 			);
-			this.JQuery ("a[data-toggle='tab']").On ("Click", evt =>  {
+			JQuery ("a[data-toggle='tab']").On ("Click", evt =>  {
 				if (TabClicked != null) {
 					evt.PreventDefault ();
 					TabClicked (this, GetTab (evt.Target.As<AnchorElement> ()));
@@ -58,12 +110,12 @@ namespace Cayita.UI
 			return (anchor != null) ? tabs.First (f => "#" + f.Body.ID == anchor.Href) : default(Tab);
 		}
 
-		public void AddTab(string title)
+		public T AddTab(string title)
 		{
-			AddTab (new Tab { Title=title });
+			return AddTab (new Tab { Title=title });
 		}
 
-		public void AddTab( Tab tab)
+		public T AddTab( Tab tab)
 		{
 			tabs.Add (tab);
 			cfg.Links.AddItem ((i,a) => {
@@ -73,10 +125,11 @@ namespace Cayita.UI
 			});
 
 			cfg.Content.Append (tab.Body);
+			return As<T> ();
 		}
 
 
-		public void AddTab(Action<Tab> tab, Action<AnchorElement> anchor = null)
+		public T AddTab(Action<Tab> tab, Action<AnchorElement> anchor = null)
 		{
 			var t = new Tab ();
 			tab.Invoke (t);
@@ -90,6 +143,7 @@ namespace Cayita.UI
 			});
 			
 			cfg.Content.Append (t.Body);
+			return As<T> ();
 
 		}
 
@@ -98,7 +152,7 @@ namespace Cayita.UI
 			return new Tab ();
 		}
 
-		public void Show(int index)
+		public T ShowTab(int index)
 		{
 			var t = tabs [index];
 			var jq = cfg.Links.JQuery ();
@@ -106,26 +160,28 @@ namespace Cayita.UI
 			var jq2 = cfg.Links.JQuery ("a[href='#" + t.Body.ID + "']");
 			Firebug.Console.Log ("jq2 ", jq2);
 			Firebug.Console.Log ("t.Body.ID ", t.Body.ID);
-			Show(cfg.Links.JQuery("a[href='#" + t.Body.ID + "']"));
+			ShowTab(cfg.Links.JQuery("a[href='#" + t.Body.ID + "']"));
+			return As<T> ();
 		}
 
-		public void Show(Tab tab)
+		public T ShowTab(Tab tab)
 		{
-			Show(cfg.Links.JQuery ("a[href='#" + tab.Body.ID + "']"));
+			ShowTab(cfg.Links.JQuery ("a[href='#" + tab.Body.ID + "']"));
+			return As<T> ();
 		}
 
 		[InlineCode("{tab}.tab('show')")]
-		void Show(jQueryObject tab)
+		void ShowTab(jQueryObject tab)
 		{
 		}
 
 
 		/// <summary>
 		/// This event fires on tab show after a tab has been shown.
-		/// <TabPanel,Tab,Tab> 
-		/// TabPanel, the active tab and the previous active tab (if available) respectively.
+		/// <TabPanelBase,Tab,Tab> 
+		/// TabPanelBase, the active tab and the previous active tab (if available) respectively.
 		/// </summary>
-		public event Action<TabPanel,Tab,Tab> TabShown = (p,ac,pr) => {};
+		public event Action<TabPanelBase<T>,Tab,Tab> TabShown = (p,ac,pr) => {};
 
 		protected virtual void OnTabShown ( Tab active, Tab previous)
 		{
@@ -134,10 +190,10 @@ namespace Cayita.UI
 
 		/// <summary>
 		/// This event fires on tab show, but before the new tab has been shown. 
-		/// <TabPanel,Tab,Tab> 
-		/// TabPanel, the active tab and the previous active tab (if available) respectively.
+		/// <TabPanelBase,Tab,Tab> 
+		/// TabPanelBase, the active tab and the previous active tab (if available) respectively.
 		/// </summary>
-		public event Action<TabPanel,Tab,Tab> TabShow = (p,ac,pr) => {};
+		public event Action<TabPanelBase<T>,Tab,Tab> TabShow = (p,ac,pr) => {};
 
 		protected virtual void OnTabShow ( Tab active, Tab previous)
 		{
@@ -146,9 +202,9 @@ namespace Cayita.UI
 
 		/// <summary>
 		/// Occurs when on tab click.
-		/// <TabPanel,Tab> TabPanel, Tab clicked.
+		/// <TabPanelBase,Tab> TabPanelBase, Tab clicked.
 		/// </summary>
-		public event Action<TabPanel,Tab> TabClicked ;
+		public event Action<TabPanelBase<T>,Tab> TabClicked ;
 
 		protected virtual void OnTabClicked (Tab tab)
 		{
@@ -167,15 +223,12 @@ namespace Cayita.UI
 
 			NavType = "tabs";
 
-			new HtmlList (null, l => {
-				l.ClassName = string.Format ("nav nav-{0}{1}",NavType,Stacked?" nav-stacked":"");
-				Links=l;
+			Links = new HtmlList (null, l => {
+				l.ClassName = string.Format ("nav nav-{0}{1}", NavType, Stacked ? " nav-stacked" : "");
+
 			});
 
-			new Div (null, d => {
-				d.ClassName="tab-content";
-				Content=d;
-			});
+			Content = new Div ( d => d.ClassName = "tab-content");
 
 		}
 
@@ -200,9 +253,9 @@ namespace Cayita.UI
 
 		public bool Stacked { get; set; }
 
-		public ListElement Links { get; set; }
+		public HtmlList Links { get; set; }
 
-		public DivElement Content { get; set; }
+		public Div Content { get; set; }
 
 	}
 
