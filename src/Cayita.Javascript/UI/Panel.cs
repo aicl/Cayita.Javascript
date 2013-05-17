@@ -16,6 +16,9 @@ namespace Cayita.UI
 		DraggableObject  dobject;
 		ResizableObject robject;
 
+		protected Div Header { get; set; }
+		public Div Body { get; protected set;}
+
 		public Panel()
 		{
 			Init (new PanelConfig ());
@@ -35,10 +38,15 @@ namespace Cayita.UI
 
 		void Init( PanelConfig config)
 		{
+			CreateElement ("div", null);
+			var el = Element ();
+			el.ClassName="c-panel";
+			Header = new Div (el).ClassName ("c-panel-header");
+			Body = new Div (el).ClassName ("c-panel-content");
+
 			var self = this;
 			pc = config;
-			SetElement (pc.Container);
-			
+						
 			if (pc.CloseIconHandler == null)
 				pc.CloseIconHandler = p => p.Close ();
 
@@ -46,7 +54,8 @@ namespace Cayita.UI
 				pc.CollapseIconHandler= (p,collapsed)=> p.Collapse();
 
 
-			closeIcon =new Icon (pc.Header, icon => {
+			var hd = Header.Element ();
+			closeIcon =new Icon (hd, icon => {
 
 				icon.ClassName=pc.CloseIconClass;
 				
@@ -58,12 +67,12 @@ namespace Cayita.UI
 
 			});
 
-			collapseIcon = new Icon (pc.Header, icon => {
+			collapseIcon = new Icon (hd, icon => {
 
 				icon.ClassName = pc.CollapseIconClass;
 				icon.OnClick (evt => {
 					evt.PreventDefault ();
-					pc.CollapseIconHandler (self, !pc.Body.IsVisible());
+					pc.CollapseIconHandler (self, !Body.IsVisible());
 				});
 				if (!pc.Collapsible)
 					icon.Hide ();
@@ -72,14 +81,14 @@ namespace Cayita.UI
 
 			captionElement = pc.Caption.Header (6);
 			
-			pc.Header.JQuery ().Append (captionElement);
+			hd.Append (captionElement);
 
-			pc.Container.JQuery ().CSS ("left", pc.Left)
+			JQuery ().CSS ("left", pc.Left)
 				.CSS ("top", pc.Top);
-			pc.Body.JQuery().CSS ("width", pc.Width)
+			Body.JQuery().CSS ("width", pc.Width)
 					.CSS ("height", pc.Height);
 
-			pc.Container.JQuery().CSS("z-index", "0");
+			JQuery().CSS("z-index", "0");
 
 			InitDraggable ();
 
@@ -91,10 +100,10 @@ namespace Cayita.UI
 			if (!pc.Resizable)
 				robject.Destroy ();
 
-			pc.Container.JQuery ().Click (evt => {
-				var zI= pc.Container.JQuery().GetCSS("z-index");
+			JQuery ().Click (evt => {
+				var zI= JQuery().GetCSS("z-index");
 				var hZ =int.Parse(zI);
-				Element hE= pc.Container;
+				Element hE= Element();
 				jQuery.Select(".c-panel").Each( (index, element)=>{
 					var cZ= int.Parse( jQuery.FromElement(element).GetCSS("z-index") );
 					if(cZ>hZ){
@@ -103,11 +112,11 @@ namespace Cayita.UI
 					}
 				});
 				jQuery.FromElement(hE).CSS("z-index", zI);
-				pc.Container.JQuery().CSS("z-index", hZ>0 ? hZ.ToString():"1");
+				JQuery().CSS("z-index", hZ>0 ? hZ.ToString():"1");
 			});
 
 			if (pc.Overlay)
-				pc.Container.JQuery ().CSS ("position", "fixed");
+				JQuery ().CSS ("position", "fixed");
 
 		}
 
@@ -128,9 +137,9 @@ namespace Cayita.UI
 		{
 			pc.Overlay = value;
 			if (value)
-				pc.Container.JQuery ().CSS ("position", "fixed");
+				JQuery ().CSS ("position", "fixed");
 			else
-				pc.Container.JQuery ().CSS ("position", "relative");
+				JQuery ().CSS ("position", "relative");
 			return this;
 
 		}
@@ -157,7 +166,6 @@ namespace Cayita.UI
 		}
 
 
-
 		public Panel Draggable(bool value)
 		{
 			pc.Draggable = value;
@@ -178,10 +186,7 @@ namespace Cayita.UI
 			return this;
 		}
 
-		public DivElement Body ()
-		{
-			return pc.Body;
-		}
+
 
 
 		/// <summary>
@@ -225,14 +230,14 @@ namespace Cayita.UI
 		public Panel CollapseIconClass(string value)
 		{
 			pc.CollapseIconClass = value;
-			if(pc.Body.IsVisible()) collapseIcon.ClassName (value);
+			if(Body.IsVisible()) collapseIcon.ClassName (value);
 			return this;
 		}
 
 		public Panel ExpandIconClass(string value)
 		{
 			pc.ExpandIconClass = value;
-			if(!pc.Body.IsVisible()) collapseIcon.ClassName (value);
+			if(Body.IsVisible()) collapseIcon.ClassName (value);
 			return this;
 		}
 
@@ -240,39 +245,39 @@ namespace Cayita.UI
 		public Panel Left(string value)
 		{
 			pc.Top = value;
-			pc.Container.JQuery ().CSS ("left", value);
+			JQuery ().CSS ("left", value);
 			return this;
 		}
 
 		public Panel Top(string value)
 		{
 			pc.Top = value;
-			pc.Container.JQuery ().CSS ("top", value);
+			JQuery ().CSS ("top", value);
 			return this;
 		}
 
 		public Panel Width(string value)
 		{
 			pc.Width = value;
-			pc.Container.JQuery ().CSS ("width", value);
+			JQuery ().CSS ("width", value);
 			return this;
 		}
 
 		public Panel Height(string value)
 		{
 			pc.Height = value;
-			pc.Body.JQuery ().CSS ("height", value);
+			Body.JQuery ().CSS ("height", value);
 			return this;
 		}
 
 
 		public Panel Collapse()
 		{
-			var collapsed = !pc.Body.IsVisible ();
+			var collapsed = !Body.IsVisible ();
 
 			OnCollapsed (collapsed);
 
-			pc.Body.JQuery ().Toggle ();
+			Body.JQuery ().Toggle ();
 
 			collapseIcon.ClassName (!collapsed ? pc.CollapseIconClass : pc.ExpandIconClass);
 			return this;
@@ -285,11 +290,11 @@ namespace Cayita.UI
 		/// </summary>
 		public Panel Toggle()
 		{
-			var visible = pc.Container.IsVisible ();
+			var visible = IsVisible ();
 
 			OnToggled (visible);
 			
-			pc.Container.JQuery ().Toggle ();
+			JQuery ().Toggle ();
 			return this;
 		}
 
@@ -297,32 +302,32 @@ namespace Cayita.UI
 		public void Close()
 		{
 			OnClosed ();
-			pc.Container.Remove ();
+			Remove ();
 		}
 
 		public new Panel Append (string content)
 		{
-			pc.Body.Append (content);
+			Body.Append (content);
 			return this;
 		}
 
 		public new Panel Append (Element content)
 		{
-			pc.Body.Append (content);
+			Body.Append (content);
 			return this;
 		}
 
 		public Panel Append<T> (ElementBase<T> content) where T: ElementBase
 		
 		{
-			pc.Body.Append (content.Element());
+			Body.Append (content.Element());
 			return this;
 		}
 
 
 		public new DivElement Element()
 		{
-			return pc.Container;
+			return base.Element ().As<DivElement> ();
 		}
 
 		/// <summary>
@@ -357,20 +362,19 @@ namespace Cayita.UI
 
 		void InitDraggable()
 		{
-			dobject = pc.Container.JQuery ().Draggable ();
+			dobject = JQuery ().Draggable ();
 			dobject.Stack = ".c-panel";
 			dobject.AddClasses = false;
 			dobject.Containment = "parent";
 			dobject.Distance = 10;
-			dobject.Handle = pc.Header;
+			dobject.Handle = Header.Element();
 		}
 
 
 		void InitResizable()
 		{
-			robject = pc.Body.JQuery ().Resizable ();
-			robject.AlsoResize = pc.Container.JQuery ();
-
+			robject = Body.JQuery ().Resizable ();
+			robject.AlsoResize = JQuery ();
 
 		}
 
@@ -398,16 +402,6 @@ namespace Cayita.UI
 			Width = "";
 			Height = "";
 
-			Container = new Div (null, ct => {
-				ct.ClassName="c-panel";
-				Header = new Div(ct, hd=>{
-					hd.ClassName="c-panel-header";
-				}).Element();
-				Body = new Div(ct, bd=>{
-					bd.ClassName="c-panel-content";
-				}).Element();
-
-			}).Element();
 		}
 
 
@@ -436,12 +430,6 @@ namespace Cayita.UI
 		public string CollapseIconClass { get; set; }
 
 		public string ExpandIconClass { get; set; }
-
-		protected internal DivElement Container { get; set; }
-		
-		protected internal DivElement Header { get; set; }
-
-		protected internal DivElement Body { get; set; }
 
 		/// <summary>
 		/// Gets or sets the on close handler = > click on close Icon
