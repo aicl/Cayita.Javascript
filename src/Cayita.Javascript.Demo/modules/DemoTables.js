@@ -148,7 +148,7 @@
 				ct.style.minHeight = '300px';
 				$DemoTables.$cGrid = new $CustomerGrid(ct, new $CustomerStore());
 			});
-			new (ss.makeGenericType(Cayita.UI.StorePaging$1, [$Customer]))(div1, $DemoTables.$cGrid.getStore$1());
+			new (ss.makeGenericType(Cayita.UI.StorePaging$1, [$Customer]).$ctor1)(div1, $DemoTables.$cGrid.getStore$1());
 		})).appendTo$2(parent);
 		$DemoTables.$cGrid.getStore$1().read$1();
 		$(parent).append(StringExtensions.header('Filters', 3));
@@ -167,7 +167,7 @@
 			new Cayita.UI.Div.$ctor2(div2, function(ct1) {
 				ct1.style.minHeight = '300px';
 				gc = new $CustomerGrid(ct1, new $CustomerStore());
-				new (ss.makeGenericType(Cayita.UI.StorePaging$1, [$Customer]))(div2, gc.getStore$1());
+				new (ss.makeGenericType(Cayita.UI.StorePaging$1, [$Customer]).$ctor1)(div2, gc.getStore$1());
 				gc.getStore$1().read$1();
 			});
 		})).appendTo$2(parent);

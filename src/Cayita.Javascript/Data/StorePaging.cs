@@ -27,6 +27,10 @@ namespace Cayita.UI
 		LabelElement info;
 		InputElement currentPage;
 
+		public StorePaging (ElementBase parent, Store<T> store):this(parent.GetMainElement(),store)
+		{
+		}
+
 		public StorePaging (Element parent, Store<T> store):base(parent)
 		{
 			store_ = store;

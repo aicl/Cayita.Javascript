@@ -15,7 +15,7 @@ namespace Cayita.UI
 		InputElement he;
 
 		DivElement main;
-		DivElement body;
+		Div body;
 
 		HtmlGrid<T> gr;
 
@@ -28,7 +28,7 @@ namespace Cayita.UI
 		}
 
 		public SearchBox (ElementBase parent, Store<T> store,  SearchBoxConfig<T> config, List<TableColumn<T>> columns =null)
-			:this(parent.Element(), store, config, columns)
+			:this(parent.GetMainElement(), store, config, columns)
 		{
 		}
 
@@ -141,7 +141,7 @@ namespace Cayita.UI
 			body = new Div (main, e => {
 				e.Hide ();
 				e.ClassName = "c-search-body";
-			}).Element ();
+			});
 
 
 			if (columns == null) {

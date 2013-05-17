@@ -76,7 +76,13 @@ namespace Cayita.UI
 			GetMainElement ().Hide ();
 			return As<T> ();
 		}
-		
+
+		public T Show()
+		{
+			GetMainElement ().Show();
+			return As<T> ();
+		}
+
 		public T SlideToggle()
 		{
 			GetMainElement().SlideToggle ();

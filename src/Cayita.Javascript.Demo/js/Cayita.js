@@ -2141,6 +2141,10 @@
 				$(this.getMainElement()).hide();
 				return this;
 			},
+			show: function() {
+				$(this.getMainElement()).show();
+				return this;
+			},
 			slideToggle: function() {
 				$(this.getMainElement()).slideToggle();
 				return this;
@@ -4113,8 +4117,8 @@
 						var k = evt.which;
 						//down enter numpad_enter
 						if (k === 40 || k === 13 || k === 108) {
-							if (!$(this.$body).is(':visible')) {
-								$(this.$body).show();
+							if (!this.$body.isVisible()) {
+								this.$body.show();
 							}
 							this.$gr.jQuery().focus();
 							return;
@@ -4123,8 +4127,8 @@
 						if (k === 27) {
 							this.$he.value = this.$searchIndex;
 							this.$te.value = this.$searchText;
-							if ($(this.$body).is(':visible')) {
-								$(this.$body).hide();
+							if (this.$body.isVisible()) {
+								this.$body.hide();
 							}
 							return;
 						}
@@ -4137,8 +4141,8 @@
 						if (!this.$cfg.searchButton || !ss.staticEquals(this.$cfg.localFilter, null)) {
 							var b = ss.mkdel(this, function() {
 								this.$search(store);
-								if (!$(this.$body).is(':visible')) {
-									$(this.$body).show();
+								if (!this.$body.isVisible()) {
+									this.$body.show();
 								}
 							});
 							cayita.fn.delay(b, this.$cfg.delay);
@@ -4153,8 +4157,8 @@
 					ibn.className = this.$cfg.searchIconClassName;
 					$(b1).on('click', ss.mkdel(this, function(e2) {
 						this.$search(store);
-						$(this.$body).toggle();
-						if ($(this.$body).is(':visible')) {
+						this.$body.jQuery().toggle();
+						if (this.$body.isVisible()) {
 							this.$gr.jQuery().focus();
 						}
 					}));
@@ -4169,15 +4173,15 @@
 						this.$reset(true);
 					}));
 				}));
-				this.$body = (new $Cayita_UI_Div.$ctor2(this.$main, function(e4) {
+				this.$body = new $Cayita_UI_Div.$ctor2(this.$main, function(e4) {
 					$(e4).hide();
 					e4.className = 'c-search-body';
-				})).element$1();
+				});
 				if (ss.isNullOrUndefined(columns)) {
 					columns = [];
 					ss.add(columns, ss.makeGenericType($Cayita_UI_TableColumn$1, [T]).$ctor1(this.$cfg.textField, null, null, false));
 				}
-				this.$gr = new (ss.makeGenericType($Cayita_UI_HtmlGrid$1, [T]).$ctor3)(this.$body, store, columns);
+				this.$gr = new (ss.makeGenericType($Cayita_UI_HtmlGrid$1, [T]).$ctor2)(this.$body, store, columns);
 				if (this.$cfg.paged) {
 					new (ss.makeGenericType($Cayita_UI_StorePaging$1, [T]))(this.$body, store);
 				}
@@ -4187,7 +4191,7 @@
 				this.$gr.add_keyDown(ss.mkdel(this, function(g1, evt1) {
 					var k1 = evt1.which;
 					if (k1 === 27) {
-						$(this.$body).hide();
+						this.$body.hide();
 						return;
 					}
 					if (k1 === 13 || k1 === 107) {
@@ -4208,7 +4212,7 @@
 				cayita.fn.setValue(this.$te, $SystemExtensions.get(sr.record, this.$cfg.textField));
 				this.$searchText = this.$te.value;
 				this.$searchIndex = this.$he.value;
-				$(this.$body).hide();
+				this.$body.hide();
 				this.onRowSelected(sr);
 			},
 			$search: function(store) {
@@ -4248,7 +4252,7 @@
 			}
 		};
 		$type.$ctor1 = function(parent, store, config, columns) {
-			$type.$ctor2.call(this, parent.element(), store, config, columns);
+			$type.$ctor2.call(this, parent.getMainElement(), store, config, columns);
 		};
 		$type.$ctor2 = function(parent, store, config, columns) {
 			this.$cfg = null;
@@ -4645,6 +4649,48 @@
 	// Cayita.UI.StorePaging
 	var $Cayita_UI_StorePaging$1 = function(T) {
 		var $type = function(parent, store) {
+			$type.$ctor1.call(this, parent.getMainElement(), store);
+		};
+		$type.prototype = {
+			navigator: function() {
+				return this.$divnav;
+			},
+			pageText: function(text) {
+				this.$pText = text;
+				return this;
+			},
+			ofTotalText: function(text) {
+				this.$ofText = text;
+				return this;
+			},
+			infoTemplate: function(text) {
+				this.$infoTmpl = text;
+				return this;
+			},
+			update: function() {
+				var lo = this.$store_.getLastOption();
+				var pageNumber = (ss.isValue(lo.pageNumber) ? ss.Nullable.unbox(lo.pageNumber) : 0);
+				var pageSize = (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : this.$store_.getTotalCount());
+				var from_ = pageNumber * pageSize + 1;
+				var to_ = pageNumber * pageSize + pageSize;
+				var pagesCount = this.$store_.getPagesCount();
+				if (to_ > this.$store_.getTotalCount()) {
+					to_ = this.$store_.getTotalCount();
+				}
+				if (to_ === 0) {
+					from_ = 0;
+				}
+				this.$first.disabled = !this.$store_.hasPreviousPage();
+				this.$prev.disabled = !this.$store_.hasPreviousPage();
+				this.$next.disabled = !this.$store_.hasNextPage();
+				this.$last.disabled = !this.$store_.hasNextPage();
+				$Extensions.text$1(this.$page, this.$pText);
+				cayita.fn.setValue(this.$currentPage, ((pageNumber < pagesCount) ? (pageNumber + 1) : pagesCount));
+				$Extensions.text$1(this.$totalPages, this.$ofText + ' ' + pagesCount);
+				$Extensions.text$1(this.$info, ss.formatString(this.$infoTmpl, from_, to_, this.$store_.getTotalCount()));
+			}
+		};
+		$type.$ctor1 = function(parent, store) {
 			this.$divnav = null;
 			this.$pText = 'page';
 			this.$ofText = 'of';
@@ -4739,45 +4785,7 @@
 				this.update();
 			}));
 		};
-		$type.prototype = {
-			navigator: function() {
-				return this.$divnav;
-			},
-			pageText: function(text) {
-				this.$pText = text;
-				return this;
-			},
-			ofTotalText: function(text) {
-				this.$ofText = text;
-				return this;
-			},
-			infoTemplate: function(text) {
-				this.$infoTmpl = text;
-				return this;
-			},
-			update: function() {
-				var lo = this.$store_.getLastOption();
-				var pageNumber = (ss.isValue(lo.pageNumber) ? ss.Nullable.unbox(lo.pageNumber) : 0);
-				var pageSize = (ss.isValue(lo.pageSize) ? ss.Nullable.unbox(lo.pageSize) : this.$store_.getTotalCount());
-				var from_ = pageNumber * pageSize + 1;
-				var to_ = pageNumber * pageSize + pageSize;
-				var pagesCount = this.$store_.getPagesCount();
-				if (to_ > this.$store_.getTotalCount()) {
-					to_ = this.$store_.getTotalCount();
-				}
-				if (to_ === 0) {
-					from_ = 0;
-				}
-				this.$first.disabled = !this.$store_.hasPreviousPage();
-				this.$prev.disabled = !this.$store_.hasPreviousPage();
-				this.$next.disabled = !this.$store_.hasNextPage();
-				this.$last.disabled = !this.$store_.hasNextPage();
-				$Extensions.text$1(this.$page, this.$pText);
-				cayita.fn.setValue(this.$currentPage, ((pageNumber < pagesCount) ? (pageNumber + 1) : pagesCount));
-				$Extensions.text$1(this.$totalPages, this.$ofText + ' ' + pagesCount);
-				$Extensions.text$1(this.$info, ss.formatString(this.$infoTmpl, from_, to_, this.$store_.getTotalCount()));
-			}
-		};
+		$type.$ctor1.prototype = $type.prototype;
 		ss.registerGenericClassInstance($type, $Cayita_UI_StorePaging$1, [T], function() {
 			return $Cayita_UI_Div;
 		}, function() {
