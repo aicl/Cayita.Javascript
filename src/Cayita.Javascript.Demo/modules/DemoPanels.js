@@ -8,7 +8,7 @@
 		(new Cayita.UI.Div.$ctor2(null, function(div) {
 			div.className = 'bs-docs-example';
 			div.style.paddingLeft = '40px';
-			$(div).append(Cayita.UI.Div.createContainer$1(div, function(cf) {
+			Extensions.append(div, Cayita.UI.Div.createContainer$1(div, function(cf) {
 				Cayita.UI.Div.createRow$1(cf, function(rf) {
 					new Cayita.UI.Div.$ctor2(rf, function(ld) {
 						ld.className = 'span5';
@@ -108,7 +108,7 @@
 						tbp.render(ld1);
 					});
 				});
-			}).element());
+			}));
 			$DemoPanels.$showCodePanels(div);
 		})).appendTo$2(parent);
 		(new Cayita.UI.Div.$ctor2(null, function(div1) {
@@ -156,11 +156,11 @@
 				$(bt5).on('click', function(evt5) {
 					var error = new Cayita.UI.Paragraph.$ctor1(function(p2) {
 						p2.style.color = 'red';
-						$(p2).append((new Cayita.UI.Icon.$ctor1(function(i2) {
+						Extensions.append(p2, new Cayita.UI.Icon.$ctor1(function(i2) {
 							i2.className = 'icon-minus-sign';
 							i2.style.marginTop = '8px';
 							i2.style.marginRight = '8px';
-						})).element());
+						}));
 						$(p2).append(' panel was closed ');
 					});
 					var pn2 = (new Cayita.UI.Panel()).caption('No Closable No Collapsible').overlay(true).left('30px').top('400px').width('auto').closable(false).collapsible(false).closedHandler(function(p3) {

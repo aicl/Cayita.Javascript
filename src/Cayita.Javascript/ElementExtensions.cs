@@ -45,12 +45,6 @@ namespace Cayita.UI
 			return null;
 		}
 
-		[InlineCode("$({parent}.element()).append({child})")]
-		public static jQueryObject AppendTo<T>(this jQueryObject child, ElementBase<T> parent) where T: ElementBase
-		{
-			return null;
-		}
-
 
 		[InlineCode("$({parent}).append({child})")]
 		public static jQueryObject Append(this Element parent, Element child)
@@ -58,11 +52,12 @@ namespace Cayita.UI
 			return null;
 		}
 
-		[InlineCode("$({parent}).append({child}.element())")]
-		public static jQueryObject Append<T>(this Element parent, ElementBase<T> child) where T: ElementBase
+		[InlineCode("$({parent}).append({child})")]
+		public static jQueryObject Append(this Element parent, jQueryObject child)
 		{
 			return null;
 		}
+
 
 		[InlineCode("$({parent}).append({text})")]
 		public static jQueryObject Append(this Element parent, string text)

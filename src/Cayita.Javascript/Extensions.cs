@@ -289,5 +289,18 @@ namespace Cayita.UI
 		}
 
 
+		//[InlineCode("$({parent}.element()).append({child})")]
+		public static jQueryObject AppendTo(this jQueryObject child, ElementBase parent) 
+		{
+			return parent.GetMainElement ().Append (child);
+		}
+
+		//[InlineCode("$({parent}).append({child}.element())")]
+		public static jQueryObject Append(this Element parent, ElementBase child) 
+		{
+			return parent.Append (child.GetMainElement ());
+		}
+
+
 	}
 }

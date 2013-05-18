@@ -228,7 +228,7 @@
 		il.append$1(menu);
 	};
 	$Extensions.addItem = function(parent, submenu) {
-		$(parent).append(submenu.element());
+		$Extensions.append(parent, submenu);
 	};
 	$Extensions.send = function(fd, url) {
 		return $.ajax({ url: url, type: 'POST', data: fd, processData: false, contentType: '' });
@@ -244,6 +244,12 @@
 	};
 	$Extensions.text = function(element) {
 		return $('ctxt', element).text();
+	};
+	$Extensions.appendTo = function(child, parent) {
+		return $(parent.getMainElement()).append(child);
+	};
+	$Extensions.append = function(parent, child) {
+		return $(parent).append(child.getMainElement());
 	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.StringExtensions
@@ -1967,7 +1973,7 @@
 	};
 	$Cayita_UI_DropDownMenu.prototype = {
 		appendTo$3: function(parent) {
-			$(parent).append(this.element()).addClass('dropdown');
+			$Extensions.append(parent, this).addClass('dropdown');
 			return this;
 		}
 	};
