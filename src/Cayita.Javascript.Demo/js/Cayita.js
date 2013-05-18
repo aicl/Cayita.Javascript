@@ -2460,80 +2460,104 @@
 	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Form
-	var $Cayita_UI_Form = function(parent) {
-		this.$3$DataChangedField = function(f) {
-		};
-		this.$val = $Cayita_Plugins_ValidateOptions.$ctor();
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Form]).call(this);
-		this.$init(parent);
+	var $Cayita_UI_Form = function() {
+		ss.makeGenericType($Cayita_UI_FormBase$1, [$Cayita_UI_Form]).call(this, null);
 	};
-	$Cayita_UI_Form.prototype = {
-		add_dataChanged: function(value) {
-			this.$3$DataChangedField = ss.delegateCombine(this.$3$DataChangedField, value);
-		},
-		remove_dataChanged: function(value) {
-			this.$3$DataChangedField = ss.delegateRemove(this.$3$DataChangedField, value);
-		},
-		onDataChanged: function() {
-			this.$3$DataChangedField(this);
-		},
-		$init: function(parent) {
-			this.createElement('form', parent);
-			$(this.element$1()).on('change', 'input', ss.mkdel(this, function(evt) {
-				this.onDataChanged();
-			}));
-		},
-		element$1: function() {
-			return this.element();
-		},
-		formData: function() {
-			return new FormData(this.element$1());
-		},
-		validate: function() {
-			$(this.element$1()).validate(this.$val);
-			return this;
-		},
-		addRule: function(rule) {
-			$Cayita_Plugins_ValidateOptions.addRule(this.$val, rule);
-			return this;
-		},
-		setSubmitHanlder: function(form) {
-			$Cayita_Plugins_ValidateOptions.setSubmitHandler(this.$val, ss.mkdel(this, function(f) {
-				form(this);
-			}));
-			return this;
-		},
-		findSubmit: function() {
-			return $Extensions.find(Element).call(null, this.element$1(), '[type=submit]');
-		},
-		reset: function() {
-			this.element$1().reset();
-			return this;
-		},
-		load: function(T) {
-			return function(data) {
-				cayita.fn.loadForm(this.element$1(), data);
+	$Cayita_UI_Form.$ctor3 = function(parent, element) {
+		ss.makeGenericType($Cayita_UI_FormBase$1, [$Cayita_UI_Form]).$ctor1.call(this, parent, element);
+	};
+	$Cayita_UI_Form.$ctor2 = function(parent) {
+		ss.makeGenericType($Cayita_UI_FormBase$1, [$Cayita_UI_Form]).call(this, parent);
+	};
+	$Cayita_UI_Form.$ctor1 = function(parent) {
+		ss.makeGenericType($Cayita_UI_FormBase$1, [$Cayita_UI_Form]).call(this, parent.getMainElement());
+	};
+	$Cayita_UI_Form.$ctor3.prototype = $Cayita_UI_Form.$ctor2.prototype = $Cayita_UI_Form.$ctor1.prototype = $Cayita_UI_Form.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.FormBase
+	var $Cayita_UI_FormBase$1 = function(T) {
+		var $type = function(parent) {
+			this.$3$DataChangedField = function(f) {
+			};
+			this.$val = $Cayita_Plugins_ValidateOptions.$ctor();
+			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
+			this.$init(parent);
+		};
+		$type.prototype = {
+			add_dataChanged: function(value) {
+				this.$3$DataChangedField = ss.delegateCombine(this.$3$DataChangedField, value);
+			},
+			remove_dataChanged: function(value) {
+				this.$3$DataChangedField = ss.delegateRemove(this.$3$DataChangedField, value);
+			},
+			onDataChanged: function() {
+				this.$3$DataChangedField(this);
+			},
+			$init: function(parent) {
+				this.createElement('form', parent);
+				$(this.element$1()).on('change', 'input', ss.mkdel(this, function(evt) {
+					this.onDataChanged();
+				}));
+			},
+			element$1: function() {
+				return this.element();
+			},
+			formData: function() {
+				return new FormData(this.element$1());
+			},
+			validate: function() {
+				$(this.element$1()).validate(this.$val);
 				return this;
-			};
-		},
-		loadTo: function(T) {
-			return function() {
-				return $Extensions.loadTo(T).call(null, this.element$1());
-			};
-		},
-		hasChanged: function() {
-			return cayita.fn.hasChanged(this.element$1());
-		}
-	};
-	$Cayita_UI_Form.$ctor1 = function(parent, element) {
-		this.$3$DataChangedField = function(f) {
+			},
+			addRule: function(rule) {
+				$Cayita_Plugins_ValidateOptions.addRule(this.$val, rule);
+				return this;
+			},
+			setSubmitHanlder: function(form) {
+				$Cayita_Plugins_ValidateOptions.setSubmitHandler(this.$val, ss.mkdel(this, function(f) {
+					form(this);
+				}));
+				return this;
+			},
+			findSubmit: function() {
+				return $Extensions.find(Element).call(null, this.element$1(), '[type=submit]');
+			},
+			reset: function() {
+				this.element$1().reset();
+				return this;
+			},
+			load: function(TData) {
+				return function(data) {
+					cayita.fn.loadForm(this.element$1(), data);
+					return this;
+				};
+			},
+			loadTo: function(TData) {
+				return function() {
+					return $Extensions.loadTo(TData).call(null, this.element$1());
+				};
+			},
+			hasChanged: function() {
+				return cayita.fn.hasChanged(this.element$1());
+			}
 		};
-		this.$val = $Cayita_Plugins_ValidateOptions.$ctor();
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Form]).call(this);
-		this.$init(parent);
-		element(this.element$1());
+		$type.$ctor1 = function(parent, element) {
+			this.$3$DataChangedField = function(f) {
+			};
+			this.$val = $Cayita_Plugins_ValidateOptions.$ctor();
+			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
+			this.$init(parent);
+			element(this.element$1());
+		};
+		$type.$ctor1.prototype = $type.prototype;
+		ss.registerGenericClassInstance($type, $Cayita_UI_FormBase$1, [T], function() {
+			return ss.makeGenericType($Cayita_UI_ElementBase$1, [T]);
+		}, function() {
+			return [];
+		});
+		return $type;
 	};
-	$Cayita_UI_Form.$ctor1.prototype = $Cayita_UI_Form.prototype;
+	ss.registerGenericClass(global, 'Cayita.UI.FormBase$1', $Cayita_UI_FormBase$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.GroupBase
 	var $Cayita_UI_GroupBase$2 = function(TField, TInput) {
@@ -5344,7 +5368,7 @@
 	ss.registerClass(global, 'Cayita.UI.ElementBase', $Cayita_UI_ElementBase);
 	ss.registerClass(global, 'Cayita.UI.FieldSet', $Cayita_UI_FieldSet, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_FieldSet]));
 	ss.registerClass(global, 'Cayita.UI.FileUpload', $Cayita_UI_FileUpload, ss.makeGenericType($Cayita_UI_FileUpload$1, [$Cayita_UI_FileUpload]));
-	ss.registerClass(global, 'Cayita.UI.Form', $Cayita_UI_Form, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Form]));
+	ss.registerClass(global, 'Cayita.UI.Form', $Cayita_UI_Form, ss.makeGenericType($Cayita_UI_FormBase$1, [$Cayita_UI_Form]));
 	ss.registerClass(global, 'Cayita.UI.GroupItem', $Cayita_UI_GroupItem);
 	ss.registerClass(global, 'Cayita.UI.HtmlOption', $Cayita_UI_HtmlOption, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlOption]));
 	ss.registerClass(global, 'Cayita.UI.HtmlTable', $Cayita_UI_HtmlTable, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlTable]));

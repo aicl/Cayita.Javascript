@@ -321,7 +321,7 @@ public class UserForm:Form
 		return f.FindById&lt;ButtonElement&gt;(""btn-create"");
 	}
 	
-	public UserForm (Element parent, List&lt;GroupItem&gt; levelOptions):base(null)
+	public UserForm (Element parent, List&lt;GroupItem&gt; levelOptions):base()
 	{
 		f = Element();
 		

@@ -4,11 +4,32 @@ using Cayita.Plugins;
 
 namespace Cayita.UI
 {
-	
-	public class Form:ElementBase<Form>
+
+	public class Form:FormBase<Form>
 	{
 
-		public event Action<Form> DataChanged = f=> {};
+		public Form(Element parent, Action<FormElement> element):base(parent,element)
+		{
+		}
+
+		public Form (Element parent):base(parent)
+		{
+		}
+	
+		public Form ():base(default(Element))
+		{
+		}
+	
+		public Form(ElementBase parent):base(parent.GetMainElement())
+		{
+		}
+
+	}
+	
+	public class FormBase<T>:ElementBase<T> where T:ElementBase
+	{
+
+		public event Action<FormBase<T>> DataChanged = f=> {};
 
 		protected void OnDataChanged()
 		{
@@ -17,14 +38,14 @@ namespace Cayita.UI
 
 		ValidateOptions val = new ValidateOptions ();
 
-		public Form(Element parent, Action<FormElement> element)
+		public FormBase(Element parent, Action<FormElement> element)
 		{
 			Init (parent);
 			element.Invoke(Element());
 		}
 
 
-		public Form (Element parent=null)
+		public FormBase (Element parent=null)
 		{
 			Init (parent);
 		}
@@ -49,22 +70,22 @@ namespace Cayita.UI
 			return new FormData(Element());
 		}
 
-		public Form Validate ( )
+		public T Validate ( )
 		{
 			Element ().Validate (val);
-			return this;
+			return As<T>();
 		}
 
-		public Form AddRule(Action<RuleFor, Message> rule)
+		public T AddRule(Action<RuleFor, Message> rule)
 		{
 			val.AddRule (rule);
-			return this;
+			return As<T>();
 		}
 
-		public Form SetSubmitHanlder(Action<Form> form)
+		public T SetSubmitHanlder(Action<FormBase<T>> form)
 		{
 			val.SetSubmitHandler (f => form (this));
-			return this;
+			return As<T>();
 		}
 
 		public ButtonElement FindSubmit()
@@ -73,21 +94,21 @@ namespace Cayita.UI
 		}
 
 
-		public Form Reset()
+		public T Reset()
 		{
 			Element ().Reset ();
-			return this;
+			return As<T>();
 		}
 
-		public Form Load<T>(T data)
+		public T Load<TData>(TData data)
 		{
-			Element ().Load<T> (data); 
-			return this;
+			Element ().Load<TData> (data); 
+			return As<T>();
 		}
 
-		public T LoadTo<T>() where T: new ()
+		public TData LoadTo<TData>() where TData: new ()
 		{
-			return Element ().LoadTo<T> ();
+			return Element ().LoadTo<TData> ();
 		}
 
 		public bool HasChanged()

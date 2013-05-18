@@ -7,7 +7,7 @@
 		$(parent).append(StringExtensions.header('Default styles', 2));
 		(new Cayita.UI.Div.$ctor2(null, function(div) {
 			div.className = 'bs-docs-example';
-			new Cayita.UI.Form.$ctor1(div, function(f) {
+			new Cayita.UI.Form.$ctor3(div, function(f) {
 				new Cayita.UI.FieldSet.$ctor1(f, function(fs) {
 					new Cayita.UI.Legend.$ctor1(fs, function(lg) {
 						Extensions.text$1(lg, 'Legend');
@@ -40,7 +40,7 @@
 		$(parent).append(StringExtensions.header('Search form', 3));
 		(new Cayita.UI.Div.$ctor2(null, function(div1) {
 			div1.className = 'bs-docs-example';
-			new Cayita.UI.Form.$ctor1(div1, function(f1) {
+			new Cayita.UI.Form.$ctor3(div1, function(f1) {
 				f1.className = 'form-search';
 				new Cayita.UI.InputText.$ctor1(f1, function(input1) {
 					input1.className = 'input-medium search-query';
@@ -58,7 +58,7 @@
 		$(parent).append(StringExtensions.header('Inline Form', 3));
 		(new Cayita.UI.Div.$ctor2(null, function(div2) {
 			div2.className = 'bs-docs-example';
-			new Cayita.UI.Form.$ctor1(div2, function(f2) {
+			new Cayita.UI.Form.$ctor3(div2, function(f2) {
 				f2.className = 'form-inline';
 				new Cayita.UI.InputText.$ctor1(f2, function(input2) {
 					input2.className = 'input-small';
@@ -87,7 +87,7 @@
 		$(parent).append(StringExtensions.header('Horizontal Form', 3));
 		(new Cayita.UI.Div.$ctor2(null, function(div3) {
 			div3.className = 'bs-docs-example';
-			new Cayita.UI.Form.$ctor1(div3, function(f3) {
+			new Cayita.UI.Form.$ctor3(div3, function(f3) {
 				f3.className = 'form-horizontal';
 				new Cayita.UI.TextField.$ctor5(f3, function(label, input4) {
 					Extensions.text$1(label, 'Email');
@@ -122,7 +122,7 @@
 						new Cayita.UI.Legend.$ctor1(element, function(l) {
 							Extensions.text$1(l, 'Login Form');
 						});
-						new Cayita.UI.Form.$ctor1(element, function(fe) {
+						new Cayita.UI.Form.$ctor3(element, function(fe) {
 							new Cayita.UI.TextField.$ctor6(fe, function(i) {
 								$(i).attr('placeholder', 'your username');
 								i.name = 'UserName';
@@ -167,7 +167,7 @@
 		(new Cayita.UI.Div.$ctor2(null, function(div5) {
 			div5.className = 'bs-docs-example';
 			Cayita.UI.Div.createContainer$1(div5, function(container1) {
-				new Cayita.UI.Form.$ctor1(container1, function(f5) {
+				new Cayita.UI.Form.$ctor3(container1, function(f5) {
 					$(f5).addClass('well span8');
 					Cayita.UI.Div.createRowFluid$1(f5, function(row1) {
 						new Cayita.UI.Div.$ctor2(row1, function(sp1) {
