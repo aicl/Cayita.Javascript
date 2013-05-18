@@ -163,7 +163,7 @@
 			this.get_$searchDiv().appendTo$2(parent);
 			this.set_$formDiv(new Cayita.UI.Div.$ctor2(null, ss.mkdel(this, function(formdiv) {
 				formdiv.className = 'span6 offset2 well';
-				this.set_$form(new Cayita.UI.Form.$ctor1(formdiv, ss.mkdel(this, function(f) {
+				this.set_$form(new Cayita.UI.Form.$ctor3(formdiv, ss.mkdel(this, function(f) {
 					f.className = 'form-horizontal';
 					var inputId = new Cayita.UI.InputText.$ctor1(f, function(e) {
 						e.name = 'Id';

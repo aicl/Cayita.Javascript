@@ -32,36 +32,59 @@ namespace Cayita.UI
 		protected internal Element HtmlElement { get; set; }
 	}
 
-	public class HtmlGrid<T>:HtmlTable where T: new()
+	public class HtmlGrid<T>:HtmlGridBase<T,HtmlGrid<T>> where T: new()
+	{
+
+		protected HtmlGrid (Element parent):base(parent)
+		{
+		}
+		
+		public HtmlGrid (ElementBase parent,  Store<T> store, List<TableColumn<T>> columns=null)
+			:base(parent,store,columns)
+		{
+		}
+		
+		public HtmlGrid (Element parent,  Store<T> store, List<TableColumn<T>> columns=null)
+			:base(parent, store, columns)
+		{
+		}
+		
+		public HtmlGrid (Store<T> store, List<TableColumn<T>> columns=null):base(store,columns)
+		{
+		}
+	}
+
+
+	public abstract class HtmlGridBase<T,TGrid>:HtmlTableBase<TGrid> where T: new() where TGrid:ElementBase
 	{
 
 		List<TableColumn<T>> columns;
 		Store<T> store ;
 		TableElement table;
 		ClickedRow<T> selectedrow;
-		Func<HtmlGrid<T>, Element> readRequestStarted;
-		Action<HtmlGrid<T>, Element> readRequestFinished;
+		Func<HtmlGridBase<T,TGrid>, Element> readRequestStarted;
+		Action<HtmlGridBase<T,TGrid>, Element> readRequestFinished;
 		RequestMessage readRequestMessage;
 
 		readonly List<int>  nvkeys= new List<int>(){33, 34,  35, 36, 38, 40 };
 		// page_up, page_down, end, home, up, donw
 
-		protected HtmlGrid (Element parent)
+		protected HtmlGridBase (Element parent)
 		{
 			Init (parent, new Store<T>()  );
 		}
 
-		public HtmlGrid (ElementBase parent,  Store<T> store, List<TableColumn<T>> columns=null)
+		public HtmlGridBase (ElementBase parent,  Store<T> store, List<TableColumn<T>> columns=null)
 		{
 			Init(parent.GetMainElement(), store, columns);
 		}
 
-		public HtmlGrid (Element parent,  Store<T> store, List<TableColumn<T>> columns=null)
+		public HtmlGridBase (Element parent,  Store<T> store, List<TableColumn<T>> columns=null)
 		{
 			Init(parent, store, columns);
 		}
 
-		public HtmlGrid (Store<T> store, List<TableColumn<T>> columns=null)
+		public HtmlGridBase (Store<T> store, List<TableColumn<T>> columns=null)
 		{
 			Init(null, store, columns);
 		}
@@ -258,10 +281,10 @@ namespace Cayita.UI
 		}
 
 
-		public HtmlGrid<T> SetReadRequestMessage(Action<RequestMessage> message)
+		public TGrid SetReadRequestMessage(Action<RequestMessage> message)
 		{
 			message(readRequestMessage);
-			return this;
+			return As<TGrid> ();
 		}
 
 		public SelectedRow<T> GetSelectedRow()
@@ -327,9 +350,9 @@ namespace Cayita.UI
 			table.JQuery().Find ("td:nth-child("+columnIndex+"),th:nth-child("+columnIndex+")").Show();
 		}
 
-		public event Action<HtmlGrid<T> ,SelectedRow<T>> RowSelected  = (g,r) => {};
-		public event Action<HtmlGrid<T> ,ClickedRow<T>> RowClicked = (g,r) => {};
-		public event Action<HtmlGrid<T> ,jQueryEvent> KeyDown = (g,e) => {}; 
+		public event Action<HtmlGridBase<T,TGrid> ,SelectedRow<T>> RowSelected  = (g,r) => {};
+		public event Action<HtmlGridBase<T,TGrid> ,ClickedRow<T>> RowClicked = (g,r) => {};
+		public event Action<HtmlGridBase<T,TGrid> ,jQueryEvent> KeyDown = (g,e) => {}; 
 
 
 		protected virtual void OnRowSelected ( SelectedRow<T> row)

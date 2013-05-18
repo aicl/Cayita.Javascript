@@ -2682,6 +2682,30 @@
 	// Cayita.UI.HtmlGrid
 	var $Cayita_UI_HtmlGrid$1 = function(T) {
 		var $type = function(parent) {
+			ss.makeGenericType($Cayita_UI_HtmlGridBase$2, [T, $type]).call(this, parent);
+		};
+		$type.$ctor2 = function(parent, store, columns) {
+			ss.makeGenericType($Cayita_UI_HtmlGridBase$2, [T, $type]).$ctor2.call(this, parent, store, columns);
+		};
+		$type.$ctor3 = function(parent, store, columns) {
+			ss.makeGenericType($Cayita_UI_HtmlGridBase$2, [T, $type]).$ctor3.call(this, parent, store, columns);
+		};
+		$type.$ctor1 = function(store, columns) {
+			ss.makeGenericType($Cayita_UI_HtmlGridBase$2, [T, $type]).$ctor1.call(this, store, columns);
+		};
+		$type.$ctor2.prototype = $type.$ctor3.prototype = $type.$ctor1.prototype = $type.prototype;
+		ss.registerGenericClassInstance($type, $Cayita_UI_HtmlGrid$1, [T], function() {
+			return ss.makeGenericType($Cayita_UI_HtmlGridBase$2, [T, $type]);
+		}, function() {
+			return [];
+		});
+		return $type;
+	};
+	ss.registerGenericClass(global, 'Cayita.UI.HtmlGrid$1', $Cayita_UI_HtmlGrid$1, 1);
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.HtmlGridBase
+	var $Cayita_UI_HtmlGridBase$2 = function(T, TGrid) {
+		var $type = function(parent) {
 			this.$columns = null;
 			this.$store = null;
 			this.$table = null;
@@ -2697,13 +2721,13 @@
 			ss.add($t1, 38);
 			ss.add($t1, 40);
 			this.$nvkeys = $t1;
-			this.$5$RowSelectedField = function(g, r) {
+			this.$4$RowSelectedField = function(g, r) {
 			};
-			this.$5$RowClickedField = function(g, r) {
+			this.$4$RowClickedField = function(g, r) {
 			};
-			this.$5$KeyDownField = function(g, e) {
+			this.$4$KeyDownField = function(g, e) {
 			};
-			$Cayita_UI_HtmlTable.call(this);
+			ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [TGrid]).call(this);
 			this.$init(parent, new (ss.makeGenericType($Cayita_Data_Store$1, [T]))(), null);
 		};
 		$type.prototype = {
@@ -2951,31 +2975,31 @@
 				$(this.$table).find('td:nth-child(' + columnIndex + '),th:nth-child(' + columnIndex + ')').show();
 			},
 			add_rowSelected: function(value) {
-				this.$5$RowSelectedField = ss.delegateCombine(this.$5$RowSelectedField, value);
+				this.$4$RowSelectedField = ss.delegateCombine(this.$4$RowSelectedField, value);
 			},
 			remove_rowSelected: function(value) {
-				this.$5$RowSelectedField = ss.delegateRemove(this.$5$RowSelectedField, value);
+				this.$4$RowSelectedField = ss.delegateRemove(this.$4$RowSelectedField, value);
 			},
 			add_rowClicked: function(value) {
-				this.$5$RowClickedField = ss.delegateCombine(this.$5$RowClickedField, value);
+				this.$4$RowClickedField = ss.delegateCombine(this.$4$RowClickedField, value);
 			},
 			remove_rowClicked: function(value) {
-				this.$5$RowClickedField = ss.delegateRemove(this.$5$RowClickedField, value);
+				this.$4$RowClickedField = ss.delegateRemove(this.$4$RowClickedField, value);
 			},
 			add_keyDown: function(value) {
-				this.$5$KeyDownField = ss.delegateCombine(this.$5$KeyDownField, value);
+				this.$4$KeyDownField = ss.delegateCombine(this.$4$KeyDownField, value);
 			},
 			remove_keyDown: function(value) {
-				this.$5$KeyDownField = ss.delegateRemove(this.$5$KeyDownField, value);
+				this.$4$KeyDownField = ss.delegateRemove(this.$4$KeyDownField, value);
 			},
 			onRowSelected: function(row) {
-				this.$5$RowSelectedField(this, row);
+				this.$4$RowSelectedField(this, row);
 			},
 			onRowClicked: function(row) {
-				this.$5$RowClickedField(this, row);
+				this.$4$RowClickedField(this, row);
 			},
 			onKeyDown: function(evt) {
-				this.$5$KeyDownField(this, evt);
+				this.$4$KeyDownField(this, evt);
 			}
 		};
 		$type.$ctor2 = function(parent, store, columns) {
@@ -2994,13 +3018,13 @@
 			ss.add($t1, 38);
 			ss.add($t1, 40);
 			this.$nvkeys = $t1;
-			this.$5$RowSelectedField = function(g, r) {
+			this.$4$RowSelectedField = function(g, r) {
 			};
-			this.$5$RowClickedField = function(g, r) {
+			this.$4$RowClickedField = function(g, r) {
 			};
-			this.$5$KeyDownField = function(g, e) {
+			this.$4$KeyDownField = function(g, e) {
 			};
-			$Cayita_UI_HtmlTable.call(this);
+			ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [TGrid]).call(this);
 			this.$init(parent.getMainElement(), store, columns);
 		};
 		$type.$ctor3 = function(parent, store, columns) {
@@ -3019,13 +3043,13 @@
 			ss.add($t1, 38);
 			ss.add($t1, 40);
 			this.$nvkeys = $t1;
-			this.$5$RowSelectedField = function(g, r) {
+			this.$4$RowSelectedField = function(g, r) {
 			};
-			this.$5$RowClickedField = function(g, r) {
+			this.$4$RowClickedField = function(g, r) {
 			};
-			this.$5$KeyDownField = function(g, e) {
+			this.$4$KeyDownField = function(g, e) {
 			};
-			$Cayita_UI_HtmlTable.call(this);
+			ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [TGrid]).call(this);
 			this.$init(parent, store, columns);
 		};
 		$type.$ctor1 = function(store, columns) {
@@ -3044,24 +3068,24 @@
 			ss.add($t1, 38);
 			ss.add($t1, 40);
 			this.$nvkeys = $t1;
-			this.$5$RowSelectedField = function(g, r) {
+			this.$4$RowSelectedField = function(g, r) {
 			};
-			this.$5$RowClickedField = function(g, r) {
+			this.$4$RowClickedField = function(g, r) {
 			};
-			this.$5$KeyDownField = function(g, e) {
+			this.$4$KeyDownField = function(g, e) {
 			};
-			$Cayita_UI_HtmlTable.call(this);
+			ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [TGrid]).call(this);
 			this.$init(null, store, columns);
 		};
 		$type.$ctor2.prototype = $type.$ctor3.prototype = $type.$ctor1.prototype = $type.prototype;
-		ss.registerGenericClassInstance($type, $Cayita_UI_HtmlGrid$1, [T], function() {
-			return $Cayita_UI_HtmlTable;
+		ss.registerGenericClassInstance($type, $Cayita_UI_HtmlGridBase$2, [T, TGrid], function() {
+			return ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [TGrid]);
 		}, function() {
 			return [];
 		});
 		return $type;
 	};
-	ss.registerGenericClass(global, 'Cayita.UI.HtmlGrid$1', $Cayita_UI_HtmlGrid$1, 1);
+	ss.registerGenericClass(global, 'Cayita.UI.HtmlGridBase$2', $Cayita_UI_HtmlGridBase$2, 2);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.HtmlList
 	var $Cayita_UI_HtmlList = function(parent, ordered) {
