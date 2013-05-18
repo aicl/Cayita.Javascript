@@ -1765,7 +1765,7 @@
 		}
 	};
 	$Cayita_UI_CheckboxField.$ctor1 = function(parent) {
-		$Cayita_UI_CheckboxField.$ctor3.call(this, parent.element());
+		$Cayita_UI_CheckboxField.$ctor3.call(this, parent.getMainElement());
 	};
 	$Cayita_UI_CheckboxField.$ctor3 = function(parent) {
 		this.$5$LabelField = null;
@@ -4111,7 +4111,7 @@
 		$Cayita_UI_PasswordField.$ctor2.call(this, null);
 	};
 	$Cayita_UI_PasswordField.$ctor1 = function(parent) {
-		$Cayita_UI_PasswordField.$ctor2.call(this, parent.element());
+		$Cayita_UI_PasswordField.$ctor2.call(this, parent.getMainElement());
 	};
 	$Cayita_UI_PasswordField.$ctor2 = function(parent) {
 		ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_UI_PasswordField]).$ctor2.call(this, parent);
@@ -5300,7 +5300,7 @@
 		ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_UI_TextField]).$ctor2.call(this, null);
 	};
 	$Cayita_UI_TextField.$ctor1 = function(parent) {
-		ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_UI_TextField]).$ctor2.call(this, parent.element());
+		ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_UI_TextField]).$ctor2.call(this, parent.getMainElement());
 	};
 	$Cayita_UI_TextField.$ctor4 = function(parent) {
 		ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_UI_TextField]).$ctor2.call(this, parent);

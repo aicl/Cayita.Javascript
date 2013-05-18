@@ -8,7 +8,7 @@ namespace Cayita.UI
 		public PasswordField():this(default(Element))
 		{}
 		
-		public PasswordField(ElementBase parent):this(parent.Element())
+		public PasswordField(ElementBase parent):this(parent.GetMainElement() )
 		{}
 				
 		public PasswordField(Element parent):base(parent)

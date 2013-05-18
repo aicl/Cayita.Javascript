@@ -9,7 +9,7 @@ namespace Cayita.UI
 
 		public TextField():base(){}
 
-		public TextField(ElementBase parent):base(parent.Element()){}
+		public TextField(ElementBase parent):base(parent.GetMainElement()){}
 
 
 		public TextField(Element parent):base(parent)

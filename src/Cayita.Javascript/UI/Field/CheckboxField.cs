@@ -16,7 +16,7 @@ namespace Cayita.UI
 
 		}
 
-		public CheckboxField(ElementBase parent):this(parent.Element())
+		public CheckboxField(ElementBase parent):this(parent.GetMainElement())
 		{
 			
 		}
