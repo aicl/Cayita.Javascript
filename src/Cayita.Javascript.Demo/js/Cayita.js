@@ -2697,11 +2697,11 @@
 			ss.add($t1, 38);
 			ss.add($t1, 40);
 			this.$nvkeys = $t1;
-			this.$4$RowSelectedField = function(g, r) {
+			this.$5$RowSelectedField = function(g, r) {
 			};
-			this.$4$RowClickedField = function(g, r) {
+			this.$5$RowClickedField = function(g, r) {
 			};
-			this.$4$KeyDownField = function(g, e) {
+			this.$5$KeyDownField = function(g, e) {
 			};
 			$Cayita_UI_HtmlTable.call(this);
 			this.$init(parent, new (ss.makeGenericType($Cayita_Data_Store$1, [T]))(), null);
@@ -2951,31 +2951,31 @@
 				$(this.$table).find('td:nth-child(' + columnIndex + '),th:nth-child(' + columnIndex + ')').show();
 			},
 			add_rowSelected: function(value) {
-				this.$4$RowSelectedField = ss.delegateCombine(this.$4$RowSelectedField, value);
+				this.$5$RowSelectedField = ss.delegateCombine(this.$5$RowSelectedField, value);
 			},
 			remove_rowSelected: function(value) {
-				this.$4$RowSelectedField = ss.delegateRemove(this.$4$RowSelectedField, value);
+				this.$5$RowSelectedField = ss.delegateRemove(this.$5$RowSelectedField, value);
 			},
 			add_rowClicked: function(value) {
-				this.$4$RowClickedField = ss.delegateCombine(this.$4$RowClickedField, value);
+				this.$5$RowClickedField = ss.delegateCombine(this.$5$RowClickedField, value);
 			},
 			remove_rowClicked: function(value) {
-				this.$4$RowClickedField = ss.delegateRemove(this.$4$RowClickedField, value);
+				this.$5$RowClickedField = ss.delegateRemove(this.$5$RowClickedField, value);
 			},
 			add_keyDown: function(value) {
-				this.$4$KeyDownField = ss.delegateCombine(this.$4$KeyDownField, value);
+				this.$5$KeyDownField = ss.delegateCombine(this.$5$KeyDownField, value);
 			},
 			remove_keyDown: function(value) {
-				this.$4$KeyDownField = ss.delegateRemove(this.$4$KeyDownField, value);
+				this.$5$KeyDownField = ss.delegateRemove(this.$5$KeyDownField, value);
 			},
 			onRowSelected: function(row) {
-				this.$4$RowSelectedField(this, row);
+				this.$5$RowSelectedField(this, row);
 			},
 			onRowClicked: function(row) {
-				this.$4$RowClickedField(this, row);
+				this.$5$RowClickedField(this, row);
 			},
 			onKeyDown: function(evt) {
-				this.$4$KeyDownField(this, evt);
+				this.$5$KeyDownField(this, evt);
 			}
 		};
 		$type.$ctor2 = function(parent, store, columns) {
@@ -2994,14 +2994,14 @@
 			ss.add($t1, 38);
 			ss.add($t1, 40);
 			this.$nvkeys = $t1;
-			this.$4$RowSelectedField = function(g, r) {
+			this.$5$RowSelectedField = function(g, r) {
 			};
-			this.$4$RowClickedField = function(g, r) {
+			this.$5$RowClickedField = function(g, r) {
 			};
-			this.$4$KeyDownField = function(g, e) {
+			this.$5$KeyDownField = function(g, e) {
 			};
 			$Cayita_UI_HtmlTable.call(this);
-			this.$init(parent.element(), store, columns);
+			this.$init(parent.getMainElement(), store, columns);
 		};
 		$type.$ctor3 = function(parent, store, columns) {
 			this.$columns = null;
@@ -3019,11 +3019,11 @@
 			ss.add($t1, 38);
 			ss.add($t1, 40);
 			this.$nvkeys = $t1;
-			this.$4$RowSelectedField = function(g, r) {
+			this.$5$RowSelectedField = function(g, r) {
 			};
-			this.$4$RowClickedField = function(g, r) {
+			this.$5$RowClickedField = function(g, r) {
 			};
-			this.$4$KeyDownField = function(g, e) {
+			this.$5$KeyDownField = function(g, e) {
 			};
 			$Cayita_UI_HtmlTable.call(this);
 			this.$init(parent, store, columns);
@@ -3044,11 +3044,11 @@
 			ss.add($t1, 38);
 			ss.add($t1, 40);
 			this.$nvkeys = $t1;
-			this.$4$RowSelectedField = function(g, r) {
+			this.$5$RowSelectedField = function(g, r) {
 			};
-			this.$4$RowClickedField = function(g, r) {
+			this.$5$RowClickedField = function(g, r) {
 			};
-			this.$4$KeyDownField = function(g, e) {
+			this.$5$KeyDownField = function(g, e) {
 			};
 			$Cayita_UI_HtmlTable.call(this);
 			this.$init(null, store, columns);
@@ -3122,28 +3122,52 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.HtmlTable
 	var $Cayita_UI_HtmlTable = function() {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlTable]).call(this);
-	};
-	$Cayita_UI_HtmlTable.prototype = {
-		element$1: function() {
-			return this.element();
-		}
+		ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [$Cayita_UI_HtmlTable]).call(this);
 	};
 	$Cayita_UI_HtmlTable.$ctor3 = function(parent, element) {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlTable]).call(this);
-		this.createElement('table', parent);
-		element(this.element$1());
+		ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [$Cayita_UI_HtmlTable]).$ctor3.call(this, parent, element, 'table');
 	};
 	$Cayita_UI_HtmlTable.$ctor2 = function(parent) {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlTable]).call(this);
-		this.createElement('table', parent);
+		ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [$Cayita_UI_HtmlTable]).$ctor2.call(this, parent, 'table');
 	};
 	$Cayita_UI_HtmlTable.$ctor1 = function(element) {
-		ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlTable]).call(this);
-		this.createElement('table', null);
-		element(this.element$1());
+		ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [$Cayita_UI_HtmlTable]).$ctor1.call(this, element, 'table');
 	};
 	$Cayita_UI_HtmlTable.$ctor3.prototype = $Cayita_UI_HtmlTable.$ctor2.prototype = $Cayita_UI_HtmlTable.$ctor1.prototype = $Cayita_UI_HtmlTable.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.HtmlTableBase
+	var $Cayita_UI_HtmlTableBase$1 = function(T) {
+		var $type = function() {
+			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
+		};
+		$type.prototype = {
+			element$1: function() {
+				return this.element();
+			}
+		};
+		$type.$ctor3 = function(parent, element, tagname) {
+			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
+			this.createElement(tagname, parent);
+			element(this.element$1());
+		};
+		$type.$ctor2 = function(parent, tagname) {
+			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
+			this.createElement(tagname, parent);
+		};
+		$type.$ctor1 = function(element, tagname) {
+			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
+			this.createElement(tagname, null);
+			element(this.element$1());
+		};
+		$type.$ctor3.prototype = $type.$ctor2.prototype = $type.$ctor1.prototype = $type.prototype;
+		ss.registerGenericClassInstance($type, $Cayita_UI_HtmlTableBase$1, [T], function() {
+			return ss.makeGenericType($Cayita_UI_ElementBase$1, [T]);
+		}, function() {
+			return [];
+		});
+		return $type;
+	};
+	ss.registerGenericClass(global, 'Cayita.UI.HtmlTableBase$1', $Cayita_UI_HtmlTableBase$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.Icon
 	var $Cayita_UI_Icon = function() {
@@ -4952,25 +4976,19 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.TableFooter
 	var $Cayita_UI_TableFooter = function(parent) {
-		$Cayita_UI_HtmlTable.call(this);
-		this.createElement('tfoot', parent);
+		ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [$Cayita_UI_TableFooter]).$ctor2.call(this, parent, 'tfoot');
 	};
 	$Cayita_UI_TableFooter.$ctor1 = function(parent, element) {
-		$Cayita_UI_HtmlTable.call(this);
-		this.createElement('tfoot', parent);
-		element(this.element$1());
+		ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [$Cayita_UI_TableFooter]).$ctor2.call(this, parent, 'tfoot');
 	};
 	$Cayita_UI_TableFooter.$ctor1.prototype = $Cayita_UI_TableFooter.prototype;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.TableHeader
 	var $Cayita_UI_TableHeader = function(parent) {
-		$Cayita_UI_HtmlTable.call(this);
-		this.createElement('thead', parent);
+		ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [$Cayita_UI_TableHeader]).$ctor2.call(this, parent, 'thead');
 	};
 	$Cayita_UI_TableHeader.$ctor1 = function(parent, element) {
-		$Cayita_UI_HtmlTable.call(this);
-		this.createElement('thead', parent);
-		element(this.element$1());
+		ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [$Cayita_UI_TableHeader]).$ctor3.call(this, parent, element, 'thead');
 	};
 	$Cayita_UI_TableHeader.$ctor1.prototype = $Cayita_UI_TableHeader.prototype;
 	////////////////////////////////////////////////////////////////////////////////
@@ -5371,7 +5389,7 @@
 	ss.registerClass(global, 'Cayita.UI.Form', $Cayita_UI_Form, ss.makeGenericType($Cayita_UI_FormBase$1, [$Cayita_UI_Form]));
 	ss.registerClass(global, 'Cayita.UI.GroupItem', $Cayita_UI_GroupItem);
 	ss.registerClass(global, 'Cayita.UI.HtmlOption', $Cayita_UI_HtmlOption, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlOption]));
-	ss.registerClass(global, 'Cayita.UI.HtmlTable', $Cayita_UI_HtmlTable, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_HtmlTable]));
+	ss.registerClass(global, 'Cayita.UI.HtmlTable', $Cayita_UI_HtmlTable, ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [$Cayita_UI_HtmlTable]));
 	ss.registerClass(global, 'Cayita.UI.Icon', $Cayita_UI_Icon, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Icon]));
 	ss.registerClass(global, 'Cayita.UI.IconAnchor', $Cayita_UI_IconAnchor, $Cayita_UI_Anchor);
 	ss.registerClass(global, 'Cayita.UI.IconButton', $Cayita_UI_IconButton, $Cayita_UI_Button);
@@ -5404,8 +5422,8 @@
 	ss.registerClass(global, 'Cayita.UI.Tab', $Cayita_UI_Tab);
 	ss.registerClass(global, 'Cayita.UI.TableBody', $Cayita_UI_TableBody, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TableBody]));
 	ss.registerClass(global, 'Cayita.UI.TableCell', $Cayita_UI_TableCell, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TableCell]));
-	ss.registerClass(global, 'Cayita.UI.TableFooter', $Cayita_UI_TableFooter, $Cayita_UI_HtmlTable);
-	ss.registerClass(global, 'Cayita.UI.TableHeader', $Cayita_UI_TableHeader, $Cayita_UI_HtmlTable);
+	ss.registerClass(global, 'Cayita.UI.TableFooter', $Cayita_UI_TableFooter, ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [$Cayita_UI_TableFooter]));
+	ss.registerClass(global, 'Cayita.UI.TableHeader', $Cayita_UI_TableHeader, ss.makeGenericType($Cayita_UI_HtmlTableBase$1, [$Cayita_UI_TableHeader]));
 	ss.registerClass(global, 'Cayita.UI.TableRow', $Cayita_UI_TableRow, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_TableRow]));
 	ss.registerClass(global, 'Cayita.UI.TabPanel', $Cayita_UI_TabPanel, ss.makeGenericType($Cayita_UI_TabPanelBase$1, [$Cayita_UI_TabPanel]));
 	ss.registerClass(global, 'Cayita.UI.TabPanelConfig', $Cayita_UI_TabPanelConfig);

@@ -4,61 +4,74 @@ using System.Html;
 namespace Cayita.UI
 {
 		
-	public class HtmlTable:ElementBase<HtmlTable>
+	public class HtmlTable:HtmlTableBase<HtmlTable>
 	{
 		protected HtmlTable(){}
-
-		public HtmlTable (Element parent,  Action<TableElement> element)
+		
+		public HtmlTable (Element parent,  Action<TableElement> element):base(parent,element,"table")
 		{
-			CreateElement("table", parent);
+		}
+		
+		public HtmlTable (Element parent):base(parent,"table")
+		{
+		}
+
+		public HtmlTable (Action<TableElement> element):base(element,"table")
+		{
+		}
+
+	}
+
+
+	public abstract class HtmlTableBase<T>:ElementBase<T> where T:ElementBase
+	{
+		protected HtmlTableBase(){}
+
+		public HtmlTableBase (Element parent,  Action<TableElement> element, string tagname)
+		{
+			CreateElement(tagname, parent);
 			element.Invoke(Element()); 
 		}
 		
-		public HtmlTable (Element parent)
+		public HtmlTableBase (Element parent, string tagname)
 		{
-			CreateElement("table", parent);
+			CreateElement(tagname, parent);
 		}
-		
+
+		public HtmlTableBase (Action<TableElement> element, string tagname)
+		{
+			CreateElement(tagname,null);
+			element.Invoke(Element()); 
+		}
+
 		public new TableElement Element()
 		{
 			return base.Element().As<TableElement>();
 		}
 
-		public HtmlTable (Action<TableElement> element)
-		{
-			CreateElement("table",null);
-			element.Invoke(Element()); 
-		}
-
 	}
 
-	public class TableHeader:HtmlTable
+	public class TableHeader:HtmlTableBase<TableHeader>
 	{
-		public TableHeader (Element parent,  Action<TableElement> element)
+		public TableHeader (Element parent,  Action<TableElement> element):base(parent,element,"thead")
 		{
-			CreateElement("thead", parent);
-			element.Invoke(Element()); 
 		}
 		
-		public TableHeader (Element parent)
+		public TableHeader (Element parent):base(parent, "thead")
 		{
-			CreateElement("thead", parent);
 		}
 		
 				
 	}
 	
-	public class TableFooter:HtmlTable
+	public class TableFooter:HtmlTableBase<TableFooter>
 	{
-		public TableFooter (Element parent,  Action<TableElement> element)
+		public TableFooter (Element parent,  Action<TableElement> element):base(parent,"tfoot")
 		{
-			CreateElement("tfoot", parent);
-			element.Invoke(Element()); 
 		}
 		
-		public TableFooter (Element parent)
+		public TableFooter (Element parent):base(parent,"tfoot")
 		{
-			CreateElement("tfoot", parent);
 		}
 
 		

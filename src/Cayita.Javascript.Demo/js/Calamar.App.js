@@ -145,7 +145,7 @@
 						new Cayita.UI.Legend.$ctor1(element, function(l) {
 							Extensions.text$1(l, 'Login Form');
 						});
-						new Cayita.UI.Form.$ctor1(element, ss.mkdel(this, function(fe) {
+						new Cayita.UI.Form.$ctor3(element, ss.mkdel(this, function(fe) {
 							fe.action = 'json/loginResponse.json';
 							fe.method = 'get';
 							var cg = Cayita.UI.Div.createControlGroup(fe);
