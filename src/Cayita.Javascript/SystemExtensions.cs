@@ -74,7 +74,7 @@ namespace System
 			return (object) ((dynamic)obj)[property] ;
 		}
 
-		public static  T Get<T>(this object obj, string property) where T: class
+		public static  T Get<T>(this object obj, string property) //where T: class
 		{
 			return (T) ((dynamic)obj)[property] ;
 		}

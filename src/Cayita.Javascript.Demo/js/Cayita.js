@@ -2203,6 +2203,15 @@
 				}
 				i.addClass(ss.coalesce(iconClass, ''));
 				return this;
+			},
+			popover: function(options) {
+				new $Cayita_UI_Popover.$ctor2(this.getMainElement(), options);
+				return this;
+			},
+			popover$1: function(config) {
+				var options = $Cayita_UI_PopoverOptions.$ctor();
+				config(options);
+				return this.popover(options);
 			}
 		};
 		ss.registerGenericClassInstance($type, $Cayita_UI_ElementBase$1, [T], function() {
@@ -2570,10 +2579,11 @@
 		var $type = function(type, parent, text, fieldName, items, inline) {
 			this.$3$ControlsField = null;
 			this.$3$ControlLabelField = null;
-			this.$3$InputField = null;
 			this.$nm = null;
 			this.$il = false;
 			this.$tp = null;
+			this.$3$ChangedField = function(f, i, ch, evt) {
+			};
 			ss.makeGenericType($Cayita_UI_ElementBase$1, [TField]).call(this);
 			this.$tp = type;
 			this.$nm = fieldName;
@@ -2608,12 +2618,6 @@
 			set_controlLabel: function(value) {
 				this.$3$ControlLabelField = value;
 			},
-			get_input: function() {
-				return this.$3$InputField;
-			},
-			set_input: function(value) {
-				this.$3$InputField = value;
-			},
 			$init: function(parent) {
 				this.createElement('div', parent);
 				this.element$1().className = 'control-group';
@@ -2621,6 +2625,24 @@
 				this.set_controls((new $Cayita_UI_Div.$ctor1(null)).className$1('controls'));
 				this.append$1(this.get_controlLabel());
 				this.append$1(this.get_controls());
+				this.get_controls().jQuery().on('change', '[type=' + this.$tp + ']', ss.mkdel(this, function(evt) {
+					var i = evt.target;
+					var $t1 = $Cayita_UI_GroupItem.$ctor();
+					$t1.value = i.value;
+					$t1.text = $Extensions.text(i.parentNode);
+					var item = $t1;
+					var checkd = $SystemExtensions.get$1(Boolean).call(null, i, 'checked');
+					this.onChanged(item, checkd, evt);
+				}));
+			},
+			add_changed: function(value) {
+				this.$3$ChangedField = ss.delegateCombine(this.$3$ChangedField, value);
+			},
+			remove_changed: function(value) {
+				this.$3$ChangedField = ss.delegateRemove(this.$3$ChangedField, value);
+			},
+			onChanged: function(item, checkd, evt) {
+				this.$3$ChangedField(this, item, checkd, evt);
 			},
 			inline: function(inline) {
 				this.$il = inline;
@@ -2656,10 +2678,10 @@
 				return this.element();
 			},
 			$addItem: function(item) {
-				this.set_input(ss.createInstance(TInput).value$1(item.value));
-				(new $Cayita_UI_Label.$ctor1(this.get_controls().element$1())).className$1(this.$tp + (this.$il ? ' inline' : '')).text$1(item.text).for$2(this.get_input().get_id()).append$1(this.get_input());
+				var input = ss.createInstance(TInput).value$1(item.value);
+				(new $Cayita_UI_Label.$ctor1(this.get_controls().element$1())).className$1(this.$tp + (this.$il ? ' inline' : '')).text$1(item.text).for$2(input.get_id()).append$1(input);
 				if (!ss.isNullOrEmptyString(this.$nm)) {
-					this.get_input().name$1(this.$nm);
+					input.name$1(this.$nm);
 				}
 			}
 		};
@@ -3279,6 +3301,8 @@
 	// Cayita.UI.InputBase
 	var $Cayita_UI_InputBase$1 = function(T) {
 		var $type = function() {
+			this.$3$ChangedField = function(f, evt) {
+			};
 			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
 			this.createInput(null, 'text', 'input');
 		};
@@ -3288,6 +3312,18 @@
 				if (!ss.isNullOrEmptyString(type)) {
 					this.element$1().type = type;
 				}
+				$(this.element$1()).on('change', ss.mkdel(this, function(evt) {
+					this.onChanged(evt);
+				}));
+			},
+			add_changed: function(value) {
+				this.$3$ChangedField = ss.delegateCombine(this.$3$ChangedField, value);
+			},
+			remove_changed: function(value) {
+				this.$3$ChangedField = ss.delegateRemove(this.$3$ChangedField, value);
+			},
+			onChanged: function(evt) {
+				this.$3$ChangedField(this, evt);
 			},
 			type: function(type) {
 				this.element$1().type = type;
@@ -3346,6 +3382,8 @@
 			}
 		};
 		$type.$ctor1 = function(parent, type, tagname) {
+			this.$3$ChangedField = function(f, evt) {
+			};
 			ss.makeGenericType($Cayita_UI_ElementBase$1, [T]).call(this);
 			this.createInput(parent, type, tagname);
 		};
@@ -4124,6 +4162,66 @@
 		this.type('password');
 	};
 	$Cayita_UI_PasswordField.$ctor1.prototype = $Cayita_UI_PasswordField.$ctor2.prototype = $Cayita_UI_PasswordField.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.Popover
+	var $Cayita_UI_Popover = function(parent, options) {
+		this.$p = null;
+		this.$init(parent.getMainElement(), options);
+	};
+	$Cayita_UI_Popover.prototype = {
+		show: function() {
+			this.$p['popover']('show');
+		},
+		hide: function() {
+			this.$p['popover']('hide');
+		},
+		toggle: function() {
+			this.$p['popover']('toggle');
+		},
+		destroy: function() {
+			this.$p['popover']('destroy');
+		},
+		$init: function(parent, options) {
+			this.$p = $(parent);
+			this.$p['popover'](options);
+		}
+	};
+	$Cayita_UI_Popover.$ctor2 = function(parent, options) {
+		this.$p = null;
+		this.$init(parent, options);
+	};
+	$Cayita_UI_Popover.$ctor1 = function(parent, options) {
+		$Cayita_UI_Popover.$ctor3.call(this, parent.getMainElement(), options);
+	};
+	$Cayita_UI_Popover.$ctor3 = function(parent, options) {
+		this.$p = null;
+		var opt = $Cayita_UI_PopoverOptions.$ctor();
+		options(opt);
+		this.$init(parent, opt);
+	};
+	$Cayita_UI_Popover.$ctor2.prototype = $Cayita_UI_Popover.$ctor1.prototype = $Cayita_UI_Popover.$ctor3.prototype = $Cayita_UI_Popover.prototype;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.UI.PopoverOptions
+	var $Cayita_UI_PopoverOptions = function() {
+	};
+	$Cayita_UI_PopoverOptions.createInstance = function() {
+		return $Cayita_UI_PopoverOptions.$ctor();
+	};
+	$Cayita_UI_PopoverOptions.$ctor = function() {
+		var $this = {};
+		$this.animation = false;
+		$this.html = false;
+		$this.placement = null;
+		$this.trigger = null;
+		$this.title = null;
+		$this.content = null;
+		$this.animation = true;
+		$this.placement = 'right';
+		$this.trigger = 'click';
+		$this.title = '';
+		$this.content = '';
+		return $this;
+	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI.RadioGroup
 	var $Cayita_UI_RadioGroup = function() {
@@ -5441,6 +5539,8 @@
 	ss.registerClass(global, 'Cayita.UI.PanelConfig', $Cayita_UI_PanelConfig);
 	ss.registerClass(global, 'Cayita.UI.Paragraph', $Cayita_UI_Paragraph, ss.makeGenericType($Cayita_UI_ElementBase$1, [$Cayita_UI_Paragraph]));
 	ss.registerClass(global, 'Cayita.UI.PasswordField', $Cayita_UI_PasswordField, ss.makeGenericType($Cayita_UI_TextFieldBase$1, [$Cayita_UI_PasswordField]));
+	ss.registerClass(global, 'Cayita.UI.Popover', $Cayita_UI_Popover);
+	ss.registerClass(global, 'Cayita.UI.PopoverOptions', $Cayita_UI_PopoverOptions);
 	ss.registerClass(global, 'Cayita.UI.RadioGroup', $Cayita_UI_RadioGroup, ss.makeGenericType($Cayita_UI_GroupBase$2, [$Cayita_UI_RadioGroup, $Cayita_UI_InputRadio]));
 	ss.registerClass(global, 'Cayita.UI.RequestMessage', $Cayita_UI_RequestMessage);
 	ss.registerClass(global, 'Cayita.UI.ResetButton', $Cayita_UI_ResetButton, ss.makeGenericType($Cayita_UI_ButtonBase$1, [$Cayita_UI_ResetButton]));

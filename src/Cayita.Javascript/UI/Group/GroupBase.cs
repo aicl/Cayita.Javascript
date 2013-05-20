@@ -1,6 +1,7 @@
 using System;
 using System.Html;
 using System.Collections.Generic;
+using jQueryApi;
 
 namespace Cayita.UI
 {
@@ -23,8 +24,7 @@ namespace Cayita.UI
 		
 		public Label ControlLabel { get; protected set; }
 
-		public TInput Input { get; protected set; }
-		
+				
 		string nm;
 		bool il;
 		string tp;
@@ -60,8 +60,23 @@ namespace Cayita.UI
 			
 			base.Append (ControlLabel);
 			base.Append (Controls);
-			
+
+			Controls.JQuery( ).On("change", "[type="+tp+"]", evt=> {
+				var i = evt.Target.As<InputElement>();
+				var item = new GroupItem{Value=i.Value, Text= i.ParentNode.Text()};
+				var checkd =  i.Get<bool>("checked");
+				OnChanged(item, checkd, evt);
+			});
+
 		}
+
+		public event Action<TField,GroupItem,bool,jQueryEvent> Changed=(f,i,ch,evt)=>{};
+
+		protected virtual void OnChanged (GroupItem item, bool checkd,  jQueryEvent evt)
+		{
+			Changed (As<TField> (), item, checkd, evt);
+		}
+
 
 		public TField  Inline(bool inline)
 		{
@@ -79,9 +94,7 @@ namespace Cayita.UI
 		public TField  Name(string name)
 		{
 			nm = name;
-			
-			Controls.JQuery ("[type="+tp+"]").Attribute ("name", name);
-			
+			Controls.JQuery ("[type="+tp+"]").Attribute ("name", name);			
 			return this.As<TField>();
 		}
 		
@@ -118,14 +131,14 @@ namespace Cayita.UI
 		void AddItem(GroupItem item)
 		{
 
-			Input = new TInput ().Value(item.Value);
+			var input = new TInput ().Value(item.Value);
 
 			new Label (Controls.Element ())
 				.ClassName (tp+(il?" inline":""))
 					.Text(item.Text)
-					.For (Input.ID).Append (Input);
+					.For (input.ID).Append (input);
 			if (!string.IsNullOrEmpty (nm))
-				Input.Name (nm);
+				input.Name (nm);
 
 		}
 		

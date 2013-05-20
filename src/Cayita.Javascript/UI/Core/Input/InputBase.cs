@@ -1,5 +1,6 @@
 using System;
 using System.Html;
+using jQueryApi;
 
 namespace Cayita.UI
 {
@@ -22,12 +23,23 @@ namespace Cayita.UI
 			CreateElement(tagname, parent);
 			if(!string.IsNullOrEmpty(type)) ((InputElement) Element()).Type=type;
 
+			Element().JQuery().On("change",evt=>{
+				OnChanged(evt);
+			});
+
+		}
+
+		public event Action<T,jQueryEvent> Changed=(f,evt)=>{};
+
+		protected void OnChanged (jQueryEvent evt)
+		{
+			Changed (As<T> (), evt);
 		}
 
 		public T Type (string type)
 		{
 			Element ().Type = type;
-			return this.As<T>();
+			return As<T>();
 		}
 	
 

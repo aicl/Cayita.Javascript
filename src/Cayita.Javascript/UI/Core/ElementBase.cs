@@ -135,8 +135,6 @@ namespace Cayita.UI
 			return As<T> ();
 		}
 		
-		
-		
 		public T Text(string text)
 		{
 			GetMainElement ().Text (text);
@@ -159,7 +157,20 @@ namespace Cayita.UI
 			i.AddClass (iconClass??"");
 			return As<T> ();
 		}
-		
+
+		public T Popover(PopoverOptions options)
+		{
+			new Popover (GetMainElement (), options);
+			return As<T> ();
+		}
+
+		public T Popover( Action<PopoverOptions> config )
+		{
+			var options = new PopoverOptions ();
+			config (options);
+			return Popover (options);
+		}
+
 		
 	}
 	

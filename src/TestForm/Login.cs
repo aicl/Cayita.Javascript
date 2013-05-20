@@ -35,7 +35,7 @@ namespace TestForm
 
 			new RadioGroup (form)
 				.Text ("your favourite language")
-					.Name ("language").
+					.Name ("planguage").
 					Add (new GroupItem{Text="CSharp",Value="1"})
 					.Add (new GroupItem{Text="Java",Value="2"});
 
@@ -46,6 +46,11 @@ namespace TestForm
 					.Add (new GroupItem{Text="CSharp",Value="1"})
 					.Add (new GroupItem{Text="Java",Value="2"})
 					.Inline (false)
+					.Popover( opt=>{
+						opt.Title="Your Fav....";
+						opt.Placement="top";
+						opt.Content="Hello World";
+					})
 					.AppendTo (form);
 
 			var cbg = new CheckGroup (form)
@@ -53,12 +58,19 @@ namespace TestForm
 					.Text("languages")
 					.Add (new GroupItem{Text="English", Value="1"})
 					.Add (new GroupItem{Text="Spanish", Value="2"})
+					.Name ("sl")
 					.Inline (false);
 
 			cbg.Style.CssText = "color:darkblue;font-weight: bold"; 
 			cbg.ControlLabel.Style.CssText = "font-weight: bold"; 
 
-
+			cbg.ControlLabel.Popover( opt=>{ 
+				opt.ContentFunc=()=>{
+					return "Hello " ;
+				};
+				opt.Placement="top";
+				opt.Title="Popover";
+			});
 
 			new SubmitButton ()
 				.Text("Login")

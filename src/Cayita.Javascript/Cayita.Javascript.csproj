@@ -117,6 +117,7 @@
     <Compile Include="UI\Core\Button\ButtonElement.cs" />
     <Compile Include="UI\Core\Button\ResetButton.cs" />
     <Compile Include="UI\Core\Button\SubmitButton.cs" />
+    <Compile Include="UI\Popover.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

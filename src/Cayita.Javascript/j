@@ -84,6 +84,7 @@
 "UI/SpinnerIcon.cs" \
 "UI/TabPanel.cs" \
 "UI/Panel.cs" \
+"UI/Popover.cs" \
 "Bootbox/Bootbox.cs" \
 "Alertify.cs"
 
