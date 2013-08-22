@@ -66,6 +66,81 @@ width:auto;
 
 }
 
+/*-----------------------------------------------------------------*/
+.well-panel{
+	position: relative;
+	clear: both;
+	height: auto;
+	width:auto;
+	padding: 4px; 
+	margin: 0px;
+	z-index: 0;
+}
+
+.well-panel-header{
+	position: relative;
+	height: 30px;
+}
+
+.well-panel-header [class^="icon-"],
+.well-panel-header [class*=" icon-"] {
+  display: inline-block;
+  margin-left: 5px;
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+.well-panel-header [class^="icon-"].disabled,
+.well-panel-header [class*=" icon-"].disabled {
+	color: #999999;
+	cursor:none
+}
+
+.well-panel-header [class^="iconic-"],
+.well-panel-header [class*=" iconic-"] {
+  display: inline-block;
+  margin-left: 5px;
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+.well-panel-header [class^="iconic-"].disabled,
+.well-panel-header [class*=" iconic-"].disabled {
+	color: #999999;
+	cursor:none
+}
+
+
+.well-panel-header ctxt{
+	top: 2px;
+	position: relative;
+	font-weight: bold;
+	margin-left: 5px;
+	vertical-align: middle;
+	font-size: 12px;
+}
+
+
+.well-panel-content{
+	height: 100%;
+	width: auto; 
+	padding: 0px; 
+	margin: 0px;
+}
+
+.well-panel-body{
+	height: 100%;
+	width: auto; 
+	padding: 0px 4px 0px 4px; 
+	background:white; 
+	overflow:auto;
+}
+
+
+
+
+/*-----------------------------------------------------------------*/
+
 
 /*-----------------------------------------------------------------*/
 .c-panel {
