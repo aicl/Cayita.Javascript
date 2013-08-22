@@ -1,1 +1,0 @@
-{"Permissions":[], "Roles":[{"Id":1, "Name":"Primer Item", "Directory":"modules/Calamar.Gastos", "ShowOrder":"00", "Title":"Gastos"}, {"Id":2, "Name":"Segundo Item", "Directory":"modules/Calamar.Conceptos", "ShowOrder":"01", "Title":"Conceptos"},{"Id":2, "Name":"Segundo Item", "Directory":"modules/Calamar.Fuentes", "ShowOrder":"01", "Title":"Fuentes"}]}
