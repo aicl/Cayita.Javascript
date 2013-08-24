@@ -1,0 +1,26 @@
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="#" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy to clipboard</a><a href="#" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a></div></div><ol start="1" class="dp-c"><li class="alt"><span><span>var&nbsp;nb&nbsp;=</span><span class="keyword">new</span><span>&nbsp;NavList&nbsp;();&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>nb.Add&nbsp;(<span class="string">"Tables"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>nb.Add&nbsp;(<span class="string">"Forms"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>nb.Add&nbsp;(<span class="string">"Modals"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>nb.Add&nbsp;(<span class="string">"Panels"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>nb.AddDivider&nbsp;();&nbsp;&nbsp;</span></li><li class=""><span>nb.Add&nbsp;(<span class="string">"Exit"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>var&nbsp;log&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Div&nbsp;();&nbsp;&nbsp;</span></span></li><li class=""><span>var&nbsp;code&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Div&nbsp;();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">new</span><span>&nbsp;Div&nbsp;(d=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;d.ClassName=<span class="string">"bs-docs-example"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;d.JQuery.Append(nb).Append(log).Append(<span class="string">"C#&nbsp;code"</span><span>.Header(4)).Append(code);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;parent.Append(d);&nbsp;&nbsp;</span></li><li class=""><span>});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>nb.Selected&nbsp;+=&nbsp;(e)&nbsp;=&gt;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;i&nbsp;=&nbsp;e.CurrentTarget.As&lt;NavItem&gt;&nbsp;();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;log.InnerText=&nbsp;&nbsp;<span class="string">"{0}&nbsp;Clicked"</span><span>.Fmt(i.Text);&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>};&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>var&nbsp;rq&nbsp;=jQuery.GetData&lt;<span class="keyword">string</span><span>&gt;&nbsp;(</span><span class="string">"code/demonavlist.html"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>rq.Done&nbsp;(s=&gt;&nbsp;code.InnerHTML=s);&nbsp;&nbsp;</span></li></ol><textarea style="display:none;" class="originalCode">var nb =new NavList ();
+
+nb.Add ("Tables");
+nb.Add ("Forms");
+nb.Add ("Modals");
+nb.Add ("Panels");
+nb.AddDivider ();
+nb.Add ("Exit");
+
+
+var log = new Div ();
+var code = new Div ();
+
+new Div (d=&gt;{
+	d.ClassName="bs-docs-example";
+	d.JQuery.Append(nb).Append(log).Append("C# code".Header(4)).Append(code);
+	parent.Append(d);
+});
+
+nb.Selected += (e) =&gt; {
+	var i = e.CurrentTarget.As&lt;NavItem&gt; ();
+	log.InnerText=  "{0} Clicked".Fmt(i.Text); 
+};
+
+var rq =jQuery.GetData&lt;string&gt; ("code/demonavlist.html");
+rq.Done (s=&gt; code.InnerHTML=s);</textarea></div>

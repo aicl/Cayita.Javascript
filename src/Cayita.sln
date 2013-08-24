@@ -1,0 +1,92 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita", "Cayita\Cayita.csproj", "{83839372-8B14-4D26-AD2E-2369FCF902BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Demo", "Cayita.Demo\Cayita.Demo.csproj", "{DD80DC88-9374-44D9-97B1-8790F216CE74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Demo.App", "Cayita.Demo.App\Cayita.Demo.App.csproj", "{1B65F20F-E5BE-413D-BA07-85E14F8317D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Demo.Form", "Cayita.Demo.Form\Cayita.Demo.Form.csproj", "{37AFB24A-B890-4BD7-8706-0669D75FAAAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Demo.Tables", "Cayita.Demo.Tables\Cayita.Demo.Tables.csproj", "{0FAE95EC-A732-41A6-9C9F-D9EC0ABF6BD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Demo.Navbar", "Cayita.Demo.Navbar\Cayita.Demo.Navbar.csproj", "{D3C32FC0-D2F6-4BC4-966B-501547EF9682}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Demo.NavList", "Cayita.Demo.NavList\Cayita.Demo.NavList.csproj", "{2C2295B0-41A3-4211-8AE8-CA58A1719609}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Demo.Modals", "Cayita.Demo.Modals\Cayita.Demo.Modals.csproj", "{A2A9ABB5-D76B-4F05-A235-86F221706267}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Demo.Panels", "Cayita.Demo.Panels\Cayita.Demo.Panels.csproj", "{AAADDE5B-427F-42BE-8A41-FDE73C255EFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Demo.SearchBox", "Cayita.Demo.SearchBox\Cayita.Demo.SearchBox.csproj", "{393D545D-18B8-4DBA-A469-608F4E2B4623}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Demo.TabPanel", "Cayita.Demo.TabPanel\Cayita.Demo.TabPanel.csproj", "{1D22A4BE-2DDF-429F-80F1-5A179644EE50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Demo.DemoFileUpload", "Cayita.Demo.DemoFileUpload\Cayita.Demo.DemoFileUpload.csproj", "{13B34581-8376-48F6-876E-0115117EA889}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cayita.Demo.Mix", "Cayita.Demo.Mix\Cayita.Demo.Mix.csproj", "{12C90425-2BC6-4A3A-B87F-86DC362A85E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0FAE95EC-A732-41A6-9C9F-D9EC0ABF6BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FAE95EC-A732-41A6-9C9F-D9EC0ABF6BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FAE95EC-A732-41A6-9C9F-D9EC0ABF6BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FAE95EC-A732-41A6-9C9F-D9EC0ABF6BD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12C90425-2BC6-4A3A-B87F-86DC362A85E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12C90425-2BC6-4A3A-B87F-86DC362A85E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12C90425-2BC6-4A3A-B87F-86DC362A85E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12C90425-2BC6-4A3A-B87F-86DC362A85E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13B34581-8376-48F6-876E-0115117EA889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13B34581-8376-48F6-876E-0115117EA889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13B34581-8376-48F6-876E-0115117EA889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13B34581-8376-48F6-876E-0115117EA889}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B65F20F-E5BE-413D-BA07-85E14F8317D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B65F20F-E5BE-413D-BA07-85E14F8317D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B65F20F-E5BE-413D-BA07-85E14F8317D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B65F20F-E5BE-413D-BA07-85E14F8317D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D22A4BE-2DDF-429F-80F1-5A179644EE50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D22A4BE-2DDF-429F-80F1-5A179644EE50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D22A4BE-2DDF-429F-80F1-5A179644EE50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D22A4BE-2DDF-429F-80F1-5A179644EE50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C2295B0-41A3-4211-8AE8-CA58A1719609}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C2295B0-41A3-4211-8AE8-CA58A1719609}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C2295B0-41A3-4211-8AE8-CA58A1719609}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C2295B0-41A3-4211-8AE8-CA58A1719609}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37AFB24A-B890-4BD7-8706-0669D75FAAAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37AFB24A-B890-4BD7-8706-0669D75FAAAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37AFB24A-B890-4BD7-8706-0669D75FAAAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37AFB24A-B890-4BD7-8706-0669D75FAAAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{393D545D-18B8-4DBA-A469-608F4E2B4623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{393D545D-18B8-4DBA-A469-608F4E2B4623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{393D545D-18B8-4DBA-A469-608F4E2B4623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{393D545D-18B8-4DBA-A469-608F4E2B4623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83839372-8B14-4D26-AD2E-2369FCF902BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83839372-8B14-4D26-AD2E-2369FCF902BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83839372-8B14-4D26-AD2E-2369FCF902BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83839372-8B14-4D26-AD2E-2369FCF902BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2A9ABB5-D76B-4F05-A235-86F221706267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2A9ABB5-D76B-4F05-A235-86F221706267}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2A9ABB5-D76B-4F05-A235-86F221706267}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2A9ABB5-D76B-4F05-A235-86F221706267}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAADDE5B-427F-42BE-8A41-FDE73C255EFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAADDE5B-427F-42BE-8A41-FDE73C255EFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAADDE5B-427F-42BE-8A41-FDE73C255EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAADDE5B-427F-42BE-8A41-FDE73C255EFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3C32FC0-D2F6-4BC4-966B-501547EF9682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3C32FC0-D2F6-4BC4-966B-501547EF9682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3C32FC0-D2F6-4BC4-966B-501547EF9682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3C32FC0-D2F6-4BC4-966B-501547EF9682}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD80DC88-9374-44D9-97B1-8790F216CE74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD80DC88-9374-44D9-97B1-8790F216CE74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD80DC88-9374-44D9-97B1-8790F216CE74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD80DC88-9374-44D9-97B1-8790F216CE74}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Cayita\Cayita.csproj
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,79 @@
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="#" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy to clipboard</a><a href="#" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a></div></div><ol start="1" class="dp-c"><li class="alt"><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;DemoFileUpload&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;DemoFileUpload&nbsp;()&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;Execute(Atom&nbsp;parent)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;fp&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Div&nbsp;(</span><span class="string">"bs-docs-example"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;ff&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;FileField&nbsp;(fp);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;ufb&nbsp;=&nbsp;CreateUploadButton&nbsp;(fp);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;logf&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Div&nbsp;(fp);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;imp&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Div&nbsp;(</span><span class="string">"bs-docs-example"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;imf&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;ImgField&nbsp;(imp);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;imb&nbsp;=&nbsp;CreateUploadButton&nbsp;(imp);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;logim&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Div&nbsp;(imp);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent.JQuery&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.Append&nbsp;(<span class="string">"File&nbsp;Upload"</span><span>.Header(3))&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.Append&nbsp;(fp)&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.Append&nbsp;(<span class="string">"Image&nbsp;Upload"</span><span>.Header(3))&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.Append&nbsp;(imp);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;rq&nbsp;=jQuery.GetData&lt;<span class="keyword">string</span><span>&gt;&nbsp;(</span><span class="string">"code/demofileupload.html"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rq.Done&nbsp;(s=&gt;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;code=<span class="keyword">new</span><span>&nbsp;Div();&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;code.InnerHTML=&nbsp;s;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent.JQuery.Append&nbsp;(<span class="string">"C#&nbsp;code"</span><span>.Header(3)).Append(code);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ff.Changed+=&nbsp;(e)&nbsp;=&gt;&nbsp;ShowFileInfo(ufb,&nbsp;logf,ff.Input);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imf.Changed+=&nbsp;(e)&nbsp;=&gt;&nbsp;ShowFileInfo(imb,&nbsp;logim,&nbsp;imf.Input);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ufb.Clicked+=&nbsp;(e)&nbsp;=&gt;&nbsp;SendFile(ufb,&nbsp;ff.Input);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imb.Clicked+=&nbsp;(e)&nbsp;=&gt;&nbsp;SendFile(imb,&nbsp;imf.Input);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">static</span><span>&nbsp;ButtonIcon&nbsp;CreateUploadButton(Atom&nbsp;parent){&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;&nbsp;</span><span class="keyword">new</span><span>&nbsp;ButtonIcon&nbsp;(parent,&nbsp;imb=&gt;{&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imb.IconClass=<span class="string">"icon-upload"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imb.Text&nbsp;=&nbsp;<span class="string">"Upload"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imb.AddClass&nbsp;(<span class="string">"btn-info"</span><span>);&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imb.Disabled=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;ShowFileInfo(ButtonIcon&nbsp;bt,&nbsp;Div&nbsp;log,&nbsp;FileInput&nbsp;input)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.Empty&nbsp;();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt.Disabled&nbsp;=&nbsp;input.Files.Length&nbsp;==&nbsp;0;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">foreach</span><span>&nbsp;(var&nbsp;f&nbsp;</span><span class="keyword">in</span><span>&nbsp;input.Files)&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.Append&nbsp;("Name:{0}&nbsp;&nbsp;</span></li><li class="alt"><span>Size:{1}&nbsp;&nbsp;</span></li><li class=""><span>Type:{2}&nbsp;&nbsp;</span></li><li class="alt"><span>LastModifiedDate:{3}&nbsp;&nbsp;</span></li><li class=""><span>"&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.Fmt(f.Name,f.Size,f.Type,f.LastModifiedDate.ToString(<span class="string">"dd-MM-yyyy&nbsp;HH:mm:ss"</span><span>)));&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;SendFile(ButtonIcon&nbsp;bt,&nbsp;FileInput&nbsp;input)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt.Disabled&nbsp;=&nbsp;<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;fd&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;FormData&nbsp;();&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fd.Append&nbsp;(<span class="string">"userfile"</span><span>,&nbsp;input.Files&nbsp;[0]);&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;rq&nbsp;=&nbsp;fd.Send&nbsp;(<span class="string">"SaveFileUrl"</span><span>);&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rq.Done&nbsp;(()&nbsp;=&gt;&nbsp;<span class="string">"File&nbsp;Uploaded"</span><span>.LogSuccess&nbsp;(5000));&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rq.Fail&nbsp;(()=&gt;&nbsp;<span class="string">"{0}:{1}"</span><span>.Fmt(rq.Status,&nbsp;rq.StatusText).LogError());&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rq.Always&nbsp;(()&nbsp;=&gt;&nbsp;bt.Disabled=<span class="keyword">false</span><span>);&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol><textarea style="display:none;" class="originalCode">public class DemoFileUpload
+{
+	public DemoFileUpload ()
+	{
+	}
+
+	public static void Execute(Atom parent)
+	{
+
+		var fp = new Div ("bs-docs-example");
+		var ff = new FileField (fp);
+		var ufb = CreateUploadButton (fp);
+		var logf = new Div (fp);
+
+		var imp = new Div ("bs-docs-example");
+		var imf = new ImgField (imp);
+		var imb = CreateUploadButton (imp);
+		var logim = new Div (imp);
+
+		parent.JQuery
+			.Append ("File Upload".Header(3))
+				.Append (fp)
+				.Append ("Image Upload".Header(3))
+				.Append (imp);
+
+
+		var rq =jQuery.GetData&lt;string&gt; ("code/demofileupload.html");
+		rq.Done (s=&gt; {
+			var code=new Div();
+			code.InnerHTML= s;
+			parent.JQuery.Append ("C# code".Header(3)).Append(code);
+		});
+
+
+
+		ff.Changed+= (e) =&gt; ShowFileInfo(ufb, logf,ff.Input);
+		imf.Changed+= (e) =&gt; ShowFileInfo(imb, logim, imf.Input);
+
+		ufb.Clicked+= (e) =&gt; SendFile(ufb, ff.Input);
+		imb.Clicked+= (e) =&gt; SendFile(imb, imf.Input);
+	}
+
+
+	static ButtonIcon CreateUploadButton(Atom parent){
+		return  new ButtonIcon (parent, imb=&gt;{ 
+			imb.IconClass="icon-upload";
+			imb.Text = "Upload";
+			imb.AddClass ("btn-info"); 
+			imb.Disabled=true;
+		});
+	}
+
+	static void ShowFileInfo(ButtonIcon bt, Div log, FileInput input)
+	{
+		log.Empty ();
+		bt.Disabled = input.Files.Length == 0;
+		foreach (var f in input.Files) {
+			log.Append ("Name:{0}&lt;br&gt;Size:{1}&lt;br&gt;Type:{2}&lt;br&gt;LastModifiedDate:{3}&lt;br&gt;"
+			            .Fmt(f.Name,f.Size,f.Type,f.LastModifiedDate.ToString("dd-MM-yyyy HH:mm:ss")));
+		}
+
+	}
+
+	static void SendFile(ButtonIcon bt, FileInput input)
+	{
+		bt.Disabled = true;
+
+		var fd = new FormData ();  
+		fd.Append ("userfile", input.Files [0]);  
+
+		var rq = fd.Send ("SaveFileUrl");  
+		rq.Done (() =&gt; "File Uploaded".LogSuccess (5000));  
+		rq.Fail (()=&gt; "{0}:{1}".Fmt(rq.Status, rq.StatusText).LogError());
+		rq.Always (() =&gt; bt.Disabled=false);  
+
+	}
+
+}
+</textarea></div>

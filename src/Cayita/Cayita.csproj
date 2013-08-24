@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{83839372-8B14-4D26-AD2E-2369FCF902BD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Cayita</RootNamespace>
+    <AssemblyName>Cayita</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="Build" command="./c" workingdir="${ProjectDir}" externalConsole="True" pauseExternalConsole="True" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Core\Atom.cs" />
+    <Compile Include="Core\StringFn.cs" />
+    <Compile Include="Console.cs" />
+    <Compile Include="Test.cs" />
+    <Compile Include="Core\Label.cs" />
+    <Compile Include="Core\Div.cs" />
+    <Compile Include="Core\ControlGroup.cs" />
+    <Compile Include="Core\Anchor.cs" />
+    <Compile Include="Core\JQueryFn.cs" />
+    <Compile Include="Input\Input.cs" />
+    <Compile Include="Input\TextInput.cs" />
+    <Compile Include="Input\NullableNumericInput.cs" />
+    <Compile Include="Plugins\NumericOptions.cs" />
+    <Compile Include="Plugins\AutoNumeric.cs" />
+    <Compile Include="Plugins\AutoNumericFn.cs" />
+    <Compile Include="Input\NumericInput.cs" />
+    <Compile Include="Input\BaseNumericInput.cs" />
+    <Compile Include="Input\IntInput.cs" />
+    <Compile Include="Input\NullableIntInput.cs" />
+    <Compile Include="Input\SelectInput.cs" />
+    <Compile Include="Input\OptionAtom.cs" />
+    <Compile Include="Input\SelectInputFn.cs" />
+    <Compile Include="Input\CheckInput.cs" />
+    <Compile Include="Group\CheckGroup.cs" />
+    <Compile Include="Group\GroupBase.cs" />
+    <Compile Include="Group\RadioGroup.cs" />
+    <Compile Include="Group\GroupFn.cs" />
+    <Compile Include="Group\GroupOption.cs" />
+    <Compile Include="Group\CheckOption.cs" />
+    <Compile Include="Group\RadioOption.cs" />
+    <Compile Include="Field\Field.cs" />
+    <Compile Include="Field\TextField.cs" />
+    <Compile Include="Field\FieldFn.cs" />
+    <Compile Include="Field\CheckField.cs" />
+    <Compile Include="Core\Span.cs" />
+    <Compile Include="Core\Paragraph.cs" />
+    <Compile Include="Img\CssIcon.cs" />
+    <Compile Include="Button\Button.cs" />
+    <Compile Include="Button\ResetButton.cs" />
+    <Compile Include="Button\SubmitButton.cs" />
+    <Compile Include="Field\NumericField.cs" />
+    <Compile Include="Field\NullableNumericField.cs" />
+    <Compile Include="Field\IntField.cs" />
+    <Compile Include="Field\NullableIntField.cs" />
+    <Compile Include="Input\LocalFile.cs" />
+    <Compile Include="Input\FileInput.cs" />
+    <Compile Include="Field\FileFieldBase.cs" />
+    <Compile Include="Field\FileField.cs" />
+    <Compile Include="Field\ImgField.cs" />
+    <Compile Include="Core\Image.cs" />
+    <Compile Include="Input\DateInput.cs" />
+    <Compile Include="Input\NullableDateInput.cs" />
+    <Compile Include="Field\DateField.cs" />
+    <Compile Include="Field\NullableDateField.cs" />
+    <Compile Include="Core\List\HtmlListItem.cs" />
+    <Compile Include="Core\List\HtmlList.cs" />
+    <Compile Include="Core\List\HtmlOrderedList.cs" />
+    <Compile Include="Navs\NavBar.cs" />
+    <Compile Include="Navs\NavItem.cs" />
+    <Compile Include="Navs\NavList.cs" />
+    <Compile Include="Navs\NavFn.cs" />
+    <Compile Include="Navs\NavBase.cs" />
+    <Compile Include="Navs\Nav.cs" />
+    <Compile Include="Core\Form.cs" />
+    <Compile Include="Core\FormFn.cs" />
+    <Compile Include="Plugins\Alertify.cs" />
+    <Compile Include="Core\AlertFn.cs" />
+    <Compile Include="Core\SystemFn.cs" />
+    <Compile Include="Plugins\Bootbox\BootboxOptions.cs" />
+    <Compile Include="Plugins\Bootbox\BootboxHandler.cs" />
+    <Compile Include="Plugins\Bootbox\BootboxFn.cs" />
+    <Compile Include="Plugins\Bootbox\Bootbox.cs" />
+    <Compile Include="Panel\PanelOptions.cs" />
+    <Compile Include="Panel\Panel.cs" />
+    <Compile Include="Panel\PanelFn.cs" />
+    <Compile Include="TabPanel\Tab.cs" />
+    <Compile Include="TabPanel\TabPanelFn.cs" />
+    <Compile Include="TabPanel\TabPanel.cs" />
+    <Compile Include="TabPanel\TabPanelOptions.cs" />
+    <Compile Include="Dropdown\DropdownMenu.cs" />
+    <Compile Include="Dropdown\DropdownFn.cs" />
+    <Compile Include="Dropdown\DropdownSubmenu.cs" />
+    <Compile Include="TabPanel\DropdownTab.cs" />
+    <Compile Include="Plugins\Popover\PopoverOptions.cs" />
+    <Compile Include="Plugins\Popover\PopoverFn.cs" />
+    <Compile Include="Plugins\Popover\PopoverObject.cs" />
+    <Compile Include="Table\TableAtom.cs" />
+    <Compile Include="Table\TableFn.cs" />
+    <Compile Include="Table\TableCellAtom.cs" />
+    <Compile Include="Table\TableRowAtom.cs" />
+    <Compile Include="Table\TableColumn.cs" />
+    <Compile Include="Table\Table.cs" />
+    <Compile Include="Table\TableBand.cs" />
+    <Compile Include="Table\TableHead.cs" />
+    <Compile Include="Table\TableFoot.cs" />
+    <Compile Include="Data\ReadOptions.cs" />
+    <Compile Include="Data\StoreApi.cs" />
+    <Compile Include="Data\StoreChangedData.cs" />
+    <Compile Include="Data\StoreChangedAction.cs" />
+    <Compile Include="Data\StoreFailedAction.cs" />
+    <Compile Include="Data\StoreFailedData.cs" />
+    <Compile Include="Data\StoreRequestedAction.cs" />
+    <Compile Include="Data\StoreRequestedState.cs" />
+    <Compile Include="Data\StoreRequestedData.cs" />
+    <Compile Include="Data\Store.cs" />
+    <Compile Include="Table\StorePager.cs" />
+    <Compile Include="Core\AtomFn.cs" />
+    <Compile Include="Plugins\Plugins.cs" />
+    <Compile Include="Data\DataFn.cs" />
+    <Compile Include="Data\StoreFn.cs" />
+    <Compile Include="Table\StorePagerFn.cs" />
+    <Compile Include="Button\ButtonFn.cs" />
+    <Compile Include="Button\ButtonIcon.cs" />
+    <Compile Include="Grid\Grid.cs" />
+    <Compile Include="Grid\GridFn.cs" />
+    <Compile Include="Grid\SelectedGridRow.cs" />
+    <Compile Include="Grid\GridRequestMessage.cs" />
+    <Compile Include="Core\SpinnerIcon.cs" />
+    <Compile Include="SearchBox\SearchBoxConfig.cs" />
+    <Compile Include="SearchBox\SearchBoxFn.cs" />
+    <Compile Include="SearchBox\SearchBox.cs" />
+    <Compile Include="Core\Legend.cs" />
+    <Compile Include="Core\Fieldset.cs" />
+    <Compile Include="Input\ValidityState.cs" />
+    <Compile Include="Input\PasswordInput.cs" />
+    <Compile Include="Input\EmailInput.cs" />
+    <Compile Include="Field\PasswordField.cs" />
+    <Compile Include="Field\EmailField.cs" />
+    <Compile Include="Input\TextAreaInput.cs" />
+    <Compile Include="Field\TextAreaField.cs" />
+    <Compile Include="Field\SelectField.cs" />
+    <Compile Include="Img\ImgPicture.cs" />
+    <Compile Include="Img\ImgFn.cs" />
+    <Compile Include="Img\CssPicture.cs" />
+    <Compile Include="Core\FormData.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="mscorlib">
+      <HintPath>..\..\lib\mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Saltarelle.jQuery">
+      <HintPath>..\..\lib\Saltarelle.jQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="Saltarelle.jQuery.UI">
+      <HintPath>..\..\lib\Saltarelle.jQuery.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Saltarelle.Linq">
+      <HintPath>..\..\lib\Saltarelle.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Saltarelle.Web">
+      <HintPath>..\..\lib\Saltarelle.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="c" />
+    <None Include="j" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\" />
+    <Folder Include="Field\" />
+    <Folder Include="Input\" />
+    <Folder Include="Group\" />
+    <Folder Include="Button\" />
+    <Folder Include="Img\" />
+    <Folder Include="Core\List\" />
+    <Folder Include="Navs\" />
+    <Folder Include="Plugins\" />
+    <Folder Include="Plugins\Bootbox\" />
+    <Folder Include="Panel\" />
+    <Folder Include="TabPanel\" />
+    <Folder Include="Dropdown\" />
+    <Folder Include="Plugins\Popover\" />
+    <Folder Include="Table\" />
+    <Folder Include="Data\" />
+    <Folder Include="Grid\" />
+    <Folder Include="SearchBox\" />
+  </ItemGroup>
+</Project>
