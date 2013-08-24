@@ -29,14 +29,11 @@ namespace Cayita
 		{
 			var a = Cast<DropdownMenu> (new Anchor ());
 			a.TabIndex=-1;
-			var icon = new CssIcon (iconClass);
-			jQuery.FromElement (a).Append (icon).Append(BuildText(text)+ (caret?"<b class='caret'></b>":""));
+			a.Icon = new CssIcon (iconClass);
+			jQuery.FromElement (a).Append (a.Icon).Append(BuildText(text)+ (caret?"<b class='caret'></b>":""));
 
-			var nav = CreateNavBase ();
-			nav.ClassName = "dropdown-menu";
-
-			DefineProperty (a, "icon", new {value= icon, writable=false});
-			DefineProperty (a, "nav", new {value= nav, writable=false});
+			a.Nav = CreateNavBase ();
+			a.Nav.ClassName = "dropdown-menu";
 
 			SetToProperty (a, "get_iconClass", (Func<string>)(() => a.Icon.ClassName));
 			SetToProperty (a, "set_iconClass", (Action<string>)((v) => a.Icon.ClassName = v));

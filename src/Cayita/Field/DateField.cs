@@ -27,8 +27,9 @@ namespace Cayita
 		{
 		}
 
+		[IntrinsicProperty]
 		public new DateInput Input  { 
-			[InlineCode("{this}.cg.input")] get { return null; } 
+			get { return null; }
 		}
 
 		public DatePickerObject Picker { get { return null; } }

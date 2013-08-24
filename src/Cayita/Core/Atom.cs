@@ -86,9 +86,9 @@ namespace Cayita
 
 
 		public bool Hidden {
-			[InlineCode("{this}.isHidden()")]
+			[InlineCode("{this}.is_hidden()")]
 			get;
-			[InlineCode("{this}.Hide({value})")]
+			[InlineCode("{this}.do_hide({value})")]
 			set;
 		}
 

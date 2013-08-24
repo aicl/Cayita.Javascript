@@ -45,7 +45,7 @@ namespace Cayita
 
 
 		public bool Closable {
-			[InlineCode("{this}.isClosable()")]
+			[InlineCode("{this}.is_closable()")]
 			get;
 			[InlineCode("{this}.closable({value})")]
 			set;
@@ -53,23 +53,14 @@ namespace Cayita
 
 
 		public bool Collapsible { 
-			[InlineCode("{this}.isCollapsible()")]
+			[InlineCode("{this}.is_collapsible()")]
 			get;
 			[InlineCode("{this}.collapsible({value})")]
 			set;
 		}
 
-		[IntrinsicProperty]
-		public Atom Header {
-			get; 
-			internal set; 
-		}
 
-		[IntrinsicProperty]
-		public CssIcon CloseIcon { get;  internal set; }
 
-		[IntrinsicProperty]
-		public CssIcon CollapseIcon { get; internal  set; }
 
 
 		/// <summary>
@@ -78,10 +69,8 @@ namespace Cayita
 		/// <value>The on click close-icon handler.</value>
 
 		public Action<Panel> CloseIconHandler { 
-			[InlineCode("{this}.options.closeIconHandler")]
-			get; 
-			[InlineCode("{this}.options.closeIconHandler={value}")]
-			set; 
+			get;
+			set;
 		}
 
 		/// <summary>
@@ -89,23 +78,22 @@ namespace Cayita
 		/// </summary>
 		/// <value>The on click collapse-icon handler.</value>
 		public Action<Panel,bool> CollapseIconHandler { 
-			[InlineCode("{this}.options.collapseIconHandler")]
-			get; 
-			[InlineCode("{this}.options.collapseIconHandler={value}")]
-			set; 
+			get;
+			set;
 		}
 
 		public bool Resizable{ 
-			[InlineCode("{this}.isResizable()")]get; 
+			[InlineCode("{this}.is_resizable()")]get; 
 			[InlineCode("{this}.resizable({value})")]set; 
 		}
 
 		public bool Draggable{ 
-			[InlineCode("{this}.isDraggable()")]get; 
-			[InlineCode("{this}.setDraggable({value})")]set; 
+			[InlineCode("{this}.is_draggable()")]get; 
+			[InlineCode("{this}.do_draggable({value})")]set; 
 		}
 
 
+		[InlineCode("{this}.do_show({value})")]
 		public void Show(bool value=true){
 		}
 
@@ -149,6 +137,32 @@ namespace Cayita
 
 		[IntrinsicProperty]
 		public Div Body { get; internal set; }
+
+
+		[IntrinsicProperty]
+		public Atom Header {
+			get; 
+			internal set; 
+		}
+
+		[IntrinsicProperty]
+		public CssIcon CloseIcon { get;  internal set; }
+
+		[IntrinsicProperty]
+		public CssIcon CollapseIcon { get; internal  set; }
+
+
+		[IntrinsicProperty]
+		internal PanelOptions _options {
+			get;
+			set;
+		}
+
+		[IntrinsicProperty]
+		internal Div _headerband { get;  set; }
+
+		[IntrinsicProperty]
+		internal Div _contentband { get; set; }
 
 
 	}

@@ -65,12 +65,12 @@
 		var item = e.currentTarget;
 		var dd = Cayita.UI.Atom('div', null, null, null, function(c) {
 			Cayita.UI.TextField(null, null, function(i) {
-				i.cg.input.placeholder = 'name';
+				i.input.placeholder = 'name';
 			}, c);
 			Cayita.UI.CheckField(null, null, function(i1) {
-				i1.cg.input.set_text('I like cayita');
-				i1.cg.input.checked = true;
-				i1.cg.input.disabled = true;
+				i1.input.set_text('I like cayita');
+				i1.input.checked = true;
+				i1.input.disabled = true;
 			}, c);
 			Cayita.UI.Input(String)('textarea', null, null, null, null, function(i2) {
 				i2.set_value('cayita is amazing ...');

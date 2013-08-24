@@ -334,7 +334,6 @@
     <Content Include="img\flags\za.png" />
     <Content Include="img\flags\zm.png" />
     <Content Include="img\flags\zw.png" />
-    <Content Include="js\Calamar.App.js" />
     <Content Include="js\Cayita.js" />
     <Content Include="js\alertify.min.js" />
     <Content Include="js\autonumeric-1.8.7.js" />
@@ -345,8 +344,6 @@
     <Content Include="js\jquery-1.9.1.min.js" />
     <Content Include="js\jquery-ui-1.10.2.custom.js" />
     <Content Include="js\jquery-ui-1.10.2.custom.min.js" />
-    <Content Include="js\jquery.validate.js" />
-    <Content Include="js\jquery.validate.min.js" />
     <Content Include="js\linq.js" />
     <Content Include="js\linq.min.js" />
     <Content Include="js\mscorlib.js" />

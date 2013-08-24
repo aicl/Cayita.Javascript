@@ -18,7 +18,7 @@ namespace Cayita
 		}
 
 		public bool Inverse {
-			[InlineCode("{this}.nav.isInverse()")]
+			[InlineCode("{this}.nav.is_inverse()")]
 			get;
 			[InlineCode("{this}.nav.inverse({value})")]
 			set;
@@ -43,10 +43,18 @@ namespace Cayita
 			remove{
 			}
 		}
-		protected internal Anchor Brand {
+
+		internal Anchor Brand {
 			[InlineCode("{this}.nav.$brand")]
 			get;
 			[InlineCode("{this}.nav.$brand={value}")]
+			set;
+		}
+
+
+		[IntrinsicProperty]
+		internal Div Collapse {
+			get;
 			set;
 		}
 

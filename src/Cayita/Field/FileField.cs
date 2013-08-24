@@ -18,16 +18,21 @@ namespace Cayita
 
 
 		public string InputSize {
-			[InlineCode("{this}.cg.get_inputSize()")]get;
-			[InlineCode("{this}.cg.set_inputSize({value})")]set;
+			[InlineCode("{this}.get_inputSize()")]get;
+			[InlineCode("{this}.set_inputSize({value})")]set;
 		}
 
 		[IntrinsicProperty]
-		internal Div Uneditable {
+		internal Div _uneditable {
 			get;
 			set;
 		}
 
+		[IntrinsicProperty]
+		internal string _inputSize {
+			get;
+			set;
+		}
 
 
 

@@ -25,7 +25,6 @@ namespace Cayita
 			e.Icon = Atom ("i", null, "icon-spinner icon-spin icon-2x pull-left").As<CssIcon>();
 			e.Append (e.Icon);
 			e.Text = !message.IsNullOrEmpty () ? message : "";
-
 			return e;
 		}
 	}

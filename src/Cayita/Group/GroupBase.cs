@@ -11,84 +11,83 @@ namespace Cayita
 	{
 		public ElementCollection Options
 		{
-			[InlineCode("{this}.cg.get_options()")]
+			[InlineCode("{this}.get_options()")]
 			get	{
 				return null;
 			}
 		}
 
-		[InlineCode("{this}.cg.addOption({option})")]
+		[InlineCode("{this}.addOption({option})")]
 		public void Add(GroupOption<T> option)
 		{
 		}
 
-		[InlineCode("{this}.cg.addValue({value},{text},{selected})")]
+		[InlineCode("{this}.addValue({value},{text},{selected})")]
 		public void Add (T value, string text=null, bool selected=false){
 		}
 
-		[InlineCode("{this}.cg.addValue({value},null,{selected})")]
+		[InlineCode("{this}.addValue({value},null,{selected})")]
 		public void Add (T value, bool selected){
 		}
 
-		[InlineCode("{this}.cg.loadList({data},{append})")]
+		[InlineCode("{this}.loadList({data},{append})")]
 		public void Load (IEnumerable<T> data, bool append=false){
 		}
 
 
-
-		[InlineCode("{this}.cg.removeOption({option})")]
+		[InlineCode("{this}.removeOption({option})")]
 		public void RemoveOption(GroupOption<T> option)
 		{
 		}
 
-		[InlineCode("{this}.cg.removeValue({value})")]
+		[InlineCode("{this}.removeValue({value})")]
 		public void RemoveValue(T value)
 		{
 		}
 
-		[InlineCode("{this}.cg.removeAll()")]
+		[InlineCode("{this}.removeAll()")]
 		public void RemoveAll()
 		{
 		}
 
-		[InlineCode("{this}.cg.getOptions()")]
+		[InlineCode("{this}.getOptions()")]
 		public GroupOption<T>[] GetOptions()
 		{
 			return null;
 		}
 
-		[InlineCode("{this}.cg.getChecked()")]
+		[InlineCode("{this}.getChecked()")]
 		public GroupOption<T> GetChecked()
 		{
 			return null;
 		}
 
-		[InlineCode("{this}.cg.checkValue({value},{selected})")]
+		[InlineCode("{this}.checkValue({value},{selected})")]
 		public void Check(T value, bool selected=true )
 		{
 		}
 
-		[InlineCode("{this}.cg.checkOption({option},{selected})")]
+		[InlineCode("{this}.checkOption({option},{selected})")]
 		public void Check(GroupOption<T> option, bool selected=true )
 		{
 		}
 
-		[InlineCode("{this}.cg.checkAll({selected})")]
+		[InlineCode("{this}.checkAll({selected})")]
 		public void CheckAll(bool selected=true )
 		{
 		}
 
-		[InlineCode("{this}.cg.disableValue({value},{disable})")]
+		[InlineCode("{this}.disableValue({value},{disable})")]
 		public void Disable(T value, bool disable=true )
 		{
 		}
 
-		[InlineCode("{this}.cg.disableOption({option},{disable})")]
+		[InlineCode("{this}.disableOption({option},{disable})")]
 		public void Disable(GroupOption<T> option, bool disable=true )
 		{
 		}
 
-		[InlineCode("{this}.cg.disableAll({disable})")]
+		[InlineCode("{this}.disableAll({disable})")]
 		public void DisableAll(bool disable=true )
 		{
 		}
@@ -101,22 +100,22 @@ namespace Cayita
 
 
 		public bool Inline {
-			[InlineCode("{this}.cg.isInline()")] get;
-			[InlineCode("{this}.cg.inline({value})")] set;
+			[InlineCode("{this}.is_inline()")] get;
+			[InlineCode("{this}.inline({value})")] set;
 		}
 
 		public string Name {
-			[InlineCode("{this}.cg.get_name()")] get;
-			[InlineCode("{this}.cg.set_name({value})")] set;
+			[InlineCode("{this}.get_name()")] get;
+			[InlineCode("{this}.set_name({value})")] set;
 		}
 
 
 		public event jQueryEventHandler Checked {
-			[InlineCode("{this}.cg.add_checked({value})")]
+			[InlineCode("{this}.add_checked({value})")]
 			add 
 			{
 			}
-			[InlineCode("{this}.cg.remove_checked({value})")]
+			[InlineCode("{this}.remove_checked({value})")]
 			remove
 			{
 			}
@@ -124,8 +123,8 @@ namespace Cayita
 	
 
 		public bool Required {
-			[InlineCode("{this}.cg.isRequired()")]get;
-			[InlineCode("{this}.cg.required({value})")]set;
+			[InlineCode("{this}.is_required()")]get;
+			[InlineCode("{this}.required({value})")]set;
 		}
 
 	}

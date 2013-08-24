@@ -31,6 +31,12 @@ namespace Cayita
 			set;
 		}
 
+		[IntrinsicProperty]
+		public Label Label {
+			get;
+			internal set;
+		}
+
 	}
 
 

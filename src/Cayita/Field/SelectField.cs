@@ -26,7 +26,7 @@ namespace Cayita
 
 
 		public new SelectInput<T> Input {
-			[InlineCode("{this}.cg.input")]
+			[InlineCode("{this}.input")]
 			get{ return null; }
 
 		}

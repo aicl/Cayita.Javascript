@@ -20,16 +20,16 @@
 			$(parent).append(Cayita.Fn.header('C# code', 3)).append(code);
 		});
 		ff.add_changed(function(e) {
-			$DemoFileUpload.$showFileInfo(ufb, logf, ff.cg.input);
+			$DemoFileUpload.$showFileInfo(ufb, logf, ff.input);
 		});
 		imf.add_changed(function(e1) {
-			$DemoFileUpload.$showFileInfo(imb, logim, imf.cg.input);
+			$DemoFileUpload.$showFileInfo(imb, logim, imf.input);
 		});
 		ufb.add_clicked(function(e2) {
-			$DemoFileUpload.$sendFile(ufb, ff.cg.input);
+			$DemoFileUpload.$sendFile(ufb, ff.input);
 		});
 		imb.add_clicked(function(e3) {
-			$DemoFileUpload.$sendFile(imb, imf.cg.input);
+			$DemoFileUpload.$sendFile(imb, imf.input);
 		});
 	};
 	$DemoFileUpload.$createUploadButton = function(parent) {

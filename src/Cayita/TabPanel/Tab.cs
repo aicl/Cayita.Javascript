@@ -17,18 +17,19 @@ namespace Cayita
 		}
 
 		public  new bool Disabled { 
-			[InlineCode("{this}.isDisabled()")]get; 
+			[InlineCode("{this}.is_disabled()")]get; 
 			[InlineCode("{this}.disable({value})")]set; 
 		}
 
 
 		[IntrinsicProperty]
 		public Div Body { 
-			get{ return null; }
+			get;
+			internal set;
 		}
 
 		[IntrinsicProperty]
-		protected internal HtmlListItem Item { get; set; }
+		internal HtmlListItem Item { get; set; }
 
 
 		[IntrinsicProperty]

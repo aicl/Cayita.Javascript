@@ -110,7 +110,7 @@ namespace Cayita
 
 			e.SetToAtomProperty ("multiple", (Action<bool?>)(m => multiple = !m.HasValue || m.Value ? true : false));
 
-			e.SetToAtomProperty ("isMultiple", (Func<bool>)(()=> multiple));
+			e.SetToAtomProperty ("is_multiple", (Func<bool>)(()=> multiple));
 
 			e.SetToAtomProperty ("add_rowClicked", (Action<Action<Grid<T> , TableRowAtom>>)
 			                     (v => rowClicked=  Cast<Action<Grid<T>,TableRowAtom>>(Delegate.Combine (rowClicked, v)) ));

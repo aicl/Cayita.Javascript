@@ -6,48 +6,49 @@ namespace Cayita
 	public abstract class FileFieldBase:Field<string>
 	{
 
+		[IntrinsicProperty]
 		public new  FileInput Input {
-			[InlineCode("{this}.cg.input")]
-			get{ return null; }
+			get;
+			internal set;
 		}
 
-		[InlineCode("{this}.cg.hidePreview({hide})")]
+		[InlineCode("{this}.hidePreview({hide})")]
 		public void HidePreview(bool hide= true){
 		}
 
 		public string FileOpenText {
-			[InlineCode("{this}.cg.get_fileOpenText()")]get;
-			[InlineCode("{this}.cg.set_fileOpenText({value})")]set;
+			[InlineCode("{this}.get_fileOpenText()")]get;
+			[InlineCode("{this}.set_fileOpenText({value})")]set;
 		}
 
 
 		public string FileChangeText {
-			[InlineCode("{this}.cg.get_fileChangeText()")]get;
-			[InlineCode("{this}.cg.set_fileChangeText({value})")]set;
+			[InlineCode("{this}.get_fileChangeText()")]get;
+			[InlineCode("{this}.set_fileChangeText({value})")]set;
 		}
 
 		public string FileRemoveText {
-			[InlineCode("{this}.cg.get_fileRemoveText()")]get;
-			[InlineCode("{this}.cg.set_fileRemoveText({value})")]set;
+			[InlineCode("{this}.get_fileRemoveText()")]get;
+			[InlineCode("{this}.set_fileRemoveText({value})")]set;
 		}
 
 		public CssIcon FileOpenIcon {
-			[InlineCode("{this}.cg.fileOpenIcon")]get;
-			[InlineCode("{this}.cg.fileOpenIcon={value}")] internal set;
+			[InlineCode("{this}.fileOpenIcon")]get;
+			[InlineCode("{this}.fileOpenIcon={value}")] internal set;
 		}
 
 		public CssIcon FileChangeIcon {
-			[InlineCode("{this}.cg.fileChangeIcon")]get;
-			[InlineCode("{this}.cg.fileChangeIcon={value}")] internal set;
+			[InlineCode("{this}.fileChangeIcon")]get;
+			[InlineCode("{this}.fileChangeIcon={value}")] internal set;
 		}
 
 		public CssIcon FileRemoveIcon {
-			[InlineCode("{this}.cg.fileRemoveIcon")]get;
-			[InlineCode("{this}.cg.fileRemoveIcon={value}")]internal set;
+			[InlineCode("{this}.fileRemoveIcon")]get;
+			[InlineCode("{this}.fileRemoveIcon={value}")]internal set;
 		}
 
 		public LocalFile[]  Files {
-			[InlineCode("{this}.cg.input.files")]
+			[InlineCode("{this}.input.files")]
 			get { return null; }
 		}
 
@@ -58,19 +59,39 @@ namespace Cayita
 		/// <value>accepted types : audio/*  video/* image/* image/jpeg, image/png  MIME_type </value>
 		public string Accept
 		{
-			[InlineCode("{this}.cg.input.accept")]
+			[InlineCode("{this}.input.accept")]
 			get;
-			[InlineCode("{this}.cg.input.accept={value}")]
+			[InlineCode("{this}.input.accept={value}")]
 			set;
 		}
 
 		public bool Multiple
 		{
-			[InlineCode("{this}.cg.input.multiple")]
+			[InlineCode("{this}.input.multiple")]
 			get;
-			[InlineCode("{this}.cg.input.multiple={value}")]
+			[InlineCode("{this}.input.multiple={value}")]
 			set;
 		}
+
+		[IntrinsicProperty]
+		internal Div _divinput {
+			get;
+			set;
+		}
+
+		[IntrinsicProperty]
+		internal Span _spanfile {
+			get;
+			set;
+		}
+
+		[IntrinsicProperty]
+		internal Span _spanfileopen {
+			get;
+			set;
+		}
+
+
 
 	}
 }

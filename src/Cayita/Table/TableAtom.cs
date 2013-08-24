@@ -57,7 +57,8 @@ namespace Cayita
 
 		[IntrinsicProperty]
 		public Atom Body { 
-			get {return null;}
+			get;
+			internal set;
 		} 
 
 		//

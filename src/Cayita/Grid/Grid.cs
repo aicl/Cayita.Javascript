@@ -21,7 +21,7 @@ namespace Cayita
 		public TableRowAtom SelectedRow { get;  internal set; }
 
 		public  bool Multiple  { 
-			[InlineCode("{this}.isMultiple()")] 
+			[InlineCode("{this}.is_multiple()")] 
 			get; 
 			[InlineCode("{this}.multiple({value})")] 
 			set; 

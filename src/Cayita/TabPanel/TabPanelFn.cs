@@ -26,25 +26,26 @@ namespace Cayita
 		public static Tab Tab(string title, Element content, bool? disabled)
 		{
 
-			var bd = new Div ("tab-pane");
-			bd.CreateId ();
-			if (content != null)
-				jQuery.FromElement (bd).Append (content);
 
-			var a = UI.Cast<Tab> (new Anchor("", "#"+bd.ID, title));
+			var a = UI.Cast<Tab> (new Anchor("", null, title));
+			a.Body = new Div ("tab-pane");
+			a.Body.CreateId ();
+			a.Href = "#" + a.Body.ID;
+
+			if(content!=null)
+				jQuery.FromElement (a.Body).Append (content);
+
 			a.SetAttribute("data-toggle", "tab");
-			var li = new HtmlListItem();
-			li.SetAttribute("index", bd.ID);
-			li.Append(a);
 
-			UI.DefineProperty (a, "body", new {value= bd, writable=false});
-			UI.DefineProperty (a, "item", new {value= li, writable=false});
+			a.Item = new HtmlListItem();
+			a.Item.SetAttribute("index", a.Body.ID);
+			a.Item.Append(a);
 
 			UI.SetToProperty(a, "get_caption", (Func<string>)(()=>a.Text));
 			UI.SetToProperty(a, "set_caption", (Action<string>)(v=>a.Text=v));
 
 
-			UI.SetToProperty(a, "isDisabled", (Func<bool>)(()=>a.Item.ClassList.Contains("disabled")));
+			UI.SetToProperty(a, "is_disabled", (Func<bool>)(()=>a.Item.ClassList.Contains("disabled")));
 			UI.SetToProperty(a, "disable", (Action<bool?>)((v)=>{
 				if(!v.HasValue || v.Value){
 					a.ClassList.Add("disabled");

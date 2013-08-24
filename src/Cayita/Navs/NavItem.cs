@@ -33,19 +33,22 @@ namespace Cayita
 		}
 
 		public new bool Disabled{
-			[InlineCode("{this}.isDisabled()")]get;
+			[InlineCode("{this}.is_disabled()")]get;
 			[InlineCode("{this}.disable({value})")]set;
 		}
 
-		internal Anchor Anchor { 
-			[InlineCode("{this}.$anchor")]get;
-			[InlineCode("{this}.$anchor={value}")] set;
+
+		[IntrinsicProperty]
+		internal Anchor _anchor { 
+			get;
+			set;
 		}
 
-		internal CssIcon Icon 
+		[IntrinsicProperty]
+		internal CssIcon _icon 
 		{
-			[InlineCode("{this}.$icon")]get;
-			[InlineCode("{this}.$icon={value}")] set;
+			get;
+			set;
 		}
 
 	}

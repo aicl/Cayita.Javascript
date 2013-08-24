@@ -167,48 +167,48 @@
 		}, f);
 		Cayita.UI.NumericInput(null, null, null, null, function(i) {
 			i.name = 'Id';
-			i.Hide(true);
+			i.do_hide(true);
 		}, f);
 		Cayita.UI.TextField(null, null, function(i1) {
-			i1.cg.input.name = 'Name';
+			i1.input.name = 'Name';
 			i1.set_text('Name');
-			i1.cg.input.required = true;
+			i1.input.required = true;
 		}, f);
 		Cayita.UI.TextField(null, null, function(i2) {
-			i2.cg.input.name = 'City';
+			i2.input.name = 'City';
 			i2.set_text('City');
-			i2.cg.input.required = true;
+			i2.input.required = true;
 		}, f);
 		Cayita.UI.TextField(null, null, function(i3) {
-			i3.cg.input.name = 'Address';
+			i3.input.name = 'Address';
 			i3.set_text('Address');
 		}, f);
 		Cayita.UI.DateField(null, null, null, function(i4) {
-			i4.cg.input.name = 'DoB';
+			i4.input.name = 'DoB';
 			i4.set_text('Birthday');
 			i4.get_picker().datepicker('option', 'dateFormat', 'dd.mm.yy');
-			i4.cg.input.required = true;
+			i4.input.required = true;
 		}, f);
 		Cayita.UI.EmailField(null, null, function(i5) {
-			i5.cg.input.name = 'Email';
+			i5.input.name = 'Email';
 			i5.set_text('Email');
-			i5.cg.input.required = true;
+			i5.input.required = true;
 		}, f);
 		Cayita.UI.IntField(null, null, function(i6) {
-			i6.cg.input.name = 'Rating';
+			i6.input.name = 'Rating';
 			i6.set_text('Rating');
 		}, f);
 		Cayita.UI.RadioGroup(String)(function(rg) {
-			rg.cg.required(true);
+			rg.required(true);
 			rg.set_text('Level');
-			rg.cg.set_name('Level');
-			rg.cg.addValue('A', null, false);
-			rg.cg.addValue('B', null, false);
-			rg.cg.addValue('C', null, false);
+			rg.set_name('Level');
+			rg.addValue('A', null, false);
+			rg.addValue('B', null, false);
+			rg.addValue('C', null, false);
 		}, f);
 		Cayita.UI.CheckField(null, null, function(i7) {
-			i7.cg.input.name = 'IsActive';
-			i7.cg.input.set_text('Is active?');
+			i7.input.name = 'IsActive';
+			i7.input.set_text('Is active?');
 		}, f);
 		$(f).find('label[class=\'control-label\']').css('width', '80px');
 		f.copyToUser = function() {

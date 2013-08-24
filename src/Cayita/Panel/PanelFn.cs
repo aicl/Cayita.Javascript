@@ -37,84 +37,80 @@ namespace Cayita
 			DraggableObject  dobject=null;
 			ResizableObject robject=null;
 	
-			options = options ?? new PanelOptions ();
 
 			var e = new Div ("well well-panel").As<Panel>();
 			e.CreateId ();
+			e._options = options ?? new PanelOptions ();
 
-			var headerBand = new Div ("well-panel-header");
-			var closeIcon = new CssIcon (options.CloseIconClass);
-			closeIcon.CreateId ();
-			var collapseIcon = new CssIcon (options.CollapseIconClass);
-			collapseIcon.CreateId ();
-			var header = Atom ("ctxt");
+			e._headerband = new Div ("well-panel-header");
+			e.CloseIcon= new CssIcon (e._options.CloseIconClass);
+			e.CloseIcon.CreateId ();
+			e.CollapseIcon = new CssIcon (e._options.CollapseIconClass);
+			e.CollapseIcon.CreateId ();
+			e.Header= Atom ("ctxt");
 
-			var contentBand = new Div ("well-panel-content");
+			e._contentband= new Div ("well-panel-content");
 			e.Body = new Div("well-panel-body");
-			contentBand.Append(e.Body);
+			e._contentband.Append(e.Body);
 
-			if (options.Hidden)
+			if (e._options.Hidden)
 				jQuery.FromElement (e).Hide ();
 
-			jQuery.FromElement (headerBand).Append (closeIcon).Append (collapseIcon).Append(header);
-			jQuery.FromElement (e).Append (headerBand).Append (contentBand);
+			jQuery.FromElement (e._headerband).Append (e.CloseIcon).Append (e.CollapseIcon).Append(e.Header);
+			jQuery.FromElement (e).Append (e._headerband).Append (e._contentband);
 
-			DefineAtomProperty (e, "options", new {value=options, writable=false});
-			DefineAtomProperty (e, "closeIcon", new {value=closeIcon, writable=false});
-			DefineAtomProperty (e, "collapseIcon", new {value=collapseIcon, writable=false});
-			DefineAtomProperty (e, "header", new {value=header, writable=false});
 
-			SetToAtomProperty (e, "isClosable", (Func<bool>)( () => options.Closable ));
+			SetToAtomProperty (e, "is_closable", (Func<bool>)( () => e._options.Closable ));
 			SetToAtomProperty (e, "closable", (Action<bool?>)(v => {
-				options.Closable = v.HasValue?v.Value:true;
-				closeIcon.Hidden= !options.Closable;
+				e._options.Closable = v.HasValue?v.Value:true;
+				e.CloseIcon.Hidden= !e._options.Closable;
 			}));
 
-			SetToAtomProperty (e, "isCollapsible", (Func<bool>)( () => options.Collapsible ));
+			SetToAtomProperty (e, "is_collapsible", (Func<bool>)( () =>e._options.Collapsible ));
 			SetToAtomProperty (e, "collapsible", (Action<bool?>)(v => {
-				options.Collapsible = v.HasValue?v.Value:true;
-				collapseIcon.Hidden= !options.Collapsible;
+				e._options.Collapsible = v.HasValue?v.Value:true;
+				e.CollapseIcon.Hidden= !e._options.Collapsible;
 			}));
 
 
-			SetToAtomProperty (e, "get_top", (Func<string>)( () => options.Top ));
+			SetToAtomProperty (e, "get_top", (Func<string>)( () => e._options.Top ));
 			SetToAtomProperty (e, "set_top", (Action<string>)( (v) =>{
 				if(v.IsNullOrEmpty()) return;
-				options.Top=v;
+				e._options.Top=v;
 				e.Style.Top = v;
 			}));
 
-			SetToAtomProperty (e, "get_left", (Func<string>)( () => options.Left ));
+			SetToAtomProperty (e, "get_left", (Func<string>)( () => e._options.Left ));
 			SetToAtomProperty (e, "set_left", (Action<string>)( (v) =>{
 				if(v.IsNullOrEmpty()) return;
-				options.Left=v;
+				e._options.Left=v;
 				e.Style.Left = v;
 			}));
 
-			SetToAtomProperty (e, "get_height", (Func<string>)( () => options.Height ));
+			SetToAtomProperty (e, "get_height", (Func<string>)( () => e._options.Height ));
 			SetToAtomProperty (e, "set_height", (Action<string>)( (v) =>{
 				if(v.IsNullOrEmpty()) return;
-				options.Height=v;
-				contentBand.Style.Height = options.Height;
+				e._options.Height=v;
+				e._contentband.Style.Height = v;
 				e.Style.Height = "auto";
 			}));
 
-			SetToAtomProperty (e, "get_width", (Func<string>)( () => options.Width ));
+			SetToAtomProperty (e, "get_width", (Func<string>)( () => e._options.Width ));
 			SetToAtomProperty (e, "set_width", (Action<string>)( (v) =>{
 				if(v.IsNullOrEmpty()) return;
-				options.Width=v;
-				e.Style.Width = options.Width;
-				contentBand.Style.Width = "auto";
+				e._options.Width=v;
+				e.Style.Width = v;
+				e._contentband.Style.Width = "auto";
 			}));
 
-			SetToAtomProperty (e, "get_caption", (Func<string>)( () => options.Caption ));
+			SetToAtomProperty (e, "get_caption", (Func<string>)( () => e._options.Caption ));
 			SetToAtomProperty (e, "set_caption", (Action<string>)(v => {
-				options.Caption=v;
-				header.InnerHTML= v.IsNullOrEmpty()? "": v;
+				e._options.Caption=v;
+				e.Header.InnerHTML= v.IsNullOrEmpty()? "": v;
 			}));
 
 
-			SetToAtomProperty (e, "show", (Action<bool?>)(show => {
+			SetToAtomProperty (e, "do_show", (Action<bool?>)(show => {
 				if(e.ParentNode==null) jQuery.FromElement(Document.Body).Append(e);
 				if(!show.HasValue ||  show.Value)
 					jQuery.FromElement(e).Show();
@@ -131,44 +127,46 @@ namespace Cayita
 			}));
 
 
-			if (options.CloseIconHandler == null)
-				options.CloseIconHandler = p => p.Close ();
+			if (e._options.CloseIconHandler == null)
+				e._options.CloseIconHandler = p => p.Close ();
 
-			if (options.CollapseIconHandler == null)
-				options.CollapseIconHandler = (p,cl) => p.Collapse ();
+			if (e._options.CollapseIconHandler == null)
+				e._options.CollapseIconHandler = (p,cl) => p.Collapse ();
 
 
 			SetToProperty (e,"add_closeIconClicked", (Action<jQueryEventHandler>)
-			                      ((ev) => On(e, PanelCloseIconEventName, ev, "#"+closeIcon.ID)));
+
+			               ((ev) => {
+				On(e, PanelCloseIconEventName, ev, "#"+e.CloseIcon.ID);}));
 
 			SetToProperty (e,"remove_closeIconClicked", (Action<jQueryEventHandler>)
-			                      ((ev) => Off (e,PanelCloseIconEventName, ev, "#"+closeIcon.ID)));
+			                      ((ev) => Off (e,PanelCloseIconEventName, ev, "#"+e.CloseIcon.ID)));
 
 
 			SetToProperty (e,"add_collapseIconClicked", (Action<jQueryEventHandler>)
-			                      ((ev) => On(e, PanelCollapseIconEventName, ev, "#"+collapseIcon.ID)));
+			                      ((ev) => On(e, PanelCollapseIconEventName, ev, "#"+e.CollapseIcon.ID)));
 
 			SetToProperty (e,"remove_collapseIconClicked", (Action<jQueryEventHandler>)
-			                      ((ev) => Off (e,PanelCollapseIconEventName, ev, "#"+collapseIcon.ID)));
+			                      ((ev) => Off (e,PanelCollapseIconEventName, ev, "#"+e.CollapseIcon.ID)));
 
 			SetToProperty(e,"collapse", (Action)(()=>{
-				var collapsed = contentBand.Hidden;
-				contentBand.Hidden=!collapsed;
+				var collapsed = e._contentband.Hidden;
+				e._contentband.Hidden=!collapsed;
 				if (collapsed){
-					collapseIcon.RemoveClass(options.ExpandIconClass);
-					collapseIcon.AddClass(options.CollapseIconClass);
+					e.CollapseIcon.RemoveClass(options.ExpandIconClass);
+					e.CollapseIcon.AddClass(options.CollapseIconClass);
 				} else {
-					collapseIcon.RemoveClass(options.CollapseIconClass);
-					collapseIcon.AddClass(options.ExpandIconClass);
+					e.CollapseIcon.RemoveClass(options.CollapseIconClass);
+					e.CollapseIcon.AddClass(options.ExpandIconClass);
 					e.Style.Height="auto";
 				}
 			}));
 
 			SetToProperty(e, "resizable", (Action<bool?>)(v=>{
 			options.Resizable=v.HasValue?v.Value:true;
-				if(options.Resizable){
+				if(e._options.Resizable){
 					if(robject==null){
-						robject = jQuery.FromElement(contentBand).Resizable ();
+						robject = jQuery.FromElement(e._contentband).Resizable ();
 						robject.AlsoResize = e;
 					}
 				} else {
@@ -178,10 +176,10 @@ namespace Cayita
 					}
 				}
 			}));
-			SetToProperty(e, "isResizable", (Func<bool>)( ()=> options.Resizable ) );
+			SetToProperty(e, "is_resizable", (Func<bool>)( ()=> options.Resizable ) );
 
-			SetToProperty(e, "setDraggable", (Action<bool?>)( v=>{
-				options.Draggable=v.HasValue?v.Value:true;
+			SetToProperty(e, "do_draggable", (Action<bool?>)( v=>{
+				e._options.Draggable=v.HasValue?v.Value:true;
 				if(options.Draggable){
 					if(dobject==null){
 						dobject = jQuery.FromElement(e).Draggable ();
@@ -189,7 +187,7 @@ namespace Cayita
 						dobject.AddClasses = false;
 						dobject.Containment = "parent";
 						dobject.Distance = 10;
-						dobject.Handle = headerBand;
+						dobject.Handle = e._headerband;
 					}
 
 				} else {
@@ -200,9 +198,16 @@ namespace Cayita
 				}
 
 			}));
-			SetToProperty(e, "isDraggable", (Func<bool>)( ()=> options.Draggable ) );
+			SetToProperty(e, "is_draggable", (Func<bool>)( ()=> options.Draggable ) );
 
-			jQuery.FromElement (e).On ("click", "#"+closeIcon.ID, ev => {
+
+			e.SetToAtomProperty("get_closeIconHandler", (Func<Action<Panel>>)(()=> e._options.CloseIconHandler ));
+			e.SetToAtomProperty("set_closeIconHandler", (Action<Action<Panel>>)((v)=> e._options.CloseIconHandler=v ));
+
+			e.SetToAtomProperty("get_collapseIconHandler", (Func<Action<Panel,bool>>)(()=> e._options.CollapseIconHandler ));
+			e.SetToAtomProperty("set_CollapseIconHandler", (Action<Action<Panel,bool>>)((v)=> e._options.CollapseIconHandler=v ));
+
+			jQuery.FromElement (e).On ("click", "#"+e.CloseIcon.ID, ev => {
 				var j= jQuery.FromElement(ev.CurrentTarget);
 				if(j.HasClass("disabled") ) return ;
 				j.Trigger(PanelCloseIconEventName);
@@ -212,7 +217,7 @@ namespace Cayita
 					.On("click", ev=>{
 						e.Style.ZIndex=z++;
 					})
-					.On ("click", "#"+collapseIcon.ID, ev => {
+					.On ("click", "#"+e.CollapseIcon.ID, ev => {
 						var j= jQuery.FromElement(ev.CurrentTarget);
 						if(j.HasClass("disabled") ) return ;
 						j.Trigger(PanelCollapseIconEventName);
@@ -220,11 +225,11 @@ namespace Cayita
 					});
 
 			e.CloseIconClicked+= (ev) => {
-				options.CloseIconHandler(e);
+				e._options.CloseIconHandler(e);
 			};
 
 			e.CollapseIconClicked+= (ev) => {
-				options.CollapseIconHandler(e, contentBand.Hidden);
+				e._options.CollapseIconHandler(e, e._contentband.Hidden);
 			};
 
 			e.Resizable = options.Resizable;

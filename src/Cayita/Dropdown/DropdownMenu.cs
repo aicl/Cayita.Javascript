@@ -20,7 +20,8 @@ namespace Cayita
 
 		[IntrinsicProperty]
 		public Nav Nav { 
-			get { return null; } 
+			get ;
+			internal set;
 		}
 
 
@@ -30,7 +31,8 @@ namespace Cayita
 
 		[IntrinsicProperty]
 		public  CssIcon Icon {
-			get { return null;}
+			get;
+			internal set;
 		}
 
 	}

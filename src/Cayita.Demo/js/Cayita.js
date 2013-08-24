@@ -808,7 +808,7 @@
 		methods['getSettings'] = function() {
 			return $Cayita_Plugins.$getSettings(input);
 		};
-		Object.defineProperty(input, 'autoNumeric', { value: methods, writable: false });
+		input.autoNumeric = methods;
 		return input;
 	};
 	$Cayita_Plugins.$getValue = function(input, required) {
@@ -912,10 +912,10 @@
 		if (!ss.isNullOrEmptyString(text)) {
 			$(e).append($Cayita_UI.$BuildText(text));
 		}
-		e.isHidden = function() {
+		e.is_hidden = function() {
 			return !$(e).is(':visible');
 		};
-		e.Hide = function(v) {
+		e.do_hide = function(v) {
 			if (!ss.isValue(v) || ss.Nullable.unbox(v)) {
 				$(e).hide();
 			}
@@ -989,18 +989,14 @@
 	};
 	$Cayita_UI.ControlGroup = function() {
 		var e = Cayita.UI.Atom('div', null, $Cayita_UI.ControlGroupClassName);
-		var label = Cayita.UI.Label($Cayita_UI.ControlLabelClassName);
-		var controls = Cayita.UI.Atom('div', null, $Cayita_UI.ControlsClassName);
-		$(e).append(label).append(controls);
-		var cg = {};
-		Object.defineProperty(cg, 'label', { value: label, writable: false });
-		Object.defineProperty(cg, 'controls', { value: controls, writable: false });
-		Object.defineProperty(e, 'cg', { value: cg, writable: false });
+		e.label = Cayita.UI.Label($Cayita_UI.ControlLabelClassName);
+		e.controls = Cayita.UI.Atom('div', null, $Cayita_UI.ControlsClassName);
+		$(e).append(e.label).append(e.controls);
 		e.get_text = function() {
-			return label.get_text();
+			return e.label.get_text();
 		};
 		e.set_text = function(v) {
-			label.set_text(v);
+			e.label.set_text(v);
 		};
 		return e;
 	};
@@ -1010,7 +1006,7 @@
 			e.minLengthMsgFn = function(i) {
 				return $Cayita_Fn.fmt('Min {0} chars', [i.get_minLength()]);
 			};
-			var minLength = 0;
+			e._minLength = 0;
 			if (!ss.isNullOrEmptyString(name)) {
 				e.name = name;
 			}
@@ -1036,11 +1032,11 @@
 				$Cayita_UI.$OffChange(e, ev1, se1);
 			};
 			e.get_minLength = function() {
-				return minLength;
+				return e._minLength;
 			};
 			e.set_minLength = function(v3) {
 				e.pattern = $Cayita_Fn.fmt('.{{0},}', [v3]);
-				minLength = v3;
+				e._minLength = v3;
 			};
 			e.checkValidity = function() {
 				e.setCustomValidity('');
@@ -1079,9 +1075,7 @@
 			$t1.lZero = 'deny';
 			$t2 = $t1;
 		}
-		options = $t2;
-		var e = $Cayita_UI.AutoNumeric(ss.Nullable).call(null, options, className, name, placeholder, action, parent);
-		return e;
+		return $Cayita_UI.AutoNumeric(ss.Nullable).call(null, $t2, className, name, placeholder, action, parent);
 	};
 	$Cayita_UI.NumericInput = function(options, className, name, placeholder, action, parent) {
 		var $t2 = options;
@@ -1091,9 +1085,7 @@
 			$t1.lZero = 'deny';
 			$t2 = $t1;
 		}
-		options = $t2;
-		var e = $Cayita_UI.AutoNumeric(Number).call(null, options, className, name, placeholder, action, parent);
-		return e;
+		return $Cayita_UI.AutoNumeric(Number).call(null, $t2, className, name, placeholder, action, parent);
 	};
 	$Cayita_UI.IntInput = function(options, className, name, placeholder, action, parent) {
 		var $t2 = options;
@@ -1104,9 +1096,7 @@
 			$t1.mDec = 0;
 			$t2 = $t1;
 		}
-		options = $t2;
-		var e = $Cayita_UI.AutoNumeric(ss.Int32).call(null, options, className, name, placeholder, action, parent);
-		return e;
+		return $Cayita_UI.AutoNumeric(ss.Int32).call(null, $t2, className, name, placeholder, action, parent);
 	};
 	$Cayita_UI.NullableIntInput = function(options, className, name, placeholder, action, parent) {
 		var $t2 = options;
@@ -1116,21 +1106,19 @@
 			$t1.mDec = 0;
 			$t2 = $t1;
 		}
-		options = $t2;
-		var e = $Cayita_UI.AutoNumeric(ss.Nullable).call(null, options, className, name, placeholder, action, parent);
-		return e;
+		return $Cayita_UI.AutoNumeric(ss.Nullable).call(null, $t2, className, name, placeholder, action, parent);
 	};
 	$Cayita_UI.CheckInput = function(T) {
 		return function(className, name, text, action, parent) {
 			var e = $Cayita_UI.Input(T).call(null, 'input', 'checkbox', className, name, null, null, null);
-			var l = $Cayita_UI.Label('checkbox', null, null, null);
-			$(l).append(e);
-			l.set_text(ss.coalesce(text, ''));
+			e.label = $Cayita_UI.Label('checkbox', null, null, null);
+			e.label.set_text(ss.coalesce(text, ''));
+			$(e.label).append(e);
 			e.get_text = function() {
-				return l.get_text();
+				return e.label.get_text();
 			};
 			e.set_text = function(v) {
-				l.set_text(v);
+				e.label.set_text(v);
 			};
 			if (!ss.staticEquals(action, null)) {
 				action(e);
@@ -1155,14 +1143,14 @@
 	$Cayita_UI.RadioInput = function(T) {
 		return function(className, name, text, action, parent) {
 			var e = $Cayita_UI.Input(T).call(null, 'input', 'radio', className, name, null, null, null);
-			var l = $Cayita_UI.Label('radio', null, null, null);
-			$(l).append(e);
-			l.set_text(ss.coalesce(text, ''));
+			e.label = $Cayita_UI.Label('radio', null, null, null);
+			e.label.set_text(ss.coalesce(text, ''));
+			$(e.label).append(e);
 			e.get_text = function() {
-				return l.get_text();
+				return e.label.get_text();
 			};
 			e.set_text = function(v) {
-				l.set_text(v);
+				e.label.set_text(v);
 			};
 			if (!ss.staticEquals(action, null)) {
 				action(e);
@@ -1199,7 +1187,7 @@
 	$Cayita_UI.$BuildDateInput = function(T) {
 		return function(options, className, name, placeholder, action, parent) {
 			var e = $Cayita_UI.Input(Date).call(null, 'input', 'text', className, name, placeholder, null, null);
-			Object.defineProperty(e, 'picker', { value: $(e).datepicker(options), writable: false });
+			e.picker = $(e).datepicker(options);
 			e.setAttribute('datepicker', true);
 			if (!ss.staticEquals(action, null)) {
 				action(e);
@@ -1354,7 +1342,10 @@
 		return $Cayita_UI.CreateDiv(null, action, 'row');
 	};
 	$Cayita_UI.Form = function(parent, action) {
-		var validate = function(i) {
+		var e = $Cayita_UI.Atom('form', null, null, null, action, parent);
+		e._updated = function(f, a) {
+		};
+		e._validate = function(i) {
 			if (ss.isNullOrUndefined(i.errorMessage) && !i.validity.valid) {
 				var $t1 = Cayita.Plugins.PopoverOptions();
 				$t1.trigger = 'manual';
@@ -1374,9 +1365,9 @@
 				return false;
 			}
 		};
-		var clear = function(f) {
-			f.reset();
-			var inputs = f.get_inputs();
+		e._clear = function(f1) {
+			f1.reset();
+			var inputs = f1.get_inputs();
 			for (var $t2 = 0; $t2 < inputs.length; $t2++) {
 				var i1 = inputs[$t2];
 				if (ss.isValue(i1.errorMessage)) {
@@ -1385,17 +1376,14 @@
 				}
 			}
 		};
-		var e = $Cayita_UI.Atom('form', null, null, null, action, parent);
-		var updated = function(f1, a) {
-		};
 		e.setAttribute('novalidate', 'novalidate');
 		e.clear = function() {
-			clear(e);
+			e._clear(e);
 			$(e).data('_source_', $(e).serialize());
-			updated(e, 0);
+			e._updated(e, 0);
 		};
 		e.populateFrom = function(d) {
-			clear(e);
+			e._clear(e);
 			var $t3 = new ss.ObjectEnumerator(d);
 			try {
 				while ($t3.moveNext()) {
@@ -1449,7 +1437,7 @@
 				$t3.dispose();
 			}
 			$(e).data('_source_', $(e).serialize());
-			updated(e, 1);
+			e._updated(e, 1);
 		};
 		e.populate = function(d1) {
 			var $t5 = new ss.ObjectEnumerator(d1);
@@ -1524,20 +1512,20 @@
 			$(e).off('change', '', hdl1);
 		};
 		e.add_updated = function(v) {
-			updated = ss.delegateCombine(updated, v);
+			e._updated = ss.delegateCombine(e._updated, v);
 		};
 		e.remove_updated = function(v1) {
-			updated = ss.delegateRemove(updated, v1);
+			e._updated = ss.delegateRemove(e._updated, v1);
 		};
 		$(e).on('keyup', 'input[type!=radio]input[type!=checkbox],select,textarea', function(ev) {
-			validate(ev.currentTarget);
+			e._validate(ev.currentTarget);
 		});
 		$(e).on('change', 'input[type=radio],input[type=checkbox]', function(ev1) {
 			var type2 = ev1.currentTarget.type.toString();
-			validate($($Cayita_Fn.fmt('input[type={0}][name={1}]', [type2, ev1.currentTarget.name]), e).last().get(0));
+			e._validate($($Cayita_Fn.fmt('input[type={0}][name={1}]', [type2, ev1.currentTarget.name]), e).last().get(0));
 		});
 		$(e).on('change', 'select', function(ev2) {
-			validate(ev2.currentTarget);
+			e._validate(ev2.currentTarget);
 		});
 		$(e).on('submit', function(ev3) {
 			ev3.preventDefault();
@@ -1547,10 +1535,10 @@
 				var i4 = inputs2[$t7];
 				var type3 = i4.type.toString();
 				if (type3 === 'radio' || type3 === 'checkbox') {
-					v2 = validate($($Cayita_Fn.fmt('input[type={0}][name={1}]', [type3, i4.name]), e).last().get(0)) && v2;
+					v2 = e._validate($($Cayita_Fn.fmt('input[type={0}][name={1}]', [type3, i4.name]), e).last().get(0)) && v2;
 				}
 				else {
-					v2 = validate(i4) && v2;
+					v2 = e._validate(i4) && v2;
 				}
 			}
 			if (v2 && !ss.staticEquals(e.submitHandler, null)) {
@@ -1584,12 +1572,10 @@
 	$Cayita_UI.$CreateMenuBase = function(text, iconClass, caret, parentClass) {
 		var a = Cayita.UI.Anchor(null, '#');
 		a.tabIndex = -1;
-		var icon = Cayita.UI.Atom('i', null, iconClass);
-		$(a).append(icon).append($Cayita_UI.$BuildText(text) + (caret ? '<b class=\'caret\'></b>' : ''));
-		var nav = $Cayita_UI.CreateNavBase(null);
-		nav.className = 'dropdown-menu';
-		Object.defineProperty(a, 'icon', { value: icon, writable: false });
-		Object.defineProperty(a, 'nav', { value: nav, writable: false });
+		a.icon = Cayita.UI.Atom('i', null, iconClass);
+		$(a).append(a.icon).append($Cayita_UI.$BuildText(text) + (caret ? '<b class=\'caret\'></b>' : ''));
+		a.nav = $Cayita_UI.CreateNavBase(null);
+		a.nav.className = 'dropdown-menu';
 		a.get_iconClass = function() {
 			return a.icon.className;
 		};
@@ -1602,10 +1588,9 @@
 		return a;
 	};
 	$Cayita_UI.CheckField = function(name, text, action, parent) {
-		var e = $Cayita_UI.Field(Boolean).call(null, function() {
+		return $Cayita_UI.Field(Boolean).call(null, function() {
 			return $Cayita_UI.BooleanCheck('', name, text, null, null);
 		}, action, parent);
-		return e;
 	};
 	$Cayita_UI.TextAreaField = function(name, placeholder, action, parent) {
 		return $Cayita_UI.Field(String).call(null, function() {
@@ -1659,7 +1644,7 @@
 			return $Cayita_UI.DateInput(options, null, null, null, null, null);
 		}, null, null);
 		e.get_picker = function() {
-			return e.cg.input.picker;
+			return e.input.picker;
 		};
 		if (!ss.staticEquals(action, null)) {
 			action(e);
@@ -1674,7 +1659,7 @@
 			return $Cayita_UI.NullableDateInput(options, null, null, null, null, null);
 		}, null, null);
 		e.get_picker = function() {
-			return e.cg.input.picker;
+			return e.input.picker;
 		};
 		if (!ss.staticEquals(action, null)) {
 			action(e);
@@ -1687,27 +1672,25 @@
 	$Cayita_UI.Field = function(T) {
 		return function(factory, action, parent) {
 			var e = $Cayita_UI.ControlGroup();
-			var cg = e.cg;
-			var input = factory();
-			$(e.cg.controls).append(input.parentNode || input);
-			Object.defineProperty(cg, 'input', { value: input, writable: false });
-			cg.appendAddon = function(c) {
+			e.input = factory();
+			$(e.controls).append(e.input.parentNode || e.input);
+			e.appendAddon = function(c) {
 				$Cayita_UI.$AppendAddon(T).call(null, e, c);
 			};
-			cg.appendStringAddon = function(c1) {
+			e.appendStringAddon = function(c1) {
 				$Cayita_UI.$AppendStringAddon(T).call(null, e, c1);
 			};
-			cg.prependAddon = function(c2) {
+			e.prependAddon = function(c2) {
 				$Cayita_UI.$PrependAddon(T).call(null, e, c2);
 			};
-			cg.prependStringAddon = function(c3) {
+			e.prependStringAddon = function(c3) {
 				$Cayita_UI.$PrependStringAddon(T).call(null, e, c3);
 			};
 			e.add_changed = function(ev) {
-				e.cg.input.add_changed(ev);
+				e.input.add_changed(ev);
 			};
 			e.removed_changed = function(ev1) {
-				e.cg.input.remove_changed(ev1);
+				e.input.remove_changed(ev1);
 			};
 			if (!ss.staticEquals(action, null)) {
 				action(e);
@@ -1720,103 +1703,101 @@
 	};
 	$Cayita_UI.$AppendAddon = function(T) {
 		return function(field, atom) {
-			$(field.cg.controls).addClass('input-append');
+			$(field.controls).addClass('input-append');
 			if (atom.tagName === 'BUTTON') {
-				$(field.cg.input).after($(atom));
+				$(field.input).after($(atom));
 			}
 			else {
 				var sp = $Cayita_UI.Atom('span', null, 'add-on', null, null, null);
 				$(sp).append(atom);
-				$(field.cg.input).after($(sp));
+				$(field.input).after($(sp));
 			}
 		};
 	};
 	$Cayita_UI.$AppendStringAddon = function(T) {
 		return function(field, content) {
-			$(field.cg.controls).addClass('input-append');
+			$(field.controls).addClass('input-append');
 			var sp = $Cayita_UI.Atom('span', null, 'add-on', null, null, null);
 			$(sp).append(content);
-			$(field.cg.input).after($(sp));
+			$(field.input).after($(sp));
 		};
 	};
 	$Cayita_UI.$PrependAddon = function(T) {
 		return function(field, atom) {
-			$(field.cg.controls).addClass('input-prepend');
+			$(field.controls).addClass('input-prepend');
 			if (atom.tagName === 'BUTTON') {
-				$(field.cg.input).before($(atom));
+				$(field.input).before($(atom));
 			}
 			else {
 				var sp = $Cayita_UI.Atom('span', null, 'add-on', null, null, null);
 				$(sp).append(atom);
-				$(field.cg.input).before($(sp));
+				$(field.input).before($(sp));
 			}
 		};
 	};
 	$Cayita_UI.$PrependStringAddon = function(T) {
 		return function(field, content) {
-			$(field.cg.controls).addClass('input-prepend');
+			$(field.controls).addClass('input-prepend');
 			var sp = $Cayita_UI.Atom('span', null, 'add-on', null, null, null);
 			$(sp).append(content);
-			$(field.cg.input).before($(sp));
+			$(field.input).before($(sp));
 		};
 	};
 	$Cayita_UI.CreateFileFieldBase = function(factory) {
 		var e = $Cayita_UI.ControlGroup();
-		var cg = e.cg;
-		var input = factory();
-		$(e.cg.controls).addClass('fileupload fileupload-new');
-		e.cg.controls.setAttribute('data-provides', 'fileupload');
-		var divInput = Cayita.UI.Atom('div', null, 'input-append');
-		var spanFile = Cayita.UI.Atom('span', null, 'btn btn-file');
-		var spanFileOpen = Cayita.UI.Atom('span', null, 'fileupload-new');
-		e.cg.fileOpenIcon = Cayita.UI.Atom('i', null, 'icon-folder-open');
-		$(spanFileOpen).append(e.cg.fileOpenIcon);
+		e.input = factory();
+		$(e.controls).addClass('fileupload fileupload-new');
+		e.controls.setAttribute('data-provides', 'fileupload');
+		e._divinput = Cayita.UI.Atom('div', null, 'input-append');
+		e._spanfile = Cayita.UI.Atom('span', null, 'btn btn-file');
+		e._spanfileopen = Cayita.UI.Atom('span', null, 'fileupload-new');
+		e.fileOpenIcon = Cayita.UI.Atom('i', null, 'icon-folder-open');
+		$(e._spanfileopen).append(e.fileOpenIcon);
 		var spanFileChange = Cayita.UI.Atom('span', null, 'fileupload-exists');
-		e.cg.fileChangeIcon = Cayita.UI.Atom('i', null, 'icon-folder-open');
-		$(spanFileChange).append(e.cg.fileChangeIcon);
-		$(spanFile).append(spanFileOpen).append(spanFileChange).append(input);
+		e.fileChangeIcon = Cayita.UI.Atom('i', null, 'icon-folder-open');
+		$(spanFileChange).append(e.fileChangeIcon);
+		$(e._spanfile).append(e._spanfileopen).append(spanFileChange).append(e.input);
 		var anchorFileRemove = Cayita.UI.Anchor('btn fileupload-exists', '#', null);
 		anchorFileRemove.setAttribute('data-dismiss', 'fileupload');
-		e.cg.fileRemoveIcon = Cayita.UI.Atom('i', null, 'icon-remove');
-		$(anchorFileRemove).append(e.cg.fileRemoveIcon);
-		$(divInput).append(spanFile).append(anchorFileRemove);
-		$(e.cg.controls).append(divInput);
-		Object.defineProperty(cg, 'input', { value: input, writable: false });
-		cg.appendAddon = function(c) {
+		e.fileRemoveIcon = Cayita.UI.Atom('i', null, 'icon-remove');
+		$(anchorFileRemove).append(e.fileRemoveIcon);
+		$(e._divinput).append(e._spanfile).append(anchorFileRemove);
+		$(e.controls).append(e._divinput);
+		e.appendAddon = function(c) {
 			$Cayita_UI.$AppendAddon(String).call(null, e, c);
 		};
-		cg.appendStringAddon = function(c1) {
+		e.appendStringAddon = function(c1) {
 			$Cayita_UI.$AppendStringAddon(String).call(null, e, c1);
 		};
-		cg.prependAddon = function(c2) {
+		e.prependAddon = function(c2) {
 			$Cayita_UI.$PrependAddon(String).call(null, e, c2);
 		};
-		cg.prependStringAddon = function(c3) {
+		e.prependStringAddon = function(c3) {
 			$Cayita_UI.$PrependStringAddon(String).call(null, e, c3);
 		};
-		cg.set_fileOpenText = function(c4) {
-			spanFileOpen.set_text(c4);
+		e.set_fileOpenText = function(c4) {
+			e._spanfileopen.set_text(c4);
 		};
-		cg.get_fileOpenText = function() {
-			return spanFileOpen.get_text();
+		e.get_fileOpenText = function() {
+			return e._spanfileopen.get_text();
 		};
-		cg.set_fileChangeText = function(c5) {
+		e.set_fileChangeText = function(c5) {
 			spanFileChange.set_text(c5);
 		};
-		cg.get_fileChangeText = function() {
+		e.get_fileChangeText = function() {
 			return spanFileChange.get_text();
 		};
-		cg.set_FileRemoveText = function(c6) {
+		e.set_FileRemoveText = function(c6) {
 			anchorFileRemove.set_text(c6);
 		};
-		cg.get_fileRemoveText = function() {
+		e.get_fileRemoveText = function() {
 			return anchorFileRemove.get_text();
 		};
 		e.add_changed = function(ev) {
-			e.cg.input.add_changed(ev);
+			e.input.add_changed(ev);
 		};
 		e.removed_changed = function(ev1) {
-			e.cg.input.remove_changed(ev1);
+			e.input.remove_changed(ev1);
 		};
 		return e;
 	};
@@ -1824,19 +1805,17 @@
 		var e = $Cayita_UI.CreateFileFieldBase(function() {
 			return $Cayita_UI.FileInput(null, name, placeholder);
 		});
-		var uneditable = Cayita.UI.Atom('div', null, 'uneditable-input span3');
-		$(uneditable).append(Cayita.UI.Atom('i', null, 'icon-file fileupload-exists')).append(Cayita.UI.Atom('span', null, 'fileupload-preview'));
-		$('.btn-file', e.cg.controls).before(uneditable);
-		var cg = e.cg;
-		cg.$inputSize = 'span3';
-		cg.get_inputSize = function() {
+		e._uneditable = Cayita.UI.Atom('div', null, 'uneditable-input span3');
+		e._inputSize = 'span3';
+		$(e._uneditable).append(Cayita.UI.Atom('i', null, 'icon-file fileupload-exists')).append(Cayita.UI.Atom('span', null, 'fileupload-preview'));
+		$('.btn-file', e.controls).before(e._uneditable);
+		e.get_inputSize = function() {
 			return $Cayita_UI.$GetInputSize(e);
 		};
-		cg.set_inputSize = function(v) {
+		e.set_inputSize = function(v) {
 			$Cayita_UI.$SetInputSize(e, v);
 		};
-		cg.uneditable = uneditable;
-		cg.hidePreview = function(v1) {
+		e.hidePreview = function(v1) {
 			$Cayita_UI.$HideFileBox(e, v1);
 		};
 		if (!ss.staticEquals(action, null)) {
@@ -1851,20 +1830,16 @@
 		var e = $Cayita_UI.CreateFileFieldBase(function() {
 			return $Cayita_UI.FileInput(null, name, placeholder);
 		});
-		e.cg.input.accept = 'image/*';
-		var thumbnail = Cayita.UI.Atom('div', null, 'fileupload-new thumbnail');
-		thumbnail.style.cssText = $Cayita_Fn.fmt('width:{0}; height:{1};', ['200px', '150px']);
-		var emptyImage = Cayita.UI.Atom('img', null, null);
-		emptyImage.src = $Cayita_UI.EmptyImgSrc;
-		$(thumbnail).append(emptyImage);
-		var thumbnailPreview = Cayita.UI.Atom('div', null, 'fileupload-preview fileupload-exists thumbnail');
-		thumbnailPreview.style.cssText = $Cayita_Fn.fmt('width:{0}; height:{1};', ['200px', '150px']);
-		$('.input-append', e.cg.controls).removeClass('input-append').before(thumbnail).before(thumbnailPreview);
-		var cg = e.cg;
-		cg.emptyImg = emptyImage;
-		cg.thumbnail = thumbnail;
-		cg.thumbnailPreview = thumbnailPreview;
-		cg.hidePreview = function(v) {
+		e.input.accept = 'image/*';
+		e.thumbnail = Cayita.UI.Atom('div', null, 'fileupload-new thumbnail');
+		e.thumbnail.style.cssText = $Cayita_Fn.fmt('width:{0}; height:{1};', ['200px', '150px']);
+		e.emptyImg = Cayita.UI.Atom('img', null, null);
+		e.emptyImg.src = $Cayita_UI.EmptyImgSrc;
+		$(e.thumbnail).append(e.emptyImg);
+		e.thumbnailPreview = Cayita.UI.Atom('div', null, 'fileupload-preview fileupload-exists thumbnail');
+		e.thumbnailPreview.style.cssText = $Cayita_Fn.fmt('width:{0}; height:{1};', ['200px', '150px']);
+		$('.input-append', e.controls).removeClass('input-append').before(e.thumbnail).before(e.thumbnailPreview);
+		e.hidePreview = function(v) {
 			$Cayita_UI.$HideImgBox(e, v);
 		};
 		if (!ss.staticEquals(action, null)) {
@@ -1876,14 +1851,14 @@
 		return e;
 	};
 	$Cayita_UI.$SetInputSize = function(field, value) {
-		$(field.uneditable).removeClass($Cayita_Fn.fmt('{0}', [field.cg.get_inputSize()])).addClass(value);
-		field.cg.$inputSize = value;
+		$(field._uneditable).removeClass($Cayita_Fn.fmt('{0}', [field.get_inputSize()])).addClass(value);
+		field._inputSize = value;
 	};
 	$Cayita_UI.$GetInputSize = function(field) {
-		return field.cg.$inputSize.toString();
+		return field._inputSize;
 	};
 	$Cayita_UI.$HideFileBox = function(field, hide) {
-		var j = $(field.uneditable);
+		var j = $(field._uneditable);
 		if (hide) {
 			j.hide();
 		}
@@ -1892,8 +1867,8 @@
 		}
 	};
 	$Cayita_UI.$HideImgBox = function(field, hide) {
-		var j = $(field.cg.thumbnail);
-		var q = $(field.cg.thumbnailPreview);
+		var j = $(field.thumbnail);
+		var q = $(field.thumbnailPreview);
 		if (hide) {
 			j.hide();
 			q.hide();
@@ -1936,7 +1911,7 @@
 					return;
 				}
 				e.selectedRow = row;
-				if (!e.isMultiple()) {
+				if (!e.is_multiple()) {
 					e.getRows().forEach(function(r4) {
 						r4.classList.remove('info');
 					});
@@ -2020,7 +1995,7 @@
 			e.multiple = function(m) {
 				multiple = ((!ss.isValue(m) || ss.Nullable.unbox(m)) ? true : false);
 			};
-			e.isMultiple = function() {
+			e.is_multiple = function() {
 				return multiple;
 			};
 			e.add_rowClicked = function(v) {
@@ -2165,9 +2140,7 @@
 			input.set_text(ss.coalesce(text, value));
 			var l = input.parentNode;
 			l.setAttribute('option', true);
-			var go = {};
-			Object.defineProperty(go, 'input', { value: input, writable: false });
-			Object.defineProperty(l, 'go', { value: go, writable: false });
+			l.input = input;
 			return l;
 		};
 	};
@@ -2190,11 +2163,10 @@
 	$Cayita_UI.CheckGroup = function(T) {
 		return function(action, parent) {
 			var e = $Cayita_UI.InputGroup(T).call(null);
-			var cg = e.cg;
-			cg.addValue = function(value, text, selected) {
+			e.addValue = function(value, text, selected) {
 				$Cayita_UI.$AddOption(T).call(null, e, $Cayita_UI.CheckOption(T).call(null, value, text, selected));
 			};
-			cg.loadList = function(l) {
+			e.loadList = function(l) {
 				$Cayita_UI.$LoadList$1(T).call(null, e, l, function(d) {
 					return $Cayita_UI.CheckOption(T).call(null, d, null, false);
 				}, false);
@@ -2211,11 +2183,10 @@
 	$Cayita_UI.RadioGroup = function(T) {
 		return function(action, parent) {
 			var e = $Cayita_UI.InputGroup(T).call(null);
-			var cg = e.cg;
-			cg.addValue = function(value, text, selected) {
+			e.addValue = function(value, text, selected) {
 				$Cayita_UI.$AddOption(T).call(null, e, $Cayita_UI.RadioOption(T).call(null, value, text, selected));
 			};
-			cg.loadList = function(l) {
+			e.loadList = function(l) {
 				$Cayita_UI.$LoadList$1(T).call(null, e, l, function(d) {
 					return $Cayita_UI.RadioOption(T).call(null, d, null, false);
 				}, false);
@@ -2232,82 +2203,81 @@
 	$Cayita_UI.InputGroup = function(T) {
 		return function() {
 			var e = $Cayita_UI.ControlGroup();
-			var cg = e.cg;
-			cg.inline = function(v) {
+			e.inline = function(v) {
 				$Cayita_UI.$SetInlineValue(e, v);
 			};
-			cg.isInline = function() {
+			e.is_inline = function() {
 				return $Cayita_UI.$GetInlineValue(e);
 			};
-			cg.required = function(v1) {
+			e.required = function(v1) {
 				if (!ss.isValue(v1) || ss.Nullable.unbox(v1)) {
 					$(e).attr('required', 'required');
-					$('input', e.cg.controls).each(function(i, el) {
+					$('input', e.controls).each(function(i, el) {
 						el.required = true;
 					});
 				}
 				else {
 					$(e).removeAttr('required');
-					$('input', e.cg.controls).each(function(i1, el1) {
+					$('input', e.controls).each(function(i1, el1) {
 						el1.required = false;
 					});
 				}
 			};
-			cg.isRequired = function() {
+			e.is_required = function() {
 				return !ss.isNullOrEmptyString($(e).attr('required'));
 			};
-			cg.set_name = function(v2) {
+			e.set_name = function(v2) {
 				$Cayita_UI.$SetName(e, v2);
 			};
-			cg.get_name = function() {
+			e.get_name = function() {
 				return $Cayita_UI.$GetName(e);
 			};
-			cg.addOption = function(o) {
+			e.addOption = function(o) {
 				$Cayita_UI.$AddOption(T).call(null, e, o);
 			};
-			cg.removeOption = function(v3) {
-				$Cayita_UI.$RemoveValue(T).call(null, e, v3.go.input.get_value());
+			e.removeOption = function(v3) {
+				$Cayita_UI.$RemoveValue(T).call(null, e, v3.input.get_value());
 			};
-			cg.removeValue = function(v4) {
+			e.removeValue = function(v4) {
 				$Cayita_UI.$RemoveValue(T).call(null, e, v4);
 			};
-			cg.removeAll = function() {
+			e.removeAll = function() {
 				$Cayita_UI.$RemoveAll(e);
 			};
-			cg.getChecked = function() {
+			e.getChecked = function() {
 				return $Cayita_UI.$GetChecked(T).call(null, e);
 			};
-			cg.getOptions = function() {
+			e.getOptions = function() {
 				return $Cayita_UI.$GetOptions(T).call(null, e);
 			};
-			cg.checkOption = function(v5, c) {
-				$Cayita_UI.$CheckValue(T).call(null, e, v5.go.input.get_value(), c);
+			e.checkOption = function(v5, c) {
+				$Cayita_UI.$CheckValue(T).call(null, e, v5.input.get_value(), c);
 			};
-			cg.checkValue = function(v6, c1) {
+			e.checkValue = function(v6, c1) {
 				$Cayita_UI.$CheckValue(T).call(null, e, v6, c1);
 			};
-			cg.checkAll = function(c2) {
+			e.checkAll = function(c2) {
 				$Cayita_UI.$CheckAll(e, c2);
 			};
-			cg.disableOption = function(v7, d) {
-				$Cayita_UI.$DisableValue(T).call(null, e, v7.go.input.get_value(), d);
+			e.disableOption = function(v7, d) {
+				$Cayita_UI.$DisableValue(T).call(null, e, v7.input.get_value(), d);
 			};
-			cg.disableValue = function(v8, d1) {
+			e.disableValue = function(v8, d1) {
 				$Cayita_UI.$DisableValue(T).call(null, e, v8, d1);
 			};
-			cg.disableAll = function(d2) {
+			e.disableAll = function(d2) {
 				$Cayita_UI.$DisableAll(e, d2);
 			};
-			cg.add_checked = function(ev) {
-				$Cayita_UI.$On(e.cg.controls, 'check', ev, $Cayita_UI.OptionSelector, null);
+			e.add_checked = function(ev) {
+				$Cayita_UI.$On(e.controls, 'check', ev, $Cayita_UI.OptionSelector, null);
 			};
-			cg.remove_checked = function(ev1) {
+			e.remove_checked = function(ev1) {
 				$Cayita_UI.$Off(e, 'check', ev1, $Cayita_UI.OptionSelector);
 			};
-			$(e.cg.controls).on('change', 'input', function(ev2) {
+			$(e.controls).on('change', 'input', function(ev2) {
 				$(ev2.target.parentNode).trigger('check');
 			});
-			e.cg.inline(true);
+			e.inline(true);
 			return e;
 		};
 	};
@@ -2317,48 +2287,48 @@
 	$Cayita_UI.$SetInlineValue = function(parent, value) {
 		if (value) {
 			$(parent).attr('inline', 'true');
-			$('label[option=true]', parent.cg.controls).addClass('inline');
+			$('label[option=true]', parent.controls).addClass('inline');
 		}
 		else {
 			$(parent).removeAttr('inline');
-			$('label[option=true]', parent.cg.controls).removeClass('inline');
+			$('label[option=true]', parent.controls).removeClass('inline');
 		}
 	};
 	$Cayita_UI.$GetName = function(parent) {
-		return ss.coalesce($(parent.cg.controls).attr('groupname'), '');
+		return ss.coalesce($(parent.controls).attr('groupname'), '');
 	};
 	$Cayita_UI.$SetName = function(parent, value) {
-		$(parent.cg.controls).attr('groupname', value);
-		$('input', parent.cg.controls).attr('name', value);
+		$(parent.controls).attr('groupname', value);
+		$('input', parent.controls).attr('name', value);
 	};
 	$Cayita_UI.$AddOption = function(T) {
 		return function(parent, item) {
 			var name = $Cayita_UI.$GetName(parent);
 			if (!ss.isNullOrEmptyString(name)) {
-				item.go.input.name = name;
+				item.input.name = name;
 			}
 			if ($Cayita_UI.$GetInlineValue(parent)) {
 				$(item).addClass('inline');
 			}
-			if (!ss.isNullOrEmptyString(item.go.input.id)) {
-				item.set_for(item.go.input.id);
+			if (!ss.isNullOrEmptyString(item.input.id)) {
+				item.set_for(item.input.id);
 			}
 			if (!ss.isNullOrEmptyString($(parent).attr('required'))) {
-				item.go.input.required = true;
+				item.input.required = true;
 			}
-			$(parent.cg.controls).append(item);
+			$(parent.controls).append(item);
 		};
 	};
 	$Cayita_UI.$GetOptions = function(T) {
 		return function(parent) {
-			return $($Cayita_UI.OptionSelector, parent.cg.controls).get();
+			return $($Cayita_UI.OptionSelector, parent.controls).get();
 		};
 	};
 	$Cayita_UI.$GetChecked = function(T) {
 		return function(parent) {
 			var l = $Cayita_UI.$GetOptions(T).call(null, parent);
 			return Enumerable.from(l).where(function(x) {
-				return x.go.input.checked;
+				return x.input.checked;
 			}).toArray();
 		};
 	};
@@ -2366,7 +2336,7 @@
 		return function(parent, value) {
 			var l = $Cayita_UI.$GetOptions(T).call(null, parent);
 			var item = Enumerable.from(l).firstOrDefault(function(x) {
-				return ss.staticEquals(x.go.input.get_value(), value);
+				return ss.staticEquals(x.input.get_value(), value);
 			}, ss.getDefaultValue(Element));
 			if (ss.isValue(item)) {
 				$(item).remove();
@@ -2375,31 +2345,31 @@
 		};
 	};
 	$Cayita_UI.$RemoveAll = function(parent) {
-		$(parent.cg.controls).empty();
+		$(parent.controls).empty();
 	};
 	$Cayita_UI.$DisableValue = function(T) {
 		return function(parent, value, disable) {
-			var e = $($Cayita_Fn.fmt('input[value={0}]', [value]), parent.cg.controls).get(0);
+			var e = $($Cayita_Fn.fmt('input[value={0}]', [value]), parent.controls).get(0);
 			if (ss.isValue(e)) {
 				e.disabled = disable;
 			}
 		};
 	};
 	$Cayita_UI.$DisableAll = function(parent, disable) {
-		$('input', parent.cg.controls).each(function(index, element) {
+		$('input', parent.controls).each(function(index, element) {
 			return element.disabled = disable;
 		});
 	};
 	$Cayita_UI.$CheckValue = function(T) {
 		return function(parent, value, chck) {
-			var e = $($Cayita_Fn.fmt('input[value={0}]', [value]), parent.cg.controls).get(0);
+			var e = $($Cayita_Fn.fmt('input[value={0}]', [value]), parent.controls).get(0);
 			if (ss.isValue(e)) {
 				e.checked = chck;
 			}
 		};
 	};
 	$Cayita_UI.$CheckAll = function(parent, check) {
-		$('input', parent.cg.controls).each(function(index, element) {
+		$('input', parent.controls).each(function(index, element) {
 			return element.checked = check;
 		});
 	};
@@ -2662,42 +2632,42 @@
 			var sp = Cayita.UI.Atom('span', null, 'icon-bar');
 			$(ar).append(sp);
 		}
-		var collapse = Cayita.UI.Atom('div', null, 'nav-collapse collapse');
-		ar.setAttribute('data-target', '#' + collapse.createId());
-		var nav = $Cayita_UI.Nav(null);
-		collapse.append(nav);
+		e.collapse = Cayita.UI.Atom('div', null, 'nav-collapse collapse');
+		ar.setAttribute('data-target', '#' + e.collapse.createId());
+		e.nav = $Cayita_UI.Nav(null);
+		e.collapse.append(e.nav);
 		var cf = Cayita.UI.Atom('div', null, 'container-fluid');
-		$(cf).append(ar).append(collapse);
+		$(cf).append(ar).append(e.collapse);
 		var nbi = Cayita.UI.Atom('div', null, 'navbar-inner');
 		$(nbi).append(cf);
 		$(e).append(nbi);
-		nav.$brand = null;
-		nav.get_brandText = function() {
+		e.nav.$brand = null;
+		e.nav.get_brandText = function() {
 			if (ss.isNullOrUndefined(e.nav.$brand)) {
 				return '';
 			}
 			return e.nav.$brand.get_text();
 		};
-		nav.set_brandText = function(v) {
+		e.nav.set_brandText = function(v) {
 			var fli = $($Cayita_UI.BrandSelector, cf);
 			if (fli.length === 0) {
 				e.nav.$brand = Cayita.UI.Anchor('brand', '#', v);
-				$(collapse).before(e.nav.$brand);
+				$(e.collapse).before(e.nav.$brand);
 			}
 			else {
 				e.nav.$brand.set_text(v);
 			}
 		};
-		nav.add_brandClicked = function(ev) {
+		e.nav.add_brandClicked = function(ev) {
 			$Cayita_UI.$On(cf, $Cayita_UI.BrandEventName, ev, $Cayita_UI.BrandSelector, null);
 		};
-		nav.remove_brandClicked = function(ev1) {
+		e.nav.remove_brandClicked = function(ev1) {
 			$Cayita_UI.$Off(cf, $Cayita_UI.BrandEventName, ev1, $Cayita_UI.BrandSelector);
 		};
-		nav.isInverse = function() {
+		e.nav.is_inverse = function() {
 			return $(e).hasClass('navbar-inverse');
 		};
-		nav.inverse = function(v1) {
+		e.nav.inverse = function(v1) {
 			if (!ss.isValue(v1) || ss.Nullable.unbox(v1)) {
 				$(e).addClass('navbar-inverse');
 			}
@@ -2705,15 +2675,15 @@
 				$(e).removeClass('navbar-inverse');
 			}
 		};
-		Object.defineProperty(e, 'nav', { value: nav, writable: false });
-		Object.defineProperty(e, 'get_text', function() {
+		e.get_text = function() {
 			return e.nav.get_brandText();
-		});
-		Object.defineProperty(e, 'set_text', function(v2) {
+		};
+		e.set_text = function(v2) {
 			e.nav.set_brandText(v2);
-		});
-		collapse.addElement = ss.mkdel(collapse, collapse.append);
-		Object.defineProperty(e, 'collapse', { value: collapse, writable: false });
+		};
+		e.collapse.addElement = function(v3) {
+			e.collapse.append(v3);
+		};
 		$(cf).on('click', $Cayita_UI.BrandSelector, function(ev2) {
 			ev2.preventDefault();
 			var j = $(ev2.currentTarget);
@@ -2726,12 +2696,12 @@
 	};
 	$Cayita_UI.NavList = function(parent) {
 		var e = Cayita.UI.Atom('div', null, 'well sidebar-nav');
-		var nav = $Cayita_UI.Nav('nav-list');
-		$(e).append(nav);
-		nav.get_header = function() {
+		e.nav = $Cayita_UI.Nav('nav-list');
+		$(e).append(e.nav);
+		e.nav.get_header = function() {
 			return ss.coalesce(e.$header.toString(), '');
 		};
-		nav.set_header = function(v) {
+		e.nav.set_header = function(v) {
 			e.$header = v;
 			var fli = $('li:first', e.nav);
 			if (fli.length === 0) {
@@ -2744,7 +2714,6 @@
 				fli.before(Cayita.UI.Atom('li', null, 'nav-header', v));
 			}
 		};
-		Object.defineProperty(e, 'nav', { value: nav, writable: false });
 		e.get_text = function() {
 			return e.nav.get_header();
 		};
@@ -2762,19 +2731,17 @@
 		if (disable) {
 			$(i).addClass('disabled');
 		}
-		var icon = Cayita.UI.Atom('i', null, iconClassName);
-		var anchor = Cayita.UI.Anchor(null, '#');
-		$(anchor).append(icon);
-		anchor.set_text(ss.coalesce(text, value));
-		$(i).append(anchor);
-		Object.defineProperty(i, '$icon', { value: icon, writable: false });
-		Object.defineProperty(i, '$anchor', { value: anchor, writable: false });
-		Object.defineProperty(i, 'handler', { value: handler, writable: true });
+		i.handler = handler;
+		i._icon = Cayita.UI.Atom('i', null, iconClassName);
+		i._anchor = Cayita.UI.Anchor(null, '#');
+		$(i._anchor).append(i._icon);
+		i._anchor.set_text(ss.coalesce(text, value));
+		$(i).append(i._anchor);
 		i.get_text = function() {
-			return i.$anchor.get_text();
+			return i._anchor.get_text();
 		};
 		i.set_text = function(v) {
-			i.$anchor.set_text(v);
+			i._anchor.set_text(v);
 		};
 		i.get_value = function() {
 			return ss.coalesce(i.getAttribute('value').toString(), '');
@@ -2783,12 +2750,12 @@
 			i.setAttribute('value', v1);
 		};
 		i.get_iconClass = function() {
-			return i.$icon.className;
+			return i._icon.className;
 		};
 		i.set_iconClass = function(v2) {
-			i.$icon.className = v2;
+			i._icon.className = v2;
 		};
-		i.isDisabled = function() {
+		i.is_disabled = function() {
 			return $(i).hasClass('disabled');
 		};
 		i.disable = function(d) {
@@ -2800,7 +2767,7 @@
 			}
 		};
 		i.add_clicked(function(ev) {
-			if (i.isDisabled()) {
+			if (i.is_disabled()) {
 				return;
 			}
 			var h = i.handler;
@@ -2943,91 +2910,87 @@
 	$Cayita_UI.Panel = function(options) {
 		var dobject = null;
 		var robject = null;
-		options = options || Cayita.UI.PanelOptions();
 		var e = Cayita.UI.Atom('div', null, 'well well-panel');
 		e.createId();
-		var headerBand = Cayita.UI.Atom('div', null, 'well-panel-header');
-		var closeIcon = Cayita.UI.Atom('i', null, options.closeIconClass);
-		closeIcon.createId();
-		var collapseIcon = Cayita.UI.Atom('i', null, options.collapseIconClass);
-		collapseIcon.createId();
-		var header = $Cayita_UI.Atom('ctxt', null, null, null, null, null);
-		var contentBand = Cayita.UI.Atom('div', null, 'well-panel-content');
+		e._options = options || Cayita.UI.PanelOptions();
+		e._headerband = Cayita.UI.Atom('div', null, 'well-panel-header');
+		e.closeIcon = Cayita.UI.Atom('i', null, e._options.closeIconClass);
+		e.closeIcon.createId();
+		e.collapseIcon = Cayita.UI.Atom('i', null, e._options.collapseIconClass);
+		e.collapseIcon.createId();
+		e.header = $Cayita_UI.Atom('ctxt', null, null, null, null, null);
+		e._contentband = Cayita.UI.Atom('div', null, 'well-panel-content');
 		e.body = Cayita.UI.Atom('div', null, 'well-panel-body');
-		contentBand.append(e.body);
-		if (options.hidden) {
+		e._contentband.append(e.body);
+		if (e._options.hidden) {
 			$(e).hide();
 		}
-		$(headerBand).append(closeIcon).append(collapseIcon).append(header);
-		$(e).append(headerBand).append(contentBand);
-		Object.defineProperty(e, 'options', { value: options, writable: false });
-		Object.defineProperty(e, 'closeIcon', { value: closeIcon, writable: false });
-		Object.defineProperty(e, 'collapseIcon', { value: collapseIcon, writable: false });
-		Object.defineProperty(e, 'header', { value: header, writable: false });
-		e.isClosable = function() {
-			return options.closable;
+		$(e._headerband).append(e.closeIcon).append(e.collapseIcon).append(e.header);
+		$(e).append(e._headerband).append(e._contentband);
+		e.is_closable = function() {
+			return e._options.closable;
 		};
 		e.closable = function(v) {
-			options.closable = (ss.isValue(v) ? ss.Nullable.unbox(v) : true);
-			closeIcon.Hide(!options.closable);
+			e._options.closable = (ss.isValue(v) ? ss.Nullable.unbox(v) : true);
+			e.closeIcon.do_hide(!e._options.closable);
 		};
-		e.isCollapsible = function() {
-			return options.collapsible;
+		e.is_collapsible = function() {
+			return e._options.collapsible;
 		};
 		e.collapsible = function(v1) {
-			options.collapsible = (ss.isValue(v1) ? ss.Nullable.unbox(v1) : true);
-			collapseIcon.Hide(!options.collapsible);
+			e._options.collapsible = (ss.isValue(v1) ? ss.Nullable.unbox(v1) : true);
+			e.collapseIcon.do_hide(!e._options.collapsible);
 		};
 		e.get_top = function() {
-			return options.top;
+			return e._options.top;
 		};
 		e.set_top = function(v2) {
 			if (ss.isNullOrEmptyString(v2)) {
 				return;
 			}
-			options.top = v2;
+			e._options.top = v2;
 			e.style.top = v2;
 		};
 		e.get_left = function() {
-			return options.left;
+			return e._options.left;
 		};
 		e.set_left = function(v3) {
 			if (ss.isNullOrEmptyString(v3)) {
 				return;
 			}
-			options.left = v3;
+			e._options.left = v3;
 			e.style.left = v3;
 		};
 		e.get_height = function() {
-			return options.height;
+			return e._options.height;
 		};
 		e.set_height = function(v4) {
 			if (ss.isNullOrEmptyString(v4)) {
 				return;
 			}
-			options.height = v4;
-			contentBand.style.height = options.height;
+			e._options.height = v4;
+			e._contentband.style.height = v4;
 			e.style.height = 'auto';
 		};
 		e.get_width = function() {
-			return options.width;
+			return e._options.width;
 		};
 		e.set_width = function(v5) {
 			if (ss.isNullOrEmptyString(v5)) {
 				return;
 			}
-			options.width = v5;
-			e.style.width = options.width;
-			contentBand.style.width = 'auto';
+			e._options.width = v5;
+			e.style.width = v5;
+			e._contentband.style.width = 'auto';
 		};
 		e.get_caption = function() {
-			return options.caption;
+			return e._options.caption;
 		};
 		e.set_caption = function(v6) {
-			options.caption = v6;
-			header.innerHTML = (ss.isNullOrEmptyString(v6) ? '' : v6);
+			e._options.caption = v6;
+			e.header.innerHTML = (ss.isNullOrEmptyString(v6) ? '' : v6);
 		};
-		e.show = function(show) {
+		e.do_show = function(show) {
 			if (ss.isNullOrUndefined(e.parentNode)) {
 				$(document.body).append(e);
 			}
@@ -3045,46 +3008,46 @@
 			$(e.body).append(c);
 			return e;
 		};
-		if (ss.staticEquals(options.closeIconHandler, null)) {
-			options.closeIconHandler = function(p) {
+		if (ss.staticEquals(e._options.closeIconHandler, null)) {
+			e._options.closeIconHandler = function(p) {
 				p.close();
 			};
 		}
-		if (ss.staticEquals(options.collapseIconHandler, null)) {
-			options.collapseIconHandler = function(p1, cl) {
+		if (ss.staticEquals(e._options.collapseIconHandler, null)) {
+			e._options.collapseIconHandler = function(p1, cl) {
 				p1.collapse();
 			};
 		}
 		e.add_closeIconClicked = function(ev) {
-			$Cayita_UI.$On(e, $Cayita_UI.PanelCloseIconEventName, ev, '#' + closeIcon.id, null);
+			$Cayita_UI.$On(e, $Cayita_UI.PanelCloseIconEventName, ev, '#' + e.closeIcon.id, null);
 		};
 		e.remove_closeIconClicked = function(ev1) {
-			$Cayita_UI.$Off(e, $Cayita_UI.PanelCloseIconEventName, ev1, '#' + closeIcon.id);
+			$Cayita_UI.$Off(e, $Cayita_UI.PanelCloseIconEventName, ev1, '#' + e.closeIcon.id);
 		};
 		e.add_collapseIconClicked = function(ev2) {
-			$Cayita_UI.$On(e, $Cayita_UI.PanelCollapseIconEventName, ev2, '#' + collapseIcon.id, null);
+			$Cayita_UI.$On(e, $Cayita_UI.PanelCollapseIconEventName, ev2, '#' + e.collapseIcon.id, null);
 		};
 		e.remove_collapseIconClicked = function(ev3) {
-			$Cayita_UI.$Off(e, $Cayita_UI.PanelCollapseIconEventName, ev3, '#' + collapseIcon.id);
+			$Cayita_UI.$Off(e, $Cayita_UI.PanelCollapseIconEventName, ev3, '#' + e.collapseIcon.id);
 		};
 		e.collapse = function() {
-			var collapsed = contentBand.isHidden();
-			contentBand.Hide(!collapsed);
+			var collapsed = e._contentband.is_hidden();
+			e._contentband.do_hide(!collapsed);
 			if (collapsed) {
-				collapseIcon.classList.remove(options.expandIconClass);
-				$(collapseIcon).addClass(options.collapseIconClass);
+				e.collapseIcon.classList.remove(options.expandIconClass);
+				$(e.collapseIcon).addClass(options.collapseIconClass);
 			}
 			else {
-				collapseIcon.classList.remove(options.collapseIconClass);
-				$(collapseIcon).addClass(options.expandIconClass);
+				e.collapseIcon.classList.remove(options.collapseIconClass);
+				$(e.collapseIcon).addClass(options.expandIconClass);
 				e.style.height = 'auto';
 			}
 		};
 		e.resizable = function(v7) {
 			options.resizable = (ss.isValue(v7) ? ss.Nullable.unbox(v7) : true);
-			if (options.resizable) {
+			if (e._options.resizable) {
 				if (ss.isNullOrUndefined(robject)) {
-					robject = $(contentBand).resizable();
+					robject = $(e._contentband).resizable();
 					robject.resizable('option', 'alsoResize', e);
 				}
 			}
@@ -3093,11 +3056,11 @@
 				robject = null;
 			}
 		};
-		e.isResizable = function() {
+		e.is_resizable = function() {
 			return options.resizable;
 		};
-		e.setDraggable = function(v8) {
-			options.draggable = (ss.isValue(v8) ? ss.Nullable.unbox(v8) : true);
+		e.do_draggable = function(v8) {
+			e._options.draggable = (ss.isValue(v8) ? ss.Nullable.unbox(v8) : true);
 			if (options.draggable) {
 				if (ss.isNullOrUndefined(dobject)) {
 					dobject = $(e).draggable();
@@ -3105,7 +3068,7 @@
 					dobject.draggable('option', 'addClasses', false);
 					dobject.draggable('option', 'containment', 'parent');
 					dobject.draggable('option', 'distance', 10);
-					dobject.draggable('option', 'handle', headerBand);
+					dobject.draggable('option', 'handle', e._headerband);
 				}
 			}
 			else if (ss.isValue(dobject)) {
@@ -3113,10 +3076,22 @@
 				dobject = null;
 			}
 		};
-		e.isDraggable = function() {
+		e.is_draggable = function() {
 			return options.draggable;
 		};
-		$(e).on('click', '#' + closeIcon.id, function(ev4) {
+		e.get_closeIconHandler = function() {
+			return e._options.closeIconHandler;
+		};
+		e.set_closeIconHandler = function(v9) {
+			e._options.closeIconHandler = v9;
+		};
+		e.get_collapseIconHandler = function() {
+			return e._options.collapseIconHandler;
+		};
+		e.set_CollapseIconHandler = function(v10) {
+			e._options.collapseIconHandler = v10;
+		};
+		$(e).on('click', '#' + e.closeIcon.id, function(ev4) {
 			var j = $(ev4.currentTarget);
 			if (j.hasClass('disabled')) {
 				return;
@@ -3126,7 +3101,7 @@
 			$Cayita_UI.$z = e.style.zIndex;
 		}).on('click', function(ev6) {
 			e.style.zIndex = $Cayita_UI.$z++;
-		}).on('click', '#' + collapseIcon.id, function(ev7) {
+		}).on('click', '#' + e.collapseIcon.id, function(ev7) {
 			var j1 = $(ev7.currentTarget);
 			if (j1.hasClass('disabled')) {
 				return;
@@ -3134,13 +3109,13 @@
 			j1.trigger($Cayita_UI.PanelCollapseIconEventName);
 		});
 		e.add_closeIconClicked(function(ev8) {
-			options.closeIconHandler(e);
+			e._options.closeIconHandler(e);
 		});
 		e.add_collapseIconClicked(function(ev9) {
-			options.collapseIconHandler(e, contentBand.isHidden());
+			e._options.collapseIconHandler(e, e._contentband.is_hidden());
 		});
 		e.resizable(options.resizable);
-		e.setDraggable(options.draggable);
+		e.do_draggable(options.draggable);
 		e.closable(options.closable);
 		e.collapsible(options.collapsible);
 		e.set_caption(options.caption);
@@ -3168,17 +3143,17 @@
 				rowSelected(e, r1);
 			};
 			var he = Cayita.UI.Input(String)('input', 'text');
-			he.Hide(true);
+			he.do_hide(true);
 			he.required = config.required;
 			var te = Cayita.UI.Input(String)('input', 'text');
 			te.className = 'search-query';
 			te.placeholder = config.placeholder;
 			e.searchButton = Cayita.UI.ButtonIcon(config.searchIconClassName);
-			e.searchButton.Hide(!config.searchButton);
+			e.searchButton.do_hide(!config.searchButton);
 			e.resetButton = Cayita.UI.ButtonIcon(config.resetIconClassName);
-			e.resetButton.Hide(!config.resetButton);
+			e.resetButton.do_hide(!config.resetButton);
 			e.body = Cayita.UI.Atom('div', null, 'c-search-body');
-			e.body.Hide(true);
+			e.body.do_hide(true);
 			e.add_rowSelected = function(v) {
 				rowSelected = ss.delegateCombine(rowSelected, v);
 			};
@@ -3237,7 +3212,7 @@
 				te.set_value($Cayita_Fn.$get(rec, e.config.textField).toString());
 				searchText = te.get_value();
 				searchIndex = he.get_value();
-				e.body.Hide(true);
+				e.body.do_hide(true);
 				e.indexValue = he.get_value();
 				e.textValue = te.get_value();
 				onRowSelected(sr);
@@ -3245,13 +3220,13 @@
 			e.searchButton.add_clicked(function(ev) {
 				search();
 				$(e.body).toggle();
-				if (!e.body.isHidden()) {
+				if (!e.body.is_hidden()) {
 					gr.focus();
 				}
 			});
 			e.resetButton.add_clicked(function(ev1) {
 				reset(true);
-				e.body.Hide(true);
+				e.body.do_hide(true);
 			});
 			gr.add_rowClicked(function(g1, sr1) {
 				readSelectedRow(sr1);
@@ -3259,7 +3234,7 @@
 			gr.add_keydown(function(g2, evt) {
 				var k = evt.which;
 				if (k === 27) {
-					e.body.Hide(true);
+					e.body.do_hide(true);
 					return;
 				}
 				if (k === 13 || k === 107) {
@@ -3271,8 +3246,8 @@
 				var k1 = evt1.which;
 				//down enter numpad_enter
 				if (k1 === 40 || k1 === 13 || k1 === 108) {
-					if (e.body.isHidden()) {
-						e.body.Hide(false);
+					if (e.body.is_hidden()) {
+						e.body.do_hide(false);
 					}
 					$(gr).focus();
 					return;
@@ -3281,8 +3256,8 @@
 				if (k1 === 27) {
 					he.set_value(searchIndex);
 					te.set_value(searchText);
-					if (!e.body.isHidden()) {
-						e.body.Hide(true);
+					if (!e.body.is_hidden()) {
+						e.body.do_hide(true);
 					}
 					return;
 				}
@@ -3295,8 +3270,8 @@
 				if (!config.searchButton || !ss.staticEquals(e.localFilter, null)) {
 					var b = function() {
 						search();
-						if (e.body.isHidden()) {
-							e.body.Hide(false);
+						if (e.body.is_hidden()) {
+							e.body.do_hide(false);
 						}
 					};
 					$Cayita_Fn.delay(b, config.delay);
@@ -3513,10 +3488,9 @@
 		t.createId();
 		t.tabIndex = -1;
 		t.setAttribute('data-provides', 'rowlink');
-		var body = $Cayita_UI.Atom('tbody', null, null, null, null, null);
-		body.setAttribute('main', 'main');
-		t.append(body);
-		Object.defineProperty(t, 'body', { value: body, writable: false });
+		t.body = $Cayita_UI.Atom('tbody', null, null, null, null, null);
+		t.body.setAttribute('main', 'main');
+		t.append(t.body);
 		t.getRowByIndex = function(i) {
 			return $($Cayita_Fn.fmt('tbody[main] tr[tb={0}]', [t.id]), t).eq(i).get(0);
 		};
@@ -3548,16 +3522,14 @@
 	$Cayita_UI.Table = function(T) {
 		return function(columns, idProperty) {
 			var e = $Cayita_UI.TableAtom();
-			var head = Cayita.UI.TableHead();
-			var foot = Cayita.UI.TableFoot();
-			$(e.body).before(head).before(foot);
+			e.head = Cayita.UI.TableHead();
+			e.foot = Cayita.UI.TableFoot();
+			$(e.body).before(e.head).before(e.foot);
 			var getRow = function(d) {
 				return $($Cayita_Fn.fmt('tbody[main] tr[tb={0}][record-id={1}]', [e.id, $Cayita_Fn.$get(d, e.idProperty)]), e).get(0);
 			};
 			e.idProperty = (ss.isNullOrEmptyString(idProperty) ? 'Id' : idProperty);
 			e.columns = columns || $Cayita_UI.BuildColumns(T).call(null, true);
-			Object.defineProperty(e, 'head', { value: head, writable: false });
-			Object.defineProperty(e, 'foot', { value: foot, writable: false });
 			e.getRowById = function(id) {
 				return $($Cayita_Fn.fmt('tbody[main] tr[tb={0}][record-id={1}]', [e.id, id]), e).get(0);
 			};
@@ -3569,7 +3541,7 @@
 					var col = e.columns[$t1];
 					var c = col.value(d1);
 					if (col.hidden) {
-						c.Hide(true);
+						c.do_hide(true);
 					}
 					row.addCell(c);
 					if (!ss.staticEquals(col.afterCellCreated, null)) {
@@ -3585,7 +3557,7 @@
 					var col1 = e.columns[$t2];
 					var c1 = col1.value(d2);
 					if (col1.hidden) {
-						c1.Hide(true);
+						c1.do_hide(true);
 					}
 					row1.addCell(c1);
 					if (!ss.staticEquals(col1.afterCellCreated, null)) {
@@ -3615,7 +3587,7 @@
 							var col2 = e.columns[$t4];
 							var c2 = col2.value(d4);
 							if (col2.hidden) {
-								c2.Hide(true);
+								c2.do_hide(true);
 							}
 							row2.addCell(c2);
 							if (!ss.staticEquals(col2.afterCellCreated, null)) {
@@ -3637,14 +3609,14 @@
 				if (ss.isValue(col3.header)) {
 					var c3 = col3.header;
 					if (col3.hidden) {
-						c3.Hide(true);
+						c3.do_hide(true);
 					}
 					h.append(c3);
 				}
 				if (ss.isValue(col3.footer)) {
 					var c4 = col3.footer;
 					if (col3.hidden) {
-						c4.Hide(true);
+						c4.do_hide(true);
 					}
 					f.append(c4);
 				}
@@ -3679,25 +3651,24 @@
 		return o;
 	};
 	$Cayita_UI.Tab = function(title, content, disabled) {
-		var bd = Cayita.UI.Atom('div', null, 'tab-pane');
-		bd.createId();
+		var a = Cayita.UI.Anchor('', null, title);
+		a.body = Cayita.UI.Atom('div', null, 'tab-pane');
+		a.body.createId();
+		a.href = '#' + a.body.id;
 		if (ss.isValue(content)) {
-			$(bd).append(content);
+			$(a.body).append(content);
 		}
-		var a = Cayita.UI.Anchor('', '#' + bd.id, title);
 		a.setAttribute('data-toggle', 'tab');
-		var li = Cayita.UI.Atom('li', null, null);
-		li.setAttribute('index', bd.id);
-		li.append(a);
-		Object.defineProperty(a, 'body', { value: bd, writable: false });
-		Object.defineProperty(a, 'item', { value: li, writable: false });
+		a.item = Cayita.UI.Atom('li', null, null);
+		a.item.setAttribute('index', a.body.id);
+		a.item.append(a);
 		a.get_caption = function() {
 			return a.get_text();
 		};
 		a.set_caption = function(v) {
 			a.set_text(v);
 		};
-		a.isDisabled = function() {
+		a.is_disabled = function() {
 			return a.item.classList.contains('disabled');
 		};
 		a.disable = function(v1) {

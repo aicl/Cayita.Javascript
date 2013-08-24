@@ -68,7 +68,7 @@ namespace Cayita
 		}
 
 		[IntrinsicProperty]
-		protected internal PopoverObject ErrorMessage{
+		internal PopoverObject ErrorMessage{
 			get;
 			set;
 		}
@@ -91,6 +91,11 @@ namespace Cayita
 			set;
 		}
 
+		[IntrinsicProperty]
+		internal int _minLength {
+			get;
+			set;
+		}
 
 
 		public void Select(){

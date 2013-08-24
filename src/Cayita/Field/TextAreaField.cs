@@ -21,22 +21,22 @@ namespace Cayita
 
 
 		public new TextAreaInput Input {
-			[InlineCode("{this}.cg.input")]
+			[InlineCode("{this}.input")]
 			get{ return null; }
 
 		}
 
 		public int Rows {
-			[InlineCode("{this}.cg.input.rows")]
+			[InlineCode("{this}.input.rows")]
 			get;
-			[InlineCode("{this}.cg.input.rows={value}")]
+			[InlineCode("{this}.input.rows={value}")]
 			set;
 		}
 
 		public int Cols {
-			[InlineCode("{this}.cg.input.cols")]
+			[InlineCode("{this}.input.cols")]
 			get;
-			[InlineCode("{this}.cg.input.cols={value}")]
+			[InlineCode("{this}.input.cols={value}")]
 			set;
 		}
 

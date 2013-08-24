@@ -87,9 +87,10 @@ namespace Cayita
 			return null;
 		}
 
-		protected internal Nav Nav {
-			[InlineCode("{this}.nav")]
-			get { return null;}
+		[IntrinsicProperty]
+		internal Nav Nav {
+			get;
+			set;
 		}
 
 	}

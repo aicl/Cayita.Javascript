@@ -37,8 +37,8 @@ namespace Cayita
 				jQuery.FromElement (e).Append (BuildText(text));
 
 
-			e.SetToAtomProperty ("isHidden", (Func<bool>)(() => !jQuery.FromElement (e).Is (":visible")));
-			e.SetToAtomProperty("Hide", (Action<bool?>)( v=> {
+			e.SetToAtomProperty ("is_hidden", (Func<bool>)(() => !jQuery.FromElement (e).Is (":visible")));
+			e.SetToAtomProperty("do_hide", (Action<bool?>)( v=> {
 				if(!v.HasValue || v.Value)
 					jQuery.FromElement(e).Hide();
 				else
@@ -76,10 +76,10 @@ namespace Cayita
 
 		public static Anchor Anchor ( string className=null, string href="#", string text=null )
 		{
-			var e = Atom ("a", null, className,text);
+			var e = Atom ("a", null, className,text).As<Anchor>();
 			if (! href.IsNullOrEmpty ())
-				e.SetToAtomProperty ("href", href);
-			return e.As<Anchor> ();
+				e.Href = href;
+			return e;
 		}
 
 		public static Label Label ( string className=null, string text=null, Action<Label>action=null, Atom parent=null)
@@ -96,18 +96,14 @@ namespace Cayita
 
 		public static ControlGroup ControlGroup()
 		{
-			var e = new Div (ControlGroupClassName); 
-			var label = new Label( ControlLabelClassName);
-			var controls = new Div(ControlsClassName);
-			jQuery.FromElement (e).Append (label).Append (controls);
+			var e = new Div (ControlGroupClassName).As<ControlGroup>(); 
+			e.Label= new Label( ControlLabelClassName);
+			e.Controls = new Div(ControlsClassName);
 
-			object cg = new {};
-			DefineProperty (cg,"label", new {value=label, writable= false});
-			DefineProperty (cg,"controls", new {value=controls, writable= false});
-			e.DefineAtomProperty("cg",  new {value=cg, writable= false});
+			jQuery.FromElement (e).Append (e.Label).Append (e.Controls);
 
-			e.SetToAtomProperty( "get_text", (Func<string>)( () => label.Text));
-			e.SetToAtomProperty ( "set_text", (Action<string>)( (v) => label.Text=v));
+			e.SetToAtomProperty( "get_text", (Func<string>)( () => e.Label.Text));
+			e.SetToAtomProperty ( "set_text", (Action<string>)( (v) => e.Label.Text=v));
 
 			return e.As<ControlGroup> (); 
 		}
@@ -117,7 +113,7 @@ namespace Cayita
 			var e = Atom (tagName, type, className,null, null, null).As<Input<T>>();
 
 			e.MinLengthMsgFn = i => "Min {0} chars".Fmt (i.MinLength);
-			var minLength = 0;
+			e._minLength = 0;
 
 			if(!name.IsNullOrEmpty()) e.Name=name;
 			if(!placeholder.IsNullOrEmpty()) e.Placeholder=placeholder;
@@ -133,10 +129,10 @@ namespace Cayita
 			e.SetToAtomProperty ("removed_changed", (Action<jQueryEventHandler,string>)
 			                 ((ev,se) => OffChange (e, ev, se)));
 
-			e.SetToAtomProperty("get_minLength",(Func<int>)(()=> minLength));
+			e.SetToAtomProperty("get_minLength",(Func<int>)(()=> e._minLength));
 			e.SetToAtomProperty("set_minLength",(Action<int>)((v)=> {
 				e.Pattern=".{{0},}".Fmt(v);
-				minLength=v;
+				e._minLength=v;
 			}));
 
 
@@ -173,33 +169,33 @@ namespace Cayita
 		public static Input<decimal?> NullableNumericInput (NumericOptions options=null, string className=null, string name=null, string placeholder=null,
 		                                                    Action<Input<decimal?>> action=null,  Atom parent=null )
 		{
-			options = options ?? new NumericOptions { LeadingZero="deny" };
-			var e = AutoNumeric<decimal?>(options, className,name, placeholder,action, parent);
-			return e;
+
+			return  AutoNumeric<decimal?> (options ?? new NumericOptions { LeadingZero="deny" },
+			                              className, name, placeholder, action, parent);
 		}
 
 		public static Input<decimal> NumericInput (NumericOptions options=null,string className=null, string name=null, string placeholder=null,
 		                                           Action<Input<decimal>> action=null,  Atom parent=null )
 		{
-			options = options ?? new NumericOptions { Empty="zero", LeadingZero="deny" };
-			var e = AutoNumeric<decimal>(options, className, name, placeholder, action, parent);
-			return e;
+
+			return AutoNumeric<decimal> (options ?? new NumericOptions { Empty="zero", LeadingZero="deny" },
+			                            className, name, placeholder, action, parent);
 		}
 
 		public static Input<int> IntInput (NumericOptions options=null,string className=null, string name=null, string placeholder=null, 
 		                                   Action<Input<int>> action=null,  Atom parent=null )
 		{
-			options = options ?? new NumericOptions { Empty="zero", LeadingZero="deny", DecimalPlaces=0 };
-			var e = AutoNumeric<int>(options, className, name, placeholder, action, parent);
-			return e;
+
+			return AutoNumeric<int> (options ?? new NumericOptions { Empty="zero", LeadingZero="deny", DecimalPlaces=0 },
+			                        className, name, placeholder, action, parent);
 		}
 
 		public static Input<int?> NullableIntInput (NumericOptions options=null,string className=null, string name=null, string placeholder=null,
 		                                            Action<Input<int?>> action=null,  Atom parent=null )
 		{
-			options = options ?? new NumericOptions {  LeadingZero="deny", DecimalPlaces=0 };
-			var e = AutoNumeric<int?>(options, className, name, placeholder, action, parent);
-			return e;
+
+			return  AutoNumeric<int?> (options ?? new NumericOptions {  LeadingZero="deny", DecimalPlaces=0 },
+			                          className, name, placeholder, action, parent);
 		}
 
 
@@ -207,12 +203,12 @@ namespace Cayita
 		                                          Action<CheckInput<T>> action=null, Atom parent=null)
 		{
 			var e = Input<T> ("input", "checkbox", className, name).As<CheckInput<T>> ();
-			var l = Label ("checkbox");
-			jQuery.FromElement (l).Append (e);
-			l.Text = text?? "";
+			e.Label = Label ("checkbox");
+			e.Label.Text = text?? "";
+			jQuery.FromElement (e.Label).Append (e);
 
-			e.SetToAtomProperty("get_text", (Func<string>)( ()=> l.Text ));
-			e.SetToAtomProperty("set_text", (Action<string>)( (v)=> l.Text=v ));
+			e.SetToAtomProperty("get_text", (Func<string>)( ()=> e.Label.Text ));
+			e.SetToAtomProperty("set_text", (Action<string>)( (v)=> e.Label.Text=v ));
 
 			if (action != null)
 				action (e);
@@ -238,12 +234,12 @@ namespace Cayita
 		                                          Action<RadioInput<T>> action=null, Atom parent=null)
 		{
 			var e = Input<T> ("input", "radio", className,name).As<RadioInput<T>> ();
-			var l = Label ("radio");
-			jQuery.FromElement (l).Append (e);
-			l.Text = text?? "";
+			e.Label = Label ("radio");
+			e.Label.Text = text?? "";
+			jQuery.FromElement (e.Label).Append (e);
 
-			e.SetToAtomProperty("get_text", (Func<string>)( ()=> l.Text ));
-			e.SetToAtomProperty("set_text", (Action<string>)( (v)=> l.Text=v ));
+			e.SetToAtomProperty("get_text", (Func<string>)( ()=> e.Label.Text ));
+			e.SetToAtomProperty("set_text", (Action<string>)( (v)=> e.Label.Text=v ));
 
 			if (action != null)
 				action (e);
@@ -298,7 +294,7 @@ namespace Cayita
 			where T: Atom
 		{
 			var e = Input<DateTime> ("input", "text", className, name, placeholder).As<T>();
-			e.DefineAtomProperty ("picker", new {value=jQuery.FromElement (e).DatePicker (options), writable=false });
+			e.SetToAtomProperty ("picker", jQuery.FromElement (e).DatePicker (options));
 			e.SetAttribute ("datepicker", true);
 
 			if (action != null)
@@ -563,9 +559,7 @@ namespace Cayita
 			return CreateDiv (null, action, "row"); 
 		}
 
-
 	}
-
 	
 }
 //var r = Fn.Call<bool>("HTMLInputElement.prototype.checkValidity", e);

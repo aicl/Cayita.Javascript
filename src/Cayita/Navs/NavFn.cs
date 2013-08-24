@@ -28,14 +28,14 @@ namespace Cayita
 				jQuery.FromElement(ar).Append (sp);
 			}
 
-			var collapse = new Div ("nav-collapse collapse");
-			ar.SetAttribute ("data-target", "#"+collapse.CreateId() );
+			e.Collapse = new Div ("nav-collapse collapse");
+			ar.SetAttribute ("data-target", "#"+e.Collapse.CreateId() );
 
-			var nav = Nav ();
-			collapse.Append (nav);
+			e.Nav = Nav ();
+			e.Collapse.Append (e.Nav);
 
 			var cf = new Div ("container-fluid");
-			jQuery.FromElement(cf).Append (ar).Append (collapse);
+			jQuery.FromElement(cf).Append (ar).Append (e.Collapse);
 
 			var nbi = new Div ("navbar-inner");
 			jQuery.FromElement(nbi).Append (cf);
@@ -43,51 +43,49 @@ namespace Cayita
 			jQuery.FromElement (e).Append (nbi);
 
 
-			nav.SetToAtomProperty ("$brand", null);
+			e.Nav.SetToAtomProperty ("$brand", null);
 
-			nav.SetToAtomProperty ("get_brandText", (Func<string>)(()=>{
+			e.Nav.SetToAtomProperty ("get_brandText", (Func<string>)(()=>{
 				if (e.Brand==null) return "";
 				return e.Brand.Text;
 			}));
 
-			nav.SetToAtomProperty ("set_brandText", (Action<string>)(v => {
+			e.Nav.SetToAtomProperty ("set_brandText", (Action<string>)(v => {
 
 				var fli= jQuery.Select (BrandSelector, cf);
 
 				if (fli.Length == 0){ 
 					e.Brand=new Anchor("brand",text:v);
-					jQuery.FromElement (collapse).Before ( e.Brand );
+					jQuery.FromElement (e.Collapse).Before ( e.Brand );
 				}
 				else
 					e.Brand.Text=v;
 
 			}));
 
-			nav.SetToAtomProperty ("add_brandClicked", (Action<jQueryEventHandler>)((ev) =>
+			e.Nav.SetToAtomProperty ("add_brandClicked", (Action<jQueryEventHandler>)((ev) =>
 			    On (cf, BrandEventName, ev, BrandSelector)));
 
-			nav.SetToAtomProperty ("remove_brandClicked", (Action<jQueryEventHandler>)((ev) =>
+			e.Nav.SetToAtomProperty ("remove_brandClicked", (Action<jQueryEventHandler>)((ev) =>
 			    Off(cf, BrandEventName , ev, BrandSelector)));
 
 
-			nav.SetToAtomProperty("isInverse",
+			e.Nav.SetToAtomProperty("is_inverse",
 			                      (Func<bool>)( ()=>  jQuery.FromElement(e).HasClass("navbar-inverse")));
 
-			nav.SetToAtomProperty("inverse",(Action<bool?>)( v=> {
+			e.Nav.SetToAtomProperty("inverse",(Action<bool?>)( v=> {
 				if(!v.HasValue || v.Value)
 					jQuery.FromElement(e).AddClass("navbar-inverse");
 				else
 					jQuery.FromElement(e).RemoveClass("navbar-inverse");
 			}));
 
-			e.DefineAtomProperty ("nav", new {value=nav, writable=false});
 
-			e.DefineAtomProperty("get_text", (Func<string>)( ()=> e.BrandText ));
-			e.DefineAtomProperty ("set_text",(Action<string>)((v) => e.BrandText = v));
 
-			collapse.SetToAtomProperty ("addElement", (Action<Element>)(collapse.Append));
+			e.SetToAtomProperty("get_text", (Func<string>)( ()=> e.BrandText ));
+			e.SetToAtomProperty ("set_text",(Action<string>)((v) => e.BrandText = v));
+			e.Collapse.SetToAtomProperty ("addElement", (Action<Element>)(v=> e.Collapse.Append(v)));
 
-			e.DefineAtomProperty ("collapse", new {value=collapse, writable=false});
 
 			jQuery.FromElement (cf).On ("click", BrandSelector, ev => {
 				ev.PreventDefault();
@@ -106,11 +104,11 @@ namespace Cayita
 		{
 			var e = new Div ("well sidebar-nav").As<NavList>();
 
-			var nav = Nav ("nav-list");
-			jQuery.FromElement (e).Append (nav);
+			e.Nav = Nav ("nav-list");
+			jQuery.FromElement (e).Append (e.Nav);
 
-			nav.SetToAtomProperty ("get_header", (Func<string>)(() => e.GetFromAtomProperty ("$header").ToString () ?? ""));
-			nav.SetToAtomProperty ("set_header", (Action<string>)((v) => {
+			e.Nav.SetToAtomProperty ("get_header", (Func<string>)(() => e.GetFromAtomProperty ("$header").ToString () ?? ""));
+			e.Nav.SetToAtomProperty ("set_header", (Action<string>)((v) => {
 				e.SetToAtomProperty ("$header", v);
 				var fli= jQuery.Select ("li:first", e.Nav);
 
@@ -122,8 +120,6 @@ namespace Cayita
 					fli.Before (new HtmlListItem ("nav-header", v));
 				}
 			}));
-
-			e.DefineAtomProperty ("nav", new {value=nav, writable=false});
 
 			e.SetToAtomProperty("get_text", (Func<string>)(()=> e.Header) );
 			e.SetToAtomProperty("set_text", (Action<string>)((v)=> e.Header=v) );
@@ -143,28 +139,27 @@ namespace Cayita
 			if (disable)
 				jQuery.FromElement (i).AddClass ("disabled");
 
-			var icon = new CssIcon (iconClassName);
-			var anchor = new Anchor ();
-			jQuery.FromElement (anchor).Append (icon);
-			anchor.Text = text??value;
+			i.Handler = handler;
 
-			jQuery.FromElement (i).Append (anchor);
+			i._icon = new CssIcon (iconClassName);
+			i._anchor = new Anchor ();
+
+			jQuery.FromElement (i._anchor).Append (i._icon);
+			i._anchor.Text = text??value;
+
+			jQuery.FromElement (i).Append (i._anchor);
 
 
-			DefineAtomProperty (i, "$icon", new {value=icon, writable=false});
-			DefineAtomProperty (i, "$anchor", new {value=anchor, writable=false});
-			DefineAtomProperty (i, "handler", new {value=handler, writable=true});
-
-			SetToAtomProperty (i, "get_text", (Func<string>)(() => i.Anchor.Text));
-			SetToAtomProperty (i, "set_text", (Action<string>)((v) => i.Anchor.Text=v));
+			SetToAtomProperty (i, "get_text", (Func<string>)(() => i._anchor.Text));
+			SetToAtomProperty (i, "set_text", (Action<string>)((v) => i._anchor.Text=v));
 
 			SetToAtomProperty (i, "get_value", (Func<string>)(() => i.GetAttribute ("value").ToString () ?? "" ));
 			SetToAtomProperty (i, "set_value", (Action<string>)((v) => i.SetAttribute ("value", v) ));
 
-			SetToAtomProperty (i, "get_iconClass", (Func<string>)(() => i.Icon.ClassName));
-			SetToAtomProperty (i, "set_iconClass", (Action<string>)((v) => i.Icon.ClassName = v));
+			SetToAtomProperty (i, "get_iconClass", (Func<string>)(() => i._icon.ClassName));
+			SetToAtomProperty (i, "set_iconClass", (Action<string>)((v) => i._icon.ClassName = v));
 
-			SetToAtomProperty (i, "isDisabled", (Func<bool>)(() =>
+			SetToAtomProperty (i, "is_disabled", (Func<bool>)(() =>
 			             jQuery.FromElement (i).HasClass ("disabled")));
 
 			SetToAtomProperty (i, "disable",(Action<bool>)((d) =>{

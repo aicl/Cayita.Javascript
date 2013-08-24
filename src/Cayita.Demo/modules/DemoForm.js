@@ -17,9 +17,9 @@
 				s.className = 'help-block';
 			}, fs);
 			Cayita.UI.CheckField(null, null, function(cf) {
-				cf.cg.input.name = 'allow';
-				cf.cg.input.set_text('Check me');
-				cf.cg.input.checked = true;
+				cf.input.name = 'allow';
+				cf.input.set_text('Check me');
+				cf.input.checked = true;
 			}, fs);
 			Cayita.UI.SubmitButton(null, function(b) {
 				b.set_text('Send');
@@ -79,22 +79,22 @@
 			f1.className = 'form-horizontal';
 			Cayita.UI.EmailField(null, null, function(i5) {
 				i5.set_text('Email');
-				i5.cg.input.placeholder = 'your email';
-				i5.cg.input.required = true;
-				i5.cg.input.name = 'email';
+				i5.input.placeholder = 'your email';
+				i5.input.required = true;
+				i5.input.name = 'email';
 			}, f1);
 			Cayita.UI.PasswordField(null, null, function(i6) {
 				i6.set_text('Password');
-				i6.cg.input.placeholder = 'your password';
-				i6.cg.input.required = true;
-				i6.cg.input.set_minLength(4);
-				i6.cg.input.name = 'password';
+				i6.input.placeholder = 'your password';
+				i6.input.required = true;
+				i6.input.set_minLength(4);
+				i6.input.name = 'password';
 			}, f1);
 			Cayita.UI.CheckField(null, null, function(i7) {
-				i7.cg.input.set_text('Remember');
-				i7.cg.input.checked = true;
-				i7.cg.input.name = 'remember';
-				var $t1 = i7.cg.controls;
+				i7.input.set_text('Remember');
+				i7.input.checked = true;
+				i7.input.name = 'remember';
+				var $t1 = i7.controls;
 				Cayita.UI.SubmitButton(null, function(b3) {
 					b3.set_text('Login');
 				}, $t1);
@@ -108,21 +108,21 @@
 		login.append(Cayita.UI.Atom('legend', null, null, 'Login Form'));
 		Cayita.UI.Form(login, function(f2) {
 			var nm = Cayita.UI.TextField(null, null, null, f2);
-			nm.cg.input.placeholder = 'user name';
-			nm.cg.input.name = 'username';
-			nm.cg.input.className = 'span12';
-			nm.cg.input.required = true;
-			nm.cg.input.set_minLength(8);
+			nm.input.placeholder = 'user name';
+			nm.input.name = 'username';
+			nm.input.className = 'span12';
+			nm.input.required = true;
+			nm.input.set_minLength(8);
 			var pwd = Cayita.UI.PasswordField(null, null, null, f2);
-			pwd.cg.input.placeholder = 'password';
-			pwd.cg.input.name = 'password';
-			pwd.cg.input.className = 'span12';
-			pwd.cg.input.required = true;
-			pwd.cg.input.set_minLength(6);
-			pwd.cg.input.maxLength = 10;
+			pwd.input.placeholder = 'password';
+			pwd.input.name = 'password';
+			pwd.input.className = 'span12';
+			pwd.input.required = true;
+			pwd.input.set_minLength(6);
+			pwd.input.maxLength = 10;
 			var rmb = Cayita.UI.CheckField(null, null, null, f2);
-			rmb.cg.input.name = 'remember';
-			rmb.cg.input.set_text('Remember');
+			rmb.input.name = 'remember';
+			rmb.input.set_text('Remember');
 			var sb = Cayita.UI.SubmitButton(null, null, f2);
 			sb.set_text('Login');
 			$(sb).addClass('btn-info btn-block');
@@ -130,7 +130,7 @@
 				sb.disabled = true;
 				window.setTimeout(function() {
 					sb.disabled = false;
-					Alertify.log.success(Cayita.Fn.fmt('Welcome {0}', [nm.cg.input.get_value()]), 5000);
+					Alertify.log.success(Cayita.Fn.fmt('Welcome {0}', [nm.input.get_value()]), 5000);
 					f2.reset();
 				}, 1000);
 			};
@@ -147,42 +147,42 @@
 				Cayita.UI.Atom('div', null, null, null, function(p) {
 					p.className = 'span5';
 					Cayita.UI.TextField(null, null, function(tf) {
-						tf.cg.input.name = 'firstname';
-						tf.cg.input.required = true;
+						tf.input.name = 'firstname';
+						tf.input.required = true;
 						tf.set_text('FirstName');
-						tf.cg.input.className = 'span12';
+						tf.input.className = 'span12';
 					}, p);
 					Cayita.UI.TextField(null, null, function(tf1) {
-						tf1.cg.input.name = 'lastname';
-						tf1.cg.input.required = true;
+						tf1.input.name = 'lastname';
+						tf1.input.required = true;
 						tf1.set_text('LastName');
-						tf1.cg.input.className = 'span12';
+						tf1.input.className = 'span12';
 					}, p);
 					Cayita.UI.EmailField(null, null, function(tf2) {
-						tf2.cg.input.name = 'email';
-						tf2.cg.input.required = true;
+						tf2.input.name = 'email';
+						tf2.input.required = true;
 						tf2.set_text('Email');
-						tf2.cg.input.className = 'span12';
+						tf2.input.className = 'span12';
 					}, p);
 					Cayita.UI.SelectField(String)(null, function(sf) {
 						sf.set_text('Subject');
-						sf.cg.input.name = 'subject';
-						sf.cg.input.className = 'span12';
-						sf.cg.input.addValue('', 'Choose one...', false);
-						sf.cg.input.addValue('1', 'General Customer Service', false);
-						sf.cg.input.addValue('2', 'Suggestions', false);
-						sf.cg.input.addValue('3', 'Product suport', false);
-						sf.cg.input.addValue('4', 'Bug', false);
-						sf.cg.input.required = true;
+						sf.input.name = 'subject';
+						sf.input.className = 'span12';
+						sf.input.addValue('', 'Choose one...', false);
+						sf.input.addValue('1', 'General Customer Service', false);
+						sf.input.addValue('2', 'Suggestions', false);
+						sf.input.addValue('3', 'Product suport', false);
+						sf.input.addValue('4', 'Bug', false);
+						sf.input.required = true;
 					}, p);
 				}, row);
 				Cayita.UI.Atom('div', null, null, null, function(p1) {
 					p1.className = 'span7';
 					Cayita.UI.TextAreaField(null, null, function(tf3) {
-						tf3.cg.input.name = 'message';
-						tf3.cg.input.rows = 11;
+						tf3.input.name = 'message';
+						tf3.input.rows = 11;
 						tf3.set_text('Message');
-						tf3.cg.input.className = 'span12';
+						tf3.input.className = 'span12';
 					}, p1);
 				}, row);
 				Cayita.UI.SubmitButton(null, function(bt) {

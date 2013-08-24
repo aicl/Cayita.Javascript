@@ -165,6 +165,21 @@ namespace Cayita
 		}
 
 
+		[IntrinsicProperty]
+		internal Action<Form, FormUpdatedAction> _updated {
+			get;
+			set;
+		}
+
+		[IntrinsicProperty]
+		internal Func<Input,bool> _validate {
+			get;
+			set;
+		}
+		[IntrinsicProperty]
+		internal Action<Form>  _clear{
+			get;set;
+		}
 	}
 }
 

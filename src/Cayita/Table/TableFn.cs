@@ -118,11 +118,9 @@ namespace Cayita
 			t.CreateId ();
 			t.TabIndex = -1;
 			t.SetAttribute ("data-provides","rowlink");
-			var body = Atom("tbody");
-			body.SetAttribute ("main", "main");
-			t.Append (body);
-
-			t.DefineAtomProperty ("body", new { value=body, writable=false});
+			t.Body = Atom("tbody");
+			t.Body.SetAttribute ("main", "main");
+			t.Append (t.Body);
 
 			t.SetToAtomProperty ("getRowByIndex", (Func<int,TableRowAtom>)
 			                     ((i) => jQuery.Select ("tbody[main] tr[tb={0}]".Fmt(t.ID), t).Eq(i).GetElement (0).As<TableRowAtom> ()));
@@ -158,9 +156,9 @@ namespace Cayita
 
 			var e = Cast<Table<T>> (TableAtom ());
 
-			var head = new TableHead ();
-			var foot = new TableFoot ();
-			jQuery.FromElement (e.Body).Before (head).Before (foot);
+			e.Head = new TableHead ();
+			e.Foot = new TableFoot ();
+			jQuery.FromElement (e.Body).Before (e.Head).Before (e.Foot);
 
 			Func<object,TableRowAtom> getRow =
 				(d) => jQuery.Select ("tbody[main] tr[tb={0}][record-id={1}]".Fmt(e.ID,d.Get(e.IdProperty)),e).GetElement(0).As<TableRowAtom>();
@@ -169,9 +167,6 @@ namespace Cayita
 
 			e.Columns = columns ?? BuildColumns<T> (true);
 
-
-			e.DefineAtomProperty ("head", new {value=head, writable=false});
-			e.DefineAtomProperty ("foot", new {value=foot, writable=false});
 
 			e.SetToAtomProperty ("getRowById", (Func<object,TableRowAtom>)(
 				(id) => jQuery.Select ("tbody[main] tr[tb={0}][record-id={1}]".Fmt(e.ID,id), e).GetElement (0).As<TableRowAtom> ()));

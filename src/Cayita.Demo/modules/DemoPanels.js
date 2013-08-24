@@ -33,7 +33,7 @@
 						var color = Cayita.UI.TextField();
 						var bb = Cayita.UI.Button('Change background', 'btn', null);
 						bb.add_clicked(function(e1) {
-							p2.body.style.backgroundColor = color.cg.input.get_value();
+							p2.body.style.backgroundColor = color.input.get_value();
 						});
 						var bc = Cayita.UI.Button('collapse', 'btn', null);
 						bc.add_clicked(function(e2) {
@@ -80,7 +80,7 @@
 					$t4.set_top((wn * 15).toString() + 'px');
 					$t4.set_width('300px');
 					$t4.set_height('100px');
-					$t4.show(true);
+					$t4.do_show(true);
 				});
 			}, d);
 			Cayita.UI.Button(null, null, null, function(bt1) {
@@ -96,10 +96,10 @@
 					$t5.closeIconHandler = function(p) {
 						p.set_caption('Close icon changed !!!');
 						p.closeIcon.className = 'icon-remove-circle';
-						p.options.closeIconHandler = function(pn) {
+						p.set_closeIconHandler(function(pn) {
 							pn.close();
 							Alertify.log.error('Panel was closed', 5000);
-						};
+						});
 						p.set_height('400px');
 					};
 					var panel = Cayita.UI.Panel($t5);
@@ -111,7 +111,7 @@
 							Alertify.log.success('button clicked', 5000);
 						});
 					}, null));
-					panel.show(true);
+					panel.do_show(true);
 				});
 			}, d);
 			Cayita.UI.Button(null, null, null, function(bt2) {
@@ -137,7 +137,7 @@
 							b1.disabled = true;
 						});
 					}, null));
-					panel1.show(true);
+					panel1.do_show(true);
 				});
 			}, d);
 			$(d).append(Cayita.Fn.header('C# code', 4)).append(code);

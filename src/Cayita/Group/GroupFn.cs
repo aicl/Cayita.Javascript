@@ -17,15 +17,11 @@ namespace Cayita
 			input.Checked = selected;
 			input.Text=text ?? Cast<string> (value);
 
-			var l = input.ParentNode.As<Label> ();
+			var l = input.ParentNode.As<GroupOption<T>> ();
 			l.SetAttribute ("option", true);
+			l.Input = input;
 
-			object go = new {};
-			DefineProperty (go,"input", new {value=Cast<object>(input), writable= false});
-
-			l.DefineAtomProperty ("go", new {value=go, writable= false});
-
-			return Cast<GroupOption<T>>(l);
+			return l;
 		}
 
 
@@ -48,12 +44,12 @@ namespace Cayita
 		public static GroupBase<T> CheckGroup<T>(Action<GroupBase<T>> action=null, Atom parent=null)
 		{
 			var e= InputGroup<T> ();
-			var cg = e.MainObject;
-			SetToProperty(cg,"addValue", (Action<T,string,bool>)(
+
+			SetToProperty(e,"addValue", (Action<T,string,bool>)(
 				(value,text,selected)=> AddOption<T>(e, CheckOption(value, text,selected)) 
 				));
 
-			SetToProperty(cg,"loadList",(Action<IList<T>>)(
+			SetToProperty(e,"loadList",(Action<IList<T>>)(
 				(l)=> LoadList<T>(e,l, (Func<T,GroupOption<T>>)((d)=> CheckOption(d,null,false)   ) )
 				));
 
@@ -69,11 +65,11 @@ namespace Cayita
 		public static GroupBase<T> RadioGroup<T>(Action<GroupBase<T>> action=null, Atom parent=null)
 		{
 			var e= InputGroup<T> ();
-			var cg = e.MainObject;
-			SetToProperty (cg, "addValue", (Action<T,string,bool>)(
+
+			SetToProperty (e, "addValue", (Action<T,string,bool>)(
 				(value,text,selected) => AddOption<T> (e, RadioOption (value, text, selected))));
 
-			SetToProperty(cg,"loadList",(Action<IList<T>>)(
+			SetToProperty(e,"loadList",(Action<IList<T>>)(
 				(l)=> LoadList<T>(e,l, (Func<T,GroupOption<T>>)((d)=> RadioOption(d,null,false)   ) )
 				));
 
@@ -90,12 +86,11 @@ namespace Cayita
 		public static GroupBase<T> InputGroup<T>()
 		{
 			var e = ControlGroup ().As<GroupBase<T>> ();
-			var cg = e.MainObject; 
 
-			SetToProperty (cg, "inline", (Action<bool>)(v => SetInlineValue (e, v)));
-			SetToProperty (cg, "isInline", (Func<bool>)(() => GetInlineValue (e)));
+			SetToProperty (e, "inline", (Action<bool>)(v => SetInlineValue (e, v)));
+			SetToProperty (e, "is_inline", (Func<bool>)(() => GetInlineValue (e)));
 
-			SetToProperty (cg, "required", (Action<bool?>)(v => {
+			SetToProperty (e, "required", (Action<bool?>)(v => {
 				if (!v.HasValue || v.Value) {
 					jQuery.FromElement (e).Attribute("required","required");
 					jQuery.Select("input", e.Controls).Each((i,el)=>{
@@ -109,32 +104,32 @@ namespace Cayita
 					});
 				}
 			}));
-			SetToProperty (cg, "isRequired", (Func<bool>)(() => ! jQuery.FromElement (e).GetAttribute ("required").IsNullOrEmpty () ));
+			SetToProperty (e, "is_required", (Func<bool>)(() => ! jQuery.FromElement (e).GetAttribute ("required").IsNullOrEmpty () ));
 
-			SetToProperty (cg, "set_name", (Action<string>)(v => SetName (e, v)));
-			SetToProperty (cg, "get_name", (Func<string>)(() => GetName (e)));
+			SetToProperty (e, "set_name", (Action<string>)(v => SetName (e, v)));
+			SetToProperty (e, "get_name", (Func<string>)(() => GetName (e)));
 
-			SetToProperty (cg, "addOption", (Action<GroupOption<T>>)(o => AddOption (e,  o)));
+			SetToProperty (e, "addOption", (Action<GroupOption<T>>)(o => AddOption (e,  o)));
 
-			SetToProperty (cg, "removeOption", (Action<GroupOption<T>>)(v => RemoveValue<T> (e, v.Value)));
-			SetToProperty (cg, "removeValue", (Action<T>)(v => RemoveValue<T> (e, v)));
-			SetToProperty (cg, "removeAll", (Action)(() => RemoveAll (e)));
+			SetToProperty (e, "removeOption", (Action<GroupOption<T>>)(v => RemoveValue<T> (e, v.Value)));
+			SetToProperty (e, "removeValue", (Action<T>)(v => RemoveValue<T> (e, v)));
+			SetToProperty (e, "removeAll", (Action)(() => RemoveAll (e)));
 
-			SetToProperty (cg, "getChecked", (Func<GroupOption<T>[]>)(() => GetChecked<T> (e)));
-			SetToProperty (cg, "getOptions", (Func<GroupOption<T>[]>)(() => GetOptions<T> (e)));
+			SetToProperty (e, "getChecked", (Func<GroupOption<T>[]>)(() => GetChecked<T> (e)));
+			SetToProperty (e, "getOptions", (Func<GroupOption<T>[]>)(() => GetOptions<T> (e)));
 
-			SetToProperty (cg, "checkOption", (Action<GroupOption<T>,bool>)((v,c) => CheckValue (e, v.Value, c)));
-			SetToProperty (cg, "checkValue", (Action<T,bool>)((v,c) => CheckValue (e, v, c)));
-			SetToProperty (cg, "checkAll", (Action<bool>)((c) => CheckAll (e, c)));
+			SetToProperty (e, "checkOption", (Action<GroupOption<T>,bool>)((v,c) => CheckValue (e, v.Value, c)));
+			SetToProperty (e, "checkValue", (Action<T,bool>)((v,c) => CheckValue (e, v, c)));
+			SetToProperty (e, "checkAll", (Action<bool>)((c) => CheckAll (e, c)));
 
-			SetToProperty (cg, "disableOption", (Action<GroupOption<T>,bool>)((v,d) => DisableValue (e, v.Value, d)));
-			SetToProperty (cg, "disableValue", (Action<T,bool>)((v,d) => DisableValue (e, v, d)));
-			SetToProperty (cg, "disableAll", (Action<bool>)((d) => DisableAll (e,  d)));
+			SetToProperty (e, "disableOption", (Action<GroupOption<T>,bool>)((v,d) => DisableValue (e, v.Value, d)));
+			SetToProperty (e, "disableValue", (Action<T,bool>)((v,d) => DisableValue (e, v, d)));
+			SetToProperty (e, "disableAll", (Action<bool>)((d) => DisableAll (e,  d)));
 
-			SetToProperty (cg,"add_checked", (Action<jQueryEventHandler>)
+			SetToProperty (e,"add_checked", (Action<jQueryEventHandler>)
 			                      ((ev) => On(e.Controls, "check", ev, OptionSelector)));
 
-			SetToProperty (cg,"remove_checked", (Action<jQueryEventHandler>)
+			SetToProperty (e,"remove_checked", (Action<jQueryEventHandler>)
 			                      ((ev) => Off (e,"check", ev, OptionSelector)));
 
 			jQuery.FromElement(e.Controls).On ("change", "input", ev =>{ 

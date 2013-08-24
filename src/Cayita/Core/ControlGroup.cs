@@ -11,39 +11,36 @@ namespace Cayita
 		{
 		}
 
-		protected internal object MainObject {
-			[InlineCode("{this}.cg")]
-			get{ return null;}
-		}
 
+		[IntrinsicProperty]
 		public Label Label {
-			[InlineCode("{this}.cg.label")]
-			get { return  null; }
-
+			get;
+			internal set;
 		}
 
+		[IntrinsicProperty]
 		public Div Controls {
-			[InlineCode("{this}.cg.controls")]
-			get { return  null; }
-
+			get;
+			internal set;
 		}
 	
+
 		public string LabelText {
-			[InlineCode("{this}.cg.label.get_text()")]
+			[InlineCode("{this}.label.get_text()")]
 			get;
-			[InlineCode("{this}.cg.label.set_text({value})")]
+			[InlineCode("{this}.label.set_text({value})")]
 			set;
 		}
 
 		public string LabelCssText {
-			[InlineCode("{this}.cg.label.style.cssText")]
+			[InlineCode("{this}.label.style.cssText")]
 			get;
-			[InlineCode("{this}.cg.label.style.cssText={value}")]
+			[InlineCode("{this}.label.style.cssText={value}")]
 			set;
 		}
 
 		public Style LabelStyle {
-			[InlineCode("{this}.cg.label.style")]
+			[InlineCode("{this}.label.style")]
 			get { return null; }
 		}
 

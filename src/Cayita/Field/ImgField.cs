@@ -17,24 +17,26 @@ namespace Cayita
 
 
 		public string EmptyImgSrc {
-			[InlineCode("{this}.cg.emptyImg.src")]get;
-			[InlineCode("{this}.cg.emptyImg.src={value}")]internal set;
+			[InlineCode("{this}.emptyImg.src")]get;
+			[InlineCode("{this}.emptyImg.src={value}")]internal set;
 		}
 
+		[IntrinsicProperty]
 		public Image EmptyImg {
-			[InlineCode("{this}.cg.emptyImg")]get;
-			[InlineCode("{this}.cg.emptyImg={value}")]internal set;
+			get;
+			internal set;
 		}
 
+		[IntrinsicProperty]
 		public Div Thumbnail {
-			[InlineCode("{this}.cg.thumbnail")]get;
-			[InlineCode("{this}.cg.thumbnail={value}")]  internal set;
+			get;
+			internal set;
 		}
 
-
+		[IntrinsicProperty]
 		public Div ThumbnailPreview {
-			[InlineCode("{this}.cg.thumbnailPreview")]get;
-			[InlineCode("{this}.cg.thumbnailPreview={value}")]  internal set;
+			get;
+			internal set;
 		}
 	}
 }

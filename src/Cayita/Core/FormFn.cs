@@ -19,7 +19,11 @@ namespace Cayita
 		public static Form Form (Atom parent=null, Action<Atom> action=null )
 		{
 
-			var validate = (Func<Input,bool>)((i)=>{
+
+			var e = Atom ("form", null, null, null, action, parent).As<Form>();
+			e._updated = (Action<Form, FormUpdatedAction>)( (f,a) => {});
+
+			e._validate = (Func<Input,bool>)((i)=>{
 
 				if(i.ErrorMessage==null && !i.Validity.Valid){
 					i.ErrorMessage= i.Popover( new PopoverOptions{Trigger="manual", Content="OK"});
@@ -39,7 +43,7 @@ namespace Cayita
 				}
 			});
 
-			var clear = (Action<Form>)(f=>{
+			e._clear = (Action<Form>)(f=>{
 				f.Reset();
 				var inputs = f.Inputs;
 
@@ -50,22 +54,18 @@ namespace Cayita
 						i.ErrorMessage=null;
 					}
 				}
-
 			});
-
-			var e = Atom ("form", null, null, null, action, parent).As<Form>();
-			var updated = (Action<Form, FormUpdatedAction>)( (f,a) => {});
 
 			e.SetAttribute ("novalidate", "novalidate");
 
 			e.SetToAtomProperty("clear", (Action)(()=>{
-				clear(e);
+				e._clear(e);
 				e.JQuery.Data("_source_", e.JQuery.Serialize());
-				updated(e, FormUpdatedAction.Clear);
+				e._updated(e, FormUpdatedAction.Clear);
 			}));
 
 			e.SetToAtomProperty("populateFrom", (Action<JsDictionary>)( d=>{
-				clear(e);
+				e._clear(e);
 				foreach(var p in d)
 				{
 					var o = jQuery.Select ("[name='{0}']".Fmt(p.Key), e);
@@ -107,7 +107,7 @@ namespace Cayita
 					});
 				}
 				e.JQuery.Data("_source_", e.JQuery.Serialize());
-				updated(e,FormUpdatedAction.Populate);
+				e._updated(e,FormUpdatedAction.Populate);
 			}));
 
 
@@ -172,27 +172,27 @@ namespace Cayita
 
 
 			e.SetToAtomProperty ("add_updated", (Action<Action<Form,FormUpdatedAction>>)
-			                     (v => updated=  Cast<Action<Form,FormUpdatedAction>>(Delegate.Combine (updated, v)) ));
+			                     (v => e._updated=  Cast<Action<Form,FormUpdatedAction>>(Delegate.Combine (e._updated, v)) ));
 
 			e.SetToAtomProperty ("remove_updated", (Action<Action<Form,FormUpdatedAction>>)
-			                     (v => updated=  Cast<Action<Form,FormUpdatedAction>>(Delegate.Remove (updated, v)) ));
+			                     (v => e._updated=  Cast<Action<Form,FormUpdatedAction>>(Delegate.Remove (e._updated, v)) ));
 
 
 			jQuery.FromElement (e).On ("keyup", "input[type!=radio]input[type!=checkbox],select,textarea", ev => {
-				validate( ev.CurrentTarget.As<Input>());
+				e._validate( ev.CurrentTarget.As<Input>());
 			});
 
 			jQuery.FromElement (e).On ("change", "input[type=radio],input[type=checkbox]", ev => {
 
 				var type = ev.CurrentTarget.As<Atom>().GetFromAtomProperty ("type").ToString();
 
-				validate(
+				e._validate(
 					jQuery.Select("input[type={0}][name={1}]".Fmt(type,ev.CurrentTarget.As<Input>().Name),e).Last().GetElement(0).As<Input>());
 
 			});
 
 			jQuery.FromElement (e).On ("change", "select", ev => {
-				validate( ev.CurrentTarget.As<Input>());
+				e._validate( ev.CurrentTarget.As<Input>());
 			});
 
 
@@ -205,12 +205,12 @@ namespace Cayita
 					var type = i.GetFromAtomProperty ("type").ToString();
 					if(type=="radio" || type=="checkbox")
 					{
-						v=validate(
+						v=e._validate(
 						jQuery.Select("input[type={0}][name={1}]".Fmt(type,i.Name),e).Last().GetElement(0).As<Input>())
 							&& v;
 					}
 					else
-						v= validate(i) && v;
+						v= e._validate(i) && v;
 				}
 
 				if(v && e.SubmitHandler!=null) e.SubmitHandler(e);

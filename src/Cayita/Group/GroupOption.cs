@@ -8,18 +8,19 @@ namespace Cayita
 	{
 
 		public T Value {
-			[InlineCode("{this}.go.input.get_value()")]get;
-			[InlineCode("{this}.go.input.set_value({value})")]set;
+			[InlineCode("{this}.input.get_value()")]get;
+			[InlineCode("{this}.input.set_value({value})")]set;
 		}
 
 		public bool Checked{
-			[InlineCode("{this}.go.input.checked")]get;
-			[InlineCode("{this}.go.input.checked={value}")]set;
+			[InlineCode("{this}.input.checked")]get;
+			[InlineCode("{this}.input.checked={value}")]set;
 		}
 
+		[IntrinsicProperty]
 		public CheckInput<T> Input { 
-			[InlineCode("{this}.go.input")]
-			get { return null; }
+			get ;
+			internal set;
 		}
 
 

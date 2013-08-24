@@ -10,12 +10,9 @@ namespace Cayita
 	{
 		public static CheckField CheckField(string name,  string text, Action<Field<bool>> action, Atom parent)
 		{
-			var e= Field<bool> (()=> 
+			return Field<bool> (()=> 
 				UI.BooleanCheck("", name, text)	, action, parent
 			).As<CheckField> ();
-
-
-			return e;
 		}
 
 
@@ -23,14 +20,12 @@ namespace Cayita
 		{
 			return Field<string> (()=> UI.Input<string>("textarea",null, null,name,placeholder),
 			                      action, parent).As<TextAreaField> ();
-
 		}
 
 		public static SelectField<T> SelectField<T>(string type, Action<Field<T>> action, Atom parent)
 		{
 			return Field<T> (()=> UI.SelectInput<T>(type),
 			                      action, parent).As<SelectField<T>> ();
-
 		}
 
 
@@ -39,21 +34,18 @@ namespace Cayita
 			return Field<string> (()=> 
 				UI.Input<string>("input","text",null,name,placeholder), action, parent
 			).As<TextField> ();
-
 		}
 
 		public static PasswordField PasswordField(string name, string placeholder, Action<Field<string>> action, Atom parent)
 		{
 			return Field<string> (
 				() => UI.Input<string> ("input", "password", null, name, placeholder), action, parent).As<PasswordField> ();
-
 		}
 
 		public static EmailField EmailField(string name, string placeholder, Action<Field<string>> action, Atom parent)
 		{
 			return Field<string> (
 				() => UI.Input<string> ("input", "email", null, name, placeholder), action, parent).As<EmailField> ();
-
 		}
 
 
@@ -62,7 +54,6 @@ namespace Cayita
 			return Field<decimal> (()=>
 				UI.NumericInput(name:name, placeholder:placeholder),action, parent
 			).As<NumericField> ();
-
 		}
 
 		public static NullableNumericField NullableNumericField(string name, string placeholder,Action<Field<decimal?>> action, Atom parent)
@@ -71,7 +62,6 @@ namespace Cayita
 				()=> UI.NullableNumericInput(name:name, placeholder:placeholder),action, parent
 			).As<NullableNumericField> ();
 		}
-
 
 		public static IntField IntField(string name, string placeholder, Action<Field<int>> action, Atom parent)
 		{
@@ -118,17 +108,16 @@ namespace Cayita
 		public static Field<T> Field<T>(Func<Input<T>> factory, Action<Field<T>> action=null, Atom parent=null)
 		{
 			var e = UI.ControlGroup ().As<Field<T>> ();
-			var cg = e.MainObject;
-			var input = factory ();
-			jQuery.FromElement (e.Controls).Append (input.ParentNode??input);
+			e.Input = factory ();
 
-			UI.DefineProperty (cg, "input", new {value=(object)input, writable=false});
+			jQuery.FromElement (e.Controls).Append (e.Input.ParentNode??e.Input);
 
-			UI.SetToProperty (cg, "appendAddon", (Action<Element>)( (c) => AppendAddon<T> (e, c)));
-			UI.SetToProperty (cg, "appendStringAddon", (Action<string>)( (c) => AppendStringAddon<T> (e, c)));
 
-			UI.SetToProperty (cg, "prependAddon", (Action<Element>)( (c) => PrependAddon<T> (e, c)));
-			UI.SetToProperty (cg, "prependStringAddon", (Action<string>)( (c) => PrependStringAddon<T> (e, c)));
+			UI.SetToProperty (e, "appendAddon", (Action<Element>)( (c) => AppendAddon<T> (e, c)));
+			UI.SetToProperty (e, "appendStringAddon", (Action<string>)( (c) => AppendStringAddon<T> (e, c)));
+
+			UI.SetToProperty (e, "prependAddon", (Action<Element>)( (c) => PrependAddon<T> (e, c)));
+			UI.SetToProperty (e, "prependStringAddon", (Action<string>)( (c) => PrependStringAddon<T> (e, c)));
 
 			e.SetToAtomProperty ("add_changed", (Action<jQueryEventHandler>)
 			                     (ev => e.Input.Changed+= ev));
@@ -201,51 +190,49 @@ namespace Cayita
 		public static FileFieldBase CreateFileFieldBase(Func<FileInput> factory)
 		{
 			var e = UI.ControlGroup ().As<FileFieldBase> ();
-			var cg = e.MainObject;
-			var input = factory ();
+			e.Input = factory ();
 
 			jQuery.FromElement(e.Controls).AddClass("fileupload fileupload-new");
 			e.Controls.SetAttribute ("data-provides", "fileupload");
 
-			var divInput = new Div ("input-append");
-			var spanFile = new Span ("btn btn-file");
+			e._divinput = new Div ("input-append");
+			e._spanfile = new Span ("btn btn-file");
 
-			var spanFileOpen = new Span ("fileupload-new");
+			e._spanfileopen = new Span ("fileupload-new");
 			e.FileOpenIcon = new CssIcon ("icon-folder-open");
-			jQuery.FromElement(spanFileOpen).Append (e.FileOpenIcon);
+			jQuery.FromElement(e._spanfileopen).Append (e.FileOpenIcon);
 
 			var spanFileChange = new Span ("fileupload-exists");
 			e.FileChangeIcon  = new CssIcon ("icon-folder-open");
 			jQuery.FromElement(spanFileChange).Append (e.FileChangeIcon);
 
-			jQuery.FromElement (spanFile).Append (spanFileOpen).Append (spanFileChange).Append (input);
+			jQuery.FromElement (e._spanfile).Append (e._spanfileopen).Append (spanFileChange).Append (e.Input);
 
 			var anchorFileRemove = new Anchor ("btn fileupload-exists");
 			anchorFileRemove.SetAttribute ("data-dismiss","fileupload");
 			e.FileRemoveIcon = new CssIcon ("icon-remove");
 			jQuery.FromElement(anchorFileRemove).Append (e.FileRemoveIcon);
 
-			jQuery.FromElement (divInput).Append (spanFile).Append (anchorFileRemove);
+			jQuery.FromElement (e._divinput).Append (e._spanfile).Append (anchorFileRemove);
 
-			jQuery.FromElement(e.Controls).Append (divInput);
-
-			UI.DefineProperty (cg, "input", new {value=(object)input, writable=false});
-
-			UI.SetToProperty (cg, "appendAddon", (Action<Element>)( (c) => AppendAddon<string> (e, c)));
-			UI.SetToProperty (cg, "appendStringAddon", (Action<string>)( (c) => AppendStringAddon<string> (e, c)));
-
-			UI.SetToProperty (cg, "prependAddon", (Action<Element>)( (c) => PrependAddon<string> (e, c)));
-			UI.SetToProperty (cg, "prependStringAddon", (Action<string>)( (c) => PrependStringAddon<string> (e, c)));
+			jQuery.FromElement(e.Controls).Append (e._divinput);
 
 
-			UI.SetToProperty(cg, "set_fileOpenText", (Action<string>)((c)=> spanFileOpen.Text=c ));
-			UI.SetToProperty(cg, "get_fileOpenText", (Func<string>)(()=> spanFileOpen.Text ));
+			UI.SetToProperty (e, "appendAddon", (Action<Element>)( (c) => AppendAddon<string> (e, c)));
+			UI.SetToProperty (e, "appendStringAddon", (Action<string>)( (c) => AppendStringAddon<string> (e, c)));
 
-			UI.SetToProperty(cg, "set_fileChangeText", (Action<string>)((c)=> spanFileChange.Text=c ));
-			UI.SetToProperty(cg, "get_fileChangeText", (Func<string>)(()=> spanFileChange.Text ));
+			UI.SetToProperty (e, "prependAddon", (Action<Element>)( (c) => PrependAddon<string> (e, c)));
+			UI.SetToProperty (e, "prependStringAddon", (Action<string>)( (c) => PrependStringAddon<string> (e, c)));
 
-			UI.SetToProperty(cg, "set_FileRemoveText", (Action<string>)((c)=> anchorFileRemove.Text=c ));
-			UI.SetToProperty(cg, "get_fileRemoveText", (Func<string>)(()=> anchorFileRemove.Text ));
+
+			UI.SetToProperty(e, "set_fileOpenText", (Action<string>)((c)=> e._spanfileopen.Text=c ));
+			UI.SetToProperty(e, "get_fileOpenText", (Func<string>)(()=> e._spanfileopen.Text ));
+
+			UI.SetToProperty(e, "set_fileChangeText", (Action<string>)((c)=> spanFileChange.Text=c ));
+			UI.SetToProperty(e, "get_fileChangeText", (Func<string>)(()=> spanFileChange.Text ));
+
+			UI.SetToProperty(e, "set_FileRemoveText", (Action<string>)((c)=> anchorFileRemove.Text=c ));
+			UI.SetToProperty(e, "get_fileRemoveText", (Func<string>)(()=> anchorFileRemove.Text ));
 
 			e.SetToAtomProperty ("add_changed", (Action<jQueryEventHandler>)
 			                     (ev => e.Input.Changed+= ev));
@@ -259,19 +246,19 @@ namespace Cayita
 		public static FileField FileField(string name, string placeholder, Action<FileField> action, Atom parent)
 		{
 			var e = CreateFileFieldBase (()=> UI.FileInput(null,name,placeholder)).As<FileField>();
-			var uneditable = new Div ("uneditable-input span3");
+			e._uneditable= new Div ("uneditable-input span3");
+			e._inputSize = "span3";
 
-			jQuery.FromElement (uneditable).Append (new CssIcon("icon-file fileupload-exists"))
+			jQuery.FromElement (e._uneditable).Append (new CssIcon("icon-file fileupload-exists"))
 				.Append( new Span("fileupload-preview"));
 
-			jQuery.Select(".btn-file", e.Controls).Before (uneditable);
+			jQuery.Select(".btn-file", e.Controls).Before (e._uneditable);
 
-			var cg = e.MainObject;
-			UI.SetToProperty (cg,"$inputSize", "span3");
-			UI.SetToProperty(cg, "get_inputSize", (Func<string>)( ()=>GetInputSize(e)));
-			UI.SetToProperty(cg, "set_inputSize", (Action<string>)( (v)=>SetInputSize(e,v)));
-			UI.SetToProperty (cg,"uneditable", uneditable);
-			UI.SetToProperty (cg,"hidePreview",
+
+			UI.SetToProperty(e, "get_inputSize", (Func<string>)( ()=>GetInputSize(e)));
+			UI.SetToProperty(e, "set_inputSize", (Action<string>)( (v)=>SetInputSize(e,v)));
+
+			UI.SetToProperty (e,"hidePreview",
 			                      (Action<bool>)( (v)=> HideFileBox(e, v) ));
 
 			if (action != null)
@@ -289,25 +276,21 @@ namespace Cayita
 			var e = CreateFileFieldBase (()=> UI.FileInput(null,name,placeholder)).As<ImgField>();
 			e.Accept = "image/*";
 
-			var thumbnail = new Div ("fileupload-new thumbnail");
-			thumbnail.Style.CssText = "width:{0}; height:{1};".Fmt ("200px", "150px");
+			e.Thumbnail= new Div ("fileupload-new thumbnail");
+			e.Thumbnail.Style.CssText = "width:{0}; height:{1};".Fmt ("200px", "150px");
 
-			var emptyImage = new Image ();
-			emptyImage.Src = UI.EmptyImgSrc;
-			jQuery.FromElement(thumbnail).Append (emptyImage);
+			e.EmptyImg = new Image ();
+			e.EmptyImg.Src = UI.EmptyImgSrc;
+			jQuery.FromElement(e.Thumbnail).Append (e.EmptyImg);
 
-			var thumbnailPreview= new Div ("fileupload-preview fileupload-exists thumbnail");
-			thumbnailPreview.Style.CssText = "width:{0}; height:{1};".Fmt ("200px", "150px");
+			e.ThumbnailPreview= new Div ("fileupload-preview fileupload-exists thumbnail");
+			e.ThumbnailPreview.Style.CssText = "width:{0}; height:{1};".Fmt ("200px", "150px");
 
 			jQuery.Select(".input-append", e.Controls).RemoveClass("input-append")
-				.Before(thumbnail)
-					.Before(thumbnailPreview);
+				.Before(e.Thumbnail)
+					.Before(e.ThumbnailPreview);
 
-			var cg = e.MainObject;
-			UI.SetToProperty (cg,"emptyImg", emptyImage);
-			UI.SetToProperty (cg,"thumbnail", thumbnail);
-			UI.SetToProperty (cg,"thumbnailPreview", thumbnailPreview);
-			UI.SetToProperty (cg,"hidePreview",
+			UI.SetToProperty (e,"hidePreview",
 			                      (Action<bool>)( (v)=> HideImgBox(e, v) ));
 
 			if (action != null)
@@ -320,17 +303,17 @@ namespace Cayita
 		}
 
 		static void SetInputSize(FileField field, string value){
-			jQuery.FromElement (field.Uneditable).RemoveClass ( "{0}".Fmt( field.InputSize )).AddClass (value);
-			UI.SetToProperty (field.MainObject, "$inputSize", value);
+			jQuery.FromElement (field._uneditable).RemoveClass ( "{0}".Fmt( field.InputSize )).AddClass (value);
+			field._inputSize = value;
 		}
 
 		static string GetInputSize(FileField field){
+			return field._inputSize;
 
-			return UI.GetFromProperty(field.MainObject, "$inputSize").ToString();
 		}
 
 		static void HideFileBox (FileField field, bool hide){
-			var j = jQuery.FromElement (field.Uneditable);
+			var j = jQuery.FromElement (field._uneditable);
 			if (hide)
 				j.Hide ();
 			else
