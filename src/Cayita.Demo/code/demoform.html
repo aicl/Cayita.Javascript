@@ -1,0 +1,185 @@
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="#" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy to clipboard</a><a href="#" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a></div></div><ol start="1" class="dp-c"><li class="alt"><span><span>var&nbsp;form&nbsp;=&nbsp;</span><span class="keyword">new</span><span>&nbsp;Form&nbsp;();&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">new</span><span>&nbsp;Fieldset&nbsp;(form,&nbsp;fs&nbsp;=&gt;&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;Legend&nbsp;(fs,</span><span class="string">"Legend"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;Label(fs,&nbsp;</span><span class="string">"LabelText"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;TextInput(fs,&nbsp;i=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Placeholder=<span class="string">"type&nbsp;something"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Name=<span class="string">"text"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;Span(fs,&nbsp;s=&gt;{s.Text=</span><span class="string">"Example&nbsp;block-level&nbsp;help&nbsp;text&nbsp;here"</span><span>;&nbsp;s.ClassName=</span><span class="string">"help-block"</span><span>;});&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;CheckField(fs,&nbsp;cf=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cf.Name=<span class="string">"allow"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cf.Input.Text=<span class="string">"Check&nbsp;me"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cf.Input.Checked=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;SubmitButton(fs,&nbsp;b=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.Text=<span class="string">"Send"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.Clicked+=&nbsp;(e)&nbsp;=&gt;{&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.PreventDefault();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.JQuery.Serialize().LogInfo();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;form.Append(fs);&nbsp;&nbsp;</span></li><li class=""><span>});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>parent.JQuery.Append(<span class="string">"Default&nbsp;styles"</span><span>.Header&nbsp;(3)).Append&nbsp;(form);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>var&nbsp;sform&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Form&nbsp;();&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">new</span><span>&nbsp;TextInput&nbsp;(sform,&nbsp;i&nbsp;=&gt;&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;i.Name=<span class="string">"stext"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;i.Placeholder=<span class="string">"search&nbsp;for"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;i.Required=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;i.ClassName=<span class="string">"input-medium&nbsp;search-query"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;i.MaxLength=8;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;i.MinLength=3;&nbsp;&nbsp;</span></li><li class=""><span>});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">new</span><span>&nbsp;SubmitButton(sform,&nbsp;b=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;b.Text=<span class="string">"Search..."</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;b.Clicked+=&nbsp;(e)&nbsp;=&gt;{&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>(!sform.CheckValidity())&nbsp;</span><span class="keyword">return</span><span>&nbsp;;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sform.JQuery.Serialize().LogInfo();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li class=""><span>});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>parent.JQuery.Append(<span class="string">"Optional&nbsp;Layouts"</span><span>.Header&nbsp;(3)).Append(</span><span class="string">"Search&nbsp;Form"</span><span>.Header(4)).Append&nbsp;(sform);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>var&nbsp;lform&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Form&nbsp;();&nbsp;&nbsp;</span></span></li><li class="alt"><span>lform.SubmitHandler&nbsp;=&nbsp;f&nbsp;=&gt;&nbsp;&nbsp;f.JQuery.Serialize().LogInfo()&nbsp;;&nbsp;&nbsp;</span></li><li class=""><span>lform.ClassName&nbsp;=&nbsp;<span class="string">"form-inline"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">new</span><span>&nbsp;EmailInput&nbsp;(lform,&nbsp;i&nbsp;=&gt;&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;i.Placeholder&nbsp;=&nbsp;<span class="string">"your&nbsp;email"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;i.Required=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;i.Name=<span class="string">"email"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">new</span><span>&nbsp;PasswordInput&nbsp;(lform,&nbsp;i&nbsp;=&gt;&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;i.Placeholder&nbsp;=&nbsp;<span class="string">"your&nbsp;password"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;i.Required=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;i.Name=<span class="string">"password"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;i.MinLength=4;&nbsp;&nbsp;</span></li><li class=""><span>});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">new</span><span>&nbsp;CheckInput&nbsp;(lform,i&nbsp;=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;i.Name=<span class="string">"remember"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;i.Text=<span class="string">"Remember?"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;i.Checked=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">new</span><span>&nbsp;SubmitButton&nbsp;(lform,&nbsp;b&nbsp;=&gt;&nbsp;b.Text&nbsp;=&nbsp;</span><span class="string">"submit"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>parent.JQuery.Append(<span class="string">"Inline&nbsp;Form"</span><span>.Header(4)).Append&nbsp;(lform);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">new</span><span>&nbsp;Form&nbsp;(f=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;f.ClassName=<span class="string">"form-horizontal"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;EmailField(f,i=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Text=<span class="string">"Email"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Placeholder=<span class="string">"your&nbsp;email"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Input.Required=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Name=<span class="string">"email"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;PasswordField(f,i=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Text=<span class="string">"Password"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Placeholder=<span class="string">"your&nbsp;password"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Input.Required=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Input.MinLength=4;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Name=<span class="string">"password"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;CheckField(f,&nbsp;i=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Input.Text=<span class="string">"Remember"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Input.Checked=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Name=<span class="string">"remember"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;SubmitButton(i.Controls,&nbsp;b=&gt;&nbsp;b.Text=</span><span class="string">"Login"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;f.SubmitHandler=&nbsp;fr=&gt;&nbsp;fr.JQuery.Serialize().LogInfo();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;parent.JQuery.Append(<span class="string">"Horizontal&nbsp;Form"</span><span>.Header(4)).Append&nbsp;(f);&nbsp;&nbsp;</span></span></li><li class=""><span>});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>var&nbsp;login&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Div&nbsp;(</span><span class="string">"span4&nbsp;offset3&nbsp;well"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>login.Append&nbsp;(<span class="keyword">new</span><span>&nbsp;Legend(</span><span class="string">"Login&nbsp;Form"</span><span>));&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">new</span><span>&nbsp;Form&nbsp;(login,&nbsp;f&nbsp;=&gt;&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;nm&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;TextField(f);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;nm.Placeholder=<span class="string">"user&nbsp;name"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;nm.Name&nbsp;=<span class="string">"username"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;nm.Input.ClassName=<span class="string">"span12"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;nm.Input.Required=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;nm.Input.MinLength=8;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;pwd&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;PasswordField(f);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;pwd.Placeholder=<span class="string">"password"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;pwd.Name&nbsp;=<span class="string">"password"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;pwd.Input.ClassName=<span class="string">"span12"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;pwd.Input.Required=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;pwd.Input.MinLength=6;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;pwd.Input.MaxLength=10;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;rmb&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;CheckField(f);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;rmb.Name=<span class="string">"remember"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;rmb.Input.Text=<span class="string">"Remember"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;sb&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;SubmitButton(f);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;sb.Text=<span class="string">"Login"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;sb.AddClass(<span class="string">"btn-info&nbsp;btn-block"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;f.SubmitHandler=&nbsp;fr=&gt;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.Disabled=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Window.SetTimeout(()=&gt;{&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.Disabled=<span class="keyword">false</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Welcome&nbsp;{0}"</span><span>.Fmt(nm.Value).LogSuccess();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.Reset();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},&nbsp;1000);&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>parent.JQuery.Append&nbsp;(<span class="string">"Samples"</span><span>.Header(3)).Append&nbsp;(</span><span class="string">"Login&nbsp;Form"</span><span>.Header(4))&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;.Append&nbsp;(UI.CreateContainer(ct=&gt;&nbsp;UI.CreateRow(ct,&nbsp;rw=&gt;&nbsp;rw.Append(login))));&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>var&nbsp;contact&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Div&nbsp;(</span><span class="string">"container"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">new</span><span>&nbsp;Form&nbsp;(contact,&nbsp;f=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;f.ClassName=<span class="string">"well&nbsp;span8"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;UI.CreateRowFluid(f,&nbsp;row=&gt;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;Div(row,&nbsp;p=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p.ClassName=<span class="string">"span5"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;TextField(p,&nbsp;tf=&gt;{tf.Name=</span><span class="string">"firstname"</span><span>;&nbsp;tf.Required=</span><span class="keyword">true</span><span>;&nbsp;tf.Text=</span><span class="string">"FirstName"</span><span>;&nbsp;tf.Input.ClassName=</span><span class="string">"span12"</span><span>;&nbsp;});&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;TextField(p,&nbsp;tf=&gt;{tf.Name=</span><span class="string">"lastname"</span><span>;&nbsp;tf.Required=</span><span class="keyword">true</span><span>;&nbsp;tf.Text=</span><span class="string">"LastName"</span><span>;&nbsp;tf.Input.ClassName=</span><span class="string">"span12"</span><span>;&nbsp;});&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;EmailField(p,&nbsp;tf=&gt;{tf.Name=</span><span class="string">"email"</span><span>;&nbsp;tf.Required=</span><span class="keyword">true</span><span>;&nbsp;tf.Text=</span><span class="string">"Email"</span><span>;tf.Input.ClassName=</span><span class="string">"span12"</span><span>;});&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;SelectField&lt;</span><span class="keyword">string</span><span>&gt;(p,&nbsp;sf=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sf.Text=<span class="string">"Subject"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sf.Name=<span class="string">"subject"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sf.Input.ClassName=<span class="string">"span12"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sf.Input.Add(<span class="string">""</span><span>,&nbsp;</span><span class="string">"Choose&nbsp;one..."</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sf.Input.Add(<span class="string">"1"</span><span>,&nbsp;</span><span class="string">"General&nbsp;Customer&nbsp;Service"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sf.Input.Add(<span class="string">"2"</span><span>,&nbsp;</span><span class="string">"Suggestions"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sf.Input.Add(<span class="string">"3"</span><span>,&nbsp;</span><span class="string">"Product&nbsp;suport"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sf.Input.Add(<span class="string">"4"</span><span>,&nbsp;</span><span class="string">"Bug"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sf.Input.Required=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;Div(row,&nbsp;p=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p.ClassName=<span class="string">"span7"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;TextAreaField(p,&nbsp;tf=&gt;{tf.Name=</span><span class="string">"message"</span><span>;&nbsp;tf.Rows=11;&nbsp;tf.Text=</span><span class="string">"Message"</span><span>;tf.Input.ClassName=</span><span class="string">"span12"</span><span>;});&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;SubmitButton(row,&nbsp;bt=&gt;{&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt.AddClass(<span class="string">"btn-primary&nbsp;pull-right"</span><span>);&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt.Text=<span class="string">"Send"</span><span>;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;f.SubmitHandler=fr=&gt;&nbsp;AlertFn.Success(fr.FirstChild,<span class="string">"Message&nbsp;sent"</span><span>,</span><span class="keyword">true</span><span>,&nbsp;5000);&nbsp;&nbsp;</span></span></li><li class="alt"><span>});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>parent.JQuery.Append(<span class="string">"Conctact&nbsp;Form"</span><span>.Header(4)).Append&nbsp;(contact);&nbsp;&nbsp;</span></span></li></ol><textarea style="display:none;" class="originalCode">var form = new Form ();
+new Fieldset (form, fs =&gt; {
+	new Legend (fs,"Legend");
+	new Label(fs, "LabelText");
+	new TextInput(fs, i=&gt;{
+		i.Placeholder="type something";
+		i.Name="text";
+	});
+
+	new Span(fs, s=&gt;{s.Text="Example block-level help text here"; s.ClassName="help-block";});
+
+	new CheckField(fs, cf=&gt;{
+		cf.Name="allow";
+		cf.Input.Text="Check me";
+		cf.Input.Checked=true;
+	});
+
+	new SubmitButton(fs, b=&gt;{
+		b.Text="Send";
+		b.Clicked+= (e) =&gt;{ 
+			e.PreventDefault();
+			form.JQuery.Serialize().LogInfo();
+		};
+	});
+	form.Append(fs);
+});
+
+parent.JQuery.Append("Default styles".Header (3)).Append (form);
+
+var sform = new Form ();
+new TextInput (sform, i =&gt; {
+	i.Name="stext";
+	i.Placeholder="search for";
+	i.Required=true;
+	i.ClassName="input-medium search-query";
+	i.MaxLength=8;
+	i.MinLength=3;
+});
+
+new SubmitButton(sform, b=&gt;{
+	b.Text="Search...";
+	b.Clicked+= (e) =&gt;{ 
+		if(!sform.CheckValidity()) return ;
+		sform.JQuery.Serialize().LogInfo();
+	};
+});
+
+parent.JQuery.Append("Optional Layouts".Header (3)).Append("Search Form".Header(4)).Append (sform);
+
+var lform = new Form ();
+lform.SubmitHandler = f =&gt;  f.JQuery.Serialize().LogInfo() ;
+lform.ClassName = "form-inline";
+new EmailInput (lform, i =&gt; {
+	i.Placeholder = "your email";
+	i.Required=true;
+	i.Name="email";
+});
+
+new PasswordInput (lform, i =&gt; {
+	i.Placeholder = "your password";
+	i.Required=true;
+	i.Name="password";
+	i.MinLength=4;
+});
+
+new CheckInput (lform,i =&gt;{
+	i.Name="remember";
+	i.Text="Remember?";
+	i.Checked=true;
+});
+
+new SubmitButton (lform, b =&gt; b.Text = "submit");
+
+parent.JQuery.Append("Inline Form".Header(4)).Append (lform);
+
+new Form (f=&gt;{
+	f.ClassName="form-horizontal";
+
+	new EmailField(f,i=&gt;{
+		i.Text="Email";
+		i.Placeholder="your email";
+		i.Input.Required=true;
+		i.Name="email";
+	});
+
+	new PasswordField(f,i=&gt;{
+		i.Text="Password";
+		i.Placeholder="your password";
+		i.Input.Required=true;
+		i.Input.MinLength=4;
+		i.Name="password";
+	});
+
+	new CheckField(f, i=&gt;{
+		i.Input.Text="Remember";
+		i.Input.Checked=true;
+		i.Name="remember";
+		new SubmitButton(i.Controls, b=&gt;	b.Text="Login");
+	});
+
+	f.SubmitHandler= fr=&gt; fr.JQuery.Serialize().LogInfo();
+
+	parent.JQuery.Append("Horizontal Form".Header(4)).Append (f);
+});
+
+
+var login = new Div ("span4 offset3 well");
+login.Append (new Legend("Login Form"));
+
+new Form (login, f =&gt; {
+	var nm = new TextField(f);
+	nm.Placeholder="user name";
+	nm.Name ="username";
+	nm.Input.ClassName="span12";
+	nm.Input.Required=true;
+	nm.Input.MinLength=8;
+
+	var pwd = new PasswordField(f);
+	pwd.Placeholder="password";
+	pwd.Name ="password";
+	pwd.Input.ClassName="span12";
+	pwd.Input.Required=true;
+	pwd.Input.MinLength=6;
+	pwd.Input.MaxLength=10;
+
+	var rmb = new CheckField(f);
+	rmb.Name="remember";
+	rmb.Input.Text="Remember";
+
+	var sb = new SubmitButton(f);
+	sb.Text="Login";
+	sb.AddClass("btn-info btn-block");
+
+	f.SubmitHandler= fr=&gt;{
+		sb.Disabled=true;
+		Window.SetTimeout(()=&gt;{  
+			sb.Disabled=false;
+			"Welcome {0}".Fmt(nm.Value).LogSuccess();
+			f.Reset();
+		}, 1000);  
+	};
+
+});
+
+parent.JQuery.Append ("Samples".Header(3)).Append ("Login Form".Header(4))
+	.Append (UI.CreateContainer(ct=&gt; UI.CreateRow(ct, rw=&gt; rw.Append(login))));
+
+var contact = new Div ("container");
+new Form (contact, f=&gt;{
+	f.ClassName="well span8";
+	UI.CreateRowFluid(f, row=&gt;{
+		new Div(row, p=&gt;{
+			p.ClassName="span5";
+			new TextField(p, tf=&gt;{tf.Name="firstname"; tf.Required=true; tf.Text="FirstName"; tf.Input.ClassName="span12"; });
+			new TextField(p, tf=&gt;{tf.Name="lastname"; tf.Required=true; tf.Text="LastName"; tf.Input.ClassName="span12"; });
+			new EmailField(p, tf=&gt;{tf.Name="email"; tf.Required=true; tf.Text="Email";tf.Input.ClassName="span12";});
+
+			new SelectField&lt;string&gt;(p, sf=&gt;{
+				sf.Text="Subject";
+				sf.Name="subject";
+				sf.Input.ClassName="span12";
+				sf.Input.Add("", "Choose one...");
+				sf.Input.Add("1", "General Customer Service");
+				sf.Input.Add("2", "Suggestions");
+				sf.Input.Add("3", "Product suport");
+				sf.Input.Add("4", "Bug");
+				sf.Input.Required=true;
+			});
+
+		});
+		new Div(row, p=&gt;{
+			p.ClassName="span7";
+			new TextAreaField(p, tf=&gt;{tf.Name="message"; tf.Rows=11; tf.Text="Message";tf.Input.ClassName="span12";});
+		});
+
+		new SubmitButton(row, bt=&gt;{  
+			bt.AddClass("btn-primary pull-right");  
+			bt.Text="Send";  
+		});  
+	});
+
+	f.SubmitHandler=fr=&gt; AlertFn.Success(fr.FirstChild,"Message sent",true, 5000);
+});
+
+parent.JQuery.Append("Conctact Form".Header(4)).Append (contact);</textarea></div>

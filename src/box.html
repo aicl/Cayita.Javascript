@@ -1,0 +1,105 @@
+<div class="well well-panel"  style="" id='p'>
+
+	<div class="well-panel-header" id='h'>
+		<i id="c-i-9" class="icon-remove-circle" ></i>
+		<i id="c-i-2" class="icon-circle-arrow-up" ></i>
+		<ctxt>Soy el titulo</ctxt>
+	</div>
+
+	<div class="well-panel-content" nota="el tamaño se cambia aqui" id='c' >
+			hola soy auto. El Header debe estar siempre, me permite moverlo, cerrarlo, colapsarlo. Sin el header esto es un simple div="well"
+</b>
+dobject = JQuery ().Draggable (); dobject.Stack = ".c-panel"; dobject.AddClasses = false; dobject.Containment = "parent"; dobject.Distance = 10; dobject.Handle = headerElement; 
+ojo con el containment : relative = parent ; fixed=null ? no dejar cambiar el overlay solo en el config de entrada.... dejar el containment=parent
+</b>
+robject = Body.JQuery ().Resizable (); robject.AlsoResize = JQuery (); {alsoResize:"#p, #c"} 
+mejor parece : : $(p).resizable({alsoResize:"#b, #c"}), al collapsar guardar el height del panel y ponerlo en cero , talvez b no es necesario, solo content
+
+	</div>
+
+</div>
+
+
+var p = document.getElementById('p')
+var h = document.getElementById('h')
+var c = document.getElementById('c')
+
+var $p= $(p);
+var $h= $(h);
+var $c= $(c);
+	
+
+$p.resizable({alsoResize:c})
+
+
+
+<div class="well well-panel"  style="" id='p'>
+
+	<div style="height: 25px;padding 2px;" id='h'>
+		<i id="c-i-9" class="icon-remove-circle" style="margin-left: 5px;  vertical-align: middle;	"></i>
+
+		<i id="c-i-2" class="icon-circle-arrow-up" style="margin-left: 5px; vertical-align: middle;	"></i>
+		<ctxt style="padding: 5px;" ><strong>Soy el titulo</strong></ctxt>
+	</div>
+
+	<div style=" height: auto;" nota="para el resize con jquery" id='b'>
+
+		<div style=" height: 150px;width: 200px; padding: 4px 0px 2px 2px; background:white; " nota="el tamaño se cambia aqui" id='c' >
+			hola soy auto. El Header debe estar siempre, me permite moverlo, cerrarlo, colapsarlo. Sin el header esto es un simple div="well"
+<b/>
+dobject = JQuery ().Draggable (); dobject.Stack = ".c-panel"; dobject.AddClasses = false; dobject.Containment = "parent"; dobject.Distance = 10; dobject.Handle = headerElement; 
+<b/>
+robject = Body.JQuery ().Resizable (); robject.AlsoResize = JQuery ();
+		</div>
+
+		<div style="height: 1px;"></div>		
+
+	</div>
+
+</div>
+
+
+<div class="well" style="
+padding:0px;
+position:absolute;
+    height: auto; 
+    left: 650px;
+	top:50px;
+    z-index: 1600; ">
+
+<div style="
+    background: -webkit-linear-gradient(top, rgb(230, 230, 230) 0%, rgb(240, 240, 240) 100%);
+    height: 25px;
+	padding 4px;
+">
+<i id="c-i-9" class="icon-remove-circle" style="
+    margin-left: 13px;
+    margin-right: -2px;
+    vertical-align: middle;
+"></i>
+
+<i id="c-i-2" class="icon-circle-arrow-up" style="
+    margin-left: 13px;
+    margin-right: -2px;
+    vertical-align: middle;
+"></i>
+</div>
+
+<div style=" height: auto;" nota="para el resize con jquery" >
+
+	<div style=" height: 150px; padding: 5px; " nota="el tamaño se cambia aqui" >
+	hola soy auto
+	</div>
+
+<div style="
+	background: -webkit-linear-gradient(bottom, rgb(230, 230, 230) 0%, rgb(240, 240, 240) 100%);
+    height: 20px;
+	padding 4px;
+">
+
+</div>
+
+
+</div>
+
+</div>

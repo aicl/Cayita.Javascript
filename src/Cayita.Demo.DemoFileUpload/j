@@ -1,0 +1,19 @@
+/opt/mono/bin/sc  \
+"/outscript:bin/Debug/DemoFileUpload.js" \
+"/define:JS" \
+"/debug" \
+"/r:../../lib/Saltarelle.Linq.dll" \
+"/r:../../lib/Saltarelle.jQuery.dll" \
+"/r:../../lib/Saltarelle.jQuery.UI.dll" \
+"/r:../../lib/Saltarelle.Web.dll" \
+"/r:../../lib/mscorlib.dll" \
+"/r:../Cayita/bin/Debug/Cayita.dll" \
+/t:library \
+"DemoFileUpload.cs" \
+
+cp bin/Debug/DemoFileUpload.js ../Cayita.Demo/modules/
+
+echo "ready DemoFileUpload"
+
+
+

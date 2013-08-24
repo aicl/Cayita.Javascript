@@ -1,0 +1,385 @@
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="#" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy to clipboard</a><a href="#" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a></div></div><ol start="1" class="dp-c"><li class="alt"><span><span class="comment">/*&nbsp;&nbsp;DemoTables.cs&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;DemoTables&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;DemoTables&nbsp;()&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;Execute&nbsp;(Atom&nbsp;parent){&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Task&nbsp;v=&nbsp;<span class="keyword">new</span><span>&nbsp;Task(&nbsp;()=&gt;&nbsp;Firebug.Console.Log(</span><span class="string">"hello"</span><span>));&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v.Start&nbsp;();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;store&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;UserStore&nbsp;();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;grid&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;UserGrid&nbsp;(parent,&nbsp;store);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;store.Read&nbsp;();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;form&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;UserForm&nbsp;(parent);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.ButtonCreate.Disabled&nbsp;=&nbsp;<span class="keyword">false</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.ButtonCreate.Clicked+=&nbsp;(e)&nbsp;=&gt;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid.ClearSelection();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.Clear();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.ButtonDestroy.Clicked+=&nbsp;(e)&nbsp;=&gt;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.Clear();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;u&nbsp;=&nbsp;store.First(r=&gt;r.Id==&nbsp;<span class="keyword">int</span><span>.Parse(&nbsp;grid.SelectedRow.RecordId&nbsp;));&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;store.Remove(u);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.Changed+=&nbsp;(e)&nbsp;=&gt;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.ButtonSave.Disabled=&nbsp;!form.HasChanges();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.Updated&nbsp;+=&nbsp;(fr,&nbsp;ac)&nbsp;=&gt;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.ButtonDestroy.Disabled=&nbsp;ac&nbsp;==&nbsp;FormUpdatedAction.Clear;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.ButtonSave.Disabled=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.SubmitHandler&nbsp;=&nbsp;fr&nbsp;=&gt;&nbsp;SubmitHandler&nbsp;(grid,&nbsp;form,&nbsp;store);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid.RowSelected&nbsp;+=&nbsp;(g,&nbsp;row)&nbsp;=&gt;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;u&nbsp;=&nbsp;&nbsp;store.First(r=&gt;r.Id==&nbsp;<span class="keyword">int</span><span>.Parse(&nbsp;row.RecordId));&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form.PopulateFrom(u);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent.Append(<span class="string">"Paged&nbsp;Tables"</span><span>.Header&nbsp;(3));&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;cu&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;CustomerStore&nbsp;();&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;CustomerGrid(parent,&nbsp;cu);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent.Append&nbsp;(<span class="keyword">new</span><span>&nbsp;StorePager&lt;Customer&gt;(cu));&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cu.Read&nbsp;();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent.Append&nbsp;(<span class="string">"Filters"</span><span>.Header&nbsp;(3));&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;cu2&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;CustomerStore&nbsp;();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;TextInput&nbsp;(parent,&nbsp;i=&gt;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Placeholder=<span class="string">"Country"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.On(<span class="string">"keyup"</span><span>,&nbsp;evt=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;st&nbsp;=&nbsp;i.Value.ToUpper();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cu2.Filter(&nbsp;f=&gt;f.Country.ToUpper().StartsWith(st));&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;CustomerGrid&nbsp;(parent,&nbsp;&nbsp;cu2);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent.Append&nbsp;(<span class="keyword">new</span><span>&nbsp;StorePager&lt;Customer&gt;(cu2));&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cu2.Read&nbsp;();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent.Append&nbsp;(<span class="string">"C#&nbsp;code"</span><span>.Header(3));&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;rq&nbsp;=jQuery.GetData&lt;<span class="keyword">string</span><span>&gt;&nbsp;(</span><span class="string">"code/demoform.html"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rq.Done&nbsp;(s=&gt;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;code=<span class="keyword">new</span><span>&nbsp;Div();&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;code.InnerHTML=&nbsp;s;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent.Append(code);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;SubmitHandler(Grid&lt;User&gt;&nbsp;grid,&nbsp;UserForm&nbsp;form,&nbsp;UserStore&nbsp;store)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;u&nbsp;=&nbsp;form.CopyToUser&nbsp;();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;store.Save&nbsp;(u);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid.Select&nbsp;(u.Id,&nbsp;<span class="keyword">true</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span><span class="comment">/*&nbsp;User.cs&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>[PreserveMemberCase]&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">public</span><span>&nbsp;&nbsp;</span><span class="keyword">class</span><span>&nbsp;User:Record&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;User(){}&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">int</span><span>&nbsp;Id&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">string</span><span>&nbsp;Name&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">string</span><span>&nbsp;Address&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">string</span><span>&nbsp;City&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">string</span><span>&nbsp;Email&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;DateTime&nbsp;DoB&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">bool</span><span>&nbsp;IsActive&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">string</span><span>&nbsp;Level&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">string</span><span>&nbsp;UserName&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">string</span><span>&nbsp;Password&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">int</span><span>&nbsp;Rating&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="comment">/*&nbsp;UserForm.cs&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>[IgnoreNamespace,&nbsp;Imported&nbsp;(ObeysTypeSystem&nbsp;=&nbsp;<span class="keyword">true</span><span>),&nbsp;ScriptName&nbsp;(</span><span class="string">"Element"</span><span>)]&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;UserForm:Form&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;[InlineCode(<span class="string">"new&nbsp;Cayita.Demo.UI.UserForm({parent})"</span><span>)]&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;UserForm(Atom&nbsp;parent){}&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;[IntrinsicProperty]&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;ButtonIcon&nbsp;ButtonCreate{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">internal</span><span>&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;[IntrinsicProperty]&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;ButtonIcon&nbsp;ButtonSave{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">internal</span><span>&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;[IntrinsicProperty]&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;ButtonIcon&nbsp;ButtonDestroy{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">internal</span><span>&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;[IntrinsicProperty]&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;Func&lt;User&gt;&nbsp;CopyToUser{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">internal</span><span>&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">public</span><span>&nbsp;partial&nbsp;</span><span class="keyword">class</span><span>&nbsp;UI&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;[PreserveCase]&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;&nbsp;UserForm&nbsp;UserForm&nbsp;(Atom&nbsp;parent)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;f&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Form&nbsp;().As&lt;UserForm&gt;();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.ClassName=<span class="string">"form-horizontal"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.Append(<span class="string">"&lt;style&gt;.form-horizontal&nbsp;.controls&nbsp;{&nbsp;margin-left:&nbsp;100px;&nbsp;}&nbsp;@media&nbsp;(max-width:&nbsp;480px)&nbsp;{&nbsp;.form-horizontal&nbsp;.controls&nbsp;{&nbsp;margin-left:&nbsp;0px;&nbsp;}&nbsp;}&nbsp;&nbsp;&lt;/style&gt;"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;Div(f,&nbsp;tb=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tb.ClassName=<span class="string">"nav"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.ButtonCreate=<span class="keyword">new</span><span>&nbsp;ButtonIcon(tb,&nbsp;bt=&gt;{bt.IconClass=</span><span class="string">"icon-file&nbsp;icon-large"</span><span>;&nbsp;bt.Disabled=</span><span class="keyword">true</span><span>;});&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.ButtonSave=<span class="keyword">new</span><span>&nbsp;ButtonIcon(tb,&nbsp;bt=&gt;{bt.IconClass=</span><span class="string">"icon-save&nbsp;icon-large"</span><span>;&nbsp;bt.Disabled=</span><span class="keyword">true</span><span>;&nbsp;bt.Type=</span><span class="string">"submit"</span><span>;});&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.ButtonDestroy=<span class="keyword">new</span><span>&nbsp;ButtonIcon(tb,&nbsp;bt=&gt;{bt.IconClass=</span><span class="string">"icon-remove&nbsp;icon-large"</span><span>;&nbsp;bt.Disabled=</span><span class="keyword">true</span><span>;&nbsp;});&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;NumericInput&nbsp;(f,&nbsp;i&nbsp;=&gt;&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Name&nbsp;=&nbsp;<span class="string">"Id"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Hidden&nbsp;=&nbsp;<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;TextField(f,&nbsp;i=&gt;{i.Name=</span><span class="string">"Name"</span><span>;&nbsp;i.Text=</span><span class="string">"Name"</span><span>;&nbsp;i.Required=</span><span class="keyword">true</span><span>;});&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;TextField(f,&nbsp;i=&gt;{i.Name=</span><span class="string">"City"</span><span>;&nbsp;i.Text=</span><span class="string">"City"</span><span>;&nbsp;i.Required=</span><span class="keyword">true</span><span>;});&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;TextField(f,&nbsp;i=&gt;{i.Name=</span><span class="string">"Address"</span><span>;&nbsp;i.Text=</span><span class="string">"Address"</span><span>;&nbsp;});&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;DateField(f,&nbsp;i=&gt;{i.Name=</span><span class="string">"DoB"</span><span>;&nbsp;i.Text=</span><span class="string">"Birthday"</span><span>;&nbsp;i.Picker.DateFormat=</span><span class="string">"dd.mm.yy"</span><span>;&nbsp;i.Required=</span><span class="keyword">true</span><span>;&nbsp;});&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;EmailField(f,&nbsp;i=&gt;{i.Name=</span><span class="string">"Email"</span><span>;&nbsp;i.Text=</span><span class="string">"Email"</span><span>;&nbsp;i.Required=</span><span class="keyword">true</span><span>;});&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;IntField(f,&nbsp;i=&gt;{i.Name=</span><span class="string">"Rating"</span><span>;&nbsp;i.Text=</span><span class="string">"Rating"</span><span>;&nbsp;});&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;RadioGroup&lt;</span><span class="keyword">string</span><span>&gt;&nbsp;(f,&nbsp;rg&nbsp;=&gt;&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rg.Required&nbsp;=&nbsp;<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rg.Text&nbsp;=&nbsp;<span class="string">"Level"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rg.Name&nbsp;=&nbsp;<span class="string">"Level"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rg.Add&nbsp;(<span class="string">"A"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rg.Add&nbsp;(<span class="string">"B"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rg.Add&nbsp;(<span class="string">"C"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;CheckField(f,&nbsp;i=&gt;{i.Name=</span><span class="string">"IsActive"</span><span>;&nbsp;i.Input.Text=</span><span class="string">"Is&nbsp;active?"</span><span>;});&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.JQuery.Find(<span class="string">"label[class='control-label']"</span><span>).CSS(</span><span class="string">"width"</span><span>,&nbsp;</span><span class="string">"80px"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.CopyToUser=&nbsp;()=&gt;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User&nbsp;u&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;User();&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.Populate&nbsp;(u);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;u;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent.Append&nbsp;(f);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;f;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span><span class="comment">/*&nbsp;UserStore.cs&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;UserStore:Store&lt;User&gt;&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">static</span><span>&nbsp;</span><span class="keyword">int</span><span>&nbsp;id=0;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;UserStore()&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Api.Url=<span class="string">"json/userResponse.json"</span><span>;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Api.ReadMethod&nbsp;=&nbsp;<span class="string">""</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Api.Converters&nbsp;[<span class="string">"DoB"</span><span>]&nbsp;=&nbsp;u&nbsp;=&gt;&nbsp;u.DoB.Normalize&nbsp;();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;Save(User&nbsp;u)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(u.Id&nbsp;==&nbsp;0)&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u.Id&nbsp;=&nbsp;--id;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add&nbsp;(u);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">else</span><span>&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Replace&nbsp;(u);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="comment">/*&nbsp;UserGrid.cs&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>[IgnoreNamespace,&nbsp;Imported&nbsp;(ObeysTypeSystem&nbsp;=&nbsp;<span class="keyword">true</span><span>),&nbsp;ScriptName&nbsp;(</span><span class="string">"Element"</span><span>)]&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;UserGrid:Grid&lt;User&gt;&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;[InlineCode(<span class="string">"new&nbsp;Cayita.Demo.UI.UserGrid({parent},{store},{columns})"</span><span>)]&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;UserGrid(Atom&nbsp;parent,&nbsp;UserStore&nbsp;store,&nbsp;List&lt;TableColumn&lt;User&gt;&gt;&nbsp;columns=</span><span class="keyword">null</span><span>):</span><span class="keyword">base</span><span>(store,&nbsp;columns)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">public</span><span>&nbsp;partial&nbsp;</span><span class="keyword">class</span><span>&nbsp;UI{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;[PreserveCase]&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;UserGrid&nbsp;UserGrid(Atom&nbsp;parent,&nbsp;UserStore&nbsp;store,&nbsp;List&lt;TableColumn&lt;User&gt;&gt;&nbsp;columns=</span><span class="keyword">null</span><span>)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;g&nbsp;=&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;Grid&lt;User&gt;(store,&nbsp;columns&nbsp;??&nbsp;UserDefaultColumns).As&lt;UserGrid&gt;();&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent.Append&nbsp;(g);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;g;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;List&lt;TableColumn&lt;User&gt;&gt;&nbsp;UserDefaultColumns{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">get</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;List&lt;TableColumn&lt;User&gt;&gt;&nbsp;columns&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;List&lt;TableColumn&lt;User&gt;&gt;&nbsp;();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns.Add&nbsp;(<span class="keyword">new</span><span>&nbsp;TableColumn&lt;User&gt;(</span><span class="string">"Name"</span><span>,&nbsp;</span><span class="string">"Name"</span><span>,&nbsp;(u,c)=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Value=&nbsp;u.Name;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}));&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns.Add&nbsp;(<span class="keyword">new</span><span>&nbsp;TableColumn&lt;User&gt;(</span><span class="string">"City"</span><span>,&nbsp;</span><span class="string">"City"</span><span>,&nbsp;(u,c)=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Value=&nbsp;u.City;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}));&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns.Add&nbsp;(<span class="keyword">new</span><span>&nbsp;TableColumn&lt;User&gt;(</span><span class="string">"Address"</span><span>,&nbsp;</span><span class="string">"Address"</span><span>,&nbsp;(u,c)=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Value=&nbsp;u.Address;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}));&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns.Add&nbsp;(<span class="keyword">new</span><span>&nbsp;TableColumn&lt;User&gt;(</span><span class="string">"Birthday"</span><span>,&nbsp;</span><span class="string">"Birthday"</span><span>,&nbsp;(u,c)=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Value=&nbsp;&nbsp;u.DoB.ToString(<span class="string">"dd.MM.yyyy"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}));&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns.Add&nbsp;(<span class="keyword">new</span><span>&nbsp;TableColumn&lt;User&gt;(</span><span class="string">"Email"</span><span>,&nbsp;</span><span class="string">"Email"</span><span>,&nbsp;(u,c)=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Value=&nbsp;u.Email;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}));&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns.Add&nbsp;(<span class="keyword">new</span><span>&nbsp;TableColumn&lt;User&gt;(</span><span class="string">"Rating"</span><span>,&nbsp;</span><span class="string">"Rating"</span><span>,&nbsp;(u,c)=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Value=&nbsp;u.Rating;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Plugins.AutoNumeric(c,&nbsp;<span class="keyword">new</span><span>&nbsp;NumericOptions{DecimalPlaces=0});&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Style.TextAlign=<span class="string">"center"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}));&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns.Add&nbsp;(<span class="keyword">new</span><span>&nbsp;TableColumn&lt;User&gt;(</span><span class="string">"Level"</span><span>,&nbsp;</span><span class="string">"Level"</span><span>,&nbsp;(u,c)=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Value=u.Level;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Style.Color=&nbsp;u.Level==<span class="string">"A"</span><span>?</span><span class="string">"green"</span><span>:&nbsp;u.Level==</span><span class="string">"B"</span><span>?</span><span class="string">"orange"</span><span>:&nbsp;</span><span class="string">"red"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Style.TextAlign=<span class="string">"center"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}));&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns.Add&nbsp;(<span class="keyword">new</span><span>&nbsp;TableColumn&lt;User&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Header=<span class="keyword">new</span><span>&nbsp;TableCellAtom{Value=</span><span class="string">"Active?"</span><span>},&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;=&nbsp;u=&gt;&nbsp;{&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;c&nbsp;=<span class="keyword">new</span><span>&nbsp;TableCellAtom();&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Style.TextAlign=<span class="string">"center"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Append(&nbsp;<span class="keyword">new</span><span>&nbsp;CssIcon(&nbsp;u.IsActive?</span><span class="string">"icon-ok-circle"</span><span>:&nbsp;</span><span class="string">"icon-ban-circle"</span><span>));&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;c;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AfterCellCreated=&nbsp;(f,row)=&gt;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row.Style.Color=&nbsp;f.IsActive?<span class="string">"black"</span><span>:</span><span class="string">"grey"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row.AddClass(f.Rating&gt;=10000?&nbsp;<span class="string">"success"</span><span>:&nbsp;f.Rating&lt;=5000?</span><span class="string">"warning"</span><span>:</span><span class="string">""</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;columns;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol><textarea style="display:none;" class="originalCode">/*  DemoTables.cs */
+public class DemoTables
+{
+
+	public DemoTables ()
+	{
+	}
+
+	public static void Execute (Atom parent){
+
+		Task v= new Task( ()=&gt; Firebug.Console.Log("hello"));
+		v.Start ();
+
+		var store = new UserStore ();
+		var grid = new UserGrid (parent, store);
+		store.Read ();
+
+		var form = new UserForm (parent);
+
+		form.ButtonCreate.Disabled = false;
+
+		form.ButtonCreate.Clicked+= (e) =&gt; {
+			grid.ClearSelection();
+			form.Clear();
+		};
+
+		form.ButtonDestroy.Clicked+= (e) =&gt; {
+			form.Clear();
+			var u = store.First(r=&gt;r.Id== int.Parse( grid.SelectedRow.RecordId ));
+			store.Remove(u);
+		};
+
+		form.Changed+= (e) =&gt; {
+			form.ButtonSave.Disabled= !form.HasChanges();
+		};
+
+		form.Updated += (fr, ac) =&gt; {
+			form.ButtonDestroy.Disabled= ac == FormUpdatedAction.Clear;
+			form.ButtonSave.Disabled=true;
+		};
+
+		form.SubmitHandler = fr =&gt; SubmitHandler (grid, form, store);
+
+		grid.RowSelected += (g, row) =&gt; {
+			var u =  store.First(r=&gt;r.Id== int.Parse( row.RecordId));
+			form.PopulateFrom(u);
+		};
+
+
+		parent.Append("Paged Tables".Header (3));
+
+
+		var cu = new CustomerStore ();
+		new CustomerGrid(parent, cu);
+		parent.Append (new StorePager&lt;Customer&gt;(cu));
+		cu.Read ();
+
+
+		parent.Append ("Filters".Header (3));
+		var cu2 = new CustomerStore ();
+		new TextInput (parent, i=&gt;	{	
+			i.Placeholder="Country";
+			i.On("keyup", evt=&gt;{
+				var st = i.Value.ToUpper();
+				cu2.Filter( f=&gt;f.Country.ToUpper().StartsWith(st));
+			});
+		});
+
+		new CustomerGrid (parent,  cu2);
+		parent.Append (new StorePager&lt;Customer&gt;(cu2));
+		cu2.Read ();
+
+		parent.Append ("C# code".Header(3));
+
+		var rq =jQuery.GetData&lt;string&gt; ("code/demoform.html");
+		rq.Done (s=&gt; {
+			var code=new Div();
+			code.InnerHTML= s;
+			parent.Append(code);
+		});
+
+
+
+	}
+
+	static void SubmitHandler(Grid&lt;User&gt; grid, UserForm form, UserStore store)
+	{
+		var u = form.CopyToUser ();
+		store.Save (u);
+		grid.Select (u.Id, true);
+	}
+
+}
+/* User.cs */
+[PreserveMemberCase]
+public  class User:Record
+{
+	public User(){}
+	public int Id { get; set; }
+	public string Name { get; set; }
+	public string Address { get; set; }
+	public string City { get; set; }
+	public string Email { get; set; }
+	public DateTime DoB { get; set; }
+	public bool IsActive { get; set; }
+	public string Level { get; set; }
+	public string UserName { get; set; }
+	public string Password { get; set; }
+	public int Rating { get; set; }
+
+}
+
+/* UserForm.cs */
+
+[IgnoreNamespace, Imported (ObeysTypeSystem = true), ScriptName ("Element")]
+public class UserForm:Form
+{
+	[InlineCode("new Cayita.Demo.UI.UserForm({parent})")]
+	public UserForm(Atom parent){}
+
+	[IntrinsicProperty]
+	public ButtonIcon ButtonCreate{ get; internal set; }
+	[IntrinsicProperty]
+	public ButtonIcon ButtonSave{ get; internal set; }
+	[IntrinsicProperty]
+	public ButtonIcon ButtonDestroy{ get; internal set; }
+
+	[IntrinsicProperty]
+	public Func&lt;User&gt; CopyToUser{ get; internal set; }
+
+}
+
+public partial class UI
+{
+	[PreserveCase]
+	public static  UserForm UserForm (Atom parent)
+	{
+		var f = new Form ().As&lt;UserForm&gt;();
+
+		f.ClassName="form-horizontal";
+		f.Append("&lt;style&gt;.form-horizontal .controls { margin-left: 100px; } @media (max-width: 480px) { .form-horizontal .controls { margin-left: 0px; } }  &lt;/style&gt;");
+		new Div(f, tb=&gt;{
+			tb.ClassName="nav";
+			f.ButtonCreate=new ButtonIcon(tb, bt=&gt;{bt.IconClass="icon-file icon-large"; bt.Disabled=true;});
+			f.ButtonSave=new ButtonIcon(tb, bt=&gt;{bt.IconClass="icon-save icon-large"; bt.Disabled=true; bt.Type="submit";});
+			f.ButtonDestroy=new ButtonIcon(tb, bt=&gt;{bt.IconClass="icon-remove icon-large"; bt.Disabled=true; });
+		});
+
+		new NumericInput (f, i =&gt; {
+			i.Name = "Id";
+			i.Hidden = true;
+		});
+
+		new TextField(f, i=&gt;{i.Name="Name"; i.Text="Name"; i.Required=true;});
+		new TextField(f, i=&gt;{i.Name="City"; i.Text="City"; i.Required=true;});
+		new TextField(f, i=&gt;{i.Name="Address"; i.Text="Address"; });
+		new DateField(f, i=&gt;{i.Name="DoB"; i.Text="Birthday"; i.Picker.DateFormat="dd.mm.yy"; i.Required=true; });
+		new EmailField(f, i=&gt;{i.Name="Email"; i.Text="Email"; i.Required=true;});
+		new IntField(f, i=&gt;{i.Name="Rating"; i.Text="Rating"; });
+		new RadioGroup&lt;string&gt; (f, rg =&gt; {
+			rg.Required = true;
+			rg.Text = "Level";
+			rg.Name = "Level";
+			rg.Add ("A");
+			rg.Add ("B");
+			rg.Add ("C");
+		});
+
+		new CheckField(f, i=&gt;{i.Name="IsActive"; i.Input.Text="Is active?";});
+		f.JQuery.Find("label[class='control-label']").CSS("width", "80px");
+
+		f.CopyToUser= ()=&gt;{
+			User u = new User();
+			f.Populate (u);
+			return u;
+		};
+
+		parent.Append (f);
+		return f;
+
+	}
+}
+/* UserStore.cs */
+public class UserStore:Store&lt;User&gt;
+{
+	static int id=0;
+
+	public UserStore()
+	{
+		Api.Url="json/userResponse.json"; 
+		Api.ReadMethod = "";
+		Api.Converters ["DoB"] = u =&gt; u.DoB.Normalize ();
+	}
+
+	public void Save(User u)
+	{
+		if (u.Id == 0) {
+			u.Id = --id;
+			Add (u);
+
+		} else {
+			Replace (u);
+		}
+
+	}
+
+}
+
+/* UserGrid.cs */
+[IgnoreNamespace, Imported (ObeysTypeSystem = true), ScriptName ("Element")]
+public class UserGrid:Grid&lt;User&gt;
+{
+	[InlineCode("new Cayita.Demo.UI.UserGrid({parent},{store},{columns})")]
+	public UserGrid(Atom parent, UserStore store, List&lt;TableColumn&lt;User&gt;&gt; columns=null):base(store, columns)
+	{
+	}
+}
+
+
+public partial class UI{
+
+	[PreserveCase]
+	public static UserGrid UserGrid(Atom parent, UserStore store, List&lt;TableColumn&lt;User&gt;&gt; columns=null)
+	{
+		var g =   new Grid&lt;User&gt;(store, columns ?? UserDefaultColumns).As&lt;UserGrid&gt;();
+		parent.Append (g);
+		return g;
+	}
+
+	public static List&lt;TableColumn&lt;User&gt;&gt; UserDefaultColumns{
+
+		get
+		{
+			List&lt;TableColumn&lt;User&gt;&gt; columns = new List&lt;TableColumn&lt;User&gt;&gt; ();
+			columns.Add (new TableColumn&lt;User&gt;("Name", "Name", (u,c)=&gt;{
+				c.Value= u.Name;
+			}));
+
+			columns.Add (new TableColumn&lt;User&gt;("City", "City", (u,c)=&gt;{
+				c.Value= u.City;
+			}));
+
+			columns.Add (new TableColumn&lt;User&gt;("Address", "Address", (u,c)=&gt;{
+				c.Value= u.Address;
+			}));
+
+			columns.Add (new TableColumn&lt;User&gt;("Birthday", "Birthday", (u,c)=&gt;{
+				c.Value=  u.DoB.ToString("dd.MM.yyyy");
+			}));
+
+			columns.Add (new TableColumn&lt;User&gt;("Email", "Email", (u,c)=&gt;{
+				c.Value= u.Email;
+			}));
+
+			columns.Add (new TableColumn&lt;User&gt;("Rating", "Rating", (u,c)=&gt;{
+				c.Value= u.Rating;
+				Plugins.AutoNumeric(c, new NumericOptions{DecimalPlaces=0});
+				c.Style.TextAlign="center";
+			}));
+
+			columns.Add (new TableColumn&lt;User&gt;("Level", "Level", (u,c)=&gt;{
+				c.Value=u.Level;
+				c.Style.Color= u.Level=="A"?"green": u.Level=="B"?"orange": "red";
+				c.Style.TextAlign="center";
+			}));
+
+			columns.Add (new TableColumn&lt;User&gt;{
+				Header=new TableCellAtom{Value="Active?"},
+				Value = u=&gt; { 
+					var c =new TableCellAtom(); 
+					c.Style.TextAlign="center";
+					c.Append( new CssIcon( u.IsActive?"icon-ok-circle": "icon-ban-circle"));
+					return c;
+				},
+				AfterCellCreated= (f,row)=&gt;{
+					row.Style.Color= f.IsActive?"black":"grey";
+					row.AddClass(f.Rating&gt;=10000? "success": f.Rating&lt;=5000?"warning":"");
+				}
+			});
+			return columns;
+		}
+	}
+
+}
+</textarea></div>
+
+
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="#" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy to clipboard</a><a href="#" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a></div></div><ol start="1" class="dp-c"><li class="alt"><span><span class="comment">/*&nbsp;Customer.cs&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>[PreserveMemberCase]&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;Customer:Record&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;Customer&nbsp;()&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">string</span><span>&nbsp;Id&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">string</span><span>&nbsp;CompanyName&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">string</span><span>&nbsp;ContactName&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">string</span><span>&nbsp;Country&nbsp;{&nbsp;</span><span class="keyword">get</span><span>;&nbsp;</span><span class="keyword">set</span><span>;&nbsp;}&nbsp;&nbsp;</span></span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="comment">/*&nbsp;CustomerStore.cs&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;CustomerStore:Store&lt;Customer&gt;&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;CustomerStore&nbsp;()&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Api.Url=<span class="string">"json/customersResponse.json"</span><span>;&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Api.ReadMethod&nbsp;=&nbsp;<span class="string">""</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Api.DataProperty&nbsp;=&nbsp;<span class="string">"Customers"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LastOption.PageNumber&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LastOption.PageSize&nbsp;=&nbsp;10;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LastOption.LocalPaging&nbsp;=&nbsp;<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="comment">/*&nbsp;CustomerGrid.cs&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>[IgnoreNamespace,&nbsp;Imported&nbsp;(ObeysTypeSystem&nbsp;=&nbsp;<span class="keyword">true</span><span>),&nbsp;ScriptName&nbsp;(</span><span class="string">"Element"</span><span>)]&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;CustomerGrid:Grid&lt;Customer&gt;&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;[InlineCode(<span class="string">"new&nbsp;Cayita.Demo.UI.CustomerGrid({parent},{store},{columns})"</span><span>)]&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;CustomerGrid&nbsp;(Atom&nbsp;parent,CustomerStore&nbsp;store,&nbsp;List&lt;TableColumn&lt;Customer&gt;&gt;&nbsp;columns=</span><span class="keyword">null</span><span>):</span><span class="keyword">base</span><span>(store,&nbsp;columns)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;partial&nbsp;</span><span class="keyword">class</span><span>&nbsp;UI&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;[PreserveCase]&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;CustomerGrid&nbsp;CustomerGrid(Atom&nbsp;parent,&nbsp;CustomerStore&nbsp;store,List&lt;TableColumn&lt;Customer&gt;&gt;&nbsp;columns=</span><span class="keyword">null</span><span>&nbsp;)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;g&nbsp;=&nbsp;Cayita.UI.Grid&lt;Customer&gt;&nbsp;(store,&nbsp;columns??CustomerDefaultColumns&nbsp;).As&lt;CustomerGrid&gt;&nbsp;();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(parent&nbsp;!=&nbsp;</span><span class="keyword">null</span><span>)&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent.Append&nbsp;(g);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;g;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;List&lt;TableColumn&lt;Customer&gt;&gt;&nbsp;CustomerDefaultColumns&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">get</span><span>&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;List&lt;TableColumn&lt;Customer&gt;&gt;&nbsp;columns=&nbsp;<span class="keyword">new</span><span>&nbsp;List&lt;TableColumn&lt;Customer&gt;&gt;();&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns.Add&nbsp;(<span class="keyword">new</span><span>&nbsp;TableColumn&lt;Customer&gt;(){&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Header=&nbsp;<span class="keyword">new</span><span>&nbsp;TableCellAtom(){Value=</span><span class="string">"Company"</span><span>},&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;=&nbsp;u=&gt;&nbsp;{&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;c&nbsp;=<span class="keyword">new</span><span>&nbsp;TableCellAtom();&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Style.Width=<span class="string">"40%"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Value=&nbsp;u.CompanyName;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;c;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns.Add(<span class="keyword">new</span><span>&nbsp;TableColumn&lt;Customer&gt;(){&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Header=&nbsp;<span class="keyword">new</span><span>&nbsp;TableCellAtom(){Value=</span><span class="string">"Contact"</span><span>},&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;=&nbsp;u=&gt;&nbsp;{&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;c&nbsp;=<span class="keyword">new</span><span>&nbsp;TableCellAtom();&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Style.Width=<span class="string">"40%"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Value=&nbsp;u.ContactName;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;c;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns.Add(<span class="keyword">new</span><span>&nbsp;TableColumn&lt;Customer&gt;(){&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Header=&nbsp;<span class="keyword">new</span><span>&nbsp;TableCellAtom(){Value=</span><span class="string">"Country"</span><span>},&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;=&nbsp;u=&gt;&nbsp;{&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;c&nbsp;=<span class="keyword">new</span><span>&nbsp;TableCellAtom();&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.Value=&nbsp;u.Country;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;c;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;columns;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol><textarea style="display:none;" class="originalCode">/* Customer.cs */
+
+[PreserveMemberCase]
+public class Customer:Record
+{
+	public Customer ()
+	{
+	}
+
+	public string Id { get; set; }
+	public string CompanyName { get; set; }
+	public string ContactName { get; set; }
+	public string Country { get; set; }
+}
+
+
+/* CustomerStore.cs */
+
+public class CustomerStore:Store&lt;Customer&gt;
+{
+	public CustomerStore ()
+	{
+		Api.Url="json/customersResponse.json"; 
+		Api.ReadMethod = "";
+		Api.DataProperty = "Customers";
+
+		LastOption.PageNumber = 0;
+		LastOption.PageSize = 10;
+		LastOption.LocalPaging = true;
+
+	}
+}
+
+/* CustomerGrid.cs */
+
+[IgnoreNamespace, Imported (ObeysTypeSystem = true), ScriptName ("Element")]
+public class CustomerGrid:Grid&lt;Customer&gt;
+{
+	[InlineCode("new Cayita.Demo.UI.CustomerGrid({parent},{store},{columns})")]
+	public CustomerGrid (Atom parent,CustomerStore store, List&lt;TableColumn&lt;Customer&gt;&gt; columns=null):base(store, columns)
+	{
+	}
+}
+
+
+public static partial class UI
+{
+	[PreserveCase]
+	public static CustomerGrid CustomerGrid(Atom parent, CustomerStore store,List&lt;TableColumn&lt;Customer&gt;&gt; columns=null )
+	{
+		var g = Cayita.UI.Grid&lt;Customer&gt; (store, columns??CustomerDefaultColumns ).As&lt;CustomerGrid&gt; ();
+		if (parent != null)
+			parent.Append (g);
+		return g;
+	}
+
+	public static List&lt;TableColumn&lt;Customer&gt;&gt; CustomerDefaultColumns {
+
+		get {
+
+			List&lt;TableColumn&lt;Customer&gt;&gt; columns= new List&lt;TableColumn&lt;Customer&gt;&gt;();
+			columns.Add (new TableColumn&lt;Customer&gt;(){
+				Header= new TableCellAtom(){Value="Company"},
+				Value = u=&gt; { 
+					var c =new TableCellAtom(); 
+					c.Style.Width="40%";
+					c.Value= u.CompanyName;
+					return c;
+				}
+
+			});
+
+			columns.Add(new TableColumn&lt;Customer&gt;(){
+				Header= new TableCellAtom(){Value="Contact"},
+				Value = u=&gt; { 
+					var c =new TableCellAtom(); 
+					c.Style.Width="40%";
+					c.Value= u.ContactName;
+					return c;
+				}
+			});
+
+			columns.Add(new TableColumn&lt;Customer&gt;(){
+				Header= new TableCellAtom(){Value="Country"},
+				Value = u=&gt; { 
+					var c =new TableCellAtom(); 
+					c.Value= u.Country;
+					return c;
+				}
+			});
+
+			return columns;
+		}
+	}
+
+}
+</textarea></div>
+

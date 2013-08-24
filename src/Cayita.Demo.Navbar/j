@@ -1,0 +1,18 @@
+/opt/mono/bin/sc  \
+"/outscript:bin/Debug/DemoNavbar.js" \
+"/define:JS" \
+"/debug" \
+"/r:../../lib/Saltarelle.Linq.dll" \
+"/r:../../lib/Saltarelle.jQuery.dll" \
+"/r:../../lib/Saltarelle.jQuery.UI.dll" \
+"/r:../../lib/Saltarelle.Web.dll" \
+"/r:../../lib/mscorlib.dll" \
+"/r:../Cayita/bin/Debug/Cayita.dll" \
+/t:library \
+"DemoNavbar.cs" 
+
+cp bin/Debug/DemoNavbar.js ../Cayita.Demo/modules/
+
+echo "ready DemoNavbar"
+
+

@@ -1,0 +1,83 @@
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="#" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy to clipboard</a><a href="#" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a></div></div><ol start="1" class="dp-c"><li class="alt"><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;DemoModals&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;DemoModals&nbsp;()&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;Execute&nbsp;(Atom&nbsp;parent){&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;nb&nbsp;=<span class="keyword">new</span><span>&nbsp;NavList&nbsp;();&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nb.Add&nbsp;(<span class="string">"Simple&nbsp;Bootbox&nbsp;Dialog"</span><span>,&nbsp;handler:&nbsp;e=&gt;&nbsp;Bootbox.Dialog(</span><span class="string">"cayita&nbsp;is&nbsp;awesome"</span><span>));&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nb.Add&nbsp;(<span class="string">"Custom&nbsp;Bootbox.Dialog&nbsp;I"</span><span>,&nbsp;handler:&nbsp;&nbsp;CustomDialog_1);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nb.Add&nbsp;(<span class="string">"Custom&nbsp;Bootbox.Dialog&nbsp;2"</span><span>,&nbsp;handler:&nbsp;&nbsp;CustomDialog_2);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nb.Add&nbsp;(<span class="string">"Custom&nbsp;Bootbox.Dialog&nbsp;3"</span><span>,&nbsp;handler:&nbsp;&nbsp;CustomDialog_3);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nb.AddDivider&nbsp;();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nb.Add&nbsp;(<span class="string">"Alert"</span><span>,&nbsp;handler:&nbsp;e=&gt;&nbsp;Bootbox.Alert(</span><span class="string">"Alert!"</span><span>,()=&gt;&nbsp;</span><span class="string">"Alert&nbsp;callback..."</span><span>.LogInfo()));&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nb.Add&nbsp;(<span class="string">"Confirm"</span><span>,&nbsp;handler:&nbsp;e=&gt;&nbsp;Bootbox.Confirm(</span><span class="string">"Confirm..."</span><span>,(c)=&gt;&nbsp;(</span><span class="string">"Confirm&nbsp;callback&nbsp;"</span><span>+c).LogInfo()));&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nb.Add&nbsp;(<span class="string">"Prompt"</span><span>,&nbsp;handler:&nbsp;e=&gt;&nbsp;Bootbox.Prompt(</span><span class="string">"Pormpt..."</span><span>,(s)=&gt;&nbsp;(</span><span class="string">"Prompt&nbsp;callback&nbsp;"</span><span>+s).LogInfo()));&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;code&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Div&nbsp;();&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;Div&nbsp;(d=&gt;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d.ClassName=<span class="string">"bs-docs-example"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d.JQuery.Append(nb).Append(<span class="string">"C#&nbsp;code"</span><span>.Header(4)).Append(code);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent.Append(d);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;rq&nbsp;=jQuery.GetData&lt;<span class="keyword">string</span><span>&gt;&nbsp;(</span><span class="string">"code/demomodals.html"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rq.Done&nbsp;(s=&gt;&nbsp;code.InnerHTML=s);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;CustomDialog_1(jQueryEvent&nbsp;e){&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;i&nbsp;=&nbsp;e.CurrentTarget.As&lt;NavItem&gt;&nbsp;();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bootbox.Dialog&nbsp;(i.Text,&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;BootboxHandler&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Callback=()=&gt;&nbsp;i.Text.LogInfo(),&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Label=<span class="string">"My&nbsp;Custom&nbsp;Label"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;CustomDialog_2(jQueryEvent&nbsp;e){&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;i&nbsp;=&nbsp;e.CurrentTarget.As&lt;NavItem&gt;&nbsp;();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bootbox.Dialog&nbsp;(i.Text,&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;BootboxHandler&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Callback=()=&gt;&nbsp;i.Text.LogInfo(),&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Label=<span class="string">"Go"</span><span>,&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Class&nbsp;=&nbsp;<span class="string">"btn-info"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;BootboxOptions{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Header=<span class="string">"Custom&nbsp;Header"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;CustomDialog_3(jQueryEvent&nbsp;e){&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;item&nbsp;=&nbsp;e.CurrentTarget.As&lt;NavItem&gt;&nbsp;();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;dd&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Div(c=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;TextField(c,&nbsp;i=&gt;i.Placeholder=</span><span class="string">"name"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;CheckField(c,i=&gt;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Input.Text=<span class="string">"I&nbsp;like&nbsp;cayita"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Input.Checked=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.Input.Disabled=<span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;TextAreaInput(c,&nbsp;i=&gt;i.Value=</span><span class="string">"cayita&nbsp;is&nbsp;amazing&nbsp;..."</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bootbox.Dialog&nbsp;(dd,&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;BootboxHandler&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Callback=()=&gt;&nbsp;item.Text.LogInfo(),&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Label=<span class="string">"Go"</span><span>,&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Class=<span class="string">"btn-info"</span><span>,&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span><span>&nbsp;BootboxOptions&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Header=item.Text,&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Classes=<span class="string">"modal-large"</span><span>,&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OnEscape=()=&gt;&nbsp;<span class="string">"Esc&nbsp;pressed"</span><span>.LogInfo()&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol><textarea style="display:none;" class="originalCode">public class DemoModals
+{
+	public DemoModals ()
+	{
+	}
+
+	public static void Execute (Atom parent){
+
+		var nb =new NavList ();
+
+		nb.Add ("Simple Bootbox Dialog", handler: e=&gt; Bootbox.Dialog("cayita is awesome"));
+		nb.Add ("Custom Bootbox.Dialog I", handler:  CustomDialog_1);
+		nb.Add ("Custom Bootbox.Dialog 2", handler:  CustomDialog_2);
+		nb.Add ("Custom Bootbox.Dialog 3", handler:  CustomDialog_3);
+		nb.AddDivider ();
+
+		nb.Add ("Alert", handler: e=&gt; Bootbox.Alert("Alert!",()=&gt; "Alert callback...".LogInfo()));
+		nb.Add ("Confirm", handler: e=&gt; Bootbox.Confirm("Confirm...",(c)=&gt; ("Confirm callback "+c).LogInfo()));
+		nb.Add ("Prompt", handler: e=&gt; Bootbox.Prompt("Pormpt...",(s)=&gt; ("Prompt callback "+s).LogInfo()));
+
+		var code = new Div ();
+
+		new Div (d=&gt;{
+			d.ClassName="bs-docs-example";
+			d.JQuery.Append(nb).Append("C# code".Header(4)).Append(code);
+			parent.Append(d);
+		});
+
+		var rq =jQuery.GetData&lt;string&gt; ("code/demomodals.html");
+		rq.Done (s=&gt; code.InnerHTML=s);
+
+	}
+
+	static void CustomDialog_1(jQueryEvent e){
+		var i = e.CurrentTarget.As&lt;NavItem&gt; ();
+
+		Bootbox.Dialog (i.Text,  new BootboxHandler {
+			Callback=()=&gt; i.Text.LogInfo(),
+			Label="My Custom Label"
+
+		});
+	}
+
+	static void CustomDialog_2(jQueryEvent e){
+		var i = e.CurrentTarget.As&lt;NavItem&gt; ();
+
+		Bootbox.Dialog (i.Text,  new BootboxHandler {
+			Callback=()=&gt; i.Text.LogInfo(),
+			Label="Go",
+			Class = "btn-info"
+		},
+		new BootboxOptions{
+			Header="Custom Header"
+		});
+	}
+
+	static void CustomDialog_3(jQueryEvent e){
+		var item = e.CurrentTarget.As&lt;NavItem&gt; ();
+
+		var dd = new Div(c=&gt;{
+			new TextField(c, i=&gt;i.Placeholder="name");
+			new CheckField(c,i=&gt;{
+				i.Input.Text="I like cayita";
+				i.Input.Checked=true;
+				i.Input.Disabled=true;
+			});
+			new TextAreaInput(c, i=&gt;i.Value="cayita is amazing ...");
+		});
+
+		Bootbox.Dialog (dd,  new BootboxHandler {
+			Callback=()=&gt; item.Text.LogInfo(),
+			Label="Go",
+			Class="btn-info",
+
+		},
+		new BootboxOptions {
+			Header=item.Text,
+			Classes="modal-large",
+			OnEscape=()=&gt; "Esc pressed".LogInfo()
+		});
+
+	}
+}</textarea></div>
