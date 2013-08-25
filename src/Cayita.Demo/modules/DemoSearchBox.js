@@ -128,6 +128,6 @@
 	};
 	ss.registerClass(global, 'DemoSearchBox', $DemoSearchBox);
 	ss.registerClass(global, 'Cayita.Demo.Country', $Cayita_Demo_Country, Object);
-	ss.registerClass(global, 'Cayita.Demo.CountrySearchBoxConfig', $Cayita_Demo_CountrySearchBoxConfig, Cayita.SearchBoxConfig);
+	ss.registerClass(global, 'Cayita.Demo.CountrySearchBoxConfig', $Cayita_Demo_CountrySearchBoxConfig, Object);
 	ss.registerClass(global, 'Cayita.Demo.CountryStore', $Cayita_Demo_CountryStore, Object, [ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList]);
 })();
