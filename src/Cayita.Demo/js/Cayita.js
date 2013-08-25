@@ -751,17 +751,6 @@
 	};
 	$Cayita_FormUpdatedAction.prototype = { clear: 0, populate: 1 };
 	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.GridRequestMessage
-	var $Cayita_GridRequestMessage = function() {
-	};
-	$Cayita_GridRequestMessage.createInstance = function() {
-		return Cayita.UI.GridRequestMessage();
-	};
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.JQueryFn
-	var $Cayita_JQueryFn = function() {
-	};
-	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Plugins
 	var $Cayita_Plugins = function() {
 	};
@@ -844,29 +833,6 @@
 		input.style.cssText = 'text-align:right;';
 		$(input)['autoNumeric']('init', options);
 	};
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.SearchBoxConfig
-	var $Cayita_SearchBoxConfig = function() {
-	};
-	$Cayita_SearchBoxConfig.createInstance = function() {
-		return Cayita.UI.SearchBoxConfig();
-	};
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.SelectedGridRow
-	var $Cayita_SelectedGridRow$1 = function(T) {
-		var $type = function() {
-		};
-		$type.createInstance = function() {
-			return Cayita.UI.SelectedGridRow(T)();
-		};
-		ss.registerGenericClassInstance($type, $Cayita_SelectedGridRow$1, [T], function() {
-			return null;
-		}, function() {
-			return [];
-		});
-		return $type;
-	};
-	ss.registerGenericClass(global, 'Cayita.SelectedGridRow$1', $Cayita_SelectedGridRow$1, 1);
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI
 	var $Cayita_UI = function() {
@@ -3810,10 +3776,7 @@
 	ss.registerClass(global, 'Cayita.Data', $Cayita_Data);
 	ss.registerClass(global, 'Cayita.Fn', $Cayita_Fn);
 	ss.registerEnum(global, 'Cayita.FormUpdatedAction', $Cayita_FormUpdatedAction);
-	ss.registerClass(global, 'Cayita.GridRequestMessage', $Cayita_GridRequestMessage);
-	ss.registerClass(global, 'Cayita.JQueryFn', $Cayita_JQueryFn);
 	ss.registerClass(global, 'Cayita.Plugins', $Cayita_Plugins);
-	ss.registerClass(global, 'Cayita.SearchBoxConfig', $Cayita_SearchBoxConfig);
 	ss.registerClass(global, 'Cayita.UI', $Cayita_UI);
 	ss.registerEnum(global, 'Cayita.JData.StoreChangedAction', $Cayita_JData_StoreChangedAction);
 	ss.registerEnum(global, 'Cayita.JData.StoreFailedAction', $Cayita_JData_StoreFailedAction);

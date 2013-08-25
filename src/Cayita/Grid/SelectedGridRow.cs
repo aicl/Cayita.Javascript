@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Cayita
 {
+	[IgnoreNamespace, Imported (ObeysTypeSystem = true), ScriptName ("Object")]
 	public class SelectedGridRow<T> where T:new()
 	{
 		[InlineCode("Cayita.UI.SelectedGridRow({T})()")]

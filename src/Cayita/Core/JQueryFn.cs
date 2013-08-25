@@ -4,7 +4,7 @@ using jQueryApi;
 namespace Cayita
 {
 
-
+	[IgnoreNamespace, Imported (ObeysTypeSystem = true), ScriptName ("$")]
 	public static  class JQueryFn
 	{
 
