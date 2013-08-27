@@ -350,6 +350,26 @@
     <Content Include="js\mscorlib.min.js" />
     <Content Include="js\jquery-ui-1.10.3.custom.js" />
     <Content Include="js\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="modules\DemoFileUpload.js" />
+    <Content Include="modules\DemoForm.js" />
+    <Content Include="modules\DemoMix.js" />
+    <Content Include="modules\DemoModals.js" />
+    <Content Include="modules\DemoNavbar.js" />
+    <Content Include="modules\DemoNavlist.js" />
+    <Content Include="modules\DemoPanels.js" />
+    <Content Include="modules\DemoSearchBox.js" />
+    <Content Include="modules\DemoTables.js" />
+    <Content Include="modules\DemoTabPanel.js" />
+    <Content Include="code\demofileupload.html" />
+    <Content Include="code\demoform.html" />
+    <Content Include="code\demohome.html" />
+    <Content Include="code\demomodals.html" />
+    <Content Include="code\demonavbar.html" />
+    <Content Include="code\demonavlist.html" />
+    <Content Include="code\demopanels.html" />
+    <Content Include="code\demosearchbox.html" />
+    <Content Include="code\demotables.html" />
+    <Content Include="code\demotabpanel.html" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -367,6 +387,7 @@
     <Folder Include="js\" />
     <Folder Include="json\" />
     <Folder Include="modules\" />
+    <Folder Include="code\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="font\FontAwesome.otf" />
