@@ -1,8 +1,12 @@
 ﻿(function() {
+	'use strict';
+	global.Cayita = global.Cayita || {};
+	global.Cayita.Demo = global.Cayita.Demo || {};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.DemoTables
 	var $DemoTables = function() {
 	};
+	$DemoTables.__typeName = 'DemoTables';
 	$DemoTables.execute = function(parent) {
 		var v = new ss.Task(function() {
 			console.log('hello');
@@ -72,10 +76,12 @@
 		store.save(u);
 		grid.selectRow(u.Id, true);
 	};
+	global.DemoTables = $DemoTables;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.Customer
 	var $Cayita_Demo_Customer = function() {
 	};
+	$Cayita_Demo_Customer.__typeName = 'Cayita.Demo.Customer';
 	$Cayita_Demo_Customer.createInstance = function() {
 		return $Cayita_Demo_Customer.$ctor();
 	};
@@ -87,6 +93,7 @@
 		$this.Country = null;
 		return $this;
 	};
+	global.Cayita.Demo.Customer = $Cayita_Demo_Customer;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.CustomerStore
 	var $Cayita_Demo_CustomerStore = function() {
@@ -98,10 +105,13 @@
 		this.lastOption.pageSize = 10;
 		this.lastOption.localPaging = true;
 	};
+	$Cayita_Demo_CustomerStore.__typeName = 'Cayita.Demo.CustomerStore';
+	global.Cayita.Demo.CustomerStore = $Cayita_Demo_CustomerStore;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.UI
 	var $Cayita_Demo_UI = function() {
 	};
+	$Cayita_Demo_UI.__typeName = 'Cayita.Demo.UI';
 	$Cayita_Demo_UI.CustomerGrid = function(parent, store, columns) {
 		var g = Cayita.UI.Grid($Cayita_Demo_Customer).call(null, store, columns || $Cayita_Demo_UI.get_customerDefaultColumns());
 		if (ss.isValue(parent)) {
@@ -114,6 +124,7 @@
 		var $t1 = Cayita.UI.TableColumn($Cayita_Demo_Customer)();
 		var $t2 = Cayita.UI.TableCellAtom();
 		$t2.set_value('Company');
+		null;
 		$t1.header = $t2;
 		$t1.value = function(u) {
 			var c = Cayita.UI.TableCellAtom();
@@ -125,6 +136,7 @@
 		var $t3 = Cayita.UI.TableColumn($Cayita_Demo_Customer)();
 		var $t4 = Cayita.UI.TableCellAtom();
 		$t4.set_value('Contact');
+		null;
 		$t3.header = $t4;
 		$t3.value = function(u1) {
 			var c1 = Cayita.UI.TableCellAtom();
@@ -136,6 +148,7 @@
 		var $t5 = Cayita.UI.TableColumn($Cayita_Demo_Customer)();
 		var $t6 = Cayita.UI.TableCellAtom();
 		$t6.set_value('Country');
+		null;
 		$t5.header = $t6;
 		$t5.value = function(u2) {
 			var c2 = Cayita.UI.TableCellAtom();
@@ -210,7 +223,7 @@
 			i7.input.name = 'IsActive';
 			i7.input.set_text('Is active?');
 		}, f);
-		$(f).find('label[class=\'control-label\']').css('width', '80px');
+		$(f).find("label[class='control-label']").css('width', '80px');
 		f.copyToUser = function() {
 			var u = $Cayita_Demo_User.$ctor();
 			f.populate(u);
@@ -245,6 +258,7 @@
 			c5.set_value(u5.Rating);
 			var $t1 = Cayita.Plugins.NumericOptions();
 			$t1.mDec = 0;
+			null;
 			Cayita.Plugins.AutoNumeric(c5, $t1);
 			c5.style.textAlign = 'center';
 		}, true));
@@ -256,6 +270,7 @@
 		var $t2 = Cayita.UI.TableColumn($Cayita_Demo_User)();
 		var $t3 = Cayita.UI.TableCellAtom();
 		$t3.set_value('Active?');
+		null;
 		$t2.header = $t3;
 		$t2.value = function(u7) {
 			var c7 = Cayita.UI.TableCellAtom();
@@ -270,10 +285,12 @@
 		ss.add(columns, $t2);
 		return columns;
 	};
+	global.Cayita.Demo.UI = $Cayita_Demo_UI;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.User
 	var $Cayita_Demo_User = function() {
 	};
+	$Cayita_Demo_User.__typeName = 'Cayita.Demo.User';
 	$Cayita_Demo_User.createInstance = function() {
 		return $Cayita_Demo_User.$ctor();
 	};
@@ -292,6 +309,7 @@
 		$this.Rating = 0;
 		return $this;
 	};
+	global.Cayita.Demo.User = $Cayita_Demo_User;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.UserStore
 	var $Cayita_Demo_UserStore = function() {
@@ -302,7 +320,14 @@
 			return Cayita.Fn.normalize(u.DoB);
 		};
 	};
-	$Cayita_Demo_UserStore.prototype = {
+	$Cayita_Demo_UserStore.__typeName = 'Cayita.Demo.UserStore';
+	global.Cayita.Demo.UserStore = $Cayita_Demo_UserStore;
+	ss.initClass($DemoTables, {});
+	ss.initClass($Cayita_Demo_Customer, {}, Object);
+	ss.initClass($Cayita_Demo_CustomerStore, {}, Object, [ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList]);
+	ss.initClass($Cayita_Demo_UI, {});
+	ss.initClass($Cayita_Demo_User, {}, Object);
+	ss.initClass($Cayita_Demo_UserStore, {
 		save: function(u) {
 			if (u.Id === 0) {
 				u.Id = --$Cayita_Demo_UserStore.$id;
@@ -312,12 +337,6 @@
 				this.replace(u);
 			}
 		}
-	};
-	ss.registerClass(global, 'DemoTables', $DemoTables);
-	ss.registerClass(global, 'Cayita.Demo.Customer', $Cayita_Demo_Customer, Object);
-	ss.registerClass(global, 'Cayita.Demo.CustomerStore', $Cayita_Demo_CustomerStore, Object, [ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList]);
-	ss.registerClass(global, 'Cayita.Demo.UI', $Cayita_Demo_UI);
-	ss.registerClass(global, 'Cayita.Demo.User', $Cayita_Demo_User, Object);
-	ss.registerClass(global, 'Cayita.Demo.UserStore', $Cayita_Demo_UserStore, Object, [ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList]);
+	}, Object, [ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList]);
 	$Cayita_Demo_UserStore.$id = 0;
 })();

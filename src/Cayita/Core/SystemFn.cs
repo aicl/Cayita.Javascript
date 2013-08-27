@@ -59,7 +59,7 @@ namespace Cayita
 			var r = new List<string> ();
 
 			foreach (var i in keys){
-				if (Type.GetScriptType ( ((dynamic)o)[i]) != "function")
+				if (Script.TypeOf( ((dynamic)o)[i]) != "function")
 					r.Add (i); 
 
 			}

@@ -1,8 +1,10 @@
 ﻿(function() {
+	'use strict';
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.DemoNavbar
 	var $DemoNavbar = function() {
 	};
+	$DemoNavbar.__typeName = 'DemoNavbar';
 	$DemoNavbar.execute = function(parent) {
 		var nb = Cayita.UI.NavBar();
 		nb.nav.set_brandText('App Title');
@@ -30,5 +32,6 @@
 			code.set_text(s);
 		});
 	};
-	ss.registerClass(global, 'DemoNavbar', $DemoNavbar);
+	global.DemoNavbar = $DemoNavbar;
+	ss.initClass($DemoNavbar, {});
 })();

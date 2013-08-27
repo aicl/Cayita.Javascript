@@ -1,8 +1,10 @@
 ﻿(function() {
+	'use strict';
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.DemoTabPanel
 	var $DemoTabPanel = function() {
 	};
+	$DemoTabPanel.__typeName = 'DemoTabPanel';
 	$DemoTabPanel.execute = function(parent) {
 		var d = Cayita.UI.Atom('div', null, 'bs-docs-example');
 		var $t1 = Cayita.UI.TabPanelOptions();
@@ -145,7 +147,8 @@
 		});
 	};
 	$DemoTabPanel.get_$coyoteText = function() {
-		return '<i><b>El <a href=\'https://es.wikipedia.org/wiki/Coyote\' title=\'Coyote\' target=\'_blank\'>Coyote</a> \ny el <a href=\'https://es.wikipedia.org/wiki/Geococcyx_californianus\' title=\'Geococcyx californianus\' \ntarget=\'_blank\'>Correcaminos</a></b></i> (<i><b>Wile E. Coyote</b> and the <b>Road Runner</b></i>) son los personajes \nde una serie <a href=\'https://es.wikipedia.org/wiki/Estados_Unidos\' title=\'Estados Unidos\' \ntarget=\'_blank\'>estadounidense</a> de <a href=\'https://es.wikipedia.org/wiki/Dibujos_animados\' \ntitle=\'Dibujos animados\' target=\'_blank\'>dibujos animados</a> creada en el año de \n<a href=\'https://es.wikipedia.org/wiki/1949\' title=\'1949\' target=\'_blank\'>1949</a> por el animador \n<a href=\'https://es.wikipedia.org/wiki/Chuck_Jones\' title=\'Chuck Jones\' target=\'_blank\'>Chuck Jones</a> \npara <a href=\'https://es.wikipedia.org/wiki/Warner_Brothers\' title=\'Warner Brothers\' \ntarget=\'_blank\'>Warner Brothers</a>. Chuck Jones se inspiró para crear a estos personajes en un libro de \n<a href=\'https://es.wikipedia.org/wiki/Mark_Twain\' title=\'Mark Twain\' target=\'_blank\'>Mark Twain</a>, \ntitulado <i>Roughin It</i>, en el que Twain denotaba que los coyotes hambrientos podrían cazar un correcaminos.  \n<a href=\'https://es.wikipedia.org/wiki/El_Coyote_y_el_Correcaminos\' title=\'Coyote\' \ntarget=\'_blank\'>El Coyote (wikipedia)</a> ';
+		return "<i><b>El <a href='https://es.wikipedia.org/wiki/Coyote' title='Coyote' target='_blank'>Coyote</a> \ny el <a href='https://es.wikipedia.org/wiki/Geococcyx_californianus' title='Geococcyx californianus' \ntarget='_blank'>Correcaminos</a></b></i> (<i><b>Wile E. Coyote</b> and the <b>Road Runner</b></i>) son los personajes \nde una serie <a href='https://es.wikipedia.org/wiki/Estados_Unidos' title='Estados Unidos' \ntarget='_blank'>estadounidense</a> de <a href='https://es.wikipedia.org/wiki/Dibujos_animados' \ntitle='Dibujos animados' target='_blank'>dibujos animados</a> creada en el año de \n<a href='https://es.wikipedia.org/wiki/1949' title='1949' target='_blank'>1949</a> por el animador \n<a href='https://es.wikipedia.org/wiki/Chuck_Jones' title='Chuck Jones' target='_blank'>Chuck Jones</a> \npara <a href='https://es.wikipedia.org/wiki/Warner_Brothers' title='Warner Brothers' \ntarget='_blank'>Warner Brothers</a>. Chuck Jones se inspiró para crear a estos personajes en un libro de \n<a href='https://es.wikipedia.org/wiki/Mark_Twain' title='Mark Twain' target='_blank'>Mark Twain</a>, \ntitulado <i>Roughin It</i>, en el que Twain denotaba que los coyotes hambrientos podrían cazar un correcaminos.  \n<a href='https://es.wikipedia.org/wiki/El_Coyote_y_el_Correcaminos' title='Coyote' \ntarget='_blank'>El Coyote (wikipedia)</a> ";
 	};
-	ss.registerClass(global, 'DemoTabPanel', $DemoTabPanel);
+	global.DemoTabPanel = $DemoTabPanel;
+	ss.initClass($DemoTabPanel, {});
 })();

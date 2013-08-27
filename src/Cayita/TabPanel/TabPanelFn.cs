@@ -91,7 +91,7 @@ namespace Cayita
 				
 
 			var getTab = (Func<object,Tab>)(t => {
-				var tp = Type.GetScriptType (t);
+				var tp = Script.TypeOf (t);
 				if (tp == "number")
 					return jQuery.Select("a[data-toggle='tab']",e.Links ).GetElement(int.Parse(t.ToString())).As<Tab>();
 				if (tp == "object")
@@ -106,8 +106,6 @@ namespace Cayita
 				jQuery.FromElement(e).Append (e.Content).Append(e.Links);
 
 			}
-
-
 
 
 			e.SetToAtomProperty("addDropdownTab", (Func<string,string,DropdownTab>)( (t,i)=>

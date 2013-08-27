@@ -61,9 +61,9 @@ new Form (contact, f=>{
 * **Production**
 * Cayita.js
 * Saltarelle mscorlib.js  & linq.js (http://www.saltarelle-compiler.com)
-* jquery-1.9.1.js (http://jquery.com)
-* Draggable, Resizable and Calendar plugins from jQuery UI 1.10.2 (http://jqueryui.com)
-* autonumeric-1.8.7.js (http://www.decorplanit.com/plugin/)
+* jquery-1.9.2.js (http://jquery.com)
+* Draggable, Resizable and Calendar plugins from jQuery UI 1.10.3 - Flick theme (http://jqueryui.com)
+* autonumeric-1.9.15.js (http://www.decorplanit.com/plugin/)
 * Twitter Boostrap (Jasny version http://jasny.github.com/bootstrap/)
 * Font Awesome (http://fortawesome.github.com/Font-Awesome/)
 * alertify (http://fabien-d.github.io/alertify.js/)

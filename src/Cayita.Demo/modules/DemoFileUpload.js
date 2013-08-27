@@ -1,8 +1,10 @@
 ﻿(function() {
+	'use strict';
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.DemoFileUpload
 	var $DemoFileUpload = function() {
 	};
+	$DemoFileUpload.__typeName = 'DemoFileUpload';
 	$DemoFileUpload.execute = function(parent) {
 		var fp = Cayita.UI.Atom('div', null, 'bs-docs-example');
 		var ff = Cayita.UI.FileField(null, null, null, fp);
@@ -55,13 +57,16 @@
 		var rq = Cayita.Fn.send(fd, 'SaveFileUrl');
 		rq.done(function() {
 			Alertify.log.success('File Uploaded', 5000);
+			null;
 		});
 		rq.fail(function() {
 			Alertify.log.error(Cayita.Fn.fmt('{0}:{1}', [rq.status, rq.statusText]), 0);
+			null;
 		});
 		rq.always(function() {
 			bt.disabled = false;
 		});
 	};
-	ss.registerClass(global, 'DemoFileUpload', $DemoFileUpload);
+	global.DemoFileUpload = $DemoFileUpload;
+	ss.initClass($DemoFileUpload, {});
 })();

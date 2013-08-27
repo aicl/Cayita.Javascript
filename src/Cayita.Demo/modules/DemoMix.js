@@ -1,8 +1,12 @@
 ﻿(function() {
+	'use strict';
+	global.Cayita = global.Cayita || {};
+	global.Cayita.Demo = global.Cayita.Demo || {};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.DemoMix
 	var $DemoMix = function() {
 	};
+	$DemoMix.__typeName = 'DemoMix';
 	$DemoMix.execute = function(parent) {
 		var store = Cayita.Data.Store($Cayita_Demo_MyRecord)();
 		store.lastOption.localPaging = true;
@@ -108,6 +112,7 @@
 		var b4 = Cayita.UI.Button('Bootbox.Dialog I', 'btn', null);
 		b4.add_clicked(function(e3) {
 			Cayita.Plugins.showBootboxDialog('Mi Dialog I', null, null);
+			null;
 		});
 		work.append(b4);
 		var b5 = Cayita.UI.Button('Bootbox.Dialog II', 'btn', null);
@@ -118,6 +123,7 @@
 			};
 			$t2.label = 'My custom Label';
 			Cayita.Plugins.showBootboxDialog('Mi Dialog II', $t2, null);
+			null;
 		});
 		work.append(b5);
 		var b6 = Cayita.UI.Button('Bootbox.Dialog III', 'btn', null);
@@ -130,24 +136,33 @@
 			var $t4 = Cayita.Plugins.BootboxOptions();
 			$t4.header = 'El titulo grande';
 			Cayita.Plugins.showBootboxDialog('Mi Dialog III', $t3, $t4);
+			null;
 		});
 		work.append(b6);
 		var form = Cayita.UI.Form();
 		var $t5 = Cayita.UI.TextField();
 		$t5.input.name = 'Name';
+		null;
 		$t5.label.set_text('Nombre');
+		null;
 		form.append($t5);
 		var $t6 = Cayita.UI.TextField();
 		$t6.input.name = 'First';
+		null;
 		$t6.label.set_text('Apellido');
+		null;
 		form.append($t6);
 		var $t7 = Cayita.UI.IntField();
 		$t7.input.name = 'Age';
+		null;
 		$t7.label.set_text('Edad');
+		null;
 		form.append($t7);
 		var $t8 = Cayita.UI.NumericField();
 		$t8.input.name = 'Average';
+		null;
 		$t8.label.set_text('Promedio');
+		null;
 		form.append($t8);
 		var lang = Cayita.UI.RadioGroup(String)();
 		lang.set_name('FavouriteLanguage');
@@ -160,6 +175,7 @@
 		var $t9 = Cayita.UI.CheckField();
 		$t9.set_text('Active?');
 		$t9.input.name = 'Active';
+		null;
 		form.append($t9);
 		var opt1 = Cayita.UI.CheckGroup(ss.Int32)();
 		opt1.set_name('Ids');
@@ -215,9 +231,11 @@
 		}, false, 'icon-envelope');
 		var $t10 = Cayita.UI.NavItem();
 		$t10.set_value('3');
+		null;
 		$t10.set_text('Tercer Item');
 		$t10.handler = function(e8) {
 			nl.nav.set_header('Soy un NaList click 3');
+			null;
 		};
 		$t10.set_iconClass('iconic-home');
 		nl.nav.addItem($t10);
@@ -306,10 +324,12 @@
 		var cbg = Cayita.UI.CheckGroup(ss.Int32)();
 		var $t14 = Cayita.UI.CheckOption(ss.Int32)();
 		$t14.input.set_value(1);
+		null;
 		$t14.set_text('Opcion 1');
 		cbg.addOption($t14);
 		var $t15 = Cayita.UI.CheckOption(ss.Int32)();
 		$t15.input.set_value(2);
+		null;
 		$t15.set_text('Opcion 2');
 		cbg.addOption($t15);
 		cbg.addOption(Cayita.UI.CheckOption(ss.Int32)(3, 'Opcion 2', true));
@@ -321,10 +341,12 @@
 		rdg.set_name('MyRadio');
 		var $t16 = Cayita.UI.RadioOption(ss.Int32)();
 		$t16.input.set_value(1);
+		null;
 		$t16.set_text('Opcion 1');
 		rdg.addOption($t16);
 		var $t17 = Cayita.UI.RadioOption(ss.Int32)();
 		$t17.input.set_value(2);
+		null;
 		$t17.set_text('Opcion 2');
 		rdg.addOption($t17);
 		rdg.addOption(Cayita.UI.RadioOption(ss.Int32)(3, 'Opcion 3', false));
@@ -335,10 +357,12 @@
 		var cbg1 = Cayita.UI.CheckGroup(ss.Int32)();
 		var $t18 = Cayita.UI.CheckOption(ss.Int32)();
 		$t18.input.set_value(1);
+		null;
 		$t18.set_text('Opcion 1');
 		cbg1.addOption($t18);
 		var $t19 = Cayita.UI.CheckOption(ss.Int32)();
 		$t19.input.set_value(2);
+		null;
 		$t19.set_text('Opcion 2');
 		cbg1.addOption($t19);
 		cbg1.addOption(Cayita.UI.CheckOption(ss.Int32)(3, 'Opcion 2', true));
@@ -470,10 +494,12 @@
 			;
 		});
 	};
+	global.DemoMix = $DemoMix;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.MyCountry
 	var $Cayita_Demo_MyCountry = function() {
 	};
+	$Cayita_Demo_MyCountry.__typeName = 'Cayita.Demo.MyCountry';
 	$Cayita_Demo_MyCountry.createInstance = function() {
 		return $Cayita_Demo_MyCountry.$ctor();
 	};
@@ -483,6 +509,7 @@
 		$this.Name = null;
 		return $this;
 	};
+	global.Cayita.Demo.MyCountry = $Cayita_Demo_MyCountry;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.MyCountrySearchBoxConfig
 	var $Cayita_Demo_MyCountrySearchBoxConfig = function() {
@@ -492,6 +519,8 @@
 		this.resetButton = true;
 		this.minLength = 1;
 	};
+	$Cayita_Demo_MyCountrySearchBoxConfig.__typeName = 'Cayita.Demo.MyCountrySearchBoxConfig';
+	global.Cayita.Demo.MyCountrySearchBoxConfig = $Cayita_Demo_MyCountrySearchBoxConfig;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.MyCountryStore
 	var $Cayita_Demo_MyCountryStore = function(options) {
@@ -525,6 +554,7 @@
 			;
 		}));
 	};
+	$Cayita_Demo_MyCountryStore.__typeName = 'Cayita.Demo.MyCountryStore';
 	$Cayita_Demo_MyCountryStore.defineColumns = function() {
 		var columns = [];
 		ss.add(columns, Cayita.UI.TableColumn($Cayita_Demo_MyCountry)('Name', 'Country', null, true));
@@ -543,10 +573,12 @@
 		}, true));
 		return columns;
 	};
+	global.Cayita.Demo.MyCountryStore = $Cayita_Demo_MyCountryStore;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.MyRecord
 	var $Cayita_Demo_MyRecord = function() {
 	};
+	$Cayita_Demo_MyRecord.__typeName = 'Cayita.Demo.MyRecord';
 	$Cayita_Demo_MyRecord.createInstance = function() {
 		return $Cayita_Demo_MyRecord.$ctor();
 	};
@@ -591,10 +623,11 @@
 		$this.MultipleSelection = [];
 		return $this;
 	};
-	ss.registerClass(global, 'DemoMix', $DemoMix);
-	ss.registerClass(global, 'Cayita.Demo.MyCountry', $Cayita_Demo_MyCountry, Object);
-	ss.registerClass(global, 'Cayita.Demo.MyCountrySearchBoxConfig', $Cayita_Demo_MyCountrySearchBoxConfig, Object);
-	ss.registerClass(global, 'Cayita.Demo.MyCountryStore', $Cayita_Demo_MyCountryStore, Object, [ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList]);
-	ss.registerClass(global, 'Cayita.Demo.MyRecord', $Cayita_Demo_MyRecord, Object);
+	global.Cayita.Demo.MyRecord = $Cayita_Demo_MyRecord;
+	ss.initClass($DemoMix, {});
+	ss.initClass($Cayita_Demo_MyCountry, {}, Object);
+	ss.initClass($Cayita_Demo_MyCountrySearchBoxConfig, {}, Object);
+	ss.initClass($Cayita_Demo_MyCountryStore, {}, Object, [ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList]);
+	ss.initClass($Cayita_Demo_MyRecord, {}, Object);
 	$Cayita_Demo_MyRecord.$id = 0;
 })();

@@ -1,4 +1,5 @@
 ﻿(function() {
+	'use strict';
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.App
 	var $App = function() {
@@ -7,7 +8,27 @@
 		this.$1$WorkField = null;
 		this.$modules = [];
 	};
-	$App.prototype = {
+	$App.__typeName = 'App';
+	$App.main = function() {
+		$(function() {
+			var app = new $App();
+			app.$showTopNavBar();
+			app.$buildMenuItems();
+			app.$showMenu();
+			app.$goHome();
+		});
+	};
+	global.App = $App;
+	////////////////////////////////////////////////////////////////////////////////
+	// Cayita.Demo.MenuItem
+	var $MenuItem = function() {
+		this.$1$ClassField = null;
+		this.$1$TitleField = null;
+		this.$1$FileField = null;
+	};
+	$MenuItem.__typeName = 'MenuItem';
+	global.MenuItem = $MenuItem;
+	ss.initClass($App, {
 		get_$topNavBar: function() {
 			return this.$1$TopNavBarField;
 		},
@@ -165,24 +186,8 @@
 			$(this.get_$work()).empty();
 			$(this.get_$work()).append('<div class="well">\n<p>Cayita is a library for building responsive webapps using C#  as base language and the Saltarelle compiler \n<a href="http://www.saltarelle-compiler.com" target="_blank">\nhttp://www.saltarelle-compiler.com\n</a>\n</p>\n</p></div>');
 		}
-	};
-	$App.main = function() {
-		$(function() {
-			var app = new $App();
-			app.$showTopNavBar();
-			app.$buildMenuItems();
-			app.$showMenu();
-			app.$goHome();
-		});
-	};
-	////////////////////////////////////////////////////////////////////////////////
-	// Cayita.Demo.MenuItem
-	var $MenuItem = function() {
-		this.$1$ClassField = null;
-		this.$1$TitleField = null;
-		this.$1$FileField = null;
-	};
-	$MenuItem.prototype = {
+	});
+	ss.initClass($MenuItem, {
 		get_class: function() {
 			return this.$1$ClassField;
 		},
@@ -201,7 +206,5 @@
 		set_file: function(value) {
 			this.$1$FileField = value;
 		}
-	};
-	ss.registerClass(global, 'App', $App);
-	ss.registerClass(global, 'MenuItem', $MenuItem);
+	});
 })();

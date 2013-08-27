@@ -1,10 +1,14 @@
 ﻿(function() {
+	'use strict';
+	global.Cayita = global.Cayita || {};
+	global.Cayita.JData = global.Cayita.JData || {};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.AlertFn
 	var $Cayita_AlertFn = function() {
 	};
+	$Cayita_AlertFn.__typeName = 'Cayita.AlertFn';
 	$Cayita_AlertFn.ErrorTemplate = function() {
-		return '<div class=\'alert alert-block alert-error\'><a class=\'close\' data-dismiss=\'alert\' href=\'#\'>×</a>{0}</div>';
+		return "<div class='alert alert-block alert-error'><a class='close' data-dismiss='alert' href='#'>×</a>{0}</div>";
 	};
 	$Cayita_AlertFn.Error = function(element, message, before, delay) {
 		$Cayita_AlertFn.$Imp(element, message, before, delay, $Cayita_AlertFn.ErrorTmpl);
@@ -22,7 +26,7 @@
 		var jq = $($Cayita_AlertFn.PageAlertTmpl(message, type));
 		var j = $('.page-alert', parent);
 		if (j.length === 0) {
-			j = $($Cayita_Fn.fmt('<div class=\'page-alert\' style=\'z-index:{0};position:fixed;\'></div>', [$Cayita_AlertFn.PageAlertZIndex]));
+			j = $($Cayita_Fn.fmt("<div class='page-alert' style='z-index:{0};position:fixed;'></div>", [$Cayita_AlertFn.PageAlertZIndex]));
 			$(parent).append(j);
 		}
 		j.append(jq);
@@ -46,10 +50,12 @@
 			}, delay);
 		}
 	};
+	global.Cayita.AlertFn = $Cayita_AlertFn;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.JData.Data
 	var $Cayita_Data = function() {
 	};
+	$Cayita_Data.__typeName = 'Cayita.Data';
 	$Cayita_Data.StoreChangedData = function(T) {
 		return function() {
 			return { newData: null, oldData: null, action: 0, index: -1 };
@@ -78,7 +84,7 @@
 			}
 			if (!o.localPaging) {
 				if (ss.isValue(o.pageNumber)) {
-					ro[o.pageNumberParam] = ss.Nullable.unbox(o.pageNumber);
+					ro[o.pageNumberParam] = ss.unbox(o.pageNumber);
 				}
 				if (ss.isValue(o.pageSize)) {
 					ro[o.pageSizeParam] = o.pageSize;
@@ -205,7 +211,7 @@
 				$t3.action = action2;
 				$t3.newData = ndata;
 				$t3.oldData = odata;
-				$t3.index = (ss.isValue(index) ? ss.Nullable.unbox(index) : -1);
+				$t3.index = (ss.isValue(index) ? ss.unbox(index) : -1);
 				storeChanged(store2, $t3);
 			};
 			var createFn = function(record) {
@@ -276,7 +282,7 @@
 						ss.add(ls, ss.cast(res1, T));
 					}
 					var tc = ss.cast(data1[o.api.totalCountProperty], ss.Int32);
-					o.set_totalCount((ss.isValue(tc) ? ss.Nullable.unbox(tc) : Enumerable.from(ls).count(o.get_filterFn())));
+					o.set_totalCount((ss.isValue(tc) ? ss.unbox(tc) : Enumerable.from(ls).count(o.get_filterFn())));
 					onStoreChanged(o, 2, null, null, -1);
 				});
 				req1.fail(function(f1) {
@@ -400,14 +406,14 @@
 				return createFn(d4);
 			};
 			o.read = function(ro, clear) {
-				if (!ss.isValue(clear) || ss.Nullable.unbox(clear)) {
+				if (!ss.isValue(clear) || ss.unbox(clear)) {
 					ss.clear(ls);
 				}
 				if (!ss.staticEquals(ro, null)) {
 					ro(o.lastOption);
 				}
 				var lo = o.lastOption;
-				if (ss.isValue(lo.pageNumber) && (!ss.isValue(lo.pageSize) || ss.isValue(lo.pageSize) && ss.Nullable.unbox(lo.pageSize) === 0)) {
+				if (ss.isValue(lo.pageNumber) && (!ss.isValue(lo.pageSize) || ss.isValue(lo.pageSize) && ss.unbox(lo.pageSize) === 0)) {
 					lo.pageSize = defaultPageSize;
 				}
 				return readFn(o.lastOption);
@@ -436,10 +442,10 @@
 					ro1(o.lastOption);
 				}
 				var lo1 = o.lastOption;
-				if (ss.isValue(lo1.pageNumber) && (!ss.isValue(lo1.pageSize) || ss.isValue(lo1.pageSize) && ss.Nullable.unbox(lo1.pageSize) === 0)) {
+				if (ss.isValue(lo1.pageNumber) && (!ss.isValue(lo1.pageSize) || ss.isValue(lo1.pageSize) && ss.unbox(lo1.pageSize) === 0)) {
 					lo1.pageSize = defaultPageSize;
 				}
-				if (!ss.isValue(append) || !ss.Nullable.unbox(append)) {
+				if (!ss.isValue(append) || !ss.unbox(append)) {
 					ss.clear(ls);
 				}
 				ss.arrayAddRange(ls, data5);
@@ -447,10 +453,10 @@
 				onStoreChanged(o, 11, null, null, -1);
 			};
 			o.hasNextPage = function() {
-				return ((o.get_count() === o.get_totalCount() || !ss.isValue(o.lastOption.pageNumber)) ? false : (ss.Nullable.unbox(o.lastOption.pageNumber) + 1 < o.pagesCount()));
+				return ((o.get_count() === o.get_totalCount() || !ss.isValue(o.lastOption.pageNumber)) ? false : (ss.unbox(o.lastOption.pageNumber) + 1 < o.pagesCount()));
 			};
 			o.hasPreviousPage = function() {
-				return !(o.get_count() === o.get_totalCount() || !ss.isValue(o.lastOption.pageNumber) || ss.isValue(o.lastOption.pageNumber) && ss.Nullable.unbox(o.lastOption.pageNumber) === 0);
+				return !(o.get_count() === o.get_totalCount() || !ss.isValue(o.lastOption.pageNumber) || ss.isValue(o.lastOption.pageNumber) && ss.unbox(o.lastOption.pageNumber) === 0);
 			};
 			o.readFirstPage = function() {
 				if (ss.isValue(o.lastOption.pageNumber)) {
@@ -464,10 +470,10 @@
 				}
 			};
 			o.readNextPage = function(checkForNext) {
-				if ((!ss.isValue(checkForNext) || ss.Nullable.unbox(checkForNext)) && !o.hasNextPage()) {
+				if ((!ss.isValue(checkForNext) || ss.unbox(checkForNext)) && !o.hasNextPage()) {
 					return;
 				}
-				o.lastOption.pageNumber = ss.Nullable.add(o.lastOption.pageNumber, 1);
+				o.lastOption.pageNumber = ss.Nullable$1.add(o.lastOption.pageNumber, 1);
 				if (!o.lastOption.localPaging) {
 					o.get_readFn()(o.lastOption);
 				}
@@ -476,10 +482,10 @@
 				}
 			};
 			o.readPreviousPage = function(checkForPrevious) {
-				if ((!ss.isValue(checkForPrevious) || ss.Nullable.unbox(checkForPrevious)) && !o.hasPreviousPage()) {
+				if ((!ss.isValue(checkForPrevious) || ss.unbox(checkForPrevious)) && !o.hasPreviousPage()) {
 					return;
 				}
-				o.lastOption.pageNumber = ss.Nullable.sub(o.lastOption.pageNumber, 1);
+				o.lastOption.pageNumber = ss.Nullable$1.sub(o.lastOption.pageNumber, 1);
 				if (!o.lastOption.localPaging) {
 					o.get_readFn()(o.lastOption);
 				}
@@ -510,12 +516,12 @@
 				}
 			};
 			o.pagesCount = function() {
-				return ss.Int32.trunc(Math.ceil(o.get_totalCount() / (ss.isValue(o.lastOption.pageSize) ? ss.Nullable.unbox(o.lastOption.pageSize) : ls.length)));
+				return ss.Int32.trunc(Math.ceil(o.get_totalCount() / (ss.isValue(o.lastOption.pageSize) ? ss.unbox(o.lastOption.pageSize) : ls.length)));
 			};
 			o.fromTo = function() {
 				var lo2 = o.lastOption;
-				var pageNumber = (ss.isValue(lo2.pageNumber) ? ss.Nullable.unbox(lo2.pageNumber) : 0);
-				var pageSize = (ss.isValue(lo2.pageSize) ? ss.Nullable.unbox(lo2.pageSize) : o.get_totalCount());
+				var pageNumber = (ss.isValue(lo2.pageNumber) ? ss.unbox(lo2.pageNumber) : 0);
+				var pageSize = (ss.isValue(lo2.pageSize) ? ss.unbox(lo2.pageSize) : o.get_totalCount());
 				var from_ = pageNumber * pageSize + 1;
 				var to_ = pageNumber * pageSize + pageSize;
 				if (to_ > o.get_totalCount()) {
@@ -548,7 +554,7 @@
 				onStoreChanged(o, 8, clone, value, index5);
 			};
 			o.get_count = function() {
-				return ((o.lastOption.localPaging && ss.isValue(o.lastOption.pageSize) && ss.Nullable.unbox(o.lastOption.pageSize) < Enumerable.from(ls).count(o.get_filterFn())) ? ss.Nullable.unbox(o.lastOption.pageSize) : Enumerable.from(ls).count(o.get_filterFn()));
+				return ((o.lastOption.localPaging && ss.isValue(o.lastOption.pageSize) && ss.unbox(o.lastOption.pageSize) < Enumerable.from(ls).count(o.get_filterFn())) ? ss.unbox(o.lastOption.pageSize) : Enumerable.from(ls).count(o.get_filterFn()));
 			};
 			o.add = function(item6) {
 				ss.add(ls, item6);
@@ -572,7 +578,7 @@
 			o.getEnumerator = function() {
 				var lo3 = o.lastOption;
 				if (lo3.localPaging && ss.isValue(lo3.pageNumber) && ss.isValue(lo3.pageSize)) {
-					return Enumerable.from(ls).where(o.get_filterFn()).skip(ss.Nullable.unbox(lo3.pageNumber) * ss.Nullable.unbox(lo3.pageSize)).take(ss.Nullable.unbox(lo3.pageSize)).getEnumerator();
+					return Enumerable.from(ls).where(o.get_filterFn()).skip(ss.unbox(lo3.pageNumber) * ss.unbox(lo3.pageSize)).take(ss.unbox(lo3.pageSize)).getEnumerator();
 				}
 				return Enumerable.from(ls).where(o.get_filterFn()).getEnumerator();
 			};
@@ -655,10 +661,12 @@
 			return o;
 		};
 	};
+	global.Cayita.Data = $Cayita_Data;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Fn
 	var $Cayita_Fn = function() {
 	};
+	$Cayita_Fn.__typeName = 'Cayita.Fn';
 	$Cayita_Fn.fmt = function(format, args) {
 		return ss.formatString.apply(null, [format].concat(args));
 	};
@@ -745,15 +753,18 @@
 			console.log('Age;', age);
 		};
 	};
+	global.Cayita.Fn = $Cayita_Fn;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.FormUpdatedAction
 	var $Cayita_FormUpdatedAction = function() {
 	};
-	$Cayita_FormUpdatedAction.prototype = { clear: 0, populate: 1 };
+	$Cayita_FormUpdatedAction.__typeName = 'Cayita.FormUpdatedAction';
+	global.Cayita.FormUpdatedAction = $Cayita_FormUpdatedAction;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Plugins
 	var $Cayita_Plugins = function() {
 	};
+	$Cayita_Plugins.__typeName = 'Cayita.Plugins';
 	$Cayita_Plugins.BootboxOptions = function() {
 		return {
 			onEscape: function() {
@@ -833,10 +844,12 @@
 		input.style.cssText = 'text-align:right;';
 		$(input)['autoNumeric']('init', options);
 	};
+	global.Cayita.Plugins = $Cayita_Plugins;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.UI
 	var $Cayita_UI = function() {
 	};
+	$Cayita_UI.__typeName = 'Cayita.UI';
 	$Cayita_UI.Button = function(text, className, type, action, parent) {
 		return $Cayita_UI.Atom('button', ss.coalesce(type, 'button'), ss.coalesce(className, 'btn'), text, action, parent);
 	};
@@ -882,7 +895,7 @@
 			return !$(e).is(':visible');
 		};
 		e.do_hide = function(v) {
-			if (!ss.isValue(v) || ss.Nullable.unbox(v)) {
+			if (!ss.isValue(v) || ss.unbox(v)) {
 				$(e).hide();
 			}
 			else {
@@ -1039,16 +1052,19 @@
 		if (ss.isNullOrUndefined($t2)) {
 			var $t1 = Cayita.Plugins.NumericOptions();
 			$t1.lZero = 'deny';
+			null;
 			$t2 = $t1;
 		}
-		return $Cayita_UI.AutoNumeric(ss.Nullable).call(null, $t2, className, name, placeholder, action, parent);
+		return $Cayita_UI.AutoNumeric(ss.makeGenericType(ss.Nullable$1, [Number])).call(null, $t2, className, name, placeholder, action, parent);
 	};
 	$Cayita_UI.NumericInput = function(options, className, name, placeholder, action, parent) {
 		var $t2 = options;
 		if (ss.isNullOrUndefined($t2)) {
 			var $t1 = Cayita.Plugins.NumericOptions();
 			$t1.wEmpty = 'zero';
+			null;
 			$t1.lZero = 'deny';
+			null;
 			$t2 = $t1;
 		}
 		return $Cayita_UI.AutoNumeric(Number).call(null, $t2, className, name, placeholder, action, parent);
@@ -1058,8 +1074,11 @@
 		if (ss.isNullOrUndefined($t2)) {
 			var $t1 = Cayita.Plugins.NumericOptions();
 			$t1.wEmpty = 'zero';
+			null;
 			$t1.lZero = 'deny';
+			null;
 			$t1.mDec = 0;
+			null;
 			$t2 = $t1;
 		}
 		return $Cayita_UI.AutoNumeric(ss.Int32).call(null, $t2, className, name, placeholder, action, parent);
@@ -1069,10 +1088,12 @@
 		if (ss.isNullOrUndefined($t2)) {
 			var $t1 = Cayita.Plugins.NumericOptions();
 			$t1.lZero = 'deny';
+			null;
 			$t1.mDec = 0;
+			null;
 			$t2 = $t1;
 		}
-		return $Cayita_UI.AutoNumeric(ss.Nullable).call(null, $t2, className, name, placeholder, action, parent);
+		return $Cayita_UI.AutoNumeric(ss.makeGenericType(ss.Nullable$1, [ss.Int32])).call(null, $t2, className, name, placeholder, action, parent);
 	};
 	$Cayita_UI.CheckInput = function(T) {
 		return function(className, name, text, action, parent) {
@@ -1354,7 +1375,7 @@
 			try {
 				while ($t3.moveNext()) {
 					var p = { $: $t3.current() };
-					var o = $($Cayita_Fn.fmt('[name=\'{0}\']', [p.$.key]), e);
+					var o = $($Cayita_Fn.fmt("[name='{0}']", [p.$.key]), e);
 					o.each(ss.mkdel({ p: p }, function(index, element) {
 						var atom = element;
 						var value = this.p.$.value;
@@ -1410,7 +1431,7 @@
 			try {
 				while ($t5.moveNext()) {
 					var p1 = $t5.current();
-					var o1 = $($Cayita_Fn.fmt('[name=\'{0}\']', [p1.key]), e);
+					var o1 = $($Cayita_Fn.fmt("[name='{0}']", [p1.key]), e);
 					if (o1.length === 0) {
 						continue;
 					}
@@ -1435,6 +1456,7 @@
 							var q1 = $('option:selected', element1);
 							q1.each(ss.mkdel({ r: this.r }, function(i2, el) {
 								ss.add(this.r.$, el.get_value());
+								null;
 							}));
 						}
 						else {
@@ -1539,7 +1561,7 @@
 		var a = Cayita.UI.Anchor(null, '#');
 		a.tabIndex = -1;
 		a.icon = Cayita.UI.Atom('i', null, iconClass);
-		$(a).append(a.icon).append($Cayita_UI.$BuildText(text) + (caret ? '<b class=\'caret\'></b>' : ''));
+		$(a).append(a.icon).append($Cayita_UI.$BuildText(text) + (caret ? "<b class='caret'></b>" : ''));
 		a.nav = $Cayita_UI.CreateNavBase(null);
 		a.nav.className = 'dropdown-menu';
 		a.get_iconClass = function() {
@@ -1591,7 +1613,7 @@
 		}, action, parent);
 	};
 	$Cayita_UI.NullableNumericField = function(name, placeholder, action, parent) {
-		return $Cayita_UI.Field(ss.Nullable).call(null, function() {
+		return $Cayita_UI.Field(ss.makeGenericType(ss.Nullable$1, [Number])).call(null, function() {
 			return $Cayita_UI.NullableNumericInput(null, null, name, placeholder, null, null);
 		}, action, parent);
 	};
@@ -1601,7 +1623,7 @@
 		}, action, parent);
 	};
 	$Cayita_UI.NullableIntField = function(name, placeholder, action, parent) {
-		return $Cayita_UI.Field(ss.Nullable).call(null, function() {
+		return $Cayita_UI.Field(ss.makeGenericType(ss.Nullable$1, [ss.Int32])).call(null, function() {
 			return $Cayita_UI.NullableIntInput(null, null, name, placeholder, null, null);
 		}, action, parent);
 	};
@@ -1621,7 +1643,7 @@
 		return e;
 	};
 	$Cayita_UI.NullableDateField = function(options, name, placeholder, action, parent) {
-		var e = $Cayita_UI.Field(ss.Nullable).call(null, function() {
+		var e = $Cayita_UI.Field(ss.makeGenericType(ss.Nullable$1, [Date])).call(null, function() {
 			return $Cayita_UI.NullableDateInput(options, null, null, null, null, null);
 		}, null, null);
 		e.get_picker = function() {
@@ -1654,9 +1676,11 @@
 			};
 			e.add_changed = function(ev) {
 				e.input.add_changed(ev);
+				null;
 			};
 			e.removed_changed = function(ev1) {
 				e.input.remove_changed(ev1);
+				null;
 			};
 			if (!ss.staticEquals(action, null)) {
 				action(e);
@@ -1761,9 +1785,11 @@
 		};
 		e.add_changed = function(ev) {
 			e.input.add_changed(ev);
+			null;
 		};
 		e.removed_changed = function(ev1) {
 			e.input.remove_changed(ev1);
+			null;
 		};
 		return e;
 	};
@@ -1880,6 +1906,7 @@
 				if (!e.is_multiple()) {
 					e.getRows().forEach(function(r4) {
 						r4.classList.remove('info');
+						null;
 					});
 				}
 				$(row).addClass('info');
@@ -1959,7 +1986,7 @@
 				}
 			};
 			e.multiple = function(m) {
-				multiple = ((!ss.isValue(m) || ss.Nullable.unbox(m)) ? true : false);
+				multiple = ((!ss.isValue(m) || ss.unbox(m)) ? true : false);
 			};
 			e.is_multiple = function() {
 				return multiple;
@@ -1991,6 +2018,7 @@
 			e.clearSelection = function() {
 				e.getRows().forEach(function(r5) {
 					r5.classList.remove('info');
+					null;
 				});
 				e.selectedRow = null;
 			};
@@ -2176,7 +2204,7 @@
 				return $Cayita_UI.$GetInlineValue(e);
 			};
 			e.required = function(v1) {
-				if (!ss.isValue(v1) || ss.Nullable.unbox(v1)) {
+				if (!ss.isValue(v1) || ss.unbox(v1)) {
 					$(e).attr('required', 'required');
 					$('input', e.controls).each(function(i, el) {
 						el.required = true;
@@ -2534,6 +2562,7 @@
 			var q = $('option:selected', el);
 			q.each(function(index, element) {
 				ss.add(s, element);
+				null;
 			});
 			return s;
 		};
@@ -2634,7 +2663,7 @@
 			return $(e).hasClass('navbar-inverse');
 		};
 		e.nav.inverse = function(v1) {
-			if (!ss.isValue(v1) || ss.Nullable.unbox(v1)) {
+			if (!ss.isValue(v1) || ss.unbox(v1)) {
 				$(e).addClass('navbar-inverse');
 			}
 			else {
@@ -2646,6 +2675,7 @@
 		};
 		e.set_text = function(v2) {
 			e.nav.set_brandText(v2);
+			null;
 		};
 		e.collapse.addElement = function(v3) {
 			e.collapse.append(v3);
@@ -2685,6 +2715,7 @@
 		};
 		e.set_text = function(v1) {
 			e.nav.set_header(v1);
+			null;
 		};
 		if (ss.isValue(parent)) {
 			parent.append(e);
@@ -2783,7 +2814,7 @@
 		};
 		l.disableItem = function(v1, d) {
 			var j = $($Cayita_UI.SelectFn(v1), l);
-			if (!ss.isValue(d) || ss.Nullable.unbox(d)) {
+			if (!ss.isValue(d) || ss.unbox(d)) {
 				j.addClass('disabled');
 			}
 			else {
@@ -2792,7 +2823,7 @@
 		};
 		l.disableAll = function(d1) {
 			var j1 = $($Cayita_UI.ItemSelector, l);
-			if (!ss.isValue(d1) || ss.Nullable.unbox(d1)) {
+			if (!ss.isValue(d1) || ss.unbox(d1)) {
 				j1.addClass('disabled');
 			}
 			else {
@@ -2801,9 +2832,11 @@
 		};
 		l.addValue = function(v2, t, h, d2, i3) {
 			l.addItem(Cayita.UI.NavItem(v2, t, h, d2, i3));
+			null;
 		};
 		l.addDivider = function(v3) {
 			l.addItem(Cayita.UI.Atom('li', null, v3, null));
+			null;
 		};
 		l.loadList = function(list) {
 			var s = new ss.StringBuilder();
@@ -2897,14 +2930,14 @@
 			return e._options.closable;
 		};
 		e.closable = function(v) {
-			e._options.closable = (ss.isValue(v) ? ss.Nullable.unbox(v) : true);
+			e._options.closable = (ss.isValue(v) ? ss.unbox(v) : true);
 			e.closeIcon.do_hide(!e._options.closable);
 		};
 		e.is_collapsible = function() {
 			return e._options.collapsible;
 		};
 		e.collapsible = function(v1) {
-			e._options.collapsible = (ss.isValue(v1) ? ss.Nullable.unbox(v1) : true);
+			e._options.collapsible = (ss.isValue(v1) ? ss.unbox(v1) : true);
 			e.collapseIcon.do_hide(!e._options.collapsible);
 		};
 		e.get_top = function() {
@@ -2960,7 +2993,7 @@
 			if (ss.isNullOrUndefined(e.parentNode)) {
 				$(document.body).append(e);
 			}
-			if (!ss.isValue(show) || ss.Nullable.unbox(show)) {
+			if (!ss.isValue(show) || ss.unbox(show)) {
 				$(e).show();
 			}
 			else {
@@ -3010,7 +3043,7 @@
 			}
 		};
 		e.resizable = function(v7) {
-			options.resizable = (ss.isValue(v7) ? ss.Nullable.unbox(v7) : true);
+			options.resizable = (ss.isValue(v7) ? ss.unbox(v7) : true);
 			if (e._options.resizable) {
 				if (ss.isNullOrUndefined(robject)) {
 					robject = $(e._contentband).resizable();
@@ -3026,7 +3059,7 @@
 			return options.resizable;
 		};
 		e.do_draggable = function(v8) {
-			e._options.draggable = (ss.isValue(v8) ? ss.Nullable.unbox(v8) : true);
+			e._options.draggable = (ss.isValue(v8) ? ss.unbox(v8) : true);
 			if (options.draggable) {
 				if (ss.isNullOrUndefined(dobject)) {
 					dobject = $(e).draggable();
@@ -3362,11 +3395,13 @@
 			e.GetValue = function() {
 				return func(e);
 			};
+			null;
 		};
 		e.set_setValueFn = function(func1) {
 			e.setValue = function(v1) {
 				func1(e, v1);
 			};
+			null;
 		};
 		return e;
 	};
@@ -3386,7 +3421,7 @@
 			if (!ss.isValue(i)) {
 				i = -1;
 			}
-			var rf = ((ss.Nullable.unbox(i) < 0) ? e.getLastCell() : e.getCellByIndex(ss.Nullable.unbox(i)));
+			var rf = ((ss.unbox(i) < 0) ? e.getLastCell() : e.getCellByIndex(ss.unbox(i)));
 			var r = $Cayita_UI.TableCellAtom(e.id);
 			if (ss.isNullOrUndefined(rf)) {
 				$(rf).before(r);
@@ -3415,17 +3450,19 @@
 		return function(index, header, val, autoHeader) {
 			var o = { header: null, value: null, footer: null, hidden: false, afterCellCreated: null };
 			if (!ss.isNullOrEmptyString(index)) {
-				if (ss.isNullOrEmptyString(header) && (!ss.isValue(autoHeader) || ss.Nullable.unbox(autoHeader))) {
+				if (ss.isNullOrEmptyString(header) && (!ss.isValue(autoHeader) || ss.unbox(autoHeader))) {
 					header = index;
 				}
 				if (!ss.isNullOrEmptyString(header)) {
 					var $t1 = Cayita.UI.TableCellAtom();
 					$t1.set_value(header);
+					null;
 					o.header = $t1;
 				}
 				if (ss.staticEquals(val, null)) {
 					val = function(t, c) {
 						c.set_value($Cayita_Fn.$get(t, index));
+						null;
 					};
 				}
 				o.value = function(t1) {
@@ -3470,7 +3507,7 @@
 			if (!ss.isValue(i1)) {
 				i1 = -1;
 			}
-			var rf = ((ss.Nullable.unbox(i1) < 0) ? t.getLastRow() : t.getRowByIndex(ss.Nullable.unbox(i1)));
+			var rf = ((ss.unbox(i1) < 0) ? t.getLastRow() : t.getRowByIndex(ss.unbox(i1)));
 			var r = $Cayita_UI.TableRowAtom(t.id);
 			if (ss.isNullOrUndefined(rf)) {
 				$(rf).before(r);
@@ -3538,7 +3575,7 @@
 				$(e.getRowById(id1)).remove();
 			};
 			e.load = function(list, append) {
-				if (!ss.isValue(append) || !ss.Nullable.unbox(append)) {
+				if (!ss.isValue(append) || !ss.unbox(append)) {
 					$(e.body).empty();
 				}
 				var fbody = document.createDocumentFragment();
@@ -3638,7 +3675,7 @@
 			return a.item.classList.contains('disabled');
 		};
 		a.disable = function(v1) {
-			if (!ss.isValue(v1) || ss.Nullable.unbox(v1)) {
+			if (!ss.isValue(v1) || ss.unbox(v1)) {
 				a.classList.add('disabled');
 				a.item.classList.add('disabled');
 			}
@@ -3647,7 +3684,7 @@
 				a.item.classList.remove('disabled');
 			}
 		};
-		if (ss.isValue(disabled) && ss.Nullable.unbox(disabled)) {
+		if (ss.isValue(disabled) && ss.unbox(disabled)) {
 			a.disable(true);
 		}
 		a.clickHandler = function(p) {
@@ -3657,10 +3694,10 @@
 	};
 	$Cayita_UI.TabPanelOptions = function(bordered, tabsPosition, navType, stacked) {
 		var po = {};
-		po.bordered = (ss.isValue(bordered) ? ss.Nullable.unbox(bordered) : false);
+		po.bordered = (ss.isValue(bordered) ? ss.unbox(bordered) : false);
 		po.tabsPosition = (ss.isNullOrEmptyString(tabsPosition) ? 'top' : tabsPosition);
 		po.navType = (ss.isNullOrEmptyString(navType) ? 'tabs' : navType);
-		po.stacked = (ss.isValue(stacked) ? ss.Nullable.unbox(stacked) : false);
+		po.stacked = (ss.isValue(stacked) ? ss.unbox(stacked) : false);
 		return po;
 	};
 	$Cayita_UI.TabPanel = function(options, action) {
@@ -3671,7 +3708,7 @@
 		var getTab = function(t) {
 			var tp = typeof(t);
 			if (tp === 'number') {
-				return $('a[data-toggle=\'tab\']', e.links).get(parseInt(t.toString()));
+				return $("a[data-toggle='tab']", e.links).get(parseInt(t.toString()));
 			}
 			if (tp === 'object') {
 				return t;
@@ -3698,7 +3735,7 @@
 			e.content.append(tab1.body);
 		};
 		e.getTab = function(index) {
-			return $('a[data-toggle=\'tab\']', e.links).get(index);
+			return $("a[data-toggle='tab']", e.links).get(index);
 		};
 		e.remove = function(t2) {
 			var tab2 = getTab(t2);
@@ -3720,27 +3757,27 @@
 			if (ss.isNullOrUndefined(tab4)) {
 				return;
 			}
-			tab4.disable((ss.isValue(v) ? ss.Nullable.unbox(v) : true));
+			tab4.disable((ss.isValue(v) ? ss.unbox(v) : true));
 		};
 		e.add_tabShow = function(ev) {
-			$Cayita_UI.$On(e, 'show', ev, 'a[data-toggle=\'tab\']', null);
+			$Cayita_UI.$On(e, 'show', ev, "a[data-toggle='tab']", null);
 		};
 		e.remove_tabShow = function(ev1) {
-			$Cayita_UI.$Off(e, 'show', ev1, 'a[data-toggle=\'tab\']');
+			$Cayita_UI.$Off(e, 'show', ev1, "a[data-toggle='tab']");
 		};
 		e.add_tabShown = function(ev2) {
-			$Cayita_UI.$On(e, 'shown', ev2, 'a[data-toggle=\'tab\']', null);
+			$Cayita_UI.$On(e, 'shown', ev2, "a[data-toggle='tab']", null);
 		};
 		e.remove_tabShown = function(ev3) {
-			$Cayita_UI.$Off(e, 'shown', ev3, 'a[data-toggle=\'tab\']');
+			$Cayita_UI.$Off(e, 'shown', ev3, "a[data-toggle='tab']");
 		};
 		e.add_tabClicked = function(ev4) {
-			$Cayita_UI.$On(e, 'click', ev4, 'a[data-toggle=\'tab\']', null);
+			$Cayita_UI.$On(e, 'click', ev4, "a[data-toggle='tab']", null);
 		};
 		e.remove_tabClicked = function(ev5) {
-			$Cayita_UI.$Off(e, 'clik', ev5, 'a[data-toggle=\'tab\']');
+			$Cayita_UI.$Off(e, 'clik', ev5, "a[data-toggle='tab']");
 		};
-		$(e).on('click', 'a[data-toggle=\'tab\']', function(ev6) {
+		$(e).on('click', "a[data-toggle='tab']", function(ev6) {
 			ev6.preventDefault();
 			if (ev6.currentTarget.classList.contains('disabled')) {
 				return;
@@ -3752,36 +3789,41 @@
 		}
 		return e;
 	};
+	global.Cayita.UI = $Cayita_UI;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.JData.StoreChangedAction
 	var $Cayita_JData_StoreChangedAction = function() {
 	};
-	$Cayita_JData_StoreChangedAction.prototype = { none: 0, created: 1, read: 2, updated: 3, destroyed: 4, patched: 5, added: 6, inserted: 7, replaced: 8, removed: 9, cleared: 10, loaded: 11, filtered: 12 };
+	$Cayita_JData_StoreChangedAction.__typeName = 'Cayita.JData.StoreChangedAction';
+	global.Cayita.JData.StoreChangedAction = $Cayita_JData_StoreChangedAction;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.JData.StoreFailedAction
 	var $Cayita_JData_StoreFailedAction = function() {
 	};
-	$Cayita_JData_StoreFailedAction.prototype = { none: 0, create: 1, read: 2, update: 3, destroy: 4, patch: 5 };
+	$Cayita_JData_StoreFailedAction.__typeName = 'Cayita.JData.StoreFailedAction';
+	global.Cayita.JData.StoreFailedAction = $Cayita_JData_StoreFailedAction;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.JData.StoreRequestedAction
 	var $Cayita_JData_StoreRequestedAction = function() {
 	};
-	$Cayita_JData_StoreRequestedAction.prototype = { none: 0, create: 1, read: 2, update: 3, destroy: 4, patch: 5 };
+	$Cayita_JData_StoreRequestedAction.__typeName = 'Cayita.JData.StoreRequestedAction';
+	global.Cayita.JData.StoreRequestedAction = $Cayita_JData_StoreRequestedAction;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.JData.StoreRequestedState
 	var $Cayita_JData_StoreRequestedState = function() {
 	};
-	$Cayita_JData_StoreRequestedState.prototype = { none: 0, started: 1, finished: 2 };
-	ss.registerClass(global, 'Cayita.AlertFn', $Cayita_AlertFn);
-	ss.registerClass(global, 'Cayita.Data', $Cayita_Data);
-	ss.registerClass(global, 'Cayita.Fn', $Cayita_Fn);
-	ss.registerEnum(global, 'Cayita.FormUpdatedAction', $Cayita_FormUpdatedAction);
-	ss.registerClass(global, 'Cayita.Plugins', $Cayita_Plugins);
-	ss.registerClass(global, 'Cayita.UI', $Cayita_UI);
-	ss.registerEnum(global, 'Cayita.JData.StoreChangedAction', $Cayita_JData_StoreChangedAction);
-	ss.registerEnum(global, 'Cayita.JData.StoreFailedAction', $Cayita_JData_StoreFailedAction);
-	ss.registerEnum(global, 'Cayita.JData.StoreRequestedAction', $Cayita_JData_StoreRequestedAction);
-	ss.registerEnum(global, 'Cayita.JData.StoreRequestedState', $Cayita_JData_StoreRequestedState);
+	$Cayita_JData_StoreRequestedState.__typeName = 'Cayita.JData.StoreRequestedState';
+	global.Cayita.JData.StoreRequestedState = $Cayita_JData_StoreRequestedState;
+	ss.initClass($Cayita_AlertFn, {});
+	ss.initClass($Cayita_Data, {});
+	ss.initClass($Cayita_Fn, {});
+	ss.initEnum($Cayita_FormUpdatedAction, { clear: 0, populate: 1 });
+	ss.initClass($Cayita_Plugins, {});
+	ss.initClass($Cayita_UI, {});
+	ss.initEnum($Cayita_JData_StoreChangedAction, { none: 0, created: 1, read: 2, updated: 3, destroyed: 4, patched: 5, added: 6, inserted: 7, replaced: 8, removed: 9, cleared: 10, loaded: 11, filtered: 12 });
+	ss.initEnum($Cayita_JData_StoreFailedAction, { none: 0, create: 1, read: 2, update: 3, destroy: 4, patch: 5 });
+	ss.initEnum($Cayita_JData_StoreRequestedAction, { none: 0, create: 1, read: 2, update: 3, destroy: 4, patch: 5 });
+	ss.initEnum($Cayita_JData_StoreRequestedState, { none: 0, started: 1, finished: 2 });
 	$Cayita_Fn.delayFn = (function() {
 		var timer = 0;
 		return function(cb, dl) {
@@ -3811,19 +3853,19 @@
 	$Cayita_UI.PanelCollapseIconEventName = 'collapse-icon.click';
 	$Cayita_UI.$z = 0;
 	$Cayita_AlertFn.ErrorTmpl = function(m) {
-		return $Cayita_Fn.fmt('<div class=\'alert alert-block alert-error\'><a class=\'close\' data-dismiss=\'alert\' href=\'#\'>×</a>{0}</div>', [m]);
+		return $Cayita_Fn.fmt("<div class='alert alert-block alert-error'><a class='close' data-dismiss='alert' href='#'>×</a>{0}</div>", [m]);
 	};
 	$Cayita_AlertFn.SuccessTmpl = function(m) {
-		return $Cayita_Fn.fmt('<div class=\'alert alert-block alert-success\'><a class=\'close\' data-dismiss=\'alert\' href=\'#\'>×</a>{0}</div>', [m]);
+		return $Cayita_Fn.fmt("<div class='alert alert-block alert-success'><a class='close' data-dismiss='alert' href='#'>×</a>{0}</div>", [m]);
 	};
 	$Cayita_AlertFn.InfoTmpl = function(m) {
-		return $Cayita_Fn.fmt('<div class=\'alert alert-block alert-success\'><a class=\'close\' data-dismiss=\'alert\' href=\'#\'>×</a>{0}</div>', [m]);
+		return $Cayita_Fn.fmt("<div class='alert alert-block alert-success'><a class='close' data-dismiss='alert' href='#'>×</a>{0}</div>", [m]);
 	};
 	$Cayita_AlertFn.WarningTmpl = function(m) {
-		return $Cayita_Fn.fmt('<div class=\'alert alert-block alert-success\'><a class=\'close\' data-dismiss=\'alert\' href=\'#\'>×</a>{0}</div>', [m]);
+		return $Cayita_Fn.fmt("<div class='alert alert-block alert-success'><a class='close' data-dismiss='alert' href='#'>×</a>{0}</div>", [m]);
 	};
 	$Cayita_AlertFn.PageAlertTmpl = function(m, t) {
-		return $Cayita_Fn.fmt('<div class=\'alert{0}\'><a class=\'close\' data-dismiss=\'alert\' href=\'#\'>×</a>{1}</div>', [(ss.isNullOrEmptyString(t) ? '' : (' alert-' + t)), m]);
+		return $Cayita_Fn.fmt("<div class='alert{0}'><a class='close' data-dismiss='alert' href='#'>×</a>{1}</div>", [(ss.isNullOrEmptyString(t) ? '' : (' alert-' + t)), m]);
 	};
 	$Cayita_AlertFn.PageAlertZIndex = 1040;
 })();

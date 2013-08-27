@@ -1,8 +1,10 @@
 ﻿(function() {
+	'use strict';
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.DemoNavlist
 	var $DemoNavlist = function() {
 	};
+	$DemoNavlist.__typeName = 'DemoNavlist';
 	$DemoNavlist.execute = function(parent) {
 		var nb = Cayita.UI.NavList(null);
 		nb.nav.addValue('Tables', null, null, false, null);
@@ -27,5 +29,6 @@
 			code.set_text(s);
 		});
 	};
-	ss.registerClass(global, 'DemoNavlist', $DemoNavlist);
+	global.DemoNavlist = $DemoNavlist;
+	ss.initClass($DemoNavlist, {});
 })();

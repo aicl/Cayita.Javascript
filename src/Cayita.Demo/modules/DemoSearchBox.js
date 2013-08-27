@@ -1,8 +1,12 @@
 ﻿(function() {
+	'use strict';
+	global.Cayita = global.Cayita || {};
+	global.Cayita.Demo = global.Cayita.Demo || {};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.DemoSearchBox
 	var $DemoSearchBox = function() {
 	};
+	$DemoSearchBox.__typeName = 'DemoSearchBox';
 	$DemoSearchBox.execute = function(parent) {
 		var countryStore1 = new $Cayita_Demo_CountryStore(null);
 		var sb1 = Cayita.UI.SearchBox($Cayita_Demo_Country)(countryStore1, $Cayita_Demo_CountryStore.defineColumnsWithFlags(), new $Cayita_Demo_CountrySearchBoxConfig());
@@ -53,10 +57,12 @@
 			parent.append(code);
 		});
 	};
+	global.DemoSearchBox = $DemoSearchBox;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.Country
 	var $Cayita_Demo_Country = function() {
 	};
+	$Cayita_Demo_Country.__typeName = 'Cayita.Demo.Country';
 	$Cayita_Demo_Country.createInstance = function() {
 		return $Cayita_Demo_Country.$ctor();
 	};
@@ -66,6 +72,7 @@
 		$this.Name = null;
 		return $this;
 	};
+	global.Cayita.Demo.Country = $Cayita_Demo_Country;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.CountrySearchBoxConfig
 	var $Cayita_Demo_CountrySearchBoxConfig = function() {
@@ -75,6 +82,8 @@
 		this.resetButton = true;
 		this.minLength = 1;
 	};
+	$Cayita_Demo_CountrySearchBoxConfig.__typeName = 'Cayita.Demo.CountrySearchBoxConfig';
+	global.Cayita.Demo.CountrySearchBoxConfig = $Cayita_Demo_CountrySearchBoxConfig;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.CountryStore
 	var $Cayita_Demo_CountryStore = function(options) {
@@ -108,6 +117,7 @@
 			;
 		}));
 	};
+	$Cayita_Demo_CountryStore.__typeName = 'Cayita.Demo.CountryStore';
 	$Cayita_Demo_CountryStore.defineColumns = function() {
 		var columns = [];
 		ss.add(columns, Cayita.UI.TableColumn($Cayita_Demo_Country)('Name', 'Country', null, true));
@@ -126,8 +136,9 @@
 		}, true));
 		return columns;
 	};
-	ss.registerClass(global, 'DemoSearchBox', $DemoSearchBox);
-	ss.registerClass(global, 'Cayita.Demo.Country', $Cayita_Demo_Country, Object);
-	ss.registerClass(global, 'Cayita.Demo.CountrySearchBoxConfig', $Cayita_Demo_CountrySearchBoxConfig, Object);
-	ss.registerClass(global, 'Cayita.Demo.CountryStore', $Cayita_Demo_CountryStore, Object, [ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList]);
+	global.Cayita.Demo.CountryStore = $Cayita_Demo_CountryStore;
+	ss.initClass($DemoSearchBox, {});
+	ss.initClass($Cayita_Demo_Country, {}, Object);
+	ss.initClass($Cayita_Demo_CountrySearchBoxConfig, {}, Object);
+	ss.initClass($Cayita_Demo_CountryStore, {}, Object, [ss.IEnumerable, ss.IEnumerable, ss.ICollection, ss.IList]);
 })();

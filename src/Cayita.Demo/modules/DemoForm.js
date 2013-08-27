@@ -1,8 +1,10 @@
 ﻿(function() {
+	'use strict';
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.DemoForm
 	var $DemoForm = function() {
 	};
+	$DemoForm.__typeName = 'DemoForm';
 	$DemoForm.execute = function(parent) {
 		var form = Cayita.UI.Form();
 		Cayita.UI.Atom('fieldset', null, null, null, function(fs) {
@@ -53,6 +55,7 @@
 		var lform = Cayita.UI.Form();
 		lform.submitHandler = function(f) {
 			Alertify.log.info($(f).serialize(), 5000);
+			null;
 		};
 		lform.className = 'form-inline';
 		Cayita.UI.Input(String)('input', 'email', null, null, null, function(i2) {
@@ -101,6 +104,7 @@
 			}, f1);
 			f1.submitHandler = function(fr) {
 				Alertify.log.info($(fr).serialize(), 5000);
+				null;
 			};
 			$(parent).append(Cayita.Fn.header('Horizontal Form', 4)).append(f1);
 		});
@@ -203,5 +207,6 @@
 			parent.append(code);
 		});
 	};
-	ss.registerClass(global, 'DemoForm', $DemoForm);
+	global.DemoForm = $DemoForm;
+	ss.initClass($DemoForm, {});
 })();

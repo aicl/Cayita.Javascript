@@ -1,8 +1,12 @@
 ﻿(function() {
+	'use strict';
+	global.Cayita = global.Cayita || {};
+	global.Cayita.Demo = global.Cayita.Demo || {};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.DemoPanels
 	var $DemoPanels = function() {
 	};
+	$DemoPanels.__typeName = 'DemoPanels';
 	$DemoPanels.execute = function(parent) {
 		var code = Cayita.UI.Atom('div');
 		Cayita.UI.Atom('div', null, null, null, function(d) {
@@ -57,7 +61,7 @@
 						});
 						Cayita.UI.Atom('div', null, null, null, function(cy1) {
 							cy1.className = 'span10';
-							$(cy1).append('<i><b>El <a href=\'https://es.wikipedia.org/wiki/Coyote\' title=\'Coyote\' target=\'_blank\'>Coyote</a> y el <a href=\'https://es.wikipedia.org/wiki/Geococcyx_californianus\' title=\'Geococcyx californianus\' target=\'_blank\'>Correcaminos</a></b></i> (<i><b>Wile E. Coyote</b> and the <b>Road Runner</b></i>) son los personajes de una serie <a href=\'https://es.wikipedia.org/wiki/Estados_Unidos\' title=\'Estados Unidos\' target=\'_blank\'>estadounidense</a> de <a href=\'https://es.wikipedia.org/wiki/Dibujos_animados\' title=\'Dibujos animados\' target=\'_blank\'>dibujos animados</a> creada en el año de <a href=\'https://es.wikipedia.org/wiki/1949\' title=\'1949\' target=\'_blank\'>1949</a> por el animador <a href=\'https://es.wikipedia.org/wiki/Chuck_Jones\' title=\'Chuck Jones\' target=\'_blank\'>Chuck Jones</a> para <a href=\'https://es.wikipedia.org/wiki/Warner_Brothers\' title=\'Warner Brothers\' target=\'_blank\'>Warner Brothers</a>. Chuck Jones se inspiró para crear a estos personajes en un libro de <a href=\'https://es.wikipedia.org/wiki/Mark_Twain\' title=\'Mark Twain\' target=\'_blank\'>Mark Twain</a>, titulado <i>Roughin It</i>, en el que Twain denotaba que los coyotes hambrientos podrían cazar un correcaminos.  \n<a href=\'https://es.wikipedia.org/wiki/El_Coyote_y_el_Correcaminos\' title=\'Coyote\' target=\'_blank\'>El Coyote (wikipedia)</a> ');
+							$(cy1).append("<i><b>El <a href='https://es.wikipedia.org/wiki/Coyote' title='Coyote' target='_blank'>Coyote</a> y el <a href='https://es.wikipedia.org/wiki/Geococcyx_californianus' title='Geococcyx californianus' target='_blank'>Correcaminos</a></b></i> (<i><b>Wile E. Coyote</b> and the <b>Road Runner</b></i>) son los personajes de una serie <a href='https://es.wikipedia.org/wiki/Estados_Unidos' title='Estados Unidos' target='_blank'>estadounidense</a> de <a href='https://es.wikipedia.org/wiki/Dibujos_animados' title='Dibujos animados' target='_blank'>dibujos animados</a> creada en el año de <a href='https://es.wikipedia.org/wiki/1949' title='1949' target='_blank'>1949</a> por el animador <a href='https://es.wikipedia.org/wiki/Chuck_Jones' title='Chuck Jones' target='_blank'>Chuck Jones</a> para <a href='https://es.wikipedia.org/wiki/Warner_Brothers' title='Warner Brothers' target='_blank'>Warner Brothers</a>. Chuck Jones se inspiró para crear a estos personajes en un libro de <a href='https://es.wikipedia.org/wiki/Mark_Twain' title='Mark Twain' target='_blank'>Mark Twain</a>, titulado <i>Roughin It</i>, en el que Twain denotaba que los coyotes hambrientos podrían cazar un correcaminos.  \n<a href='https://es.wikipedia.org/wiki/El_Coyote_y_el_Correcaminos' title='Coyote' target='_blank'>El Coyote (wikipedia)</a> ");
 							p11.add(cy1);
 						});
 						var p21 = $DemoPanels.$createPanel('Table', false, false);
@@ -109,6 +113,7 @@
 						b.style.height = '100%';
 						b.add_clicked(function(e3) {
 							Alertify.log.success('button clicked', 5000);
+							null;
 						});
 					}, null));
 					panel.do_show(true);
@@ -164,45 +169,56 @@
 		$t2.title = 'Calculator';
 		$t2.icon = 'img/calculator.png';
 		ss.add($t1, $t2);
+		null;
 		var $t3 = $Cayita_Demo_App.$ctor();
 		$t3.title = 'Control Panel';
 		$t3.icon = 'img/control.png';
 		ss.add($t1, $t3);
+		null;
 		var $t4 = $Cayita_Demo_App.$ctor();
 		$t4.title = 'Firewall Settings';
 		$t4.icon = 'img/firewall.png';
 		ss.add($t1, $t4);
+		null;
 		var $t5 = $Cayita_Demo_App.$ctor();
 		$t5.title = 'Spreadsheet';
 		$t5.icon = 'img/calc.png';
 		ss.add($t1, $t5);
+		null;
 		var $t6 = $Cayita_Demo_App.$ctor();
 		$t6.title = 'Mail';
 		$t6.icon = 'img/mail.png';
 		ss.add($t1, $t6);
+		null;
 		var $t7 = $Cayita_Demo_App.$ctor();
 		$t7.title = 'Jack Sparrow Navigator';
 		$t7.icon = 'img/web.png';
 		ss.add($t1, $t7);
+		null;
 		var $t8 = $Cayita_Demo_App.$ctor();
 		$t8.title = 'MonoDevelop';
 		$t8.icon = 'img/monodevelop.png';
 		ss.add($t1, $t8);
+		null;
 		var $t9 = $Cayita_Demo_App.$ctor();
 		$t9.title = 'Tomboy';
 		$t9.icon = 'img/tomboy.png';
 		ss.add($t1, $t9);
+		null;
 		var $t10 = $Cayita_Demo_App.$ctor();
 		$t10.title = 'Skype';
 		$t10.icon = 'img/skype.png';
 		ss.add($t1, $t10);
+		null;
 		var a = $t1;
 		return a;
 	};
+	global.DemoPanels = $DemoPanels;
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.Demo.App
 	var $Cayita_Demo_App = function() {
 	};
+	$Cayita_Demo_App.__typeName = 'Cayita.Demo.App';
 	$Cayita_Demo_App.createInstance = function() {
 		return $Cayita_Demo_App.$ctor();
 	};
@@ -212,6 +228,7 @@
 		$this.icon = null;
 		return $this;
 	};
-	ss.registerClass(global, 'DemoPanels', $DemoPanels);
-	ss.registerClass(global, 'Cayita.Demo.App', $Cayita_Demo_App, Object);
+	global.Cayita.Demo.App = $Cayita_Demo_App;
+	ss.initClass($DemoPanels, {});
+	ss.initClass($Cayita_Demo_App, {}, Object);
 })();
