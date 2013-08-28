@@ -1,4 +1,4 @@
-/opt/mono/bin/dmcs  /noconfig  -nostdlib \
+/opt/mono/bin/gmcs  /noconfig  -nostdlib \
 "/out:bin/Debug/Cayita.dll" \
 "/define:SALTARELLE" \
 "/debug" \

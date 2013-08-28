@@ -34,6 +34,7 @@ namespace Cayita.Demo
 				app.BuildMenuItems();
 				app.ShowMenu();
 				app.GoHome();
+
 			});
 
 		}

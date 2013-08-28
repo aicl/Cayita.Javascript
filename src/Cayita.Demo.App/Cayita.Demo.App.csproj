@@ -9,6 +9,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Cayita.Demo.App</RootNamespace>
     <AssemblyName>Cayita.Demo.App</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

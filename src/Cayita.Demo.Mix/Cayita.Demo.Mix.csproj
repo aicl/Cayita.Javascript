@@ -9,6 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Cayita.Demo.Mix</RootNamespace>
     <AssemblyName>Cayita.Demo.Mix</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
