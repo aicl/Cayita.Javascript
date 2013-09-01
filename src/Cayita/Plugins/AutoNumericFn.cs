@@ -27,6 +27,7 @@ namespace Cayita
 			methods["init"]= (Action<NumericOptions>)( o=> Init(input,o) );
 			methods["update"]= (Action<NumericOptions>)( o=> Update(input,o) );
 			methods["getSettings"]= (Func<NumericOptions>)( ()=> GetSettings(input) );
+			methods["get_text"]= (Func<string>)( ()=> input.InnerHTML?? input.As<Input>().Value );
 
 			input.SetToAtomProperty ("autoNumeric",(object) methods);
 

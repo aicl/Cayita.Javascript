@@ -25,6 +25,12 @@ namespace Cayita
 		{
 		}
 
+
+		[InlineCode("{this}.nav.addValue({value},null,{handler},false,null)")]
+		public void Add(string value, jQueryEventHandler handler)
+		{
+		}
+
 		[InlineCode("{this}.nav.addItem({item})")]
 		public void Add(NavItem item)
 		{

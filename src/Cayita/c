@@ -18,6 +18,7 @@
 "Core/List/HtmlOrderedList.cs" \
 "Core/AlertFn.cs" \
 "Core/Anchor.cs" \
+"Core/AnchorIcon.cs" \
 "Core/Atom.cs" \
 "Core/AtomFn.cs" \
 "Core/ControlGroup.cs" \

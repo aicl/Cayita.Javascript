@@ -17,7 +17,7 @@ namespace Cayita
 		}
 
 		[InlineCode("Cayita.UI.NullableNumericField(null, null, {action},{parent})")]
-		public NullableNumericField(Atom parent, Action<NullableNumericField> action)
+		public NullableNumericField(Atom parent, Action<NullableNumericField> action=null)
 		{
 		}
 

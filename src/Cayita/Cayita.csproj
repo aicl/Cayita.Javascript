@@ -171,6 +171,7 @@
     <Compile Include="Img\ImgFn.cs" />
     <Compile Include="Img\CssPicture.cs" />
     <Compile Include="Core\FormData.cs" />
+    <Compile Include="Core\AnchorIcon.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -808,6 +808,13 @@
 		methods['getSettings'] = function() {
 			return $Cayita_Plugins.$getSettings(input);
 		};
+		methods['get_text'] = function() {
+			var $t1 = input.innerHTML;
+			if (ss.isNullOrUndefined($t1)) {
+				$t1 = input.value;
+			}
+			return $t1;
+		};
 		input.autoNumeric = methods;
 		return input;
 	};
@@ -861,6 +868,24 @@
 	};
 	$Cayita_UI.ButtonIcon = function(iconClass, action, parent) {
 		var e = $Cayita_UI.Button(null, 'btn', 'button', null, null);
+		e.icon = Cayita.UI.Atom('i', null, iconClass);
+		e.get_iconClass = function() {
+			return e.icon.className;
+		};
+		e.set_iconClass = function(v) {
+			e.icon.className = v;
+		};
+		e.append(e.icon);
+		if (!ss.staticEquals(action, null)) {
+			action(e);
+		}
+		if (ss.isValue(parent)) {
+			parent.append(e);
+		}
+		return e;
+	};
+	$Cayita_UI.AnchorIcon = function(iconClass, action, parent) {
+		var e = $Cayita_UI.Anchor(null, '#', null);
 		e.icon = Cayita.UI.Atom('i', null, iconClass);
 		e.get_iconClass = function() {
 			return e.icon.className;
@@ -1881,6 +1906,7 @@
 	$Cayita_UI.Grid = function(T) {
 		return function(store, columns) {
 			var e = $Cayita_UI.Table(T).call(null, columns, store.get_idProperty());
+			e.navKeys = ss.arrayClone([33, 34, 35, 36, 38, 40]);
 			e.store = store;
 			var multiple = false;
 			var rowClicked = function(g, r) {
@@ -1950,7 +1976,9 @@
 				selectRowImp(row2, true, false);
 			};
 			var keydownHandler = function(evt2) {
-				evt2.preventDefault();
+				if (ss.contains(e.navKeys, evt2.which)) {
+					evt2.preventDefault();
+				}
 				switch (evt2.which) {
 					case 34: {
 						//page_down

@@ -30,6 +30,10 @@ namespace Cayita
 
 		}
 
+
+		public string Text {
+			[InlineCode("{this}.autoNumeric.get_text()")] get { return ""; } 
+		}
 	}
 
 }

@@ -26,6 +26,7 @@ namespace Cayita
 			where T:Record,new()
 		{
 			var e =  Table<T> (columns, store.IdProperty).As<Grid<T>>();  
+			e.NavKeys = new List<int> (new int[]{33,34,35,36,38,40});
 			e.Store = store;
 			var multiple = false;
 
@@ -83,7 +84,8 @@ namespace Cayita
 
 			var keydownHandler = (Action<jQueryEvent>)(evt =>
 			{
-				evt.PreventDefault ();
+				if (e.NavKeys.Contains(evt.Which)) evt.PreventDefault();
+
 				switch (evt.Which) {
 				case 34: //page_down
 					store.ReadNextPage ();
