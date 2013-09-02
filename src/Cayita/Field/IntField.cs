@@ -20,6 +20,13 @@ namespace Cayita
 		public IntField(Atom parent, Action<IntField> action)
 		{
 		}
+
+		[IntrinsicProperty]
+		public new IntInput Input {
+			get;
+			internal set;
+		}
+
 	}
 }
 

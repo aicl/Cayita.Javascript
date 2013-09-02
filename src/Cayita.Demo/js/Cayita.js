@@ -3431,6 +3431,16 @@
 			};
 			null;
 		};
+		e.get_parentRow = function() {
+			var ro = $($Cayita_Fn.fmt('#{0}', [e.getAttribute('tr').toString()]));
+			return ro.get(0);
+		};
+		e.get_parentTable = function() {
+			var ro1 = $($Cayita_Fn.fmt('#{0}', [e.getAttribute('tr').toString()]));
+			var re = ro1.get(0);
+			var to = $($Cayita_Fn.fmt('#{0}', [re.getAttribute('tb').toString()]));
+			return to.get(0);
+		};
 		return e;
 	};
 	$Cayita_UI.TableRowAtom = function(tableId) {
@@ -3471,6 +3481,10 @@
 		e.addCell = function(c) {
 			c.setAttribute('tr', e.id);
 			e.append(c);
+		};
+		e.get_parentTable = function() {
+			var ro = $($Cayita_Fn.fmt('#{0}', [e.getAttribute('tb').toString()]));
+			return ro.get(0);
 		};
 		return e;
 	};

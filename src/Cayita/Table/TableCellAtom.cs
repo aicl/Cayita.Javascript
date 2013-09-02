@@ -26,6 +26,17 @@ namespace Cayita
 			[InlineCode("{this}.set_getValueFn({value})")] set{}
 		}
 
+		public TableRowAtom ParentRow
+		{
+			get { return null;}
+		}
+
+		public TableAtom ParentTable
+		{
+			get { return null;}
+		}
+
+
 		[IntrinsicProperty]
 		public int CellIndex
 		{

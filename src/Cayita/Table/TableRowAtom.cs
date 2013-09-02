@@ -70,6 +70,11 @@ namespace Cayita
 		}
 
 
+		public TableAtom ParentTable
+		{
+			get { return null;}
+		}
+
 	}
 }
 

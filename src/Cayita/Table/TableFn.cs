@@ -24,6 +24,19 @@ namespace Cayita
 			e.SetToAtomProperty ("set_setValueFn", (Action<Action<Element,object>>)(
 				func => e.SetToAtomProperty ("setValue", (Action<object>)((v) => func (e, v)))));
 
+			e.SetToAtomProperty ("get_parentRow", (Func<TableRowAtom>)(() => {
+				var ro =jQuery.Select( "#{0}".Fmt(e.GetAttribute("tr").ToString()));
+				return ro.GetElement(0).As<TableRowAtom>();
+			}));
+
+			e.SetToAtomProperty ("get_parentTable", (Func<TableAtom>)(() => {
+				var ro =jQuery.Select( "#{0}".Fmt(e.GetAttribute("tr").ToString()));
+				var re =ro.GetElement(0);
+				var to =jQuery.Select( "#{0}".Fmt(re.GetAttribute("tb").ToString()));
+				return to.GetElement(0).As<TableAtom>();
+
+			}));
+
 			return e;
 
 		}
@@ -63,6 +76,12 @@ namespace Cayita
 			e.SetToAtomProperty("addCell", (Action<TableCellAtom>)(c=>{
 				c.SetAttribute("tr", e.ID);
 				e.Append(c);
+			}));
+
+
+			e.SetToAtomProperty ("get_parentTable", (Func<TableAtom>)(() => {
+				var ro =jQuery.Select( "#{0}".Fmt(e.GetAttribute("tb").ToString()));
+				return ro.GetElement(0).As<TableAtom>();
 			}));
 
 			return e;
