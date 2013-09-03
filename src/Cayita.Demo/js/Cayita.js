@@ -402,6 +402,9 @@
 				});
 				return req4;
 			};
+			o.get_data = function() {
+				return ls;
+			};
 			o.create = function(d4) {
 				return createFn(d4);
 			};

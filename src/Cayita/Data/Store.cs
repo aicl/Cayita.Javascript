@@ -192,6 +192,8 @@ namespace Cayita.JData
 		}
 
 
+		public List<T> Data { get { return null; } }
+
 	}
 
 

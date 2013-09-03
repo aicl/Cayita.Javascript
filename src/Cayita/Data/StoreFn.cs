@@ -206,6 +206,8 @@ namespace Cayita.JData
 				return req;
 			};
 
+			UI.SetToProperty (o, "get_data", (Func< List<T>>)(() => ls));
+
 			UI.SetToProperty (o, "create", (Func<T, IDeferred<T>>)((d)=> createFn(d)));
 
 			UI.SetToProperty(o, "read", (Func<Action<ReadOptions>, bool?, IDeferred<T>>)((ro,clear)=>{
