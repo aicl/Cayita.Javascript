@@ -48,18 +48,22 @@ namespace Cayita
 			e.NavDiv = new Div ("btn-group");
 
 			e.FirstPage = new ButtonIcon ("icon-double-angle-left");
+			e.FirstPage.Disabled = true;
 			e.FirstPage.AddClass ("btn-medium");
 			e.FirstPage.Clicked+= ev => store.ReadFirstPage() ;
 
 			e.PreviousPage = new ButtonIcon ("icon-angle-left");
+			e.PreviousPage.Disabled = true;
 			e.PreviousPage.AddClass ("btn-medium");
 			e.PreviousPage.Clicked+= ev => store.ReadPreviousPage() ;
 
 			e.NextPage = new ButtonIcon ("icon-angle-right");
+			e.NextPage.Disabled = true;
 			e.NextPage.AddClass ("btn-medium");
 			e.NextPage.Clicked+= ev => store.ReadNextPage() ;
 
 			e.LastPage = new ButtonIcon ("icon-double-angle-right");
+			e.LastPage.Disabled = true;
 			e.LastPage.AddClass ("btn-medium");
 			e.LastPage.Clicked+= ev => store.ReadLastPage() ;
 

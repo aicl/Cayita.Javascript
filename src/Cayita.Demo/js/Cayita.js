@@ -3352,21 +3352,25 @@
 			};
 			e.navDiv = Cayita.UI.Atom('div', null, 'btn-group');
 			e.firstPage = Cayita.UI.ButtonIcon('icon-double-angle-left');
+			e.firstPage.disabled = true;
 			$(e.firstPage).addClass('btn-medium');
 			e.firstPage.add_clicked(function(ev) {
 				store.readFirstPage();
 			});
 			e.previousPage = Cayita.UI.ButtonIcon('icon-angle-left');
+			e.previousPage.disabled = true;
 			$(e.previousPage).addClass('btn-medium');
 			e.previousPage.add_clicked(function(ev1) {
 				store.readPreviousPage(true);
 			});
 			e.nextPage = Cayita.UI.ButtonIcon('icon-angle-right');
+			e.nextPage.disabled = true;
 			$(e.nextPage).addClass('btn-medium');
 			e.nextPage.add_clicked(function(ev2) {
 				store.readNextPage(true);
 			});
 			e.lastPage = Cayita.UI.ButtonIcon('icon-double-angle-right');
+			e.lastPage.disabled = true;
 			$(e.lastPage).addClass('btn-medium');
 			e.lastPage.add_clicked(function(ev3) {
 				store.readLastPage();
