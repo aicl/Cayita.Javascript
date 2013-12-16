@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /usr/local/bin/mono --runtime=v4.0.30319 --gc=sgen /usr/local/bin/sc.exe "$@"
