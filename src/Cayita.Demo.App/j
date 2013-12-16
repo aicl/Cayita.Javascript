@@ -1,4 +1,4 @@
-/opt/mono/bin/sc  \
+sc  \
 "/outscript:bin/Debug/Cayita.Demo.js" \
 "/define:JS" \
 "/debug" \
