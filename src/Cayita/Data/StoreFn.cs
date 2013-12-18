@@ -60,8 +60,8 @@ namespace Cayita.JData
 					}
 					else
 					{
-						ls.Add((T)res);
-						onStoreChanged(o,StoreChangedAction.Created, (T)res, (T)res, ls.IndexOf((T)res) );
+						ls.Add(UI.Cast<T>(res));
+						onStoreChanged(o,StoreChangedAction.Created, UI.Cast<T>(res), UI.Cast<T>(res), ls.IndexOf(UI.Cast<T>(res)) );
 					}
 
 				});
@@ -97,7 +97,7 @@ namespace Cayita.JData
 					}
 					else
 					{
-						ls.Add((T)res);
+						ls.Add(UI.Cast<T>( res));
 					}
 
 					int? tc = data[o.Api.TotalCountProperty];
@@ -136,7 +136,7 @@ namespace Cayita.JData
 						var ur =ls.First( f=> f.Get(o.IdProperty)== res.Get(o.IdProperty));
 						var old = new T();
 						old.PopulateFrom(ur);
-						ur.PopulateFrom((T)res);
+						ur.PopulateFrom( UI.Cast<T>((object)res) );
 						onStoreChanged(o,StoreChangedAction.Updated,ur, old, ls.IndexOf(ur));
 					}
 				});
@@ -193,7 +193,7 @@ namespace Cayita.JData
 						var ur =ls.First( f=> f.Get(o.IdProperty)== res.Get(o.IdProperty));
 						var old = new T();
 						old.PopulateFrom(ur);
-						ur.PopulateFrom((T)res);
+						ur.PopulateFrom( UI.Cast<T>((object)res) );
 						onStoreChanged(o,StoreChangedAction.Patched,ur, old,ls.IndexOf(ur) );
 					}
 				});
