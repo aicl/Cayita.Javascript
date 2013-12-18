@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using jQueryApi;
+using System.Runtime.CompilerServices;
 
 namespace Cayita.JData
 {
@@ -43,6 +44,7 @@ namespace Cayita.JData
 				});
 			});
 
+
 			Func<T, IDeferred<T>> createFn= (record)=>{	
 				onStoreRequested(o, StoreRequestedAction.Create, StoreRequestedState.Started);
 				var req= jQuery.PostRequest<T>(o.Api.CreateApi, record, cb=>{} ,o.Api.DataType);
@@ -60,8 +62,9 @@ namespace Cayita.JData
 					}
 					else
 					{
-						ls.Add(UI.Cast<T>(res));
-						onStoreChanged(o,StoreChangedAction.Created, UI.Cast<T>(res), UI.Cast<T>(res), ls.IndexOf(UI.Cast<T>(res)) );
+						var i = UI.Cast<T> ((object)res);
+						ls.Add( i );
+						onStoreChanged(o,StoreChangedAction.Created, i, i, ls.IndexOf(i) );
 					}
 
 				});
@@ -97,7 +100,7 @@ namespace Cayita.JData
 					}
 					else
 					{
-						ls.Add(UI.Cast<T>( res));
+						ls.Add(UI.Cast<T>((object) res));
 					}
 
 					int? tc = data[o.Api.TotalCountProperty];
@@ -227,7 +230,7 @@ namespace Cayita.JData
 				var self=o;
 				var source = ls.First (f => f.Get (self.IdProperty).ToString () == record.Get (self.IdProperty).ToString ());
 				var index = ls.IndexOf(source);
-				T old = UI.Cast<T>( source.Clone());
+				T old = UI.Cast<T>( (object)source.Clone());
 				source.PopulateFrom(record);
 				onStoreChanged(o,StoreChangedAction.Replaced,source, old, index);
 			}));
@@ -353,7 +356,7 @@ namespace Cayita.JData
 
 			UI.SetToProperty (o, "set_item", (Action<int,T>)((index,value) => {
 				T old = ls[index];
-				T clone = UI.Cast<T>( old.Clone());
+				T clone = UI.Cast<T>((object) old.Clone());
 				ls[index]=value;
 				onStoreChanged(o,StoreChangedAction.Replaced, clone, value,index);
 			}));
@@ -448,6 +451,7 @@ namespace Cayita.JData
 
 			return o;
 		}
+
 
 	}
 }

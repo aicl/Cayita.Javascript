@@ -230,8 +230,9 @@
 						}
 					}
 					else {
-						ss.add(ls, ss.cast(res, T));
-						onStoreChanged(o, 1, ss.cast(res, T), ss.cast(res, T), ss.cast(ss.indexOf(ls, ss.cast(res, T)), ss.Int32));
+						var i = res;
+						ss.add(ls, i);
+						onStoreChanged(o, 1, i, i, ss.indexOf(ls, i));
 					}
 				});
 				req.fail(function(f) {
@@ -273,7 +274,7 @@
 						}
 					}
 					else {
-						ss.add(ls, ss.cast(res1, T));
+						ss.add(ls, res1);
 					}
 					var tc = ss.cast(data1[o.api.totalCountProperty], ss.Int32);
 					o.set_totalCount((ss.isValue(tc) ? ss.Nullable.unbox(tc) : Enumerable.from(ls).count(o.get_filterFn())));
@@ -301,7 +302,7 @@
 							while ($t7.moveNext()) {
 								var item2 = { $: $t7.current() };
 								var ur = Enumerable.from(ls).first(ss.mkdel({ item2: item2 }, function(f3) {
-									return ss.referenceEquals($Cayita_Fn.$get(f3, o.get_idProperty()), $Cayita_Fn.$get(this.item2.$, o.get_idProperty()));
+									return ss.referenceEquals(f3[o.get_idProperty()], this.item2.$[o.get_idProperty()]);
 								}));
 								var old = ss.createInstance(T);
 								$Cayita_Fn.populateFrom(old, ur);
@@ -315,7 +316,7 @@
 					}
 					else {
 						var ur1 = Enumerable.from(ls).first(function(f4) {
-							return !!ss.referenceEquals($Cayita_Fn.$get(f4, o.get_idProperty()), res2.Get(o.get_idProperty()));
+							return !!ss.referenceEquals(f4[o.get_idProperty()], res2.Get(o.get_idProperty()));
 						});
 						var old1 = ss.createInstance(T);
 						$Cayita_Fn.populateFrom(old1, ur1);
@@ -334,12 +335,12 @@
 			var destroyFn = function(record2) {
 				onStoreRequested(o, 4, 1);
 				var data3 = {};
-				data3[o.get_idProperty()] = $Cayita_Fn.$get(record2, o.get_idProperty());
+				data3[o.get_idProperty()] = record2[o.get_idProperty()];
 				var req3 = $.post(o.api.get_destroyApi(), data3, function(cb3) {
 				}, o.api.dataType);
 				req3.done(function(scb3) {
 					var dr = Enumerable.from(ls).first(function(f7) {
-						return ss.referenceEquals($Cayita_Fn.$get(f7, o.get_idProperty()), $Cayita_Fn.$get(record2, o.get_idProperty()));
+						return ss.referenceEquals(f7[o.get_idProperty()], record2[o.get_idProperty()]);
 					});
 					ss.remove(ls, dr);
 					onStoreChanged(o, 4, dr, dr, -1);
@@ -366,7 +367,7 @@
 							while ($t8.moveNext()) {
 								var item3 = { $: $t8.current() };
 								var ur2 = Enumerable.from(ls).first(ss.mkdel({ item3: item3 }, function(f10) {
-									return ss.referenceEquals($Cayita_Fn.$get(f10, o.get_idProperty()), $Cayita_Fn.$get(this.item3.$, o.get_idProperty()));
+									return ss.referenceEquals(f10[o.get_idProperty()], this.item3.$[o.get_idProperty()]);
 								}));
 								var old2 = ss.createInstance(T);
 								$Cayita_Fn.populateFrom(old2, ur2);
@@ -380,7 +381,7 @@
 					}
 					else {
 						var ur3 = Enumerable.from(ls).first(function(f11) {
-							return !!ss.referenceEquals($Cayita_Fn.$get(f11, o.get_idProperty()), res3.Get(o.get_idProperty()));
+							return !!ss.referenceEquals(f11[o.get_idProperty()], res3.Get(o.get_idProperty()));
 						});
 						var old3 = ss.createInstance(T);
 						$Cayita_Fn.populateFrom(old3, ur3);
@@ -424,7 +425,7 @@
 			o.replace = function(record4) {
 				var self = o;
 				var source = Enumerable.from(ls).first(function(f14) {
-					return ss.referenceEquals($Cayita_Fn.$get(f14, self.get_idProperty()).toString(), $Cayita_Fn.$get(record4, self.get_idProperty()).toString());
+					return ss.referenceEquals(f14[self.get_idProperty()].toString(), record4[self.get_idProperty()].toString());
 				});
 				var index1 = ss.indexOf(ls, source);
 				var old4 = $Cayita_Fn.clone(source);
@@ -723,14 +724,6 @@
 		}
 		var d = new Date(parseFloat((new RegExp('//Date\\(([^)]+)\\)//')).exec($Cayita_Fn.fmt('/{0}/', [date]))[1]));
 		return new Date(d.getUTCFullYear(), d.getUTCMonth() + 1 - 1, d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds());
-	};
-	$Cayita_Fn.$get = function(o, property) {
-		return o[property];
-	};
-	$Cayita_Fn.$get$1 = function(T) {
-		return function(o, property) {
-			return ss.cast(o[property], T);
-		};
 	};
 	$Cayita_Fn.someClass = function(name) {
 		var age = null;
@@ -2039,7 +2032,7 @@
 						break;
 					}
 					case 4: {
-						var recordId = $Cayita_Fn.$get(dt.oldData, e.store.get_idProperty());
+						var recordId = dt.oldData[e.store.get_idProperty()];
 						$(e.getRowById(recordId)).remove();
 						break;
 					}
@@ -2060,7 +2053,7 @@
 						break;
 					}
 					case 9: {
-						var id2 = $Cayita_Fn.$get(dt.oldData, e.store.get_idProperty());
+						var id2 = dt.oldData[e.store.get_idProperty()];
 						$(e.getRowById(id2)).remove();
 						break;
 					}
@@ -3172,10 +3165,10 @@
 					return;
 				}
 				var rec = Enumerable.from(store).first(function(r2) {
-					return ss.referenceEquals($Cayita_Fn.$get(r2, store.get_idProperty()).toString(), sr.get_recordId());
+					return ss.referenceEquals(r2[store.get_idProperty()].toString(), sr.get_recordId());
 				});
-				he.set_value($Cayita_Fn.$get(rec, store.get_idProperty()).toString());
-				te.set_value($Cayita_Fn.$get(rec, e.config.textField).toString());
+				he.set_value(rec[store.get_idProperty()].toString());
+				te.set_value(rec[e.config.textField].toString());
 				searchText = te.get_value();
 				searchIndex = he.get_value();
 				e.body.do_hide(true);
@@ -3425,7 +3418,7 @@
 				}
 				if (ss.staticEquals(val, null)) {
 					val = function(t, c) {
-						c.set_value($Cayita_Fn.$get(t, index));
+						c.set_value(t[index]);
 					};
 				}
 				o.value = function(t1) {
@@ -3492,7 +3485,7 @@
 			e.foot = Cayita.UI.TableFoot();
 			$(e.body).before(e.head).before(e.foot);
 			var getRow = function(d) {
-				return $($Cayita_Fn.fmt('tbody[main] tr[tb={0}][record-id={1}]', [e.id, $Cayita_Fn.$get(d, e.idProperty)]), e).get(0);
+				return $($Cayita_Fn.fmt('tbody[main] tr[tb={0}][record-id={1}]', [e.id, d[e.idProperty]]), e).get(0);
 			};
 			e.idProperty = (ss.isNullOrEmptyString(idProperty) ? 'Id' : idProperty);
 			e.columns = columns || $Cayita_UI.BuildColumns(T).call(null, true);
@@ -3501,7 +3494,7 @@
 			};
 			e.addRow = function(d1) {
 				var row = $Cayita_UI.TableRowAtom(e.id);
-				row.set_recordId($Cayita_Fn.$get(d1, e.idProperty).toString());
+				row.set_recordId(d1[e.idProperty].toString());
 				row.className = 'rowlink';
 				for (var $t1 = 0; $t1 < e.columns.length; $t1++) {
 					var col = e.columns[$t1];
@@ -3547,7 +3540,7 @@
 					while ($t3.moveNext()) {
 						var d4 = $t3.current();
 						var row2 = $Cayita_UI.TableRowAtom(e.id);
-						row2.set_recordId($Cayita_Fn.$get(d4, e.idProperty).toString());
+						row2.set_recordId(d4[e.idProperty].toString());
 						row2.className = 'rowlink';
 						for (var $t4 = 0; $t4 < e.columns.length; $t4++) {
 							var col2 = e.columns[$t4];

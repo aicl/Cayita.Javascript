@@ -106,14 +106,16 @@ namespace Cayita
 			return 0;
 		}
 
+		[InlineCode("{o}[{property}]")]
 		internal static  object Get(this object o, string property)
 		{
 			return (object) ((dynamic)o)[property] ; 
 		}
 
+		[InlineCode("{o}[{property}]")]
 		internal static  T Get<T>(this object o, string property) 
 		{
-			return  UI.Cast<string> (((dynamic)o)[property]); 
+			return  UI.Cast<T> (((dynamic)o)[property]); 
 		}
 
 		[InlineCode("{@func}.call({arg})")]
