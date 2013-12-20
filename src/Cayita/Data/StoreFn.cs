@@ -136,7 +136,8 @@ namespace Cayita.JData
 					}
 					else
 					{
-						var ur =ls.First( f=> f.Get(o.IdProperty)== res.Get(o.IdProperty));
+						var item = UI.Cast<T>((object)res);
+						var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
 						var old = new T();
 						old.PopulateFrom(ur);
 						ur.PopulateFrom( UI.Cast<T>((object)res) );
@@ -180,7 +181,7 @@ namespace Cayita.JData
 					var r = o.Api.DataProperty;
 					dynamic data = (dynamic) scb;
 					var res = data[r]?? data;
-					if ( res.IsArray())
+					if ( ((object) res).IsArray())
 					{
 						foreach (var item in ((IList<T>) res))
 						{
@@ -193,7 +194,8 @@ namespace Cayita.JData
 					}
 					else
 					{
-						var ur =ls.First( f=> f.Get(o.IdProperty)== res.Get(o.IdProperty));
+						var item = UI.Cast<T>((object)res);
+						var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
 						var old = new T();
 						old.PopulateFrom(ur);
 						ur.PopulateFrom( UI.Cast<T>((object)res) );

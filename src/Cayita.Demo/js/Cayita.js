@@ -315,8 +315,9 @@
 						}
 					}
 					else {
+						var item3 = res2;
 						var ur1 = Enumerable.from(ls).first(function(f4) {
-							return !!ss.referenceEquals(f4[o.get_idProperty()], res2.Get(o.get_idProperty()));
+							return ss.referenceEquals(f4[o.get_idProperty()], item3[o.get_idProperty()]);
 						});
 						var old1 = ss.createInstance(T);
 						$Cayita_Fn.populateFrom(old1, ur1);
@@ -361,17 +362,17 @@
 					var r3 = o.api.dataProperty;
 					var data4 = scb4;
 					var res3 = ss.coalesce(data4[r3], data4);
-					if (!!res3.IsArray()) {
+					if (Array.isArray(res3)) {
 						var $t8 = ss.getEnumerator(ss.cast(res3, ss.IList));
 						try {
 							while ($t8.moveNext()) {
-								var item3 = { $: $t8.current() };
-								var ur2 = Enumerable.from(ls).first(ss.mkdel({ item3: item3 }, function(f10) {
-									return ss.referenceEquals(f10[o.get_idProperty()], this.item3.$[o.get_idProperty()]);
+								var item4 = { $: $t8.current() };
+								var ur2 = Enumerable.from(ls).first(ss.mkdel({ item4: item4 }, function(f10) {
+									return ss.referenceEquals(f10[o.get_idProperty()], this.item4.$[o.get_idProperty()]);
 								}));
 								var old2 = ss.createInstance(T);
 								$Cayita_Fn.populateFrom(old2, ur2);
-								$Cayita_Fn.populateFrom(ur2, item3.$);
+								$Cayita_Fn.populateFrom(ur2, item4.$);
 								onStoreChanged(o, 5, ur2, old2, ss.indexOf(ls, ur2));
 							}
 						}
@@ -380,8 +381,9 @@
 						}
 					}
 					else {
+						var item5 = res3;
 						var ur3 = Enumerable.from(ls).first(function(f11) {
-							return !!ss.referenceEquals(f11[o.get_idProperty()], res3.Get(o.get_idProperty()));
+							return ss.referenceEquals(f11[o.get_idProperty()], item5[o.get_idProperty()]);
 						});
 						var old3 = ss.createInstance(T);
 						$Cayita_Fn.populateFrom(old3, ur3);
@@ -530,14 +532,14 @@
 			o.indexOf = function($t9) {
 				return ss.indexOf(ls, $t9);
 			};
-			o.insert = function(index2, item4) {
-				ss.insert(ls, index2, item4);
-				onStoreChanged(o, 7, item4, item4, index2);
+			o.insert = function(index2, item6) {
+				ss.insert(ls, index2, item6);
+				onStoreChanged(o, 7, item6, item6, index2);
 			};
 			o.removeAt = function(index3) {
-				var item5 = ls[index3];
+				var item7 = ls[index3];
 				ss.removeAt(ls, index3);
-				onStoreChanged(o, 9, item5, item5, index3);
+				onStoreChanged(o, 9, item7, item7, index3);
 			};
 			o.get_item = function(index4) {
 				return ls[index4];
@@ -551,9 +553,9 @@
 			o.get_count = function() {
 				return ((o.lastOption.localPaging && ss.isValue(o.lastOption.pageSize) && ss.Nullable.unbox(o.lastOption.pageSize) < Enumerable.from(ls).count(o.get_filterFn())) ? ss.Nullable.unbox(o.lastOption.pageSize) : Enumerable.from(ls).count(o.get_filterFn()));
 			};
-			o.add = function(item6) {
-				ss.add(ls, item6);
-				onStoreChanged(o, 6, item6, item6, o.get_totalCount() - 1);
+			o.add = function(item8) {
+				ss.add(ls, item8);
+				onStoreChanged(o, 6, item8, item8, o.get_totalCount() - 1);
 			};
 			o.clear = function() {
 				ss.clear(ls);
@@ -562,11 +564,11 @@
 			o.contains = function($t10) {
 				return ss.contains(ls, $t10);
 			};
-			o.remove = function(item7) {
-				var index6 = ss.indexOf(ls, item7);
-				var r4 = ss.remove(ls, item7);
+			o.remove = function(item9) {
+				var index6 = ss.indexOf(ls, item9);
+				var r4 = ss.remove(ls, item9);
 				if (r4) {
-					onStoreChanged(o, 9, item7, item7, index6);
+					onStoreChanged(o, 9, item9, item9, index6);
 				}
 				return r4;
 			};
