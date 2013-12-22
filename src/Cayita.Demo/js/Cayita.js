@@ -1506,6 +1506,7 @@
 				e.submitHandler(e);
 			}
 		});
+		$(e).data('_source_', $(e).serialize());
 		return e;
 	};
 	$Cayita_UI.SpinnerIcon = function(message) {

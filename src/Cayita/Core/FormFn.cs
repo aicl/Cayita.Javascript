@@ -216,6 +216,7 @@ namespace Cayita
 				if(v && e.SubmitHandler!=null) e.SubmitHandler(e);
 			});
 
+			e.JQuery.Data("_source_", e.JQuery.Serialize());
 			return e;
 		}
 	}
