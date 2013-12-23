@@ -60,7 +60,7 @@ namespace Cayita
 
 			e.SetToAtomProperty("clear", (Action)(()=>{
 				e._clear(e);
-				e.JQuery.Data("_source_", e.JQuery.Serialize());
+				e.JQuery.Data("_source_", e.JQuery.Serialize()); 
 				e._updated(e, FormUpdatedAction.Clear);
 			}));
 

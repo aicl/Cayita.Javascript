@@ -221,6 +221,16 @@
 						try {
 							while ($t4.moveNext()) {
 								var item = $t4.current();
+								var $t5 = new ss.ObjectEnumerator(o.api.converters);
+								try {
+									while ($t5.moveNext()) {
+										var kv = $t5.current();
+										item[kv.key] = kv.value(item);
+									}
+								}
+								finally {
+									$t5.dispose();
+								}
 								ss.add(ls, item);
 								onStoreChanged(o, 1, item, item, ss.indexOf(ls, item));
 							}
@@ -230,6 +240,16 @@
 						}
 					}
 					else {
+						var $t6 = new ss.ObjectEnumerator(o.api.converters);
+						try {
+							while ($t6.moveNext()) {
+								var kv1 = $t6.current();
+								res[kv1.key] = kv1.value(res);
+							}
+						}
+						finally {
+							$t6.dispose();
+						}
 						var i = res;
 						ss.add(ls, i);
 						onStoreChanged(o, 1, i, i, ss.indexOf(ls, i));
@@ -252,28 +272,38 @@
 					var data1 = scb1;
 					var res1 = ss.coalesce(data1[r1], data1);
 					if (Array.isArray(res1)) {
-						var $t5 = ss.getEnumerator(ss.cast(res1, ss.IList));
+						var $t7 = ss.getEnumerator(ss.cast(res1, ss.IList));
 						try {
-							while ($t5.moveNext()) {
-								var item1 = $t5.current();
-								var $t6 = new ss.ObjectEnumerator(o.api.converters);
+							while ($t7.moveNext()) {
+								var item1 = $t7.current();
+								var $t8 = new ss.ObjectEnumerator(o.api.converters);
 								try {
-									while ($t6.moveNext()) {
-										var kv = $t6.current();
-										item1[kv.key] = kv.value(item1);
+									while ($t8.moveNext()) {
+										var kv2 = $t8.current();
+										item1[kv2.key] = kv2.value(item1);
 									}
 								}
 								finally {
-									$t6.dispose();
+									$t8.dispose();
 								}
 								ss.add(ls, item1);
 							}
 						}
 						finally {
-							$t5.dispose();
+							$t7.dispose();
 						}
 					}
 					else {
+						var $t9 = new ss.ObjectEnumerator(o.api.converters);
+						try {
+							while ($t9.moveNext()) {
+								var kv3 = $t9.current();
+								res1[kv3.key] = kv3.value(res1);
+							}
+						}
+						finally {
+							$t9.dispose();
+						}
 						ss.add(ls, res1);
 					}
 					var tc = ss.cast(data1[o.api.totalCountProperty], ss.Int32);
@@ -297,10 +327,20 @@
 					var data2 = scb2;
 					var res2 = ss.coalesce(data2[r2], data2);
 					if (Array.isArray(res2)) {
-						var $t7 = ss.getEnumerator(ss.cast(res2, ss.IList));
+						var $t10 = ss.getEnumerator(ss.cast(res2, ss.IList));
 						try {
-							while ($t7.moveNext()) {
-								var item2 = { $: $t7.current() };
+							while ($t10.moveNext()) {
+								var item2 = { $: $t10.current() };
+								var $t11 = new ss.ObjectEnumerator(o.api.converters);
+								try {
+									while ($t11.moveNext()) {
+										var kv4 = $t11.current();
+										item2.$[kv4.key] = kv4.value(item2.$);
+									}
+								}
+								finally {
+									$t11.dispose();
+								}
 								var ur = Enumerable.from(ls).first(ss.mkdel({ item2: item2 }, function(f3) {
 									return ss.referenceEquals(f3[o.get_idProperty()], this.item2.$[o.get_idProperty()]);
 								}));
@@ -311,10 +351,20 @@
 							}
 						}
 						finally {
-							$t7.dispose();
+							$t10.dispose();
 						}
 					}
 					else {
+						var $t12 = new ss.ObjectEnumerator(o.api.converters);
+						try {
+							while ($t12.moveNext()) {
+								var kv5 = $t12.current();
+								res2[kv5.key] = kv5.value(res2);
+							}
+						}
+						finally {
+							$t12.dispose();
+						}
 						var item3 = res2;
 						var ur1 = Enumerable.from(ls).first(function(f4) {
 							return ss.referenceEquals(f4[o.get_idProperty()], item3[o.get_idProperty()]);
@@ -363,10 +413,20 @@
 					var data4 = scb4;
 					var res3 = ss.coalesce(data4[r3], data4);
 					if (Array.isArray(res3)) {
-						var $t8 = ss.getEnumerator(ss.cast(res3, ss.IList));
+						var $t13 = ss.getEnumerator(ss.cast(res3, ss.IList));
 						try {
-							while ($t8.moveNext()) {
-								var item4 = { $: $t8.current() };
+							while ($t13.moveNext()) {
+								var item4 = { $: $t13.current() };
+								var $t14 = new ss.ObjectEnumerator(o.api.converters);
+								try {
+									while ($t14.moveNext()) {
+										var kv6 = $t14.current();
+										item4.$[kv6.key] = kv6.value(item4.$);
+									}
+								}
+								finally {
+									$t14.dispose();
+								}
 								var ur2 = Enumerable.from(ls).first(ss.mkdel({ item4: item4 }, function(f10) {
 									return ss.referenceEquals(f10[o.get_idProperty()], this.item4.$[o.get_idProperty()]);
 								}));
@@ -377,10 +437,20 @@
 							}
 						}
 						finally {
-							$t8.dispose();
+							$t13.dispose();
 						}
 					}
 					else {
+						var $t15 = new ss.ObjectEnumerator(o.api.converters);
+						try {
+							while ($t15.moveNext()) {
+								var kv7 = $t15.current();
+								res3[kv7.key] = kv7.value(res3);
+							}
+						}
+						finally {
+							$t15.dispose();
+						}
 						var item5 = res3;
 						var ur3 = Enumerable.from(ls).first(function(f11) {
 							return ss.referenceEquals(f11[o.get_idProperty()], item5[o.get_idProperty()]);
@@ -529,8 +599,8 @@
 				}
 				return { item1: pageNumber, item2: from_, item3: to_ };
 			};
-			o.indexOf = function($t9) {
-				return ss.indexOf(ls, $t9);
+			o.indexOf = function($t16) {
+				return ss.indexOf(ls, $t16);
 			};
 			o.insert = function(index2, item6) {
 				ss.insert(ls, index2, item6);
@@ -561,8 +631,8 @@
 				ss.clear(ls);
 				onStoreChanged(o, 10, null, null, -1);
 			};
-			o.contains = function($t10) {
-				return ss.contains(ls, $t10);
+			o.contains = function($t17) {
+				return ss.contains(ls, $t17);
 			};
 			o.remove = function(item9) {
 				var index6 = ss.indexOf(ls, item9);
@@ -715,10 +785,16 @@
 			}
 		}
 	};
-	$Cayita_Fn.clone = function(target) {
-		var source = {};
+	$Cayita_Fn.clone = function(source) {
+		var target = {};
 		$Cayita_Fn.copyFrom(target, source);
 		return source;
+	};
+	$Cayita_Fn.normalize$1 = function(date) {
+		if (!ss.isValue(date)) {
+			return null;
+		}
+		return $Cayita_Fn.normalize(ss.Nullable.unbox(date));
 	};
 	$Cayita_Fn.normalize = function(date) {
 		if (ss.staticEquals(date, null)) {
@@ -726,6 +802,18 @@
 		}
 		var d = new Date(parseFloat((new RegExp('//Date\\(([^)]+)\\)//')).exec($Cayita_Fn.fmt('/{0}/', [date]))[1]));
 		return new Date(d.getUTCFullYear(), d.getUTCMonth() + 1 - 1, d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds());
+	};
+	$Cayita_Fn.toServerDateTime$1 = function(date, format) {
+		if (!ss.isValue(date)) {
+			return null;
+		}
+		return $Cayita_Fn.toServerDateTime(ss.Nullable.unbox(date), format);
+	};
+	$Cayita_Fn.toServerDateTime = function(date, format) {
+		if (ss.staticEquals(date, null)) {
+			return null;
+		}
+		return ss.formatDate(date, ss.coalesce(format, 'yyyy-MM-dd HH:mm:ss'));
 	};
 	$Cayita_Fn.someClass = function(name) {
 		var age = null;

@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using jQueryApi;
+using System.Collections;
 
 namespace Cayita
 {
@@ -86,19 +87,43 @@ namespace Cayita
 			}
 		}
 
-		public static Record Clone (this Record target)
+		public static Record Clone (this Record source)
 		{
-			var source = new JsDictionary<string, object> ();
+			var target = new JsDictionary<string, object> ();
 			CopyFrom (target, source);
-			return UI.Cast<Record>(source);
+			return (Record)source;
 		}
 
+		[InlineCode("{record}[{property}]={value}")]
+		public static void SetValue (this Record record, string property, object value)
+		{
+			((JsDictionary)record) [property] = value;
+		}
+
+
+		public static DateTime? Normalize(this DateTime? date){
+			if (!date.HasValue)
+				return null;
+			return Normalize (date.Value);
+		}
 
 		public static DateTime? Normalize(this DateTime date){
 			if(date==null) return null;
 			var d = new DateTime (new Regex (@"//Date\(([^)]+)\)//").Exec("/{0}/".Fmt(date))[1].ParseFloat());
 			return new DateTime( d.GetUtcFullYear(),d.GetUtcMonth(), d.GetUtcDate(),
 			                  d.GetUtcHours(), d.GetUtcMinutes(), d.GetUtcSeconds());
+		}
+
+		public static string ToServerDateTime(this DateTime? date, string format=null){
+			if (!date.HasValue)
+				return null;
+			return ToServerDateTime (date.Value,format);
+		}
+
+		public static string ToServerDateTime(this DateTime date, string format=null){
+			if (date == null)
+				return null;
+			return date.ToString (format??"yyyy-MM-dd HH:mm:ss");
 		}
 
 		[InlineCode("parseFloat({value})")]

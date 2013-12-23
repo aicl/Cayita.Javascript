@@ -56,12 +56,20 @@ namespace Cayita.JData
 					{
 						foreach (var item in ((IList<T>) res))
 						{
+							foreach(var kv in o.Api.Converters)
+							{
+								((dynamic)item)[kv.Key]= kv.Value(item);
+							}
 							ls.Add(item);
 							onStoreChanged(o,StoreChangedAction.Created, item, item, ls.IndexOf(item)  );
 						}
 					}
 					else
 					{
+						foreach(var kv in o.Api.Converters)
+						{
+							res[kv.Key]= kv.Value(UI.Cast<T> ((object)res));
+						}
 						var i = UI.Cast<T> ((object)res);
 						ls.Add( i );
 						onStoreChanged(o,StoreChangedAction.Created, i, i, ls.IndexOf(i) );
@@ -100,6 +108,10 @@ namespace Cayita.JData
 					}
 					else
 					{
+						foreach(var kv in o.Api.Converters)
+						{
+							res[kv.Key]= kv.Value(UI.Cast<T> ((object)res));
+						}
 						ls.Add(UI.Cast<T>((object) res));
 					}
 
@@ -127,6 +139,10 @@ namespace Cayita.JData
 					{
 						foreach (var item in ((IList<T>) res))
 						{
+							foreach(var kv in o.Api.Converters)
+							{
+								((dynamic)item)[kv.Key]= kv.Value(item);
+							}
 							var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
 							var old = new T();
 							old.PopulateFrom(ur);
@@ -136,6 +152,10 @@ namespace Cayita.JData
 					}
 					else
 					{
+						foreach(var kv in o.Api.Converters)
+						{
+							res[kv.Key]= kv.Value(UI.Cast<T> ((object)res));
+						}
 						var item = UI.Cast<T>((object)res);
 						var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
 						var old = new T();
@@ -185,6 +205,10 @@ namespace Cayita.JData
 					{
 						foreach (var item in ((IList<T>) res))
 						{
+							foreach(var kv in o.Api.Converters)
+							{
+								((dynamic)item)[kv.Key]= kv.Value(item);
+							}
 							var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
 							var old = new T();
 							old.PopulateFrom(ur);
@@ -194,6 +218,10 @@ namespace Cayita.JData
 					}
 					else
 					{
+						foreach(var kv in o.Api.Converters)
+						{
+							res[kv.Key]= kv.Value(UI.Cast<T> ((object)res));
+						}
 						var item = UI.Cast<T>((object)res);
 						var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
 						var old = new T();
