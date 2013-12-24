@@ -391,7 +391,6 @@
 				}, o.api.dataType);
 				req3.always(function() {
 					onStoreRequested(o, 4, 2);
-					console.log('destroy always !', req3);
 					if (req3.status === 200) {
 						var dr = Enumerable.from(ls).first(function(f7) {
 							return ss.referenceEquals(f7[o.get_idProperty()], record2[o.get_idProperty()]);
@@ -1958,16 +1957,15 @@
 				keydown(e, evt1);
 			};
 			var selectRowImp = function(row, triggerSelected, triggerClicked) {
-				if (ss.isNullOrUndefined(row)) {
-					return;
-				}
 				e.selectedRow = row;
 				if (!e.is_multiple()) {
 					e.getRows().forEach(function(r4) {
 						r4.classList.remove('info');
 					});
 				}
-				$(row).addClass('info');
+				if (ss.isValue(row)) {
+					$(row).addClass('info');
+				}
 				if (triggerClicked) {
 					onRowClicked(row);
 				}
@@ -2068,16 +2066,18 @@
 				keydown = ss.delegateRemove(keydown, v5);
 			};
 			e.selectRow = function(id, trigger) {
-				selectRowImp(e.getRowById(id), (ss.isValue(trigger) ? ss.isValue(trigger) : true), false);
+				selectRowImp(e.getRowById(id), (ss.isValue(trigger) ? ss.Nullable.unbox(trigger) : true), false);
 			};
-			e.unSelectRow = function(id1) {
-				e.getRowById(id1).classList.remove('info');
+			e.deSelectRow = function(id1, trigger1) {
+				var r5 = e.getRowById(id1);
+				r5.classList.remove('info');
+				if (ss.referenceEquals(r5.get_recordId(), e.selectedRow.get_recordId()) && (ss.isValue(trigger1) ? ss.Nullable.unbox(trigger1) : true)) {
+					e.selectedRow = null;
+					onRowSelected(null);
+				}
 			};
 			e.clearSelection = function() {
-				e.getRows().forEach(function(r5) {
-					r5.classList.remove('info');
-				});
-				e.selectedRow = null;
+				selectRowImp(null, true, false);
 			};
 			e.getSelected = function() {
 				return $($Cayita_Fn.fmt('tbody[main] tr[tb={0}].info', [e.id]), e).get();
@@ -2125,7 +2125,12 @@
 					}
 					case 4: {
 						var recordId = dt.oldData[e.store.get_idProperty()];
-						$(e.getRowById(recordId)).remove();
+						var r6 = e.getRowById(recordId);
+						$(r6).remove();
+						if (ss.referenceEquals(r6.get_recordId(), e.selectedRow.get_recordId())) {
+							e.selectedRow = null;
+							onRowSelected(null);
+						}
 						break;
 					}
 					case 5: {
@@ -2146,7 +2151,12 @@
 					}
 					case 9: {
 						var id2 = dt.oldData[e.store.get_idProperty()];
-						$(e.getRowById(id2)).remove();
+						var r21 = e.getRowById(id2);
+						$(r21).remove();
+						if (ss.referenceEquals(r21.get_recordId(), e.selectedRow.get_recordId())) {
+							e.selectedRow = null;
+							onRowSelected(null);
+						}
 						break;
 					}
 					case 10: {

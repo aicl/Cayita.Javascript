@@ -39,11 +39,10 @@ namespace Cayita
 
 			var selectRowImp=(Action<TableRowAtom,bool,bool>)( (row, triggerSelected, triggerClicked)=>{
 
-				if (row == null) return;
 				e.SelectedRow =row;
 
 				if( !e.Multiple) e.GetRows().ForEach(r=> r.RemoveClass ("info"));
-				row.AddClass("info");
+				if (row != null) row.AddClass("info");
 
 				if(triggerClicked) onRowClicked(row);
 				if(triggerSelected) onRowSelected( row);
@@ -133,16 +132,21 @@ namespace Cayita
 			                     (v => keydown=  Cast<Action<Grid<T>,jQueryEvent>>(Delegate.Remove (keydown, v)) ));
 
 			e.SetToAtomProperty("selectRow", (Action<object,bool?>)( (id,trigger)=>{
-				selectRowImp( e.GetRowById(id), trigger.HasValue?trigger.HasValue:true ,false);
+				selectRowImp( e.GetRowById(id), trigger.HasValue?trigger.Value:true ,false);
 			}));
 
-			e.SetToAtomProperty("unSelectRow", (Action<object>)( (id)=>{
-				e.GetRowById(id).RemoveClass("info");
+			e.SetToAtomProperty("deSelectRow", (Action<object,bool?>)( (id,trigger)=>{
+
+				var r =e.GetRowById(id);
+				r.RemoveClass("info");
+				if(r.RecordId==e.SelectedRow.RecordId && (trigger.HasValue?trigger.Value:true) ){
+					e.SelectedRow=null;
+					onRowSelected(null);
+				}
 			}));
 
 			e.SetToAtomProperty("clearSelection", (Action)(()=>{
-				e.GetRows().ForEach(r=> r.RemoveClass ("info"));
-				e.SelectedRow=null;
+				selectRowImp(null,true,false);
 			}));
 
 
@@ -194,7 +198,12 @@ namespace Cayita
 					break;
 					case StoreChangedAction.Destroyed:
 					var recordId = dt.OldData.Get(e.Store.IdProperty);
-					e.GetRowById(recordId).Remove();
+					var r= e.GetRowById(recordId);
+					r.Remove();
+					if(r.RecordId==e.SelectedRow.RecordId) {
+						e.SelectedRow=null;
+						onRowSelected(null);
+					}
 					break;
 					case StoreChangedAction.Patched:
 					e.UpdateRow(dt.NewData);
@@ -211,7 +220,12 @@ namespace Cayita
 					break;
 					case StoreChangedAction.Removed:
 					var id = dt.OldData.Get(e.Store.IdProperty);
-					e.GetRowById(id).Remove();
+					var r2= e.GetRowById(id);
+					r2.Remove();
+					if(r2.RecordId==e.SelectedRow.RecordId){
+						e.SelectedRow=null;
+						onRowSelected(null);
+					}
 					break;
 					case StoreChangedAction.Cleared:
 					e.Body.Empty();

@@ -45,6 +45,10 @@ namespace Cayita
 		public void Select(object id, bool trigger=true){
 		}
 
+		[InlineCode("{this}.deselectRow({id},{trigger})")]
+		public void DeSelect(object id, bool trigger=true){
+		}
+
 		public void ClearSelection(){
 		}
 
