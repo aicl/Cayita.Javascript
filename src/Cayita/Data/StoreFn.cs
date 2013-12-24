@@ -26,7 +26,7 @@ namespace Cayita.JData
 			var storeRequested = (Action<Store<T> , StoreRequestedData>)((st, d) => {});
 			var storeFailed = (Action<Store<T> , StoreFailedData<T>>)((st, d) => {});
 
-			var onStoreFailed = (Action<Store<T>,StoreFailedAction, jQueryDataHttpRequest<T>>)
+			var onStoreFailed = (Action<Store<T>,StoreFailedAction, jQueryXmlHttpRequest>)
 				((store,action,rq) => 
 				 storeFailed (store, new StoreFailedData<T> { Action=action, Request= rq }));
 
@@ -77,7 +77,7 @@ namespace Cayita.JData
 
 				});
 				req.Fail(f=>{
-					onStoreFailed(o, StoreFailedAction.Create, req);
+					onStoreFailed(o, StoreFailedAction.Create, UI.Cast<jQueryXmlHttpRequest>(req));
 				});
 
 				req.Always(t=>{
@@ -120,7 +120,7 @@ namespace Cayita.JData
 					onStoreChanged(o,StoreChangedAction.Read, default(T), default(T), -1);
 				});
 				req.Fail (f=>{
-					onStoreFailed(o,StoreFailedAction.Read, req);
+					onStoreFailed(o,StoreFailedAction.Read, UI.Cast<jQueryXmlHttpRequest>(req));
 				});
 				req.Always (f=>{
 					onStoreRequested(o,StoreRequestedAction.Read, StoreRequestedState.Finished);
@@ -165,7 +165,7 @@ namespace Cayita.JData
 					}
 				});
 				req.Fail (f=>{
-					onStoreFailed(o,StoreFailedAction.Update, req);
+					onStoreFailed(o,StoreFailedAction.Update, UI.Cast<jQueryXmlHttpRequest>(req));
 				});
 				req.Always (f=>{
 					onStoreRequested(o,StoreRequestedAction.Update, StoreRequestedState.Finished);
@@ -174,21 +174,22 @@ namespace Cayita.JData
 			};
 
 
-			Func<T, IDeferred<string>> destroyFn = (record) => {	
+			Func<T, IDeferred> destroyFn = (record) => {	
 				onStoreRequested (o,StoreRequestedAction.Destroy, StoreRequestedState.Started);
 				var data = (dynamic)new {};
 				data [o.IdProperty] = record.Get (o.IdProperty);
-				var req = jQuery.PostRequest<string> (o.Api.DestroyApi, (object)data, cb => {}, o.Api.DataType);
-				req.Done (scb=>{
-					var dr =ls.First( f=> f.Get(o.IdProperty)== record.Get(o.IdProperty));
-					ls.Remove(dr);
-					onStoreChanged(o,StoreChangedAction.Destroyed,dr, dr,-1);
-				});
-				req.Fail (f=>{
-					onStoreFailed(o,StoreFailedAction.Destroy,null);
-				});
-				req.Always (f=>{
+				var req = jQuery.Post (o.Api.DestroyApi, (object)data, cb => {}, o.Api.DataType);
+				req.Always (()=>{
 					onStoreRequested(o,StoreRequestedAction.Destroy, StoreRequestedState.Finished);
+					if(req.Status==200){
+						var dr =ls.First( f=> f.Get(o.IdProperty)== record.Get(o.IdProperty));
+						ls.Remove(dr);
+						onStoreChanged(o,StoreChangedAction.Destroyed,dr, dr,-1);
+					}
+					else
+					{
+						onStoreFailed(o,StoreFailedAction.Destroy,req);
+					}
 				});
 				return req;
 			};
@@ -231,7 +232,7 @@ namespace Cayita.JData
 					}
 				});
 				req.Fail (f=>{
-					onStoreFailed(o,StoreFailedAction.Patch, req);
+					onStoreFailed(o,StoreFailedAction.Patch, UI.Cast<jQueryXmlHttpRequest>(req));
 				});
 				req.Always (f=>{
 					onStoreRequested(o,StoreRequestedAction.Patch, StoreRequestedState.Finished);
@@ -253,7 +254,7 @@ namespace Cayita.JData
 			}));
 
 			UI.SetToProperty (o, "update", (Func<T, IDeferred<T>>)((d)=> updateFn(d)));
-			UI.SetToProperty (o, "destroy", (Func<T, IDeferred<string>>)((d)=> destroyFn(d)));
+			UI.SetToProperty (o, "destroy", (Func<T, IDeferred>)((d)=> destroyFn(d)));
 			UI.SetToProperty (o, "patch", (Func<T, IDeferred<T>>)((d)=> patchFn(d)));
 
 			UI.SetToProperty(o, "replace", (Action<T>)(record=>{
@@ -464,8 +465,8 @@ namespace Cayita.JData
 			UI.SetToProperty (o,"get_updateFn", (Func<Func<T, IDeferred<T>>>)(() => updateFn));
 			UI.SetToProperty (o,"set_updateFn", (Action<Func<T, IDeferred<T>>>)((v) => updateFn=v));
 
-			UI.SetToProperty (o,"get_destroyFn", (Func<Func<T, IDeferred<string>>>)(() => destroyFn));
-			UI.SetToProperty (o,"set_destroyFn", (Action<Func<T, IDeferred<string>>>)((v) => destroyFn=v));
+			UI.SetToProperty (o,"get_destroyFn", (Func<Func<T, IDeferred>>)(() => destroyFn));
+			UI.SetToProperty (o,"set_destroyFn", (Action<Func<T, IDeferred>>)((v) => destroyFn=v));
 
 			UI.SetToProperty (o,"get_patchFn", (Func<Func<T, IDeferred<T>>>)(() => patchFn));
 			UI.SetToProperty (o,"set_patchFn", (Action<Func<T, IDeferred<T>>>)((v) => patchFn=v));

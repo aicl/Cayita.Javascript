@@ -46,7 +46,7 @@ namespace Cayita.JData
 			return null;
 		}
 
-		public IDeferred<string> Destroy(T record)
+		public IDeferred Destroy(T record)
 		{
 			return null;
 		}

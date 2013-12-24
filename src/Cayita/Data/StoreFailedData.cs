@@ -15,7 +15,7 @@ namespace Cayita.JData
 		[IntrinsicProperty]
 		public StoreFailedAction Action { get; set; }
 		[IntrinsicProperty]
-		public jQueryDataHttpRequest<T> Request{ get; set; }
+		public jQueryXmlHttpRequest Request{ get; set; }
 	}
 }
 

@@ -389,18 +389,19 @@
 				data3[o.get_idProperty()] = record2[o.get_idProperty()];
 				var req3 = $.post(o.api.get_destroyApi(), data3, function(cb3) {
 				}, o.api.dataType);
-				req3.done(function(scb3) {
-					var dr = Enumerable.from(ls).first(function(f7) {
-						return ss.referenceEquals(f7[o.get_idProperty()], record2[o.get_idProperty()]);
-					});
-					ss.remove(ls, dr);
-					onStoreChanged(o, 4, dr, dr, -1);
-				});
-				req3.fail(function(f8) {
-					onStoreFailed(o, 4, null);
-				});
-				req3.always(function(f9) {
+				req3.always(function() {
 					onStoreRequested(o, 4, 2);
+					console.log('destroy always !', req3);
+					if (req3.status === 200) {
+						var dr = Enumerable.from(ls).first(function(f7) {
+							return ss.referenceEquals(f7[o.get_idProperty()], record2[o.get_idProperty()]);
+						});
+						ss.remove(ls, dr);
+						onStoreChanged(o, 4, dr, dr, -1);
+					}
+					else {
+						onStoreFailed(o, 4, req3);
+					}
 				});
 				return req3;
 			};
@@ -408,9 +409,9 @@
 				onStoreRequested(o, 5, 1);
 				var req4 = $.post(o.api.get_patchApi(), record3, function(cb4) {
 				}, o.api.dataType);
-				req4.done(function(scb4) {
+				req4.done(function(scb3) {
 					var r3 = o.api.dataProperty;
-					var data4 = scb4;
+					var data4 = scb3;
 					var res3 = ss.coalesce(data4[r3], data4);
 					if (Array.isArray(res3)) {
 						var $t13 = ss.getEnumerator(ss.cast(res3, ss.IList));
@@ -427,8 +428,8 @@
 								finally {
 									$t14.dispose();
 								}
-								var ur2 = Enumerable.from(ls).first(ss.mkdel({ item4: item4 }, function(f10) {
-									return ss.referenceEquals(f10[o.get_idProperty()], this.item4.$[o.get_idProperty()]);
+								var ur2 = Enumerable.from(ls).first(ss.mkdel({ item4: item4 }, function(f8) {
+									return ss.referenceEquals(f8[o.get_idProperty()], this.item4.$[o.get_idProperty()]);
 								}));
 								var old2 = ss.createInstance(T);
 								$Cayita_Fn.populateFrom(old2, ur2);
@@ -452,8 +453,8 @@
 							$t15.dispose();
 						}
 						var item5 = res3;
-						var ur3 = Enumerable.from(ls).first(function(f11) {
-							return ss.referenceEquals(f11[o.get_idProperty()], item5[o.get_idProperty()]);
+						var ur3 = Enumerable.from(ls).first(function(f9) {
+							return ss.referenceEquals(f9[o.get_idProperty()], item5[o.get_idProperty()]);
 						});
 						var old3 = ss.createInstance(T);
 						$Cayita_Fn.populateFrom(old3, ur3);
@@ -461,10 +462,10 @@
 						onStoreChanged(o, 5, ur3, old3, ss.indexOf(ls, ur3));
 					}
 				});
-				req4.fail(function(f12) {
+				req4.fail(function(f10) {
 					onStoreFailed(o, 5, req4);
 				});
-				req4.always(function(f13) {
+				req4.always(function(f11) {
 					onStoreRequested(o, 5, 2);
 				});
 				return req4;
@@ -496,8 +497,8 @@
 			};
 			o.replace = function(record4) {
 				var self = o;
-				var source = Enumerable.from(ls).first(function(f14) {
-					return ss.referenceEquals(f14[self.get_idProperty()].toString(), record4[self.get_idProperty()].toString());
+				var source = Enumerable.from(ls).first(function(f12) {
+					return ss.referenceEquals(f12[self.get_idProperty()].toString(), record4[self.get_idProperty()].toString());
 				});
 				var index1 = ss.indexOf(ls, source);
 				var old4 = $Cayita_Fn.clone(source);
