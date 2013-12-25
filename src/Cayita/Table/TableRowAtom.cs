@@ -12,6 +12,11 @@ namespace Cayita
 		{
 		}
 
+		[InlineCode("Cayita.UI.TableRowAtom(null, {action})")]
+		public TableRowAtom ( Action<TableRowAtom> action )
+		{
+		}
+
 		[IntrinsicProperty]
 		public ElementCollection Cells
 		{

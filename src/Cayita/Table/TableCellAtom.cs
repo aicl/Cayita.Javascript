@@ -11,6 +11,11 @@ namespace Cayita
 		{
 		}
 
+		[InlineCode("Cayita.UI.TableCellAtom(null, {action})")]
+		public TableCellAtom (Action<TableCellAtom> action)
+		{
+		}
+
 		public object Value {
 			[InlineCode("{this}.get_value()")]	get;
 			[InlineCode("{this}.set_value({value})")] set;
