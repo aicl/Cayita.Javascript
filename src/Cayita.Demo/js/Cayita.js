@@ -3442,7 +3442,7 @@
 			return e;
 		};
 	};
-	$Cayita_UI.TableCellAtom = function(rowId) {
+	$Cayita_UI.TableCellAtom = function(rowId, action) {
 		var e = $Cayita_UI.Atom('td', null, null, null, null, null);
 		if (!ss.isNullOrEmptyString(rowId)) {
 			e.setAttribute('tr', rowId);
@@ -3451,21 +3451,24 @@
 			return $(e).text();
 		};
 		e.set_value = function(v) {
-			$(e).text(ss.coalesce(v, '').toString());
+			$(e).html(ss.coalesce(v, '').toString());
 		};
 		e.set_getValueFn = function(func) {
-			e.GetValue = function() {
+			e.set_value = function() {
 				return func(e);
 			};
 		};
 		e.set_setValueFn = function(func1) {
-			e.setValue = function(v1) {
+			e.set_value = function(v1) {
 				func1(e, v1);
 			};
 		};
+		if (!ss.staticEquals(action, null)) {
+			action(e);
+		}
 		return e;
 	};
-	$Cayita_UI.TableRowAtom = function(tableId) {
+	$Cayita_UI.TableRowAtom = function(tableId, action) {
 		var e = $Cayita_UI.Atom('tr', null, null, null, null, null);
 		e.createId();
 		if (!ss.isNullOrEmptyString(tableId)) {
@@ -3482,7 +3485,7 @@
 				i = -1;
 			}
 			var rf = ((ss.Nullable.unbox(i) < 0) ? e.getLastCell() : e.getCellByIndex(ss.Nullable.unbox(i)));
-			var r = $Cayita_UI.TableCellAtom(e.id);
+			var r = $Cayita_UI.TableCellAtom(e.id, null);
 			if (ss.isNullOrUndefined(rf)) {
 				$(rf).before(r);
 			}
@@ -3504,10 +3507,13 @@
 			c.setAttribute('tr', e.id);
 			e.append(c);
 		};
+		if (!ss.staticEquals(action, null)) {
+			action(e);
+		}
 		return e;
 	};
 	$Cayita_UI.TableColumn = function(T) {
-		return function(index, header, val, autoHeader) {
+		return function(index, header, val, autoHeader, headerAction) {
 			var o = { header: null, value: null, footer: null, hidden: false, afterCellCreated: null };
 			if (!ss.isNullOrEmptyString(index)) {
 				if (ss.isNullOrEmptyString(header) && (!ss.isValue(autoHeader) || ss.Nullable.unbox(autoHeader))) {
@@ -3523,11 +3529,19 @@
 						c.set_value(t[index]);
 					};
 				}
-				o.value = function(t1) {
-					var cell = Cayita.UI.TableCellAtom();
+			}
+			o.value = function(t1) {
+				var cell = Cayita.UI.TableCellAtom();
+				if (!ss.staticEquals(val, null)) {
 					val(t1, cell);
-					return cell;
-				};
+				}
+				return cell;
+			};
+			if (!ss.staticEquals(headerAction, null)) {
+				if (ss.isNullOrUndefined(o.header)) {
+					o.header = Cayita.UI.TableCellAtom();
+				}
+				headerAction(o.header);
 			}
 			return o;
 		};
@@ -3539,7 +3553,7 @@
 			var props = $Cayita_Fn.getProperties(o);
 			for (var $t1 = 0; $t1 < props.length; $t1++) {
 				var p = props[$t1];
-				ss.add(cols, $Cayita_UI.TableColumn(T).call(null, p, p, null, autoHeader));
+				ss.add(cols, $Cayita_UI.TableColumn(T).call(null, p, p, null, autoHeader, null));
 			}
 			return cols;
 		};
@@ -3566,7 +3580,7 @@
 				i1 = -1;
 			}
 			var rf = ((ss.Nullable.unbox(i1) < 0) ? t.getLastRow() : t.getRowByIndex(ss.Nullable.unbox(i1)));
-			var r = $Cayita_UI.TableRowAtom(t.id);
+			var r = $Cayita_UI.TableRowAtom(t.id, null);
 			if (ss.isNullOrUndefined(rf)) {
 				$(rf).before(r);
 			}
@@ -3595,7 +3609,7 @@
 				return $($Cayita_Fn.fmt('tbody[main] tr[tb={0}][record-id={1}]', [e.id, id]), e).get(0);
 			};
 			e.addRow = function(d1) {
-				var row = $Cayita_UI.TableRowAtom(e.id);
+				var row = $Cayita_UI.TableRowAtom(e.id, null);
 				row.set_recordId(d1[e.idProperty].toString());
 				row.className = 'rowlink';
 				for (var $t1 = 0; $t1 < e.columns.length; $t1++) {
@@ -3641,7 +3655,7 @@
 				try {
 					while ($t3.moveNext()) {
 						var d4 = $t3.current();
-						var row2 = $Cayita_UI.TableRowAtom(e.id);
+						var row2 = $Cayita_UI.TableRowAtom(e.id, null);
 						row2.set_recordId(d4[e.idProperty].toString());
 						row2.className = 'rowlink';
 						for (var $t4 = 0; $t4 < e.columns.length; $t4++) {

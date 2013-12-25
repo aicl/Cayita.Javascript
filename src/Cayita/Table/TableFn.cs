@@ -9,26 +9,29 @@ namespace Cayita
 	public static partial class UI
 	{
 
-		public static TableCellAtom TableCellAtom(string rowId=null)
+		public static TableCellAtom TableCellAtom(string rowId=null, Action<TableCellAtom> action=null)
 		{
 			var e = Atom ("td").As<TableCellAtom>();
 			if (!rowId.IsNullOrEmpty ())
 				e.SetAttribute ("tr", rowId);
 
 			e.SetToAtomProperty ("get_value", (Func<object>)(() => jQuery.FromElement (e).GetText ()));
-			e.SetToAtomProperty ("set_value", (Action<object>)((v) => jQuery.FromElement (e).Text ((v??"").ToString())));
+			e.SetToAtomProperty ("set_value", (Action<object>)((v) => jQuery.FromElement (e).Html ((v??"").ToString())));
 
 			e.SetToAtomProperty("set_getValueFn", (Action<Func<Element,object>>)(
-				func=> e.SetToAtomProperty( "GetValue", (Func<object>)( ()=> func(e) ))));
+				func=> e.SetToAtomProperty( "set_value", (Func<object>)( ()=> func(e) ))));
 
 			e.SetToAtomProperty ("set_setValueFn", (Action<Action<Element,object>>)(
-				func => e.SetToAtomProperty ("setValue", (Action<object>)((v) => func (e, v)))));
+				func => e.SetToAtomProperty ("set_value", (Action<object>)((v) => func (e, v)))));
+
+			if (action != null)
+				action.Invoke (e);
 
 			return e;
 
 		}
 
-		public static TableRowAtom TableRowAtom(string tableId=null) {
+		public static TableRowAtom TableRowAtom(string tableId=null, Action<TableRowAtom> action=null) {
 			var e =Atom ("tr").As<TableRowAtom>();
 			e.CreateId ();
 			if (!tableId.IsNullOrEmpty ())
@@ -65,12 +68,15 @@ namespace Cayita
 				e.Append(c);
 			}));
 
+			if (action != null)
+				action.Invoke (e);
+
 			return e;
 		}
 
 
 		public  static TableColumn<T> TableColumn<T>(string index,string header, 
-		                                                   Action<T,TableCellAtom> val, bool? autoHeader )
+			Action<T,TableCellAtom> val, bool? autoHeader, Action<TableCellAtom> headerAction=null  )
 			where T:new ()
 		{
 		var o = Cast<TableColumn<T>> (new { 
@@ -81,22 +87,31 @@ namespace Cayita
 				afterCellCreated=default(object)
 			});
 
-			if(!index.IsNullOrEmpty()){
-				if (string.IsNullOrEmpty (header) && (!autoHeader.HasValue || autoHeader.Value)) 
+
+			if (!index.IsNullOrEmpty ()) {
+				if (string.IsNullOrEmpty (header) && (!autoHeader.HasValue || autoHeader.Value))
 					header = index;
 
 				if (!string.IsNullOrEmpty (header))
-					o.Header = new  TableCellAtom { Value=header };
+					o.Header = new  TableCellAtom { Value = header };
 
-				if (val == null) 
-					val = (t,c ) => c.Value = t.Get (index);
-
-				o.Value = t => {
-					var cell = new TableCellAtom ();
-					val.Invoke (t,cell );
-					return cell;
-				};
+				if (val == null)
+					val = (t, c) => c.Value = t.Get (index);
 			}
+
+			o.Value = t => {
+				var cell = new TableCellAtom ();
+				if(val!=null) val.Invoke (t,cell );
+				return cell;
+			};
+
+			if (headerAction != null) {
+				if (o.Header == null) {
+					o.Header = new TableCellAtom ();
+				}
+				headerAction.Invoke (o.Header);
+			}
+
 			return o;
 		}
 

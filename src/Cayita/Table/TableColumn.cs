@@ -19,6 +19,11 @@ namespace Cayita
 		{
 		}
 
+		[InlineCode("Cayita.UI.TableColumn({T})(null,null,{val},false, {header})")]
+		public TableColumn( Action<T,TableCellAtom> val , Action<TableCellAtom> header )
+		{
+		}
+
 		[IntrinsicProperty]
 		public TableCellAtom Header { get; set; }
 
