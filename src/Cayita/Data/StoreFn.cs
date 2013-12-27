@@ -160,6 +160,7 @@ namespace Cayita.JData
 						var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
 						var old = new T();
 						old.PopulateFrom(ur);
+						ur= new T();
 						ur.PopulateFrom( UI.Cast<T>((object)res) );
 						onStoreChanged(o,StoreChangedAction.Updated,ur, old, ls.IndexOf(ur));
 					}
@@ -227,6 +228,7 @@ namespace Cayita.JData
 						var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
 						var old = new T();
 						old.PopulateFrom(ur);
+						ur= new T();
 						ur.PopulateFrom( UI.Cast<T>((object)res) );
 						onStoreChanged(o,StoreChangedAction.Patched,ur, old,ls.IndexOf(ur) );
 					}

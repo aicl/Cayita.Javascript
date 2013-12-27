@@ -371,6 +371,7 @@
 						});
 						var old1 = ss.createInstance(T);
 						$Cayita_Fn.populateFrom(old1, ur1);
+						ur1 = ss.createInstance(T);
 						$Cayita_Fn.populateFrom(ur1, res2);
 						onStoreChanged(o, 3, ur1, old1, ss.indexOf(ls, ur1));
 					}
@@ -457,6 +458,7 @@
 						});
 						var old3 = ss.createInstance(T);
 						$Cayita_Fn.populateFrom(old3, ur3);
+						ur3 = ss.createInstance(T);
 						$Cayita_Fn.populateFrom(ur3, res3);
 						onStoreChanged(o, 5, ur3, old3, ss.indexOf(ls, ur3));
 					}
