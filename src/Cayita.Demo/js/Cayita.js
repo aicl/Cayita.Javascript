@@ -1916,15 +1916,20 @@
 			var multiple = false;
 			var rowClicked = function(g, r) {
 			};
-			var rowSelected = function(g1, r1) {
+			var rowDblClicked = function(g1, r1) {
 			};
-			var keydown = function(g2, evt) {
+			var rowSelected = function(g2, r2) {
 			};
-			var onRowClicked = function(r2) {
-				rowClicked(e, r2);
+			var keydown = function(g3, evt) {
 			};
-			var onRowSelected = function(r3) {
-				rowSelected(e, r3);
+			var onRowClicked = function(r3) {
+				rowClicked(e, r3);
+			};
+			var onRowDblClicked = function(r4) {
+				rowDblClicked(e, r4);
+			};
+			var onRowSelected = function(r5) {
+				rowSelected(e, r5);
 			};
 			var onKeydown = function(evt1) {
 				keydown(e, evt1);
@@ -1932,8 +1937,8 @@
 			var selectRowImp = function(row, triggerSelected, triggerClicked) {
 				e.selectedRow = row;
 				if (!e.is_multiple()) {
-					e.getRows().forEach(function(r4) {
-						r4.classList.remove('info');
+					e.getRows().forEach(function(r6) {
+						r6.classList.remove('info');
 					});
 				}
 				if (ss.isValue(row)) {
@@ -2026,25 +2031,31 @@
 			e.remove_rowClicked = function(v1) {
 				rowClicked = ss.delegateRemove(rowClicked, v1);
 			};
-			e.add_rowSelected = function(v2) {
-				rowSelected = ss.delegateCombine(rowSelected, v2);
+			e.add_rowDblClicked = function(v2) {
+				rowDblClicked = ss.delegateCombine(rowDblClicked, v2);
 			};
-			e.remove_rowSelected = function(v3) {
-				rowSelected = ss.delegateRemove(rowSelected, v3);
+			e.remove_rowDblClicked = function(v3) {
+				rowDblClicked = ss.delegateRemove(rowDblClicked, v3);
 			};
-			e.add_keydown = function(v4) {
-				keydown = ss.delegateCombine(keydown, v4);
+			e.add_rowSelected = function(v4) {
+				rowSelected = ss.delegateCombine(rowSelected, v4);
 			};
-			e.remove_keydown = function(v5) {
-				keydown = ss.delegateRemove(keydown, v5);
+			e.remove_rowSelected = function(v5) {
+				rowSelected = ss.delegateRemove(rowSelected, v5);
+			};
+			e.add_keydown = function(v6) {
+				keydown = ss.delegateCombine(keydown, v6);
+			};
+			e.remove_keydown = function(v7) {
+				keydown = ss.delegateRemove(keydown, v7);
 			};
 			e.selectRow = function(id, trigger) {
 				selectRowImp(e.getRowById(id), (ss.isValue(trigger) ? ss.Nullable.unbox(trigger) : true), false);
 			};
 			e.deSelectRow = function(id1, trigger1) {
-				var r5 = e.getRowById(id1);
-				r5.classList.remove('info');
-				if (ss.referenceEquals(r5.get_recordId(), e.selectedRow.get_recordId()) && (ss.isValue(trigger1) ? ss.Nullable.unbox(trigger1) : true)) {
+				var r7 = e.getRowById(id1);
+				r7.classList.remove('info');
+				if (ss.referenceEquals(r7.get_recordId(), e.selectedRow.get_recordId()) && (ss.isValue(trigger1) ? ss.Nullable.unbox(trigger1) : true)) {
 					e.selectedRow = null;
 					onRowSelected(null);
 				}
@@ -2057,6 +2068,9 @@
 			};
 			e.add_handler('click', function(ev) {
 				selectRowImp(ev.currentTarget, true, true);
+			}, $Cayita_Fn.fmt('tbody[main] tr[tb={0}]', [e.id]), null);
+			e.add_handler('dblclick', function(ev1) {
+				onRowDblClicked(e.selectedRow);
 			}, $Cayita_Fn.fmt('tbody[main] tr[tb={0}]', [e.id]), null);
 			e.add_handler('keydown', function(evt3) {
 				keydownHandler(evt3);
@@ -2098,9 +2112,9 @@
 					}
 					case 4: {
 						var recordId = dt.oldData[e.store.get_idProperty()];
-						var r6 = e.getRowById(recordId);
-						$(r6).remove();
-						if (ss.referenceEquals(r6.get_recordId(), e.selectedRow.get_recordId())) {
+						var r8 = e.getRowById(recordId);
+						$(r8).remove();
+						if (ss.referenceEquals(r8.get_recordId(), e.selectedRow.get_recordId())) {
 							e.selectedRow = null;
 							onRowSelected(null);
 						}

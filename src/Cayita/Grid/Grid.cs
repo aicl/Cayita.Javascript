@@ -72,5 +72,12 @@ namespace Cayita
 			[InlineCode("{this}.remove_keydown({value})")]
 			remove{}
 		}
+
+		public event Action<Grid<T> , TableRowAtom> RowDblClicked {
+			[InlineCode("{this}.add_rowDblClicked({value})")]
+			add{}
+			[InlineCode("{this}.remove_rowDblClicked({value})")]
+			remove{}
+		}
 	}
 }

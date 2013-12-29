@@ -30,10 +30,12 @@ namespace Cayita
 			var multiple = false;
 
 			var rowClicked = (Action<Grid<T>,TableRowAtom>)((g,r) => {});
+			var rowDblClicked = (Action<Grid<T>,TableRowAtom>)((g,r) => {});
 			var rowSelected = (Action<Grid<T>,TableRowAtom>)((g,r) => {});
 			var keydown = (Action<Grid<T>,jQueryEvent>)((g,evt) => {});
 
 			var onRowClicked = (Action<TableRowAtom>)(r => rowClicked (e, r));
+			var onRowDblClicked = (Action<TableRowAtom>)(r => rowDblClicked (e, r));
 			var onRowSelected = (Action<TableRowAtom>)(r => rowSelected (e, r));
 			var onKeydown = (Action<jQueryEvent>)( evt=> keydown(e,evt));
 
@@ -117,6 +119,11 @@ namespace Cayita
 			e.SetToAtomProperty ("remove_rowClicked", (Action<Action<Grid<T> , TableRowAtom>>)
 			                     (v => rowClicked=  Cast<Action<Grid<T>,TableRowAtom>>(Delegate.Remove (rowClicked, v)) ));
 
+			e.SetToAtomProperty ("add_rowDblClicked", (Action<Action<Grid<T> , TableRowAtom>>)
+				(v => rowDblClicked=  Cast<Action<Grid<T>,TableRowAtom>>(Delegate.Combine (rowDblClicked, v)) ));
+
+			e.SetToAtomProperty ("remove_rowDblClicked", (Action<Action<Grid<T> , TableRowAtom>>)
+				(v => rowDblClicked=  Cast<Action<Grid<T>,TableRowAtom>>(Delegate.Remove (rowDblClicked, v)) ));
 
 			e.SetToAtomProperty ("add_rowSelected", (Action<Action<Grid<T> , TableRowAtom>>)
 			                     (v => rowSelected=  Cast<Action<Grid<T>,TableRowAtom>>(Delegate.Combine (rowSelected, v)) ));
@@ -157,6 +164,8 @@ namespace Cayita
 			e.On("click", ev =>  { 
 				selectRowImp(ev.CurrentTarget.As<TableRowAtom>(), true,true);
 			},"tbody[main] tr[tb={0}]".Fmt(e.ID) ); 
+
+			e.On("dblclick",ev=>onRowDblClicked(e.SelectedRow), "tbody[main] tr[tb={0}]".Fmt(e.ID) ); 
 
 			e.On ("keydown", evt => keydownHandler (evt));
 
