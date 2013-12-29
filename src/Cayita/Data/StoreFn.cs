@@ -15,6 +15,9 @@ namespace Cayita.JData
 
 			o.LastOption = new ReadOptions ();
 			o.Api = new StoreApi<T> ();
+			o.FailAction = Data.DefaultStoreFailAction??((r,d)=>{});
+			o.DoneAction = Data.DefaultStoreDoneAction??((r,d)=>{});
+			o.AlwaysAction = Data.DefaultStoreAlwaysAction??((r,d)=>{});
 
 			Func<T,bool> filterFn = d => true;
 			var totalCount = 0;
@@ -52,35 +55,24 @@ namespace Cayita.JData
 					var r = o.Api.DataProperty;
 					dynamic data = (dynamic) scb;
 					var res = data[r]?? data;
-					if (((object) res).IsArray())
-					{
-						foreach (var item in ((IList<T>) res))
-						{
-							foreach(var kv in o.Api.Converters)
-							{
-								((dynamic)item)[kv.Key]= kv.Value(item);
-							}
-							ls.Add(item);
-							onStoreChanged(o,StoreChangedAction.Created, item, item, ls.IndexOf(item)  );
-						}
-					}
-					else
-					{
-						foreach(var kv in o.Api.Converters)
-						{
-							res[kv.Key]= kv.Value(UI.Cast<T> ((object)res));
-						}
-						var i = UI.Cast<T> ((object)res);
-						ls.Add( i );
-						onStoreChanged(o,StoreChangedAction.Created, i, i, ls.IndexOf(i) );
-					}
 
+					foreach(var kv in o.Api.Converters)
+					{
+						res[kv.Key]= kv.Value(UI.Cast<T> ((object)res));
+					}
+					var i = UI.Cast<T> ((object)res);
+					ls.Add( i );
+					o.DoneAction(UI.Cast<jQueryXmlHttpRequest>(req),record);
+					onStoreChanged(o,StoreChangedAction.Created, i, i, ls.IndexOf(i) );
 				});
+
 				req.Fail(f=>{
+					o.FailAction(UI.Cast<jQueryXmlHttpRequest>(req),record);
 					onStoreFailed(o, StoreFailedAction.Create, UI.Cast<jQueryXmlHttpRequest>(req));
 				});
 
 				req.Always(t=>{
+					o.AlwaysAction(UI.Cast<jQueryXmlHttpRequest>(req),record);
 					onStoreRequested(o,StoreRequestedAction.Create, StoreRequestedState.Finished);
 				});
 	
@@ -95,34 +87,27 @@ namespace Cayita.JData
 					var r = o.Api.DataProperty;
 					dynamic data = (dynamic) scb;
 					var res = data[r]?? data;
-					if (((object) res).IsArray())
-					{
-						foreach (var item in ((IList<T>) res))
-						{
-							foreach(var kv in o.Api.Converters)
-							{
-								((dynamic)item)[kv.Key]= kv.Value(item);
-							}
-							ls.Add(item);
-						}
-					}
-					else
+
+					foreach (var item in ((IList<T>) res))
 					{
 						foreach(var kv in o.Api.Converters)
 						{
-							res[kv.Key]= kv.Value(UI.Cast<T> ((object)res));
+							((dynamic)item)[kv.Key]= kv.Value(item);
 						}
-						ls.Add(UI.Cast<T>((object) res));
+						ls.Add(item);
 					}
 
 					int? tc = data[o.Api.TotalCountProperty];
 					o.TotalCount= tc.HasValue? tc.Value: ls.Count(o.FilterFn);
+					o.DoneAction( UI.Cast<jQueryXmlHttpRequest>(req), (Record)readOptions.Request );
 					onStoreChanged(o,StoreChangedAction.Read, default(T), default(T), -1);
 				});
 				req.Fail (f=>{
+					o.FailAction( UI.Cast<jQueryXmlHttpRequest>(req), (Record)readOptions.Request );
 					onStoreFailed(o,StoreFailedAction.Read, UI.Cast<jQueryXmlHttpRequest>(req));
 				});
 				req.Always (f=>{
+					o.AlwaysAction(UI.Cast<jQueryXmlHttpRequest>(req), (Record)readOptions.Request);
 					onStoreRequested(o,StoreRequestedAction.Read, StoreRequestedState.Finished);
 				});
 				return req;
@@ -135,40 +120,27 @@ namespace Cayita.JData
 					var r = o.Api.DataProperty;
 					dynamic data = (dynamic) scb;
 					var res = data[r]?? data;
-					if (((object) res).IsArray())
+
+					foreach(var kv in o.Api.Converters)
 					{
-						foreach (var item in ((IList<T>) res))
-						{
-							foreach(var kv in o.Api.Converters)
-							{
-								((dynamic)item)[kv.Key]= kv.Value(item);
-							}
-							var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
-							var old = new T();
-							old.PopulateFrom(ur);
-							ur.PopulateFrom(item);
-							onStoreChanged(o,StoreChangedAction.Updated,ur, old, ls.IndexOf(ur));
-						}
+						res[kv.Key]= kv.Value(UI.Cast<T> ((object)res));
 					}
-					else
-					{
-						foreach(var kv in o.Api.Converters)
-						{
-							res[kv.Key]= kv.Value(UI.Cast<T> ((object)res));
-						}
-						var item = UI.Cast<T>((object)res);
-						var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
-						var old = new T();
-						old.PopulateFrom(ur);
-						ur= new T();
-						ur.PopulateFrom( UI.Cast<T>((object)res) );
-						onStoreChanged(o,StoreChangedAction.Updated,ur, old, ls.IndexOf(ur));
-					}
+					var item = UI.Cast<T>((object)res);
+					var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
+					var old = new T();
+					old.PopulateFrom(ur);
+					ur= new T();
+					ur.PopulateFrom( UI.Cast<T>((object)res) );
+					o.DoneAction( UI.Cast<jQueryXmlHttpRequest>(req), record);
+					onStoreChanged(o,StoreChangedAction.Updated,ur, old, ls.IndexOf(ur));
 				});
+
 				req.Fail (f=>{
+					o.FailAction(UI.Cast<jQueryXmlHttpRequest>(req),record);
 					onStoreFailed(o,StoreFailedAction.Update, UI.Cast<jQueryXmlHttpRequest>(req));
 				});
 				req.Always (f=>{
+					o.AlwaysAction(UI.Cast<jQueryXmlHttpRequest>(req),record);
 					onStoreRequested(o,StoreRequestedAction.Update, StoreRequestedState.Finished);
 				});
 				return req;
@@ -185,12 +157,15 @@ namespace Cayita.JData
 					if(req.Status==200){
 						var dr =ls.First( f=> f.Get(o.IdProperty)== record.Get(o.IdProperty));
 						ls.Remove(dr);
+						o.DoneAction(UI.Cast<jQueryXmlHttpRequest>(req),record);
 						onStoreChanged(o,StoreChangedAction.Destroyed,dr, dr,-1);
 					}
 					else
 					{
+						o.FailAction(UI.Cast<jQueryXmlHttpRequest>(req),record);
 						onStoreFailed(o,StoreFailedAction.Destroy,req);
 					}
+					o.AlwaysAction(UI.Cast<jQueryXmlHttpRequest>(req),record);
 				});
 				return req;
 			};
@@ -203,40 +178,27 @@ namespace Cayita.JData
 					var r = o.Api.DataProperty;
 					dynamic data = (dynamic) scb;
 					var res = data[r]?? data;
-					if ( ((object) res).IsArray())
+					foreach(var kv in o.Api.Converters)
 					{
-						foreach (var item in ((IList<T>) res))
-						{
-							foreach(var kv in o.Api.Converters)
-							{
-								((dynamic)item)[kv.Key]= kv.Value(item);
-							}
-							var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
-							var old = new T();
-							old.PopulateFrom(ur);
-							ur.PopulateFrom(item);
-							onStoreChanged(o,StoreChangedAction.Patched,ur, old,ls.IndexOf(ur) );
-						}
+						res[kv.Key]= kv.Value(UI.Cast<T> ((object)res));
 					}
-					else
-					{
-						foreach(var kv in o.Api.Converters)
-						{
-							res[kv.Key]= kv.Value(UI.Cast<T> ((object)res));
-						}
-						var item = UI.Cast<T>((object)res);
-						var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
-						var old = new T();
-						old.PopulateFrom(ur);
-						ur= new T();
-						ur.PopulateFrom( UI.Cast<T>((object)res) );
-						onStoreChanged(o,StoreChangedAction.Patched,ur, old,ls.IndexOf(ur) );
-					}
+					var item = UI.Cast<T>((object)res);
+					var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
+					var old = new T();
+					old.PopulateFrom(ur);
+					ur= new T();
+					ur.PopulateFrom( UI.Cast<T>((object)res) );
+					o.DoneAction(UI.Cast<jQueryXmlHttpRequest>(req),record);
+					onStoreChanged(o,StoreChangedAction.Patched,ur, old,ls.IndexOf(ur) );
 				});
+
 				req.Fail (f=>{
+					o.FailAction(UI.Cast<jQueryXmlHttpRequest>(req),record);
 					onStoreFailed(o,StoreFailedAction.Patch, UI.Cast<jQueryXmlHttpRequest>(req));
 				});
+
 				req.Always (f=>{
+					o.AlwaysAction(UI.Cast<jQueryXmlHttpRequest>(req),record);
 					onStoreRequested(o,StoreRequestedAction.Patch, StoreRequestedState.Finished);
 				});
 				return req;

@@ -51,18 +51,16 @@ namespace Cayita
 		public static void Dialog(string message, BootboxHandler handler, BootboxOptions options =null){}
 
 
+		[InlineCode("Cayita.Plugins.showBootboxDialog({content},null,{options})")]
 		public static void Dialog(Element content, BootboxOptions options =null){
-			Dialog (content.InnerHTML, options);
 		}
 
-
+		[InlineCode("Cayita.Plugins.showBootboxDialog({content},{handler},{options})")]
 		public static void Dialog(Element content, BootboxHandler handler, BootboxOptions options =null){
-			Dialog (content.InnerHTML, handler, options);
 		}
-
 
 		public static void Dialog(string message, IEnumerable<BootboxHandler> handlers, BootboxOptions options=null){}
-
+		public static void Dialog(Element content, IEnumerable<BootboxHandler> handlers, BootboxOptions options=null){}
 
 		public static void Animate(bool value){
 		}

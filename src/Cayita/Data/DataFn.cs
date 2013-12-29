@@ -1,12 +1,19 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
+using jQueryApi;
 
 namespace Cayita.JData
 {
 	[ScriptNamespace("Cayita"), PreserveMemberCase]
 	public static partial class Data
 	{
+		[IntrinsicProperty]
+		public static Action<jQueryXmlHttpRequest,Record> DefaultStoreFailAction { get; set; }
+		[IntrinsicProperty]
+		public static Action<jQueryXmlHttpRequest,Record> DefaultStoreDoneAction { get; set; }
+		[IntrinsicProperty]
+		public static Action<jQueryXmlHttpRequest,Record> DefaultStoreAlwaysAction { get; set; }
 
 		public static StoreChangedData<T> StoreChangedData<T>()
 		{

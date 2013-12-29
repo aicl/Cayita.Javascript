@@ -17,6 +17,12 @@ namespace Cayita.JData
 		public ReadOptions LastOption { get; protected internal set;}
 		[IntrinsicProperty]
 		public StoreApi<T> Api { get; protected internal set;}
+		[IntrinsicProperty]
+		public Action<jQueryXmlHttpRequest,Record> FailAction { get; set; } 
+		[IntrinsicProperty]
+		public Action<jQueryXmlHttpRequest,Record> DoneAction { get; set; } 
+		[IntrinsicProperty]
+		public Action<jQueryXmlHttpRequest,Record> AlwaysAction { get; set; } 
 
 		protected internal Func<T, bool>  FilterFn { get; set;}
 

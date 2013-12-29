@@ -47,6 +47,8 @@ dmcs  /noconfig  -nostdlib \
 "Data/StoreRequestedAction.cs" \
 "Data/StoreRequestedData.cs" \
 "Data/StoreRequestedState.cs" \
+"Data/RequestFn.cs" \
+"Data/FailRequest.cs" \
 "Dropdown/DropdownFn.cs" \
 "Dropdown/DropdownMenu.cs" \
 "Dropdown/DropdownSubmenu.cs" \

@@ -170,6 +170,8 @@
     <Compile Include="Img\ImgFn.cs" />
     <Compile Include="Img\CssPicture.cs" />
     <Compile Include="Core\FormData.cs" />
+    <Compile Include="Data\RequestFn.cs" />
+    <Compile Include="Data\FailRequest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
