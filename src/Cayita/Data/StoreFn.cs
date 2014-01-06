@@ -81,6 +81,8 @@ namespace Cayita.JData
 
 
 			Func<ReadOptions,  IDeferred<T>> readFn = ( readOptions) => {	
+				ls.Clear();
+				o.TotalCount=0;
 				onStoreRequested (o,StoreRequestedAction.Read, StoreRequestedState.Started);
 				var req = jQuery.GetData<T> (o.Api.ReadApi, readOptions.Request, cb => {}, o.Api.DataType);
 				req.Done (scb=>{
@@ -88,7 +90,7 @@ namespace Cayita.JData
 					dynamic data = (dynamic) scb;
 					var res = data[r]?? data;
 
-					foreach (var item in ((IList<T>) res))
+					foreach (var item  in UI.Cast<IList<T>>( (object)res))
 					{
 						foreach(var kv in o.Api.Converters)
 						{
@@ -127,12 +129,14 @@ namespace Cayita.JData
 					}
 					var item = UI.Cast<T>((object)res);
 					var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
+					var i= ls.IndexOf(ur);
 					var old = new T();
 					old.PopulateFrom(ur);
 					ur= new T();
 					ur.PopulateFrom( UI.Cast<T>((object)res) );
+					ls[i]=ur;
 					o.DoneAction( UI.Cast<jQueryXmlHttpRequest>(req), record);
-					onStoreChanged(o,StoreChangedAction.Updated,ur, old, ls.IndexOf(ur));
+					onStoreChanged(o,StoreChangedAction.Updated,ur, old, i);
 				});
 
 				req.Fail (f=>{
@@ -184,12 +188,15 @@ namespace Cayita.JData
 					}
 					var item = UI.Cast<T>((object)res);
 					var ur =ls.First( f=> f.Get(o.IdProperty)== item.Get(o.IdProperty));
+					var i= ls.IndexOf(ur);
+
 					var old = new T();
 					old.PopulateFrom(ur);
 					ur= new T();
 					ur.PopulateFrom( UI.Cast<T>((object)res) );
+					ls[i]=ur;
 					o.DoneAction(UI.Cast<jQueryXmlHttpRequest>(req),record);
-					onStoreChanged(o,StoreChangedAction.Patched,ur, old,ls.IndexOf(ur) );
+					onStoreChanged(o,StoreChangedAction.Patched,ur, old, i );
 				});
 
 				req.Fail (f=>{
@@ -227,6 +234,7 @@ namespace Cayita.JData
 				var index = ls.IndexOf(source);
 				T old = UI.Cast<T>( (object)source.Clone());
 				source.PopulateFrom(record);
+				ls[index]=source;
 				onStoreChanged(o,StoreChangedAction.Replaced,source, old, index);
 			}));
 

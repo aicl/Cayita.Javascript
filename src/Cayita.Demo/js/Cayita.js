@@ -248,6 +248,8 @@
 				return req;
 			};
 			var readFn = function(readOptions) {
+				ss.clear(ls);
+				o.set_totalCount(0);
 				onStoreRequested(o, 2, 1);
 				var req1 = $.get(o.api.get_readApi(), readOptions.get_request(), function(cb1) {
 				}, o.api.dataType);
@@ -255,7 +257,7 @@
 					var r4 = o.api.dataProperty;
 					var data1 = scb1;
 					var res1 = ss.coalesce(data1[r4], data1);
-					var $t5 = ss.getEnumerator(ss.cast(res1, ss.IList));
+					var $t5 = ss.getEnumerator(res1);
 					try {
 						while ($t5.moveNext()) {
 							var item = $t5.current();
@@ -312,12 +314,14 @@
 					var ur = Enumerable.from(ls).first(function(f3) {
 						return ss.referenceEquals(f3[o.get_idProperty()], item1[o.get_idProperty()]);
 					});
+					var i1 = ss.indexOf(ls, ur);
 					var old = ss.createInstance(T);
 					$Cayita_Fn.populateFrom(old, ur);
 					ur = ss.createInstance(T);
 					$Cayita_Fn.populateFrom(ur, res2);
+					ls[i1] = ur;
 					o.doneAction(req2, record1);
-					onStoreChanged(o, 3, ur, old, ss.indexOf(ls, ur));
+					onStoreChanged(o, 3, ur, old, i1);
 				});
 				req2.fail(function(f4) {
 					o.failAction(req2, record1);
@@ -375,12 +379,14 @@
 					var ur1 = Enumerable.from(ls).first(function(f7) {
 						return ss.referenceEquals(f7[o.get_idProperty()], item2[o.get_idProperty()]);
 					});
+					var i2 = ss.indexOf(ls, ur1);
 					var old1 = ss.createInstance(T);
 					$Cayita_Fn.populateFrom(old1, ur1);
 					ur1 = ss.createInstance(T);
 					$Cayita_Fn.populateFrom(ur1, res3);
+					ls[i2] = ur1;
 					o.doneAction(req4, record3);
-					onStoreChanged(o, 5, ur1, old1, ss.indexOf(ls, ur1));
+					onStoreChanged(o, 5, ur1, old1, i2);
 				});
 				req4.fail(function(f8) {
 					o.failAction(req4, record3);
@@ -425,6 +431,7 @@
 				var index1 = ss.indexOf(ls, source);
 				var old2 = $Cayita_Fn.clone(source);
 				$Cayita_Fn.populateFrom(source, record4);
+				ls[index1] = source;
 				onStoreChanged(o, 8, source, old2, index1);
 			};
 			o.load = function(data5, ro1, append) {
