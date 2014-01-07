@@ -3353,7 +3353,7 @@
 				e.nextPage.disabled = !store.hasNextPage();
 				e.lastPage.disabled = !store.hasNextPage();
 				e.pageLabel.set_text(e.get_pageText());
-				e.currentPage.set_value(((fromTo.item1 < pagesCount) ? (fromTo.item1 + 1) : pagesCount));
+				e.currentPage.set_value(((fromTo.item1 < pagesCount) ? (fromTo.item1 + 1) : pagesCount).toString());
 				e.totalPagesLabel.set_text(e.get_ofText() + ' ' + pagesCount);
 				e.infoLabel.set_text(e.get_infoFn()(store));
 			};
@@ -3403,8 +3403,8 @@
 			e.pageLabel.style.paddingRight = '4px';
 			e.pageLabel.set_text(e.get_pageText());
 			e.pageLabel.style.fontSize = '98%';
-			e.currentPage = Cayita.UI.NullableIntInput();
-			e.currentPage.autoNumeric.getSettings().vMin = 0;
+			e.currentPage = Cayita.UI.Input(String)('input', 'text');
+			//e.CurrentPage.Settings.MinValue = 0;
 			e.currentPage.className = 'input-mini';
 			e.currentPage.style.padding = '0px';
 			e.currentPage.style.height = '18px';
@@ -3413,7 +3413,10 @@
 			e.currentPage.style.width = '45px';
 			e.currentPage.add_handler('keypress', function(evt) {
 				if (evt.which === 13) {
-					store.readPage(e.currentPage.get_value() - 1);
+					var page = { $: 0 };
+					if (ss.Int32.tryParse(e.currentPage.get_value(), page)) {
+						store.readPage(page.$ - 1);
+					}
 				}
 			}, '', null);
 			e.totalPagesLabel = Cayita.UI.Label('checkbox');

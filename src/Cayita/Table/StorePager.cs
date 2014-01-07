@@ -30,7 +30,7 @@ namespace Cayita
 		[IntrinsicProperty]
 		public Label PageLabel { get; internal set; }
 		[IntrinsicProperty]
-		public NullableIntInput CurrentPage { get; internal set; }
+		public TextInput CurrentPage { get; internal set; }
 		[IntrinsicProperty]
 		public Label TotalPagesLabel { get; internal set; }
 

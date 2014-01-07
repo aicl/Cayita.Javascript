@@ -29,7 +29,8 @@ namespace Cayita
 				e.LastPage.Disabled = !store.HasNextPage ();
 
 				e.PageLabel.Text= e.PageText;
-				e.CurrentPage.Value= (fromTo.Item1<pagesCount? fromTo.Item1 + 1: pagesCount );
+
+				e.CurrentPage.Value= (fromTo.Item1<pagesCount? fromTo.Item1 + 1: pagesCount ).ToString();
 				e.TotalPagesLabel.Text= e.OfText+ " "+ pagesCount ;
 				e.InfoLabel.Text= e.InfoFn(store);
 
@@ -72,8 +73,8 @@ namespace Cayita
 			e.PageLabel.Text = e.PageText;
 			e.PageLabel.Style.FontSize="98%";
 
-			e.CurrentPage = new NullableIntInput ();
-			e.CurrentPage.Settings.MinValue = 0;
+			e.CurrentPage = new TextInput ();
+			//e.CurrentPage.Settings.MinValue = 0;
 			e.CurrentPage.ClassName="input-mini";
 			e.CurrentPage.Style.Padding="0px";
 			e.CurrentPage.Style.Height="18px";
@@ -82,7 +83,9 @@ namespace Cayita
 			e.CurrentPage.Style.Width="45px";
 			e.CurrentPage.On ("keypress", evt => {
 				if (evt.Which == 13) {
-					store.ReadPage (e.CurrentPage.Value-1);
+					int page=0;
+					if(int.TryParse(e.CurrentPage.Value, out page))
+						store.ReadPage (page-1);
 				}
 			});
 
