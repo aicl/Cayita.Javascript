@@ -3155,7 +3155,7 @@
 		}).on('dragstop', function(ev5) {
 			$Cayita_UI.$z = e.style.zIndex;
 		}).on('click', function(ev6) {
-			e.style.zIndex = $Cayita_UI.$z++;
+			//e.Style.ZIndex=z++;
 		}).on('click', '#' + e.collapseIcon.id, function(ev7) {
 			var j1 = $(ev7.currentTarget);
 			if (j1.hasClass('disabled')) {

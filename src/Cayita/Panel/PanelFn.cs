@@ -214,8 +214,8 @@ namespace Cayita
 
 			})
 				.On("dragstop", ev=>z=e.Style.ZIndex)
-					.On("click", ev=>{
-						e.Style.ZIndex=z++;
+				.On("click", ev=>{
+					//e.Style.ZIndex=z++;
 					})
 					.On ("click", "#"+e.CollapseIcon.ID, ev => {
 						var j= jQuery.FromElement(ev.CurrentTarget);
