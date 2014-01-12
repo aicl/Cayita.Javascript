@@ -143,6 +143,10 @@ dmcs  /noconfig  -nostdlib \
 "TabPanel/TabPanel.cs" \
 "TabPanel/TabPanelFn.cs" \
 "TabPanel/TabPanelOptions.cs" \
+"Net/SendFormDataConfig.cs" \
+"Net/XmlHttpRequestEvents.cs" \
+"Net/XmlHttpRequestFn.cs" \
+"Net/XmlHttpRequestProgressEvent.cs" \
 "Console.cs" \
 "Test.cs" \
 

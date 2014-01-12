@@ -172,6 +172,11 @@
     <Compile Include="Core\FormData.cs" />
     <Compile Include="Data\RequestFn.cs" />
     <Compile Include="Data\FailRequest.cs" />
+    <Compile Include="Net\XmlHttpRequestProgressEvent.cs" />
+    <Compile Include="Net\XmlHttpRequestFn.cs" />
+    <Compile Include="Net\XmlHttpRequestEvents.cs" />
+    <Compile Include="Net\SendFormDataConfig.cs" />
+    <Compile Include="Net\TestXmlHttpRequest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -214,5 +219,6 @@
     <Folder Include="Data\" />
     <Folder Include="Grid\" />
     <Folder Include="SearchBox\" />
+    <Folder Include="Net\" />
   </ItemGroup>
 </Project>

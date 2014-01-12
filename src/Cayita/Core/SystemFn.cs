@@ -11,16 +11,6 @@ namespace Cayita
 
 	public static partial class Fn
 	{
-		public static jQueryXmlHttpRequest Send (this FormData fd, string url)
-		{
-			return jQuery.Ajax ( new jQueryAjaxOptions{
-				Url=url,
-				Type="POST",
-				Data= fd.AsTypeOption(),
-				ProcessData=false,
-				ContentType=""
-			});
-		}
 
 
 		public static Action<Action,int>  RunAfterFn()
@@ -126,6 +116,12 @@ namespace Cayita
 			return date.ToString (format??"yyyy-MM-dd HH:mm:ss");
 		}
 
+		public static string ToServerDateTime(this JsDate date, string format=null){
+			if (date == null)
+				return null;
+			return date.ToString (format??"yyyy-MM-dd HH:mm:ss");
+		}
+
 		[InlineCode("parseFloat({value})")]
 		static long ParseFloat (this string value){
 			return 0;
@@ -138,7 +134,7 @@ namespace Cayita
 		}
 
 		[InlineCode("{o}[{property}]")]
-		internal static  T Get<T>(this object o, string property) 
+		internal static  T GetTyped<T>(this object o, string property) 
 		{
 			return  UI.Cast<T> (((dynamic)o)[property]); 
 		}

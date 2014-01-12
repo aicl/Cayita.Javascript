@@ -703,9 +703,6 @@
 	$Cayita_Fn.paragraph = function(text) {
 		return $Cayita_UI.Atom('p', null, null, text, null, null);
 	};
-	$Cayita_Fn.send = function(fd, url) {
-		return $.ajax({ url: url, type: 'POST', data: fd, processData: false, contentType: '' });
-	};
 	$Cayita_Fn.runAfterFn = function() {
 		var timer = 0;
 		return function(cb, dl) {
@@ -765,13 +762,19 @@
 		var d = new Date(parseFloat((new RegExp('//Date\\(([^)]+)\\)//')).exec($Cayita_Fn.fmt('/{0}/', [date]))[1]));
 		return new Date(d.getUTCFullYear(), d.getUTCMonth() + 1 - 1, d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds());
 	};
-	$Cayita_Fn.toServerDateTime$1 = function(date, format) {
+	$Cayita_Fn.toServerDateTime$2 = function(date, format) {
 		if (!ss.isValue(date)) {
 			return null;
 		}
 		return $Cayita_Fn.toServerDateTime(ss.Nullable.unbox(date), format);
 	};
 	$Cayita_Fn.toServerDateTime = function(date, format) {
+		if (ss.staticEquals(date, null)) {
+			return null;
+		}
+		return ss.formatDate(date, ss.coalesce(format, 'yyyy-MM-dd HH:mm:ss'));
+	};
+	$Cayita_Fn.toServerDateTime$1 = function(date, format) {
 		if (ss.staticEquals(date, null)) {
 			return null;
 		}
@@ -793,6 +796,33 @@
 	$Cayita_Fn.getFailRequest = function(request) {
 		var r = $Cayita_FailRequest.$ctor(request);
 		return r;
+	};
+	$Cayita_Fn.addEventListener = function(request, type, handler) {
+		request.addEventListener(type, handler, false);
+		return request;
+	};
+	$Cayita_Fn.removeEventListener = function(request, type, handler) {
+		request.removeEventListener(type, handler, false);
+		return request;
+	};
+	$Cayita_Fn.send = function(fd, config) {
+		var rq = new XMLHttpRequest();
+		rq.open(config.verb, config.url);
+		var $t1 = config.handlers.getEnumerator();
+		try {
+			while ($t1.moveNext()) {
+				var h = $t1.current();
+				$Cayita_Fn.addEventListener(rq, h.key, h.value);
+			}
+		}
+		finally {
+			$t1.dispose();
+		}
+		rq.send(fd);
+		return rq;
+	};
+	$Cayita_Fn.SendFormDataConfig = function() {
+		return { verb: 'POST', handlers: new (ss.makeGenericType(ss.Dictionary$2, [Object, Function]))() };
 	};
 	////////////////////////////////////////////////////////////////////////////////
 	// Cayita.FormUpdatedAction
