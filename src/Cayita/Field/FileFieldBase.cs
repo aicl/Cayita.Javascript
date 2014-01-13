@@ -52,6 +52,13 @@ namespace Cayita
 			get { return null; }
 		}
 
+		public Anchor AnchorFileRemove {
+			[InlineCode("{this}.get_anchorFileRemove()")]get{ return null;}
+		}
+
+		[InlineCode("{this}.clearSelection()")]
+		public void ClearSelection(){
+		}
 
 		/// <summary>
 		/// Gets or sets  accepted type files.

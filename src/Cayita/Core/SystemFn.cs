@@ -99,9 +99,10 @@ namespace Cayita
 
 		public static DateTime? Normalize(this DateTime date){
 			if(date==null) return null;
-			var d = new DateTime (new Regex (@"//Date\(([^)]+)\)//").Exec("/{0}/".Fmt(date))[1].ParseFloat());
-			return new DateTime( d.GetUtcFullYear(),d.GetUtcMonth(), d.GetUtcDate(),
-			                  d.GetUtcHours(), d.GetUtcMinutes(), d.GetUtcSeconds());
+			return (Type.GetScriptType(date)=="string")?
+				new DateTime (new Regex (@"//Date\(([^)]+)\)//").Exec("/{0}/".Fmt(date))[1].ParseFloat()):
+				date;
+
 		}
 
 		public static string ToServerDateTime(this DateTime? date, string format=null){
@@ -128,13 +129,13 @@ namespace Cayita
 		}
 
 		[InlineCode("{o}[{property}]")]
-		internal static  object Get(this object o, string property)
+		public static  object Get(this object o, string property)
 		{
 			return (object) ((dynamic)o)[property] ; 
 		}
 
 		[InlineCode("{o}[{property}]")]
-		internal static  T GetTyped<T>(this object o, string property) 
+		public static  T GetTyped<T>(this object o, string property) 
 		{
 			return  UI.Cast<T> (((dynamic)o)[property]); 
 		}

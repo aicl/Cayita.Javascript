@@ -24,14 +24,17 @@ namespace Cayita
 			return request;
 		}
 
+		[InlineCode("{request}.send({fd})")]
+		public static void SendFormData(this XmlHttpRequest request, FormData fd)
+		{
+		}
 
 		public static XmlHttpRequest Send (this FormData fd, SendFormDataConfig config){
 			var rq = new XmlHttpRequest ();
 			rq.Open (config.Verb , config.Url);
 			foreach (var h in config.Handlers)
 				rq.AddEventListener (h.Key, h.Value);
-
-			((dynamic)rq).send (fd);
+			rq.SendFormData (fd);
 			return rq;
 		}
 

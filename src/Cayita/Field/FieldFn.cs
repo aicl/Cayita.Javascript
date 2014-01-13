@@ -231,14 +231,18 @@ namespace Cayita
 			UI.SetToProperty(e, "set_fileChangeText", (Action<string>)((c)=> spanFileChange.Text=c ));
 			UI.SetToProperty(e, "get_fileChangeText", (Func<string>)(()=> spanFileChange.Text ));
 
-			UI.SetToProperty(e, "set_FileRemoveText", (Action<string>)((c)=> anchorFileRemove.Text=c ));
+			UI.SetToProperty(e, "set_fileRemoveText", (Action<string>)((c)=> anchorFileRemove.Text=c ));
 			UI.SetToProperty(e, "get_fileRemoveText", (Func<string>)(()=> anchorFileRemove.Text ));
+
+			UI.SetToAtomProperty(e, "get_anchorFileRemove", (Func<Anchor>)(()=> anchorFileRemove ));
 
 			e.SetToAtomProperty ("add_changed", (Action<jQueryEventHandler>)
 			                     (ev => e.Input.Changed+= ev));
 
 			e.SetToAtomProperty ("removed_changed", (Action<jQueryEventHandler>)
 			                     (ev => e.Input.Changed-= ev));
+
+			UI.SetToProperty (e, "clearSelection", (Action)( () => anchorFileRemove.Click() ));
 
 			return e;
 		}

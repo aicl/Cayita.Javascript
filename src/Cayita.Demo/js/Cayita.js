@@ -759,8 +759,7 @@
 		if (ss.staticEquals(date, null)) {
 			return null;
 		}
-		var d = new Date(parseFloat((new RegExp('//Date\\(([^)]+)\\)//')).exec($Cayita_Fn.fmt('/{0}/', [date]))[1]));
-		return new Date(d.getUTCFullYear(), d.getUTCMonth() + 1 - 1, d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds());
+		return ((typeof(date) === 'string') ? new Date(parseFloat((new RegExp('//Date\\(([^)]+)\\)//')).exec($Cayita_Fn.fmt('/{0}/', [date]))[1])) : date);
 	};
 	$Cayita_Fn.toServerDateTime$2 = function(date, format) {
 		if (!ss.isValue(date)) {
@@ -1847,17 +1846,23 @@
 		e.get_fileChangeText = function() {
 			return spanFileChange.get_text();
 		};
-		e.set_FileRemoveText = function(c6) {
+		e.set_fileRemoveText = function(c6) {
 			anchorFileRemove.set_text(c6);
 		};
 		e.get_fileRemoveText = function() {
 			return anchorFileRemove.get_text();
+		};
+		e.get_anchorFileRemove = function() {
+			return anchorFileRemove;
 		};
 		e.add_changed = function(ev) {
 			e.input.add_changed(ev);
 		};
 		e.removed_changed = function(ev1) {
 			e.input.remove_changed(ev1);
+		};
+		e.clearSelection = function() {
+			anchorFileRemove.click();
 		};
 		return e;
 	};
