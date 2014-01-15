@@ -1311,7 +1311,7 @@
 			atom.value = ss.coalesce(value, '');
 		}
 		else if (atom.hasAttribute('autonumeric')) {
-			$(atom)['autoNumeric']('set', value);
+			$(atom)['autoNumeric']('set', ss.coalesce(value, ''));
 		}
 		else if (atom.hasAttribute('datepicker')) {
 			$(atom)['datepicker']('setDate', value);

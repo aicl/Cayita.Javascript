@@ -375,7 +375,7 @@ namespace Cayita
 				atom.SetToAtomProperty ("value", value??"");
 			}
 			else if (atom.HasAttribute ("autonumeric")) {
-				jQuery.FromElement (atom).Execute ("autoNumeric", "set", value);
+				jQuery.FromElement (atom).Execute ("autoNumeric", "set", value??"");
 			} else if (atom.HasAttribute ("datepicker")) {
 				jQuery.FromElement (atom).Execute ("datepicker", "setDate", value);
 			} else {
