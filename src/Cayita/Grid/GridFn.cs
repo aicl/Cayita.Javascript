@@ -250,6 +250,8 @@ namespace Cayita
 					case StoreRequestedAction.Read:
 					if(request.State== StoreRequestedState.Started)
 					{
+						e.Body.Empty();
+						e.ClearSelection();
 						e.ReadRequestMessage.HtmlElement= e.ReadRequestStarted(e);
 					}
 					else

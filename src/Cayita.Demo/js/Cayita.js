@@ -2202,6 +2202,8 @@
 					}
 					case 2: {
 						if (request.state === 1) {
+							$(e.body).empty();
+							e.clearSelection();
 							e.readRequestMessage.htmlElement = e.readRequestStarted(e);
 						}
 						else {
